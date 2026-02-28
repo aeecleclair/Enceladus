@@ -7,6 +7,7 @@ const SUBDOMAIN_ROUTES = {
   rentree: "/rentree",
   pmf: "/pmf",
   "raid-registering": "/raid-registering",
+  sg: "/sg",
 };
 
 export function proxy(request: Request) {

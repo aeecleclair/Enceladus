@@ -1,0 +1,20 @@
+{
+    "metadata": {
+        "title": "Ticketing SG",
+        "description": "SG for Centrale Lyon"
+    },
+    "login": {
+        "alreadyHaveMyECLAccount": "Already have a MyECL account?",
+        "contact": "If you have any problems or questions, please do not hesitate to contact ECLAIR",
+        "description": "Welcome to the ticketing website  !",
+        "or": "Or",
+        "promotion": "School year {year}",
+        "register": "Register",
+        "createAccount": "Please a MyECL account:",
+        "title": "Ticketing SG"
+  },
+  "topbar":{
+    "logout": "Log Out",
+    "admin": "Admin"
+  }
+}

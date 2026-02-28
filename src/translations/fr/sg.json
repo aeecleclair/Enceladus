@@ -1,0 +1,20 @@
+{
+    "metadata": {
+        "title": "Billeterie SG",
+        "description": "SGGGGG"
+    },
+    "login": {
+        "alreadyHaveMyECLAccount": "Vous avez déjà un compte MyECL ?",
+        "contact": "Au moindre problème, ou pour toute question, n'hésitez pas à contacter ECLAIR",
+        "description": "Bienvenue sur le site de la billeterie !",
+        "or": "Sinon",
+        "promotion": "Promotion {year}",
+        "register": "S'inscrire",
+        "createAccount": "Créer un compte MyECL :",
+        "title": "Billeterie SG"
+  },
+  "topbar": {
+    "logout": "Se Déconnecter",
+    "admin": "Admin"
+  }
+}

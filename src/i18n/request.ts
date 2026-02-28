@@ -25,6 +25,7 @@ export default getRequestConfig(async ({ requestLocale }) => {
       pmf: (await import(`../translations/${locale}/pmf.json`)).default,
       siarnaq: (await import(`../translations/${locale}/siarnaq.json`)).default,
       raid: (await import(`../translations/${locale}/raid.json`)).default,
+      sg: (await import(`../translations/${locale}/sg.json`)).default,
     },
     formats,
   };
