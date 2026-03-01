@@ -14,7 +14,7 @@ import { Locale, useLocale } from "next-intl";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { HiOutlineLibrary } from "react-icons/hi";
-import { HiShoppingCart } from "react-icons/hi2";
+import { HiMiniTicket } from "react-icons/hi2";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -28,7 +28,7 @@ import {
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useMeUser } from "@/hooks/useMeUser";
-import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
+import { useHasTicketingPermission } from "@/hooks/sg/useHasTicketingPermission";
 
 export default function TopBar() {
   const t = useTranslations("sg");
@@ -37,9 +37,8 @@ export default function TopBar() {
   const locale = useLocale();
   const router = useRouter();
   const { user } = useMeUser();
-  const { isCdrAdmin } = useHasCdrPermission();
+  const { isTicketingAdmin } = useHasTicketingPermission();
   const { sellers } = useSellers();
-  const { status } = useStatus();
 
   const isInASellerGroup = user?.groups?.some((group) =>
     sellers.some((seller) => seller.group_id === group.id)
@@ -51,13 +50,8 @@ export default function TopBar() {
         <LocaleDropdown />
         <ThemeToggle />
       </div>
-      {pathname === `/admin` && (
-        <div className="flex flex-col text-sm text-nowrap">
-          <span>{t("topbar.status", { status: status?.status ?? "" })}</span>
-        </div>
-      )}
       <div className="flex gap-x-4">
-        {pathname === "/" && (isCdrAdmin || isInASellerGroup) && (
+        {pathname === "/" && (isTicketingAdmin || isInASellerGroup) && (
           <Button
             variant="secondary"
             onClick={() => router.push(`/${locale}/admin`)}
@@ -68,7 +62,7 @@ export default function TopBar() {
         )}
         {pathname === "/admin" && (
           <Button variant="secondary" onClick={() => router.push(`/${locale}`)}>
-            <HiShoppingCart className="mr-2" />
+            <HiMiniTicket className="mr-2" />
             {t("topbar.user")}
           </Button>
         )}

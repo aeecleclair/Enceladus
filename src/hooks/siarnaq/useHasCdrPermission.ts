@@ -2,7 +2,7 @@ import { useMeUser } from "../useMeUser";
 import { usePermissions } from "../usePermissions";
 
 const CDR_ACCESS_PERMISSION = "access_cdr";
-const CDR_ADMIN_PERMISSION = "manage_cdr";
+const CDR_ADMIN_PERMISSION = "access_cdr";
 
 export const useHasCdrPermission = () => {
   const { user, isLoading: userLoading } = useMeUser();

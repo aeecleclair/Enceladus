@@ -15,6 +15,11 @@
   },
   "topbar": {
     "logout": "Se Déconnecter",
-    "admin": "Admin"
+    "admin": "Admin",
+    "status": "Status",
+    "user": "User"
+  },
+  "addEventDialogTitle": {
+    "newEvent": "Nouvel événement"
   }
 }

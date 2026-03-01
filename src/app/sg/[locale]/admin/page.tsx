@@ -1,26 +1,56 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { AddEventAccordionItem } from "@/components/sg/admin/AddEventAccordionItem";
+
+interface EventProps {
+    name: string;
+    participants: number;
+    status: string;
+}
+
 const AdminPage = () => {
-    const locale = 'fr'; // Placeholder, should be dynamic based on route
 
+    
 
-  return (
+    const showView = (viewId: string) => {
+        // document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+        // const view = document.getElementById(viewId);
+        // if (view) view.classList.remove('hidden');
+    };
+
+    const showTab = (tabIndex: number) => {
+        // document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+        // document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('text-blue-600', 'font-bold', 'border-blue-600', 'border-b-2'));
+        // const tabContent = document.getElementById(`tab-content-${tabIndex}`);
+        // if (tabContent) tabContent.classList.remove('hidden');
+        // const stepBtn = document.getElementById(`step-${tabIndex}`);
+        // if (stepBtn) stepBtn.classList.add('text-blue-600', 'font-bold', 'border-blue-600', 'border-b-2');
+    };
+    return (
     <>
-        <div className="flex min-h-screen">
-            <aside className="w-64 bg-slate-900 text-white p-6">
-                <h1 className="text-2xl font-bold mb-8 text-blue-400">TicketDash</h1>
+        <div className="flex min-h-screen py-10">
+            <aside className="w-64 bg-stone-200 p-6 rounded-xl">
+                <h1 className="text-2xl font-bold mb-8 text-blue-400">Billeterie</h1>
                 <nav className="space-y-4">
-                    <a href="#" className="block py-2.5 px-4 rounded bg-blue-600">Évènements</a>
-                    <a href="#" className="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Commandes</a>
-                    <a href="#" className="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Clients</a>
+                    <a href="#" className="block py-2.5 px-4 rounded bg-blue-600">Créer un SG</a>
+                    <a href="#" className="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Sg en cours</a>
+                    <a href="#" className="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Réponses au SG </a>
                 </nav>
             </aside>
 
-            <main className="flex-1 p-8">
+            <main className="flex min-h-[calc(--custom-vh-(--spacing(32)))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
+                <p>esrxdctfgyhu</p>
+                <AddEventAccordionItem />
+            </main>
+
+            {/* <main className="flex-1 p-8">
                 <div id="view-list" className="view">
                     <div className="flex justify-between items-center mb-8">
                         <h2 className="text-3xl font-bold text-gray-800">Mes Évènements</h2>
-                        <button onclick="showView('view-edit')" className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                        <Button onClick={() => showView('view-edit')} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
                             + Créer un évènement
-                        </button>
+                        </Button>
                     </div>
 
                     <div className="bg-white rounded-xl shadow overflow-hidden">
@@ -41,8 +71,8 @@ const AdminPage = () => {
                                         <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium italic">En ligne</span>
                                     </td>
                                     <td className="p-4 text-right">
-                                        <button onclick={() => showView('view-edit')} className="text-blue-600 hover:text-blue-800 mr-4"><i className="fas fa-edit"></i> Modifier</button>
-                                        <button className="text-red-500 hover:text-red-700"><i className="fas fa-trash"></i></button>
+                                        <Button onClick={() => showView('view-edit')} className="text-blue-600 hover:text-blue-800 mr-4"><i className="fas fa-edit"></i> Modifier</Button>
+                                        <Button className="text-red-500 hover:text-red-700"><i className="fas fa-trash"></i></Button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -52,19 +82,19 @@ const AdminPage = () => {
 
                 <div id="view-edit" className="view hidden">
                     <div className="mb-6">
-                        <button onclick={() => showView('view-list')} className="text-gray-500 hover:text-gray-700 mb-4">
+                        <Button onClick={() => showView('view-list')} className="text-gray-500 hover:text-gray-700 mb-4">
                             <i className="fas fa-arrow-left"></i> Retour à la liste
-                        </button>
+                        </Button>
                         <h2 className="text-3xl font-bold text-gray-800">Modifier l'évènement</h2>
                     </div>
 
                     <div className="flex items-center justify-between mb-10 bg-white p-4 rounded-xl shadow-sm">
                         <div className="flex flex-1 justify-around text-center">
-                            <button onclick={() => showTab(1)} id="step-1" className="step-btn text-blue-600 font-bold border-b-2 border-blue-600 pb-2 flex-1">1. Infos Générales</button>
-                            <button onclick={() => showTab(2)} id="step-2" className="step-btn text-gray-400 flex-1">2. Sessions</button>
-                            <button onclick={() => showTab(3)} id="step-3" className="step-btn text-gray-400 flex-1">3. Tarifs</button>
-                            <button onclick={() => showTab(4)} id="step-4" className="step-btn text-gray-400 flex-1">4. Options</button>
-                            <button onclick={() => showTab(5)} id="step-5" className="step-btn text-gray-400 flex-1">5. Infos Comp.</button>
+                            <Button onClick={() => showTab(1)} id="step-1" className="step-btn text-blue-600 font-bold border-b-2 border-blue-600 pb-2 flex-1">1. Infos Générales</Button>
+                            <Button onClick={() => showTab(2)} id="step-2" className="step-btn text-gray-400 flex-1">2. Sessions</Button>
+                            <Button onClick={() => showTab(3)} id="step-3" className="step-btn text-gray-400 flex-1">3. Tarifs</Button>
+                            <Button onClick={() => showTab(4)} id="step-4" className="step-btn text-gray-400 flex-1">4. Options</Button>
+                            <Button onClick={() => showTab(5)} id="step-5" className="step-btn text-gray-400 flex-1">5. Infos Comp.</Button>
                         </div>
                     </div>
 
@@ -98,14 +128,14 @@ const AdminPage = () => {
                             <p className="text-sm text-gray-500 ml-7">Si activé, chaque participant ne pourra s'inscrire qu'à une seule session de cet évènement.</p>
                         </div>
                         <div className="pt-6 border-t">
-                            <button className="bg-red-50 text-red-600 px-4 py-2 rounded border border-red-200 hover:bg-red-100">Supprimer l'évènement</button>
+                            <Button className="bg-red-50 text-red-600 px-4 py-2 rounded border border-red-200 hover:bg-red-100">Supprimer l'évènement</Button>
                         </div>
                     </div>
 
                     <div id="tab-2" className="tab-content hidden bg-white p-8 rounded-xl shadow space-y-6">
                         <div className="flex justify-between items-center">
                             <h3 className="text-xl font-bold">Sessions de l'évènement</h3>
-                            <button className="bg-gray-800 text-white px-4 py-2 rounded text-sm">+ Ajouter une session</button>
+                            <Button className="bg-gray-800 text-white px-4 py-2 rounded text-sm">+ Ajouter une session</Button>
                         </div>
                         <div className="space-y-4">
                             <div className="border rounded-lg p-4 bg-gray-50">
@@ -122,7 +152,7 @@ const AdminPage = () => {
                                         <input type="checkbox" />
                                         <span>Inscription unique (une fois par personne)</span>
                                     </label>
-                                    <button className="text-red-500"><i className="fas fa-trash"></i></button>
+                                    <Button className="text-red-500"><i className="fas fa-trash"></i></Button>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +169,7 @@ const AdminPage = () => {
                         
                         <div className="flex justify-between items-center">
                             <h3 className="text-xl font-bold">Types de tickets</h3>
-                            <button className="bg-gray-800 text-white px-4 py-2 rounded text-sm">+ Ajouter un tarif</button>
+                            <Button className="bg-gray-800 text-white px-4 py-2 rounded text-sm">+ Ajouter un tarif</Button>
                         </div>
                         <table className="w-full">
                             <thead>
@@ -197,16 +227,16 @@ const AdminPage = () => {
                                     <input type="text" className="flex-1 border p-2 rounded" value="Végétarien" />
                                     <input type="number" className="w-24 border p-2 rounded text-green-600" placeholder="+ 0€" />
                                     <input type="number" className="w-20 border p-2 rounded" placeholder="Quota" />
-                                    <button className="text-gray-400"><i className="fas fa-times"></i></button>
+                                    <Button className="text-gray-400"><i className="fas fa-times"></i></Button>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <input type="text" className="flex-1 border p-2 rounded" value="Menu Gastronomique" />
                                     <input type="number" className="w-24 border p-2 rounded text-green-600" value="15" />
                                     <input type="number" className="w-20 border p-2 rounded" placeholder="Quota" />
-                                    <button className="text-gray-400"><i className="fas fa-times"></i></button>
+                                    <Button className="text-gray-400"><i className="fas fa-times"></i></Button>
                                 </div>
                             </div>
-                            <button className="mt-4 text-blue-600 text-sm font-semibold hover:underline">+ Ajouter un choix</button>
+                            <Button className="mt-4 text-blue-600 text-sm font-semibold hover:underline">+ Ajouter un choix</Button>
                         </div>
 
                         <div className="border rounded-xl p-6 bg-white shadow-sm border-l-4 border-l-gray-400">
@@ -230,12 +260,10 @@ const AdminPage = () => {
                     </div>
 
                 </div>
-            </main>
+            </main> */}
         </div>
 
-        {/* <script>
-            
-        </script> */}
+
     </>
 
 )};
