@@ -19,11 +19,16 @@
     "title": "Offres"
   },
   "addOfferButton": {
-    "toastErrorDescription": "erreur",
     "offerTitle": "Intitulé de l'offre",
     "offerCompanyName": "Nom de l'entreprise",
     "offerDescription": "Description de l'offre",
     "offerLocation": "Adresse",
     "add": "Publier l'offre"
+  },
+  "useOffers": {
+    "postSuccessTitle": "Success",
+    "postSuccessDescription": "Offer successfully created",
+    "postErrorTitle": "Error",
+    "postErrorDescription": "An error has occurred, please try again later"
   }
 }

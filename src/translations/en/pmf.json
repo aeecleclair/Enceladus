@@ -17,5 +17,18 @@
   },
   "offersPanel": {
     "title": "Offers"
+  },
+  "addOfferButton": {
+    "offerTitle": "Offer title",
+    "offerCompanyName": "Company name",
+    "offerDescription": "Description of the offer",
+    "offerLocation": "Address",
+    "add": "Publish the offer"
+  },
+  "useOffers": {
+    "postSuccessTitle": "Succès",
+    "postSuccessDescription": "Offre créée avec succès",
+    "postErrorTitle": "Erreur",
+    "postErrorDescription": "Une erreur est survenue, veuillez réessayer."
   }
 }

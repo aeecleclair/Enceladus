@@ -11,8 +11,8 @@ export default function offerFormSchema(
         offer_type: z.enum(["TFE", 'APP', 'EXE', 'CDI', 'CDD']),
         location: z.string(),
         location_type: z.enum(['On_site', 'Hybrid', 'Remote']),
-        start_date: z.string(),
-        end_date: z.string(),
+        start_date: z.date(),
+        end_date: z.date(),
         duration: z.number()
     })
 }
