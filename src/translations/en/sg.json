@@ -1,5 +1,5 @@
 {
-    "metadata": {
+  "metadata": {
         "title": "Ticketing SG",
         "description": "SG for Centrale Lyon"
     },
@@ -13,8 +13,14 @@
         "createAccount": "Please a MyECL account:",
         "title": "Ticketing SG"
   },
-  "topbar":{
+  "topbar": {
     "logout": "Log Out",
-    "admin": "Admin"
+    "admin": "Admin",
+    "status": "Status",
+    "user": "User"
+  },
+  "addEventDialogTitle": {
+    "newEvent": "Create a new Event"
   }
+  
 }
