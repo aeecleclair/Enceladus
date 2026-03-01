@@ -4,13 +4,13 @@ import { StatusDialog } from "@/components/siarnaq/custom/StatusDialog";
 import { AssociationPanel } from "@/components/siarnaq/user/AssociationPanel";
 import { CentralPanel } from "@/components/siarnaq/user/CentralPanel";
 import { useOnlineSellers } from "@/hooks/siarnaq/useOnlineSellers";
-import { useYear } from "@/hooks/siarnaq/useYear";
 import { useTokenStore } from "@/stores/token";
 
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
+import Footer from "@/components/common/footer";
 
 export default function Home() {
   const showSellerFeatureFlag = true;
@@ -20,7 +20,6 @@ export default function Home() {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
   const { onlineSellers } = useOnlineSellers();
-  const { year } = useYear();
   const [isEndDialogOpened, setIsEndDialogOpened] = useState(true);
   const t = useTranslations("siarnaq");
 
@@ -66,29 +65,8 @@ export default function Home() {
             )}
           </div>
         )}
+        <Footer />
       </main>
-      <footer className="py-6 md:px-8 md:py-0 border-t-2">
-        <div className="w-full max-w-7xl mx-auto p-4 md:py-8">
-          <div className="sm:flex sm:items-center sm:justify-between">
-            <p className="text-balance text-sm leading-loose text-muted-foreground">
-              {t("page.madeByECLAIR")}
-            </p>
-            <span className="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
-              {t.rich("page.license", {
-                date: () => year,
-                eclair: (c: React.ReactNode) => (
-                  <a
-                    href="https://www.eclair.ec-lyon.fr/"
-                    className="font-medium underline underline-offset-4"
-                  >
-                    {c}
-                  </a>
-                ),
-              })}
-            </span>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }

@@ -1,13 +1,7 @@
 {
-  "TestPage": {
-    "Sample": "English"
-  },
-  "Test2": {
-    "Sample": "igirisu"
-  },
   "metadata": {
     "description": "Plateform of PMF of Centrale Lyon",
-    "title": "PMFFFF"
+    "title": "Piston mon frère"
   },
   "MyECLButton": {
     "authenticate": "Log in with MyECL"
@@ -17,5 +11,24 @@
     "student": "Student",
     "alumni": "Alumni",
     "register": "Don't have an account yet? Register:"
+  },
+  "topbar": {
+    "logout": "Log out"
+  },
+  "offersPanel": {
+    "title": "Offers"
+  },
+  "addOfferButton": {
+    "offerTitle": "Offer title",
+    "offerCompanyName": "Company name",
+    "offerDescription": "Description of the offer",
+    "offerLocation": "Address",
+    "add": "Publish the offer"
+  },
+  "useOffers": {
+    "postSuccessTitle": "Succès",
+    "postSuccessDescription": "Offre créée avec succès",
+    "postErrorTitle": "Erreur",
+    "postErrorDescription": "Une erreur est survenue, veuillez réessayer."
   }
 }

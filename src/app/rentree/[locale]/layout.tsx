@@ -61,7 +61,7 @@ export default async function RootLayout({
         <AuthInterceptor>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >

@@ -198,8 +198,6 @@
     "validated": "Achat validé"
   },
   "page": {
-    "license": "© <date></date> <eclair>ÉCLAIR</eclair>. Tous droits réservés.",
-    "madeByECLAIR": "Développé par ÉCLAIR",
     "refusedDescription": "Votre paiement a été refusé. Vous pouvez réessayer de payer, si le problème persiste, veuillez nous contacter.",
     "refusedTitle": "Paiement refusé",
     "succeededDescription": "Votre paiement a été effectué avec succès",

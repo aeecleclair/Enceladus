@@ -199,8 +199,6 @@
     "validated": "Purchase validated"
   },
   "page": {
-    "license": "© <date></date> <eclair>ÉCLAIR</eclair>. All rights reserved.",
-    "madeByECLAIR": "Developed by ÉCLAIR",
     "refusedDescription": "Your payment has been refused. You can retry, if the problem persists, please contact us.",
     "refusedTitle": "Payment refused",
     "succeededDescription": "Your payment has been made successfully",

@@ -4,12 +4,13 @@ import { routing } from "@/i18n/routing";
 import { Suspense } from "react";
 import { Locale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-
+import TopBar from "./topbar";
 import type { Metadata } from "next";
 import { AuthInterceptor } from "@/app/provider";
 import QueryProvider from "../../QueryProvider";
 import Script from "next/script";
 import { ThemeProvider } from "../../theme-provider";
+
 import { Toaster } from "@/components/ui/toaster";
 import { Outfit } from "next/font/google";
 
@@ -23,7 +24,7 @@ export async function generateMetadata(props: {
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await props.params;
-  const t = await getTranslations({ locale, namespace: "raid" });
+  const t = await getTranslations({ locale, namespace: "pmf" });
 
   return {
     title: t("metadata.title"),
@@ -59,14 +60,17 @@ export default async function RootLayout({
         <AuthInterceptor>
           <ThemeProvider
             attribute="class"
-            defaultTheme="light"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
             <Suspense fallback={<div>Loading...</div>}>
               <QueryProvider>
                 <NextIntlClientProvider locale={locale}>
+
+                  <TopBar />
                   {children}
+
                   <Toaster />
                 </NextIntlClientProvider>
               </QueryProvider>
