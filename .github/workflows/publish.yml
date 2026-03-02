@@ -1,10 +1,9 @@
-name: Build and Publish PMF Image
+name: Build and Publish Enceladus Prod
 on:
   workflow_dispatch:
   push:
-    tags:
-      - "v*.*.*"
-      - "v*.*.*-alpha"
+    branches:
+      - main
 
 jobs:
   build-and-deploy:
@@ -15,40 +14,21 @@ jobs:
       - name: Check out the code
         uses: actions/checkout@v5
 
-      - name: Set Environment Variables
-        id: set-vars
-        run: |
-          if [[ "${{ github.ref_name }}" == *"-alpha"* ]]; then
-            echo "ENV_TYPE=ALPHA"
-            echo "backend=${{ vars.ALPHA_NEXT_PUBLIC_BACKEND_URL }}" >> $GITHUB_OUTPUT
-            echo "client_id=${{ vars.ALPHA_NEXT_PUBLIC_CLIENT_ID }}" >> $GITHUB_OUTPUT
-            echo "frontend=${{ vars.ALPHA_NEXT_PUBLIC_FRONTEND_URL }}" >> $GITHUB_OUTPUT
-            echo "is_alpha=true" >> $GITHUB_OUTPUT
-          else
-            echo "ENV_TYPE=PROD"
-            echo "backend=${{ vars.NEXT_PUBLIC_BACKEND_URL }}" >> $GITHUB_OUTPUT
-            echo "client_id=${{ vars.NEXT_PUBLIC_CLIENT_ID }}" >> $GITHUB_OUTPUT
-            echo "frontend=${{ vars.NEXT_PUBLIC_FRONTEND_URL }}" >> $GITHUB_OUTPUT
-            echo "is_alpha=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Install Node & Generate API
         run: |
           npm install @hey-api/openapi-ts@^0.88.0
           sed -i 's|http://127.0.0.1:8000|'"$NEXT_PUBLIC_BACKEND_URL"'|g' openapi-ts.config.ts
           npm run generate
         env:
-          NEXT_PUBLIC_BACKEND_URL: ${{ steps.set-vars.outputs.backend }}
+          NEXT_PUBLIC_BACKEND_URL: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
 
       - name: Docker metadata
         id: meta
         uses: docker/metadata-action@v5.8.0
         with:
-          images: ${{ secrets.DOCKER_REGISTRY_IDENTIFER }}/pmf-frontend
+          images: ${{ secrets.DOCKER_REGISTRY_IDENTIFER }}/enceladus
           tags: |
-            type=semver,pattern={{version}}
-            type=raw,value=latest,enable=${{ steps.set-vars.outputs.is_alpha == 'false' }}
-            type=raw,value=alpha,enable=${{ steps.set-vars.outputs.is_alpha == 'true' }}
+            type=raw,value=latest,enable=true
 
       - name: Login to Registry
         uses: docker/login-action@v3.6.0
@@ -68,6 +48,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            NEXT_PUBLIC_BACKEND_URL=${{ steps.set-vars.outputs.backend }}
-            NEXT_PUBLIC_CLIENT_ID=${{ steps.set-vars.outputs.client_id }}
-            NEXT_PUBLIC_FRONTEND_URL=${{ steps.set-vars.outputs.frontend }}
+            NEXT_PUBLIC_BACKEND_URL=${{ vars.NEXT_PUBLIC_BACKEND_URL }}
+            NEXT_PUBLIC_CLIENT_ID=${{ vars.NEXT_PUBLIC_CLIENT_ID }}
+            NEXT_PUBLIC_FRONTEND_URL=${{ vars.NEXT_PUBLIC_FRONTEND_URL }}
