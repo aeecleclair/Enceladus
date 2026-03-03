@@ -31,7 +31,7 @@ export const useOffers = () => {
         variant: "destructive",
       });
     },
-  })
+  });
 
   const postOffer = (offer:OfferBase,callback: () => void) => {
     mutatePostOffer(

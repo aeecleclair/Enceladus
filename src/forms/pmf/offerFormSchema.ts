@@ -12,7 +12,6 @@ export default function offerFormSchema(
         location: z.string(),
         location_type: z.enum(['On_site', 'Hybrid', 'Remote']),
         start_date: z.date(),
-        end_date: z.date(),
         duration: z.number()
     })
 }

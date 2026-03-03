@@ -9,12 +9,15 @@ import _offerFormSchema from "@/forms/pmf/offerFormSchema";
 import { useOffers } from "@/hooks/pmf/useOffers";
 import { useAuth } from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
 export const AddOfferButton = () => {
+    const locale=useLocale();
+    const router = useRouter();
     const t = useTranslations("pmf");
     const offerFormSchema = _offerFormSchema()
     const { refetch: refetchOffers, postOffer } = useOffers();
@@ -32,11 +35,10 @@ export const AddOfferButton = () => {
         const body: OfferBase = {
             ...values,
             start_date:values.start_date.setUTCHours(24, 0, 0, 0).toString(),
-            end_date:values.end_date.setUTCHours(24, 0, 0, 0).toString()
         };
         postOffer(body,() => {
-              refetchOffers();
               setIsLoading(false);
+              router.push(`/${locale}`)
             });
     }
     return (
@@ -105,18 +107,6 @@ export const AddOfferButton = () => {
                 <FormField 
                     control={form.control}
                     name="start_date"
-                    render={({ field }) => (
-                                <DatePicker
-                                date={field.value}
-                                setDate={field.onChange}
-                                fromMonth={new Date(new Date().getFullYear(), 0)}
-                                defaultDate={field.value || new Date()}
-                                />
-                                )}
-                />
-                <FormField 
-                    control={form.control}
-                    name="end_date"
                     render={({ field }) => (
                                 <DatePicker
                                 date={field.value}

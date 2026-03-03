@@ -1,17 +1,21 @@
 import { OfferSimple } from "@/api";
-import { useOffers } from "@/hooks/pmf/useOffers";
+import { useUserOffers } from "@/hooks/pmf/useUserOffers";
 import { useTranslations } from "next-intl";
 import OfferCard from "./OfferCard";
 
-export default function OffersPanel() {
-  const t = useTranslations("pmf");
-  const { offers } = useOffers();
+interface UserOffersPanelProps {
+  userId: string;
+}
 
-  if (!offers) return null;
+export default function UserOffersPanel({ userId }: UserOffersPanelProps) {
+  const t = useTranslations("pmf");
+  const { userOffers } = useUserOffers(userId);
+
+  if (!userOffers) return null;
   return (
     <div className="items-center border">
       <p className="text-4xl font-bold items-center">{t("offersPanel.title")}</p>
-      {offers.map((offer: OfferSimple) => (
+      {userOffers.map((offer: OfferSimple) => (
         <OfferCard offer={offer} />
       ))}
     </div>

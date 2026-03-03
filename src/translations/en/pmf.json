@@ -26,9 +26,9 @@
     "add": "Publish the offer"
   },
   "useOffers": {
-    "postSuccessTitle": "Succès",
-    "postSuccessDescription": "Offre créée avec succès",
-    "postErrorTitle": "Erreur",
-    "postErrorDescription": "Une erreur est survenue, veuillez réessayer."
+    "postSuccessTitle": "Success",
+    "postSuccessDescription": "Offer successfully created",
+    "postErrorTitle": "Error",
+    "postErrorDescription": "An error has occurred, please try again later."
   }
 }
