@@ -53,7 +53,7 @@ const AdminPage = () => {
         {status && (
           <Card>
             {status.status === "onsite" ||
-            (isCdrAdmin && status.status === "online") ? (
+              (isCdrAdmin && status.status === "online") ? (
               <ResizablePanelGroup direction="horizontal">
                 <ResizablePanel defaultSize={100 - size} minSize={10}>
                   <UserSearch />

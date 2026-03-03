@@ -3,7 +3,10 @@ import { useOffers } from "@/hooks/pmf/useOffers";
 import { useTranslations } from "next-intl";
 import OfferCard from "./OfferCard";
 
-export default function OffersPanel() {
+interface OffersPanelProps {
+  globalFilter: string,
+}
+export default function OffersPanel({ globalFilter }: OffersPanelProps) {
   const t = useTranslations("pmf");
   const { offers } = useOffers();
 

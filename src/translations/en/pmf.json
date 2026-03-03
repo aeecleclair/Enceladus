@@ -30,5 +30,11 @@
     "postSuccessDescription": "Offer successfully created",
     "postErrorTitle": "Error",
     "postErrorDescription": "An error has occurred, please try again later."
+  },
+  "SidePanel": {
+    "new": "Create new offer"
+  },
+  "OfferSearch": {
+    "search": "Search"
   }
 }
