@@ -23,7 +23,9 @@
     "offerCompanyName": "Company name",
     "offerDescription": "Description of the offer",
     "offerLocation": "Address",
-    "add": "Publish the offer"
+    "add": "Publish the offer",
+    "date": "Choose a starting date",
+    "offerType": "Contract type"
   },
   "useOffers": {
     "postSuccessTitle": "Success",

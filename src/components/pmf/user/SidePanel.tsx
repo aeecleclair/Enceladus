@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { OfferSearch } from "./offerSearch";
+import { OfferSearch } from "./OfferSearch";
 
 interface SidePanelProps {
   globalFilter: string,

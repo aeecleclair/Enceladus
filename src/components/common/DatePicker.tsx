@@ -21,6 +21,7 @@ interface DatePickerProps {
   fromMonth?: Date;
   toMonth?: Date;
   setDate: (date?: Date) => void;
+  placeholder?: string;
 }
 
 export function DatePicker({
@@ -29,6 +30,7 @@ export function DatePicker({
   defaultDate,
   fromMonth,
   toMonth,
+  placeholder,
 }: DatePickerProps) {
   const year = new Date().getFullYear();
   return (
@@ -46,7 +48,7 @@ export function DatePicker({
           {date ? (
             format(date, "PPP", { locale: fr })
           ) : (
-            <span>Sélectionner une date</span>
+            <span>{placeholder || "Sélectionner une date"}</span>
           )}
         </Button>
       </PopoverTrigger>
