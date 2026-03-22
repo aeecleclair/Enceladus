@@ -45,7 +45,7 @@ export default function TopBar() {
   );
 
   return (
-    <div className="p-6 bg-muted/40 flex flex-row flex-nowrap gap-x-4 justify-between">
+    <div className="sticky top-0 z-50 p-6 bg-muted/40 flex flex-row flex-nowrap gap-x-4 justify-between">
       <div className="flex flex-row gap-x-4 shrink-0">
         <LocaleDropdown />
         <ThemeToggle />

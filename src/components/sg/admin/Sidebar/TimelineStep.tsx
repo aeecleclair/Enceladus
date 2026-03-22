@@ -1,0 +1,33 @@
+import { CheckIcon } from "lucide-react";
+import {
+  TimelineItem,
+  TimelineConnector,
+  TimelineDot,
+  TimelineContent,
+  TimelineContentLabel,
+  TimelineContentDescription,
+} from "./Timeline";
+
+export const TimelineStep = ({
+  label,
+  description,
+  isCompleted,
+}: {
+  label: string;
+  description?: string;
+  isCompleted?: boolean;
+}) => {
+  return (
+    <TimelineItem>
+      <TimelineConnector>
+        <TimelineDot variant={isCompleted ? "outline" : "default"}>
+          {isCompleted && <CheckIcon className="p-0.5" />}
+        </TimelineDot>
+      </TimelineConnector>
+      <TimelineContent>
+        <TimelineContentLabel>{label}</TimelineContentLabel>
+        <TimelineContentDescription>{description}</TimelineContentDescription>
+      </TimelineContent>
+    </TimelineItem>
+  );
+};

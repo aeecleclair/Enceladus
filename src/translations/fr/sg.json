@@ -20,6 +20,68 @@
     "user": "User"
   },
   "addEventDialogTitle": {
-    "newEvent": "Nouvel événement"
+    "newEvent": "Nouvel événement",
+    "user_quota": "Quota d'utilisateur",
+    "start_date": "Date de début du SG",
+    "close_date": "Date de cloture du SG",
+    "cancel": "Annuler",
+    "add": "Ajouter"
+  },
+  "addEditEventForm": {
+    "optional": "(optionnel)",
+    "name": "Intitulé de l'événement",
+    "add": "Ajouter",
+    "cancel": "Annuler",
+    "start_date": "Date de début du SG",
+    "close_date": "Date de cloture du SG",
+    "quota": "Quota total",
+    "user_quota": "Quota utilisateur"
+  },
+  "addEditSessionForm": {
+    "optional": "(optionnel)",
+    "name": "Intitulé de la session",
+    "date": "Date de la session",
+    "quota": "Quota total",
+    "user_quota": "Quota utilisateur"
+  },
+  "addEditCategoryForm": {
+    "optional": "(optionnel)",
+    "name": "Nom de la catégorie",
+    "price": "Prix",
+    "quota": "Quota total",
+    "user_quota": "Quota utilisateur"
+  },
+  "organiserTabContent": {
+    "noEventFound": "Aucun événement trouvé"
+  },
+  "productAccordion": {
+    "mustBuy": "Vous devez acheter {products} avant de sélectionner ce produit.",
+    "membershipAlreadyTaken": "L'adhésion {membership} est déjà active jusqu'au {date}."
+  },
+  "admin": {
+    "sidebar": {
+      "title": "Administration SG",
+      "subtitle": "Créer et gérer vos SG"
+    }
+  },
+  "add": "Ajouter",
+  "edit": "Modifier",
+  "cancel": "Annuler",
+  "useEvents": {
+    "postSuccessTitle": "Événement ajouté",
+    "postSuccessDescription": "L'événement a été ajouté avec succès.",
+    "postErrorTitle": "Erreur lors de l'ajout de l'événement",
+    "postErrorDescription": "Une erreur est survenue lors de l'ajout de l'événement. Veuillez réessayer.",
+    "patchSuccessTitle": "Événement modifié",
+    "patchSuccessDescription": "L'événement a été modifié avec succès.",
+    "patchErrorTitle": "Erreur lors de la modification de l'événement",
+    "patchErrorDescription": "Une erreur est survenue lors de la modification de l'événement. Veuillez réessayer."
+  },
+  "useSessions": {
+    "postSuccessTitle": "Session ajoutée",
+    "postSuccessDescription": "La session a été ajoutée avec succès.",
+    "postErrorTitle": "Erreur lors de l'ajout de la session",
+    "postErrorDescription": "Une erreur est survenue lors de l'ajout de la session. Veuillez réessayer." 
   }
+
 }

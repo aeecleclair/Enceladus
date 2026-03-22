@@ -3,7 +3,7 @@ import { useAuth } from "../useAuth";
 import { useTranslations } from "next-intl";
 import { getTicketingEventsOptions, postTicketingEventsMutation } from "@/api/@tanstack/react-query.gen";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { AppModulesTicketingSchemasTicketingEventComplete } from "@/api/types.gen";
+import { AppModulesTicketingSchemasTicketingEventBase as TicketingEventBase} from "@/api/types.gen";
 
 export const useEvents = () => {
     const { isTokenExpired } = useAuth();
@@ -35,10 +35,13 @@ export const useEvents = () => {
         },
     })
 
-    const postEvent = (event:AppModulesTicketingSchemasTicketingEventComplete,callback: () => void) => {
+    const postEvent = (
+        event: TicketingEventBase,
+        callback: (response: unknown) => void
+    ) => {
         mutatePostEvent(
         {body:event},
-        { onSuccess: () => callback() }
+        { onSuccess: (response) => callback(response) }
         );
     };
     return {

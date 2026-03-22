@@ -5,7 +5,7 @@ import common from "@/translations/fr/common.json";
 import pmf from "@/translations/fr/pmf.json";
 import siarnaq from "@/translations/fr/siarnaq.json";
 import raid from "@/translations/fr/raid.json";
-import sg from "@translations/fr/sg.json"
+import sg from "@/translations/fr/sg.json"
 
 declare module "next-intl" {
   interface AppConfig {

@@ -1,7 +1,10 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { AddEventAccordionItem } from "@/components/sg/admin/AddEventAccordionItem";
+import { OrganiserTab } from "@/components/sg/admin/OrganiserTab";
+import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar";
+import { AdminSidebar } from "@/components/sg/admin/Sidebar/AdminSidebar";
+import { Separator } from "@/components/ui/separator";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 
 interface EventProps {
     name: string;
@@ -10,39 +13,37 @@ interface EventProps {
 }
 
 const AdminPage = () => {
-
-    
-
-    const showView = (viewId: string) => {
-        // document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
-        // const view = document.getElementById(viewId);
-        // if (view) view.classList.remove('hidden');
-    };
-
-    const showTab = (tabIndex: number) => {
-        // document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-        // document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('text-blue-600', 'font-bold', 'border-blue-600', 'border-b-2'));
-        // const tabContent = document.getElementById(`tab-content-${tabIndex}`);
-        // if (tabContent) tabContent.classList.remove('hidden');
-        // const stepBtn = document.getElementById(`step-${tabIndex}`);
-        // if (stepBtn) stepBtn.classList.add('text-blue-600', 'font-bold', 'border-blue-600', 'border-b-2');
-    };
     return (
-    <>
-        <div className="flex min-h-screen py-10">
-            <aside className="w-64 bg-stone-200 p-6 rounded-xl">
-                <h1 className="text-2xl font-bold mb-8 text-blue-400">Billeterie</h1>
-                <nav className="space-y-4">
-                    <a href="#" className="block py-2.5 px-4 rounded bg-blue-600">Créer un SG</a>
-                    <a href="#" className="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Sg en cours</a>
-                    <a href="#" className="block py-2.5 px-4 rounded hover:bg-slate-800 transition">Réponses au SG </a>
-                </nav>
-            </aside>
-
-            <main className="flex min-h-[calc(--custom-vh-(--spacing(32)))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
-                <p>esrxdctfgyhu</p>
-                <AddEventAccordionItem />
-            </main>
+        <SidebarProvider>
+            <AdminSidebar/>
+            <SidebarInset>
+                <header className="flex h-14 shrink-0 items-center gap-2">
+                    <div className="flex flex-1 items-center gap-2 px-3">
+                        <SidebarTrigger />
+                        <Separator
+                        orientation="vertical"
+                        className="mr-2 data-[orientation=vertical]:h-4"
+                        />
+                        <Breadcrumb>
+                        <BreadcrumbList>
+                            <BreadcrumbItem>
+                            <BreadcrumbPage className="line-clamp-1">
+                                Billeterie
+                            </BreadcrumbPage>
+                            </BreadcrumbItem>
+                        </BreadcrumbList>
+                        </Breadcrumb>
+                    </div>
+                    <div className="ml-auto px-3">
+                    </div>
+                </header>
+                <main className="flex min-h-[calc(100vh-3.5rem)] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
+                    <h2 className="text-3xl">Evénements</h2>
+                    <OrganiserTab/>
+                </main>
+            </SidebarInset>
+        </SidebarProvider>
+);};
 
             {/* <main className="flex-1 p-8">
                 <div id="view-list" className="view">
@@ -261,11 +262,7 @@ const AdminPage = () => {
 
                 </div>
             </main> */}
-        </div>
 
 
-    </>
-
-)};
 
 export default AdminPage;

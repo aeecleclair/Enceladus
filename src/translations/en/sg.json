@@ -20,7 +20,68 @@
     "user": "User"
   },
   "addEventDialogTitle": {
-    "newEvent": "Create a new Event"
+    "newEvent": "Create a new Event",
+    "user_quota": "User Quota",
+    "start_date": "Start Date",
+    "close_date": "Close Date",
+    "cancel": "Cancel",
+    "add": "Add"
+  },
+  "addEditEventForm": {
+    "optional": "(optionnel)",
+    "name": "Event Title",
+    "add": "Add",
+    "cancel": "Cancel",
+    "start_date": "Start Date",
+    "close_date": "Close Date",
+    "quota": "Quota total",
+    "user_quota": "User quota "
+  },
+  "addEditSessionForm": {
+    "optional": "(optionnel)",
+    "name": "Session Title",
+    "date": "Session Date",
+    "quota": "Quota total",
+    "user_quota": "Quota utilisateur"
+  },
+  "addEditCategoryForm": {
+    "optional": "(optional)",
+    "name": "Category Name",
+    "price": "Price",
+    "quota": "Total quota",
+    "user_quota": "User quota"
+  },
+  "organiserTabContent": {
+    "noEventFound": "No event found"
+  },
+  "productAccordion": {
+    "mustBuy": "You must buy {products} before selecting this product.",
+    "membershipAlreadyTaken": "The membership {membership} is already active until {date}."
+  },
+  "admin": {
+    "sidebar": {
+      "title": "SG Administration",
+      "subtitle": "Create and manage your SG"
+    }
+  },
+  "add": "Add",
+  "edit": "Edit",
+  "cancel": "Cancel",
+  "useEvents": {
+    "postSuccessTitle": "Event added",
+    "postSuccessDescription": "The event has been added successfully.",
+    "postErrorTitle": "Error adding the event",
+    "postErrorDescription": "An error occurred while adding the event. Please try again.",
+    "patchSuccessTitle": "Event updated",
+    "patchSuccessDescription": "The event has been updated successfully.",
+    "patchErrorTitle": "Error updating the event",
+    "patchErrorDescription": "An error occurred while updating the event. Please try again."
+  },
+  "useSessions": {
+    "postSuccessTitle": "Session added",
+    "postSuccessDescription": "The session has been added successfully.",
+    "postErrorTitle": "Error adding the session",
+    "postErrorDescription": "An error occurred while adding the session. Please try again."
   }
   
 }
