@@ -24,7 +24,7 @@ export const AddCurriculumButton = () => {
   const form = useForm<z.infer<typeof curriculumFormSchema>>({
     resolver: zodResolver(curriculumFormSchema),
     mode: "onBlur",
-    defaultValues: {name:""},
+    defaultValues: {},
   });
 
   async function onSubmit(values: z.infer<typeof curriculumFormSchema>) {
