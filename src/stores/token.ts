@@ -2,10 +2,15 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import Cookies from "js-cookie";
 
-const COOKIE_DOMAIN =
-  window?.location.hostname === "localhost"
-    ? undefined
-    : `.${window.location.hostname.split(".").slice(1).join(".")}`;
+const hostname = typeof window !== "undefined" ? window.location.hostname : "";
+
+const COOKIE_DOMAIN = (() => {
+  if (!hostname || hostname === "localhost" || hostname === "127.0.0.1") {
+    return undefined;
+  }
+  const parts = hostname.split(".");
+  return "." + parts.slice(1).join(".");
+})();
 
 const COOKIE_OPTIONS = {
   ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}),
