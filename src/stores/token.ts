@@ -2,10 +2,13 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import Cookies from "js-cookie";
 
-const COOKIE_DOMAIN = process.env.NEXT_PUBLIC_COOKIE_DOMAIN; // domaine parent
+const COOKIE_DOMAIN =
+  window?.location.hostname === "localhost"
+    ? undefined
+    : `.${window.location.hostname.split(".").slice(1).join(".")}`;
 
 const COOKIE_OPTIONS = {
-  ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : { domain: ".localhost" }),
+  ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}),
   secure:
     typeof window !== "undefined" && window.location.protocol === "https:",
   sameSite: "lax" as const,
