@@ -42,8 +42,6 @@ export const useTokenStore = create<TokenStore>()(
     })(),
 
     setToken: (token: string | null) => {
-      console.log("Setting token:", token);
-      console.log("Cookie options:", COOKIE_OPTIONS);
       if (token) {
         Cookies.set("access_token", token, COOKIE_OPTIONS);
         const userId = JSON.parse(atob(token.split(".")[1])).sub;
