@@ -37,7 +37,7 @@ export const useAuth = () => {
     const values = crypto.getRandomValues(new Uint8Array(length));
     for (let i = 0; i < length; i++) {
       result += characters.charAt(
-        Math.floor((values[i] / length) * charactersLength)
+        Math.floor((values[i] / length) * charactersLength),
       );
     }
     return result;
@@ -128,9 +128,9 @@ export const useAuth = () => {
     const code = generateRandomString(128);
     setCodeVerifier(code);
     const authUrl = `${backUrl}/auth/authorize?client_id=${clientId}&response_type=code&scope=${scopes.join(
-      " "
+      " ",
     )}&redirect_uri=${redirectUrlHost}&code_challenge=${await hash(
-      code
+      code,
     )}&code_challenge_method=S256`;
 
     window.location.href = authUrl;
@@ -147,6 +147,7 @@ export const useAuth = () => {
     if (isLoading) return null;
     setIsLoading(true);
     if (typeof window === "undefined") return null;
+
     if (token !== null) {
       setIsTokenQueried(true);
     } else {
