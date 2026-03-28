@@ -1,7 +1,8 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import {
+  getCompetitionUsersMeOptions,
   patchCompetitionUsersMeMutation,
   postCompetitionUsersMutation,
 } from "@/api/@tanstack/react-query.gen";
@@ -16,17 +17,11 @@ export const useCompetitionUser = () => {
     data: meCompetition,
     isLoading,
     refetch: refetchMeCompetition,
-  } = useGetCompetitionUsersMe(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-    },
-  );
+  } = useQuery({
+    ...getCompetitionUsersMeOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+  });
 
   const { mutate: mutateCreateUser, isPending: isCreateLoading } = useMutation({
     ...postCompetitionUsersMutation(),

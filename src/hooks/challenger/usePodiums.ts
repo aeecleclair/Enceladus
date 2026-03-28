@@ -1,8 +1,11 @@
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   deleteCompetitionPodiumsSportsSportIdMutation,
+  getCompetitionPodiumsGlobalOptions,
+  getCompetitionPodiumsSchoolsSchoolIdOptions,
+  getCompetitionPodiumsSportsSportIdOptions,
   postCompetitionPodiumsSportsSportIdMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
@@ -14,7 +17,7 @@ interface UsePodiumsProps {
 }
 
 export const usePodiums = (props?: UsePodiumsProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { toast } = useToast();
   const { sportId, schoolId } = props || {};
 
@@ -24,18 +27,12 @@ export const usePodiums = (props?: UsePodiumsProps) => {
     isLoading: isGlobalLoading,
     refetch: refetchGlobalPodium,
     error: globalError,
-  } = useGetCompetitionPodiumsGlobal(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-      queryHash: "getGlobalPodium",
-    },
-  );
+  } = useQuery({
+    ...getCompetitionPodiumsGlobalOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+    queryHash: "getGlobalPodium",
+  });
 
   // Sport-specific podium
   const {
@@ -43,21 +40,16 @@ export const usePodiums = (props?: UsePodiumsProps) => {
     isLoading: isSportLoading,
     refetch: refetchSportPodium,
     error: sportError,
-  } = useGetCompetitionPodiumsSportsSportId(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionPodiumsSportsSportIdOptions({
+      path: {
+        sport_id: sportId!,
       },
-      pathParams: {
-        sportId: sportId!,
-      },
-    },
-    {
-      enabled: !!sportId && !isTokenExpired(),
-      retry: false,
-      queryHash: `getSportPodium-${sportId}`,
-    },
-  );
+    }),
+    enabled: !!sportId && !isTokenExpired(),
+    retry: false,
+    queryHash: `getSportPodium-${sportId}`,
+  });
 
   // School-specific podium
   const {
@@ -65,21 +57,16 @@ export const usePodiums = (props?: UsePodiumsProps) => {
     isLoading: isSchoolLoading,
     refetch: refetchSchoolPodium,
     error: schoolError,
-  } = useGetCompetitionPodiumsSchoolsSchoolId(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionPodiumsSchoolsSchoolIdOptions({
+      path: {
+        school_id: schoolId!,
       },
-      pathParams: {
-        schoolId: schoolId!,
-      },
-    },
-    {
-      enabled: !!schoolId && !isTokenExpired(),
-      retry: false,
-      queryHash: `getSchoolPodium-${schoolId}`,
-    },
-  );
+    }),
+    enabled: !!schoolId && !isTokenExpired(),
+    retry: false,
+    queryHash: `getSchoolPodium-${schoolId}`,
+  });
 
   const {
     mutate: mutateCreateOrUpdateSportPodium,

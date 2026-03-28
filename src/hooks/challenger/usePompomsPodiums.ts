@@ -1,7 +1,7 @@
-import { useGetCompetitionPodiumsPompoms } from "@/api/hyperionComponents";
+import { getCompetitionPodiumsPompomsOptions } from "@/api/@tanstack/react-query.gen";
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   deleteCompetitionPodiumsPompomsMutation,
   postCompetitionPodiumsPompomsMutation,
@@ -19,14 +19,12 @@ export const usePompomsPodiums = () => {
     isLoading: isPompomsLoading,
     refetch: refetchPompomsPodium,
     error: pompomsError,
-  } = useGetCompetitionPodiumsPompoms(
-    {},
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-      queryHash: "getPompomsPodium",
-    },
-  );
+  } = useQuery({
+    ...getCompetitionPodiumsPompomsOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+    queryHash: "getPompomsPodium",
+  });
 
   const {
     mutate: mutateCreateOrUpdatePompomsPodium,

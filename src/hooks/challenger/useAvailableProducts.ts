@@ -1,29 +1,25 @@
-import { useGetCompetitionProductsAvailable } from "@/src/api/hyperionComponents";
-import { useAuth } from "./useAuth";
+import { getCompetitionProductsAvailableOptions } from "@/api/@tanstack/react-query.gen";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../useAuth";
 
 export const useAvailableProducts = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
 
   const {
     data: availableProducts,
     refetch: refetchAvailableProducts,
+    isLoading,
     error,
-  } = useGetCompetitionProductsAvailable(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-      queryHash: "getProducts",
-    },
-  );
+  } = useQuery({
+    ...getCompetitionProductsAvailableOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+  });
 
   return {
     availableProducts,
-    error,
     refetchAvailableProducts,
+    isLoading,
+    error,
   };
 };

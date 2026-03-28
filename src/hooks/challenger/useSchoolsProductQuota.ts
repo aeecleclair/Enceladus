@@ -1,13 +1,13 @@
 import {
-  useGetCompetitionSchoolsSchoolIdProductQuotas,
-  usePatchCompetitionSchoolsSchoolIdProductQuotasProductId,
-  usePostCompetitionSchoolsSchoolIdProductQuotas,
-} from "@/src/api/hyperionComponents";
-import { useUser } from "./useUser";
-import { useAuth } from "./useAuth";
-import { toast } from "../components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "../utils/errorTyping";
-import { SchoolProductQuotaBase } from "../api/hyperionSchemas";
+  getCompetitionSchoolsSchoolIdProductQuotasOptions,
+  patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation,
+  postCompetitionSchoolsSchoolIdProductQuotasMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { SchoolProductQuotaBase } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface UseSchoolsProductQuotaProps {
   schoolId?: string;
@@ -16,51 +16,47 @@ interface UseSchoolsProductQuotaProps {
 export const useSchoolsProductQuota = ({
   schoolId,
 }: UseSchoolsProductQuotaProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
 
   const {
     data: schoolsProductQuota,
     refetch: refetchSchoolsProductQuota,
     error,
-  } = useGetCompetitionSchoolsSchoolIdProductQuotas(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionSchoolsSchoolIdProductQuotasOptions({
+      path: {
+        school_id: schoolId!,
       },
-      pathParams: {
-        schoolId: schoolId!,
-      },
-    },
+    }),
+    enabled: !isTokenExpired() && !!schoolId,
+    retry: false,
+    queryHash: "getSchoolsProductQuota",
+  });
+
+  const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
-      enabled: !isTokenExpired() && !!schoolId,
-      retry: false,
-      queryHash: "getSchoolsProductQuota",
+      ...postCompetitionSchoolsSchoolIdProductQuotasMutation(),
     },
   );
-
-  const { mutate: mutateCreateQuota, isPending: isCreateLoading } =
-    usePostCompetitionSchoolsSchoolIdProductQuotas();
 
   const createQuota = (body: SchoolProductQuotaBase, callback: () => void) => {
     return mutateCreateQuota(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          school_id: schoolId!,
         },
-        pathParams: {
-          schoolId: schoolId!,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de l'ajout du quota",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -76,8 +72,11 @@ export const useSchoolsProductQuota = ({
     );
   };
 
-  const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } =
-    usePatchCompetitionSchoolsSchoolIdProductQuotasProductId();
+  const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } = useMutation(
+    {
+      ...patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation(),
+    },
+  );
 
   const updateQuota = (
     productId: string,
@@ -86,24 +85,21 @@ export const useSchoolsProductQuota = ({
   ) => {
     return mutateUpdateQuota(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          school_id: schoolId!,
+          product_id: productId,
         },
-        pathParams: {
-          schoolId: schoolId!,
-          productId,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la modification du quota",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {

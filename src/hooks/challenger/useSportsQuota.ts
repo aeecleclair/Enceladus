@@ -1,44 +1,43 @@
 import {
-  useGetCompetitionSportsSportIdQuotas,
-  usePostCompetitionSchoolsSchoolIdSportsSportIdQuotas,
-  usePatchCompetitionSchoolsSchoolIdSportsSportIdQuotas,
-  useDeleteCompetitionSchoolsSchoolIdSportsSportIdQuotas,
-} from "@/src/api/hyperionComponents";
-import { useUser } from "./useUser";
-import { useAuth } from "./useAuth";
-import { toast } from "../components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "../utils/errorTyping";
-import { SportQuotaInfo } from "../api/hyperionSchemas";
+  deleteCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation,
+  getCompetitionSportsSportIdQuotasOptions,
+  patchCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation,
+  postCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { SportQuotaInfo } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface UseSportsQuotaProps {
   sportId?: string;
 }
 
 export const useSportsQuota = ({ sportId }: UseSportsQuotaProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
 
   const {
     data: sportsQuota,
     refetch: refetchSportsQuota,
     error,
-  } = useGetCompetitionSportsSportIdQuotas(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionSportsSportIdQuotasOptions({
+      path: {
+        sport_id: sportId!,
       },
-      pathParams: {
-        sportId: sportId!,
-      },
-    },
+    }),
+    enabled: !isTokenExpired() && !!sportId,
+    retry: false,
+    queryHash: "getSportsQuota",
+  });
+
+  const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
-      enabled: !isTokenExpired() && !!sportId,
-      retry: false,
-      queryHash: "getSportsQuota",
+      ...postCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
     },
   );
-
-  const { mutate: mutateCreateQuota, isPending: isCreateLoading } =
-    usePostCompetitionSchoolsSchoolIdSportsSportIdQuotas();
 
   const createQuota = (
     schoolId: string,
@@ -47,24 +46,21 @@ export const useSportsQuota = ({ sportId }: UseSportsQuotaProps) => {
   ) => {
     return mutateCreateQuota(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          sport_id: sportId!,
+          school_id: schoolId,
         },
-        pathParams: {
-          sportId: sportId!,
-          schoolId,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de l'ajout du quota",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -80,7 +76,6 @@ export const useSportsQuota = ({ sportId }: UseSportsQuotaProps) => {
     );
   };
 
-  // New function to create quotas for all schools
   const createQuotaForAllSchools = (
     schoolIds: string[],
     body: SportQuotaInfo,
@@ -91,14 +86,11 @@ export const useSportsQuota = ({ sportId }: UseSportsQuotaProps) => {
         new Promise((resolve, reject) => {
           mutateCreateQuota(
             {
-              headers: {
-                Authorization: `Bearer ${token}`,
+              path: {
+                sport_id: sportId!,
+                school_id: schoolId,
               },
-              pathParams: {
-                sportId: sportId!,
-                schoolId,
-              },
-              body: body,
+              body,
             },
             {
               onSettled: (data, error) => {
@@ -130,7 +122,8 @@ export const useSportsQuota = ({ sportId }: UseSportsQuotaProps) => {
       } else if (successes.length === 0) {
         toast({
           title: "Erreur lors de l'ajout des quotas",
-          description: `Impossible d'ajouter les quotas pour toutes les écoles.`,
+          description:
+            "Impossible d'ajouter les quotas pour toutes les écoles.",
           variant: "destructive",
         });
       } else {
@@ -143,8 +136,11 @@ export const useSportsQuota = ({ sportId }: UseSportsQuotaProps) => {
     });
   };
 
-  const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } =
-    usePatchCompetitionSchoolsSchoolIdSportsSportIdQuotas();
+  const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } = useMutation(
+    {
+      ...patchCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
+    },
+  );
 
   const updateQuota = (
     schoolId: string,
@@ -153,24 +149,21 @@ export const useSportsQuota = ({ sportId }: UseSportsQuotaProps) => {
   ) => {
     return mutateUpdateQuota(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          sport_id: sportId!,
+          school_id: schoolId,
         },
-        pathParams: {
-          sportId: sportId!,
-          schoolId,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la modification du quota",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -186,29 +179,29 @@ export const useSportsQuota = ({ sportId }: UseSportsQuotaProps) => {
     );
   };
 
-  const { mutate: mutateDeleteQuota, isPending: isDeleteLoading } =
-    useDeleteCompetitionSchoolsSchoolIdSportsSportIdQuotas();
+  const { mutate: mutateDeleteQuota, isPending: isDeleteLoading } = useMutation(
+    {
+      ...deleteCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
+    },
+  );
 
   const deleteQuota = (schoolId: string, callback: () => void) => {
     return mutateDeleteQuota(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          sportId: sportId!,
-          schoolId,
+        path: {
+          sport_id: sportId!,
+          school_id: schoolId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la suppression du quota",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {

@@ -1,32 +1,30 @@
+import { getCompetitionPodiumsSportsSportIdOptions } from "@/api/@tanstack/react-query.gen";
 import { useQueries } from "@tanstack/react-query";
-import { fetchGetCompetitionPodiumsSportsSportId } from "@/src/api/hyperionComponents";
-import { useAuth } from "./useAuth";
-import { useUser } from "./useUser";
-import { TeamSportResultComplete } from "../api/hyperionSchemas";
+import { useAuth } from "../useAuth";
+import { TeamSportResultComplete } from "@/api";
 
 interface useSportPodiumsProps {
   sportIds: string[];
 }
 
 export const useSportPodiums = ({ sportIds }: useSportPodiumsProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
 
   const queries = useQueries({
-    queries: sportIds.map((sportId) => ({
-      queryKey: ["sport-podium", sportId],
-      queryFn: () =>
-        fetchGetCompetitionPodiumsSportsSportId({
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          pathParams: {
-            sportId,
-          },
-        }),
-      enabled: !isTokenExpired(),
-      retry: false,
-      staleTime: 5 * 60 * 1000, // 5 minutes
-    })),
+    queries: sportIds.map((sportId) => {
+      const options = getCompetitionPodiumsSportsSportIdOptions({
+        path: {
+          sport_id: sportId,
+        },
+      });
+
+      return {
+        ...options,
+        enabled: !isTokenExpired(),
+        retry: false,
+        staleTime: 5 * 60 * 1000,
+      };
+    }),
   });
 
   const podiumsBySport = sportIds.reduce(

@@ -1,60 +1,51 @@
 import {
-  useDeleteCompetitionPurchasesProductVariantId,
-  useGetCompetitionPurchasesMe,
-  useGetCompetitionPurchasesUsersUserId,
-  usePostCompetitionPurchasesMe,
-} from "@/src/api/hyperionComponents";
-import { useUser } from "./useUser";
-import { useAuth } from "./useAuth";
-import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase } from "../api/hyperionSchemas";
-import { toast } from "../components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "../utils/errorTyping";
+  deleteCompetitionPurchasesProductVariantIdMutation,
+  getCompetitionPurchasesMeOptions,
+  getCompetitionPurchasesUsersUserIdOptions,
+  postCompetitionPurchasesMeMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase } from "@/api";
+import { useToast } from "@/components/ui/use-toast";
+import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
 import { useCompetitionUser } from "./useCompetitionUser";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface UseUserPurchasesProps {
   userId?: string;
 }
 
 export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
   const { refetchMeCompetition } = useCompetitionUser();
 
   const {
     data: userPurchases,
     refetch: refetchUserPurchases,
     error,
-  } = useGetCompetitionPurchasesUsersUserId(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionPurchasesUsersUserIdOptions({
+      path: {
+        user_id: userId ?? "",
       },
-      pathParams: {
-        userId: userId ?? "",
-      },
-    },
-    {
-      enabled: !isTokenExpired() && !!userId,
-      retry: false,
-      queryHash: "getUserPurchases",
-    },
-  );
+    }),
+    enabled: !isTokenExpired() && !!userId,
+    retry: false,
+    queryHash: "getUserPurchases",
+  });
 
-  const { data: userMePurchases, refetch: refetchUserMePurchases } =
-    useGetCompetitionPurchasesMe(
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-      {
-        enabled: !isTokenExpired(),
-        retry: false,
-        queryHash: "getUserMePurchases",
-      },
-    );
+  const { data: userMePurchases, refetch: refetchUserMePurchases } = useQuery({
+    ...getCompetitionPurchasesMeOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+    queryHash: "getUserMePurchases",
+  });
 
   const { mutate: mutateCreatePurchase, isPending: isCreatePurchaseLoading } =
-    usePostCompetitionPurchasesMe();
+    useMutation({
+      ...postCompetitionPurchasesMeMutation(),
+    });
 
   const createPurchase = (
     body: AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
@@ -62,20 +53,17 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
   ) => {
     return mutateCreatePurchase(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de l'ajout de la variante",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -93,27 +81,26 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
   };
 
   const { mutate: mutateDeletePurchase, isPending: isDeletePurchaseLoading } =
-    useDeleteCompetitionPurchasesProductVariantId();
+    useMutation({
+      ...deleteCompetitionPurchasesProductVariantIdMutation(),
+    });
 
   const deletePurchase = (productVariantId: string, callback: () => void) => {
     return mutateDeletePurchase(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          productVariantId: productVariantId,
+        path: {
+          product_variant_id: productVariantId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la suppression de la variante",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {

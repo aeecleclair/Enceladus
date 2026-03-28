@@ -1,5 +1,5 @@
 import {
-  useGetCompetitionLocations,
+  getCompetitionLocationsOptions,
   patchCompetitionLocationsLocationIdMutation,
   deleteCompetitionLocationsLocationIdMutation,
   postCompetitionLocationsMutation,
@@ -7,11 +7,11 @@ import {
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import { LocationBase, LocationEdit } from "@/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 
 export const useLocations = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { toast } = useToast();
 
   const {
@@ -19,18 +19,12 @@ export const useLocations = () => {
     isLoading,
     refetch: refetchLocations,
     error,
-  } = useGetCompetitionLocations(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-      queryHash: "getLocations",
-    },
-  );
+  } = useQuery({
+    ...getCompetitionLocationsOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+    queryHash: "getLocations",
+  });
 
   const { mutate: mutateCreateLocation, isPending: isCreateLoading } =
     useMutation({

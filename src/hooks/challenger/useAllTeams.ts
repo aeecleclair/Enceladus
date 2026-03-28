@@ -1,3 +1,5 @@
+import { getCompetitionTeamsOptions } from "@/api/@tanstack/react-query.gen";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
 
 export const useAllTeams = () => {
@@ -7,17 +9,11 @@ export const useAllTeams = () => {
     refetch: refetchAllTeams,
     isLoading,
     error,
-  } = useGetCompetitionTeams(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-    },
-  );
+  } = useQuery({
+    ...getCompetitionTeamsOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+  });
 
   return {
     allTeams,

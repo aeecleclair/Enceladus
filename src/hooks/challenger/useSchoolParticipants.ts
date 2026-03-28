@@ -1,4 +1,5 @@
-import { useGetCompetitionParticipantsSchoolsSchoolId } from "@/src/api/hyperionComponents";
+import { getCompetitionParticipantsSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
 
 interface UseSchoolParticipants {
@@ -6,27 +7,22 @@ interface UseSchoolParticipants {
 }
 
 export const useSchoolParticipants = ({ schoolId }: UseSchoolParticipants) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
 
   const {
     data: schoolParticipants,
     refetch: refetchParticipantSchools,
     error,
-  } = useGetCompetitionParticipantsSchoolsSchoolId(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionParticipantsSchoolsSchoolIdOptions({
+      path: {
+        school_id: schoolId!,
       },
-      pathParams: {
-        schoolId: schoolId!,
-      },
-    },
-    {
-      enabled: !isTokenExpired() && !!schoolId,
-      retry: false,
-      queryHash: "getSchoolParticipants",
-    },
-  );
+    }),
+    enabled: !isTokenExpired() && !!schoolId,
+    retry: false,
+    queryHash: "getSchoolParticipants",
+  });
 
   return {
     schoolParticipants,

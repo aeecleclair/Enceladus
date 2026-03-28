@@ -1,65 +1,105 @@
 import { useToast } from "@/components/ui/use-toast";
-import { useGetCompetitionProductsProductIdSchoolsQuotas } from "@/src/api/hyperionComponents";
 import { useAuth } from "../useAuth";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
+  getCompetitionProductsProductIdSchoolsQuotasOptions,
   deleteCompetitionSchoolsSchoolIdProductQuotasProductIdMutation,
   patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation,
   postCompetitionSchoolsSchoolIdProductQuotasMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 
 interface UseProductsQuotaProps {
   productId: string;
 }
 
 export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
 
   const {
     data: productsQuota,
     isLoading,
     error,
-  } = useGetCompetitionProductsProductIdSchoolsQuotas(
-    {
-      pathParams: {
-        productId: productId,
+  } = useQuery({
+    ...getCompetitionProductsProductIdSchoolsQuotasOptions({
+      path: {
+        product_id: productId,
       },
-    },
-    {
-      enabled: !isTokenExpired() && !!productId,
-      retry: false,
-      queryHash: "getProductsQuota",
-    },
-  );
+    }),
+    enabled: !isTokenExpired() && !!productId,
+    retry: false,
+    queryHash: "getProductsQuota",
+  });
 
   const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
       ...postCompetitionSchoolsSchoolIdProductQuotasMutation(),
+      onError: (error: any) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de l'ajout du quota",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail ||
+            "Une erreur est survenue, veuillez réessayer.",
+          variant: "destructive",
+        });
+      },
+      onSuccess: () => {
+        toast({
+          title: "Quota ajouté",
+          description: "Le quota a été ajouté avec succès.",
+        });
+      },
     },
   );
 
   const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } = useMutation(
     {
       ...patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation(),
+      onError: (error: any) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la mise à jour du quota",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail ||
+            "Une erreur est survenue, veuillez réessayer.",
+          variant: "destructive",
+        });
+      },
+      onSuccess: () => {
+        toast({
+          title: "Quota mis à jour",
+          description: "Le quota a été mis à jour avec succès.",
+        });
+      },
     },
   );
 
   const { mutate: mutateDeleteQuota, isPending: isDeleteLoading } = useMutation(
     {
       ...deleteCompetitionSchoolsSchoolIdProductQuotasProductIdMutation(),
+      onError: (error: any) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la suppression du quota",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail ||
+            "Une erreur est survenue, veuillez réessayer.",
+          variant: "destructive",
+        });
+      },
+      onSuccess: () => {
+        toast({
+          title: "Quota supprimé",
+          description: "Le quota a été supprimé avec succès.",
+        });
+      },
     },
   );
-
-  const invalidateQueries = () => {
-    queryClient.invalidateQueries({
-      queryKey: ["get", "/competition/products/{product_id}/schools_quotas"],
-    });
-    queryClient.invalidateQueries({
-      queryKey: ["get", "/competition/schools/{school_id}/product_quotas"],
-    });
-  };
 
   const createQuota = (
     schoolId: string,
@@ -74,18 +114,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
         body: { product_id: productId, quota },
       },
       {
-        onSuccess: () => {
-          invalidateQueries();
-          toast({ description: "Quota créé avec succès" });
-          onSuccess?.();
-        },
-        onError: (error: any) => {
-          console.error("Erreur lors de la création du quota:", error);
-          toast({
-            description: "Erreur lors de la création du quota",
-            variant: "destructive",
-          });
-        },
+        onSuccess: () => onSuccess?.(),
       },
     );
   };
@@ -121,8 +150,6 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
         (r) => r.status === "rejected",
       ).length;
 
-      invalidateQueries();
-
       if (successCount > 0) {
         toast({
           description: `${successCount} quota(s) créé(s) avec succès${
@@ -154,18 +181,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
         body: { quota },
       },
       {
-        onSuccess: () => {
-          invalidateQueries();
-          toast({ description: "Quota mis à jour avec succès" });
-          onSuccess?.();
-        },
-        onError: (error: any) => {
-          console.error("Erreur lors de la mise à jour du quota:", error);
-          toast({
-            description: "Erreur lors de la mise à jour du quota",
-            variant: "destructive",
-          });
-        },
+        onSuccess: () => onSuccess?.(),
       },
     );
   };
@@ -178,18 +194,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
         path: { school_id: schoolId, product_id: productId },
       },
       {
-        onSuccess: () => {
-          invalidateQueries();
-          toast({ description: "Quota supprimé avec succès" });
-          onSuccess?.();
-        },
-        onError: (error: any) => {
-          console.error("Erreur lors de la suppression du quota:", error);
-          toast({
-            description: "Erreur lors de la suppression du quota",
-            variant: "destructive",
-          });
-        },
+        onSuccess: () => onSuccess?.(),
       },
     );
   };

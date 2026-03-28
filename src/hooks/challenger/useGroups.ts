@@ -2,9 +2,10 @@ import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
 import { CompetitionGroupType } from "@/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   deleteCompetitionGroupsGroupUsersUserIdMutation,
+  getCompetitionGroupsGroupOptions,
   postCompetitionGroupsGroupUsersUserIdMutation,
 } from "@/api/@tanstack/react-query.gen";
 
@@ -20,18 +21,16 @@ export const useGroups = ({ group }: UseGroupsProps) => {
     data: groups,
     refetch: refetchGroups,
     error,
-  } = useGetCompetitionGroupsGroup(
-    {
-      pathParams: {
+  } = useQuery({
+    ...getCompetitionGroupsGroupOptions({
+      path: {
         group: group!,
       },
-    },
-    {
-      enabled: !isTokenExpired() && !!group,
-      retry: false,
-      queryHash: "getGroups",
-    },
-  );
+    }),
+    enabled: !isTokenExpired() && !!group,
+    retry: false,
+    queryHash: "getGroups",
+  });
 
   const { mutate: mutateCreateGroup, isPending: isCreateLoading } = useMutation(
     {

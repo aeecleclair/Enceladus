@@ -1,3 +1,5 @@
+import { getCompetitionEditionsEditionIdStatsOptions } from "@/api/@tanstack/react-query.gen";
+import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
 
 interface UseEditionStatsProps {
@@ -5,27 +7,22 @@ interface UseEditionStatsProps {
 }
 
 export const useEditionStats = ({ editionId }: UseEditionStatsProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
 
   const {
     data: stats,
     isLoading,
     refetch: refetchStats,
-  } = useGetCompetitionEditionsEditionIdStats(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionEditionsEditionIdStatsOptions({
+      path: {
+        edition_id: editionId!,
       },
-      pathParams: {
-        editionId: editionId!,
-      },
-    },
-    {
-      enabled: !isTokenExpired() && !!editionId,
-      retry: false,
-      queryHash: "getEditionStats-" + editionId,
-    },
-  );
+    }),
+    enabled: !isTokenExpired() && !!editionId,
+    retry: false,
+    queryHash: "getEditionStats-" + editionId,
+  });
 
   return {
     stats,

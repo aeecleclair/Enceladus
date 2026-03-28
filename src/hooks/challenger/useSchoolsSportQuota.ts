@@ -1,14 +1,14 @@
 import {
-  useDeleteCompetitionSchoolsSchoolIdSportsSportIdQuotas,
-  useGetCompetitionSchoolsSchoolIdSportsQuotas,
-  usePatchCompetitionSchoolsSchoolIdSportsSportIdQuotas,
-  usePostCompetitionSchoolsSchoolIdSportsSportIdQuotas,
-} from "@/src/api/hyperionComponents";
-import { useUser } from "./useUser";
-import { useAuth } from "./useAuth";
-import { toast } from "../components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "../utils/errorTyping";
-import { SportQuotaInfo } from "../api/hyperionSchemas";
+  deleteCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation,
+  getCompetitionSchoolsSchoolIdSportsQuotasOptions,
+  patchCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation,
+  postCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { SportQuotaInfo } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface UseSchoolsSportQuotaProps {
   schoolId?: string;
@@ -17,30 +17,29 @@ interface UseSchoolsSportQuotaProps {
 export const useSchoolsSportQuota = ({
   schoolId,
 }: UseSchoolsSportQuotaProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
 
   const {
     data: schoolsSportQuota,
     refetch: refetchSchoolsSportQuota,
     error,
-  } = useGetCompetitionSchoolsSchoolIdSportsQuotas(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionSchoolsSchoolIdSportsQuotasOptions({
+      path: {
+        school_id: schoolId!,
       },
-      pathParams: {
-        schoolId: schoolId!,
-      },
-    },
+    }),
+    enabled: !isTokenExpired() && !!schoolId,
+    retry: false,
+    queryHash: "getschoolsSportQuota",
+  });
+
+  const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
-      enabled: !isTokenExpired() && !!schoolId,
-      retry: false,
-      queryHash: "getschoolsSportQuota",
+      ...postCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
     },
   );
-
-  const { mutate: mutateCreateQuota, isPending: isCreateLoading } =
-    usePostCompetitionSchoolsSchoolIdSportsSportIdQuotas();
 
   const createQuota = (
     sportId: string,
@@ -49,24 +48,21 @@ export const useSchoolsSportQuota = ({
   ) => {
     return mutateCreateQuota(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          school_id: schoolId!,
+          sport_id: sportId,
         },
-        pathParams: {
-          schoolId: schoolId!,
-          sportId,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de l'ajout du quota",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -82,8 +78,11 @@ export const useSchoolsSportQuota = ({
     );
   };
 
-  const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } =
-    usePatchCompetitionSchoolsSchoolIdSportsSportIdQuotas();
+  const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } = useMutation(
+    {
+      ...patchCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
+    },
+  );
 
   const updateQuota = (
     sportId: string,
@@ -92,24 +91,21 @@ export const useSchoolsSportQuota = ({
   ) => {
     return mutateUpdateQuota(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          school_id: schoolId!,
+          sport_id: sportId,
         },
-        pathParams: {
-          schoolId: schoolId!,
-          sportId,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la modification du quota",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -125,29 +121,29 @@ export const useSchoolsSportQuota = ({
     );
   };
 
-  const { mutate: mutateDeleteQuota, isPending: isDeleteLoading } =
-    useDeleteCompetitionSchoolsSchoolIdSportsSportIdQuotas();
+  const { mutate: mutateDeleteQuota, isPending: isDeleteLoading } = useMutation(
+    {
+      ...deleteCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
+    },
+  );
 
   const deleteQuota = (sportId: string, callback: () => void) => {
     return mutateDeleteQuota(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          schoolId: schoolId!,
-          sportId,
+        path: {
+          school_id: schoolId!,
+          sport_id: sportId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la suppression du quota",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {

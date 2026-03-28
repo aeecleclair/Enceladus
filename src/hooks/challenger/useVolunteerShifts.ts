@@ -1,20 +1,20 @@
-import { useAuth } from "./useAuth";
-import { toast } from "../components/ui/use-toast";
-import { DetailedErrorType, ErrorType } from "../utils/errorTyping";
 import {
-  useDeleteCompetitionVolunteersShiftsShiftId,
-  useGetCompetitionVolunteersShifts,
-  usePatchCompetitionVolunteersShiftsShiftId,
-  usePatchCompetitionVolunteersShiftsShiftIdUsersUserIdValidation,
-  usePostCompetitionVolunteersShifts,
-  usePostCompetitionVolunteersShiftsShiftIdRegister,
-} from "../api/hyperionComponents";
+  deleteCompetitionVolunteersShiftsShiftIdMutation,
+  getCompetitionVolunteersShiftsOptions,
+  patchCompetitionVolunteersShiftsShiftIdMutation,
+  patchCompetitionVolunteersShiftsShiftIdUsersUserIdValidationMutation,
+  postCompetitionVolunteersShiftsMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 import {
   VolunteerShiftBase,
   VolunteerShiftCompleteWithVolunteers,
-} from "../api/hyperionSchemas";
+} from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { isSameDay, endOfDay, startOfDay } from "date-fns";
+import { isSameDay, endOfDay } from "date-fns";
 
 /**
  * Split a VolunteerShiftComplete that spans across multiple days into per-day fragments.
@@ -79,22 +79,18 @@ function splitMultiDayShift(
 }
 
 export const useVolunteerShifts = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
+
   const {
     data: volunteerShifts,
     isLoading,
     refetch: refetchVolunteerShifts,
-  } = useGetCompetitionVolunteersShifts(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-    },
-  );
+  } = useQuery({
+    ...getCompetitionVolunteersShiftsOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+  });
 
   // Pre-split multi-day shifts for calendar views
   const splitVolunteerShifts = useMemo(() => {
@@ -103,7 +99,9 @@ export const useVolunteerShifts = () => {
   }, [volunteerShifts]);
 
   const { mutate: mutateCreateVolunteerShift, isPending: isCreateLoading } =
-    usePostCompetitionVolunteersShifts();
+    useMutation({
+      ...postCompetitionVolunteersShiftsMutation(),
+    });
 
   const createVolunteerShift = (
     body: VolunteerShiftBase,
@@ -111,20 +109,17 @@ export const useVolunteerShifts = () => {
   ) => {
     return mutateCreateVolunteerShift(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la création du créneau",
               description:
-                (error as any).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as any)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -141,7 +136,9 @@ export const useVolunteerShifts = () => {
   };
 
   const { mutate: mutateUpdateVolunteerShift, isPending: isUpdateLoading } =
-    usePatchCompetitionVolunteersShiftsShiftId();
+    useMutation({
+      ...patchCompetitionVolunteersShiftsShiftIdMutation(),
+    });
 
   const updateVolunteerShift = (
     shiftId: string,
@@ -150,23 +147,20 @@ export const useVolunteerShifts = () => {
   ) => {
     return mutateUpdateVolunteerShift(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          shift_id: shiftId,
         },
-        pathParams: {
-          shiftId: shiftId,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la mise à jour",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -183,27 +177,26 @@ export const useVolunteerShifts = () => {
   };
 
   const { mutate: mutateDeleteVolunteerShift, isPending: isDeleteLoading } =
-    useDeleteCompetitionVolunteersShiftsShiftId();
+    useMutation({
+      ...deleteCompetitionVolunteersShiftsShiftIdMutation(),
+    });
 
   const deleteVolunteerShift = (shiftId: string, callback: () => void) => {
     return mutateDeleteVolunteerShift(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          shiftId: shiftId,
+        path: {
+          shift_id: shiftId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la suppression",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -219,8 +212,9 @@ export const useVolunteerShifts = () => {
     );
   };
 
-  const { mutate: mutateValidation, isPending: isValidating } =
-    usePatchCompetitionVolunteersShiftsShiftIdUsersUserIdValidation();
+  const { mutate: mutateValidation, isPending: isValidating } = useMutation({
+    ...patchCompetitionVolunteersShiftsShiftIdUsersUserIdValidationMutation(),
+  });
 
   const validateParticipation = (
     shiftId: string,
@@ -229,8 +223,10 @@ export const useVolunteerShifts = () => {
   ) => {
     return mutateValidation(
       {
-        headers: { Authorization: `Bearer ${token}` },
-        pathParams: { shiftId, userId },
+        path: {
+          shift_id: shiftId,
+          user_id: userId,
+        },
         body: { validated },
       },
       {

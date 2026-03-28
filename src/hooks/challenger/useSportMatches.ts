@@ -1,67 +1,61 @@
 import {
-  usePatchCompetitionMatchesMatchId,
-  useDeleteCompetitionMatchesMatchId,
-  useGetCompetitionMatchesSportsSportId,
-  usePostCompetitionMatchesSportsSportId,
-} from "@/src/api/hyperionComponents";
-import { useUser } from "./useUser";
-import { useAuth } from "./useAuth";
-import { toast } from "../components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "../utils/errorTyping";
-import { MatchBase, MatchEdit } from "../api/hyperionSchemas";
+  deleteCompetitionMatchesMatchIdMutation,
+  getCompetitionMatchesSportsSportIdOptions,
+  patchCompetitionMatchesMatchIdMutation,
+  postCompetitionMatchesSportsSportIdMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { MatchBase, MatchEdit } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 interface UseSportMatchesProps {
   sportId?: string;
 }
 
 export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
 
-  // Fetch matchs for a specific sport
   const {
     data: sportMatches,
     refetch: refetchSportMatches,
     error,
-  } = useGetCompetitionMatchesSportsSportId(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionMatchesSportsSportIdOptions({
+      path: {
+        sport_id: sportId!,
       },
-      pathParams: {
-        sportId: sportId!,
-      },
-    },
+    }),
+    enabled: !isTokenExpired() && !!sportId,
+    retry: false,
+    queryHash: "getSportMatches",
+  });
+
+  const { mutate: mutateCreateMatch, isPending: isCreateLoading } = useMutation(
     {
-      enabled: !isTokenExpired() && !!sportId,
-      retry: false,
-      queryHash: "getSportMatches",
+      ...postCompetitionMatchesSportsSportIdMutation(),
     },
   );
-
-  // Create match for a school in this sport
-  const { mutate: mutateCreateMatch, isPending: isCreateLoading } =
-    usePostCompetitionMatchesSportsSportId();
 
   const createMatch = (body: MatchBase, callback: () => void) => {
     return mutateCreateMatch(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          sport_id: sportId!,
         },
-        pathParams: {
-          sportId: sportId!,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de l'ajout du match",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -77,9 +71,11 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
     );
   };
 
-  // Update match for a school in this sport
-  const { mutate: mutateUpdateMatch, isPending: isUpdateLoading } =
-    usePatchCompetitionMatchesMatchId();
+  const { mutate: mutateUpdateMatch, isPending: isUpdateLoading } = useMutation(
+    {
+      ...patchCompetitionMatchesMatchIdMutation(),
+    },
+  );
 
   const updateMatch = (
     matchId: string,
@@ -88,23 +84,20 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
   ) => {
     return mutateUpdateMatch(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          match_id: matchId,
         },
-        pathParams: {
-          matchId: matchId,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la modification du match",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -120,29 +113,28 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
     );
   };
 
-  // Delete match for a school in this sport
-  const { mutate: mutateDeleteMatch, isPending: isDeleteLoading } =
-    useDeleteCompetitionMatchesMatchId();
+  const { mutate: mutateDeleteMatch, isPending: isDeleteLoading } = useMutation(
+    {
+      ...deleteCompetitionMatchesMatchIdMutation(),
+    },
+  );
 
   const deleteMatch = (matchId: string, callback: () => void) => {
     return mutateDeleteMatch(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          matchId: matchId,
+        path: {
+          match_id: matchId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la suppression du match",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {

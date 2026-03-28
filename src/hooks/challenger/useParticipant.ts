@@ -1,6 +1,7 @@
 import { useToast } from "@/components/ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
+  getCompetitionParticipantsMeOptions,
   deleteCompetitionParticipantsUserIdSportsSportIdMutation,
   deleteCompetitionSportsSportIdWithdrawMutation,
   postCompetitionSportsSportIdParticipateMutation,
@@ -15,13 +16,11 @@ export const useParticipant = () => {
     data: meParticipant,
     refetch: refetchMeParticipant,
     error,
-  } = useGetCompetitionParticipantsMe(
-    {},
-    {
-      retry: false,
-      queryHash: "getMeParticipant",
-    },
-  );
+  } = useQuery({
+    ...getCompetitionParticipantsMeOptions(),
+    retry: false,
+    queryHash: "getMeParticipant",
+  });
 
   const { mutate: mutateCreateParticipant, isPending: isCreateLoading } =
     useMutation({

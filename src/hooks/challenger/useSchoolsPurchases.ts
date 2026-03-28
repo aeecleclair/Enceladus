@@ -1,32 +1,28 @@
-import { useGetCompetitionPurchasesSchoolsSchoolId } from "@/src/api/hyperionComponents";
-import { useAuth } from "./useAuth";
+import { getCompetitionPurchasesSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
+import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "../useAuth";
 
 interface UseSchoolsPurchasesProps {
   schoolId?: string;
 }
 
 export const useSchoolsPurchases = ({ schoolId }: UseSchoolsPurchasesProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
 
   const {
     data: schoolsPurchases,
     refetch: refetchSchoolsPurchases,
     error,
-  } = useGetCompetitionPurchasesSchoolsSchoolId(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionPurchasesSchoolsSchoolIdOptions({
+      path: {
+        school_id: schoolId!,
       },
-      pathParams: {
-        schoolId: schoolId!,
-      },
-    },
-    {
-      enabled: !isTokenExpired() && !!schoolId,
-      retry: false,
-      queryHash: "getSchoolsPurchases",
-    },
-  );
+    }),
+    enabled: !isTokenExpired() && !!schoolId,
+    retry: false,
+    queryHash: "getSchoolsPurchases",
+  });
 
   return {
     schoolsPurchases,

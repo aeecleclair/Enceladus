@@ -1,13 +1,14 @@
-import { useGetUsersSearch } from "@/src/api/hyperionComponents";
+import { getUsersSearchOptions } from "@/api/@tanstack/react-query.gen";
+import { useQuery } from "@tanstack/react-query";
 import { useUser } from "./useUser";
-import { useAuth } from "./useAuth";
+import { useAuth } from "../useAuth";
 
 interface UseUserSearchProps {
   query: string;
 }
 
 export const useUserSearch = ({ query }: UseUserSearchProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { isAdmin } = useUser();
 
   const {
@@ -15,21 +16,16 @@ export const useUserSearch = ({ query }: UseUserSearchProps) => {
     refetch: refetchUsers,
     error,
     isLoading,
-  } = useGetUsersSearch(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      queryParams: {
+  } = useQuery({
+    ...getUsersSearchOptions({
+      query: {
         query: query.trim() || "*",
       },
-    },
-    {
-      enabled: isAdmin() && !isTokenExpired() && query.trim().length >= 0,
-      retry: false,
-      refetchOnWindowFocus: false,
-    },
-  );
+    }),
+    enabled: isAdmin() && !isTokenExpired() && query.trim().length >= 0,
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
 
   return {
     userSearch,

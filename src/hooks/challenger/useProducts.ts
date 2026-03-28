@@ -1,4 +1,3 @@
-import { useGetCompetitionProducts } from "@/src/api/hyperionComponents";
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import {
@@ -9,6 +8,7 @@ import {
 } from "@/api";
 import { useMutation } from "@tanstack/react-query";
 import {
+  getCompetitionProductsOptions,
   deleteCompetitionProductsProductIdMutation,
   deleteCompetitionProductsVariantsVariantIdMutation,
   patchCompetitionProductsProductIdMutation,
@@ -17,16 +17,18 @@ import {
   postCompetitionProductsProductIdVariantsMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { useQuery } from "@tanstack/react-query";
 
 export const useProducts = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { toast } = useToast();
 
   const {
     data: products,
     refetch: refetchProducts,
     error,
-  } = useGetCompetitionProducts({
+  } = useQuery({
+    ...getCompetitionProductsOptions(),
     enabled: !isTokenExpired(),
     retry: false,
     queryHash: "getProducts",

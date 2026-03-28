@@ -1,4 +1,6 @@
 import axios from "axios";
+import { getCompetitionParticipantsUsersUserIdCertificateOptions } from "@/api/@tanstack/react-query.gen";
+import { useQuery } from "@tanstack/react-query";
 import { useUser } from "./useUser";
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
@@ -54,26 +56,20 @@ export const useDocument = (userId: string | null) => {
       });
   };
 
-  const { data, refetch, isPending } =
-    useGetCompetitionParticipantsUsersUserIdCertificate<File>(
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          userId: userId!,
-        },
+  const { data, refetch, isLoading } = useQuery({
+    ...getCompetitionParticipantsUsersUserIdCertificateOptions({
+      path: {
+        user_id: userId!,
       },
-      {
-        enabled: !!userId && isAdmin,
-        queryHash: "getDocument " + userId,
-      },
-    );
+    }),
+    enabled: !!userId && isAdmin(),
+    queryHash: "getDocument " + userId,
+  });
 
   return {
     uploadDocument,
     data,
     refetch,
-    isLoading: isPending,
+    isLoading,
   };
 };

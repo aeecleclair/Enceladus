@@ -1,93 +1,87 @@
 import {
-  useDeleteCompetitionUsersUserIdPaymentsPaymentId,
-  useGetCompetitionUsersUserIdPayments,
-  usePostCompetitionUsersUserIdPayments,
-} from "@/src/api/hyperionComponents";
-import { useAuth } from "./useAuth";
-import { useUser } from "./useUser";
-import { AppModulesSportCompetitionSchemasSportCompetitionPaymentBase } from "../api/hyperionSchemas";
-import { toast } from "../components/ui/use-toast";
-import { DetailedErrorType, ErrorType } from "../utils/errorTyping";
+  deleteCompetitionUsersUserIdPaymentsPaymentIdMutation,
+  getCompetitionUsersUserIdPaymentsOptions,
+  postCompetitionUsersUserIdPaymentsMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { AppModulesSportCompetitionSchemasSportCompetitionPaymentBase } from "@/api";
+import { useToast } from "@/components/ui/use-toast";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useUserPayments = () => {
-  const { token, isTokenExpired, userId } = useAuth();
+  const { isTokenExpired, userId } = useAuth();
+  const { toast } = useToast();
 
   const {
     data: payments,
     isLoading,
     error,
     refetch: refetchPayments,
-  } = useGetCompetitionUsersUserIdPayments(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
+  } = useQuery({
+    ...getCompetitionUsersUserIdPaymentsOptions({
+      path: {
+        user_id: userId!,
       },
-      pathParams: {
-        userId: userId!,
-      },
-    },
-    {
-      enabled: !!userId && !isTokenExpired(),
-      retry: false,
-      queryHash: "getUserPayments",
-    },
-  );
+    }),
+    enabled: !!userId && !isTokenExpired(),
+    retry: false,
+    queryHash: "getUserPayments",
+  });
 
   const hasPaid = payments && payments.length > 0;
 
-  const { mutateAsync: postPayment, isPending: isPostingPayment } =
-    usePostCompetitionUsersUserIdPayments();
+  const { mutateAsync: postPayment, isPending: isPostingPayment } = useMutation(
+    {
+      ...postCompetitionUsersUserIdPaymentsMutation(),
+    },
+  );
 
   const makePayment = async (
-    userId: string,
+    targetUserId: string,
     body: AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
   ) => {
     await postPayment({
-      headers: {
-        Authorization: `Bearer ${token}`,
+      path: {
+        user_id: targetUserId,
       },
-      pathParams: {
-        userId: userId,
-      },
-      body: body,
+      body,
     });
     await refetchPayments();
   };
 
   const { mutate: mutateDeleteUserPayment, isPending: isDeleteLoading } =
-    useDeleteCompetitionUsersUserIdPaymentsPaymentId();
+    useMutation({
+      ...deleteCompetitionUsersUserIdPaymentsPaymentIdMutation(),
+    });
 
   const deleteUserPayment = (
-    userId: string,
+    targetUserId: string,
     paymentId: string,
     callback: () => void,
   ) => {
     return mutateDeleteUserPayment(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          userId: userId,
-          paymentId: paymentId,
+        path: {
+          user_id: targetUserId,
+          payment_id: paymentId,
         },
       },
       {
-        onSettled: (data, error) => {
+        onSettled: (_data, error) => {
           if (
-            // Exact match for network error message 500
-            (error as any).message ===
+            (error as any)?.message ===
               "Network error (NetworkError when attempting to fetch resource.)" ||
-            (error as any).stack.body ||
-            (error as any).stack.detail
+            (error as any)?.stack?.body ||
+            (error as any)?.stack?.detail
           ) {
             console.log(error);
             toast({
               title: "Erreur lors de la suppression",
               description:
-                (error as any).message ||
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as any)?.message ||
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -111,5 +105,6 @@ export const useUserPayments = () => {
     makePayment,
     deleteUserPayment,
     isPostingPayment,
+    isDeleteLoading,
   };
 };

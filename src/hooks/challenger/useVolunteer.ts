@@ -1,57 +1,55 @@
-import { useAuth } from "./useAuth";
 import {
-  useGetCompetitionVolunteersMe,
-  usePostCompetitionVolunteersShiftsShiftIdRegister,
-  useDeleteCompetitionVolunteersShiftsShiftIdUnregister,
-} from "../api/hyperionComponents";
-import { toast } from "../components/ui/use-toast";
-import { DetailedErrorType } from "../utils/errorTyping";
+  deleteCompetitionVolunteersShiftsShiftIdUnregisterMutation,
+  getCompetitionVolunteersMeOptions,
+  postCompetitionVolunteersShiftsShiftIdRegisterMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useVolunteer = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
+
   const {
     data: volunteer,
     isLoading,
     refetch: refetchVolunteer,
-  } = useGetCompetitionVolunteersMe(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-    },
-  );
+  } = useQuery({
+    ...getCompetitionVolunteersMeOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+  });
 
   const { mutate: mutateRegisterVolunteerShift, isPending: isRegisterLoading } =
-    usePostCompetitionVolunteersShiftsShiftIdRegister();
+    useMutation({
+      ...postCompetitionVolunteersShiftsShiftIdRegisterMutation(),
+    });
 
   const {
     mutate: mutateUnregisterVolunteerShift,
     isPending: isUnregisterLoading,
-  } = useDeleteCompetitionVolunteersShiftsShiftIdUnregister();
+  } = useMutation({
+    ...deleteCompetitionVolunteersShiftsShiftIdUnregisterMutation(),
+  });
 
   const registerVolunteerShift = (shiftId: string, callback: () => void) => {
     return mutateRegisterVolunteerShift(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          shiftId: shiftId,
+        path: {
+          shift_id: shiftId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de l'assignation du bénévole",
               description:
-                (error as any).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as any)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -69,22 +67,19 @@ export const useVolunteer = () => {
   const unregisterVolunteerShift = (shiftId: string, callback: () => void) => {
     return mutateUnregisterVolunteerShift(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          shiftId: shiftId,
+        path: {
+          shift_id: shiftId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack?.body || (error as any).stack?.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la désinscription",
               description:
-                (error as any).stack?.body ||
-                (error as unknown as DetailedErrorType).stack?.detail,
+                (error as any)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {

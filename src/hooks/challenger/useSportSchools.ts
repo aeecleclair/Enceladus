@@ -1,41 +1,36 @@
 import {
-  useGetCompetitionSchools,
-  usePostCompetitionSchools,
-  usePatchCompetitionSchoolsSchoolId,
-  useDeleteCompetitionSchoolsSchoolId,
-} from "@/src/api/hyperionComponents";
-import { useUser } from "./useUser";
-import { useAuth } from "./useAuth";
-import { toast } from "../components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "../utils/errorTyping";
-import {
-  SchoolExtensionBase,
-  SchoolExtensionEdit,
-} from "../api/hyperionSchemas";
+  deleteCompetitionSchoolsSchoolIdMutation,
+  getCompetitionSchoolsOptions,
+  patchCompetitionSchoolsSchoolIdMutation,
+  postCompetitionSchoolsMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { SchoolExtensionBase, SchoolExtensionEdit } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useSportSchools = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
   const NoSchoolId = "dce19aa2-8863-4c93-861e-fb7be8f610ed";
 
   const {
     data: sportSchools,
     refetch: refetchSchools,
     error,
-  } = useGetCompetitionSchools(
+  } = useQuery({
+    ...getCompetitionSchoolsOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+    queryHash: "getSportSchools",
+  });
+
+  const { mutate: mutateCompetitionSchool, isPending: isLoading } = useMutation(
     {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-      queryHash: "getSportSchools",
+      ...postCompetitionSchoolsMutation(),
     },
   );
-
-  const { mutate: mutateCompetitionSchool, isPending: isLoading } =
-    usePostCompetitionSchools();
 
   const createCompetitionSchool = (
     body: SchoolExtensionBase,
@@ -43,20 +38,17 @@ export const useSportSchools = () => {
   ) => {
     return mutateCompetitionSchool(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la fusion des équipes",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -73,7 +65,9 @@ export const useSportSchools = () => {
   };
 
   const { mutate: mutatePatchCompetitionSchool, isPending: isUpdateLoading } =
-    usePatchCompetitionSchoolsSchoolId();
+    useMutation({
+      ...patchCompetitionSchoolsSchoolIdMutation(),
+    });
 
   const updateCompetitionSchool = (
     schoolId: string,
@@ -82,23 +76,20 @@ export const useSportSchools = () => {
   ) => {
     return mutatePatchCompetitionSchool(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
+        path: {
+          school_id: schoolId,
         },
-        pathParams: {
-          schoolId: schoolId,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la mise à jour",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -115,27 +106,26 @@ export const useSportSchools = () => {
   };
 
   const { mutate: mutateDeleteCompetitionSchool, isPending: isDeleteLoading } =
-    useDeleteCompetitionSchoolsSchoolId();
+    useMutation({
+      ...deleteCompetitionSchoolsSchoolIdMutation(),
+    });
 
   const deleteCompetitionSchool = (schoolId: string, callback: () => void) => {
     return mutateDeleteCompetitionSchool(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          schoolId: schoolId,
+        path: {
+          school_id: schoolId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la suppression",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {

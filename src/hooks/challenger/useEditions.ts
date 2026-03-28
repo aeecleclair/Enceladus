@@ -1,4 +1,6 @@
 import {
+  getCompetitionEditionsActiveOptions,
+  getCompetitionEditionsOptions,
   patchCompetitionEditionsEditionIdMutation,
   postCompetitionEditionsEditionIdActivateMutation,
   postCompetitionEditionsMutation,
@@ -7,7 +9,7 @@ import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   CompetitionEdition,
   CompetitionEditionBase,
@@ -24,18 +26,12 @@ export const useEditions = () => {
     isLoading: editionsLoading,
     refetch: refetchEditions,
     error: editionsError,
-  } = useGetCompetitionEditions(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-      queryHash: "getEditions",
-    },
-  );
+  } = useQuery({
+    ...getCompetitionEditionsOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+    queryHash: "getEditions",
+  });
 
   // Get active edition
   const {
@@ -43,18 +39,12 @@ export const useEditions = () => {
     isLoading: activeLoading,
     refetch: refetchActiveEdition,
     error: activeEditionError,
-  } = useGetCompetitionEditionsActive(
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-      queryHash: "getActiveEdition",
-    },
-  );
+  } = useQuery({
+    ...getCompetitionEditionsActiveOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+    queryHash: "getActiveEdition",
+  });
 
   // Create edition mutation
   const { mutate: mutateCreateEdition, isPending: isCreateLoading } =

@@ -1,55 +1,50 @@
 import {
-  useGetCompetitionSports,
-  usePatchCompetitionSportsSportId,
-  usePostCompetitionSports,
-  useDeleteCompetitionSportsSportId,
-} from "@/src/api/hyperionComponents";
-import { useUser } from "./useUser";
-import { useAuth } from "./useAuth";
-import { toast } from "../components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "../utils/errorTyping";
-import { SportBase, SportEdit } from "../api/hyperionSchemas";
+  deleteCompetitionSportsSportIdMutation,
+  getCompetitionSportsOptions,
+  patchCompetitionSportsSportIdMutation,
+  postCompetitionSportsMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { useToast } from "@/components/ui/use-toast";
+import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { SportBase, SportEdit } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useSports = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
 
   const {
     data: sports,
     refetch: refetchSports,
     error,
-  } = useGetCompetitionSports(
+  } = useQuery({
+    ...getCompetitionSportsOptions(),
+    enabled: !isTokenExpired(),
+    retry: false,
+    queryHash: "getSports",
+  });
+
+  const { mutate: mutateCreateSport, isPending: isCreateLoading } = useMutation(
     {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-    {
-      enabled: !isTokenExpired(),
-      retry: false,
-      queryHash: "getSports",
+      ...postCompetitionSportsMutation(),
     },
   );
-
-  const { mutate: mutateCreateSport, isPending: isCreateLoading } =
-    usePostCompetitionSports();
 
   const createSport = (body: SportBase, callback: () => void) => {
     return mutateCreateSport(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: body,
+        body,
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de l'ajout du sport",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -65,8 +60,11 @@ export const useSports = () => {
     );
   };
 
-  const { mutate: mutateUpdateSport, isPending: isUpdateLoading } =
-    usePatchCompetitionSportsSportId();
+  const { mutate: mutateUpdateSport, isPending: isUpdateLoading } = useMutation(
+    {
+      ...patchCompetitionSportsSportIdMutation(),
+    },
+  );
 
   const updateSport = (
     sportId: string,
@@ -75,23 +73,20 @@ export const useSports = () => {
   ) => {
     return mutateUpdateSport(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: body,
-        pathParams: {
-          sportId,
+        body,
+        path: {
+          sport_id: sportId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la modification du sport",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {
@@ -107,28 +102,28 @@ export const useSports = () => {
     );
   };
 
-  const { mutate: mutateDeleteSport, isPending: isDeleteLoading } =
-    useDeleteCompetitionSportsSportId();
+  const { mutate: mutateDeleteSport, isPending: isDeleteLoading } = useMutation(
+    {
+      ...deleteCompetitionSportsSportIdMutation(),
+    },
+  );
 
   const deleteSport = (sportId: string, callback: () => void) => {
     return mutateDeleteSport(
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        pathParams: {
-          sportId,
+        path: {
+          sport_id: sportId,
         },
       },
       {
-        onSettled: (data, error) => {
-          if ((error as any).stack.body || (error as any).stack.detail) {
+        onSettled: (_data, error) => {
+          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
             console.log(error);
             toast({
               title: "Erreur lors de la suppression du sport",
               description:
-                (error as unknown as ErrorType).stack.body ||
-                (error as unknown as DetailedErrorType).stack.detail,
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
               variant: "destructive",
             });
           } else {

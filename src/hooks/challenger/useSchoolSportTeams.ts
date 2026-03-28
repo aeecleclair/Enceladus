@@ -1,8 +1,8 @@
-import { useGetCompetitionTeamsSportsSportIdSchoolsSchoolId } from "@/src/api/hyperionComponents";
+import { getCompetitionTeamsSportsSportIdSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import { Team, TeamEdit, TeamInfo } from "@/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   deleteCompetitionTeamsTeamIdMutation,
   patchCompetitionTeamsTeamIdMutation,
@@ -26,19 +26,17 @@ export const useSchoolSportTeams = ({
     data: teams,
     isLoading,
     refetch: refetchTeams,
-  } = useGetCompetitionTeamsSportsSportIdSchoolsSchoolId(
-    {
-      pathParams: {
-        schoolId: schoolId!,
-        sportId: sportId!,
+  } = useQuery({
+    ...getCompetitionTeamsSportsSportIdSchoolsSchoolIdOptions({
+      path: {
+        school_id: schoolId!,
+        sport_id: sportId!,
       },
-    },
-    {
-      enabled: !isTokenExpired() && !!schoolId && !!sportId,
-      retry: false,
-      queryHash: "getSchoolSportTeams-" + schoolId + "-" + sportId,
-    },
-  );
+    }),
+    enabled: !isTokenExpired() && !!schoolId && !!sportId,
+    retry: false,
+    queryHash: "getSchoolSportTeams-" + schoolId + "-" + sportId,
+  });
 
   const { mutate: mutateCreateSchoolSportTeam, isPending: isCreateLoading } =
     useMutation({
@@ -100,14 +98,14 @@ export const useSchoolSportTeams = ({
   const updateSchoolSportTeam = (
     teamId: string,
     teamData: TeamEdit,
-    callback: (data: Team) => void,
+    callback: () => void,
   ) => {
     return mutateUpdateSchoolSportTeam(
       {
         path: { team_id: teamId },
         body: teamData,
       },
-      { onSuccess: (data) => callback(data) },
+      { onSuccess: () => callback() },
     );
   };
 

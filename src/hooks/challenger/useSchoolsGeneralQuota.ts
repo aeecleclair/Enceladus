@@ -1,8 +1,9 @@
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
 import { SchoolGeneralQuotaBase } from "@/api";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
+  getCompetitionSchoolsSchoolIdGeneralQuotaOptions,
   patchCompetitionSchoolsSchoolIdGeneralQuotaMutation,
   postCompetitionSchoolsSchoolIdGeneralQuotaMutation,
 } from "@/api/@tanstack/react-query.gen";
@@ -15,25 +16,23 @@ interface UseSchoolsGeneralQuotaProps {
 export const useSchoolsGeneralQuota = ({
   schoolId,
 }: UseSchoolsGeneralQuotaProps) => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { toast } = useToast();
 
   const {
     data: schoolsGeneralQuota,
     refetch: refetchSchoolsGeneralQuota,
     error,
-  } = useGetCompetitionSchoolsSchoolIdGeneralQuota(
-    {
-      pathParams: {
-        schoolId: schoolId!,
+  } = useQuery({
+    ...getCompetitionSchoolsSchoolIdGeneralQuotaOptions({
+      path: {
+        school_id: schoolId!,
       },
-    },
-    {
-      enabled: !isTokenExpired() && !!schoolId,
-      retry: false,
-      queryHash: "getSchoolsGeneralQuota",
-    },
-  );
+    }),
+    enabled: !isTokenExpired() && !!schoolId,
+    retry: false,
+    queryHash: "getSchoolsGeneralQuota",
+  });
 
   const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
