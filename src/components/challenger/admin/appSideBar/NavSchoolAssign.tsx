@@ -1,6 +1,6 @@
 "use client";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 export function NavSchoolAssign() {
   const router = useRouter();

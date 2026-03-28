@@ -1,6 +1,6 @@
 "use client";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
 import { useMemo } from "react";
 import { Badge } from "@/components/ui/badge";

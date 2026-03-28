@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import SchoolDetail from "@/components/challenger/admin/schools/SchoolDetail";
 import { useState, useMemo } from "react";
@@ -17,6 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useRouter } from "@/i18n/navigation";
 
 const Dashboard = () => {
   const router = useRouter();

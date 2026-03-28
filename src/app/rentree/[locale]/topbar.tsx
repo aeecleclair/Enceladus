@@ -12,7 +12,8 @@ import { CaretSortIcon, ExitIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import { Locale, useLocale } from "next-intl";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { useSearchParams } from "next/navigation";
 import { HiOutlineLibrary } from "react-icons/hi";
 import { HiShoppingCart } from "react-icons/hi2";
 
@@ -43,7 +44,7 @@ export default function TopBar() {
   const { status } = useStatus();
 
   const isInASellerGroup = user?.groups?.some((group) =>
-    sellers.some((seller) => seller.group_id === group.id)
+    sellers.some((seller) => seller.group_id === group.id),
   );
 
   return (

@@ -43,7 +43,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useSports } from "@/hooks/challenger/useSports";
 import { DataTableFacetedFilter } from "@/components/challenger/admin/registered-table/DataTableFacetedFilter";
 import { fuzzyFilter } from "@/lib/utils";

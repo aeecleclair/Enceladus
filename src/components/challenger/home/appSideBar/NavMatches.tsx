@@ -1,7 +1,7 @@
 "use client";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useSportMatches } from "@/hooks/challenger/useSportMatches";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
@@ -44,8 +44,8 @@ export function NavMatches() {
           (s) => s.school_id === opponentTeam?.school_id,
         );
         const opponent = opponentSchool
-          ? (formatSchoolName(opponentSchool.school.name) ?? "Adversaire")
-          : (opponentTeam?.name ?? "Adversaire");
+          ? formatSchoolName(opponentSchool.school.name) ?? "Adversaire"
+          : opponentTeam?.name ?? "Adversaire";
         imminent = { opponent, minutesUntil: diff };
       }
     }

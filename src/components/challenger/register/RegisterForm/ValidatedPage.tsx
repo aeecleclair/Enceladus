@@ -22,7 +22,7 @@ import {
   Purchase,
 } from "@/api";
 import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useMeUser } from "@/hooks/useMeUser";
 import { usePayment } from "@/hooks/challenger/usePayment";
 import { useUserPayments } from "@/hooks/challenger/useUserPayments";

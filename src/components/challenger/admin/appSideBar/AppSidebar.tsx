@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { Command, LifeBuoy, Send } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import {
   Sidebar,
   SidebarContent,

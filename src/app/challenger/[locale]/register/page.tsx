@@ -10,7 +10,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,

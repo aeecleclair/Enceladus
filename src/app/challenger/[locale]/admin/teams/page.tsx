@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,6 +53,7 @@ import { useAllTeams } from "@/hooks/challenger/useAllTeams";
 import { useSportTeams } from "@/hooks/challenger/useSportTeams";
 import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "@/i18n/navigation";
 
 const TeamsDashboard = () => {
   const router = useRouter();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
+import { useRouter } from "@/i18n/navigation";
 
 export default function GroupsPage() {
   const router = useRouter();
@@ -271,7 +272,7 @@ export default function GroupsPage() {
               {Array(6)
                 .fill(0)
                 .map((_, i) => (
-                  <Skeleton key={i} className="h-[200px] w-full" />
+                  <Skeleton key={i} className="h-50 w-full" />
                 ))}
             </div>
           )}

@@ -1,6 +1,5 @@
 "use client";
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +17,7 @@ import {
 import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { usePathname, useRouter } from "@/i18n/navigation";
 
 export function NavUser() {
   const pathname = usePathname();

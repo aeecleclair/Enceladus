@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 import { useAllTeams } from "@/hooks/challenger/useAllTeams";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import SportDetail from "@/components/challenger/admin/sports/SportDetail";
 import { useState, useMemo } from "react";
@@ -29,6 +29,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useRouter } from "@/i18n/navigation";
 
 const Dashboard = () => {
   const router = useRouter();

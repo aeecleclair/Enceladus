@@ -1,7 +1,7 @@
 "use client";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { Badge } from "@/components/ui/badge";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useVolunteer } from "@/hooks/challenger/useVolunteer";
 import { useMemo, useState, useEffect } from "react";
 

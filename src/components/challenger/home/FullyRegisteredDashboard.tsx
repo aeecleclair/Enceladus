@@ -16,7 +16,7 @@ import {
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useMemo } from "react";
 import { Match, MatchComplete } from "@/api";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";

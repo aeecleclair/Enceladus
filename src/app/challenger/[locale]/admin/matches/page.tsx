@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useCallback } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { useRouter } from "@/i18n/navigation";
 
 const MatchesDashboard = () => {
   const router = useRouter();
@@ -246,7 +247,7 @@ const MatchesDashboard = () => {
           </div>
           <div className="flex gap-2">
             <Select value={selectedSportId} onValueChange={handleSportChange}>
-              <SelectTrigger className="w-[200px]">
+              <SelectTrigger className="w-50">
                 <SelectValue placeholder="Sélectionnez un sport" />
               </SelectTrigger>
               <SelectContent>
@@ -325,7 +326,7 @@ const MatchesDashboard = () => {
               {Array(6)
                 .fill(0)
                 .map((_, i) => (
-                  <Skeleton key={i} className="h-[200px] w-full" />
+                  <Skeleton key={i} className="h-50 w-full" />
                 ))}
             </div>
           )}

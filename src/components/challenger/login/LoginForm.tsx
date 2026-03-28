@@ -1,7 +1,7 @@
 import MyECLButton from "@/components/common/MyEclButton";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 
 export function LoginForm({

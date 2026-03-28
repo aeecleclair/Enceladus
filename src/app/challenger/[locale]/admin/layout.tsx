@@ -19,7 +19,8 @@ import {
 import { useEdition } from "@/hooks/challenger/useEdition";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { useMeUser } from "@/hooks/useMeUser";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {

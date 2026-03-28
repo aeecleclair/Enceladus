@@ -2,7 +2,7 @@
 
 import { useSchools } from "@/hooks/useSchools";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import { SchoolExtensionEdit } from "@/api";
 import { schoolFormSchema, SchoolFormValues } from "@/forms/challenger/schools";
 import { ArrowLeft } from "lucide-react";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useRouter } from "@/i18n/navigation";
 
 const Dashboard = () => {
   const router = useRouter();

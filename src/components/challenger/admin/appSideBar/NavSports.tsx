@@ -1,6 +1,6 @@
 "use client";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 import { useAllTeams } from "@/hooks/challenger/useAllTeams";

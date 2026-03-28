@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useMeUser } from "@/hooks/useMeUser";
 import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 import {
@@ -21,6 +21,7 @@ import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { UnregisteredCard } from "@/components/challenger/home/UnregisteredCard";
 import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
 import { useSchools } from "@/hooks/useSchools";
+import { useRouter } from "@/i18n/navigation";
 
 const Home = () => {
   const { isTokenQueried, token } = useAuth();

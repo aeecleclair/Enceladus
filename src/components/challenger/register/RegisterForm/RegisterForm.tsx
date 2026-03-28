@@ -4,7 +4,7 @@ import { RegisterFormField } from "./RegisterFormField";
 import { Form } from "@/components/ui/form";
 import { WaitingPage } from "./WaitingPage";
 import { ValidatedPage } from "./ValidatedPage";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { CarouselApi } from "@/components/ui/carousel";
 import { UseFormReturn } from "react-hook-form";
 import {
