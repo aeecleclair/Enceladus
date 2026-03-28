@@ -6,7 +6,7 @@ import { useSchoolSportTeams } from "../../hooks/useSchoolSportTeams";
 import { useSports } from "../../hooks/useSports";
 import { useSchools } from "../../hooks/useSchools";
 import { useUser } from "../../hooks/useUser";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Clock,
   Calendar,
@@ -15,12 +15,12 @@ import {
   GraduationCap,
   Zap,
 } from "lucide-react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { Match, MatchComplete } from "../../api/hyperionSchemas";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface FullyRegisteredDashboardProps {
   edition: {

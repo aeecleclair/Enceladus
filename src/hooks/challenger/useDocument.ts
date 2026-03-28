@@ -1,15 +1,15 @@
 import axios from "axios";
 import { getCompetitionParticipantsUsersUserIdCertificateOptions } from "@/api/@tanstack/react-query.gen";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "./useUser";
 import { useAuth } from "../useAuth";
 import { useToast } from "@/components/ui/use-toast";
+import { useHasChallengerPermission } from "./useHasChallengerPermission";
 
 export const useDocument = (userId: string | null) => {
   const backUrl: string =
     process.env.NEXT_PUBLIC_BACKEND_URL || "https://hyperion.myecl.fr";
   const { token } = useAuth();
-  const { isAdmin } = useUser();
+  const { isChallengerAdmin } = useHasChallengerPermission();
   const { toast } = useToast();
 
   const uploadDocument = (
@@ -62,7 +62,7 @@ export const useDocument = (userId: string | null) => {
         user_id: userId!,
       },
     }),
-    enabled: !!userId && isAdmin(),
+    enabled: !!userId && isChallengerAdmin,
     queryHash: "getDocument " + userId,
   });
 

@@ -1,15 +1,10 @@
 "use client";
 
-import { SchoolResult } from "@/src/api/hyperionSchemas";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { SchoolResult } from "@/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy } from "lucide-react";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface GlobalPodiumCardProps {
   results: SchoolResult[];
@@ -104,9 +99,7 @@ export function GlobalPodiumCard({ results, title }: GlobalPodiumCardProps) {
                       <div
                         className={`w-full rounded-t-xl bg-gradient-to-b ${cfg.bg} border-x border-t ${cfg.border} ${cfg.platformH} flex items-center justify-center shadow-sm`}
                       >
-                        <span
-                          className={`text-2xl font-black ${cfg.numColor}`}
-                        >
+                        <span className={`text-2xl font-black ${cfg.numColor}`}>
                           {cfg.displayRank}
                         </span>
                       </div>

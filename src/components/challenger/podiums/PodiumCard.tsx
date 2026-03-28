@@ -1,15 +1,10 @@
 "use client";
 
-import { TeamSportResultComplete } from "@/src/api/hyperionSchemas";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { TeamSportResultComplete } from "@/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Medal, Award } from "lucide-react";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { PodiumTeamsDialog } from "./PodiumTeamsDialog";
 
 interface PodiumCardProps {

@@ -2,10 +2,10 @@ import { useState } from "react";
 import {
   AppModulesSportCompetitionSchemasSportCompetitionProductComplete,
   AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
-} from "@/src/api/hyperionSchemas";
-import { Button } from "@/src/components/ui/button";
-import { Badge } from "@/src/components/ui/badge";
-import { Card, CardContent } from "@/src/components/ui/card";
+} from "@/api";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { Plus, Euro, Users, MapPin, UserCheck } from "lucide-react";
 import { AddVariantDialog } from "./AddVariantDialog";
 import { VariantOptionsMenu } from "./VariantOptionsMenu";

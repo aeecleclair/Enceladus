@@ -1,7 +1,7 @@
 import { Match, MatchComplete } from "../../../api/hyperionSchemas";
-import { Badge } from "../../ui/badge";
-import { Button } from "../../ui/button";
-import { Separator } from "../../ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Clock,
   MapPin,
@@ -14,7 +14,7 @@ import {
   Star,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface MatchCardProps {
   match: MatchComplete;

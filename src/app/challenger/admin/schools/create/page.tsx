@@ -2,18 +2,13 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { schoolFormSchema, SchoolFormValues } from "@/src/forms/schools";
-import { useSchools } from "@/src/hooks/useSchools";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { SchoolsForm } from "@/src/components/admin/schools/SchoolsForm";
-import { SchoolExtensionBase } from "@/src/api/hyperionSchemas";
-import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { schoolFormSchema, SchoolFormValues } from "@/forms/challenger/schools";
+import { useSchools } from "@/hooks/useSchools";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { SchoolsForm } from "@/components/challenger/admin/schools/SchoolsForm";
+import { SchoolExtensionBase } from "@/api";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Plus, School } from "lucide-react";
 import { useRouter } from "next/navigation";
 

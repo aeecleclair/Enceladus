@@ -1,15 +1,18 @@
 "use client";
 
-import EditionForm from "@/src/components/admin/EditionForm";
-import { EditionFormSchema, editionFormSchema } from "@/src/forms/edition";
-import { useEdition } from "@/src/hooks/useEdition";
-import { useUser } from "@/src/hooks/useUser";
+import EditionForm from "@/components/challenger/admin/EditionForm";
+import {
+  EditionFormSchema,
+  editionFormSchema,
+} from "@/forms/challenger/edition";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 const AdminFallback = () => {
   const { createEdition, isCreationLoading } = useEdition();
-  const { isAdmin } = useUser();
+  const { isChallengerAdmin } = useHasChallengerPermission();
 
   const form = useForm<EditionFormSchema>({
     resolver: zodResolver(editionFormSchema),
@@ -34,7 +37,7 @@ const AdminFallback = () => {
 
   return (
     <>
-      {isAdmin() ? (
+      {isChallengerAdmin ? (
         <div className="flex h-full w-full flex-col p-6">
           <span className="text-2xl font-bold mb-4">Créer une édition</span>
           <EditionForm

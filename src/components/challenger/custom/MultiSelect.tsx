@@ -1,23 +1,23 @@
 // From https://github.com/dinogit, found at https://github.com/shadcn-ui/ui/issues/66
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@/src/components/ui/command";
+} from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
+} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import * as React from "react";
 
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export type OptionType = {
   label: string;

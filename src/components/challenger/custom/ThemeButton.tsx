@@ -9,7 +9,7 @@ import {
   MenubarSubTrigger,
   MenubarSubContent,
   MenubarItem,
-} from "../ui/menubar";
+} from "@/components/ui/menubar";
 
 export function ThemeButton() {
   const { setTheme } = useTheme();

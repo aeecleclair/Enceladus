@@ -1,16 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
-import { useSports } from "@/src/hooks/useSports";
-import { useSchools } from "@/src/hooks/useSchools";
-import { usePompomsPodiums } from "@/src/hooks/usePompomsPodiums";
-import { useSportPodiums } from "@/src/hooks/useSportsPodiums";
-import { usePodiums } from "@/src/hooks/usePodiums";
-import { SportsDataTable } from "@/src/components/admin/podiums/SportsDataTable";
-import { PodiumRankingsForm } from "@/src/components/admin/podiums/PodiumRankingsForm";
-import { GlobalPodiumCard } from "@/src/components/admin/podiums/GlobalPodiumCard";
+import { useSports } from "@/hooks/challenger/useSports";
+import { usePompomsPodiums } from "@/hooks/challenger/usePompomsPodiums";
+import { useSportPodiums } from "@/hooks/challenger/useSportsPodiums";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { SportsDataTable } from "@/components/challenger/admin/podiums/SportsDataTable";
+import { PodiumRankingsForm } from "@/components/challenger/admin/podiums/PodiumRankingsForm";
+import { GlobalPodiumCard } from "@/components/challenger/admin/podiums/GlobalPodiumCard";
 import {
   Dialog,
   DialogContent,
@@ -18,14 +17,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/src/components/ui/dialog";
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
+} from "@/components/ui/select";
+import { useSchools } from "@/hooks/useSchools";
 
 export default function PodiumsPage() {
   const { sports, error: sportsError } = useSports();

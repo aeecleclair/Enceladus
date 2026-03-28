@@ -5,7 +5,7 @@ import {
   Match,
   MatchComplete,
 } from "../../../api/hyperionSchemas";
-import { Button } from "../../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -13,9 +13,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
-import { Badge } from "../../ui/badge";
-import { Separator } from "../../ui/separator";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import {
   MapPin,
   Calendar,

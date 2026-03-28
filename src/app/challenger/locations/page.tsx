@@ -1,22 +1,17 @@
 "use client";
 
-import { Card, CardContent } from "../../components/ui/card";
-import { LocationsMap } from "../../components/home/locations/LocationsMap";
-import { useLocations } from "../../hooks/useLocations";
-import { useSportMatches } from "../../hooks/useSportMatches";
-import { useParticipant } from "../../hooks/useParticipant";
-import { useSports } from "../../hooks/useSports";
-import { useSchools } from "../../hooks/useSchools";
-import { MapPin } from "lucide-react";
+import { LocationsMap } from "@/components/challenger/home/locations/LocationsMap";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useSports } from "@/hooks/challenger/useSports";
 import { useMemo } from "react";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/src/components/ui/sidebar";
-import { AppSidebar } from "@/src/components/home/appSideBar/AppSidebar";
-import { Match } from "../../api/hyperionSchemas";
-import { useAllMatches } from "@/src/hooks/useAllMatches";
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
+import { Match } from "@/api";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 
 export default function LocationsPage() {
   const { locations } = useLocations();

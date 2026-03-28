@@ -1,5 +1,5 @@
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface HelloAssoButtonProps {
   isLoading: boolean;

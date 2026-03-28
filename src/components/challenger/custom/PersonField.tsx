@@ -4,8 +4,8 @@ import {
   FormLabel,
   FormMessage,
   FormControl,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 interface PersonFieldProps {
   label: string;

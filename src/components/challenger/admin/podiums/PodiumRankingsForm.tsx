@@ -3,20 +3,17 @@
 import { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, useFieldArray } from "react-hook-form";
-import { Button } from "@/src/components/ui/button";
-import { Form } from "@/src/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
 import {
   podiumRankingsSchema,
   PodiumRankingsFormData,
-} from "@/src/forms/podium";
+} from "@/forms/challenger/podium";
 import { Plus } from "lucide-react";
-import {
-  TeamSportResultComplete,
-  SchoolResult,
-} from "@/src/api/hyperionSchemas";
+import { TeamSportResultComplete, SchoolResult } from "@/api";
 import { RankingRow } from "./RankingRow";
-import { usePodiums } from "@/src/hooks/usePodiums";
-import { usePompomsPodiums } from "@/src/hooks/usePompomsPodiums";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { usePompomsPodiums } from "@/hooks/challenger/usePompomsPodiums";
 
 interface PodiumRankingsFormProps {
   sportId: string;

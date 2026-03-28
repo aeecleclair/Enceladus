@@ -1,12 +1,7 @@
 "use client";
 
-import { TeamSportResultComplete } from "@/src/api/hyperionSchemas";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { TeamSportResultComplete } from "@/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Medal, Award } from "lucide-react";
 
 interface PodiumCardProps {

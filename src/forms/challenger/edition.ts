@@ -4,14 +4,14 @@ export const editionFormSchema = z
   .object({
     name: z
       .string({
-        required_error: "Veuillez renseigner le nom de l'édition",
+        error: "Veuillez renseigner le nom de l'édition",
       })
       .min(1, {
         message: "Veuillez renseigner le nom de l'édition",
       }),
     startDate: z
       .date({
-        required_error: "Veuillez renseigner la date de début de l'édition",
+        error: "Veuillez renseigner la date de début de l'édition",
       })
       .refine(
         (date) => {
@@ -26,7 +26,7 @@ export const editionFormSchema = z
         },
       ),
     endDate: z.date({
-      required_error: "Veuillez renseigner la date de fin de l'édition",
+      error: "Veuillez renseigner la date de fin de l'édition",
     }),
   })
   .superRefine((data, ctx) => {

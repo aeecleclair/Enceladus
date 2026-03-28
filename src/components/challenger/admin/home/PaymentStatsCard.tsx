@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { CompetitionEditionStats } from "@/src/api/hyperionSchemas";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CompetitionEditionStats } from "@/api";
 import { Users, CreditCard, Wallet, Trophy, Swords, Flag } from "lucide-react";
 
 interface PaymentStatsCardProps {

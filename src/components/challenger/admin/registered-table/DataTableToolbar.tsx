@@ -3,8 +3,8 @@
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
 import { DataTableViewOptions } from "./DataTableViewOptions";

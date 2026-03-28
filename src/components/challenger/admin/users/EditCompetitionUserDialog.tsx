@@ -7,24 +7,20 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "../../ui/dialog";
-import { Button } from "../../ui/button";
-import { Label } from "../../ui/label";
-import { Switch } from "../../ui/switch";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
+} from "@/components/ui/select";
 import { LoadingButton } from "../../custom/LoadingButton";
 import { Pencil } from "lucide-react";
-import {
-  CompetitionUser,
-  CompetitionUserEdit,
-  SportCategory,
-} from "@/src/api/hyperionSchemas";
+import { CompetitionUser, CompetitionUserEdit, SportCategory } from "@/api";
 
 interface EditCompetitionUserDialogProps {
   open: boolean;

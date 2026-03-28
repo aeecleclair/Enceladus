@@ -2,7 +2,7 @@
 
 import { MapPin, Clock } from "lucide-react";
 import { getTimeUntilEvent, getTimeBadgeClass } from "./matchUtils";
-import { generateLocationColor } from "@/src/utils/locationColors";
+import { generateLocationColor } from "@/lib/challenger/locationColors";
 
 export interface Shift {
   id: string;
@@ -51,8 +51,16 @@ export const VolunteerShiftCard = ({
         </span>
         {timeEnd && (
           <>
-            <span className="text-[10px] leading-none my-0.5" style={{ color, opacity: 0.5 }}>↓</span>
-            <span className="text-xs font-semibold tabular-nums" style={{ color, opacity: 0.7 }}>
+            <span
+              className="text-[10px] leading-none my-0.5"
+              style={{ color, opacity: 0.5 }}
+            >
+              ↓
+            </span>
+            <span
+              className="text-xs font-semibold tabular-nums"
+              style={{ color, opacity: 0.7 }}
+            >
               {timeEnd}
             </span>
           </>
@@ -66,7 +74,9 @@ export const VolunteerShiftCard = ({
           {shift.location && (
             <div className="flex items-center gap-1 mt-0.5">
               <MapPin className="h-3 w-3 flex-shrink-0" style={{ color }} />
-              <p className="text-xs text-muted-foreground truncate">{shift.location}</p>
+              <p className="text-xs text-muted-foreground truncate">
+                {shift.location}
+              </p>
             </div>
           )}
         </div>

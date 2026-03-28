@@ -4,20 +4,21 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
-import { Checkbox } from "../../ui/checkbox";
-import { Label } from "../../ui/label";
-import { Button } from "../../ui/button";
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useAuth } from "@/src/hooks/useAuth";
-import { useEdition } from "@/src/hooks/useEdition";
-import { toast } from "../../ui/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { useEdition } from "@/hooks/challenger/useEdition";
 import { Download, Database, Loader2 } from "lucide-react";
-import { Separator } from "../../ui/separator";
+import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 
 export const GlobalExport = () => {
   const { edition } = useEdition();
   const { token } = useAuth();
+  const { toast } = useToast();
   const [isExporting, setIsExporting] = useState(false);
   const [exportParams, setExportParams] = useState<{
     excludeNonValidated: boolean;

@@ -6,9 +6,9 @@ import {
   Timer,
   ExternalLink,
 } from "lucide-react";
-import { Badge } from "../../ui/badge";
-import { Button } from "../../ui/button";
-import { Separator } from "../../ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useAllMatches } from "../../../hooks/useAllMatches";
@@ -18,7 +18,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
 import { openLocationMap } from "../../../utils/locationColors";
 import { useLocations } from "../../../hooks/useLocations";
 
@@ -49,7 +49,8 @@ export default function MatchDetailDialog({
     );
   }
 
-  const sportName = sports?.find((s) => s.id === match.sport_id)?.name || "Sport";
+  const sportName =
+    sports?.find((s) => s.id === match.sport_id)?.name || "Sport";
   const now = new Date();
   const matchDate = match.date ? new Date(match.date) : null;
   const isLive = matchDate && matchDate <= now && !match.ended;
@@ -65,9 +66,7 @@ export default function MatchDetailDialog({
       );
     if (isLive)
       return (
-        <Badge className="text-xs bg-red-500 hover:bg-red-600">
-          En direct
-        </Badge>
+        <Badge className="text-xs bg-red-500 hover:bg-red-600">En direct</Badge>
       );
     return (
       <Badge variant="outline" className="text-xs">

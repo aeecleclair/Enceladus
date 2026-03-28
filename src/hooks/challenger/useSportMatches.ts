@@ -36,6 +36,23 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
   const { mutate: mutateCreateMatch, isPending: isCreateLoading } = useMutation(
     {
       ...postCompetitionMatchesSportsSportIdMutation(),
+      onSuccess: () => {
+        refetchSportMatches();
+        toast({
+          title: "Match ajoutée",
+          description: "Le match a été ajouté avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de l'ajout du match",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -47,33 +64,30 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
         },
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de l'ajout du match",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSportMatches();
-            callback();
-            toast({
-              title: "Match ajoutée",
-              description: "Le match a été ajouté avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateUpdateMatch, isPending: isUpdateLoading } = useMutation(
     {
       ...patchCompetitionMatchesMatchIdMutation(),
+      onSuccess: () => {
+        refetchSportMatches();
+        toast({
+          title: "Match modifiée",
+          description: "Le match a été modifiée avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la modification du match",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -89,33 +103,30 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
         },
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la modification du match",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSportMatches();
-            callback();
-            toast({
-              title: "Match modifiée",
-              description: "Le match a été modifiée avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateDeleteMatch, isPending: isDeleteLoading } = useMutation(
     {
       ...deleteCompetitionMatchesMatchIdMutation(),
+      onSuccess: () => {
+        refetchSportMatches();
+        toast({
+          title: "Match supprimée",
+          description: "Le match a été supprimée avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la suppression du match",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -126,27 +137,7 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
           match_id: matchId,
         },
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la suppression du match",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSportMatches();
-            callback();
-            toast({
-              title: "Match supprimée",
-              description: "Le match a été supprimée avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 

@@ -1,33 +1,28 @@
 "use client";
 
-import { SchoolExtension, SportQuotaInfo } from "@/src/api/hyperionSchemas";
+import { SchoolExtension, SportQuotaInfo } from "@/api";
 import Link from "next/link";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { getSchoolType } from "@/src/utils/schools";
-import { useSchoolsSportQuota } from "@/src/hooks/useSchoolsSportQuota";
-import { useSports } from "@/src/hooks/useSports";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { getSchoolType } from "@/lib/challenger/schools";
+import { useSchoolsSportQuota } from "@/hooks/useSchoolsSportQuota";
+import { useSports } from "@/hooks/challenger/useSports";
 import { useState, useMemo } from "react";
-import { Button } from "@/src/components/ui/button";
-import { Badge } from "@/src/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   TooltipProvider,
   Tooltip,
   TooltipTrigger,
   TooltipContent,
-} from "@/src/components/ui/tooltip";
-import { useSchoolsGeneralQuota } from "@/src/hooks/useSchoolsGeneralQuota";
+} from "@/components/ui/tooltip";
+import { useSchoolsGeneralQuota } from "@/hooks/useSchoolsGeneralQuota";
 import { SportQuotaDialog } from "./SportQuotaDialog";
 import { QuotaWithSport, SportQuotaDataTable } from "./SportQuotaDataTable";
 import { DeleteConfirmationDialog } from "../DeleteConfirmationDialog";
-import { SportQuotaFormValues } from "@/src/forms/sportQuota";
+import { SportQuotaFormValues } from "@/forms/challenger/sportQuota";
 import { GeneralQuotaDialog } from "../GeneralQuotaDialog";
-import { GeneralQuotaFormValues } from "@/src/forms/generalQuota";
+import { GeneralQuotaFormValues } from "@/forms/challenger/generalQuota";
 import {
   ArrowLeft,
   CheckCircle,
@@ -41,7 +36,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { ProductQuotaDataTable } from "../product/ProductQuotaDataTable";
-import { useSchoolsProductQuota } from "@/src/hooks/useSchoolsProductQuota";
+import { useSchoolsProductQuota } from "@/hooks/useSchoolsProductQuota";
 
 interface SportQuotaCardProps {
   school: SchoolExtension;

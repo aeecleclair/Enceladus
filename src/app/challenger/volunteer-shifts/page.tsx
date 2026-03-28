@@ -15,16 +15,11 @@ import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/src/components/ui/sidebar";
-import { AppSidebar } from "@/src/components/home/appSideBar/AppSidebar";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/src/components/ui/tabs";
-import { VolunteerShopTab } from "@/src/components/home/volunteer-shifts/VolunteerShopTab";
-import { VolunteerCalendar } from "@/src/components/home/volunteer-shifts/VolunteerCalendar";
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { VolunteerShopTab } from "@/components/challenger/home/volunteer-shifts/VolunteerShopTab";
+import { VolunteerCalendar } from "@/components/challenger/home/volunteer-shifts/VolunteerCalendar";
 
 export default function VolunteerShiftsPage() {
   const { volunteer, isLoading } = useVolunteer();

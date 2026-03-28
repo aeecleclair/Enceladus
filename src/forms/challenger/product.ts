@@ -4,7 +4,7 @@ export const productFormSchema = z.object({
   id: z.string().optional(),
   name: z
     .string({
-      required_error: "Veuillez renseigner le nom du produit",
+      error: "Veuillez renseigner le nom du produit",
     })
     .min(1, {
       message: "Veuillez renseigner le nom du produit",

@@ -3,12 +3,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   generalQuotaFormSchema,
   GeneralQuotaFormValues,
-} from "@/src/forms/generalQuota";
-import { StyledFormField } from "@/src/components/custom/StyledFormField";
-import { Input } from "@/src/components/ui/input";
-import { Button } from "@/src/components/ui/button";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { Form } from "@/src/components/ui/form";
+} from "@/forms/challenger/generalQuota";
+import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { Form } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
@@ -17,10 +17,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/src/components/ui/dialog";
+} from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import { useEffect } from "react";
-import { SchoolGeneralQuota } from "@/src/api/hyperionSchemas";
+import { SchoolGeneralQuota } from "@/api";
 
 interface GeneralQuotaDialogProps {
   isOpen: boolean;

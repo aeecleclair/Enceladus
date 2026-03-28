@@ -1,9 +1,9 @@
 "use client";
 
-import { useDocument } from "@/src/hooks/useDocument";
+import { useDocument } from "@/hooks/challenger/useDocument";
 import Image from "next/image";
-import { Skeleton } from "../ui/skeleton";
-import { Button } from "../ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 interface DocumentViewProps {

@@ -1,16 +1,11 @@
 "use client";
 
-import { SchoolResult } from "@/src/api/hyperionSchemas";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { SchoolResult } from "@/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Medal, Award } from "lucide-react";
-import { useSchools } from "@/src/hooks/useSchools";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { useSchools } from "@/hooks/useSchools";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface GlobalPodiumCardProps {
   results: SchoolResult[];

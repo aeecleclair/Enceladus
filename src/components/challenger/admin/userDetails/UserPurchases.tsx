@@ -1,8 +1,8 @@
 "use client";
 
-import { GetCompetitionProductsResponse } from "@/src/api/hyperionComponents";
-import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseComplete } from "@/src/api/hyperionSchemas";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import { GetCompetitionProductsResponse } from "@/api";
+import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseComplete } from "@/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ShoppingCart,
   CheckCircle,
@@ -19,9 +19,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../ui/table";
-import { Badge } from "../../ui/badge";
-import { Button } from "../../ui/button";
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useMemo, useState } from "react";
 import { AddPurchaseDialog } from "../purchases/AddPurchaseDialog";
 import { EditPurchaseDialog } from "../purchases/EditPurchaseDialog";

@@ -3,20 +3,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { sportFormSchema, SportFormValues } from "@/src/forms/sport";
-import { useSports } from "@/src/hooks/useSports";
-import { SportsForm } from "@/src/components/admin/sports/SportsForm";
+import { sportFormSchema, SportFormValues } from "@/forms/challenger/sport";
+import { useSports } from "@/hooks/challenger/useSports";
+import { SportsForm } from "@/components/challenger/admin/sports/SportsForm";
 import Link from "next/link";
-import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Plus, Trophy } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { SportBase } from "@/src/api/hyperionSchemas";
+import { SportBase } from "@/api";
 
 const Dashboard = () => {
   const router = useRouter();

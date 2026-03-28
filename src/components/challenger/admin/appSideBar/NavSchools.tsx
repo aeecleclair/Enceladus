@@ -1,9 +1,6 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "@/src/components/ui/sidebar";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useRouter } from "next/navigation";
 
 export function NavSchools() {

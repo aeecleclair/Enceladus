@@ -2,27 +2,30 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { purchaseFormSchema, PurchaseFormValues } from "@/src/forms/purchase";
-import { GetCompetitionProductsResponse } from "@/src/api/hyperionComponents";
+import {
+  purchaseFormSchema,
+  PurchaseFormValues,
+} from "@/forms/challenger/purchase";
+import { GetCompetitionProductsResponse } from "@/api";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
-import { Form } from "@/src/components/ui/form";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+} from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { StyledFormField } from "@/src/components/custom/StyledFormField";
+} from "@/components/ui/select";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
 import { AlertTriangle } from "lucide-react";
 
 interface AddPurchaseDialogProps {

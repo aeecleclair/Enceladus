@@ -38,6 +38,23 @@ export const useSchoolsSportQuota = ({
   const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
       ...postCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
+      onSuccess: () => {
+        refetchSchoolsSportQuota();
+        toast({
+          title: "Quota ajoutée",
+          description: "Le quota a été ajouté avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de l'ajout du quota",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -54,33 +71,30 @@ export const useSchoolsSportQuota = ({
         },
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de l'ajout du quota",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSchoolsSportQuota();
-            callback();
-            toast({
-              title: "Quota ajoutée",
-              description: "Le quota a été ajouté avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } = useMutation(
     {
       ...patchCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
+      onSuccess: () => {
+        refetchSchoolsSportQuota();
+        toast({
+          title: "Quota modifiée",
+          description: "Le quota a été modifiée avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la modification du quota",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -97,33 +111,30 @@ export const useSchoolsSportQuota = ({
         },
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la modification du quota",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSchoolsSportQuota();
-            callback();
-            toast({
-              title: "Quota modifiée",
-              description: "Le quota a été modifiée avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateDeleteQuota, isPending: isDeleteLoading } = useMutation(
     {
       ...deleteCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation(),
+      onSuccess: () => {
+        refetchSchoolsSportQuota();
+        toast({
+          title: "Quota supprimée",
+          description: "Le quota a été supprimée avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la suppression du quota",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -135,27 +146,7 @@ export const useSchoolsSportQuota = ({
           sport_id: sportId,
         },
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la suppression du quota",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSchoolsSportQuota();
-            callback();
-            toast({
-              title: "Quota supprimée",
-              description: "Le quota a été supprimée avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 

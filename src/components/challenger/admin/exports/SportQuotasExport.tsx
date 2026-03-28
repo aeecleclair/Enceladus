@@ -4,21 +4,21 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
-import { Button } from "../../ui/button";
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useAuth } from "@/src/hooks/useAuth";
-import { useEdition } from "@/src/hooks/useEdition";
-import { toast } from "../../ui/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { useEdition } from "@/hooks/challenger/useEdition";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
-import { useSports } from "@/src/hooks/useSports";
+} from "@/components/ui/select";
+import { useSports } from "@/hooks/challenger/useSports";
 import { Download, Trophy, Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 export const SportQuotasExport = () => {
   const { edition } = useEdition();
@@ -26,6 +26,7 @@ export const SportQuotasExport = () => {
   const { sports } = useSports();
   const [sportId, setSportId] = useState("");
   const [isExporting, setIsExporting] = useState(false);
+  const { toast } = useToast();
 
   const activeSports = sports?.filter((sport) => sport.active);
 

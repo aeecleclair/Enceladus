@@ -1,14 +1,11 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
-import { Badge } from "../../ui/badge";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
+import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
-import { useParticipant } from "@/src/hooks/useParticipant";
-import { useSportMatches } from "@/src/hooks/useSportMatches";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { useMemo, useState, useEffect } from "react";
 
 export function NavMatches() {
@@ -39,9 +36,7 @@ export function NavMatches() {
 
     let imminent: { opponent: string; minutesUntil: number } | null = null;
     for (const m of userMatches) {
-      const diff = Math.round(
-        (new Date(m.date!).getTime() - now) / 60_000,
-      );
+      const diff = Math.round((new Date(m.date!).getTime() - now) / 60_000);
       if (diff <= 30 && (!imminent || diff < imminent.minutesUntil)) {
         const opponentTeam =
           m.team1_id === meParticipant.team_id ? m.team2 : m.team1;
@@ -49,8 +44,8 @@ export function NavMatches() {
           (s) => s.school_id === opponentTeam?.school_id,
         );
         const opponent = opponentSchool
-          ? formatSchoolName(opponentSchool.school.name) ?? "Adversaire"
-          : opponentTeam?.name ?? "Adversaire";
+          ? (formatSchoolName(opponentSchool.school.name) ?? "Adversaire")
+          : (opponentTeam?.name ?? "Adversaire");
         imminent = { opponent, minutesUntil: diff };
       }
     }

@@ -13,8 +13,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -22,7 +22,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
+} from "@/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,15 +30,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
-import { DataTablePagination } from "@/src/components/ui/data-table-pagination";
+} from "@/components/ui/dropdown-menu";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { ArrowUpDown, MoreHorizontal, Pencil, Trash } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/src/components/ui/tooltip";
+} from "@/components/ui/tooltip";
 
 // Extended QuotaInfo with productId and productName
 export interface QuotaWithProduct {

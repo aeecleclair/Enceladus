@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
 import { usePodiums } from "../../../hooks/usePodiums";
 import { useSports } from "../../../hooks/useSports";
 import { Medal, Trophy, Award } from "lucide-react";
@@ -109,7 +109,9 @@ export default function SchoolStandingsDialog({
                           <div className="font-medium text-sm text-gray-900">
                             {result.team.name}
                           </div>
-                          <div className="text-xs text-gray-500">{sportName}</div>
+                          <div className="text-xs text-gray-500">
+                            {sportName}
+                          </div>
                         </div>
                       </div>
                       <div className="text-right">

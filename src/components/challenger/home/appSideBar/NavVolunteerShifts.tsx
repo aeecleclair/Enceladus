@@ -1,11 +1,8 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
-import { Badge } from "../../ui/badge";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
+import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
-import { useVolunteer } from "@/src/hooks/useVolunteer";
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
 import { useMemo, useState, useEffect } from "react";
 
 export function NavVolunteerShifts() {

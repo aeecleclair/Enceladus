@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { LoginForm } from "@/src/components/login/LoginForm";
-import { Logo } from "@/src/components/custom/Logo";
+import { LoginForm } from "@/components/challenger/login/LoginForm";
+import { Logo } from "@/components/challenger/custom/Logo";
 
 const Login = () => {
   return (

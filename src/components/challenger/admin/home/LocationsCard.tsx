@@ -4,14 +4,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { Button } from "@/src/components/ui/button";
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { Location } from "@/src/api/hyperionSchemas";
+} from "@/components/ui/popover";
+import { Location } from "@/api";
 
 interface LocationsCardProps {
   locations: Location[];

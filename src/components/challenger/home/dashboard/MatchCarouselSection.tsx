@@ -1,14 +1,14 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselPrevious,
   CarouselNext,
-} from "../../ui/carousel";
-import { MatchComplete } from "@/src/api/hyperionSchemas";
+} from "@/components/ui/carousel";
+import { MatchComplete } from "@/api";
 import { MatchCarouselCard } from "./MatchCarouselCard";
 
 interface MatchCarouselSectionProps {
@@ -89,7 +89,9 @@ export const MatchCarouselSection = ({
                     onSelect={onSelectMatch}
                     isFavorite={isFavorite?.(match.id)}
                     onToggleFavorite={
-                      toggleFavorite ? () => toggleFavorite(match.id) : undefined
+                      toggleFavorite
+                        ? () => toggleFavorite(match.id)
+                        : undefined
                     }
                   />
                 );

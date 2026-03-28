@@ -1,8 +1,13 @@
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
 
-import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { JSX } from "react";
 import { LoadingButton } from "./LoadingButton";
 

@@ -37,6 +37,23 @@ export const useSchoolsProductQuota = ({
   const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
       ...postCompetitionSchoolsSchoolIdProductQuotasMutation(),
+      onSuccess: () => {
+        refetchSchoolsProductQuota();
+        toast({
+          title: "Quota ajoutée",
+          description: "Le quota a été ajouté avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de l'ajout du quota",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -48,33 +65,30 @@ export const useSchoolsProductQuota = ({
         },
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de l'ajout du quota",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSchoolsProductQuota();
-            callback();
-            toast({
-              title: "Quota ajoutée",
-              description: "Le quota a été ajouté avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } = useMutation(
     {
       ...patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation(),
+      onSuccess: () => {
+        refetchSchoolsProductQuota();
+        toast({
+          title: "Quota modifiée",
+          description: "Le quota a été modifiée avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la modification du quota",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -91,27 +105,7 @@ export const useSchoolsProductQuota = ({
         },
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la modification du quota",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSchoolsProductQuota();
-            callback();
-            toast({
-              title: "Quota modifiée",
-              description: "Le quota a été modifiée avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 

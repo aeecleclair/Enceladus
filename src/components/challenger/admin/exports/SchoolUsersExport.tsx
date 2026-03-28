@@ -4,29 +4,30 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
-import { Checkbox } from "../../ui/checkbox";
-import { Label } from "../../ui/label";
-import { Button } from "../../ui/button";
+} from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { useAuth } from "@/src/hooks/useAuth";
-import { useEdition } from "@/src/hooks/useEdition";
-import { toast } from "../../ui/use-toast";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import { useAuth } from "@/hooks/useAuth";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+} from "@/components/ui/select";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { Download, School, Loader2 } from "lucide-react";
-import { Separator } from "../../ui/separator";
+import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 
 export const SchoolUsersExport = () => {
   const { edition } = useEdition();
   const { token } = useAuth();
+  const { toast } = useToast();
   const { sportSchools } = useSportSchools();
   const [isExporting, setIsExporting] = useState(false);
   const [exportParams, setExportParams] = useState<{

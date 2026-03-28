@@ -1,4 +1,4 @@
-import { useVolunteer } from "@/src/hooks/useVolunteer";
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
 
 interface UserStatusBadgesProps {
   meCompetition: {

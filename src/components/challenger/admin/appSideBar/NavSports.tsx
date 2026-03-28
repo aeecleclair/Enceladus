@@ -1,14 +1,11 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
-import { useSports } from "@/src/hooks/useSports";
-import { useAllMatches } from "@/src/hooks/useAllMatches";
-import { useAllTeams } from "@/src/hooks/useAllTeams";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useAllTeams } from "@/hooks/challenger/useAllTeams";
 import { useMemo } from "react";
-import { Badge } from "../../ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 export function NavSports() {
   const { sports } = useSports();
@@ -18,12 +15,8 @@ export function NavSports() {
 
   const { noTeams, noMatches } = useMemo(() => {
     if (!sports) return { noTeams: 0, noMatches: 0 };
-    const withMatches = new Set(
-      (allMatches ?? []).map((m) => m.sport_id),
-    );
-    const withTeams = new Set(
-      (allTeams ?? []).map((t) => t.sport_id),
-    );
+    const withMatches = new Set((allMatches ?? []).map((m) => m.sport_id));
+    const withTeams = new Set((allTeams ?? []).map((t) => t.sport_id));
     return {
       noTeams: sports.filter((s) => !withTeams.has(s.id)).length,
       noMatches: sports.filter((s) => !withMatches.has(s.id)).length,

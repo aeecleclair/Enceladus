@@ -1,21 +1,21 @@
 import { StyledFormField } from "../../custom/StyledFormField";
-import { Input } from "../../ui/input";
+import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
-import { RegisteringFormValues } from "@/src/forms/registering";
-import { useUser } from "@/src/hooks/useUser";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { CardTemplate } from "./CardTemplate";
-import { RadioGroup, RadioGroupItem } from "../../ui/radio-group";
-import { Label } from "../../ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { PhoneCustomInput } from "../../custom/PhoneCustomInput";
-import { Checkbox } from "../../ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useMeUser } from "@/hooks/useMeUser";
 
 interface InformationCardProps {
   form: UseFormReturn<RegisteringFormValues>;
 }
 
 export const InformationCard = ({ form }: InformationCardProps) => {
-  const { me } = useUser();
+  const { user: me } = useMeUser();
 
   return (
     <CardTemplate>

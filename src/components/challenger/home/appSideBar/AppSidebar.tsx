@@ -12,24 +12,24 @@ import {
   SidebarSeparator,
   SidebarGroup,
   SidebarGroupLabel,
-} from "../../ui/sidebar";
+} from "@/components/ui/sidebar";
 import { NavUser } from "../../custom/NavUser";
-import { useEdition } from "@/src/hooks/useEdition";
+import { useEdition } from "@/hooks/challenger/useEdition";
 import { NavMatches } from "./NavMatches";
 import { NavVolunteerShifts } from "./NavVolunteerShifts";
 import { NavSearch } from "./NavSearch";
 import { NavLocations } from "./NavLocations";
 import { NavPodium } from "./NavPodium";
-import { useParticipant } from "@/src/hooks/useParticipant";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { Logo } from "../../custom/Logo";
-import { useUser } from "@/src/hooks/useUser";
 import { FlaskConical } from "lucide-react";
+import { useMeUser } from "@/hooks/useMeUser";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { edition } = useEdition();
   const router = useRouter();
   const { meParticipant } = useParticipant();
-  const { me } = useUser();
+  const { user: me } = useMeUser();
   const isVolunteer = me?.school_id == "d9772da7-1142-4002-8b86-b694b431dfed";
 
   const isDevMode =

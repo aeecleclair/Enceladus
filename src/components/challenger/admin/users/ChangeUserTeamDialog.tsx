@@ -5,21 +5,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "../../ui/dialog";
-import { Button } from "../../ui/button";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
-import { Input } from "../../ui/input";
-import { Label } from "../../ui/label";
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { LoadingButton } from "../../custom/LoadingButton";
-import { useSportTeams } from "@/src/hooks/useSportTeams";
-import { useChangeParticipantSport } from "@/src/hooks/useChangeParticipantSport";
-import { useCreateTeam } from "@/src/hooks/useCreateTeam";
+import { useSportTeams } from "@/hooks/challenger/useSportTeams";
+import { useChangeParticipantSport } from "@/hooks/challenger/useChangeParticipantSport";
+import { useCreateTeam } from "@/hooks/challenger/useCreateTeam";
 
 interface ChangeUserTeamDialogProps {
   open: boolean;

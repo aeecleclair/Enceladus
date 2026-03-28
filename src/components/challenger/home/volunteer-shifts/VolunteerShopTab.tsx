@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import { useAvailableProducts } from "@/src/hooks/useAvailableProducts";
-import { useUserPurchases } from "@/src/hooks/useUserPurchases";
-import { usePayment } from "@/src/hooks/usePayment";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { Button } from "../../ui/button";
-import { Badge } from "../../ui/badge";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
+import { usePayment } from "@/hooks/challenger/usePayment";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { LoadingButton } from "../../custom/LoadingButton";
 import {
   ShoppingBag,
@@ -15,8 +15,8 @@ import {
   Plus,
   Minus,
 } from "lucide-react";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/src/api/hyperionSchemas";
-import { useCompetitionUser } from "@/src/hooks/useCompetitionUser";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
+import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 
 export const VolunteerShopTab = () => {
   const { availableProducts } = useAvailableProducts();

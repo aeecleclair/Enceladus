@@ -1,9 +1,6 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "@/src/components/ui/sidebar";
-import { useLocations } from "@/src/hooks/useLocations";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
+import { useLocations } from "@/hooks/challenger/useLocations";
 import { useRouter } from "next/navigation";
 
 export function NavLocations() {

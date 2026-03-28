@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useLocations } from "@/src/hooks/useLocations";
-import { DeleteConfirmationDialog } from "@/src/components/admin/locations/DeleteConfirmationDialog";
-import { LocationComplete } from "@/src/api/hyperionSchemas";
-import { MapPicker } from "@/src/components/admin/locations/MapPicker";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { DeleteConfirmationDialog } from "@/components/challenger/admin/locations/DeleteConfirmationDialog";
+import { LocationComplete } from "@/api";
+import { MapPicker } from "@/components/challenger/admin/locations/MapPicker";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { locationSchema, LocationFormData } from "@/src/forms/location";
+import { locationSchema, LocationFormData } from "@/forms/challenger/location";
 
 export default function LocationsPage() {
   const {

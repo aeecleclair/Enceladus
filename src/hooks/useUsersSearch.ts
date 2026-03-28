@@ -1,7 +1,7 @@
 import { getUsersSearchOptions } from "@/api/@tanstack/react-query.gen";
 import { useQuery } from "@tanstack/react-query";
-import { useUser } from "./useUser";
-import { useAuth } from "../useAuth";
+import { useAuth } from "./useAuth";
+import { useMeUser } from "./useMeUser";
 
 interface UseUserSearchProps {
   query: string;
@@ -9,7 +9,6 @@ interface UseUserSearchProps {
 
 export const useUserSearch = ({ query }: UseUserSearchProps) => {
   const { isTokenExpired } = useAuth();
-  const { isAdmin } = useUser();
 
   const {
     data: userSearch,
@@ -22,7 +21,7 @@ export const useUserSearch = ({ query }: UseUserSearchProps) => {
         query: query.trim() || "*",
       },
     }),
-    enabled: isAdmin() && !isTokenExpired() && query.trim().length >= 0,
+    enabled: !isTokenExpired() && query.trim().length >= 0,
     retry: false,
     refetchOnWindowFocus: false,
   });

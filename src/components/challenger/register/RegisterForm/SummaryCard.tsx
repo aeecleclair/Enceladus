@@ -1,29 +1,29 @@
 import { UseFormReturn } from "react-hook-form";
-import { RegisteringFormValues } from "@/src/forms/registering";
-import { useUser } from "@/src/hooks/useUser";
-import { useSports } from "@/src/hooks/useSports";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { useSports } from "@/hooks/challenger/useSports";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { CardTemplate } from "./CardTemplate";
-import { Badge } from "../../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { CheckCircle2 } from "lucide-react";
-import { useSchoolSportTeams } from "@/src/hooks/useSchoolSportTeams";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useMeUser } from "@/hooks/useMeUser";
 
 interface SummaryCardProps {
   form: UseFormReturn<RegisteringFormValues>;
 }
 
 export const SummaryCard = ({ form }: SummaryCardProps) => {
-  const { me } = useUser();
+  const { user: me } = useMeUser();
   const { teams } = useSchoolSportTeams({
     schoolId: me?.school_id,
     sportId: form.getValues().sport?.id,
   });
   const { sports } = useSports();
   const formValues = form.getValues();
-  
+
   const selectedSport = formValues.sport?.id
-  ? sports?.find((sport) => sport.id === formValues.sport?.id)
-  : undefined;
+    ? sports?.find((sport) => sport.id === formValues.sport?.id)
+    : undefined;
 
   const myTeam = teams?.find((team) => team.id === formValues.sport?.team_id);
 

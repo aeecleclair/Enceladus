@@ -7,12 +7,10 @@ export const volunteerShiftFormSchema = z
     description: z.string().optional(),
     value: z.number().min(0, "La valeur doit être au moins 0"),
     start_time: z.date({
-      required_error: "L'heure de début est requise",
-      invalid_type_error: "L'heure de début doit être une date valide",
+      error: "L'heure de début est requise",
     }),
     end_time: z.date({
-      required_error: "L'heure de fin est requise",
-      invalid_type_error: "L'heure de fin doit être une date valide",
+      error: "L'heure de fin est requise",
     }),
     location: z.string(),
     max_volunteers: z

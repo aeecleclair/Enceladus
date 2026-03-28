@@ -6,10 +6,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useSportMatches } from "@/src/hooks/useSportMatches";
-import { MatchFormValues, matchFormSchema } from "@/src/forms/match";
-import { MatchesForm } from "@/src/components/admin/matches/MatchesForm";
-import { MatchBase } from "@/src/api/hyperionSchemas";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { MatchFormValues, matchFormSchema } from "@/forms/challenger/match";
+import { MatchesForm } from "@/components/challenger/admin/matches/MatchesForm";
+import { MatchBase } from "@/api";
 
 const CreateMatchPage = () => {
   const router = useRouter();

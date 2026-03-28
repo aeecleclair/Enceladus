@@ -28,6 +28,23 @@ export const useSports = () => {
   const { mutate: mutateCreateSport, isPending: isCreateLoading } = useMutation(
     {
       ...postCompetitionSportsMutation(),
+      onSuccess: () => {
+        refetchSports();
+        toast({
+          title: "Sport ajouté",
+          description: "Le sport a été ajouté avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de l'ajout du sport",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -36,33 +53,30 @@ export const useSports = () => {
       {
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de l'ajout du sport",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSports();
-            callback();
-            toast({
-              title: "Sport ajouté",
-              description: "Le sport a été ajouté avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateUpdateSport, isPending: isUpdateLoading } = useMutation(
     {
       ...patchCompetitionSportsSportIdMutation(),
+      onSuccess: () => {
+        refetchSports();
+        toast({
+          title: "Sport modifié",
+          description: "Le sport a été modifié avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la modification du sport",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -78,33 +92,30 @@ export const useSports = () => {
           sport_id: sportId,
         },
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la modification du sport",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSports();
-            callback();
-            toast({
-              title: "Sport modifié",
-              description: "Le sport a été modifié avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateDeleteSport, isPending: isDeleteLoading } = useMutation(
     {
       ...deleteCompetitionSportsSportIdMutation(),
+      onSuccess: () => {
+        refetchSports();
+        toast({
+          title: "Sport supprimé",
+          description: "Le sport a été supprimé avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la suppression du sport",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     },
   );
 
@@ -115,27 +126,7 @@ export const useSports = () => {
           sport_id: sportId,
         },
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la suppression du sport",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSports();
-            callback();
-            toast({
-              title: "Sport supprimé",
-              description: "Le sport a été supprimé avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 

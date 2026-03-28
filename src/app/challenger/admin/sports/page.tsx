@@ -1,18 +1,26 @@
 "use client";
 
-import SportCard from "@/src/components/admin/sports/SportCard";
-import { DeleteConfirmationDialog } from "@/src/components/admin/sports/DeleteConfirmationDialog";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Badge } from "@/src/components/ui/badge";
-import { useSports } from "@/src/hooks/useSports";
-import { useAllMatches } from "@/src/hooks/useAllMatches";
-import { useAllTeams } from "@/src/hooks/useAllTeams";
+import SportCard from "@/components/challenger/admin/sports/SportCard";
+import { DeleteConfirmationDialog } from "@/components/challenger/admin/sports/DeleteConfirmationDialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useAllTeams } from "@/hooks/challenger/useAllTeams";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import SportDetail from "@/src/components/admin/sports/SportDetail";
+import SportDetail from "@/components/challenger/admin/sports/SportDetail";
 import { useState, useMemo } from "react";
-import { Search, Plus, Trophy, Users, Filter, Target, AlertTriangle } from "lucide-react";
+import {
+  Search,
+  Plus,
+  Trophy,
+  Users,
+  Filter,
+  Target,
+  AlertTriangle,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,7 +28,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -94,12 +102,35 @@ const Dashboard = () => {
         (filterTeams === "with_teams" && sportTeamCount > 0) ||
         (filterTeams === "without_teams" && sportTeamCount === 0);
 
-      return matchesSearch && matchesStatus && matchesCategory && matchesMatchFilter && matchesTeamFilter;
+      return (
+        matchesSearch &&
+        matchesStatus &&
+        matchesCategory &&
+        matchesMatchFilter &&
+        matchesTeamFilter
+      );
     });
-  }, [sports, searchQuery, filterStatus, filterCategory, filterMatches, matchCountBySport, filterTeams, teamCountBySport]);
+  }, [
+    sports,
+    searchQuery,
+    filterStatus,
+    filterCategory,
+    filterMatches,
+    matchCountBySport,
+    filterTeams,
+    teamCountBySport,
+  ]);
 
   const stats = useMemo(() => {
-    if (!sports) return { total: 0, active: 0, masculine: 0, feminine: 0, withoutMatches: 0, withoutTeams: 0 };
+    if (!sports)
+      return {
+        total: 0,
+        active: 0,
+        masculine: 0,
+        feminine: 0,
+        withoutMatches: 0,
+        withoutTeams: 0,
+      };
 
     return {
       total: sports.length,
@@ -369,7 +400,11 @@ const Dashboard = () => {
           </div>
 
           {/* Results info */}
-          {searchQuery || filterStatus !== "all" || filterCategory !== "all" || filterMatches !== "all" || filterTeams !== "all" ? (
+          {searchQuery ||
+          filterStatus !== "all" ||
+          filterCategory !== "all" ||
+          filterMatches !== "all" ||
+          filterTeams !== "all" ? (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <span>
                 {filteredSports.length} sport(s) trouvé(s)
@@ -379,7 +414,10 @@ const Dashboard = () => {
                 {filterTeams === "without_teams" && " sans équipes"}
                 {filterTeams === "with_teams" && " avec équipes"}
               </span>
-              {(filterStatus !== "all" || filterCategory !== "all" || filterMatches !== "all" || filterTeams !== "all") && (
+              {(filterStatus !== "all" ||
+                filterCategory !== "all" ||
+                filterMatches !== "all" ||
+                filterTeams !== "all") && (
                 <Button
                   variant="ghost"
                   size="sm"

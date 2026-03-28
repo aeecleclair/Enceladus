@@ -1,6 +1,6 @@
 "use client";
 
-import { EditionManagement } from "@/src/components/admin/editions/EditionManagement";
+import { EditionManagement } from "@/components/challenger/admin/editions/EditionManagement";
 
 export default function EditionsPage() {
   return (

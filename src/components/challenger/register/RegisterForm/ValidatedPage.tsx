@@ -1,28 +1,31 @@
 import { CheckCircle2, CreditCard } from "lucide-react";
 import { useState } from "react";
-import { Card, CardDescription, CardTitle } from "../../ui/card";
-import { Button } from "../../ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { WarningDialog } from "../../custom/WarningDialog";
 import { HelloAssoButton } from "../../custom/HelloAssoButton";
 import { RegistrationSummary } from "./RegistrationSummary";
-import { usePayment } from "../../../hooks/usePayment";
-import { useUserPayments } from "../../../hooks/useUserPayments";
-import { Dialog, DialogContent, DialogTitle } from "../../ui/dialog";
-import { Form } from "../../ui/form";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
 import { BasketCard } from "./BasketCard";
 import { LoadingButton } from "../../custom/LoadingButton";
 import { useForm } from "react-hook-form";
-import { editProductSchema, EditProductValues } from "@/src/forms/editProducts";
+import {
+  editProductSchema,
+  EditProductValues,
+} from "@/forms/challenger/editProducts";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAvailableProducts } from "@/src/hooks/useAvailableProducts";
-import { useUser } from "@/src/hooks/useUser";
-import { useUserPurchases } from "@/src/hooks/useUserPurchases";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
   Purchase,
-} from "@/src/api/hyperionSchemas";
-import { useCompetitionUser } from "@/src/hooks/useCompetitionUser";
+} from "@/api";
+import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 import { useRouter } from "next/navigation";
+import { useMeUser } from "@/hooks/useMeUser";
+import { usePayment } from "@/hooks/challenger/usePayment";
+import { useUserPayments } from "@/hooks/challenger/useUserPayments";
 
 interface ValidatedPageProps {
   userMePurchases?: Purchase[];
@@ -33,7 +36,7 @@ export const ValidatedPage = ({ userMePurchases }: ValidatedPageProps) => {
   const { availableProducts } = useAvailableProducts();
   const [purchaseDialogOpen, setPurchaseDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { me } = useUser();
+  const { user: me } = useMeUser();
   const { createPurchase, deletePurchase } = useUserPurchases({
     userId: me?.id,
   });

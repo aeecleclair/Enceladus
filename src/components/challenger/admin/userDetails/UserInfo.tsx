@@ -1,10 +1,10 @@
 "use client";
 
-import { CompetitionUser } from "@/src/api/hyperionSchemas";
+import { CompetitionUser } from "@/api";
 import { Mail, Phone, School, User, IdCard } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 
 export const UserInfo = ({ user }: { user: CompetitionUser }) => {
   const { sportSchools } = useSportSchools();

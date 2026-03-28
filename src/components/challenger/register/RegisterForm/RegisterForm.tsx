@@ -1,20 +1,11 @@
-import {
-  registeringFormSchema,
-  RegisteringFormValues,
-} from "@/src/forms/registering";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
 import { SetStateAction, useEffect, useState } from "react";
 import { RegisterFormField } from "./RegisterFormField";
-import { Form } from "../../ui/form";
-import { RegisterState } from "@/src/infra/registerState";
-import { useSports } from "@/src/hooks/useSports";
-import { useUser } from "@/src/hooks/useUser";
-import { useCompetitionUser } from "@/src/hooks/useCompetitionUser";
+import { Form } from "@/components/ui/form";
 import { WaitingPage } from "./WaitingPage";
 import { ValidatedPage } from "./ValidatedPage";
-import { useParticipant } from "@/src/hooks/useParticipant";
 import { useRouter } from "next/navigation";
-import { CarouselApi } from "../../ui/carousel";
-import { useUserPurchases } from "@/src/hooks/useUserPurchases";
+import { CarouselApi } from "@/components/ui/carousel";
 import { UseFormReturn } from "react-hook-form";
 import {
   CompetitionUser,
@@ -22,7 +13,8 @@ import {
   ParticipantComplete,
   Purchase,
   Sport,
-} from "@/src/api/hyperionSchemas";
+} from "@/api";
+import { RegisterState } from "@/lib/challenger/registerState";
 
 interface RegisterFormProps {
   setState: (value: SetStateAction<RegisterState>) => void;

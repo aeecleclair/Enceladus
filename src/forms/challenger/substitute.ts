@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const substituteFormSchema = z.object({
   substitute: z.boolean({
-    required_error: "Veuillez sélectionner votre statut de remplaçant",
+    error: "Veuillez sélectionner votre statut de remplaçant",
   }),
 });
 

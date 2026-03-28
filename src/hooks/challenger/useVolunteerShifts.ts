@@ -101,6 +101,23 @@ export const useVolunteerShifts = () => {
   const { mutate: mutateCreateVolunteerShift, isPending: isCreateLoading } =
     useMutation({
       ...postCompetitionVolunteersShiftsMutation(),
+      onSuccess: () => {
+        refetchVolunteerShifts();
+        toast({
+          title: "Créneau créé",
+          description: "Le créneau a été créé avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la création du créneau",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     });
 
   const createVolunteerShift = (
@@ -111,33 +128,30 @@ export const useVolunteerShifts = () => {
       {
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la création du créneau",
-              description:
-                (error as any)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchVolunteerShifts();
-            callback();
-            toast({
-              title: "Créneau créé",
-              description: "Le créneau a été créé avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateUpdateVolunteerShift, isPending: isUpdateLoading } =
     useMutation({
       ...patchCompetitionVolunteersShiftsShiftIdMutation(),
+      onSuccess: () => {
+        refetchVolunteerShifts();
+        toast({
+          title: "Créneau mis à jour",
+          description: "Le créneau a été mis à jour avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la mise à jour",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     });
 
   const updateVolunteerShift = (
@@ -152,33 +166,30 @@ export const useVolunteerShifts = () => {
         },
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la mise à jour",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchVolunteerShifts();
-            callback();
-            toast({
-              title: "Créneau mis à jour",
-              description: "Le créneau a été mis à jour avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateDeleteVolunteerShift, isPending: isDeleteLoading } =
     useMutation({
       ...deleteCompetitionVolunteersShiftsShiftIdMutation(),
+      onSuccess: () => {
+        refetchVolunteerShifts();
+        toast({
+          title: "Créneau supprimé",
+          description: "Le créneau a été supprimé avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la suppression",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     });
 
   const deleteVolunteerShift = (shiftId: string, callback: () => void) => {
@@ -188,32 +199,28 @@ export const useVolunteerShifts = () => {
           shift_id: shiftId,
         },
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la suppression",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchVolunteerShifts();
-            callback();
-            toast({
-              title: "Créneau supprimé",
-              description: "Le créneau a été supprimé avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateValidation, isPending: isValidating } = useMutation({
     ...patchCompetitionVolunteersShiftsShiftIdUsersUserIdValidationMutation(),
+    onSuccess: (_, { body: { validated } }) => {
+      refetchVolunteerShifts();
+      toast({
+        title: validated ? "Participation validée" : "Validation annulée",
+        description: validated
+          ? "La participation a été confirmée."
+          : "La validation a été annulée.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Erreur",
+        description: "Impossible de mettre à jour la participation.",
+        variant: "destructive",
+      });
+    },
   });
 
   const validateParticipation = (
@@ -221,34 +228,13 @@ export const useVolunteerShifts = () => {
     userId: string,
     validated: boolean,
   ) => {
-    return mutateValidation(
-      {
-        path: {
-          shift_id: shiftId,
-          user_id: userId,
-        },
-        body: { validated },
+    return mutateValidation({
+      path: {
+        shift_id: shiftId,
+        user_id: userId,
       },
-      {
-        onSettled: (_data, error) => {
-          if (error) {
-            toast({
-              title: "Erreur",
-              description: "Impossible de mettre à jour la participation.",
-              variant: "destructive",
-            });
-          } else {
-            refetchVolunteerShifts();
-            toast({
-              title: validated ? "Participation validée" : "Validation annulée",
-              description: validated
-                ? "La participation a été confirmée."
-                : "La validation a été annulée.",
-            });
-          }
-        },
-      },
-    );
+      body: { validated },
+    });
   };
 
   return {

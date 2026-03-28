@@ -1,7 +1,7 @@
 "use client";
 
-import { LocationComplete } from "@/src/api/hyperionSchemas";
-import { Button } from "@/src/components/ui/button";
+import { LocationComplete } from "@/api";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,7 +9,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
+} from "@/components/ui/card";
 import { Edit, MapPin, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 

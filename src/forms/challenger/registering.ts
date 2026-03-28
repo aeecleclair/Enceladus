@@ -3,7 +3,7 @@ import {
   isValidPhoneNumber,
   parsePhoneNumberWithError,
 } from "libphonenumber-js";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/src/api/hyperionSchemas";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
 
 const sexEnum = ["masculine", "feminine"] as const;
 
@@ -11,7 +11,7 @@ export const registeringFormSchema = z
   .object({
     phone: z
       .string({
-        required_error: "Veuillez renseigner le numéro de téléphone",
+        error: "Veuillez renseigner le numéro de téléphone",
       })
       .refine(
         (value) => isValidPhoneNumber(value, "FR"),
@@ -23,12 +23,12 @@ export const registeringFormSchema = z
     is_pompom: z.boolean(),
     allow_pictures: z.boolean().default(true),
     sex: z.enum(sexEnum, {
-      required_error: "Veuillez sélectionner une option",
+      error: "Veuillez sélectionner une option",
     }),
     sport: z
       .object({
         id: z.string({
-          required_error: "Veuillez sélectionner un sport",
+          error: "Veuillez sélectionner un sport",
         }),
         team_id: z.string().optional(),
         license_number: z.string().optional(),

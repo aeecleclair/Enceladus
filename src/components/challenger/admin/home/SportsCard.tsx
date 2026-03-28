@@ -4,15 +4,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { Sport } from "@/src/api/hyperionSchemas";
+} from "@/components/ui/popover";
+import { Sport } from "@/api";
 
 interface SportsCardProps {
   sports: Sport[];

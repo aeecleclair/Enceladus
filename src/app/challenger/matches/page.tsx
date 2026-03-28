@@ -1,28 +1,22 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
-import { UpcomingMatches } from "../../components/home/matches/UpcomingMatches";
-import { PastMatches } from "../../components/home/matches/PastMatches";
-import { useSportMatches } from "../../hooks/useSportMatches";
-import { useParticipant } from "../../hooks/useParticipant";
-import { useSchoolSportTeams } from "../../hooks/useSchoolSportTeams";
-import { useSports } from "../../hooks/useSports";
-import { useSchools } from "../../hooks/useSchools";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { UpcomingMatches } from "@/components/challenger/home/matches/UpcomingMatches";
+import { PastMatches } from "@/components/challenger/home/matches/PastMatches";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSports } from "@/hooks/challenger/useSports";
 import { Calendar, Trophy, Users, GraduationCap, Zap } from "lucide-react";
-import { Match, MatchComplete } from "../../api/hyperionSchemas";
+import { Match, MatchComplete } from "@/api";
 import { useMemo } from "react";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/src/components/ui/sidebar";
-import { AppSidebar } from "@/src/components/home/appSideBar/AppSidebar";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 
 export default function MatchesPage() {
   const { meParticipant } = useParticipant();

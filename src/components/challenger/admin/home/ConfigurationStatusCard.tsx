@@ -4,14 +4,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/src/components/ui/tooltip";
+} from "@/components/ui/tooltip";
 import {
   CompetitionEdition,
   Sport,
@@ -19,8 +19,8 @@ import {
   SchoolExtension,
   TeamComplete,
   VolunteerShiftCompleteWithVolunteers,
-} from "@/src/api/hyperionSchemas";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/src/api/hyperionSchemas";
+} from "@/api";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
 import React from "react";
 
 interface ConfigurationStatusCardProps {
@@ -69,9 +69,7 @@ export const ConfigurationStatusCard = ({
     (sport) => !sportIdsWithTeams.has(sport.id),
   );
 
-  const sportTeamSizeMap = new Map(
-    sports.map((s) => [s.id, s.team_size]),
-  );
+  const sportTeamSizeMap = new Map(sports.map((s) => [s.id, s.team_size]));
   const incompleteTeams = allTeams.filter(
     (team) =>
       (team.participants?.length ?? 0) <
@@ -79,8 +77,7 @@ export const ConfigurationStatusCard = ({
   );
 
   const unfilledShifts = volunteerShifts.filter(
-    (shift) =>
-      (shift.registrations?.length ?? 0) < shift.max_volunteers,
+    (shift) => (shift.registrations?.length ?? 0) < shift.max_volunteers,
   );
 
   const enabledProducts = products.filter(
@@ -137,11 +134,7 @@ export const ConfigurationStatusCard = ({
                       </Badge>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>
-                        {sportsWithoutTeams
-                          .map((s) => s.name)
-                          .join(", ")}
-                      </p>
+                      <p>{sportsWithoutTeams.map((s) => s.name).join(", ")}</p>
                     </TooltipContent>
                   </Tooltip>
                 )}
@@ -157,9 +150,7 @@ export const ConfigurationStatusCard = ({
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>
-                        {sportsWithoutMatches
-                          .map((s) => s.name)
-                          .join(", ")}
+                        {sportsWithoutMatches.map((s) => s.name).join(", ")}
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -184,9 +175,7 @@ export const ConfigurationStatusCard = ({
             </div>
 
             <div className="flex items-center justify-between">
-              <span className="text-sm">
-                Équipes ({allTeams.length})
-              </span>
+              <span className="text-sm">Équipes ({allTeams.length})</span>
               <div className="flex items-center gap-1.5">
                 {incompleteTeams.length > 0 && (
                   <Tooltip>
@@ -210,9 +199,7 @@ export const ConfigurationStatusCard = ({
                     </TooltipContent>
                   </Tooltip>
                 )}
-                <Badge
-                  variant={allTeams.length > 0 ? "default" : "secondary"}
-                >
+                <Badge variant={allTeams.length > 0 ? "default" : "secondary"}>
                   {allTeams.length > 0
                     ? incompleteTeams.length === 0
                       ? "Toutes complètes"
@@ -250,9 +237,7 @@ export const ConfigurationStatusCard = ({
                   </Tooltip>
                 )}
                 <Badge
-                  variant={
-                    volunteerShifts.length > 0 ? "default" : "secondary"
-                  }
+                  variant={volunteerShifts.length > 0 ? "default" : "secondary"}
                 >
                   {volunteerShifts.length > 0
                     ? unfilledShifts.length === 0

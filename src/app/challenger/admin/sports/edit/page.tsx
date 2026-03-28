@@ -1,21 +1,16 @@
 "use client";
 
-import { useSports } from "@/src/hooks/useSports";
+import { useSports } from "@/hooks/challenger/useSports";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { SportsForm } from "@/src/components/admin/sports/SportsForm";
-import { SportEdit } from "@/src/api/hyperionSchemas";
-import { sportFormSchema, SportFormValues } from "@/src/forms/sport";
-import { Button } from "@/src/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { SportsForm } from "@/components/challenger/admin/sports/SportsForm";
+import { SportEdit } from "@/api";
+import { sportFormSchema, SportFormValues } from "@/forms/challenger/sport";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Edit, Trophy } from "lucide-react";
 
 const EditSportPage = () => {

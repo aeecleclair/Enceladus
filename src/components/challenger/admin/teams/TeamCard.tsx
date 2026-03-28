@@ -1,13 +1,8 @@
 "use client";
 
-import { TeamComplete } from "@/src/api/hyperionSchemas";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
+import { TeamComplete } from "@/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   AlertTriangle,
   Users,
@@ -20,11 +15,11 @@ import {
   UserX,
   Star,
 } from "lucide-react";
-import { Button } from "@/src/components/ui/button";
-import { useSports } from "@/src/hooks/useSports";
-import { useSchools } from "@/src/hooks/useSchools";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import { Button } from "@/components/ui/button";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSchools } from "@/hooks/useSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 
 interface TeamCardProps {
   team: TeamComplete;
@@ -45,7 +40,9 @@ const TeamCard = ({ team, onEdit, onDelete }: TeamCardProps) => {
     (team.participants?.length ?? 0) < (sport?.team_size ?? 0);
 
   return (
-    <Card className={`hover:shadow-lg transition-all duration-200 hover:-translate-y-1 group ${isIncomplete ? "border-amber-300 bg-amber-50/50" : ""}`}>
+    <Card
+      className={`hover:shadow-lg transition-all duration-200 hover:-translate-y-1 group ${isIncomplete ? "border-amber-300 bg-amber-50/50" : ""}`}
+    >
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
           <CardTitle className="text-lg font-semibold group-hover:text-primary transition-colors line-clamp-2 flex items-center gap-2">
@@ -71,7 +68,8 @@ const TeamCard = ({ team, onEdit, onDelete }: TeamCardProps) => {
                 className="gap-1 bg-amber-100 text-amber-800 border-amber-300"
               >
                 <AlertTriangle className="h-3 w-3" />
-                {team.participants?.length ?? 0}/{sport?.team_size ?? "?"} joueurs
+                {team.participants?.length ?? 0}/{sport?.team_size ?? "?"}{" "}
+                joueurs
               </Badge>
             )}
           </div>

@@ -1,13 +1,8 @@
 "use client";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   ArrowLeft,
   Edit,
@@ -21,14 +16,14 @@ import {
   Info,
   Target,
 } from "lucide-react";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/src/api/hyperionSchemas";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
 import { ProductsQuotaDialog } from "./ProductsQuotaDialog";
 import { ProductQuotaDataTable } from "./ProductQuotaDataTable";
 import { DeleteConfirmationDialog } from "../sports/DeleteConfirmationDialog";
-import { useProductsQuota } from "@/src/hooks/useProductsQuota";
-import { useSchools } from "@/src/hooks/useSchools";
-import { ProductQuotaFormValues } from "@/src/forms/productQuota";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { useProductsQuota } from "@/hooks/challenger/useProductsQuota";
+import { useSchools } from "@/hooks/useSchools";
+import { ProductQuotaFormValues } from "@/forms/challenger/productQuota";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { useState } from "react";
 
 interface ProductDetailProps {

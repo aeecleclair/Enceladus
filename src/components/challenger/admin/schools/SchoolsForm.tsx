@@ -1,19 +1,19 @@
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { StyledFormField } from "@/src/components/custom/StyledFormField";
-import { Form } from "@/src/components/ui/form";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { Form } from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
+} from "@/components/ui/select";
 import { UseFormReturn } from "react-hook-form";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { SchoolFormValues } from "@/src/forms/schools";
-import { Checkbox } from "@/src/components/ui/checkbox";
-import { CoreSchool } from "@/src/api/hyperionSchemas";
-import { Input } from "../../ui/input";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { SchoolFormValues } from "@/forms/challenger/schools";
+import { Checkbox } from "@/components/ui/checkbox";
+import { CoreSchool } from "@/api";
+import { Input } from "@/components/ui/input";
 
 interface SchoolsFormProps {
   form: UseFormReturn<SchoolFormValues>;

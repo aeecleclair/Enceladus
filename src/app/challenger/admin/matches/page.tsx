@@ -3,13 +3,13 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Badge } from "@/src/components/ui/badge";
-import { useSportMatches } from "@/src/hooks/useSportMatches";
-import { useSports } from "@/src/hooks/useSports";
-import MatchCard from "@/src/components/admin/matches/MatchCard";
-import { WarningDialog } from "@/src/components/custom/WarningDialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { useSports } from "@/hooks/challenger/useSports";
+import MatchCard from "@/components/challenger/admin/matches/MatchCard";
+import { WarningDialog } from "@/components/challenger/custom/WarningDialog";
 import {
   Plus,
   CalendarIcon,
@@ -25,15 +25,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
+} from "@/components/ui/select";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
-import { Skeleton } from "@/src/components/ui/skeleton";
-import { useCompetitionUsers } from "@/src/hooks/useCompetitionUsers";
+} from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
 
 const MatchesDashboard = () => {
   const router = useRouter();

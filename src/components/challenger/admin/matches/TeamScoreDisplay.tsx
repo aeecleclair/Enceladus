@@ -1,9 +1,9 @@
 "use client";
 
-import { CompetitionUser } from "@/src/api/hyperionSchemas";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { CompetitionUser } from "@/api";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { Phone, Copy, UsersIcon, CheckIcon } from "lucide-react";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 interface TeamScoreDisplayProps {
@@ -37,7 +37,9 @@ export const TeamScoreDisplay = ({
 
   return (
     <div className="col-span-1 flex flex-col items-center justify-center min-w-0 overflow-hidden">
-      <div className="text-sm font-medium text-center mb-0.5 truncate w-full">{teamName}</div>
+      <div className="text-sm font-medium text-center mb-0.5 truncate w-full">
+        {teamName}
+      </div>
       {schoolName && (
         <div className="text-xs text-muted-foreground text-center mb-0.5">
           {formatSchoolName(schoolName)}
@@ -57,7 +59,9 @@ export const TeamScoreDisplay = ({
                 title="Appeler"
               >
                 <Phone className="h-3 w-3" />
-                <span className="font-mono text-[10px]">{captain.user.phone}</span>
+                <span className="font-mono text-[10px]">
+                  {captain.user.phone}
+                </span>
               </a>
               <Button
                 variant="ghost"

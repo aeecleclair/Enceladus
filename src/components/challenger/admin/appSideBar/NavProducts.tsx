@@ -1,10 +1,7 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
-import { useProducts } from "@/src/hooks/useProducts";
+import { useProducts } from "@/hooks/challenger/useProducts";
 
 export function NavProducts() {
   const { products } = useProducts();

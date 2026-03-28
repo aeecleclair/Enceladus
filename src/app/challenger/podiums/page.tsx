@@ -1,18 +1,18 @@
 "use client";
 
-import { useSports } from "@/src/hooks/useSports";
-import { useSchools } from "@/src/hooks/useSchools";
-import { usePompomsPodiums } from "@/src/hooks/usePompomsPodiums";
-import { useSportPodiums } from "@/src/hooks/useSportsPodiums";
-import { usePodiums } from "@/src/hooks/usePodiums";
-import { SportsDataTable } from "@/src/components/podiums/SportsDataTable";
-import { GlobalPodiumCard } from "@/src/components/podiums/GlobalPodiumCard";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSchools } from "@/hooks/useSchools";
+import { usePompomsPodiums } from "@/hooks/challenger/usePompomsPodiums";
+import { useSportPodiums } from "@/hooks/challenger/useSportsPodiums";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { SportsDataTable } from "@/components/challenger/podiums/SportsDataTable";
+import { GlobalPodiumCard } from "@/components/challenger/podiums/GlobalPodiumCard";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/src/components/ui/sidebar";
-import { AppSidebar } from "@/src/components/home/appSideBar/AppSidebar";
+} from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 
 export default function PodiumsPage() {
   const { sports, error: sportsError } = useSports();

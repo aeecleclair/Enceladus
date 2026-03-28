@@ -5,20 +5,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   purchaseEditFormSchema,
   PurchaseEditFormValues,
-} from "@/src/forms/purchase";
-import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseComplete } from "@/src/api/hyperionSchemas";
+} from "@/forms/challenger/purchase";
+import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseComplete } from "@/api";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
-import { Form } from "@/src/components/ui/form";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { StyledFormField } from "@/src/components/custom/StyledFormField";
+} from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
 
 interface EditPurchaseDialogProps {
   isOpen: boolean;

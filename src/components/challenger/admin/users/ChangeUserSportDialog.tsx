@@ -5,22 +5,22 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "../../ui/dialog";
-import { Button } from "../../ui/button";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
-import { Input } from "../../ui/input";
-import { Label } from "../../ui/label";
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { LoadingButton } from "../../custom/LoadingButton";
-import { useSports } from "@/src/hooks/useSports";
-import { useSportTeams } from "@/src/hooks/useSportTeams";
-import { useChangeParticipantSport } from "@/src/hooks/useChangeParticipantSport";
-import { useCreateTeam } from "@/src/hooks/useCreateTeam";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSportTeams } from "@/hooks/challenger/useSportTeams";
+import { useChangeParticipantSport } from "@/hooks/challenger/useChangeParticipantSport";
+import { useCreateTeam } from "@/hooks/challenger/useCreateTeam";
 import { ChevronRight } from "lucide-react";
 
 interface ChangeUserSportDialogProps {
@@ -253,8 +253,8 @@ export const ChangeUserSportDialog = ({
                 <strong>
                   {createTeamMode
                     ? newTeamName
-                    : sportTeams?.find((t) => t.id === selectedTeamId)?.name ??
-                      "—"}
+                    : (sportTeams?.find((t) => t.id === selectedTeamId)?.name ??
+                      "—")}
                 </strong>
               </p>
             )}

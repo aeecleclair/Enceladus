@@ -8,10 +8,10 @@ import {
   AlertCircle,
   CheckCircle,
 } from "lucide-react";
-import { Button } from "../../ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { Badge } from "../../ui/badge";
-import { Progress } from "../../ui/progress";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useVolunteerShifts } from "../../../hooks/useVolunteerShifts";
@@ -21,7 +21,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
 
 interface VolunteerShiftDetailProps {
   shiftId: string;

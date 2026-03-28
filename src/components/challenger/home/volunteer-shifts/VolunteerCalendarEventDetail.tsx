@@ -5,7 +5,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
 import { CalendarEvent } from "../../custom/FullScreenCalendar";
 import UserVolunteerShiftDetail from "./UserVolunteerShiftDetail";
 

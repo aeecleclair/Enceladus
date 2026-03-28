@@ -1,21 +1,10 @@
 "use client";
 
 import { Plus, Calendar, Users } from "lucide-react";
-import { Button } from "../../../components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../../components/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "../../../components/ui/tabs";
-import { useVolunteerShifts } from "../../../hooks/useVolunteerShifts";
-import { LoadingButton } from "../../../components/custom/LoadingButton";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
 import { useState, useMemo } from "react";
 import { format } from "date-fns";
 import {
@@ -23,8 +12,9 @@ import {
   VolunteerShiftForm,
   VolunteerShiftCalendar,
   VolunteerDataTable,
-} from "../../../components/admin/volunteer-shifts";
-import { VolunteerShiftComplete } from "../../../api/hyperionSchemas";
+} from "@/components/challenger/admin/volunteer-shifts";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { VolunteerShiftComplete } from "@/api";
 
 export default function VolunteerShiftsPage() {
   const { splitVolunteerShifts, volunteerShifts, isLoading } =

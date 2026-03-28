@@ -1,8 +1,8 @@
 "use client";
 
 import { Trophy } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface PodiumEntry {
   school_id: string;

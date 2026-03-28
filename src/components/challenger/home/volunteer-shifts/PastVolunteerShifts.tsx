@@ -1,5 +1,5 @@
 import { VolunteerRegistrationComplete } from "../../../api/hyperionSchemas";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { History, ChevronDown, ChevronUp } from "lucide-react";
 import { useMemo, useState } from "react";
 import { VolunteerShiftCard } from ".";

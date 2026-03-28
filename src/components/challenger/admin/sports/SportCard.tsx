@@ -1,16 +1,16 @@
 "use client";
 
-import { Sport } from "@/src/api/hyperionSchemas";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+import { Sport } from "@/api";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { sportCategories } from "@/src/forms/sport";
+} from "@/components/ui/card";
+import { sportCategories } from "@/forms/challenger/sport";
 import {
   AlertTriangle,
   Eye,

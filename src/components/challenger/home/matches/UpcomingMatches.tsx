@@ -1,6 +1,6 @@
 import { Match, MatchComplete } from "../../../api/hyperionSchemas";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { Separator } from "../../ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { MatchCard } from "./MatchCard";

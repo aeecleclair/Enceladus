@@ -1,5 +1,5 @@
+import { nullableInteger } from "@/lib/challenger/nullableInterger";
 import { z } from "zod";
-import { nullableInteger } from "../utils/nullableInterger";
 
 export const generalQuotaFormSchema = z.object({
   athlete_quota: nullableInteger(

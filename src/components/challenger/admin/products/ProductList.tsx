@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/src/api/hyperionSchemas";
-import { useProducts } from "@/src/hooks/useProducts";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Badge } from "@/src/components/ui/badge";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import {
   Search,
   Plus,
@@ -27,7 +22,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/src/components/ui/collapsible";
+} from "@/components/ui/collapsible";
 
 interface ProductListProps {
   products: AppModulesSportCompetitionSchemasSportCompetitionProductComplete[];

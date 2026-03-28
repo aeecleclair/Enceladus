@@ -1,27 +1,22 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSchoolParticipants } from "@/src/hooks/useSchoolParticipants";
+import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
 import { useEffect, useMemo, useState } from "react";
-import { ParticipantDataTable } from "@/src/components/admin/license/ParticipantDataTable";
-import { useSports } from "@/src/hooks/useSports";
-import { useUser } from "@/src/hooks/useUser";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { Badge } from "@/src/components/ui/badge";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/src/components/ui/tabs";
-import { useLicense } from "@/src/hooks/useLicense";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { ParticipantDataTable } from "@/components/challenger/admin/license/ParticipantDataTable";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLicense } from "@/hooks/challenger/useLicense";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useMeUser } from "@/hooks/useMeUser";
 
 const Dashboard = () => {
   const router = useRouter();
   const { sports } = useSports();
   const { sportSchools } = useSportSchools();
-  const { me: currentUser } = useUser();
+  const { user: currentUser } = useMeUser();
   const { updateLicense, isUpdateLoading } = useLicense();
 
   const [schoolParticipantsCounter, setSchoolParticipantsCounter] = useState<

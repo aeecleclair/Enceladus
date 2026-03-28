@@ -4,16 +4,16 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/src/components/ui/popover";
-import { SchoolExtension } from "@/src/api/hyperionSchemas";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+} from "@/components/ui/popover";
+import { SchoolExtension } from "@/api";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface SchoolsCardProps {
   schools: SchoolExtension[];

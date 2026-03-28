@@ -4,8 +4,8 @@ import {
   AppModulesSportCompetitionSchemasSportCompetitionProductComplete,
   AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
   ProductVariantStats,
-} from "@/src/api/hyperionSchemas";
-import { Badge } from "@/src/components/ui/badge";
+} from "@/api";
+import { Badge } from "@/components/ui/badge";
 
 export type RequiredPurchase = Array<{
   product_variant_id: string;

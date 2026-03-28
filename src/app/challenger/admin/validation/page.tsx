@@ -1,36 +1,33 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSchoolParticipants } from "@/src/hooks/useSchoolParticipants";
+import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
 import { useMemo, useEffect, useState } from "react";
-import { ParticipantData } from "@/src/components/admin/validation/ParticipantDataTable";
-import { useSports } from "@/src/hooks/useSports";
-import { useSportsQuota } from "@/src/hooks/useSportsQuota";
-import { useUser } from "@/src/hooks/useUser";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { Badge } from "@/src/components/ui/badge";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/src/components/ui/tabs";
-import { useSchoolsGeneralQuota } from "@/src/hooks/useSchoolsGeneralQuota";
-import { useSchoolsProductQuota } from "@/src/hooks/useSchoolsProductQuota";
-import { useProducts } from "@/src/hooks/useProducts";
-import { useCompetitionUsers } from "@/src/hooks/useCompetitionUsers";
-import { CompetitionUser } from "@/src/api/hyperionSchemas";
-import { ValidationTab } from "@/src/components/admin/validation/ValidationTab";
-import { useSchoolsPurchases } from "@/src/hooks/useSchoolsPurchases";
-import { useParticipant } from "@/src/hooks/useParticipant";
-import { RequiredPurchase } from "@/src/components/admin/validation/UserProductsCell";
+import { ParticipantData } from "@/components/challenger/admin/validation/ParticipantDataTable";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSportsQuota } from "@/hooks/challenger/useSportsQuota";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
+import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuota";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { CompetitionUser } from "@/api";
+import { ValidationTab } from "@/components/challenger/admin/validation/ValidationTab";
+import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { RequiredPurchase } from "@/components/challenger/admin/validation/UserProductsCell";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 
 const Dashboard = () => {
   const router = useRouter();
   const { sportSchools } = useSportSchools();
   const { sports } = useSports();
-  const { me: currentUser, isAdmin } = useUser();
+  const { user: currentUser } = useMeUser();
+  const { isChallengerAdmin } = useHasChallengerPermission();
 
   const [schoolCompetitionUsersCounter, setSchoolCompetitionUsersCounter] =
     useState<string[][]>([]);
@@ -50,7 +47,7 @@ const Dashboard = () => {
   const { products } = useProducts();
 
   const userSchoolId = currentUser?.school_id;
-  const canAccessSchool = isAdmin() || schoolId === userSchoolId;
+  const canAccessSchool = isChallengerAdmin || schoolId === userSchoolId;
 
   const effectiveSchoolId = schoolId || userSchoolId;
 
@@ -383,7 +380,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {isAdmin() ? (
+      {isChallengerAdmin ? (
         sportSchools &&
         sportSchools.length > 0 && (
           <Tabs

@@ -7,10 +7,10 @@ import {
   volunteerShiftFormSchema,
   VolunteerShiftFormSchema,
 } from "../../../forms/volunteerShift";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
-import { Textarea } from "../../ui/textarea";
-import { Label } from "../../ui/label";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { LoadingButton } from "../../custom/LoadingButton";
 import { DateTimePicker } from "../../custom/DateTimePicker";
 import { useVolunteerShifts } from "../../../hooks/useVolunteerShifts";
@@ -26,7 +26,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
@@ -34,14 +34,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../ui/form";
+} from "@/components/ui/form";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
+} from "@/components/ui/select";
 import {
   Command,
   CommandEmpty,
@@ -49,8 +49,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../../ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "../../ui/popover";
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { Check, ChevronsUpDown, User } from "lucide-react";
 
 interface VolunteerShiftFormProps {

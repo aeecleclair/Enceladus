@@ -13,9 +13,9 @@ import {
   SidebarSeparator,
   SidebarGroup,
   SidebarGroupLabel,
-} from "../../ui/sidebar";
+} from "@/components/ui/sidebar";
 import { NavUser } from "../../custom/NavUser";
-import { useEdition } from "@/src/hooks/useEdition";
+import { useEdition } from "@/hooks/challenger/useEdition";
 import { NavValidation } from "./NavValidation";
 import { NavSchools } from "./NavSchools";
 import { NavSports } from "./NavSports";
@@ -28,16 +28,17 @@ import { NavPodiums } from "./NavPodiums";
 import { NavLicense } from "./NavLicense";
 import { NavVolunteerShifts } from "./NavVolunteerShifts";
 import { NavEditions } from "./NavEditions";
-import { useUser } from "@/src/hooks/useUser";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { Logo } from "../../custom/Logo";
 import { NavExport } from "./NavExport";
 import { NavSchoolAssign } from "./NavSchoolAssign";
-import { Badge } from "../../ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { edition } = useEdition();
   const router = useRouter();
-  const { isAdmin, isSportManager, isBDS } = useUser();
+  const { isChallengerAdmin, isSportManager, isBDS } =
+    useHasChallengerPermission();
 
   const handleLogoClick = () => {
     router.push("/admin");
@@ -58,18 +59,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="[&_[data-sidebar=group]]:!py-0.5">
-        {isAdmin() && <NavEditions />}
+      <SidebarContent className="**:data-[sidebar=group]:py-0.5!">
+        {isChallengerAdmin && <NavEditions />}
         {edition && (
           <>
             {/* Competition section — sport managers & admin */}
-            {(isAdmin() || isSportManager()) && (
+            {(isChallengerAdmin || isSportManager) && (
               <>
                 <SidebarSeparator />
-                <SidebarGroup className="!py-0">
+                <SidebarGroup className="py-0!">
                   <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
                     Compétition
-                    {isAdmin() && (
+                    {isChallengerAdmin && (
                       <Badge
                         variant="secondary"
                         className="text-[10px] px-1.5 py-0.5 font-medium normal-case tracking-normal bg-foreground text-background border-transparent"
@@ -86,13 +87,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             )}
 
             {/* Validation section — BDS & admin */}
-            {(isAdmin() || isBDS()) && (
+            {(isChallengerAdmin || isBDS) && (
               <>
                 <SidebarSeparator />
-                <SidebarGroup className="!py-0">
+                <SidebarGroup className="py-0!">
                   <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
                     Inscriptions
-                    {isAdmin() && (
+                    {isChallengerAdmin && (
                       <Badge
                         variant="secondary"
                         className="text-[10px] px-1.5 py-0.5 font-medium normal-case tracking-normal bg-foreground text-background border-transparent"
@@ -107,10 +108,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             )}
 
             {/* Admin-only section */}
-            {isAdmin() && (
+            {isChallengerAdmin && (
               <>
                 <SidebarSeparator />
-                <SidebarGroup className="!py-0">
+                <SidebarGroup className="py-0!">
                   <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
                     Administration
                     <Badge

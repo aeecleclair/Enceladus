@@ -1,15 +1,14 @@
 "use client";
 
-import SchoolCard from "@/src/components/admin/schools/SchoolCard";
-import { DeleteConfirmationDialog } from "@/src/components/admin/schools/DeleteConfirmationDialog";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Badge } from "@/src/components/ui/badge";
-import { useSchools } from "@/src/hooks/useSchools";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import SchoolCard from "@/components/challenger/admin/schools/SchoolCard";
+import { DeleteConfirmationDialog } from "@/components/challenger/admin/schools/DeleteConfirmationDialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import SchoolDetail from "@/src/components/admin/schools/SchoolDetail";
+import SchoolDetail from "@/components/challenger/admin/schools/SchoolDetail";
 import { useState, useMemo } from "react";
 import { Search, Plus, School, Users, Filter } from "lucide-react";
 import {
@@ -17,7 +16,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 const Dashboard = () => {
   const router = useRouter();

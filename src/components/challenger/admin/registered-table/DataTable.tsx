@@ -25,10 +25,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../../ui/table";
+} from "@/components/ui/table";
 import { useRouter, useSearchParams } from "next/navigation";
-import { toast } from "../../ui/use-toast";
-import { Participant } from "./Columns";
 import { DataTablePagination } from "./DataTablePagination";
 
 interface DataTableProps<TData, TValue> {

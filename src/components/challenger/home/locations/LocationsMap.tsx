@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import { createRoot } from "react-dom/client";
 import "leaflet/dist/leaflet.css";
-import { LocationComplete, MatchComplete } from "@/src/api/hyperionSchemas";
+import { LocationComplete, MatchComplete } from "@/api";
 import { LocationInfoMarker } from "./LocationInfoMarker";
 
 interface LocationsMapProps {

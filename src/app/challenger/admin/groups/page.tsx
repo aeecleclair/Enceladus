@@ -3,14 +3,14 @@
 import { useEffect, useState, useMemo } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Badge } from "@/src/components/ui/badge";
-import { useGroups } from "@/src/hooks/useGroups";
-import GroupCard from "@/src/components/admin/groups/GroupCard";
-import UserDetail from "@/src/components/admin/groups/UserDetail";
-import { DeleteConfirmationDialog } from "@/src/components/admin/groups/DeleteConfirmationDialog";
-import { AddUserDialog } from "@/src/components/admin/groups/AddUserDialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { useGroups } from "@/hooks/challenger/useGroups";
+import GroupCard from "@/components/challenger/admin/groups/GroupCard";
+import UserDetail from "@/components/challenger/admin/groups/UserDetail";
+import { DeleteConfirmationDialog } from "@/components/challenger/admin/groups/DeleteConfirmationDialog";
+import { AddUserDialog } from "@/components/challenger/admin/groups/AddUserDialog";
 import {
   UserPlus,
   Search,
@@ -19,19 +19,19 @@ import {
   Filter,
   Settings,
 } from "lucide-react";
-import { Skeleton } from "@/src/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   CompetitionGroupType,
   UserGroupMembership,
   UserGroupMembershipComplete,
-} from "@/src/api/hyperionSchemas";
+} from "@/api";
 import { AVAILABLE_GROUPS } from "@/src/infra/groups";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 export default function GroupsPage() {
   const router = useRouter();

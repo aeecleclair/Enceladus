@@ -7,15 +7,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/src/components/ui/dialog";
-import { Button } from "@/src/components/ui/button";
-import { Badge } from "@/src/components/ui/badge";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
 import { PlayCircle, StopCircle, AlertTriangle } from "lucide-react";
-import type * as Schemas from "@/src/api/hyperionSchemas";
+import type * as Schemas from "@/api";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useEditions } from "@/src/hooks/useEditions";
+import { useEditions } from "@/hooks/challenger/useEditions";
 
 interface ActivateEditionDialogProps {
   open: boolean;

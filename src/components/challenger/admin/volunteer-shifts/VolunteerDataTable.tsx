@@ -12,7 +12,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -20,11 +20,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
-import { Input } from "@/src/components/ui/input";
-import { DataTablePagination } from "@/src/components/ui/data-table-pagination";
+} from "@/components/ui/table";
+import { Input } from "@/components/ui/input";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { ArrowUpDown, Search } from "lucide-react";
-import { VolunteerShiftCompleteWithVolunteers } from "@/src/api/hyperionSchemas";
+import { VolunteerShiftCompleteWithVolunteers } from "@/api";
 import VolunteerDetailDialog, { VolunteerRow } from "./VolunteerDetailDialog";
 
 function aggregateVolunteers(

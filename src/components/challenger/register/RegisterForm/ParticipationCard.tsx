@@ -1,9 +1,9 @@
 import { StyledFormField } from "../../custom/StyledFormField";
-import { Label } from "../../ui/label";
+import { Label } from "@/components/ui/label";
 import { UseFormReturn } from "react-hook-form";
 import { CardTemplate } from "./CardTemplate";
-import { Checkbox } from "../../ui/checkbox";
-import { RegisteringFormValues } from "@/src/forms/registering";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
 
 interface ParticipationCardProps {
   form: UseFormReturn<RegisteringFormValues>;

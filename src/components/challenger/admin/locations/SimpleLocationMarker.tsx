@@ -2,7 +2,7 @@
 
 import React from "react";
 import { MapPin, Edit } from "lucide-react";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 interface SimpleLocationMarkerProps {
   locationName: string;

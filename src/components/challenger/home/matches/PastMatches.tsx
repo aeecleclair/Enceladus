@@ -1,6 +1,6 @@
 import { Match, MatchComplete } from "../../../api/hyperionSchemas";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
-import { Separator } from "../../ui/separator";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { Trophy, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { PastMatchCard } from "./PastMatchCard";
@@ -79,7 +79,10 @@ export const PastMatches = ({
                   sports={sports}
                   schools={schools}
                   teams={teams}
-                  onFavorite={(e) => { e.stopPropagation(); toggleFavorite(match.id); }}
+                  onFavorite={(e) => {
+                    e.stopPropagation();
+                    toggleFavorite(match.id);
+                  }}
                   isFavorite={isFavorite(match.id)}
                 />
 

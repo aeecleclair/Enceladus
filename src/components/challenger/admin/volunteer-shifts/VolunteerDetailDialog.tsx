@@ -5,8 +5,8 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
-import { Badge } from "../../ui/badge";
+} from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import {
   Award,
   Calendar,
@@ -21,7 +21,7 @@ import { fr } from "date-fns/locale";
 import type {
   VolunteerShiftCompleteWithVolunteers,
   VolunteerRegistrationWithUser,
-} from "@/src/api/hyperionSchemas";
+} from "@/api";
 
 export interface VolunteerRow {
   userId: string;

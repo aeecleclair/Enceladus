@@ -1,13 +1,13 @@
 import { VolunteerRegistrationComplete } from "../../../api/hyperionSchemas";
-import { Badge } from "../../ui/badge";
-import { Button } from "../../ui/button";
-import { Card, CardContent, CardHeader } from "../../ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../../ui/tooltip";
+} from "@/components/ui/tooltip";
 import {
   Clock,
   MapPin,

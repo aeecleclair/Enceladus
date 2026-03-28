@@ -1,8 +1,8 @@
 import { Match, MatchComplete } from "../../../api/hyperionSchemas";
-import { Badge } from "../../ui/badge";
+import { Badge } from "@/components/ui/badge";
 import { Trophy, X, School, Users, Target, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface PastMatchCardProps {
   match: MatchComplete;

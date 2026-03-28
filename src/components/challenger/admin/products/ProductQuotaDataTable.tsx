@@ -5,10 +5,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
-import { Button } from "@/src/components/ui/button";
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 import { Edit, Trash2 } from "lucide-react";
-import { Badge } from "@/src/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 interface ProductQuotaDataTableProps {
   data: Array<{

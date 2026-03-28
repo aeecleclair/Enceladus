@@ -4,17 +4,18 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
-import { Button } from "../../ui/button";
-import { useAuth } from "@/src/hooks/useAuth";
-import { useEdition } from "@/src/hooks/useEdition";
-import { toast } from "../../ui/use-toast";
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useAuth } from "@/hooks/useAuth";
+import { useEdition } from "@/hooks/challenger/useEdition";
 import { Download, Users2, Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 export const CaptainsExport = () => {
   const { edition } = useEdition();
   const { token } = useAuth();
+  const { toast } = useToast();
   const [isExporting, setIsExporting] = useState(false);
 
   const exportResult = async () => {

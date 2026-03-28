@@ -1,20 +1,16 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  CoreSchool,
-  SchoolExtension,
-  SchoolSportQuota,
-} from "@/src/api/hyperionSchemas";
+import { CoreSchool, SchoolExtension, SchoolSportQuota } from "@/api";
 import {
   SportQuotaFormValues,
   sportQuotaFormSchema,
-} from "@/src/forms/sportQuota";
-import { StyledFormField } from "@/src/components/custom/StyledFormField";
-import { Input } from "@/src/components/ui/input";
-import { Button } from "@/src/components/ui/button";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { Form } from "@/src/components/ui/form";
-import { FormItem, FormLabel } from "@/src/components/ui/form";
+} from "@/forms/challenger/sportQuota";
+import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { Form } from "@/components/ui/form";
+import { FormItem, FormLabel } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
@@ -23,16 +19,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/src/components/ui/dialog";
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
+} from "@/components/ui/select";
 import { Plus, AlertTriangle } from "lucide-react";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { useEffect } from "react";
 
 interface QuotaDialogProps {

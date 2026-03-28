@@ -45,6 +45,24 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
   const { mutate: mutateCreatePurchase, isPending: isCreatePurchaseLoading } =
     useMutation({
       ...postCompetitionPurchasesMeMutation(),
+      onSuccess: () => {
+        refetchUserPurchases();
+        refetchMeCompetition();
+        toast({
+          title: "Variante ajoutée",
+          description: "La variante a été ajoutée avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de l'ajout de la variante",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     });
 
   const createPurchase = (
@@ -55,34 +73,31 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
       {
         body,
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de l'ajout de la variante",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchUserPurchases();
-            refetchMeCompetition();
-            callback();
-            toast({
-              title: "Variante ajoutée",
-              description: "La variante a été ajoutée avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 
   const { mutate: mutateDeletePurchase, isPending: isDeletePurchaseLoading } =
     useMutation({
       ...deleteCompetitionPurchasesProductVariantIdMutation(),
+      onSuccess: () => {
+        refetchUserPurchases();
+        refetchMeCompetition();
+        toast({
+          title: "Variante supprimée",
+          description: "La variante a été supprimée avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la suppression de la variante",
+          description:
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail,
+          variant: "destructive",
+        });
+      },
     });
 
   const deletePurchase = (productVariantId: string, callback: () => void) => {
@@ -92,28 +107,7 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
           product_variant_id: productVariantId,
         },
       },
-      {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la suppression de la variante",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchUserPurchases();
-            refetchMeCompetition();
-            callback();
-            toast({
-              title: "Variante supprimée",
-              description: "La variante a été supprimée avec succès.",
-            });
-          }
-        },
-      },
+      { onSuccess: () => callback() },
     );
   };
 

@@ -1,16 +1,15 @@
-import { useCompetitionUser } from "@/src/hooks/useCompetitionUser";
-import { useUser } from "@/src/hooks/useUser";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { Badge } from "../../ui/badge";
+import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { Badge } from "@/components/ui/badge";
 import { Edit, XIcon } from "lucide-react";
 import { CheckCircle2 } from "lucide-react";
-import { useParticipant } from "@/src/hooks/useParticipant";
-import { useSchoolSportTeams } from "@/src/hooks/useSchoolSportTeams";
-import { useSports } from "@/src/hooks/useSports";
-import { useUserPurchases } from "@/src/hooks/useUserPurchases";
-import { useAvailableProducts } from "@/src/hooks/useAvailableProducts";
-import { Button } from "../../ui/button";
-import { Purchase } from "@/src/api/hyperionSchemas";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { Button } from "@/components/ui/button";
+import { Purchase } from "@/api";
+import { useMeUser } from "@/hooks/useMeUser";
 
 interface RegistrationSummaryProps {
   onPurchaseEdit?: () => void;
@@ -25,7 +24,7 @@ export const RegistrationSummary = ({
   onSubstituteEdit,
   userMePurchases,
 }: RegistrationSummaryProps) => {
-  const { me } = useUser();
+  const { user: me } = useMeUser();
   const { availableProducts } = useAvailableProducts();
   const { meCompetition } = useCompetitionUser();
   const { meParticipant } = useParticipant();

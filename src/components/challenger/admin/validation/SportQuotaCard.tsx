@@ -3,15 +3,15 @@
 //   CardContent,
 //   CardHeader,
 //   CardTitle,
-// } from "@/src/components/ui/card";
-// import { Badge } from "@/src/components/ui/badge";
+// } from "@/components/ui/card";
+// import { Badge } from "@/components/ui/badge";
 // import { Trophy, Users, CheckCircle, AlertCircle } from "lucide-react";
-// import { Separator } from "@/src/components/ui/separator";
+// import { Separator } from "@/components/ui/separator";
 // import {
 //   ParticipantDataTable,
 //   ParticipantData,
-// } from "@/src/components/admin/validation/ParticipantDataTable";
-// import { useSchoolSportTeams } from "@/src/hooks/useSchoolSportTeams";
+// } from "@/components/challenger/admin/validation/ParticipantDataTable";
+// import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 // import { useMemo } from "react";
 
 // interface SportQuotaCardProps {

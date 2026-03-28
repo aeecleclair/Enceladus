@@ -1,14 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogFooter,
-} from "@/src/components/ui/dialog";
+} from "@/components/ui/dialog";
 import { Trophy, CheckCircle2 } from "lucide-react";
 
 interface EndMatchDialogProps {
@@ -35,11 +35,7 @@ export function EndMatchDialog({
   onConfirm,
 }: EndMatchDialogProps) {
   const defaultWinner = (() => {
-    if (
-      scoreTeam1 != null &&
-      scoreTeam2 != null &&
-      scoreTeam1 !== scoreTeam2
-    ) {
+    if (scoreTeam1 != null && scoreTeam2 != null && scoreTeam1 !== scoreTeam2) {
       return scoreTeam1 > scoreTeam2 ? team1Id : team2Id;
     }
     if (scoreTeam1 != null && scoreTeam2 != null && scoreTeam1 === scoreTeam2) {

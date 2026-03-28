@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SportCategory } from "../api/hyperionSchemas";
+import { SportCategory } from "@/api";
 
 export const sportCategories = [
   { value: "masculine", label: "Masculin" },
@@ -13,7 +13,7 @@ export const sportCategories = [
 export const sportFormSchema = z.object({
   name: z
     .string({
-      required_error: "Veuillez renseigner le nom du sport",
+      error: "Veuillez renseigner le nom du sport",
     })
     .min(1, {
       message: "Veuillez renseigner le nom du sport",
@@ -24,14 +24,14 @@ export const sportFormSchema = z.object({
   sportCategory: z.enum(
     sportCategories.map((cat) => cat.value) as [SportCategory | "null"],
     {
-      required_error: "Veuillez sélectionner une catégorie de sport",
+      error: "Veuillez sélectionner une catégorie de sport",
     },
   ),
   substituteMax: z.number().min(0, {
     message: "Le nombre de remplaçants doit être supérieur ou égal à 0",
   }),
   active: z.boolean({
-    required_error: "Veuillez indiquer si le sport est activé",
+    error: "Veuillez indiquer si le sport est activé",
   }),
 });
 

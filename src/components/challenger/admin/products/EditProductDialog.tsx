@@ -1,22 +1,25 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { productFormSchema, ProductFormValues } from "@/src/forms/product";
-import { useProducts } from "@/src/hooks/useProducts";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/src/api/hyperionSchemas";
+import {
+  productFormSchema,
+  ProductFormValues,
+} from "@/forms/challenger/product";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
-import { Form } from "@/src/components/ui/form";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Textarea } from "@/src/components/ui/textarea";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { StyledFormField } from "@/src/components/custom/StyledFormField";
-import { Checkbox } from "../../ui/checkbox";
+} from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface EditProductDialogProps {
   product: AppModulesSportCompetitionSchemasSportCompetitionProductComplete;

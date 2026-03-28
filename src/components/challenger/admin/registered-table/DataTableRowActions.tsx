@@ -3,7 +3,7 @@
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
 
-import { Button } from "../../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "../../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 import { HiTrash, HiX } from "react-icons/hi";
 import { MergeIcon, UserRoundMinusIcon } from "lucide-react";

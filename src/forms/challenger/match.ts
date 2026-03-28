@@ -6,8 +6,7 @@ export const matchFormSchema = z.object({
   team1_id: z.string().min(1, "L'équipe 1 est requise"),
   team2_id: z.string().min(1, "L'équipe 2 est requise"),
   date: z.date({
-    invalid_type_error: "La date est requise",
-    required_error: "La date est requise",
+    error: "La date est requise",
   }),
   location_id: z.string().min(1, "Le lieu est requis"),
   score_team1: z.number().int().optional(),

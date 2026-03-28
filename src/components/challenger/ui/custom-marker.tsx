@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button } from "@/src/components/ui/button";
-import { Badge } from "@/src/components/ui/badge";
-import { Separator } from "@/src/components/ui/separator";
-import { Input } from "@/src/components/ui/input";
-import { Textarea } from "@/src/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/src/components/ui/form";
+} from "@/components/ui/form";
 import {
   MapPin,
   Check,
@@ -29,8 +29,8 @@ import {
 import { cn } from "@/lib/utils";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { locationSchema, LocationFormData } from "@/src/forms/location";
-import { LocationComplete } from "@/src/api/hyperionSchemas";
+import { locationSchema, LocationFormData } from "@/forms/challenger/location";
+import { LocationComplete } from "@/api";
 
 interface CustomMarkerProps {
   latitude: number;
@@ -150,7 +150,7 @@ export function CustomMarker({
       <div
         className={cn(
           "bg-white rounded-lg shadow-lg border p-4 relative z-10",
-          "w-[350px] sm:w-[400px]", // Increased width for better form display
+          "w-87.5 sm:w-100", // Increased width for better form display
         )}
       >
         {isFormExpanded ? (
@@ -291,7 +291,7 @@ export function CustomMarker({
 
                 <div className="mt-3 pt-2 border-t text-xs text-muted-foreground">
                   <div className="flex justify-between items-center">
-                    <span className="truncate max-w-[170px]">
+                    <span className="truncate max-w-42.5">
                       {existingLocation
                         ? `ID: ${existingLocation.id.substring(0, 8)}...`
                         : "Nouveau lieu"}
@@ -374,7 +374,7 @@ export function CustomMarker({
 
             <div className="mt-3 pt-2 border-t text-xs text-muted-foreground">
               <div className="flex justify-between items-center">
-                <span className="truncate max-w-[170px]">
+                <span className="truncate max-w-42.5">
                   {existingLocation
                     ? `ID: ${existingLocation.id.substring(0, 8)}...`
                     : "Nouveau"}
@@ -390,7 +390,7 @@ export function CustomMarker({
 
       {/* Triangular pointer at the bottom */}
       <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-2">
-        <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[12px] border-l-transparent border-r-transparent border-t-white drop-shadow-sm" />
+        <div className="w-0 h-0 border-l-12 border-r-12 border-t-12 border-l-transparent border-r-transparent border-t-white drop-shadow-sm" />
       </div>
     </div>
   );

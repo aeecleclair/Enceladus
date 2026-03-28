@@ -1,13 +1,10 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
+import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "next/navigation";
-import { useUser } from "@/src/hooks/useUser";
 
 export function NavValidation() {
-  const { me } = useUser();
+  const { user: me } = useMeUser();
   const router = useRouter();
 
   return (
@@ -15,9 +12,7 @@ export function NavValidation() {
       <SidebarGroupLabel>
         <div
           onClick={() =>
-            router.push(
-              `/admin/validation?school_id=${me?.school_id || ""}`,
-            )
+            router.push(`/admin/validation?school_id=${me?.school_id || ""}`)
           }
           className="cursor-pointer hover:underline"
         >

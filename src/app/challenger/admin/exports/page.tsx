@@ -1,6 +1,6 @@
 "use client";
 
-import { ExportsPage } from "@/src/components/admin/exports/Exports";
+import { ExportsPage } from "@/components/challenger/admin/exports/Exports";
 
 export default function EditionsPage() {
   return (

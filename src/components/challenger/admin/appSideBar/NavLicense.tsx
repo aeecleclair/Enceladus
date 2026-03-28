@@ -1,8 +1,5 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
 
 export function NavLicense() {

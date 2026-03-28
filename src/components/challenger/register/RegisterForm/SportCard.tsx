@@ -1,7 +1,7 @@
 import { StyledFormField } from "../../custom/StyledFormField";
-import { Label } from "../../ui/label";
+import { Label } from "@/components/ui/label";
 import { UseFormReturn } from "react-hook-form";
-import { RegisteringFormValues } from "@/src/forms/registering";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
 import { CardTemplate } from "./CardTemplate";
 import {
   Select,
@@ -9,25 +9,25 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../ui/select";
-import { Checkbox } from "../../ui/checkbox";
-import { Input } from "../../ui/input";
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../ui/dialog";
-import { FormMessage } from "../../ui/form";
-import { Button } from "../../ui/button";
+} from "@/components/ui/dialog";
+import { FormMessage } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
 import { LoadingButton } from "../../custom/LoadingButton";
-import { Sport, TeamInfo } from "@/src/api/hyperionSchemas";
-import { useSchoolSportTeams } from "@/src/hooks/useSchoolSportTeams";
-import { useUser } from "@/src/hooks/useUser";
+import { Sport, TeamInfo } from "@/api";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useEffect, useState } from "react";
 import { DocumentDialog } from "../../custom/DocumentDialog";
-import { useDocument } from "@/src/hooks/useDocument";
+import { useDocument } from "@/hooks/challenger/useDocument";
+import { useMeUser } from "@/hooks/useMeUser";
 
 interface SportCardProps {
   form: UseFormReturn<RegisteringFormValues>;
@@ -35,7 +35,7 @@ interface SportCardProps {
 }
 
 export const SportCard = ({ form, sports }: SportCardProps) => {
-  const { me } = useUser();
+  const { user: me } = useMeUser();
 
   const [teamName, setTeamName] = useState("");
   const [open, setIsOpen] = useState(false);

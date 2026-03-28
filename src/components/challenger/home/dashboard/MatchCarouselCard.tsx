@@ -1,8 +1,8 @@
 "use client";
 
 import { MapPin, ExternalLink, Star } from "lucide-react";
-import { CarouselItem } from "../../ui/carousel";
-import { MatchComplete } from "@/src/api/hyperionSchemas";
+import { CarouselItem } from "@/components/ui/carousel";
+import { MatchComplete } from "@/api";
 import {
   openMap,
   getTimeBadgeClass,
@@ -46,7 +46,8 @@ export const MatchCarouselCard = ({
             {isLive ? (
               <span className="text-xs font-bold text-red-500 flex items-center gap-1">
                 <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
-                LIVE · {match.date ? getTimeElapsed(match.date, currentTime) : ""}
+                LIVE ·{" "}
+                {match.date ? getTimeElapsed(match.date, currentTime) : ""}
               </span>
             ) : isPast ? (
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground">
@@ -74,22 +75,30 @@ export const MatchCarouselCard = ({
         </div>
         <div className="flex items-center justify-between flex-1">
           <div className="flex-1 flex flex-col items-center gap-0.5">
-            <span className={`font-semibold text-sm leading-tight text-center ${match.winner_id === match.team1_id ? "text-green-600" : ""}`}>
+            <span
+              className={`font-semibold text-sm leading-tight text-center ${match.winner_id === match.team1_id ? "text-green-600" : ""}`}
+            >
               {match.team1.name}
             </span>
-            <span className={`text-2xl font-black tabular-nums ${match.winner_id === match.team1_id ? "text-green-600" : "text-gray-900"}`}>
-              {isLive || isPast ? match.score_team1 ?? "-" : "-"}
+            <span
+              className={`text-2xl font-black tabular-nums ${match.winner_id === match.team1_id ? "text-green-600" : "text-gray-900"}`}
+            >
+              {isLive || isPast ? (match.score_team1 ?? "-") : "-"}
             </span>
           </div>
           <span className="text-muted-foreground font-medium text-sm flex-shrink-0">
             {isLive || isPast ? "–" : "vs"}
           </span>
           <div className="flex-1 flex flex-col items-center gap-0.5">
-            <span className={`font-semibold text-sm leading-tight text-center ${match.winner_id === match.team2_id ? "text-green-600" : ""}`}>
+            <span
+              className={`font-semibold text-sm leading-tight text-center ${match.winner_id === match.team2_id ? "text-green-600" : ""}`}
+            >
               {match.team2.name}
             </span>
-            <span className={`text-2xl font-black tabular-nums ${match.winner_id === match.team2_id ? "text-green-600" : "text-gray-900"}`}>
-              {isLive || isPast ? match.score_team2 ?? "-" : "-"}
+            <span
+              className={`text-2xl font-black tabular-nums ${match.winner_id === match.team2_id ? "text-green-600" : "text-gray-900"}`}
+            >
+              {isLive || isPast ? (match.score_team2 ?? "-") : "-"}
             </span>
           </div>
         </div>

@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/src/api/hyperionSchemas";
-import { useProducts } from "@/src/hooks/useProducts";
-import { Button } from "@/src/components/ui/button";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import {
   Dialog,
   DialogContent,
@@ -16,9 +16,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
+} from "@/components/ui/dialog";
 import { MoreVertical, Edit, Trash2, Play, Pause } from "lucide-react";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
 import { EditVariantDialog } from "./EditVariantDialog";
 
 interface VariantOptionsMenuProps {

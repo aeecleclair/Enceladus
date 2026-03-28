@@ -1,7 +1,6 @@
 "use client";
 import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,21 +8,24 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "../ui/sidebar";
-import { useUser } from "@/src/hooks/useUser";
-import { useAuth } from "@/src/hooks/useAuth";
+} from "@/components/ui/sidebar";
+import { useAuth } from "@/hooks/useAuth";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 
 export function NavUser() {
   const pathname = usePathname();
   const { isMobile } = useSidebar();
   const { logout } = useAuth();
-  const { me, isAdmin, isBDS, isSportManager } = useUser();
+  const { user: me } = useMeUser();
+  const { isChallengerAdmin, isBDS, isSportManager } =
+    useHasChallengerPermission();
   const router = useRouter();
 
   const isOnAdminPage = pathname.startsWith("/admin");
@@ -52,7 +54,7 @@ export function NavUser() {
             align="end"
             sideOffset={4}
           >
-            {(isAdmin() || isBDS() || isSportManager()) && (
+            {(isChallengerAdmin || isBDS() || isSportManager()) && (
               <DropdownMenuItem
                 onClick={() => router.push(isOnAdminPage ? "/" : "/admin")}
               >

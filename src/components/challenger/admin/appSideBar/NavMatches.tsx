@@ -1,10 +1,7 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
-import { useAllMatches } from "@/src/hooks/useAllMatches";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 
 export function NavMatches() {
   const router = useRouter();
@@ -17,8 +14,7 @@ export function NavMatches() {
           onClick={() => router.push("/admin/matches")}
           className="cursor-pointer hover:underline"
         >
-          Matchs{" "}
-          {(allMatches?.length ?? 0) > 0 && `(${allMatches!.length})`}
+          Matchs {(allMatches?.length ?? 0) > 0 && `(${allMatches!.length})`}
         </div>
       </SidebarGroupLabel>
     </SidebarGroup>

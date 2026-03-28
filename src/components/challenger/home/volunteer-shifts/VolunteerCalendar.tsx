@@ -17,9 +17,9 @@ import {
   ChevronRight,
   Calendar as CalendarIcon,
 } from "lucide-react";
-import { useVolunteerShifts } from "@/src/hooks/useVolunteerShifts";
-import { useVolunteer } from "@/src/hooks/useVolunteer";
-import { generateLocationColor } from "@/src/utils/locationColors";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
+import { generateLocationColor } from "@/lib/challenger/locationColors";
 import { VolunteerCalendarEventDetail } from "./VolunteerCalendarEventDetail";
 
 export const VolunteerCalendar = () => {
@@ -59,14 +59,16 @@ export const VolunteerCalendar = () => {
 
   const handleEventClick = (event: CalendarEvent) => {
     // Strip -dN suffix from split fragment IDs to find the original shift
-    const originalShiftId = event.metadata?.shiftId?.replace(/-d\d+$/, "") || event.id.replace(/-d\d+$/, "").replace(/^shift-/, "");
-    
+    const originalShiftId =
+      event.metadata?.shiftId?.replace(/-d\d+$/, "") ||
+      event.id.replace(/-d\d+$/, "").replace(/^shift-/, "");
+
     setSelectedEvent({
       ...event,
       metadata: {
         ...event.metadata,
         shiftId: originalShiftId,
-      }
+      },
     });
   };
 

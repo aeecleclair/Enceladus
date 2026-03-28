@@ -11,9 +11,9 @@ import {
   CheckCircle,
   Timer,
 } from "lucide-react";
-import { Button } from "../../ui/button";
-import { Badge } from "../../ui/badge";
-import { Separator } from "../../ui/separator";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { useVolunteer } from "../../../hooks/useVolunteer";
@@ -26,7 +26,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
 import {
   generateLocationColor,
   getLocationDetails,

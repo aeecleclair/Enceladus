@@ -6,17 +6,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { Avatar, AvatarFallback } from "@/src/components/ui/avatar";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Mail, School, Eye, Trash2 } from "lucide-react";
-import {
-  UserGroupMembership,
-  UserGroupMembershipComplete,
-} from "@/src/api/hyperionSchemas";
+import { UserGroupMembership, UserGroupMembershipComplete } from "@/api";
 import Link from "next/link";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface GroupCardProps {
   user: UserGroupMembershipComplete;

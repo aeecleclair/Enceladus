@@ -1,24 +1,19 @@
 "use client";
 
-import { Sport, SportQuotaInfo } from "@/src/api/hyperionSchemas";
+import { Sport, SportQuotaInfo } from "@/api";
 import Link from "next/link";
 import { useState, useMemo } from "react";
-import { Button } from "@/src/components/ui/button";
-import { Badge } from "@/src/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { QuotaDialog } from "./QuotaDialog";
 import { QuotaDataTable } from "./QuotaDataTable";
 import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
-import { useSportsQuota } from "@/src/hooks/useSportsQuota";
-import { useSchools } from "@/src/hooks/useSchools";
-import { SportQuotaFormValues } from "@/src/forms/sportQuota";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { sportCategories } from "@/src/forms/sport";
+import { useSportsQuota } from "@/hooks/challenger/useSportsQuota";
+import { useSchools } from "@/hooks/useSchools";
+import { SportQuotaFormValues } from "@/forms/challenger/sportQuota";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { sportCategories } from "@/forms/challenger/sport";
 import {
   ArrowLeft,
   CheckCircle,
@@ -31,7 +26,7 @@ import {
   Trash2,
   Target,
 } from "lucide-react";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 
 interface SportDetailProps {
   sport: Sport;

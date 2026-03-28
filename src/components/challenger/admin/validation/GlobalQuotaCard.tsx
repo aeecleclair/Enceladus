@@ -1,10 +1,5 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Users, CheckCircle, AlertCircle, School, Trophy } from "lucide-react";
 
 interface GlobalQuotaCardProps {

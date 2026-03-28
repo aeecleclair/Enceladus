@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -21,20 +21,20 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
+} from "@/components/ui/table";
 import { ArrowUpDown, Edit, Trash2 } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/src/components/ui/tooltip";
-import { Badge } from "@/src/components/ui/badge";
-import { DataTablePagination } from "@/src/components/ui/data-table-pagination";
+} from "@/components/ui/tooltip";
+import { Badge } from "@/components/ui/badge";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { SportsDataTableToolbar } from "./SportsDataTableToolbar";
-import { TeamSportResultComplete } from "@/src/api/hyperionSchemas";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { TeamSportResultComplete } from "@/api";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { PodiumTeamsDialog } from "./PodiumTeamsDialog";
 
 // Sport data for the table

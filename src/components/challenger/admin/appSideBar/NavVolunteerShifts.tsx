@@ -1,12 +1,9 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
-import { useVolunteerShifts } from "@/src/hooks/useVolunteerShifts";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
 import { useMemo } from "react";
-import { Badge } from "../../ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 export function NavVolunteerShifts() {
   const router = useRouter();
@@ -27,8 +24,7 @@ export function NavVolunteerShifts() {
           className="cursor-pointer hover:underline flex items-center gap-1 flex-wrap"
         >
           Créneaux Bénévoles{" "}
-          {(volunteerShifts?.length ?? 0) > 0 &&
-            `(${volunteerShifts!.length})`}
+          {(volunteerShifts?.length ?? 0) > 0 && `(${volunteerShifts!.length})`}
           {unfilledCount > 0 && (
             <Badge
               variant="outline"

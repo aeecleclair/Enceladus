@@ -1,10 +1,7 @@
 "use client";
-import {
-  SidebarGroup,
-  SidebarGroupLabel,
-} from "../../ui/sidebar";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
-import { useEditions } from "@/src/hooks/useEditions";
+import { useEditions } from "@/hooks/challenger/useEditions";
 
 export function NavEditions() {
   const router = useRouter();

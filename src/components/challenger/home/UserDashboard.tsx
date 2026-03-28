@@ -3,21 +3,17 @@
 import { useState, useMemo, useEffect } from "react";
 import { Activity, Calendar, Star } from "lucide-react";
 import { MatchCarouselSection } from "./dashboard/MatchCarouselSection";
-import { Badge } from "../ui/badge";
-import {
-  CompetitionEdition,
-  CompetitionUser,
-  MatchComplete,
-} from "@/src/api/hyperionSchemas";
-import { useAllMatches } from "@/src/hooks/useAllMatches";
-import { useSports } from "@/src/hooks/useSports";
-import { useLocations } from "@/src/hooks/useLocations";
-import { useParticipant } from "@/src/hooks/useParticipant";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { usePodiums } from "@/src/hooks/usePodiums";
-import { useVolunteer } from "@/src/hooks/useVolunteer";
-import { useVolunteerShifts } from "@/src/hooks/useVolunteerShifts";
-import { useFavoriteMatches } from "@/src/hooks/useFavoriteMatches";
+import { Badge } from "@/components/ui/badge";
+import { CompetitionEdition, CompetitionUser, MatchComplete } from "@/api";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+import { useFavoriteMatches } from "@/hooks/challenger/useFavoriteMatches";
 import UserVolunteerShiftDetail from "./volunteer-shifts/UserVolunteerShiftDetail";
 import MatchDetailDialog from "./matches/MatchDetailDialog";
 import SchoolStandingsDialog from "./standings/SchoolStandingsDialog";
@@ -82,7 +78,9 @@ export const UserDashboard = ({
 
     const todayMatches = todaysMatches
       .filter((match) => match.date && new Date(match.date) > now)
-      .sort((a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime());
+      .sort(
+        (a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime(),
+      );
 
     // Participant upcoming matches
     let participantUpcomingMatches: MatchComplete[] = [];

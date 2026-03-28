@@ -1,11 +1,11 @@
 "use client";
 
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { StyledFormField } from "@/src/components/custom/StyledFormField";
-import { Form, FormDescription } from "@/src/components/ui/form";
-import { Input } from "@/src/components/ui/input";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { Form, FormDescription } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
-import { EditionFormSchema } from "@/src/forms/edition";
+import { EditionFormSchema } from "@/forms/challenger/edition";
 import { DatePicker } from "../custom/DatePicker";
 import { DateRangePicker } from "../custom/DateRangePicker";
 

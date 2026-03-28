@@ -4,15 +4,18 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EditionForm } from "../EditionForm";
-import { editionFormSchema, type EditionFormSchema } from "@/src/forms/edition";
+import {
+  editionFormSchema,
+  type EditionFormSchema,
+} from "@/forms/challenger/edition";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
-import { useEditions } from "@/src/hooks/useEditions";
+} from "@/components/ui/dialog";
+import { useEditions } from "@/hooks/challenger/useEditions";
 
 interface CreateEditionDialogProps {
   open: boolean;

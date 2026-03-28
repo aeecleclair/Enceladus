@@ -4,14 +4,14 @@ import {
   UseFormReturn,
 } from "react-hook-form";
 
-import { Button } from "../ui/button";
-import { DropzoneInput } from "../ui/dropzoneInput";
+import { Button } from "@/components/ui/button";
+import { DropzoneInput } from "@/components/ui/dropzoneInput";
 import Image from "next/image";
-import { useDocument } from "@/src/hooks/useDocument";
-import { RegisteringFormValues } from "@/src/forms/registering";
+import { useDocument } from "@/hooks/challenger/useDocument";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
 import { se } from "date-fns/locale";
 import { on } from "events";
-import { useAuth } from "@/src/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 
 interface DocumentDialogProps {
   setIsOpen: (value: boolean) => void;

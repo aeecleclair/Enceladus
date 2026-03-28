@@ -1,17 +1,17 @@
-import {
-  SchoolExtension,
-  SchoolGeneralQuota,
-  SchoolProductQuota,
-} from "@/src/api/hyperionSchemas";
+import { SchoolExtension, SchoolGeneralQuota, SchoolProductQuota } from "@/api";
 import { ParticipantData, ParticipantDataTable } from "./ParticipantDataTable";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip";
-import { Button } from "../../ui/button";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 import {
   GetCompetitionProductsResponse,
   GetCompetitionSchoolsSchoolIdProductQuotasResponse,
   GetCompetitionSportsSportIdQuotasResponse,
-} from "@/src/api/hyperionComponents";
+} from "@/api";
 import { GlobalQuotaCard } from "./GlobalQuotaCard";
 
 export interface ValidationTabProps {

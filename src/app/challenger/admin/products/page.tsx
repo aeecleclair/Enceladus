@@ -1,11 +1,11 @@
 "use client";
 
-import { useProducts } from "@/src/hooks/useProducts";
-import { ProductList } from "@/src/components/admin/products/ProductList";
-import ProductDetail from "@/src/components/admin/products/ProductDetail";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { ProductList } from "@/components/challenger/admin/products/ProductList";
+import ProductDetail from "@/components/challenger/admin/products/ProductDetail";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Skeleton } from "@/src/components/ui/skeleton";
-import { Button } from "@/src/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 
 const ProductsPage = () => {

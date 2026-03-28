@@ -1,7 +1,7 @@
 "use client";
 
-import AdminFallback from "@/src/components/admin/AdminFallback";
-import { AppSidebar } from "@/src/components/admin/appSideBar/AppSidebar";
+import AdminFallback from "@/components/challenger/admin/AdminFallback";
+import { AppSidebar } from "@/components/challenger/admin/appSideBar/AppSidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,27 +9,30 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/src/components/ui/breadcrumb";
-import { Separator } from "@/src/components/ui/separator";
+} from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/src/components/ui/sidebar";
-import { useEdition } from "@/src/hooks/useEdition";
-import { useUser } from "@/src/hooks/useUser";
+} from "@/components/ui/sidebar";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useMeUser } from "@/hooks/useMeUser";
 import { usePathname, useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const { me, isAdmin, isBDS, isSportManager } = useUser();
+  const { user: me } = useMeUser();
+  const { isChallengerAdmin, isBDS, isSportManager } =
+    useHasChallengerPermission();
   const router = useRouter();
   const { edition } = useEdition();
 
   if (
     me &&
-    !(isAdmin() || isBDS() || isSportManager()) &&
+    !(isChallengerAdmin || isBDS || isSportManager) &&
     typeof window !== "undefined"
   ) {
     router.replace("/?redirect=/admin");

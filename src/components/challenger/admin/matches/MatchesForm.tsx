@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,33 +10,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/src/components/ui/form";
-import { Input } from "@/src/components/ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Separator } from "@/src/components/ui/separator";
-import { Badge } from "@/src/components/ui/badge";
-import { DatePicker } from "@/src/components/custom/DatePicker";
-import { DateTimePicker } from "@/src/components/custom/DateTimePicker";
-import { useSports } from "@/src/hooks/useSports";
-import { useEdition } from "@/src/hooks/useEdition";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { useSchoolSportTeams } from "@/src/hooks/useSchoolSportTeams";
-import { useLocations } from "@/src/hooks/useLocations";
+} from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { DatePicker } from "@/components/challenger/custom/DatePicker";
+import { DateTimePicker } from "@/components/challenger/custom/DateTimePicker";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useLocations } from "@/hooks/challenger/useLocations";
 import { useEffect, useState } from "react";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { MatchFormValues } from "@/src/forms/match";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { MatchFormValues } from "@/forms/challenger/match";
 import {
   Trophy,
   Calendar,
@@ -50,7 +45,7 @@ import {
 } from "lucide-react";
 import { EndMatchDialog } from "./EndMatchDialog";
 import { RotateCcw } from "lucide-react";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface MatchesFormProps {
   form: UseFormReturn<MatchFormValues>;
@@ -320,7 +315,6 @@ export const MatchesForm = ({
                       </FormItem>
                     )}
                   />
-
                 </div>
 
                 {/* Team 2 Section */}
@@ -397,7 +391,6 @@ export const MatchesForm = ({
                       </FormItem>
                     )}
                   />
-
                 </div>
               </div>
             </CardContent>
@@ -665,10 +658,7 @@ export const MatchesForm = ({
                       Terminez le match en sélectionnant le vainqueur
                     </p>
                   </div>
-                  <Button
-                    type="button"
-                    onClick={() => setEndDialogOpen(true)}
-                  >
+                  <Button type="button" onClick={() => setEndDialogOpen(true)}>
                     <CheckCircle2 className="h-4 w-4 mr-2" />
                     Terminer le match
                   </Button>
@@ -682,14 +672,12 @@ export const MatchesForm = ({
           open={endDialogOpen}
           onOpenChange={setEndDialogOpen}
           team1Name={
-            team1Options?.find(
-              (t) => t.id === form.getValues("team1_id"),
-            )?.name || "Équipe 1"
+            team1Options?.find((t) => t.id === form.getValues("team1_id"))
+              ?.name || "Équipe 1"
           }
           team2Name={
-            team2Options?.find(
-              (t) => t.id === form.getValues("team2_id"),
-            )?.name || "Équipe 2"
+            team2Options?.find((t) => t.id === form.getValues("team2_id"))
+              ?.name || "Équipe 2"
           }
           team1Id={form.getValues("team1_id")}
           team2Id={form.getValues("team2_id")}
@@ -704,7 +692,6 @@ export const MatchesForm = ({
             }
           }}
         />
-
       </form>
     </Form>
   );

@@ -2,21 +2,16 @@
 
 import React, { useState, useMemo } from "react";
 import { Search, School, UserCheck } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Input } from "@/src/components/ui/input";
-import { Badge } from "@/src/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -24,14 +19,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { useGetUsersSearch } from "@/src/api/hyperionComponents";
-import { useAuth } from "@/src/hooks/useAuth";
-import { useSchools } from "@/src/hooks/useSchools";
-import { useAssignSchool } from "@/src/hooks/useAssignSchool";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { CoreUserSimple } from "@/src/api/hyperionSchemas";
+} from "@/components/ui/table";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { useAuth } from "@/hooks/useAuth";
+import { useSchools } from "@/hooks/useSchools";
+import { useAssignSchool } from "@/hooks/challenger/useAssignSchool";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { CoreUserSimple } from "@/api";
 
 export default function SchoolAssignPage() {
   const { token, isTokenExpired } = useAuth();

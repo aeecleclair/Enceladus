@@ -1,32 +1,31 @@
 "use client";
 
-import { UserCompetition } from "@/src/components/admin/userDetails/UserCompetition";
-import { UserInfo } from "@/src/components/admin/userDetails/UserInfo";
-import { UserPayments } from "@/src/components/admin/userDetails/UserPayments";
-import { UserPurchases } from "@/src/components/admin/userDetails/UserPurchases";
-import { Button } from "@/src/components/ui/button";
-import { AddPaymentDialog } from "@/src/components/admin/validation/AddPaymentDialog";
-import { ConfirmActionDialog } from "@/src/components/admin/users/ConfirmActionDialog";
-import { EditCompetitionUserDialog } from "@/src/components/admin/users/EditCompetitionUserDialog";
-import { CancelCompetitionUserDialog } from "@/src/components/admin/users/CancelCompetitionUserDialog";
-import { ChangeUserSportDialog } from "@/src/components/admin/users/ChangeUserSportDialog";
-import { ChangeUserTeamDialog } from "@/src/components/admin/users/ChangeUserTeamDialog";
+import { UserCompetition } from "@/components/challenger/admin/userDetails/UserCompetition";
+import { UserInfo } from "@/components/challenger/admin/userDetails/UserInfo";
+import { UserPayments } from "@/components/challenger/admin/userDetails/UserPayments";
+import { UserPurchases } from "@/components/challenger/admin/userDetails/UserPurchases";
+import { Button } from "@/components/ui/button";
+import { AddPaymentDialog } from "@/components/challenger/admin/validation/AddPaymentDialog";
+import { ConfirmActionDialog } from "@/components/challenger/admin/users/ConfirmActionDialog";
+import { EditCompetitionUserDialog } from "@/components/challenger/admin/users/EditCompetitionUserDialog";
+import { CancelCompetitionUserDialog } from "@/components/challenger/admin/users/CancelCompetitionUserDialog";
+import { ChangeUserSportDialog } from "@/components/challenger/admin/users/ChangeUserSportDialog";
+import { ChangeUserTeamDialog } from "@/components/challenger/admin/users/ChangeUserTeamDialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
-import { useAdminPurchases } from "@/src/hooks/useAdminPurchases";
-import { useCompetitionUsers } from "@/src/hooks/useCompetitionUsers";
-import { useParticipant } from "@/src/hooks/useParticipant";
-import { useProducts } from "@/src/hooks/useProducts";
-import { useSchoolParticipants } from "@/src/hooks/useSchoolParticipants";
-import { useSchoolsPayments } from "@/src/hooks/useSchoolsPayments";
-import { useSchoolsPurchases } from "@/src/hooks/useSchoolsPurchases";
-import { useUserPayments } from "@/src/hooks/useUserPayments";
-import { useUser } from "@/src/hooks/useUser";
+} from "@/components/ui/dropdown-menu";
+import { useAdminPurchases } from "@/hooks/challenger/useAdminPurchases";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
+import { useSchoolsPayments } from "@/hooks/challenger/useSchoolsPayments";
+import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
+import { useUserPayments } from "@/hooks/challenger/useUserPayments";
 import {
   ArrowLeft,
   Users,
@@ -45,12 +44,13 @@ import React from "react";
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
   CompetitionUserEdit,
-} from "@/src/api/hyperionSchemas";
+} from "@/api";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 
 const UserDetailsPage = () => {
   const searchParam = useSearchParams();
   const userId = searchParam.get("user_id");
-  const { me: currentUser, isAdmin } = useUser();
+  const { isChallengerAdmin } = useHasChallengerPermission();
 
   const {
     competitionUsers,
@@ -132,7 +132,7 @@ const UserDetailsPage = () => {
   };
   const onEditUser = (body: CompetitionUserEdit) => {
     const finalBody = userCompetition?.cancelled
-      ? { ...body, cancelled: false }
+      ? ({ ...body, cancelled: false } as CompetitionUserEdit)
       : body;
     updateCompetitionUser(userId!, finalBody, () => {
       setEditUserOpen(false);
@@ -144,7 +144,7 @@ const UserDetailsPage = () => {
     };
     await makePayment(userId!, body);
   };
-  if (!isAdmin()) {
+  if (!isChallengerAdmin) {
     return <div className="p-6">Vous n&apos;avez pas accès à cette page</div>;
   }
   const userName =
@@ -260,7 +260,7 @@ const UserDetailsPage = () => {
         <UserPurchases
           userPurchases={userPurchases}
           products={products}
-          isAdmin={isAdmin()}
+          isAdmin={isChallengerAdmin}
           isUserValidated={userCompetition?.validated ?? false}
           userId={userId as string}
           onCreatePurchase={(productVariantId, quantity) => {

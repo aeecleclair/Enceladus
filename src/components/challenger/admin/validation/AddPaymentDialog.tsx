@@ -8,11 +8,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Label } from "@/src/components/ui/label";
-import { toast } from "@/src/components/ui/use-toast";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 interface AddPaymentDialogProps {
   open: boolean;
@@ -29,6 +29,7 @@ export function AddPaymentDialog({
   participantName,
   isLoading,
 }: AddPaymentDialogProps) {
+  const { toast } = useToast();
   const [amount, setAmount] = React.useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent) => {

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/src/api/hyperionSchemas";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
 export const editProductSchema = z.object({
   products: z.array(
     z.object({

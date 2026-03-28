@@ -1,33 +1,36 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { variantFormSchema, VariantFormValues } from "@/src/forms/variant";
-import { useProducts } from "@/src/hooks/useProducts";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantBase } from "@/src/api/hyperionSchemas";
+import {
+  variantFormSchema,
+  VariantFormValues,
+} from "@/forms/challenger/variant";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantBase } from "@/api";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
-import { Form } from "@/src/components/ui/form";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Textarea } from "@/src/components/ui/textarea";
-import { Checkbox } from "@/src/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/src/components/ui/radio-group";
-import { Label } from "@/src/components/ui/label";
+} from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { StyledFormField } from "@/src/components/custom/StyledFormField";
-import { CurrencyInput } from "@/src/components/custom/CurrencyInput";
+} from "@/components/ui/select";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { CurrencyInput } from "@/components/challenger/custom/CurrencyInput";
 
 interface AddVariantDialogProps {
   productId: string;

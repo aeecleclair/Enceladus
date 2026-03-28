@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,31 +10,26 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/src/components/ui/form";
-import { Input } from "@/src/components/ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
-import { useSports } from "@/src/hooks/useSports";
-import { useSchools } from "@/src/hooks/useSchools";
-import { useSchoolParticipants } from "@/src/hooks/useSchoolParticipants";
+} from "@/components/ui/select";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSchools } from "@/hooks/useSchools";
+import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
 import { useEffect, useState } from "react";
-import { LoadingButton } from "@/src/components/custom/LoadingButton";
-import { TeamFormValues } from "@/src/forms/team";
+import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { TeamFormValues } from "@/forms/challenger/team";
 import { Shield, Trophy, School, Crown, Users, Flag } from "lucide-react";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 
 interface TeamsFormProps {
   form: UseFormReturn<TeamFormValues>;

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Column } from "@tanstack/react-table";
 
-import { Checkbox } from "../../ui/checkbox";
-import { Button } from "../../ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
 
 interface DataTableFilterCheckBoxProps<TData, TValue> {
   column?: Column<TData, TValue>;

@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { Button } from "@/src/components/ui/button";
-import { Badge } from "@/src/components/ui/badge";
-import { Separator } from "@/src/components/ui/separator";
-import { Input } from "@/src/components/ui/input";
-import { Textarea } from "@/src/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Form,
   FormControl,
@@ -13,7 +13,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/src/components/ui/form";
+} from "@/components/ui/form";
 import { MapPin, Save, X, Trash2, Navigation, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 

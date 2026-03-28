@@ -4,43 +4,35 @@ import { useMemo, useState, useEffect, useCallback } from "react";
 import { Search, Filter } from "lucide-react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
-import { Input } from "../../components/ui/input";
-import { Button } from "../../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../components/ui/select";
-import { Badge } from "../../components/ui/badge";
+} from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/src/components/ui/sidebar";
+} from "@/components/ui/sidebar";
 
-import { UpcomingMatches } from "../../components/home/matches/UpcomingMatches";
-import { PastMatches } from "../../components/home/matches/PastMatches";
-import { AppSidebar } from "@/src/components/home/appSideBar/AppSidebar";
+import { UpcomingMatches } from "@/components/challenger/home/matches/UpcomingMatches";
+import { PastMatches } from "@/components/challenger/home/matches/PastMatches";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 
-import { useSports } from "../../hooks/useSports";
-import { useSchools } from "../../hooks/useSchools";
-import { useSchoolSportTeams } from "../../hooks/useSchoolSportTeams";
-import { useSportMatches } from "../../hooks/useSportMatches";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { useLocations } from "@/src/hooks/useLocations";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { useAllMatches } from "@/src/hooks/useAllMatches";
-import { useAllTeams } from "@/src/hooks/useAllTeams";
-import { useSportTeams } from "@/src/hooks/useSportTeams";
-import { useSchoolTeams } from "@/src/hooks/useSchoolTeams";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useAllTeams } from "@/hooks/challenger/useAllTeams";
+import { useSportTeams } from "@/hooks/challenger/useSportTeams";
+import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
 
 interface FilterState {
   sport: string;
@@ -258,9 +250,7 @@ export default function SearchPage() {
     return filteredMatches
       .filter(
         (match) =>
-          match.date &&
-          new Date(match.date) <= currentDate &&
-          !match.ended,
+          match.date && new Date(match.date) <= currentDate && !match.ended,
       )
       .sort(
         (a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime(),
@@ -276,12 +266,10 @@ export default function SearchPage() {
   }, [filteredMatches, currentDate]);
 
   const pastMatches = useMemo(() => {
-    return filteredMatches  
+    return filteredMatches
       .filter(
         (match) =>
-          match.date &&
-          new Date(match.date) <= currentDate &&
-          match.ended,
+          match.date && new Date(match.date) <= currentDate && match.ended,
       )
       .sort(
         (a, b) => new Date(b.date!).getTime() - new Date(a.date!).getTime(),

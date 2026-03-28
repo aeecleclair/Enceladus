@@ -1,14 +1,11 @@
 "use client";
 
-import {
-  CompetitionUser,
-  ParticipantComplete,
-} from "@/src/api/hyperionSchemas";
-import { Card, CardContent, CardHeader, CardTitle } from "../../ui/card";
+import { CompetitionUser, ParticipantComplete } from "@/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trophy, Users2, Shield, Camera, Music, Heart } from "lucide-react";
-import { Badge } from "../../ui/badge";
-import { useSports } from "@/src/hooks/useSports";
-import { Separator } from "../../ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { useSports } from "@/hooks/challenger/useSports";
+import { Separator } from "@/components/ui/separator";
 
 export const UserCompetition = ({
   user,

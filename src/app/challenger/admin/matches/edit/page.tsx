@@ -6,11 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { z } from "zod";
-import { useSportMatches } from "@/src/hooks/useSportMatches";
-import { MatchFormValues, matchFormSchema } from "@/src/forms/match";
-import { MatchesForm } from "@/src/components/admin/matches/MatchesForm";
-import { MatchEdit } from "@/src/api/hyperionSchemas";
-import { Skeleton } from "@/src/components/ui/skeleton";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { MatchFormValues, matchFormSchema } from "@/forms/challenger/match";
+import { MatchesForm } from "@/components/challenger/admin/matches/MatchesForm";
+import { MatchEdit } from "@/api";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const EditMatchPage = () => {
   const router = useRouter();

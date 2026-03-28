@@ -1,18 +1,22 @@
 import { LoadingButton } from "../../custom/LoadingButton";
 import { UseFormReturn } from "react-hook-form";
-import { RegisteringFormValues } from "@/src/forms/registering";
-import { Carousel, CarouselApi, CarouselContent } from "../../ui/carousel";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
+import {
+  Carousel,
+  CarouselApi,
+  CarouselContent,
+} from "@/components/ui/carousel";
 import { InformationCard } from "./InformationCard";
 import { ParticipationCard } from "./ParticipationCard";
 import { SportCard } from "./SportCard";
 import { BasketCard } from "./BasketCard";
 import { SetStateAction, useEffect, useState } from "react";
-import { Button } from "../../ui/button";
+import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { RegisterState } from "@/src/infra/registerState";
 import { SummaryCard } from "./SummaryCard";
-import { Sport } from "@/src/api/hyperionSchemas";
-import { EditProductValues } from "@/src/forms/editProducts";
+import { Sport } from "@/api";
+import { EditProductValues } from "@/forms/challenger/editProducts";
 import { CardTemplate } from "./CardTemplate";
 
 interface RegisterFormFieldProps {

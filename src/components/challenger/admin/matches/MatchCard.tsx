@@ -1,17 +1,14 @@
 "use client";
 
-import {
-  CompetitionUser,
-  MatchComplete,
-} from "@/src/api/hyperionSchemas";
+import { CompetitionUser, MatchComplete } from "@/api";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   CalendarIcon,
   MapPinIcon,
@@ -21,13 +18,13 @@ import {
   Edit,
   Trash2,
 } from "lucide-react";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useLocations } from "@/src/hooks/useLocations";
-import { useSports } from "@/src/hooks/useSports";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useSports } from "@/hooks/challenger/useSports";
 import { TeamScoreDisplay } from "./TeamScoreDisplay";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 
 interface MatchCardProps {
   match: MatchComplete;

@@ -1,13 +1,16 @@
 "use client";
 
-import EditionForm from "@/src/components/admin/EditionForm";
-import { EditionFormSchema, editionFormSchema } from "@/src/forms/edition";
-import { useEdition } from "@/src/hooks/useEdition";
-import { useUser } from "@/src/hooks/useUser";
-import { useSports } from "@/src/hooks/useSports";
-import { useLocations } from "@/src/hooks/useLocations";
-import { useProducts } from "@/src/hooks/useProducts";
-import { usePodiums } from "@/src/hooks/usePodiums";
+import EditionForm from "@/components/challenger/admin/EditionForm";
+import {
+  EditionFormSchema,
+  editionFormSchema,
+} from "@/forms/challenger/edition";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useMemo } from "react";
@@ -20,12 +23,12 @@ import {
   SportsCard,
   SchoolsCard,
   PaymentStatsCard,
-} from "@/src/components/admin/home";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { useEditionStats } from "@/src/hooks/useEditionStats";
-import { useAllMatches } from "@/src/hooks/useAllMatches";
-import { useAllTeams } from "@/src/hooks/useAllTeams";
-import { useVolunteerShifts } from "@/src/hooks/useVolunteerShifts";
+} from "@/components/challenger/admin/home";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useEditionStats } from "@/hooks/challenger/useEditionStats";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useAllTeams } from "@/hooks/challenger/useAllTeams";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
 
 const AdminPage = () => {
   const {
@@ -37,8 +40,8 @@ const AdminPage = () => {
     isOpenInscriptionLoading,
     isCloseInscriptionLoading,
   } = useEdition();
-  const { isAdmin } = useUser();
   const { sportSchools: schools } = useSportSchools();
+  const { isChallengerAdmin } = useHasChallengerPermission();
   const { sports } = useSports();
   const { locations } = useLocations();
   const { products } = useProducts();
@@ -118,7 +121,7 @@ const AdminPage = () => {
 
   return (
     <>
-      {isAdmin() && edition === null && (
+      {isChallengerAdmin && edition === null && (
         <EditionForm
           form={form}
           isLoading={isCreationLoading}
@@ -127,7 +130,7 @@ const AdminPage = () => {
         />
       )}
 
-      {isAdmin() && edition && (
+      {isChallengerAdmin && edition && (
         <div className="space-y-6">
           {/* Header with title and action */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">

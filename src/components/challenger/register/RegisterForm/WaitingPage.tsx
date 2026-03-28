@@ -1,39 +1,45 @@
-import { Card, CardDescription, CardTitle } from "../../ui/card";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../ui/dialog";
+} from "@/components/ui/dialog";
 import { useState, useEffect } from "react";
 import { BasketCard } from "./BasketCard";
 import { RegistrationSummary } from "./RegistrationSummary";
-import { editProductSchema, EditProductValues } from "@/src/forms/editProducts";
+import {
+  editProductSchema,
+  EditProductValues,
+} from "@/forms/challenger/editProducts";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useUserPurchases } from "@/src/hooks/useUserPurchases";
-import { useUser } from "@/src/hooks/useUser";
-import { Form } from "../../ui/form";
+import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
+import { Form } from "@/components/ui/form";
 import { LoadingButton } from "../../custom/LoadingButton";
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
   Purchase,
-} from "@/src/api/hyperionSchemas";
-import { useAvailableProducts } from "@/src/hooks/useAvailableProducts";
-import { licenseFormSchema, LicenseFormValues } from "@/src/forms/license";
+} from "@/api";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import {
+  licenseFormSchema,
+  LicenseFormValues,
+} from "@/forms/challenger/license";
 import {
   substituteFormSchema,
   SubstituteFormValues,
-} from "@/src/forms/substitute";
-import { useParticipant } from "@/src/hooks/useParticipant";
+} from "@/forms/challenger/substitute";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { StyledFormField } from "../../custom/StyledFormField";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
-import { Checkbox } from "../../ui/checkbox";
-import { toast } from "../../ui/use-toast";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { DocumentDialog } from "../../custom/DocumentDialog";
-import { useDocument } from "@/src/hooks/useDocument";
+import { useDocument } from "@/hooks/challenger/useDocument";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useToast } from "@/components/ui/use-toast";
 
 interface WaitingPageProps {
   userMePurchases?: Purchase[];
@@ -48,11 +54,12 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
   const [substituteDialogOpen, setSubstituteDialogOpen] = useState(false);
   const [certificateDialogOpen, setCertificateDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { me } = useUser();
+  const { user: me } = useMeUser();
   const { createPurchase, deletePurchase } = useUserPurchases({
     userId: me?.id,
   });
   const { data: certificateData, uploadDocument } = useDocument(me?.id ?? null);
+  const { toast } = useToast();
 
   const licenseForm = useForm<LicenseFormValues>({
     resolver: zodResolver(licenseFormSchema),

@@ -2,7 +2,10 @@
 import Image from "next/image";
 import * as React from "react";
 import { Command, LogIn } from "lucide-react";
-import { Timeline, TimelineItemLabel } from "@/src/components/custom/Timeline";
+import {
+  Timeline,
+  TimelineItemLabel,
+} from "@/components/challenger/custom/Timeline";
 import {
   Sidebar,
   SidebarContent,
@@ -11,11 +14,11 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "../../ui/sidebar";
+} from "@/components/ui/sidebar";
 import { NavUser } from "../../custom/NavUser";
 import { TimelineStep } from "./TimelineStep";
-import { RegisterState } from "@/src/infra/registerState";
 import { Logo } from "../../custom/Logo";
+import { RegisterState } from "@/lib/challenger/registerState";
 
 export function AppSidebar({
   state,

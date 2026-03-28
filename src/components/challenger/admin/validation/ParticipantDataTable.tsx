@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -21,7 +21,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/src/components/ui/table";
+} from "@/components/ui/table";
 import {
   ArrowUpDown,
   CheckCircle,
@@ -41,38 +41,36 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
-import { Badge } from "@/src/components/ui/badge";
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/src/components/ui/tooltip";
-import { DataTablePagination } from "@/src/components/ui/data-table-pagination";
+} from "@/components/ui/tooltip";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableToolbar } from "./DataTableToolbar";
-import { toast } from "../../ui/use-toast";
 import { RequiredPurchase, UserProductsCell } from "./UserProductsCell";
-import { useProducts } from "@/src/hooks/useProducts";
+import { useProducts } from "@/hooks/challenger/useProducts";
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
   AppModulesSportCompetitionSchemasSportCompetitionProductComplete,
   AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
   CompetitionUserEdit,
-} from "@/src/api/hyperionSchemas";
+} from "@/api";
 import { AddPaymentDialog } from "./AddPaymentDialog";
 import { ConfirmActionDialog } from "../../admin/users/ConfirmActionDialog";
 import { CancelCompetitionUserDialog } from "../../admin/users/CancelCompetitionUserDialog";
 import { EditCompetitionUserDialog } from "../../admin/users/EditCompetitionUserDialog";
 import { ChangeUserSportDialog } from "../../admin/users/ChangeUserSportDialog";
 import { ChangeUserTeamDialog } from "../../admin/users/ChangeUserTeamDialog";
-import { usePostCompetitionUsersUserIdPayments } from "@/src/api/hyperionComponents";
-import { useAuth } from "@/src/hooks/useAuth";
 import { CreditCard } from "lucide-react";
-import { useCompetitionUsers } from "@/src/hooks/useCompetitionUsers";
-import { useUser } from "@/src/hooks/useUser";
-import { useUserPayments } from "@/src/hooks/useUserPayments";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { useUserPayments } from "@/hooks/challenger/useUserPayments";
 import Link from "next/link";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useToast } from "@/components/ui/use-toast";
 
 export interface ParticipantData {
   userId: string;
@@ -118,7 +116,8 @@ export function ParticipantDataTable({
   onCancelParticipant,
   isLoading,
 }: ParticipantDataTableProps) {
-  const { isAdmin } = useUser();
+  const { toast } = useToast();
+  const { isChallengerAdmin } = useHasChallengerPermission();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -279,7 +278,7 @@ export function ParticipantDataTable({
           </div>
         );
 
-        return isAdmin() ? (
+        return isChallengerAdmin ? (
           <Link
             href={`/admin/validation/detail?user_id=${row.original.userId}&school_id=${schoolId}`}
             className="font-medium text-center flex items-center justify-center gap-2 underline hover:no-underline"
@@ -637,7 +636,7 @@ export function ParticipantDataTable({
                     </>
                   )}
                 </DropdownMenuItem>
-                {isAdmin() && (
+                {isChallengerAdmin && (
                   <DropdownMenuItem
                     onClick={() => {
                       setSelectedParticipant(participant);
@@ -648,7 +647,7 @@ export function ParticipantDataTable({
                     Enregistrer un paiement
                   </DropdownMenuItem>
                 )}
-                {isAdmin() && (
+                {isChallengerAdmin && (
                   <DropdownMenuItem
                     onClick={() => {
                       setEditTarget(participant);
@@ -659,7 +658,7 @@ export function ParticipantDataTable({
                     Modifier
                   </DropdownMenuItem>
                 )}
-                {isAdmin() && participant.sportId && (
+                {isChallengerAdmin && participant.sportId && (
                   <DropdownMenuItem
                     onClick={() => {
                       setChangeSportTarget(participant);
@@ -671,7 +670,7 @@ export function ParticipantDataTable({
                     Changer de sport
                   </DropdownMenuItem>
                 )}
-                {isAdmin() && participant.teamId && (
+                {isChallengerAdmin && participant.teamId && (
                   <DropdownMenuItem
                     onClick={() => {
                       setChangeTeamTarget(participant);
@@ -684,7 +683,7 @@ export function ParticipantDataTable({
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                {isAdmin() && onCancelParticipant && (
+                {isChallengerAdmin && onCancelParticipant && (
                   <DropdownMenuItem
                     onClick={() => {
                       setCancelTarget(participant);
@@ -697,7 +696,7 @@ export function ParticipantDataTable({
                     Désinscrire
                   </DropdownMenuItem>
                 )}
-                {isAdmin() && (
+                {isChallengerAdmin && (
                   <DropdownMenuItem
                     onClick={() => {
                       if (participant?.hasPaid) {

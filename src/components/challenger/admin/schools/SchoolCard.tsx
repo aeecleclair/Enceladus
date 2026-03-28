@@ -1,17 +1,17 @@
 "use client";
 
-import { SchoolExtension } from "@/src/api/hyperionSchemas";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
+import { SchoolExtension } from "@/api";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/src/components/ui/card";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { getSchoolType } from "@/src/utils/schools";
+} from "@/components/ui/card";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { getSchoolType } from "@/lib/challenger/schools";
 import {
   Eye,
   MapPin,

@@ -1,7 +1,7 @@
 "use client";
 
-import { AppSidebar } from "@/src/components/register/AppSideBar/AppSidebar";
-import { RegisterForm } from "@/src/components/register/RegisterForm/RegisterForm";
+import { AppSidebar } from "@/components/challenger/register/AppSideBar/AppSidebar";
+import { RegisterForm } from "@/components/challenger/register/RegisterForm/RegisterForm";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,37 +9,37 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/src/components/ui/breadcrumb";
-import { useAuth } from "../../hooks/useAuth";
+} from "@/components/ui/breadcrumb";
 import { useRouter } from "next/navigation";
-import { Separator } from "@/src/components/ui/separator";
+import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/src/components/ui/sidebar";
-import { HeaderSubtitle, RegisterState } from "@/src/infra/registerState";
+} from "@/components/ui/sidebar";
 import { useEffect, useState } from "react";
-import { useCompetitionUser } from "@/src/hooks/useCompetitionUser";
+import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
   CompetitionUserBase,
   ParticipantInfo,
-} from "@/src/api/hyperionSchemas";
-import { useParticipant } from "@/src/hooks/useParticipant";
-import { useUser } from "@/src/hooks/useUser";
-import { useUserPurchases } from "@/src/hooks/useUserPurchases";
-import { useAvailableProducts } from "@/src/hooks/useAvailableProducts";
+} from "@/api";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
 import {
   registeringFormSchema,
   RegisteringFormValues,
-} from "@/src/forms/registering";
+} from "@/forms/challenger/registering";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { useEdition } from "@/src/hooks/useEdition";
-import { useDocument } from "@/src/hooks/useDocument";
-import { useSports } from "@/src/hooks/useSports";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useDocument } from "@/hooks/challenger/useDocument";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useAuth } from "@/hooks/useAuth";
+import { useMeUser } from "@/hooks/useMeUser";
+import { HeaderSubtitle, RegisterState } from "@/lib/challenger/registerState";
 
 const Register = () => {
   const { edition } = useEdition();
@@ -48,7 +48,7 @@ const Register = () => {
   const { availableProducts, refetchAvailableProducts } =
     useAvailableProducts();
   const { isTokenQueried, token } = useAuth();
-  const { me, updateUser } = useUser();
+  const { user: me, updateUser } = useMeUser();
   const { meCompetition, createCompetitionUser, updateCompetitionUser } =
     useCompetitionUser();
   const { meParticipant, createParticipant, withdrawParticipant } =
@@ -80,8 +80,10 @@ const Register = () => {
       is_cameraman: false,
       is_fanfare: false,
       is_pompom: false,
+      sex: "masculine",
+      phone: "",
       allow_pictures: true,
-      sport: {},
+      sport: undefined,
       products:
         userMePurchases
           ?.map((purchase) => {

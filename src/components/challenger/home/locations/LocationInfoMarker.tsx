@@ -1,8 +1,15 @@
 "use client";
 
 import React from "react";
-import { useSports } from "@/src/hooks/useSports";
-import { MapPin, Calendar, Clock, Search, ChevronRight, Trophy } from "lucide-react";
+import { useSports } from "@/hooks/challenger/useSports";
+import {
+  MapPin,
+  Calendar,
+  Clock,
+  Search,
+  ChevronRight,
+  Trophy,
+} from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -10,15 +17,11 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-} from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
-import { Button } from "@/src/components/ui/button";
-import { Separator } from "@/src/components/ui/separator";
-import {
-  LocationComplete,
-  Match,
-  MatchComplete,
-} from "@/src/api/hyperionSchemas";
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { LocationComplete, Match, MatchComplete } from "@/api";
 
 interface LocationInfoMarkerProps {
   location: LocationComplete;
@@ -165,7 +168,9 @@ export function LocationInfoMarker({
                       key={sport.id}
                       className="flex items-center justify-between text-xs"
                     >
-                      <span className="text-slate-700 font-medium">{sport.name}</span>
+                      <span className="text-slate-700 font-medium">
+                        {sport.name}
+                      </span>
                       <span className="text-muted-foreground">
                         {count} match{count !== 1 ? "s" : ""}
                       </span>
@@ -176,70 +181,87 @@ export function LocationInfoMarker({
             </div>
 
             {/* Next match */}
-            {nextMatch && (() => {
-              const now = new Date();
-              const matchDate = new Date(nextMatch.date!);
-              const diffMinutes = Math.round(
-                (matchDate.getTime() - now.getTime()) / (1000 * 60),
-              );
-              const urgency =
-                diffMinutes <= 15 ? "urgent" : diffMinutes <= 60 ? "soon" : "normal";
-              const timeUntil =
-                diffMinutes < 0
-                  ? "Passé"
-                  : diffMinutes < 60
-                    ? `${diffMinutes}min`
-                    : (() => {
-                        const h = Math.floor(diffMinutes / 60);
-                        const m = diffMinutes % 60;
-                        return m === 0 ? `${h}h` : `${h}h${m.toString().padStart(2, "0")}`;
-                      })();
-              const sportObj = Array.isArray(sports)
-                ? sports.find((s: any) => s.id === nextMatch.sport_id)
-                : null;
+            {nextMatch &&
+              (() => {
+                const now = new Date();
+                const matchDate = new Date(nextMatch.date!);
+                const diffMinutes = Math.round(
+                  (matchDate.getTime() - now.getTime()) / (1000 * 60),
+                );
+                const urgency =
+                  diffMinutes <= 15
+                    ? "urgent"
+                    : diffMinutes <= 60
+                      ? "soon"
+                      : "normal";
+                const timeUntil =
+                  diffMinutes < 0
+                    ? "Passé"
+                    : diffMinutes < 60
+                      ? `${diffMinutes}min`
+                      : (() => {
+                          const h = Math.floor(diffMinutes / 60);
+                          const m = diffMinutes % 60;
+                          return m === 0
+                            ? `${h}h`
+                            : `${h}h${m.toString().padStart(2, "0")}`;
+                        })();
+                const sportObj = Array.isArray(sports)
+                  ? sports.find((s: any) => s.id === nextMatch.sport_id)
+                  : null;
 
-              return (
-                <div className="mx-4 mb-3 rounded-xl bg-slate-50 p-3 space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
-                      Prochain match
-                    </span>
-                    <Badge
-                      className={`text-[10px] px-1.5 py-0 font-mono text-white ${
-                        urgency === "urgent"
-                          ? "bg-red-500"
-                          : urgency === "soon"
-                            ? "bg-orange-500"
-                            : "bg-blue-500"
-                      }`}
-                    >
-                      <Clock className="h-2.5 w-2.5 mr-0.5" />
-                      {timeUntil}
-                    </Badge>
-                  </div>
-                  <div className="flex items-center gap-1.5 text-sm">
-                    <span className="font-semibold">{nextMatch.team1?.name}</span>
-                    <span className="text-muted-foreground text-xs">vs</span>
-                    <span className="font-semibold">{nextMatch.team2?.name}</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    {sportObj && !sportBreakdown?.isSingleSport && (
+                return (
+                  <div className="mx-4 mb-3 rounded-xl bg-slate-50 p-3 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-medium text-muted-foreground uppercase tracking-wide">
+                        Prochain match
+                      </span>
                       <Badge
-                        variant="outline"
-                        className="text-[10px] px-1.5 py-0 bg-blue-50 border-blue-200 text-blue-700"
+                        className={`text-[10px] px-1.5 py-0 font-mono text-white ${
+                          urgency === "urgent"
+                            ? "bg-red-500"
+                            : urgency === "soon"
+                              ? "bg-orange-500"
+                              : "bg-blue-500"
+                        }`}
                       >
-                        {sportObj.name}
+                        <Clock className="h-2.5 w-2.5 mr-0.5" />
+                        {timeUntil}
                       </Badge>
-                    )}
-                    <span className="text-[10px] text-muted-foreground flex items-center gap-1">
-                      {matchDate.toLocaleDateString("fr-FR", { day: "2-digit", month: "short" })}
-                      {" • "}
-                      {matchDate.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}
-                    </span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-sm">
+                      <span className="font-semibold">
+                        {nextMatch.team1?.name}
+                      </span>
+                      <span className="text-muted-foreground text-xs">vs</span>
+                      <span className="font-semibold">
+                        {nextMatch.team2?.name}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      {sportObj && !sportBreakdown?.isSingleSport && (
+                        <Badge
+                          variant="outline"
+                          className="text-[10px] px-1.5 py-0 bg-blue-50 border-blue-200 text-blue-700"
+                        >
+                          {sportObj.name}
+                        </Badge>
+                      )}
+                      <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                        {matchDate.toLocaleDateString("fr-FR", {
+                          day: "2-digit",
+                          month: "short",
+                        })}
+                        {" • "}
+                        {matchDate.toLocaleTimeString("fr-FR", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </span>
+                    </div>
                   </div>
-                </div>
-              );
-            })()}
+                );
+              })()}
 
             {/* Upcoming matches list */}
             {upcomingMatches.length > 1 && (
@@ -250,7 +272,9 @@ export function LocationInfoMarker({
                 <div className="mt-1.5 space-y-0.5 max-h-24 overflow-y-auto">
                   {upcomingMatches.slice(1, 4).map((match) => {
                     const matchDate = formatMatchDate(match.date!);
-                    const sport = sports?.find((s: any) => s.id === match.sport_id);
+                    const sport = sports?.find(
+                      (s: any) => s.id === match.sport_id,
+                    );
                     return (
                       <div
                         key={match.id}
@@ -259,9 +283,13 @@ export function LocationInfoMarker({
                         <span className="text-muted-foreground whitespace-nowrap font-mono text-[10px]">
                           {matchDate.time}
                         </span>
-                        <span className="font-medium truncate">{match.team1?.name}</span>
+                        <span className="font-medium truncate">
+                          {match.team1?.name}
+                        </span>
                         <span className="text-muted-foreground">vs</span>
-                        <span className="font-medium truncate">{match.team2?.name}</span>
+                        <span className="font-medium truncate">
+                          {match.team2?.name}
+                        </span>
                         {sport && !sportBreakdown?.isSingleSport && (
                           <Badge
                             variant="outline"

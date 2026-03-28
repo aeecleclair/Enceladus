@@ -13,7 +13,7 @@ const publicType = [
 export const variantFormSchema = z.object({
   name: z
     .string({
-      required_error: "Veuillez renseigner le nom de la variante",
+      error: "Veuillez renseigner le nom de la variante",
     })
     .min(1, {
       message: "Veuillez renseigner le nom de la variante",
@@ -21,13 +21,13 @@ export const variantFormSchema = z.object({
   description: z.string().optional(),
   price: z
     .string({
-      required_error: "Veuillez renseigner le prix du produit",
+      error: "Veuillez renseigner le prix du produit",
     })
     .min(0, {
       message: "Veuillez renseigner le prix du produit",
     }),
   unique: z.enum(["unique", "multiple"], {
-    required_error: "Veuillez renseigner la quantité du produit",
+    error: "Veuillez renseigner la quantité du produit",
   }),
   enabled: z.boolean().optional(),
   schoolType: z.enum(schoolType).optional(),

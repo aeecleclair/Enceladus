@@ -7,11 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/src/components/ui/dialog";
-import { Button } from "@/src/components/ui/button";
-import { TeamSportResultComplete } from "@/src/api/hyperionSchemas";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { TeamSportResultComplete } from "@/api";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { Medal, Trophy, Award } from "lucide-react";
 
 interface PodiumTeamsDialogProps {

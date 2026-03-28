@@ -6,19 +6,23 @@ import { fr } from "date-fns/locale";
 import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
-import { Card, CardContent, CardFooter } from "../ui/card";
-import { Calendar } from "../ui/calendar";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Button } from "../ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../ui/select";
+} from "@/components/ui/select";
 
 interface DateTimePickerProps {
   date?: Date;

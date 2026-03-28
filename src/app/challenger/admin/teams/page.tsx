@@ -3,15 +3,15 @@
 import { useState, useMemo, useEffect, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { Badge } from "@/src/components/ui/badge";
-import { useSchoolSportTeams } from "@/src/hooks/useSchoolSportTeams";
-import { useSports } from "@/src/hooks/useSports";
-import { useSchools } from "@/src/hooks/useSchools";
-import TeamCard from "@/src/components/admin/teams/TeamCard";
-import { TeamsForm } from "@/src/components/admin/teams/TeamsForm";
-import { WarningDialog } from "@/src/components/custom/WarningDialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSchools } from "@/hooks/useSchools";
+import TeamCard from "@/components/challenger/admin/teams/TeamCard";
+import { TeamsForm } from "@/components/challenger/admin/teams/TeamsForm";
+import { WarningDialog } from "@/components/challenger/custom/WarningDialog";
 import {
   Plus,
   Search,
@@ -28,31 +28,31 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/src/components/ui/select";
+} from "@/components/ui/select";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { AlertTriangle } from "lucide-react";
-import { Skeleton } from "@/src/components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/src/components/ui/dialog";
+} from "@/components/ui/dialog";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { teamFormSchema, TeamFormValues } from "@/src/forms/team";
-import { formatSchoolName } from "@/src/utils/schoolFormatting";
-import { toast } from "@/src/components/ui/use-toast";
-import { useSportSchools } from "@/src/hooks/useSportSchools";
-import { useAllMatches } from "@/src/hooks/useAllMatches";
-import { useAllTeams } from "@/src/hooks/useAllTeams";
-import { useSportTeams } from "@/src/hooks/useSportTeams";
-import { useSchoolTeams } from "@/src/hooks/useSchoolTeams";
+import { teamFormSchema, TeamFormValues } from "@/forms/challenger/team";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useAllTeams } from "@/hooks/challenger/useAllTeams";
+import { useSportTeams } from "@/hooks/challenger/useSportTeams";
+import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
+import { useToast } from "@/components/ui/use-toast";
 
 const TeamsDashboard = () => {
   const router = useRouter();
@@ -308,24 +308,29 @@ const TeamsDashboard = () => {
       {/* Stats */}
       {(() => {
         const total = allTeams?.length ?? 0;
-        const incomplete = allTeams?.filter(
-          (t) =>
-            (t.participants?.length ?? 0) <
-            (teamSizeMap.get(t.sport_id) ?? 0),
-        ).length ?? 0;
+        const incomplete =
+          allTeams?.filter(
+            (t) =>
+              (t.participants?.length ?? 0) <
+              (teamSizeMap.get(t.sport_id) ?? 0),
+          ).length ?? 0;
         return (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             <div className="bg-card border rounded-lg p-4">
               <div className="flex items-center gap-2">
                 <Users className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium text-muted-foreground">Total</span>
+                <span className="text-sm font-medium text-muted-foreground">
+                  Total
+                </span>
               </div>
               <div className="text-2xl font-bold">{total}</div>
             </div>
             <div className="bg-card border rounded-lg p-4">
               <div className="flex items-center gap-2">
                 <Shield className="h-4 w-4 text-muted-foreground" />
-                <span className="text-sm font-medium text-muted-foreground">Complètes</span>
+                <span className="text-sm font-medium text-muted-foreground">
+                  Complètes
+                </span>
               </div>
               <div className="text-2xl font-bold">{total - incomplete}</div>
             </div>
@@ -411,9 +416,7 @@ const TeamsDashboard = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem
-                  onClick={() => setFilterCompleteness("all")}
-                >
+                <DropdownMenuItem onClick={() => setFilterCompleteness("all")}>
                   Toutes
                 </DropdownMenuItem>
                 <DropdownMenuItem
