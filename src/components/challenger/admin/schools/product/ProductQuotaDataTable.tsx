@@ -39,6 +39,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { fuzzyFilter } from "@/lib/utils";
 
 // Extended QuotaInfo with productId and productName
 export interface QuotaWithProduct {
@@ -149,6 +150,7 @@ export function ProductQuotaDataTable({
       columnFilters,
       columnVisibility,
     },
+    filterFns: { fuzzy: fuzzyFilter },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,

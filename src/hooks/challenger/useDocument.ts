@@ -68,7 +68,7 @@ export const useDocument = (userId: string | null) => {
 
   return {
     uploadDocument,
-    data,
+    data: data as File | null,
     refetch,
     isLoading,
   };

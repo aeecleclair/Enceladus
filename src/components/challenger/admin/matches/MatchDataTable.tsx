@@ -46,6 +46,7 @@ import {
 import { useRouter } from "next/navigation";
 import { useSports } from "@/hooks/challenger/useSports";
 import { DataTableFacetedFilter } from "@/components/challenger/admin/registered-table/DataTableFacetedFilter";
+import { fuzzyFilter } from "@/lib/utils";
 
 interface MatchDataTableProps {
   data: MatchComplete[];
@@ -274,6 +275,9 @@ export function MatchDataTable({ data, onDelete }: MatchDataTableProps) {
       sorting,
       columnFilters,
       columnVisibility,
+    },
+    filterFns: {
+      fuzzy: fuzzyFilter,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

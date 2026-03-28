@@ -12,15 +12,7 @@ import {
 } from "@/components/ui/card";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { getSchoolType } from "@/lib/challenger/schools";
-import {
-  Eye,
-  MapPin,
-  Users,
-  CheckCircle,
-  XCircle,
-  Edit,
-  Trash2,
-} from "lucide-react";
+import { Edit, Eye, MapPin, Trash2, XCircle } from "lucide-react";
 import Link from "next/link";
 
 interface SchoolCardProps {

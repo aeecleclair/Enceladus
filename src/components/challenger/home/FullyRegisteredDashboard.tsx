@@ -1,11 +1,11 @@
 import { UserStatusBadges } from "./UserStatusBadges";
 import { MatchCard } from "./matches/MatchCard";
-import { useParticipant } from "../../hooks/useParticipant";
-import { useSportMatches } from "../../hooks/useSportMatches";
-import { useSchoolSportTeams } from "../../hooks/useSchoolSportTeams";
-import { useSports } from "../../hooks/useSports";
-import { useSchools } from "../../hooks/useSchools";
-import { useUser } from "../../hooks/useUser";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSchools } from "@/hooks/useSchools";
+import { useMeUser } from "@/hooks/useMeUser";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Clock,
@@ -18,7 +18,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
-import { Match, MatchComplete } from "../../api/hyperionSchemas";
+import { Match, MatchComplete } from "@/api";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
@@ -44,7 +44,7 @@ export const FullyRegisteredDashboard = ({
   meCompetition,
 }: FullyRegisteredDashboardProps) => {
   const { meParticipant } = useParticipant();
-  const { me: user } = useUser();
+  const { user } = useMeUser();
   const router = useRouter();
 
   const { sportMatches } = useSportMatches({

@@ -38,6 +38,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { SportsDataTableToolbar } from "./SportsDataTableToolbar";
+import { fuzzyFilter } from "@/lib/utils";
 
 // Sport data for the table
 export interface SportData {
@@ -243,6 +244,9 @@ export function SportsDataTable({
       sorting,
       columnFilters,
       columnVisibility,
+    },
+    filterFns: {
+      fuzzy: fuzzyFilter,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

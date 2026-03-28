@@ -1,45 +1,34 @@
 "use client";
 
-import { SchoolExtension, SportQuotaInfo } from "@/api";
-import Link from "next/link";
+import { SchoolExtension } from "@/api";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { GeneralQuotaFormValues } from "@/forms/challenger/generalQuota";
+import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
+import { useSchoolsSportQuota } from "@/hooks/challenger/useSchoolsSportQuota";
+import { useSports } from "@/hooks/challenger/useSports";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { getSchoolType } from "@/lib/challenger/schools";
-import { useSchoolsSportQuota } from "@/hooks/useSchoolsSportQuota";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useState, useMemo } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/tooltip";
-import { useSchoolsGeneralQuota } from "@/hooks/useSchoolsGeneralQuota";
-import {
-  QuotaWithSport,
-  SportQuotaDataTable,
-} from "./sport/SportQuotaDataTable";
-import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
-import { GeneralQuotaDialog } from "./GeneralQuotaDialog";
-import { GeneralQuotaFormValues } from "@/forms/challenger/generalQuota";
 import {
   ArrowLeft,
   CheckCircle,
-  XCircle,
-  MapPin,
-  Users,
-  School,
-  Trophy,
-  Plus,
   Edit,
+  MapPin,
   Trash2,
+  Users,
+  XCircle,
 } from "lucide-react";
-import { ProductQuotaDataTable } from "./product/ProductQuotaDataTable";
-import { useSchoolsProductQuota } from "@/hooks/useSchoolsProductQuota";
-import { SportQuotaCard } from "./sport/SportQuotaCard";
+import { useState } from "react";
+import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
+import { GeneralQuotaDialog } from "./GeneralQuotaDialog";
 import { ProductQuotaCard } from "./product/ProductQuotaCard";
+import { SportQuotaCard } from "./sport/SportQuotaCard";
 
 interface SchoolDetailProps {
   school: SchoolExtension;

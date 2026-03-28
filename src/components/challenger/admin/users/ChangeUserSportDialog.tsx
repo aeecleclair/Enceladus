@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { LoadingButton } from "../../custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useSportTeams } from "@/hooks/challenger/useSportTeams";
 import { useChangeParticipantSport } from "@/hooks/challenger/useChangeParticipantSport";
@@ -253,8 +253,8 @@ export const ChangeUserSportDialog = ({
                 <strong>
                   {createTeamMode
                     ? newTeamName
-                    : (sportTeams?.find((t) => t.id === selectedTeamId)?.name ??
-                      "—")}
+                    : sportTeams?.find((t) => t.id === selectedTeamId)?.name ??
+                      "—"}
                 </strong>
               </p>
             )}

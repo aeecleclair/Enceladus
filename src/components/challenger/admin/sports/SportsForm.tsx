@@ -1,5 +1,5 @@
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";

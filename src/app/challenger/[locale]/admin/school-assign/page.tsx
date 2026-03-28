@@ -20,12 +20,13 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useAuth } from "@/hooks/useAuth";
 import { useSchools } from "@/hooks/useSchools";
 import { useAssignSchool } from "@/hooks/challenger/useAssignSchool";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { CoreUserSimple } from "@/api";
+import { useUserSearch } from "@/hooks/useUsersSearch";
 
 export default function SchoolAssignPage() {
   const { token, isTokenExpired } = useAuth();
@@ -39,23 +40,13 @@ export default function SchoolAssignPage() {
   const [assigningUserId, setAssigningUserId] = useState<string | null>(null);
 
   const {
-    data: searchResults,
+    userSearch: searchResults,
     isLoading: isSearching,
-    refetch: refetchSearch,
-  } = useGetUsersSearch(
-    {
-      headers: { Authorization: `Bearer ${token}` },
-      queryParams: {
-        query: query.trim() || "*",
-        includedAccountTypes: ["external"],
-      },
-    },
-    {
-      enabled: !isTokenExpired() && query.trim().length >= 1,
-      retry: false,
-      refetchOnWindowFocus: false,
-    },
-  );
+    refetchUsers: refetchSearch,
+  } = useUserSearch({
+    query,
+    includedAccountTypes: ["external"],
+  });
 
   const handleAssign = (user: CoreUserSimple) => {
     const schoolId = selectedSchool[user.id];
@@ -159,7 +150,7 @@ export default function SchoolAssignPage() {
                               }))
                             }
                           >
-                            <SelectTrigger className="w-[240px]">
+                            <SelectTrigger className="w-60">
                               <SelectValue placeholder="Sélectionner une école" />
                             </SelectTrigger>
                             <SelectContent>

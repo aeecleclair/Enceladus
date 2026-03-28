@@ -1,12 +1,11 @@
 "use client";
 
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Form, FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { EditionFormSchema } from "@/forms/challenger/edition";
-import { DatePicker } from "../custom/DatePicker";
 import { DateRangePicker } from "../custom/DateRangePicker";
 
 interface EditionFormProps {

@@ -54,7 +54,7 @@ export function NavUser() {
             align="end"
             sideOffset={4}
           >
-            {(isChallengerAdmin || isBDS() || isSportManager()) && (
+            {(isChallengerAdmin || isBDS || isSportManager) && (
               <DropdownMenuItem
                 onClick={() => router.push(isOnAdminPage ? "/" : "/admin")}
               >

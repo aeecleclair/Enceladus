@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/table";
 import { useRouter, useSearchParams } from "next/navigation";
 import { DataTablePagination } from "./DataTablePagination";
+import { fuzzyFilter } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -56,6 +57,9 @@ export function DataTable<TData, TValue>({
       columnVisibility,
       rowSelection,
       columnFilters,
+    },
+    filterFns: {
+      fuzzy: fuzzyFilter,
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,

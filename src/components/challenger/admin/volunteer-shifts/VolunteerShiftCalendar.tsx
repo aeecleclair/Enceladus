@@ -1,6 +1,6 @@
 "use client";
 
-import { VolunteerShiftComplete } from "../../../api/hyperionSchemas";
+import { VolunteerShiftComplete } from "@/api";
 import {
   Calendar,
   CalendarCurrentDate,
@@ -19,7 +19,7 @@ import {
   ChevronRight,
   Calendar as CalendarIcon,
 } from "lucide-react";
-import { generateLocationColor } from "../../../utils/locationColors";
+import { generateLocationColor } from "@/lib/challenger/locationColors";
 
 interface VolunteerShiftCalendarProps {
   displayShifts: VolunteerShiftComplete[];
@@ -34,7 +34,6 @@ export default function VolunteerShiftCalendar({
   onEventClick,
   onEmptySlotClick,
 }: VolunteerShiftCalendarProps) {
-
   console.log(displayShifts);
   const events: CalendarEvent[] = useMemo(() => {
     return displayShifts.flatMap((shift) => {
@@ -97,7 +96,10 @@ export default function VolunteerShiftCalendar({
             {displayShifts.length > 0 && (
               <div className="flex items-center gap-2">
                 <span className="text-sm text-muted-foreground">
-                  {displayShifts.reduce((sum, shift) => sum + shift.max_volunteers, 0)}{" "}
+                  {displayShifts.reduce(
+                    (sum, shift) => sum + shift.max_volunteers,
+                    0,
+                  )}{" "}
                   places disponibles au total
                 </span>
               </div>

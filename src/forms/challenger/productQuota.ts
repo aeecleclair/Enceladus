@@ -6,3 +6,4 @@ export const productQuotaFormSchema = z.object({
 });
 
 export type ProductQuotaFormValues = z.infer<typeof productQuotaFormSchema>;
+export type ProductQuotaFormInput = z.input<typeof productQuotaFormSchema>;

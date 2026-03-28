@@ -1,4 +1,4 @@
-import { VolunteerShiftComplete } from "../../../api/hyperionSchemas";
+import { VolunteerShiftComplete } from "@/api";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -19,12 +19,12 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useLocations } from "../../../hooks/useLocations";
+import { useLocations } from "@/hooks/challenger/useLocations";
 import {
   generateLocationColor,
   getLocationDetails,
   openLocationMap,
-} from "../../../utils/locationColors";
+} from "@/lib/challenger/locationColors";
 
 interface AvailableVolunteerShiftCardProps {
   shift: VolunteerShiftComplete;

@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CoreSchool, SchoolExtension, SchoolSportQuota } from "@/api";
 import {
+  SportQuotaFormInput,
   SportQuotaFormValues,
   sportQuotaFormSchema,
 } from "@/forms/challenger/sportQuota";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { Form } from "@/components/ui/form";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import {
@@ -62,7 +63,11 @@ export function QuotaDialog({
   submitLabel,
   isLoading,
 }: QuotaDialogProps) {
-  const SportquotaForm = useForm<SportQuotaFormValues>({
+  const SportquotaForm = useForm<
+    SportQuotaFormInput,
+    any,
+    SportQuotaFormValues
+  >({
     resolver: zodResolver(sportQuotaFormSchema),
     defaultValues: {
       participant_quota: undefined,
@@ -73,8 +78,9 @@ export function QuotaDialog({
   useEffect(() => {
     if (existingQuota) {
       SportquotaForm.reset({
-        participant_quota: existingQuota.participant_quota || undefined,
-        team_quota: existingQuota.team_quota || undefined,
+        participant_quota:
+          existingQuota.participant_quota?.toString() || undefined,
+        team_quota: existingQuota.team_quota?.toString() || undefined,
       });
     }
   }, [existingQuota, SportquotaForm]);

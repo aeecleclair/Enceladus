@@ -1,4 +1,4 @@
-import { StyledFormField } from "../../custom/StyledFormField";
+import { StyledFormField } from "../../../common/StyledFormField";
 import { Label } from "@/components/ui/label";
 import { UseFormReturn } from "react-hook-form";
 import { RegisteringFormValues } from "@/forms/challenger/registering";
@@ -21,13 +21,13 @@ import {
 } from "@/components/ui/dialog";
 import { FormMessage } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { LoadingButton } from "../../custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { Sport, TeamInfo } from "@/api";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useEffect, useState } from "react";
-import { DocumentDialog } from "../../custom/DocumentDialog";
 import { useDocument } from "@/hooks/challenger/useDocument";
 import { useMeUser } from "@/hooks/useMeUser";
+import { DocumentDialog } from "../../custom/DocumentDialog";
 
 interface SportCardProps {
   form: UseFormReturn<RegisteringFormValues>;

@@ -11,7 +11,7 @@ import { useSports } from "@/hooks/challenger/useSports";
 import { useSchools } from "@/hooks/useSchools";
 import TeamCard from "@/components/challenger/admin/teams/TeamCard";
 import { TeamsForm } from "@/components/challenger/admin/teams/TeamsForm";
-import { WarningDialog } from "@/components/challenger/custom/WarningDialog";
+import { WarningDialog } from "@/components/common/WarningDialog";
 import {
   Plus,
   Search,

@@ -9,3 +9,4 @@ export const sportQuotaFormSchema = z.object({
 });
 
 export type SportQuotaFormValues = z.infer<typeof sportQuotaFormSchema>;
+export type SportQuotaFormInput = z.input<typeof sportQuotaFormSchema>;

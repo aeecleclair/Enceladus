@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { PlayCircle, StopCircle, AlertTriangle } from "lucide-react";
 import type * as Schemas from "@/api";
 import { format } from "date-fns";

@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  LocationComplete,
-  Match,
-  MatchComplete,
-} from "../../../api/hyperionSchemas";
+import { LocationComplete, MatchComplete } from "@/api";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,17 +11,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
-  MapPin,
   Calendar,
   Clock,
   ExternalLink,
+  MapPin,
   Navigation,
   Trophy,
-  Users,
-  School,
 } from "lucide-react";
 
 interface LocationCardProps {

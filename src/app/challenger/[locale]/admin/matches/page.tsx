@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { useSportMatches } from "@/hooks/challenger/useSportMatches";
 import { useSports } from "@/hooks/challenger/useSports";
 import MatchCard from "@/components/challenger/admin/matches/MatchCard";
-import { WarningDialog } from "@/components/challenger/custom/WarningDialog";
+import { WarningDialog } from "@/components/common/WarningDialog";
 import {
   Plus,
   CalendarIcon,

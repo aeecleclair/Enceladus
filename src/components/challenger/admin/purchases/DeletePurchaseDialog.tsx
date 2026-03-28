@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface DeletePurchaseDialogProps {
   isOpen: boolean;

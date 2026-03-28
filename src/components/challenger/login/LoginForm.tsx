@@ -1,5 +1,5 @@
+import MyECLButton from "@/components/common/MyEclButton";
 import { cn } from "@/lib/utils";
-import MyECLButton from "./MyECLButton";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -21,7 +21,7 @@ export function LoginForm({
       </div>
 
       <div className="grid gap-8">
-        <MyECLButton />
+        <MyECLButton subdomain="challenger" />
       </div>
 
       <div className="text-center text-base">

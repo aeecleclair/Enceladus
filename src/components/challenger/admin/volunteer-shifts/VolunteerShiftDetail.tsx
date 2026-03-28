@@ -14,14 +14,14 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useVolunteerShifts } from "../../../hooks/useVolunteerShifts";
-import { LoadingButton } from "../../custom/LoadingButton";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface VolunteerShiftDetailProps {
   shiftId: string;
@@ -226,7 +226,7 @@ export default function VolunteerShiftDetail({
                       </span>
                       <div className="flex items-center gap-1">
                         <span
-                          className="font-medium text-sm truncate max-w-[120px]"
+                          className="font-medium text-sm truncate max-w-30"
                           title={shift.location}
                         >
                           {shift.location}

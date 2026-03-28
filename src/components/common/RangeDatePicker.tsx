@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { DateRange } from "react-day-picker";
-import { formatDateRange } from "@/lib/challenger/dateFormat";
+import { formatDateRange } from "@/lib/dateFormat";
 
 interface RangeDatePickerProps {
   dateRange?: DateRange;
@@ -51,7 +51,7 @@ export function RangeDatePicker({
           selected={dateRange}
           onSelect={setDateRange}
           locale={fr}
-          captionLayout="dropdown-buttons"
+          captionLayout="dropdown"
           fromYear={new Date().getFullYear() - 1}
           toYear={new Date().getFullYear() + 1}
           defaultMonth={defaultDate}

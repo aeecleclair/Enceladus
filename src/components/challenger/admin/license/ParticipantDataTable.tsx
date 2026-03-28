@@ -33,6 +33,7 @@ import { Badge } from "@/components/ui/badge";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 import { CertificateLicense, ParticipantData } from "./CertificateLicense";
+import { fuzzyFilter } from "@/lib/utils";
 
 interface ParticipantDataTableProps {
   data: ParticipantData[];
@@ -251,6 +252,9 @@ export function ParticipantDataTable({
       sorting,
       columnFilters,
       columnVisibility,
+    },
+    filterFns: {
+      fuzzy: fuzzyFilter,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

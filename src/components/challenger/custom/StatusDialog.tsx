@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { HiCheck, HiX } from "react-icons/hi";
+import { JSX } from "react";
 
 const DialogStatus = {
   SUCCESS: "SUCCESS",

@@ -11,16 +11,16 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useAllMatches } from "../../../hooks/useAllMatches";
-import { useSports } from "../../../hooks/useSports";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useSports } from "@/hooks/challenger/useSports";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { openLocationMap } from "../../../utils/locationColors";
-import { useLocations } from "../../../hooks/useLocations";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { openLocationMap } from "@/lib/challenger/locationColors";
 
 interface MatchDetailDialogProps {
   matchId: string;
@@ -101,7 +101,7 @@ export default function MatchDetailDialog({
           <DialogHeader>
             <DialogTitle className="flex items-start justify-between gap-3">
               <span className="text-lg leading-tight">{match.name}</span>
-              <div className="flex items-center gap-1.5 flex-shrink-0 pt-0.5">
+              <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
                 {getStatusBadge()}
               </div>
             </DialogTitle>
@@ -167,13 +167,13 @@ export default function MatchDetailDialog({
             {matchDate && (
               <>
                 <div className="flex items-center gap-3">
-                  <Calendar className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <Calendar className="h-4 w-4 text-muted-foreground shrink-0" />
                   <span className="font-medium capitalize">
                     {format(matchDate, "EEEE d MMMM", { locale: fr })}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Clock className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                  <Clock className="h-4 w-4 text-muted-foreground shrink-0" />
                   <span>{format(matchDate, "HH:mm")}</span>
                 </div>
               </>
@@ -181,7 +181,7 @@ export default function MatchDetailDialog({
 
             {match.location && (
               <div className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                <MapPin className="h-4 w-4 text-muted-foreground shrink-0" />
                 <div className="flex items-center gap-1.5">
                   <span>{match.location.name}</span>
                   <Button

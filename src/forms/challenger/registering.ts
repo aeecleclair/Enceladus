@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  isValidPhoneNumber,
-  parsePhoneNumberWithError,
-} from "libphonenumber-js";
+import { isValidPhoneNumber } from "libphonenumber-js";
 import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
 
 const sexEnum = ["masculine", "feminine"] as const;
@@ -21,7 +18,7 @@ export const registeringFormSchema = z
     is_cameraman: z.boolean(),
     is_fanfare: z.boolean(),
     is_pompom: z.boolean(),
-    allow_pictures: z.boolean().default(true),
+    allow_pictures: z.boolean(),
     sex: z.enum(sexEnum, {
       error: "Veuillez sélectionner une option",
     }),

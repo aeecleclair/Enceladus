@@ -26,6 +26,7 @@ import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { ArrowUpDown, Search } from "lucide-react";
 import { VolunteerShiftCompleteWithVolunteers } from "@/api";
 import VolunteerDetailDialog, { VolunteerRow } from "./VolunteerDetailDialog";
+import { fuzzyFilter } from "@/lib/utils";
 
 function aggregateVolunteers(
   shifts: VolunteerShiftCompleteWithVolunteers[],
@@ -192,6 +193,9 @@ export default function VolunteerDataTable({
       sorting,
       columnFilters,
       columnVisibility: { searchField: false },
+    },
+    filterFns: {
+      fuzzy: fuzzyFilter,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

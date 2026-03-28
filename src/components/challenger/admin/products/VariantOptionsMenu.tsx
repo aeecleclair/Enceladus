@@ -18,7 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { MoreVertical, Edit, Trash2, Play, Pause } from "lucide-react";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { EditVariantDialog } from "./EditVariantDialog";
 
 interface VariantOptionsMenuProps {

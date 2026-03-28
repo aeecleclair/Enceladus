@@ -25,13 +25,13 @@ import {
   UserGroupMembership,
   UserGroupMembershipComplete,
 } from "@/api";
-import { AVAILABLE_GROUPS } from "@/src/infra/groups";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
 
 export default function GroupsPage() {
   const router = useRouter();

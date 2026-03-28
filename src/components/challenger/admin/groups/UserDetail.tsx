@@ -18,8 +18,8 @@ import {
   Users,
 } from "lucide-react";
 import { UserGroupMembership, UserGroupMembershipComplete } from "@/api";
-import { AVAILABLE_GROUPS } from "@/src/infra/groups";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
 
 interface UserDetailProps {
   user: UserGroupMembershipComplete;

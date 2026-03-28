@@ -22,7 +22,6 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { DatePicker } from "@/components/challenger/custom/DatePicker";
 import { DateTimePicker } from "@/components/challenger/custom/DateTimePicker";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useEdition } from "@/hooks/challenger/useEdition";
@@ -30,7 +29,7 @@ import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useLocations } from "@/hooks/challenger/useLocations";
 import { useEffect, useState } from "react";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { MatchFormValues } from "@/forms/challenger/match";
 import {
   Trophy,

@@ -1,16 +1,7 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SchoolProductQuota, SchoolSportQuota, Sport } from "@/api";
-import {
-  SportQuotaFormValues,
-  sportQuotaFormSchema,
-} from "@/forms/challenger/sportQuota";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
-import { Input } from "@/components/ui/input";
+import { SchoolSportQuota, Sport } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Button } from "@/components/ui/button";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
-import { Form } from "@/components/ui/form";
-import { FormItem, FormLabel } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
@@ -20,6 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Form, FormItem, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -27,8 +20,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  SportQuotaFormInput,
+  SportQuotaFormValues,
+  sportQuotaFormSchema,
+} from "@/forms/challenger/sportQuota";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 interface SportQuotaDialogProps {
   isOpen: boolean;
@@ -57,7 +57,7 @@ export function SportQuotaDialog({
   submitLabel,
   isLoading,
 }: SportQuotaDialogProps) {
-  const quotaForm = useForm<SportQuotaFormValues>({
+  const quotaForm = useForm<SportQuotaFormInput, any, SportQuotaFormValues>({
     resolver: zodResolver(sportQuotaFormSchema),
     defaultValues: {
       participant_quota: undefined,
@@ -68,8 +68,9 @@ export function SportQuotaDialog({
   useEffect(() => {
     if (existingQuota) {
       quotaForm.reset({
-        participant_quota: existingQuota.participant_quota || undefined,
-        team_quota: existingQuota.team_quota || undefined,
+        participant_quota:
+          existingQuota.participant_quota?.toString() || undefined,
+        team_quota: existingQuota.team_quota?.toString() || undefined,
       });
     }
   }, [existingQuota, quotaForm]);

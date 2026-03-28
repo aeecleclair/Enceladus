@@ -33,3 +33,4 @@ export const generalQuotaFormSchema = z.object({
 });
 
 export type GeneralQuotaFormValues = z.infer<typeof generalQuotaFormSchema>;
+export type GeneralQuotaFormInput = z.input<typeof generalQuotaFormSchema>;

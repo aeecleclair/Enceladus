@@ -71,6 +71,7 @@ import { useUserPayments } from "@/hooks/challenger/useUserPayments";
 import Link from "next/link";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { useToast } from "@/components/ui/use-toast";
+import { fuzzyFilter } from "@/lib/utils";
 
 export interface ParticipantData {
   userId: string;
@@ -740,6 +741,9 @@ export function ParticipantDataTable({
       sorting,
       columnFilters,
       columnVisibility,
+    },
+    filterFns: {
+      fuzzy: fuzzyFilter,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

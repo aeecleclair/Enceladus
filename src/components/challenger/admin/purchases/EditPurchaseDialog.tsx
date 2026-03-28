@@ -17,8 +17,8 @@ import {
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
 
 interface EditPurchaseDialogProps {
   isOpen: boolean;

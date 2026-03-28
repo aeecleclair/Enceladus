@@ -1,4 +1,4 @@
-import { StyledFormField } from "../../custom/StyledFormField";
+import { StyledFormField } from "../../../common/StyledFormField";
 import { Label } from "@/components/ui/label";
 import { UseFormReturn } from "react-hook-form";
 import { CardTemplate } from "./CardTemplate";

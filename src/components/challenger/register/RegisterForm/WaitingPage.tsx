@@ -17,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
 import { Form } from "@/components/ui/form";
-import { LoadingButton } from "../../custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
   Purchase,
@@ -32,14 +32,14 @@ import {
   SubstituteFormValues,
 } from "@/forms/challenger/substitute";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { StyledFormField } from "../../custom/StyledFormField";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { DocumentDialog } from "../../custom/DocumentDialog";
 import { useDocument } from "@/hooks/challenger/useDocument";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useToast } from "@/components/ui/use-toast";
+import { DocumentDialog } from "@/components/challenger/custom/DocumentDialog";
 
 interface WaitingPageProps {
   userMePurchases?: Purchase[];

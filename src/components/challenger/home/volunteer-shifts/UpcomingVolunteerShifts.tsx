@@ -1,9 +1,9 @@
-import { VolunteerRegistrationComplete } from "../../../api/hyperionSchemas";
+import { VolunteerRegistrationComplete } from "@/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useMemo, useState } from "react";
 import { VolunteerShiftCard } from ".";
-import { useVolunteer } from "../../../hooks/useVolunteer";
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 

@@ -1,15 +1,15 @@
 "use client";
 
-import { Card, CardContent } from "../../components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   UpcomingVolunteerShifts,
   PastVolunteerShifts,
   AvailableVolunteerShifts,
-} from "../../components/home/volunteer-shifts";
-import { useVolunteer } from "../../hooks/useVolunteer";
-import { useVolunteerShifts } from "../../hooks/useVolunteerShifts";
+} from "@/components/challenger/home/volunteer-shifts";
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
 import { Users, Award, TrendingUp } from "lucide-react";
-import { VolunteerRegistrationComplete } from "../../api/hyperionSchemas";
+import { VolunteerRegistrationComplete } from "@/api";
 import { useMemo } from "react";
 import {
   SidebarInset,

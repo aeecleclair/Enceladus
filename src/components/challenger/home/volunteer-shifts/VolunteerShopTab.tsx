@@ -7,7 +7,7 @@ import { usePayment } from "@/hooks/challenger/usePayment";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { LoadingButton } from "../../custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import {
   ShoppingBag,
   CreditCard,

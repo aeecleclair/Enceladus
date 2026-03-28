@@ -2,13 +2,13 @@ import { CheckCircle2, CreditCard } from "lucide-react";
 import { useState } from "react";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { WarningDialog } from "../../custom/WarningDialog";
-import { HelloAssoButton } from "../../custom/HelloAssoButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
+import { HelloAssoButton } from "@/components/common/HelloAssoButton";
 import { RegistrationSummary } from "./RegistrationSummary";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { BasketCard } from "./BasketCard";
-import { LoadingButton } from "../../custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useForm } from "react-hook-form";
 import {
   editProductSchema,

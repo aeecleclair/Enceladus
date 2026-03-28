@@ -113,13 +113,13 @@ export function DateTimePicker({
               selected={date}
               onSelect={handleDateSelect}
               locale={fr}
-              captionLayout="dropdown-buttons"
+              captionLayout="dropdown"
               fromDate={fromDate}
               toDate={toDate}
               initialFocus
             />
           </CardContent>
-          <CardFooter className="flex flex-col gap-6 border-t px-4 !pt-4">
+          <CardFooter className="flex flex-col gap-6 border-t px-4 pt-4!">
             <div className="flex w-full flex-col gap-3">
               <Label htmlFor={timeId}>{timeLabel}</Label>
               <div className="flex w-full items-center gap-2">

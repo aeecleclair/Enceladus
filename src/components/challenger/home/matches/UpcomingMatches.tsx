@@ -1,10 +1,10 @@
-import { Match, MatchComplete } from "../../../api/hyperionSchemas";
+import { Match, MatchComplete } from "@/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Clock, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { MatchCard } from "./MatchCard";
-import { useFavoriteMatches } from "../../../hooks/useFavoriteMatches";
+import { useFavoriteMatches } from "@/hooks/challenger/useFavoriteMatches";
 
 interface UpcomingMatchesProps {
   matches: MatchComplete[];

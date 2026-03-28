@@ -1,33 +1,31 @@
-import { VolunteerRegistrationComplete } from "../../../api/hyperionSchemas";
+import { VolunteerRegistrationComplete } from "@/api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-  Clock,
-  MapPin,
-  Calendar,
-  Users,
-  Award,
-  ExternalLink,
-  CheckCircle,
-  UserMinus,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import { useLocations } from "../../../hooks/useLocations";
+import { useLocations } from "@/hooks/challenger/useLocations";
 import {
   generateLocationColor,
-  getLocationName,
   getLocationDetails,
   openLocationMap,
-} from "../../../utils/locationColors";
+} from "@/lib/challenger/locationColors";
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import {
+  Award,
+  Calendar,
+  CheckCircle,
+  Clock,
+  ExternalLink,
+  MapPin,
+  UserMinus,
+  Users,
+} from "lucide-react";
 
 interface VolunteerShiftCardProps {
   registration: VolunteerRegistrationComplete;

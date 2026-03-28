@@ -39,6 +39,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { fuzzyFilter } from "@/lib/utils";
 
 // Extended QuotaInfo with schoolId and schoolName
 export interface QuotaWithSchool {
@@ -177,6 +178,9 @@ export function QuotaDataTable({
       sorting,
       columnFilters,
       columnVisibility,
+    },
+    filterFns: {
+      fuzzy: fuzzyFilter,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

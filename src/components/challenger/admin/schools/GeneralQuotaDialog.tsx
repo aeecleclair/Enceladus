@@ -1,14 +1,7 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  generalQuotaFormSchema,
-  GeneralQuotaFormValues,
-} from "@/forms/challenger/generalQuota";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
-import { Input } from "@/components/ui/input";
+import { SchoolGeneralQuota } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Button } from "@/components/ui/button";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
-import { Form } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
@@ -18,9 +11,17 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import {
+  GeneralQuotaFormInput,
+  generalQuotaFormSchema,
+  GeneralQuotaFormValues,
+} from "@/forms/challenger/generalQuota";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 import { useEffect } from "react";
-import { SchoolGeneralQuota } from "@/api";
+import { useForm } from "react-hook-form";
 
 interface GeneralQuotaDialogProps {
   isOpen: boolean;
@@ -43,43 +44,50 @@ export function GeneralQuotaDialog({
   submitLabel,
   isLoading,
 }: GeneralQuotaDialogProps) {
-  const quotaForm = useForm<GeneralQuotaFormValues>({
-    resolver: zodResolver(generalQuotaFormSchema),
-    defaultValues: {
-      athlete_quota: existingQuota?.athlete_quota || undefined,
-      cameraman_quota: existingQuota?.cameraman_quota || undefined,
-      pompom_quota: existingQuota?.pompom_quota || undefined,
-      fanfare_quota: existingQuota?.fanfare_quota || undefined,
-      athlete_cameraman_quota:
-        existingQuota?.athlete_cameraman_quota || undefined,
-      athlete_pompom_quota: existingQuota?.athlete_pompom_quota || undefined,
-      athlete_fanfare_quota: existingQuota?.athlete_fanfare_quota || undefined,
-      non_athlete_cameraman_quota:
-        existingQuota?.non_athlete_cameraman_quota || undefined,
-      non_athlete_pompom_quota:
-        existingQuota?.non_athlete_pompom_quota || undefined,
-      non_athlete_fanfare_quota:
-        existingQuota?.non_athlete_fanfare_quota || undefined,
+  const quotaForm = useForm<GeneralQuotaFormInput, any, GeneralQuotaFormValues>(
+    {
+      resolver: zodResolver(generalQuotaFormSchema),
+      defaultValues: {
+        athlete_quota: existingQuota?.athlete_quota?.toString() || undefined,
+        cameraman_quota:
+          existingQuota?.cameraman_quota?.toString() || undefined,
+        pompom_quota: existingQuota?.pompom_quota?.toString() || undefined,
+        fanfare_quota: existingQuota?.fanfare_quota?.toString() || undefined,
+        athlete_cameraman_quota:
+          existingQuota?.athlete_cameraman_quota?.toString() || undefined,
+        athlete_pompom_quota:
+          existingQuota?.athlete_pompom_quota?.toString() || undefined,
+        athlete_fanfare_quota:
+          existingQuota?.athlete_fanfare_quota?.toString() || undefined,
+        non_athlete_cameraman_quota:
+          existingQuota?.non_athlete_cameraman_quota?.toString() || undefined,
+        non_athlete_pompom_quota:
+          existingQuota?.non_athlete_pompom_quota?.toString() || undefined,
+        non_athlete_fanfare_quota:
+          existingQuota?.non_athlete_fanfare_quota?.toString() || undefined,
+      },
     },
-  });
+  );
 
   useEffect(() => {
     if (existingQuota) {
       quotaForm.reset({
-        athlete_quota: existingQuota.athlete_quota || undefined,
-        cameraman_quota: existingQuota.cameraman_quota || undefined,
-        pompom_quota: existingQuota.pompom_quota || undefined,
-        fanfare_quota: existingQuota.fanfare_quota || undefined,
+        athlete_quota: existingQuota.athlete_quota?.toString() || undefined,
+        cameraman_quota: existingQuota.cameraman_quota?.toString() || undefined,
+        pompom_quota: existingQuota.pompom_quota?.toString() || undefined,
+        fanfare_quota: existingQuota.fanfare_quota?.toString() || undefined,
         athlete_cameraman_quota:
-          existingQuota.athlete_cameraman_quota || undefined,
-        athlete_pompom_quota: existingQuota.athlete_pompom_quota || undefined,
-        athlete_fanfare_quota: existingQuota.athlete_fanfare_quota || undefined,
+          existingQuota.athlete_cameraman_quota?.toString() || undefined,
+        athlete_pompom_quota:
+          existingQuota.athlete_pompom_quota?.toString() || undefined,
+        athlete_fanfare_quota:
+          existingQuota.athlete_fanfare_quota?.toString() || undefined,
         non_athlete_cameraman_quota:
-          existingQuota.non_athlete_cameraman_quota || undefined,
+          existingQuota.non_athlete_cameraman_quota?.toString() || undefined,
         non_athlete_pompom_quota:
-          existingQuota.non_athlete_pompom_quota || undefined,
+          existingQuota.non_athlete_pompom_quota?.toString() || undefined,
         non_athlete_fanfare_quota:
-          existingQuota.non_athlete_fanfare_quota || undefined,
+          existingQuota.non_athlete_fanfare_quota?.toString() || undefined,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -25,7 +25,7 @@ import { useSports } from "@/hooks/challenger/useSports";
 import { useSchools } from "@/hooks/useSchools";
 import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
 import { useEffect, useState } from "react";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { TeamFormValues } from "@/forms/challenger/team";
 import { Shield, Trophy, School, Crown, Users, Flag } from "lucide-react";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";

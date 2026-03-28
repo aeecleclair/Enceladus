@@ -1,26 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  volunteerShiftFormSchema,
-  VolunteerShiftFormSchema,
-} from "../../../forms/volunteerShift";
+import { VolunteerShiftBase, VolunteerShiftComplete } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { LoadingButton } from "../../custom/LoadingButton";
-import { DateTimePicker } from "../../custom/DateTimePicker";
-import { useVolunteerShifts } from "../../../hooks/useVolunteerShifts";
-import { useLocations } from "../../../hooks/useLocations";
-import { useAuth } from "../../../hooks/useAuth";
-import { useUserSearch } from "../../../hooks/useUsersSearch";
 import {
-  VolunteerShiftComplete,
-  VolunteerShiftBase,
-} from "../../../api/hyperionSchemas";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
 import {
   Dialog,
   DialogContent,
@@ -35,27 +25,26 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  volunteerShiftFormSchema,
+  VolunteerShiftFormSchema,
+} from "@/forms/challenger/volunteerShift";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+import { useAuth } from "@/hooks/useAuth";
+import { useUserSearch } from "@/hooks/useUsersSearch";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Check, ChevronsUpDown, User } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { DateTimePicker } from "../../custom/DateTimePicker";
 
 interface VolunteerShiftFormProps {
   shiftId?: string | null;

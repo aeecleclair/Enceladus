@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { LoadingButton } from "../../custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useSportTeams } from "@/hooks/challenger/useSportTeams";
 import { useChangeParticipantSport } from "@/hooks/challenger/useChangeParticipantSport";
 import { useCreateTeam } from "@/hooks/challenger/useCreateTeam";

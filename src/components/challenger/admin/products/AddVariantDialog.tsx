@@ -28,9 +28,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
-import { CurrencyInput } from "@/components/challenger/custom/CurrencyInput";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
+import { PriceInput } from "@/components/ui/priceInput";
 
 interface AddVariantDialogProps {
   productId: string;
@@ -136,7 +136,7 @@ export const AddVariantDialog = ({
                 form={form}
                 label="Prix"
                 id="price"
-                input={(field) => <CurrencyInput id="price" {...field} />}
+                input={(field) => <PriceInput id="price" {...field} />}
               />
 
               <StyledFormField

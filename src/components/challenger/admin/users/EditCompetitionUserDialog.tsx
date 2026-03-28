@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LoadingButton } from "../../custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { Pencil } from "lucide-react";
 import { CompetitionUser, CompetitionUserEdit, SportCategory } from "@/api";
 

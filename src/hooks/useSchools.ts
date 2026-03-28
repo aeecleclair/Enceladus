@@ -17,6 +17,7 @@ export const useSchools = () => {
   const filteredSchools = data?.filter((school) => school.id !== NoSchoolId);
 
   return {
+    NoSchoolId,
     schools: data || [],
     filteredSchools: filteredSchools || [],
     isLoading,

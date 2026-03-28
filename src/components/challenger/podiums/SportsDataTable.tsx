@@ -36,6 +36,7 @@ import { TeamSportResultComplete } from "@/api";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { PodiumTeamsDialog } from "./PodiumTeamsDialog";
+import { fuzzyFilter } from "@/lib/utils";
 
 // Sport data for the table
 export interface SportData {
@@ -224,6 +225,9 @@ export function SportsDataTable({ data }: SportsDataTableProps) {
       sorting,
       columnFilters,
       columnVisibility,
+    },
+    filterFns: {
+      fuzzy: fuzzyFilter,
     },
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,

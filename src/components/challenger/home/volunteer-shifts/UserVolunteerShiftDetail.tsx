@@ -16,11 +16,10 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useVolunteer } from "../../../hooks/useVolunteer";
-import { useVolunteerShifts } from "../../../hooks/useVolunteerShifts";
-import { useLocations } from "../../../hooks/useLocations";
-import { LoadingButton } from "../../custom/LoadingButton";
-import { VolunteerShiftComplete } from "../../../api/hyperionSchemas";
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { VolunteerShiftComplete } from "@/api";
 import {
   Dialog,
   DialogContent,
@@ -31,7 +30,8 @@ import {
   generateLocationColor,
   getLocationDetails,
   openLocationMap,
-} from "../../../utils/locationColors";
+} from "@/lib/challenger/locationColors";
+import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface UserVolunteerShiftDetailProps {
   shiftId: string;

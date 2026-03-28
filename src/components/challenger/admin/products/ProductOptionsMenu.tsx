@@ -18,7 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { MoreVertical, Edit, Trash2, Eye } from "lucide-react";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { EditProductDialog } from "./EditProductDialog";
 
 interface ProductOptionsMenuProps {

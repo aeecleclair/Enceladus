@@ -1,4 +1,4 @@
-import { Match, MatchComplete } from "../../../api/hyperionSchemas";
+import { Match, MatchComplete } from "@/api";
 import { Badge } from "@/components/ui/badge";
 import { Trophy, X, School, Users, Target, Star } from "lucide-react";
 import { cn } from "@/lib/utils";

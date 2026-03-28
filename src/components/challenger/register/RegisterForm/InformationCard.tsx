@@ -1,4 +1,4 @@
-import { StyledFormField } from "../../custom/StyledFormField";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { RegisteringFormValues } from "@/forms/challenger/registering";
@@ -6,7 +6,7 @@ import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { CardTemplate } from "./CardTemplate";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
-import { PhoneCustomInput } from "../../custom/PhoneCustomInput";
+import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useMeUser } from "@/hooks/useMeUser";
 

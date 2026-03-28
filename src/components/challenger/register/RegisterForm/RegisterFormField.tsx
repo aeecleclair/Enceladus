@@ -1,4 +1,4 @@
-import { LoadingButton } from "../../custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { UseFormReturn } from "react-hook-form";
 import { RegisteringFormValues } from "@/forms/challenger/registering";
 import {
@@ -13,11 +13,11 @@ import { BasketCard } from "./BasketCard";
 import { SetStateAction, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { RegisterState } from "@/src/infra/registerState";
 import { SummaryCard } from "./SummaryCard";
 import { Sport } from "@/api";
 import { EditProductValues } from "@/forms/challenger/editProducts";
 import { CardTemplate } from "./CardTemplate";
+import { RegisterState } from "@/lib/challenger/registerState";
 
 interface RegisterFormFieldProps {
   form: UseFormReturn<RegisteringFormValues>;

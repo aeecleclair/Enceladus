@@ -1,17 +1,10 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  SchoolProductQuotaBase,
-  SchoolProductQuota,
-  Product,
   AppModulesSportCompetitionSchemasSportCompetitionProductComplete,
+  SchoolProductQuotaBase,
 } from "@/api";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
-import { Input } from "@/components/ui/input";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Button } from "@/components/ui/button";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
-import { Form } from "@/components/ui/form";
-import { FormItem, FormLabel } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
@@ -21,6 +14,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Form, FormItem, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -28,12 +23,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus } from "lucide-react";
-import { useEffect } from "react";
 import {
+  ProductQuotaFormInput,
   productQuotaFormSchema,
   ProductQuotaFormValues,
 } from "@/forms/challenger/productQuota";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Plus } from "lucide-react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 
 interface ProductQuotaDialogProps {
   isOpen: boolean;
@@ -62,17 +60,19 @@ export function ProductQuotaDialog({
   submitLabel,
   isLoading,
 }: ProductQuotaDialogProps) {
-  const quotaForm = useForm<ProductQuotaFormValues>({
-    resolver: zodResolver(productQuotaFormSchema),
-    defaultValues: {
-      quota: undefined,
+  const quotaForm = useForm<ProductQuotaFormInput, any, ProductQuotaFormValues>(
+    {
+      resolver: zodResolver(productQuotaFormSchema),
+      defaultValues: {
+        quota: undefined,
+      },
     },
-  });
+  );
 
   useEffect(() => {
     if (existingQuota) {
       quotaForm.reset({
-        quota: existingQuota.quota || undefined,
+        quota: existingQuota.quota?.toString() || undefined,
       });
     }
   }, [existingQuota, quotaForm]);

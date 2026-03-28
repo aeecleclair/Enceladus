@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CoreSchool, SchoolProductQuota } from "@/api";
 import {
+  ProductQuotaFormInput,
   ProductQuotaFormValues,
   productQuotaFormSchema,
 } from "@/forms/challenger/productQuota";
-import { StyledFormField } from "@/components/challenger/custom/StyledFormField";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { LoadingButton } from "@/components/challenger/custom/LoadingButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { Form } from "@/components/ui/form";
 import { FormItem, FormLabel } from "@/components/ui/form";
 import {
@@ -62,7 +63,11 @@ export function ProductsQuotaDialog({
   submitLabel,
   isLoading,
 }: ProductsQuotaDialogProps) {
-  const productQuotaForm = useForm<ProductQuotaFormValues>({
+  const productQuotaForm = useForm<
+    ProductQuotaFormInput,
+    any,
+    ProductQuotaFormValues
+  >({
     resolver: zodResolver(productQuotaFormSchema),
     defaultValues: {
       quota: undefined,
@@ -72,7 +77,7 @@ export function ProductsQuotaDialog({
   useEffect(() => {
     if (existingQuota) {
       productQuotaForm.reset({
-        quota: existingQuota.quota || undefined,
+        quota: existingQuota.quota.toString() || undefined,
       });
     }
   }, [existingQuota, productQuotaForm]);

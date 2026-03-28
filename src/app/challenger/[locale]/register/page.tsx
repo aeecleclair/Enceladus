@@ -82,7 +82,6 @@ const Register = () => {
       is_pompom: false,
       sex: "masculine",
       phone: "",
-      allow_pictures: true,
       sport: undefined,
       products:
         userMePurchases

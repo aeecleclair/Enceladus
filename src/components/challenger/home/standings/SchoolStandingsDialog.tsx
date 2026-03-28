@@ -6,10 +6,10 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { usePodiums } from "../../../hooks/usePodiums";
-import { useSports } from "../../../hooks/useSports";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { useSports } from "@/hooks/challenger/useSports";
 import { Medal, Trophy, Award } from "lucide-react";
-import { formatSchoolName } from "../../../utils/schoolFormatting";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface MockResult {
   team_id: string;

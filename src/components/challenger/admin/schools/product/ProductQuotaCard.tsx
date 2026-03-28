@@ -1,45 +1,15 @@
 "use client";
 
 import { SchoolExtension, SchoolProductQuotaBase } from "@/api";
-import Link from "next/link";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { getSchoolType } from "@/lib/challenger/schools";
-import { useSchoolsProductQuota } from "@/hooks/useSchoolsProductQuota";
-import { useProducts } from "@/hooks/challenger/useProducts";
-import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  TooltipProvider,
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-} from "@/components/ui/tooltip";
-import { useSchoolsGeneralQuota } from "@/hooks/useSchoolsGeneralQuota";
-import { ProductQuotaDialog } from "./ProductQuotaDialog";
-import {
-  QuotaWithProduct,
-  ProductQuotaDataTable,
-} from "./ProductQuotaDataTable";
-import { DeleteConfirmationDialog } from "../DeleteConfirmationDialog";
-import { SportQuotaFormValues } from "@/forms/challenger/sportQuota";
-import { GeneralQuotaDialog } from "../GeneralQuotaDialog";
-import { GeneralQuotaFormValues } from "@/forms/challenger/generalQuota";
-import {
-  ArrowLeft,
-  CheckCircle,
-  XCircle,
-  MapPin,
-  Users,
-  School,
-  Trophy,
-  Plus,
-  Edit,
-  Trash2,
-  Package,
-} from "lucide-react";
 import { ProductQuotaFormValues } from "@/forms/challenger/productQuota";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuota";
+import { Package, Plus } from "lucide-react";
+import { useState } from "react";
+import { ProductQuotaDataTable } from "./ProductQuotaDataTable";
+import { ProductQuotaDialog } from "./ProductQuotaDialog";
 
 interface ProductQuotaCardProps {
   school: SchoolExtension;

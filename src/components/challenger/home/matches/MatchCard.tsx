@@ -1,4 +1,4 @@
-import { Match, MatchComplete } from "../../../api/hyperionSchemas";
+import { Match, MatchComplete } from "@/api";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";

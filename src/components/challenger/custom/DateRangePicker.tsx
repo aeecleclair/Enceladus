@@ -110,7 +110,7 @@ export function DateRangePicker({
             locale={fr}
             fromDate={fromDate}
             toDate={toDate}
-            captionLayout="dropdown-buttons"
+            captionLayout="dropdown"
             className="rounded-lg border-0 shadow-none"
             initialFocus
           />

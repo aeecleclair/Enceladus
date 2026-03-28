@@ -7,12 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
-import { DataTableViewOptions } from "./DataTableViewOptions";
 import { DataTableFilterCheckBox } from "./DataTableFilterCheckBox";
-import { LoadingButton } from "../../custom/LoadingButton";
-import { icons, MergeIcon, Trash2Icon } from "lucide-react";
-import { useState } from "react";
-import { WarningDialog } from "../../custom/WarningDialog";
+import { DataTableViewOptions } from "./DataTableViewOptions";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -21,7 +17,6 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
-  const [isDeleteAllDialogOpen, setIsDeleteAllDialogOpen] = useState(false);
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (

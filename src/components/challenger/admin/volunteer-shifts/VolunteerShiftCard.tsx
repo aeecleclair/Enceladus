@@ -15,13 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { VolunteerShiftComplete } from "../../../api/hyperionSchemas";
-import { useLocations } from "../../../hooks/useLocations";
-import {
-  generateLocationColor,
-  getLocationDetails,
-  openLocationMap,
-} from "../../../utils/locationColors";
+import { VolunteerShiftComplete } from "@/api";
 
 interface VolunteerShiftCardProps {
   shift: VolunteerShiftComplete;
