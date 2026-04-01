@@ -3,7 +3,7 @@
 import { useSellers } from "@/hooks/siarnaq/useSellers";
 import { useStatus } from "@/hooks/siarnaq/useStatus";
 import { useYear } from "@/hooks/siarnaq/useYear";
-import { usePathname } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { useLocaleStore } from "@/stores/locale";
 import { useTokenStore } from "@/stores/token";
@@ -61,16 +61,13 @@ export default function TopBar() {
       )}
       <div className="flex gap-x-4">
         {pathname === "/" && (isCdrAdmin || isInASellerGroup) && (
-          <Button
-            variant="secondary"
-            onClick={() => router.push(`/${locale}/admin`)}
-          >
+          <Button variant="secondary" onClick={() => router.push(`/admin`)}>
             <HiOutlineLibrary className="mr-2" />
             {t("topbar.admin")}
           </Button>
         )}
         {pathname === "/admin" && (
-          <Button variant="secondary" onClick={() => router.push(`/${locale}`)}>
+          <Button variant="secondary" onClick={() => router.push(`/`)}>
             <HiShoppingCart className="mr-2" />
             {t("topbar.user")}
           </Button>
@@ -108,7 +105,6 @@ function LocaleDropdown() {
 
   const onSetLocale = (l: string) => {
     if (l !== locale) {
-      router.push(`/${l}${pathname}${sellerId ? `?sellerId=${sellerId}` : ""}`);
       setLocaleStore(l as Locale);
     }
   };
@@ -130,14 +126,20 @@ function LocaleDropdown() {
         <DropdownMenuRadioGroup value={locale} onValueChange={onSetLocale}>
           {routing.locales.map((l) => (
             <DropdownMenuRadioItem key={l} value={l}>
-              <Image
-                src={`/${l}.svg`}
-                alt={localeName[l]}
-                width={30}
-                height={30}
-                className="rounded-2xs border border-border mr-2"
-              />
-              <span>{localeName[l]}</span>
+              <Link
+                href={{ pathname, query: { sellerId } }}
+                locale={l}
+                className="flex flex-row p-1"
+              >
+                <Image
+                  src={`/${l}.svg`}
+                  alt={localeName[l]}
+                  width={30}
+                  height={30}
+                  className="rounded-2xs border border-border mr-2"
+                />
+                <span>{localeName[l]}</span>
+              </Link>
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>
