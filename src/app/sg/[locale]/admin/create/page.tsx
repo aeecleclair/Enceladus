@@ -6,7 +6,7 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { useSessions } from "@/hooks/sg/useSessions";
-import { CreateEventSidebar } from "@/components/sg/admin/Sidebar/CreateEventSidebar";
+import { CreateEventSidebar } from "@/components/sg/admin/Sidebars/CreateEventSidebar";
 import { useTranslations } from "next-intl";
 import AddEventState from "@/infra/AddEventState";
 import { AddEditEventForm } from "@/components/sg/admin/EventForm/AddEditEventForm";

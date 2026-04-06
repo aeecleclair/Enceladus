@@ -3,18 +3,18 @@
 import { ManageEventSidebar } from "@/components/sg/admin/Sidebars/ManageSidebar/ManageEventSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
-const ManagePage = () => {
+const EditPage = () => {
     return (
         <SidebarProvider>
             <ManageEventSidebar/>
             <SidebarInset>
                 <SidebarTrigger />
                 <header>
-                    Manage SG
+                    Edit Event
                 </header>
-            </SidebarInset> 
+            </SidebarInset>
         </SidebarProvider>
     );
 }
 
-export default ManagePage;
+export default EditPage;

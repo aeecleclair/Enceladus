@@ -94,7 +94,7 @@ export const AddEventAccordionItem = ({
 
     return (
         <div>
-            <CustomDialog
+            {/* <CustomDialog
                 isFullWidth
                 title={t("newEvent")}
                 description={
@@ -125,8 +125,8 @@ export const AddEventAccordionItem = ({
                     <h3 className="text-lg font-semibold mb-2">Ajouter un événement</h3>
                     <div className="flex grow"></div>
                 </div>
-            </CustomDialog>
-            <div className="border-sidebar-accent-foreground rounded-lg p-4 shadow-sm w-full" onClick={() => router.push(`/admin/create?organiserId=${organiserId}`)}>
+            </CustomDialog> */}
+            <div className="border-sidebar-accent-foreground rounded-lg p-4 shadow-sm flex flex-row w-full" onClick={() => router.push(`/admin/create?organiserId=${organiserId}`)}>
                 <HiPlus className="w-4 h-4 mr-6" />
                 <h3 className="text-lg font-semibold mb-2 ">Ajouter un événement</h3>
                 <div className="flex grow"></div>

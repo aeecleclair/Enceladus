@@ -35,30 +35,20 @@ export const OrganiserTabList = ({
       <Label htmlFor="search" className="sr-only">
         Search
       </Label>
-      <Search className="absolute size-4 select-none" />
+      <div className="absolute size-4 select-none w-32">
+        <Search />
+      </div>
       <TabsList className={`grid w-full grid-flow-row grid-cols-7`}>
         {organisers.map((organiser) => (
           <TabsTrigger
-          key={organiser.id}
-          value={organiser.id}
-          className="min-w-18 w-full"
-          onClick={() => handleClick(organiser.id)}
+            key={organiser.id}
+            value={organiser.id}
+            className="min-w-18 w-full"
+            onClick={() => handleClick(organiser.id)}
           >
             {organiser.name}
           </TabsTrigger>
         ))}
-        {isAdmin && (
-          <>
-            <TabsTrigger
-              key="cdradmin"
-              value="cdradmin"
-              className="w-full min-w-18"
-              onClick={() => handleClick("cdradmin")}
-              >
-              {t("productPart.admin")}
-            </TabsTrigger>
-          </>
-        )}
       </TabsList>
     </div>
   );

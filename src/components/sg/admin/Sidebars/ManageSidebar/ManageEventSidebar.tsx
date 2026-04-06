@@ -13,6 +13,10 @@ import {
 } from "@/components/ui/sidebar"
 import { useTranslations } from "next-intl";
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { NavEdit } from "./NavEdit";
+import { NavInscriptions } from "./NavInscriptions";
+
 
 export function ManageEventSidebar({
     ...props
@@ -20,9 +24,6 @@ export function ManageEventSidebar({
     }) {
     
     const t = useTranslations("sg.admin.sidebar");
-
-    function handleManageSGClick() {
-    }
 
     return (
         <Sidebar className="pl-4" variant="inset">
@@ -37,20 +38,34 @@ export function ManageEventSidebar({
                 </SidebarMenu>
             </ SidebarHeader >
             <SidebarContent>
-                <SidebarGroup />
+                <NavEdit />
+                <NavInscriptions />
+                {/* <SidebarGroup />
                     <SidebarGroupLabel>
                         <div
                             onClick={handleManageSGClick}
                             className="cursor-pointer hover:underline"
                         >
-                            Gérer mes SG
+                            Modifier le SG
                         </div>
                         <SidebarMenuAction className="data-[state=open]:rotate-90 mr-2">
                             <ChevronRight />
                             <span className="sr-only">Toggle</span>
                         </SidebarMenuAction>
                     </SidebarGroupLabel>
-                <SidebarGroup />
+                    <SidebarGroupLabel>
+                        <div
+                            onClick={handleManageSGClick}
+                            className="cursor-pointer hover:underline"
+                        >
+                            Liste des inscriptions
+                        </div>
+                        <SidebarMenuAction className="data-[state=open]:rotate-90 mr-2">
+                            <ChevronRight />
+                            <span className="sr-only">Toggle</span>
+                        </SidebarMenuAction>
+                    </SidebarGroupLabel>
+                <SidebarGroup /> */}
             </SidebarContent>
         <SidebarFooter />
         </Sidebar>

@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 const hostname = typeof window !== "undefined" ? window.location.hostname : "";
 
 const COOKIE_DOMAIN = (() => {
-  if (!hostname || hostname === "localhost" || hostname === "127.0.0.1") {
+  if (!hostname || hostname.endsWith("localhost") || hostname === "127.0.0.1") {
     return undefined;
   }
   const parts = hostname.split(".");
