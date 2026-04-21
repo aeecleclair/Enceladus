@@ -62,7 +62,7 @@ export const VariantCard = ({
   const { userId: myUserId } = useTokenStore();
   const { purchases, refetch } = useUserSellerPurchases(
     isAdmin ? userId : myUserId,
-    sellerId
+    sellerId,
   );
   const { refetch: refetchUserPurchases } = useUserPurchases(userId);
   const { data: productFields } = useSellerProductData(sellerId, productId);
@@ -155,7 +155,7 @@ export const VariantCard = ({
             },
           });
         }
-      })
+      }),
     );
     setIsOpened(false);
   };
@@ -183,14 +183,14 @@ export const VariantCard = ({
                   ? displayWarning
                     ? "border-destructive shadow-destructive/30 shadow-lg"
                     : "shadow-lg border-2"
-                  : "shadow-lg",
+                  : "shadow-lg border-gray-400/50",
                 !variant.enabled ? "text-muted-foreground" : "",
                 (isSelectable || (!isSelectable && selected)) &&
                   variant.enabled &&
                   variant.unique &&
                   !isLoading
                   ? "cursor-pointer"
-                  : ""
+                  : "",
               )}
               onClick={() => {
                 if (
@@ -227,7 +227,7 @@ export const VariantCard = ({
                     <div
                       className={cn(
                         "flex m-auto  w-full bg-white rounded-md bg-opacity-50",
-                        showDescription ? "h-27.25" : "h-23.25"
+                        showDescription ? "h-27.25" : "h-23.25",
                       )}
                     >
                       <ReloadIcon className="flex h-6 w-6 animate-spin m-auto" />
@@ -239,7 +239,7 @@ export const VariantCard = ({
                   <CardTitle
                     className={cn(
                       "text-sm font-medium",
-                      !isSelectable ? "text-muted-foreground" : ""
+                      !isSelectable ? "text-muted-foreground" : "",
                     )}
                   >
                     <span>
@@ -327,7 +327,7 @@ export const VariantCard = ({
                 <div
                   className={cn(
                     "text-2xl font-bold",
-                    !isSelectable ? "text-muted-foreground" : ""
+                    !isSelectable ? "text-muted-foreground" : "",
                   )}
                 >
                   <span>
@@ -340,7 +340,7 @@ export const VariantCard = ({
                   <p className="text-xs text-muted-foreground">
                     {selectTranslation(
                       variant.description_en,
-                      variant.description_fr
+                      variant.description_fr,
                     )}
                   </p>
                 )}

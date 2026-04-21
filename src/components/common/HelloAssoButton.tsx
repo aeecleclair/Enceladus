@@ -2,7 +2,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface HelloAssoButtonProps {
   isLoading: boolean;

@@ -2,7 +2,6 @@
 
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
-import { fuzzyFilter } from "./searchFunction";
 
 import { CoreUserSimple } from "@/api";
 import { useRouter } from "@/i18n/navigation";
@@ -36,6 +35,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { fuzzyFilter } from "@/lib/utils";
 
 // Extend the FilterFns and FilterMeta interfaces to include our custom filter function and meta
 declare module "@tanstack/react-table" {
@@ -63,7 +63,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -100,7 +100,7 @@ export function DataTable<TData, TValue>({
   React.useEffect(() => {
     if (userId && !table.getIsSomeRowsSelected()) {
       const userIndex = data.findIndex(
-        (user) => (user as CoreUserSimple).id === userId
+        (user) => (user as CoreUserSimple).id === userId,
       );
       if (userIndex !== -1) {
         const row = table.getRow(userIndex.toString(), true);
@@ -150,7 +150,7 @@ export function DataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -174,7 +174,7 @@ export function DataTable<TData, TValue>({
                         <TableCell key={cell.id}>
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </TableCell>
                       ))}
@@ -190,7 +190,7 @@ export function DataTable<TData, TValue>({
                       <TableCell key={cell.id}>
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext()
+                          cell.getContext(),
                         )}
                       </TableCell>
                     ))}

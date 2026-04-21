@@ -31,6 +31,7 @@
   --color-destructive-foreground: hsl(var(--destructive-foreground));
 
   --color-border: hsl(var(--border));
+  --default-border-color: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   
@@ -111,11 +112,12 @@
     --ring: 212.7 26.8% 83.9%;
   }
   
-  /* Réinitialisation globale des bordures */
-  *, ::after, ::before, ::backdrop, ::file-selector-button {
-    border-color: var(--border, currentColor);
+  @layer base {
+  * {
+    border-color: hsl(var(--border));
+    border: 0px solid;
   }
-
+}
   /* Couleurs de fond et de texte par défaut */
   body {
     background-color: hsl(var(--background));

@@ -20,7 +20,8 @@ import {
 } from "@/components/ui/table";
 import { Skeleton } from "@/components/ui/skeleton";
 import { RaidTeamPreview } from "@/api";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
 import {
   DropdownMenu,
@@ -41,9 +42,9 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
     const now = new Date();
     const pad = (n: number) => n.toString().padStart(2, "0");
     const formatted = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(
-      now.getDate()
+      now.getDate(),
     )}_${pad(now.getHours())}_${pad(now.getMinutes())}_${pad(
-      now.getSeconds()
+      now.getSeconds(),
     )}`;
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -161,7 +162,7 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                   .toSorted(
                     (a, b) =>
                       (b.validation_progress % 100) -
-                      (a.validation_progress % 100)
+                      (a.validation_progress % 100),
                   )
                   .slice(0, 5)
                   .map((team) => {

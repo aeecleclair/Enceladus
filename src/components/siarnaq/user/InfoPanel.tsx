@@ -19,7 +19,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "../../ui/card";
+} from "@/components/ui/card";
 
 export const InfoPanel = () => {
   const t = useTranslations("siarnaq");

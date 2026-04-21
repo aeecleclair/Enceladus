@@ -8,7 +8,8 @@ import { useYear } from "@/hooks/siarnaq/useYear";
 import { useTokenStore } from "@/stores/token";
 
 import { useTranslations } from "next-intl";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
 
