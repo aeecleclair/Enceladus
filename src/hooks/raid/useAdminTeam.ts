@@ -1,16 +1,14 @@
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "../useAuth";
 import { useHasRaidPermission } from "./useHasRaidPermission";
-
 import {
   deleteRaidTeamsTeamIdMutation,
   getRaidTeamsTeamIdOptions,
   getRaidTeamsTeamIdQueryKey,
   postRaidTeamsTeamIdKickUserIdMutation,
 } from "@/api/@tanstack/react-query.gen";
-
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-
-import { useToast } from "@/components/ui/use-toast";
+import { DetailedErrorType, ErrorType } from "@/lib/raid/errorTyping";
 
 export const useAdminTeam = (teamId: string) => {
   const { isTokenExpired } = useAuth();
@@ -21,6 +19,18 @@ export const useAdminTeam = (teamId: string) => {
   const teamQueryKey = getRaidTeamsTeamIdQueryKey({
     path: { team_id: teamId },
   });
+
+  const reportError = (title: string) => (error: unknown) => {
+    console.error(error);
+    toast({
+      title,
+      description:
+        (error as ErrorType)?.stack?.body ||
+        (error as DetailedErrorType)?.stack?.detail ||
+        "Une erreur est survenue, veuillez réessayer.",
+      variant: "destructive",
+    });
+  };
 
   const { data: team, refetch: refetchTeam } = useQuery({
     ...getRaidTeamsTeamIdOptions({
@@ -33,36 +43,24 @@ export const useAdminTeam = (teamId: string) => {
   const { mutate: mutateKickMember, isPending: isKickLoading } = useMutation({
     ...postRaidTeamsTeamIdKickUserIdMutation(),
     onSuccess: () => {
-      toast({
-        title: "Succès",
-        description: "Le membre a été exclu avec succès",
-      });
+      toast({ title: "Le membre a été exclu avec succès" });
       queryClient.invalidateQueries({ queryKey: teamQueryKey });
     },
-    onError: (error) => {
-      console.error(error);
-      toast({
-        title: "Erreur lors de l'exclusion",
-        description: "Une erreur est survenue, veuillez réessayer.",
-        variant: "destructive",
-      });
-    },
+    onError: reportError("Erreur lors de l'exclusion"),
   });
 
   const { mutate: mutateDeleteTeam, isPending: isDeleteLoading } = useMutation({
     ...deleteRaidTeamsTeamIdMutation(),
     onSuccess: () => {
-      toast({
-        title: "Succès",
-        description: "L'équipe a été supprimée avec succès",
-      });
+      toast({ title: "L'équipe a été supprimée avec succès" });
       queryClient.removeQueries({ queryKey: teamQueryKey });
     },
+    onError: reportError("Erreur lors de la suppression"),
   });
 
-  const kickMember = (participantId: string, callback: () => void) => {
+  const kickMember = (memberUserId: string, callback: () => void) => {
     mutateKickMember(
-      { path: { team_id: teamId, user_id: participantId } },
+      { path: { team_id: teamId, user_id: memberUserId } },
       { onSuccess: () => callback() },
     );
   };

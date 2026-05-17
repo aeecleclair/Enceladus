@@ -2,7 +2,6 @@ import {
   postRaidParticipantUserIdPaymentMutation,
   postRaidParticipantUserIdTShirtPaymentMutation,
 } from "@/api/@tanstack/react-query.gen";
-
 import { useMutation } from "@tanstack/react-query";
 
 export const usePayment = () => {
@@ -11,13 +10,9 @@ export const usePayment = () => {
       ...postRaidParticipantUserIdPaymentMutation(),
     });
 
-  const validatePayment = (participantId: string, callback: () => void) => {
+  const validatePayment = (participantUserId: string, callback: () => void) => {
     mutateValidatePayment(
-      {
-        path: {
-          user_id: participantId,
-        },
-      },
+      { path: { user_id: participantUserId } },
       { onSuccess: () => callback() },
     );
   };
@@ -30,15 +25,11 @@ export const usePayment = () => {
   });
 
   const validateTShirtPayment = (
-    participantId: string,
+    participantUserId: string,
     callback: () => void,
   ) => {
     mutateValidateTShirtPayment(
-      {
-        path: {
-          user_id: participantId,
-        },
-      },
+      { path: { user_id: participantUserId } },
       { onSuccess: () => callback() },
     );
   };
