@@ -8,7 +8,7 @@ import { useTokenStore } from "@/stores/token";
 
 import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import * as auth from "oauth4webapi";
 
@@ -24,6 +24,7 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
     process.env.NEXT_PUBLIC_BACKEND_URL ?? "https://hyperion.myecl.fr",
   );
   const { token, setToken, setRefreshToken } = useTokenStore();
+  const hasLoggedInRef = useRef(false);
 
   async function getIssuer() {
     return auth
@@ -42,45 +43,61 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
     token_endpoint_auth_method: "none",
   };
 
-  if (code && !isLoading && typeof window !== "undefined" && codeVerifier) {
-    login(new URL(window.location.href));
-    router.push("/login");
-  }
-
   async function login(url: URL) {
     setIsLoading(true);
-    const hyperionIssuer = await getIssuer();
-    const params = auth.validateAuthResponse(
-      hyperionIssuer,
-      client,
-      url,
-      auth.skipStateCheck,
-    );
-    if (auth.isOAuth2Error(params)) {
-      throw new Error(); // Handle OAuth 2.0 redirect error
-    }
+    try {
+      const hyperionIssuer = await getIssuer();
+      const params = auth.validateAuthResponse(
+        hyperionIssuer,
+        client,
+        url,
+        auth.skipStateCheck,
+      );
+      if (auth.isOAuth2Error(params)) {
+        throw new Error(); // Handle OAuth 2.0 redirect error
+      }
 
-    const response = await auth.authorizationCodeGrantRequest(
-      hyperionIssuer,
-      client,
-      params,
-      redirectUri,
-      codeVerifier ?? "",
-    );
+      const response = await auth.authorizationCodeGrantRequest(
+        hyperionIssuer,
+        client,
+        params,
+        redirectUri,
+        codeVerifier ?? "",
+      );
 
-    const result = await auth.processAuthorizationCodeOAuth2Response(
-      hyperionIssuer,
-      client,
-      response,
-    );
-    if (auth.isOAuth2Error(result)) {
+      const result = await auth.processAuthorizationCodeOAuth2Response(
+        hyperionIssuer,
+        client,
+        response,
+      );
+      if (auth.isOAuth2Error(result)) {
+        throw new Error(); // Handle OAuth 2.0 response body error
+      }
+      setToken(result.access_token);
+      setRefreshToken(result.refresh_token ?? null);
+    } finally {
       setIsLoading(false);
-      throw new Error(); // Handle OAuth 2.0 response body error
     }
-    setToken(result.access_token);
-    setRefreshToken(result.refresh_token ?? null);
-    setIsLoading(false);
   }
+
+  // Handle the OAuth callback exactly once, then strip the `?code=` param.
+  useEffect(() => {
+    if (
+      !code ||
+      isLoading ||
+      !codeVerifier ||
+      hasLoggedInRef.current ||
+      typeof window === "undefined"
+    ) {
+      return;
+    }
+    hasLoggedInRef.current = true;
+    const url = new URL(window.location.href);
+    login(url).finally(() => {
+      router.replace("/login");
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [code, codeVerifier]);
 
   async function openSSO() {
     const hyperionIssuer = await getIssuer();
@@ -103,16 +120,15 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
       codeChallengeMethod,
     );
     if (
-      hyperionIssuer.code_challenge_methods_supported?.includes("S256") !== true
+      hyperionIssuer.code_challenge_methods_supported?.includes("S256") !==
+      true
     ) {
       const state = auth.generateRandomState();
       authorizationUrl.searchParams.set("state", state);
     }
-    router.push(authorizationUrl.href);
-  }
-
-  if (token !== null) {
-    router.push("/");
+    if (typeof window !== "undefined") {
+      window.location.href = authorizationUrl.href;
+    }
   }
 
   return (
