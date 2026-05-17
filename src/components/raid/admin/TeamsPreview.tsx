@@ -1,11 +1,6 @@
-import { RaidParticipant, RaidTeamPreview } from "@/api";
-import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
-import { useSecurityFiles } from "@/hooks/raid/useSecurityFiles";
-import { useTeamFiles } from "@/hooks/raid/useTeamFiles";
-import { useRouter } from "@/i18n/navigation";
-
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { Link } from "@/i18n/navigation";
+import { ArrowUpRight, DownloadIcon, LifeBuoyIcon } from "lucide-react";
+import { UsersIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,13 +11,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Skeleton } from "@/components/ui/skeleton";
-import {
   Table,
   TableBody,
   TableCell,
@@ -30,9 +18,19 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import { ArrowUpRight, DownloadIcon, LifeBuoyIcon } from "lucide-react";
-import { UsersIcon } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { RaidTeamPreview } from "@/api";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
+import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useTeamFiles } from "@/hooks/raid/useTeamFiles";
+import { useSecurityFiles } from "@/hooks/raid/useSecurityFiles";
 
 interface TeamsPreviewProps {
   teams?: RaidTeamPreview[];
@@ -71,7 +69,7 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
   }
 
   return (
-    <Card className="xl:col-span-2">
+    <Card className="xl:col-span-2 border-border/70 bg-card/95 shadow-sm">
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
           <CardTitle>Equipes</CardTitle>
@@ -128,96 +126,115 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
         </div>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Nom</TableHead>
-              <TableHead className="max-md:hidden">Capitaine</TableHead>
-              <TableHead className="max-md:hidden">Coéquipier</TableHead>
-              <TableHead className="max-md:hidden">Documents</TableHead>
-              <TableHead className="text-right">Inscription</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {isLoading && (
-              <>
-                {[...Array(5)].map((_, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="h-19.5">
-                      <Skeleton className="h-6 w-24" />
-                    </TableCell>
-                    {[...Array(3)].map((_, index) => (
-                      <TableCell key={index} className="max-md:hidden">
+        <div className="overflow-hidden rounded-xl border border-border/60">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Nom</TableHead>
+                <TableHead className="max-md:hidden">Capitaine</TableHead>
+                <TableHead className="max-md:hidden">Coéquipier</TableHead>
+                <TableHead className="max-md:hidden">Documents</TableHead>
+                <TableHead className="text-right">Inscription</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {isLoading && (
+                <>
+                  {[...Array(5)].map((_, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="h-19.5">
                         <Skeleton className="h-6 w-24" />
                       </TableCell>
-                    ))}
-                    <TableCell>
-                      <Skeleton className="h-6 w-8 ml-auto" />
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </>
-            )}
-            {teams && (
-              <>
-                {teams
-                  .toSorted(
-                    (a, b) =>
-                      (b.validation_progress % 100) -
-                      (a.validation_progress % 100),
-                  )
-                  .slice(0, 5)
-                  .map((team) => {
-                    const captain = team.captain as RaidParticipant;
-                    const second = team.second as RaidParticipant | null;
-                    const number_of_validated_document =
-                      captain.number_of_validated_document +
-                      (second?.number_of_validated_document ?? 0);
-                    const number_of_document =
-                      captain.number_of_document +
-                      (second?.number_of_document ?? 0);
-                    return (
-                      <TableRow
-                        key={team.id}
-                        onClick={() => onTeamClick(team.id)}
-                      >
-                        <TableCell className="h-19.5">{team.name}</TableCell>
-                        <TableCell className="max-md:hidden">
-                          <div className="font-medium">
-                            {team.captain?.user?.firstname}{" "}
-                            {team.captain?.user?.name}
-                          </div>
+                      {[...Array(3)].map((_, index) => (
+                        <TableCell key={index} className="max-md:hidden">
+                          <Skeleton className="h-6 w-24" />
                         </TableCell>
-                        <TableCell className="max-md:hidden">
-                          {team.second ? (
-                            <>
-                              <div className="font-medium">
-                                {team.second.user.firstname}{" "}
-                                {team.second.user.name}
-                              </div>
-                            </>
-                          ) : (
-                            <div className="font-medium text-muted-foreground">
-                              Non renseigné
+                      ))}
+                      <TableCell>
+                        <Skeleton className="h-6 w-8 ml-auto" />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </>
+              )}
+              {teams && (
+                <>
+                  {teams
+                    .toSorted(
+                      (a, b) =>
+                        (b.validation_progress % 100) -
+                        (a.validation_progress % 100),
+                    )
+                    .slice(0, 5)
+                    .map((team) => {
+                      const captainAny = team.captain as typeof team.captain &
+                        Partial<
+                          Pick<
+                            import("@/api").RaidParticipant,
+                            | "number_of_document"
+                            | "number_of_validated_document"
+                          >
+                        >;
+                      const secondAny = team.second as
+                        | (typeof team.second &
+                            Partial<
+                              Pick<
+                                import("@/api").RaidParticipant,
+                                | "number_of_document"
+                                | "number_of_validated_document"
+                              >
+                            >)
+                        | null;
+                      const number_of_validated_document =
+                        (captainAny?.number_of_validated_document ?? 0) +
+                        (secondAny?.number_of_validated_document ?? 0);
+                      const number_of_document =
+                        (captainAny?.number_of_document ?? 0) +
+                        (secondAny?.number_of_document ?? 0);
+                      return (
+                        <TableRow
+                          key={team.id}
+                          className="cursor-pointer"
+                          onClick={() => onTeamClick(team.id)}
+                        >
+                          <TableCell className="h-19.5">{team.name}</TableCell>
+                          <TableCell className="max-md:hidden">
+                            <div className="font-medium">
+                              {team.captain?.user.firstname}{" "}
+                              {team.captain?.user.name}
                             </div>
-                          )}
-                        </TableCell>
-                        <TableCell className="max-md:hidden">
-                          <ProgressBadge
-                            progress={number_of_validated_document}
-                            total={number_of_document}
-                          />
-                        </TableCell>
-                        <TableCell className="text-right">
-                          {team?.validation_progress.toFixed(0)}%
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </>
-            )}
-          </TableBody>
-        </Table>
+                          </TableCell>
+                          <TableCell className="max-md:hidden">
+                            {team.second ? (
+                              <>
+                                <div className="font-medium">
+                                  {team.second.user.firstname}{" "}
+                                  {team.second.user.name}
+                                </div>
+                              </>
+                            ) : (
+                              <div className="font-medium text-muted-foreground">
+                                Non renseigné
+                              </div>
+                            )}
+                          </TableCell>
+                          <TableCell className="max-md:hidden">
+                            <ProgressBadge
+                              progress={number_of_validated_document}
+                              total={number_of_document}
+                            />
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {team?.validation_progress.toFixed(0)}%
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                </>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </CardContent>
     </Card>
   );
