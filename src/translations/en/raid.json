@@ -2,5 +2,224 @@
   "metadata": {
     "title": "Raid Registration",
     "description": "Registration for Centrale Lyon RAID"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "validate": "Validate",
+    "reopen": "Reopen",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading...",
+    "confirm": "Confirm",
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied",
+    "status": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "validated": "Validated",
+      "cancelled": "Cancelled"
+    },
+    "role": {
+      "participant": "Participant",
+      "volunteer": "Volunteer",
+      "admin": "Administrator"
+    }
+  },
+  "home": {
+    "sidebar": {
+      "mySpace": "My registration",
+      "volunteering": "Volunteering",
+      "registration": "Registration",
+      "information": "Information",
+      "team": "My team",
+      "profile": "Profile",
+      "invite": "Invite a teammate",
+      "volunteerStatus": "My volunteering",
+      "register": "Register",
+      "contact": "Contact"
+    },
+    "dashboard": {
+      "editionWaiting": {
+        "title": "Waiting for edition",
+        "description": "The next Raid edition will be announced soon."
+      },
+      "chooseRole": {
+        "title": "How would you like to participate?",
+        "participant": "Register as participant",
+        "volunteer": "Register as volunteer"
+      },
+      "incompleteTeam": {
+        "title": "Registration in progress",
+        "cta": "Go to my team"
+      },
+      "fullyRegistered": {
+        "title": "Registration validated",
+        "countdownLabel": "Raid starts in"
+      },
+      "volunteerPending": {
+        "title": "Volunteer registration pending",
+        "description": "Your registration is being reviewed by the organizers."
+      },
+      "volunteerDashboard": {
+        "title": "You are a volunteer"
+      },
+      "volunteerCancelled": {
+        "title": "Volunteer registration cancelled"
+      },
+      "registrationClosed": {
+        "title": "Registrations closed",
+        "description": "The registration period is over."
+      }
+    }
+  },
+  "register": {
+    "roleChooser": {
+      "title": "How would you like to participate?",
+      "participant": "Participant",
+      "volunteer": "Volunteer"
+    },
+    "participant": {
+      "title": "Participant registration",
+      "createTeam": "Create a team",
+      "joinTeam": "I have an invitation code"
+    },
+    "volunteer": {
+      "title": "Volunteer registration"
+    }
+  },
+  "team": {
+    "dashboard": {
+      "title": "My team",
+      "progress": "Progress",
+      "editTeam": "Edit team",
+      "submit": "Submit my registration",
+      "reopen": "Reopen my registration"
+    },
+    "invite": {
+      "dialogTitle": "Invite a teammate",
+      "description": "Share this link with your teammate to join your team.",
+      "copyLink": "Copy link"
+    },
+    "join": {
+      "dialogTitle": "Join a team",
+      "description": "You have been invited to join a team.",
+      "confirm": "Join"
+    },
+    "documents": {
+      "title": "Documents",
+      "upload": "Upload"
+    },
+    "payment": {
+      "title": "Payment",
+      "pay": "Pay",
+      "paid": "Paid"
+    },
+    "securityFile": {
+      "title": "Health file"
+    }
+  },
+  "volunteer": {
+    "register": {
+      "title": "Volunteer registration",
+      "diet": "Diet",
+      "allergy": "Allergies",
+      "hasCar": "I have a car",
+      "carSeats": "Available seats",
+      "isSpecialDriver": "Special vehicle driver",
+      "isUtilityVehicleDriver": "Utility vehicle driver",
+      "isParcoursHelper": "Course helper"
+    },
+    "dashboard": {
+      "pending": "Pending validation",
+      "validated": "Validated",
+      "cancelled": "Cancelled"
+    },
+    "cancel": {
+      "action": "Unregister",
+      "confirmTitle": "Confirm unregistration",
+      "confirmDescription": "Are you sure you want to unregister as a volunteer?"
+    }
+  },
+  "profile": {
+    "title": "My profile",
+    "identity": "Identity",
+    "logout": "Log out"
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "editions": "Editions",
+      "participants": "Participants",
+      "teams": "Teams",
+      "volunteers": "Volunteers",
+      "information": "Information",
+      "overview": "Overview",
+      "registration": "Registration",
+      "configuration": "Configuration"
+    },
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "editions": {
+      "title": "Editions",
+      "create": "Create edition",
+      "activate": "Activate",
+      "toggleInscription": "Open/Close registrations",
+      "year": "Year",
+      "name": "Name",
+      "dates": "Dates",
+      "registeringEndDate": "Registration end",
+      "delete": "Delete"
+    },
+    "participants": {
+      "title": "Participants",
+      "actions": {
+        "validate": "Validate",
+        "cancel": "Cancel",
+        "reopen": "Reopen"
+      }
+    },
+    "teams": {
+      "title": "Teams"
+    },
+    "volunteers": {
+      "title": "Volunteers",
+      "actions": {
+        "validate": "Validate",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
+    },
+    "information": {
+      "title": "Raid information",
+      "sections": {
+        "dates": "Dates",
+        "prices": "Prices",
+        "contact": "Contact",
+        "files": "Documents"
+      },
+      "prices": {
+        "student": "Student price",
+        "external": "External price",
+        "partner": "Partner price",
+        "tShirt": "T-shirt price"
+      }
+    },
+    "fallback": {
+      "title": "No active edition",
+      "description": "Create a new edition to get started.",
+      "createEdition": "Manage editions"
+    }
+  },
+  "errors": {
+    "generic": "An error occurred, please try again.",
+    "network": "Server connection problem.",
+    "permission": "You don't have permission to perform this action.",
+    "registerClosed": "Registrations are closed."
   }
 }

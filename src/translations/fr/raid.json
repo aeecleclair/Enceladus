@@ -2,5 +2,224 @@
   "metadata": {
     "title": "Inscription Raid",
     "description": "Inscription au RAID de Centrale Lyon"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "submit": "Soumettre",
+    "validate": "Valider",
+    "reopen": "Rouvrir",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "back": "Retour",
+    "next": "Suivant",
+    "loading": "Chargement...",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "copy": "Copier",
+    "copied": "Copié",
+    "status": {
+      "draft": "Brouillon",
+      "submitted": "Soumis",
+      "validated": "Validé",
+      "cancelled": "Annulé"
+    },
+    "role": {
+      "participant": "Participant",
+      "volunteer": "Bénévole",
+      "admin": "Administrateur"
+    }
+  },
+  "home": {
+    "sidebar": {
+      "mySpace": "Mon inscription",
+      "volunteering": "Bénévolat",
+      "registration": "Inscription",
+      "information": "Informations",
+      "team": "Mon équipe",
+      "profile": "Profil",
+      "invite": "Inviter un coéquipier",
+      "volunteerStatus": "Mon bénévolat",
+      "register": "S'inscrire",
+      "contact": "Contact"
+    },
+    "dashboard": {
+      "editionWaiting": {
+        "title": "En attente de l'édition",
+        "description": "La prochaine édition du Raid sera bientôt annoncée."
+      },
+      "chooseRole": {
+        "title": "Comment souhaitez-vous participer ?",
+        "participant": "Je m'inscris en tant que participant",
+        "volunteer": "Je m'inscris en tant que bénévole"
+      },
+      "incompleteTeam": {
+        "title": "Inscription en cours",
+        "cta": "Aller à mon équipe"
+      },
+      "fullyRegistered": {
+        "title": "Inscription validée",
+        "countdownLabel": "Début du Raid dans"
+      },
+      "volunteerPending": {
+        "title": "Inscription bénévole en attente",
+        "description": "Votre inscription est en cours d'examen par les organisateurs."
+      },
+      "volunteerDashboard": {
+        "title": "Vous êtes bénévole"
+      },
+      "volunteerCancelled": {
+        "title": "Inscription bénévole annulée"
+      },
+      "registrationClosed": {
+        "title": "Inscriptions fermées",
+        "description": "La période d'inscription est terminée."
+      }
+    }
+  },
+  "register": {
+    "roleChooser": {
+      "title": "Comment souhaitez-vous participer ?",
+      "participant": "Participant",
+      "volunteer": "Bénévole"
+    },
+    "participant": {
+      "title": "Inscription participant",
+      "createTeam": "Créer une équipe",
+      "joinTeam": "J'ai un code d'invitation"
+    },
+    "volunteer": {
+      "title": "Inscription bénévole"
+    }
+  },
+  "team": {
+    "dashboard": {
+      "title": "Mon équipe",
+      "progress": "Progression",
+      "editTeam": "Modifier l'équipe",
+      "submit": "Soumettre mon inscription",
+      "reopen": "Rouvrir mon inscription"
+    },
+    "invite": {
+      "dialogTitle": "Inviter un coéquipier",
+      "description": "Partagez ce lien avec votre coéquipier pour qu'il rejoigne votre équipe.",
+      "copyLink": "Copier le lien"
+    },
+    "join": {
+      "dialogTitle": "Rejoindre une équipe",
+      "description": "Vous avez été invité à rejoindre une équipe.",
+      "confirm": "Rejoindre"
+    },
+    "documents": {
+      "title": "Documents",
+      "upload": "Téléverser"
+    },
+    "payment": {
+      "title": "Paiement",
+      "pay": "Payer",
+      "paid": "Payé"
+    },
+    "securityFile": {
+      "title": "Fiche sanitaire"
+    }
+  },
+  "volunteer": {
+    "register": {
+      "title": "Inscription bénévole",
+      "diet": "Régime alimentaire",
+      "allergy": "Allergies",
+      "hasCar": "J'ai une voiture",
+      "carSeats": "Nombre de places",
+      "isSpecialDriver": "Conducteur véhicule spécial",
+      "isUtilityVehicleDriver": "Conducteur utilitaire",
+      "isParcoursHelper": "Aide sur le parcours"
+    },
+    "dashboard": {
+      "pending": "En attente de validation",
+      "validated": "Validé",
+      "cancelled": "Annulé"
+    },
+    "cancel": {
+      "action": "Se désinscrire",
+      "confirmTitle": "Confirmer la désinscription",
+      "confirmDescription": "Êtes-vous sûr de vouloir vous désinscrire en tant que bénévole ?"
+    }
+  },
+  "profile": {
+    "title": "Mon profil",
+    "identity": "Identité",
+    "logout": "Se déconnecter"
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Tableau de bord",
+      "editions": "Éditions",
+      "participants": "Participants",
+      "teams": "Équipes",
+      "volunteers": "Bénévoles",
+      "information": "Informations",
+      "overview": "Vue d'ensemble",
+      "registration": "Inscriptions",
+      "configuration": "Configuration"
+    },
+    "dashboard": {
+      "title": "Tableau de bord"
+    },
+    "editions": {
+      "title": "Éditions",
+      "create": "Créer une édition",
+      "activate": "Activer",
+      "toggleInscription": "Ouvrir/Fermer les inscriptions",
+      "year": "Année",
+      "name": "Nom",
+      "dates": "Dates",
+      "registeringEndDate": "Fin des inscriptions",
+      "delete": "Supprimer"
+    },
+    "participants": {
+      "title": "Participants",
+      "actions": {
+        "validate": "Valider",
+        "cancel": "Annuler",
+        "reopen": "Rouvrir"
+      }
+    },
+    "teams": {
+      "title": "Équipes"
+    },
+    "volunteers": {
+      "title": "Bénévoles",
+      "actions": {
+        "validate": "Valider",
+        "cancel": "Annuler",
+        "delete": "Supprimer"
+      }
+    },
+    "information": {
+      "title": "Informations du Raid",
+      "sections": {
+        "dates": "Dates",
+        "prices": "Tarifs",
+        "contact": "Contact",
+        "files": "Documents"
+      },
+      "prices": {
+        "student": "Tarif étudiant",
+        "external": "Tarif externe",
+        "partner": "Tarif partenaire",
+        "tShirt": "Tarif t-shirt"
+      }
+    },
+    "fallback": {
+      "title": "Aucune édition active",
+      "description": "Créez une nouvelle édition pour commencer.",
+      "createEdition": "Gérer les éditions"
+    }
+  },
+  "errors": {
+    "generic": "Une erreur est survenue, veuillez réessayer.",
+    "network": "Problème de connexion au serveur.",
+    "permission": "Vous n'avez pas les droits pour effectuer cette action.",
+    "registerClosed": "Les inscriptions sont fermées."
   }
 }
