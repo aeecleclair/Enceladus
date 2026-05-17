@@ -1,12 +1,10 @@
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { StatusDialog } from "@/components/raid/custom/StatusDialog";
 import { useDocument } from "@/hooks/raid/useDocument";
 import { useInformation } from "@/hooks/raid/useInformation";
-
-import { useRouter } from "next/navigation";
 import { useState } from "react";
-
+import { StatusDialog } from "@/components/raid/custom/StatusDialog";
 import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "@/i18n/navigation";
+import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface RegisteringCompleteDialogProps {
   isOpened: boolean;
@@ -65,7 +63,7 @@ export const RegisteringCompleteDialog = ({
             <LoadingButton
               className="w-full mt-6"
               variant="outline"
-              onClick={() =>
+              onClick={(_) =>
                 downloadRaidInformation(information.raid_information_id!)
               }
               isLoading={isFileLoading}
