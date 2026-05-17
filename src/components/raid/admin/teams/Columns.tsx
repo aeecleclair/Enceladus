@@ -1,23 +1,17 @@
 "use client";
 
+import { ColumnDef } from "@tanstack/react-table";
+
+import { Badge } from "@/components/ui/badge";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTableRowActions } from "./DataTableRowActions";
-
-import {
-  RaidParticipant,
-  RaidParticipantPreview,
-  RaidTeamPreview,
-} from "@/api";
-import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
 import {
   difficulties,
   getLabelFromValue,
   meetingPlaces,
 } from "@/lib/raid/comboboxValues";
-
-import { ColumnDef } from "@tanstack/react-table";
-
-import { Badge } from "@/components/ui/badge";
+import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
+import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
 
 export const columns: ColumnDef<RaidTeamPreview>[] = [
   {
@@ -55,9 +49,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
         | undefined;
       return (
         <div className={`flex space-x-2 ${second ?? "text-muted-foreground"}`}>
-          {second
-            ? `${second.user.firstname} ${second.user.name}`
-            : "Non renseigné"}
+          {second ? `${second.user.firstname} ${second.user.name}` : "Non renseigné"}
         </div>
       );
     },
@@ -132,15 +124,20 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
       <DataTableColumnHeader column={column} title="Documents" />
     ),
     cell: ({ row }) => {
+      const captain = row.getValue("captain") as
+        | (RaidParticipantPreview &
+            Partial<Pick<import("@/api").RaidParticipant, "number_of_document" | "number_of_validated_document">>)
+        | null;
+      const second = row.getValue("second") as
+        | (RaidParticipantPreview &
+            Partial<Pick<import("@/api").RaidParticipant, "number_of_document" | "number_of_validated_document">>)
+        | null;
       const number_of_validated_document =
-        (row.getValue("captain") as RaidParticipant)
-          .number_of_validated_document +
-        ((row.getValue("second") as RaidParticipant | null)
-          ?.number_of_validated_document ?? 0);
+        (captain?.number_of_validated_document ?? 0) +
+        (second?.number_of_validated_document ?? 0);
       const number_of_document =
-        (row.getValue("captain") as RaidParticipant).number_of_document +
-        ((row.getValue("second") as RaidParticipant | null)
-          ?.number_of_document ?? 0);
+        (captain?.number_of_document ?? 0) +
+        (second?.number_of_document ?? 0);
       return (
         <ProgressBadge
           progress={number_of_validated_document}

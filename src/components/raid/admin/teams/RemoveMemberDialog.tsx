@@ -1,17 +1,15 @@
-import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
-import { LoadingButton } from "@/components/common/LoadingButton";
-
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { useState } from "react";
-
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
+import { Card, CardContent } from "@/components/ui/card";
+import { useState } from "react";
 
 interface RemoveMemberDialogProps {
   isOpened: boolean;
@@ -26,7 +24,7 @@ interface RemoveMemberDialogProps {
 const RemoveParticipantCard = (
   participant: RaidParticipantPreview,
   selectedMember: RaidParticipantPreview | null,
-  setSelectedMember: (value: RaidParticipantPreview | null) => void,
+  setSelectedMember: (value: RaidParticipantPreview | null) => void
 ) => {
   return (
     <Card
@@ -40,9 +38,7 @@ const RemoveParticipantCard = (
         <p className="text-lg font-semibold">
           {participant.user.firstname} {participant.user.name}
         </p>
-        <p className="text-sm text-foreground-muted">
-          {participant.user.email}
-        </p>
+        <p className="text-sm text-foreground-muted">{participant.user.email}</p>
       </CardContent>
     </Card>
   );
@@ -86,13 +82,13 @@ export const RemoveMemberDialog = ({
               RemoveParticipantCard(
                 team.captain,
                 selectedMember,
-                setSelectedMember,
+                setSelectedMember
               )}
             {team.second &&
               RemoveParticipantCard(
                 team.second,
                 selectedMember,
-                setSelectedMember,
+                setSelectedMember
               )}
           </div>
         </DialogDescription>

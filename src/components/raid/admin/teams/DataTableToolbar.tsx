@@ -55,15 +55,15 @@ export function DataTableToolbar<TData>({
           width="w-[150px]"
         />
       )}
-      <div className="flex items-center justify-between">
-        <div className="flex flex-1 items-center space-x-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border/60 bg-muted/20 p-2">
+        <div className="flex flex-1 flex-wrap items-center gap-2">
           <Input
             placeholder="Filtrer les équipes..."
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="h-8 w-37.5 lg:w-62.5"
+            className="h-8 w-37.5 bg-background lg:w-62.5"
           />
           {table.getColumn("difficulty") && (
             <DataTableFacetedFilter
@@ -132,7 +132,7 @@ export function DataTableToolbar<TData>({
             </div>
           )}
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Button
             onClick={() => setIsDeleteAllDialogOpen(true)}
             variant="destructive"
@@ -140,7 +140,8 @@ export function DataTableToolbar<TData>({
             className="h-8 px-2 flex items-center"
           >
             <Trash2Icon className="h-4 w-4 mr-2" />
-            Supprimer toutes les équipes
+            <span className="hidden md:inline">Supprimer toutes les équipes</span>
+            <span className="md:hidden">Tout supprimer</span>
           </Button>
           <DataTableViewOptions table={table} />
         </div>

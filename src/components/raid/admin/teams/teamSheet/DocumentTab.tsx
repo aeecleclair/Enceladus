@@ -65,8 +65,8 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
 
   const key = selectedDocument?.type;
   return (
-    <div className="grid xl:grid-cols-2 gap-4 w-full py-6 grid-cols-1 max-md:p-8 max-md:gap-4">
-      <Card>
+    <div className="grid w-full grid-cols-1 gap-4 xl:grid-cols-2">
+      <Card className="border-border/70 shadow-sm">
         <ParticipantDocumentCard
           participant={team.captain}
           setDocument={(doc) => setDocument(doc, team.captain.user_id)}
