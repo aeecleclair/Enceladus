@@ -1,14 +1,11 @@
-import { CardLayout } from "./CardLayout";
-
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useInformation } from "@/hooks/raid/useInformation";
-
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { CardLayout } from "./CardLayout";
+import { InfoValue } from "./InfoValue";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-import { Button } from "@/components/ui/button";
+import { useInformation } from "@/hooks/raid/useInformation";
 import {
   Form,
   FormControl,
@@ -17,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { LoadingButton } from "@/components/common/LoadingButton";
 
 export const ContactMail = () => {
   const { information, updateInformation } = useInformation();
@@ -47,7 +45,7 @@ export const ContactMail = () => {
         setIsLoading(false);
         setIsEdit(false);
         form.reset({ email: values.email });
-      },
+      }
     );
   }
 
@@ -75,18 +73,17 @@ export const ContactMail = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex flex-row">
+              <div className="mt-3 flex gap-2">
                 <Button
                   variant="outline"
-                  className="mt-2 mr-2 w-30"
-                  onClick={() => {
-                    setIsEdit(false);
-                  }}
+                  size="sm"
+                  onClick={() => setIsEdit(false)}
+                  type="button"
                 >
                   Annuler
                 </Button>
                 <LoadingButton
-                  className="mt-2 w-30"
+                  size="sm"
                   type="submit"
                   isLoading={isLoading}
                 >
@@ -96,12 +93,16 @@ export const ContactMail = () => {
             </>
           ) : (
             <>
-              <div className="text-2xl font-bold">
-                {information?.contact ?? <span>{"Aucun contact"}</span>}
-              </div>
+              <InfoValue
+                isEmpty={!information?.contact}
+                placeholder="Aucun contact"
+                value={information?.contact ?? ""}
+                className="break-all"
+              />
               <Button
                 variant="outline"
-                className="mt-4 w-30"
+                size="sm"
+                className="mt-3"
                 type="button"
                 onClick={toggleEdit}
               >

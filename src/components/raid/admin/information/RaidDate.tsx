@@ -1,16 +1,13 @@
-import { RangeDatePicker } from "../../custom/RangeDatePicker";
-import { CardLayout } from "./CardLayout";
-
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useInformation } from "@/hooks/raid/useInformation";
-import { apiFormatDate, formatDateRange } from "@/lib/dateFormat";
-
-import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
-
-import { toDate } from "date-fns";
+import { useState } from "react";
+import { RangeDatePicker } from "../../custom/RangeDatePicker";
 import { DateRange } from "react-day-picker";
+import { apiFormatDate, formatDateRange } from "@/lib/dateFormat";
+import { CardLayout } from "./CardLayout";
+import { InfoValue } from "./InfoValue";
+import { useInformation } from "@/hooks/raid/useInformation";
+import { toDate } from "date-fns";
+import { LoadingButton } from "@/components/common/LoadingButton";
 
 export const RaidDate = () => {
   const { information, updateInformation } = useInformation();
@@ -22,7 +19,7 @@ export const RaidDate = () => {
           from: toDate(information.raid_start_date),
           to: toDate(information.raid_end_date),
         }
-      : undefined,
+      : undefined
   );
 
   function toggleEdit() {
@@ -37,7 +34,7 @@ export const RaidDate = () => {
         () => {
           setIsLoading(false);
           setIsEdit(false);
-        },
+        }
       );
     } else {
       setIsEdit(!isEdit);
@@ -50,18 +47,16 @@ export const RaidDate = () => {
         <>
           <RangeDatePicker dateRange={dateRange} setDateRange={setDateRange} />
 
-          <div className="flex flex-row">
+          <div className="mt-3 flex gap-2">
             <Button
               variant="outline"
-              className="mt-2 mr-2 w-30"
-              onClick={() => {
-                setIsEdit(false);
-              }}
+              size="sm"
+              onClick={() => setIsEdit(false)}
             >
               Annuler
             </Button>
             <LoadingButton
-              className="mt-2 w-30"
+              size="sm"
               onClick={toggleEdit}
               isLoading={isLoading}
             >
@@ -71,17 +66,26 @@ export const RaidDate = () => {
         </>
       ) : (
         <>
-          <div className="text-2xl font-bold">
-            {information?.raid_start_date && information?.raid_end_date ? (
-              formatDateRange(
-                information.raid_start_date.toString(),
-                information.raid_end_date.toString(),
-              )
-            ) : (
-              <span>Période non définie</span>
-            )}
-          </div>
-          <Button variant="outline" className="mt-4 w-30" onClick={toggleEdit}>
+          <InfoValue
+            isEmpty={
+              !information?.raid_start_date || !information?.raid_end_date
+            }
+            placeholder="Période non définie"
+            value={
+              information?.raid_start_date && information?.raid_end_date
+                ? formatDateRange(
+                    information.raid_start_date.toString(),
+                    information.raid_end_date.toString(),
+                  )
+                : ""
+            }
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            className="mt-3"
+            onClick={toggleEdit}
+          >
             Modifier
           </Button>
         </>

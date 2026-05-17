@@ -1,14 +1,7 @@
-import { CardLayout } from "./CardLayout";
-
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { usePrice } from "@/hooks/raid/usePrice";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { CardLayout } from "./CardLayout";
+import { InfoValue } from "./InfoValue";
 import {
   Form,
   FormControl,
@@ -16,6 +9,11 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { usePrice } from "@/hooks/raid/usePrice";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { PriceInput } from "@/components/ui/priceInput";
 
 export const TShirtPrice = () => {
@@ -47,7 +45,7 @@ export const TShirtPrice = () => {
         setIsLoading(false);
         setIsEdit(false);
         form.reset({ t_shirt_price: values.t_shirt_price });
-      },
+      }
     );
   }
 
@@ -58,7 +56,7 @@ export const TShirtPrice = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardLayout label="Prix du T-Shirt">
+        <CardLayout label="Prix du T-shirt">
           {isEdit ? (
             <>
               <FormField
@@ -80,18 +78,17 @@ export const TShirtPrice = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex flex-row">
+              <div className="mt-3 flex gap-2">
                 <Button
                   variant="outline"
-                  className="mt-2 mr-2 w-30"
-                  onClick={() => {
-                    setIsEdit(false);
-                  }}
+                  size="sm"
+                  onClick={() => setIsEdit(false)}
+                  type="button"
                 >
                   Annuler
                 </Button>
                 <LoadingButton
-                  className="mt-2 w-30"
+                  size="sm"
                   type="submit"
                   isLoading={isLoading}
                 >
@@ -101,16 +98,19 @@ export const TShirtPrice = () => {
             </>
           ) : (
             <>
-              <div className="text-2xl font-bold">
-                {price?.t_shirt_price ? (
-                  `${(price.t_shirt_price / 100).toFixed(2)} €`
-                ) : (
-                  <span>{"Prix non fixé"}</span>
-                )}
-              </div>
+              <InfoValue
+                isEmpty={!price?.t_shirt_price}
+                placeholder="Prix non fixé"
+                value={
+                  price?.t_shirt_price
+                    ? `${(price.t_shirt_price / 100).toFixed(2)} €`
+                    : ""
+                }
+              />
               <Button
                 variant="outline"
-                className="mt-4 w-30"
+                size="sm"
+                className="mt-3"
                 type="button"
                 onClick={toggleEdit}
               >
