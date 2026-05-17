@@ -1,15 +1,4 @@
-import { ParticipantLoading } from "./ParticipantLoading";
-import { PaymentButton } from "./PaymentButton";
-import { ViewEditParticipant } from "./ViewEditParticipant";
-
 import { RaidParticipant } from "@/api";
-import { usePrice } from "@/hooks/raid/usePrice";
-import { getSituationLabel } from "@/lib/raid/teamUtils";
-
-import { useState } from "react";
-import { HiPencil, HiX } from "react-icons/hi";
-
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -17,10 +6,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Button } from "@/components/ui/button";
+import { HiPencil, HiX } from "react-icons/hi";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useState } from "react";
+import { ParticipantLoading } from "./ParticipantLoading";
 // import { PaymentButton } from "./PaymentButton";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Progress } from "@/components/ui/progress";
-import { Skeleton } from "@/components/ui/skeleton";
+import { getSituationLabel } from "@/lib/raid/teamUtils";
+import { PaymentButton } from "./PaymentButton";
+import { usePrice } from "@/hooks/raid/usePrice";
+import { ViewEditParticipant } from "./ViewEditParticipant";
 
 interface ParticipantCardProps {
   participant?: RaidParticipant;
@@ -32,6 +29,7 @@ export const ParticipantCard = ({
   isCaptain,
 }: ParticipantCardProps) => {
   const { price } = usePrice();
+  const progress = Math.round(participant?.validation_progress ?? 0);
   // const { information } = useInformation();
   const [isEdit, setIsEdit] = useState(false);
 
@@ -40,13 +38,13 @@ export const ParticipantCard = ({
   }
 
   return (
-    <Card className="w-full flex flex-col justify-between">
-      <CardHeader>
-        <div className="flex flex-row justify-between">
-          <div>
-            <CardTitle>
+    <Card className="w-full flex flex-col justify-between overflow-hidden border-border/70 bg-card shadow-sm">
+      <CardHeader className="border-b border-border/60 bg-muted/20">
+        <div className="flex flex-row items-start justify-between gap-4">
+          <div className="min-w-0">
+            <CardTitle className="truncate text-xl tracking-tight">
               {participant?.user?.firstname && participant?.user?.firstname ? (
-                participant?.user?.firstname + " " + participant?.user?.name
+                participant?.user.firstname + " " + participant?.user.name
               ) : (
                 <div className="flex flex-row gap-2">
                   <Skeleton className="w-32 h-8" />
@@ -90,7 +88,7 @@ export const ParticipantCard = ({
       )}
       {!isEdit && (
         <>
-          <CardFooter className="w-full">
+          <CardFooter className="w-full border-t border-border/60 bg-muted/5">
             {participant ? (
               <div className="grid p-2 grid-cols-6 items-center w-full">
                 <span className="font-semibold text-left my-auto col-span-2">
@@ -141,7 +139,22 @@ export const ParticipantCard = ({
               </div>
             )}
           </CardFooter>
-          <Progress value={participant?.validation_progress} />
+          {participant ? (
+            <div className="border-t border-border/60 bg-muted/10 px-4 py-3">
+              <div className="mb-2 flex items-center justify-between text-sm">
+                <span className="text-muted-foreground">
+                  Progression du dossier
+                </span>
+                <span className="font-semibold tabular-nums">{progress}%</span>
+              </div>
+              <Progress value={progress} className="h-2.5 bg-muted" />
+            </div>
+          ) : (
+            <div className="border-t border-border/60 bg-muted/10 px-4 py-3">
+              <Skeleton className="mb-2 h-4 w-40" />
+              <Skeleton className="h-2.5 w-full rounded-full" />
+            </div>
+          )}
         </>
       )}
     </Card>
