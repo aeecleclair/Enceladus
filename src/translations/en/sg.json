@@ -31,6 +31,7 @@
     "optional": "(optionnel)",
     "name": "Event Title",
     "add": "Add",
+    "edit": "Edit",
     "cancel": "Cancel",
     "start_date": "Start Date",
     "close_date": "Close Date",
@@ -81,7 +82,11 @@
     "postSuccessTitle": "Session added",
     "postSuccessDescription": "The session has been added successfully.",
     "postErrorTitle": "Error adding the session",
-    "postErrorDescription": "An error occurred while adding the session. Please try again."
+    "postErrorDescription": "An error occurred while adding the session. Please try again.",
+    "patchSuccessTitle": "Session updated",
+    "patchSuccessDescription": "The session has been updated successfully.",
+    "patchErrorTitle": "Error updating the session",
+    "patchErrorDescription": "An error occurred while updating the session. Please try again."
   }
   
 }

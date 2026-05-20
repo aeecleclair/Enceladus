@@ -1,5 +1,5 @@
 import { useFormatter, useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 import _eventFormSchema from "@/forms/sg/eventFormSchema";
@@ -25,9 +25,15 @@ import { useCategories } from "@/hooks/sg/useCategories";
 
 import {
   AppModulesTicketingSchemasTicketingEventBase as TicketingEventBase,
-  CategoryBase,
+  AppModulesTicketingSchemasTicketingEventComplete,
+  CategoryCreate,
+  CategoryUpdate,
   SessionBase,
+  SessionUpdate,
 } from "@/api";
+import { useEvent } from "@/hooks/sg/useEvent";
+import { patchTicketingSessionsSessionIdMutation, patchTicketingCategoriesCategoryIdMutation } from "@/api/@tanstack/react-query.gen";
+import { useMutation } from "@tanstack/react-query";
 import { CategoryCard } from "./CategoriesCard";
 
 
@@ -36,14 +42,17 @@ interface AddEditEventFormProps {
   setState: React.Dispatch<React.SetStateAction<AddEventState>>;
   isEdit?: boolean;
   creatorId: string;
+  eventId?: string;
 }
 
 export type StagedSession = z.infer<ReturnType<typeof _sessionFormSchema>> & {
   id: string;
+  isExisting?: boolean;
 };
 
 type StagedCategory = z.infer<ReturnType<typeof _categoryFormSchema>> & {
   id: string;
+  isExisting?: boolean;
 };
 
 const makeStagedId = () => {
@@ -54,6 +63,7 @@ export const AddEditEventForm = ({
   state,
   setState,
   isEdit = false,
+  eventId,
 }: AddEditEventFormProps) => {
   const [api, setApi] = useState<CarouselApi | undefined>(undefined);
   const t = useTranslations("sg");
@@ -64,6 +74,7 @@ export const AddEditEventForm = ({
   const organiserId = searchParams.get("organiserId") || "";
 
   const [isLoading, setIsLoading] = useState(false);
+  const isEditModeFromQuery = searchParams.get("editMode") === "true";
   const [createdEventId, setCreatedEventId] = useState<string | null>(null);
 
   const [isSubmittingSessions, setIsSubmittingSessions] = useState(false);
@@ -82,9 +93,19 @@ export const AddEditEventForm = ({
 
 
   const { refetch: refetchEvents, postEvent } = useEvents();
-  
+  const { events: existingEventData, patchEvent } = useEvent({ eventId: eventId || "" });
+
   const { refetch: refetchSessions, postSessionAsync } = useSessions(createdEventId);
   const { refetch: refetchCategories, postCategoryAsync } = useCategories();
+
+  const { mutateAsync: patchSessionAsync } = useMutation({
+    ...patchTicketingSessionsSessionIdMutation(),
+  });
+  const { mutateAsync: patchCategoryAsync } = useMutation({
+    ...patchTicketingCategoriesCategoryIdMutation(),
+  });
+
+  const hasInitialized = useRef(false);
 
 
   const eventForm = useForm<z.infer<typeof eventFormSchema>>({
@@ -134,23 +155,82 @@ export const AddEditEventForm = ({
     }
   }, [categoryForm, createdEventId, sessionForm]);
 
+  useEffect(() => {
+    if (!isEdit || !isEditModeFromQuery || !eventId || hasInitialized.current) return;
+    const event = existingEventData as unknown as AppModulesTicketingSchemasTicketingEventComplete;
+    if (!event?.id) return;
+
+    hasInitialized.current = true;
+    setCreatedEventId(event.id);
+
+    eventForm.reset({
+      name: event.name,
+      open_date: new Date(event.open_date),
+      close_date: event.close_date ? new Date(event.close_date) : new Date(),
+      quota: event.quota ?? 0,
+      user_quota: event.user_quota ?? 0,
+      organiser_id: event.organiser_id,
+    });
+
+    setStagedSessions(
+      (event.sessions ?? []).map((s) => ({
+        event_id: s.event_id,
+        name: s.name,
+        date: new Date(s.date),
+        quota: s.quota ?? 0,
+        user_quota: s.user_quota ?? 0,
+        id: s.id,
+        isExisting: true,
+      }))
+    );
+
+    setStagedCategories(
+      (event.categories ?? []).map((c) => ({
+        event_id: c.event_id,
+        name: c.name,
+        quota: c.quota ?? 0,
+        user_quota: c.user_quota ?? 0,
+        price: c.price,
+        disabled: c.disabled,
+        linked_sessions: [],
+        required_membership: c.required_mebership ?? "",
+        id: c.id,
+        isExisting: true,
+      }))
+    );
+  }, [isEdit, isEditModeFromQuery, eventId, existingEventData, eventForm]);
+
   
     async function onEventSubmit(values: z.infer<typeof eventFormSchema>, onSuccess?: () => void) {
-        console.log("onSubmit called with values:", values);
         setIsLoading(true);
+
+        if ((isEdit || isEditModeFromQuery) && createdEventId) {
+            const body = {
+                name: values.name,
+                open_date: new Date(values.open_date).setUTCHours(24, 0, 0, 0).toString(),
+                close_date: values.close_date
+                    ? new Date(values.close_date).setUTCHours(24, 0, 0, 0).toString()
+                    : null,
+                quota: values.quota,
+                user_quota: values.user_quota,
+            };
+            patchEvent(createdEventId, body, () => {
+                refetchEvents();
+                setIsLoading(false);
+                if (onSuccess) onSuccess();
+            });
+            return;
+        }
+
         const body: TicketingEventBase = {
             ...values,
             open_date: values.open_date.setUTCHours(24, 0, 0, 0).toString(),
             close_date: (values.open_date ?? new Date()).setUTCHours(24, 0, 0, 0).toString(),
         };
 
-        console.log("Body to be sent:", body);
-
         postEvent(body, (response) => {
-            console.log("✅ Event posted successfully", response);
           const payload = response as { data?: { id?: string }; id?: string };
           const newEventId = payload.data?.id || payload.id;
-            console.log("New Event ID:", newEventId);
             if (newEventId) {
                 setCreatedEventId(newEventId);
                 sessionForm.setValue("event_id", newEventId);
@@ -303,7 +383,7 @@ export const AddEditEventForm = ({
       }
     };
 
-    const buildCategoryPayload = (category: StagedCategory): CategoryBase => {
+    const buildCategoryPayload = (category: StagedCategory): CategoryCreate => {
       return {
         event_id: createdEventId || category.event_id,
         name: category.name,
@@ -331,7 +411,16 @@ export const AddEditEventForm = ({
 
       for (const session of stagedSessions) {
         try {
-          await postSessionAsync(buildSessionPayload(session));
+          if (session.isExisting) {
+            const body: SessionUpdate = {
+              name: session.name,
+              quota: session.quota,
+              user_quota: session.user_quota,
+            };
+            await patchSessionAsync({ body, path: { session_id: session.id } });
+          } else {
+            await postSessionAsync(buildSessionPayload(session));
+          }
         } catch (error) {
           failedCount += 1;
         }
@@ -339,7 +428,18 @@ export const AddEditEventForm = ({
 
       for (const category of stagedCategories) {
         try {
-          await postCategoryAsync(buildCategoryPayload(category));
+          if (category.isExisting) {
+            const body: CategoryUpdate = {
+              name: category.name,
+              quota: category.quota,
+              user_quota: category.user_quota,
+              price: category.price,
+              required_mebership: category.required_membership || null,
+            };
+            await patchCategoryAsync({ body, path: { category_id: category.id } });
+          } else {
+            await postCategoryAsync(buildCategoryPayload(category));
+          }
         } catch (error) {
           failedCount += 1;
         }
@@ -382,7 +482,7 @@ export const AddEditEventForm = ({
 
   return (
     <div>
-      <Carousel className="w-full" setApi={setApi} opts={{ watchDrag: false }} >
+      <Carousel className="w-full" setApi={setApi} opts={{ watchDrag: false }} onKeyDownCapture={(e) => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") e.stopPropagation() }}>
         <CarouselContent>
           <CarouselItem>
             <Form {...eventForm}>
@@ -405,7 +505,7 @@ export const AddEditEventForm = ({
                     {t("addEditEventForm.cancel")}
                   </Button>
                   <LoadingButton isLoading={isLoading} className="w-25" type="submit">
-                    {isEdit ? t("addEditEventForm.add") : t("addEditEventForm.add")}
+                    {(isEdit || isEditModeFromQuery) ? t("addEditEventForm.edit") : t("addEditEventForm.add")}
                   </LoadingButton>
                 </div>
               </form>
@@ -591,7 +691,7 @@ export const AddEditEventForm = ({
                   disabled={!createdEventId || stagedSessions.length === 0 || stagedCategories.length === 0 || isSubmittingFinal}
                   onClick={submitAllStagedData}
                 >
-                  Create sessions and categories
+                 {((isEdit || isEditModeFromQuery)) ? "Sauvegarder les modifications" : "Create sessions and categories"}
                 </LoadingButton>
               </div>
             </div>
@@ -624,7 +724,7 @@ export const AddEditEventForm = ({
                 const isValid = await eventForm.trigger();
                 if (!isValid) return;
 
-                if (!createdEventId) {
+                if ((isEdit || isEditModeFromQuery) || !createdEventId) {
                   const values = eventForm.getValues();
                   onEventSubmit(values, moveToNextStep);
                   return;
@@ -666,7 +766,7 @@ export const AddEditEventForm = ({
             disabled={!createdEventId || stagedSessions.length === 0 || stagedCategories.length === 0 || isSubmittingFinal}
             onClick={submitAllStagedData}
           >
-            Create sessions and categories
+            {(isEdit || isEditModeFromQuery) ? "Sauvegarder les modifications" : "Create sessions and categories"}
           </LoadingButton>
         )}
       </div>

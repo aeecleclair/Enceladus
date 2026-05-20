@@ -2,7 +2,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
 import { postTicketingCategoriesMutation } from "@/api/@tanstack/react-query.gen";
 import { useMutation } from "@tanstack/react-query";
-import { CategoryBase } from "@/api/types.gen";
+import { CategoryCreate } from "@/api/types.gen";
 
 export const useCategories = () => {
     const { toast } = useToast();
@@ -32,7 +32,7 @@ export const useCategories = () => {
     })
 
     const postCategory = (
-        category: CategoryBase,
+        category: CategoryCreate,
         callback: (response: unknown) => void
     ) => {
         mutatePostCategory(
@@ -41,7 +41,7 @@ export const useCategories = () => {
         );
     };
 
-    const postCategoryAsync = (category: CategoryBase) => {
+    const postCategoryAsync = (category: CategoryCreate) => {
         return mutatePostCategoryAsync({ body: category });
     };
 

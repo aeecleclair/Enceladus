@@ -31,6 +31,7 @@
     "optional": "(optionnel)",
     "name": "Intitulé de l'événement",
     "add": "Ajouter",
+    "edit": "Modifier",
     "cancel": "Annuler",
     "start_date": "Date de début du SG",
     "close_date": "Date de cloture du SG",
@@ -81,7 +82,11 @@
     "postSuccessTitle": "Session ajoutée",
     "postSuccessDescription": "La session a été ajoutée avec succès.",
     "postErrorTitle": "Erreur lors de l'ajout de la session",
-    "postErrorDescription": "Une erreur est survenue lors de l'ajout de la session. Veuillez réessayer." 
+    "postErrorDescription": "Une erreur est survenue lors de l'ajout de la session. Veuillez réessayer.",
+    "patchSuccessTitle": "Session modifiée",
+    "patchSuccessDescription": "La session a été modifiée avec succès.",
+    "patchErrorTitle": "Erreur lors de la modification de la session",
+    "patchErrorDescription": "Une erreur est survenue lors de la modification de la session. Veuillez réessayer."
   }
 
 }

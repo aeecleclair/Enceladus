@@ -6,13 +6,15 @@ import {
   SidebarGroupLabel,
   SidebarMenuAction,
 } from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function NavEdit() {
     const router = useRouter();
 
+    const eventID = useSearchParams().get("eventId");
+
     function handleClick() {
-        router.push("manage/edit");
+        router.push(`manage/edit?eventId=${eventID}&editMode=true`);
     }
 
     return (
