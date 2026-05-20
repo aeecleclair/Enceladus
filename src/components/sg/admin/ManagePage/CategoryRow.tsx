@@ -1,0 +1,20 @@
+import { Badge } from "@/components/ui/badge";
+import { CategorySimple } from "@/api";
+
+interface CategoryRowProps {
+    category: CategorySimple;
+}
+
+export function CategoryRow({ category }: CategoryRowProps) {
+    return (
+        <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border p-3 text-sm">
+            <div className="font-medium">{category.name}</div>
+            <div className="flex flex-wrap gap-4 text-muted-foreground">
+                <span>Prix : {category.price} €</span>
+                <span>Quota : {category.used_quota ?? 0} / {category.quota ?? "∞"}</span>
+                <span>Par utilisateur : {category.user_quota ?? "∞"}</span>
+                {category.disabled && <Badge variant="destructive">Désactivée</Badge>}
+            </div>
+        </div>
+    );
+}
