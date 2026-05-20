@@ -5,6 +5,7 @@ import common from "@/translations/fr/common.json";
 import pmf from "@/translations/fr/pmf.json";
 import siarnaq from "@/translations/fr/siarnaq.json";
 import raid from "@/translations/fr/raid.json";
+import challenger from "@/translations/fr/challenger.json";
 import sg from "@/translations/fr/sg.json"
 
 declare module "next-intl" {
@@ -16,6 +17,7 @@ declare module "next-intl" {
       pmf: typeof pmf;
       siarnaq: typeof siarnaq;
       raid: typeof raid;
+      challenger: typeof challenger;
       sg: typeof sg;
     };
 

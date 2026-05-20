@@ -1,0 +1,110 @@
+import {
+  deleteCompetitionUsersUserIdPaymentsPaymentIdMutation,
+  getCompetitionUsersUserIdPaymentsOptions,
+  postCompetitionUsersUserIdPaymentsMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "../useAuth";
+import { AppModulesSportCompetitionSchemasSportCompetitionPaymentBase } from "@/api";
+import { useToast } from "@/components/ui/use-toast";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+export const useUserPayments = () => {
+  const { isTokenExpired, userId } = useAuth();
+  const { toast } = useToast();
+
+  const {
+    data: payments,
+    isLoading,
+    error,
+    refetch: refetchPayments,
+  } = useQuery({
+    ...getCompetitionUsersUserIdPaymentsOptions({
+      path: {
+        user_id: userId!,
+      },
+    }),
+    enabled: !!userId && !isTokenExpired(),
+    retry: false,
+    queryHash: "getUserPayments",
+  });
+
+  const hasPaid = payments && payments.length > 0;
+
+  const { mutateAsync: postPayment, isPending: isPostingPayment } = useMutation(
+    {
+      ...postCompetitionUsersUserIdPaymentsMutation(),
+    },
+  );
+
+  const makePayment = async (
+    targetUserId: string,
+    body: AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
+  ) => {
+    await postPayment({
+      path: {
+        user_id: targetUserId,
+      },
+      body,
+    });
+    await refetchPayments();
+  };
+
+  const { mutate: mutateDeleteUserPayment, isPending: isDeleteLoading } =
+    useMutation({
+      ...deleteCompetitionUsersUserIdPaymentsPaymentIdMutation(),
+    });
+
+  const deleteUserPayment = (
+    targetUserId: string,
+    paymentId: string,
+    callback: () => void,
+  ) => {
+    return mutateDeleteUserPayment(
+      {
+        path: {
+          user_id: targetUserId,
+          payment_id: paymentId,
+        },
+      },
+      {
+        onSettled: (_data, error) => {
+          if (
+            (error as any)?.message ===
+              "Network error (NetworkError when attempting to fetch resource.)" ||
+            (error as any)?.stack?.body ||
+            (error as any)?.stack?.detail
+          ) {
+            console.log(error);
+            toast({
+              title: "Erreur lors de la suppression",
+              description:
+                (error as any)?.message ||
+                (error as unknown as ErrorType)?.stack?.body ||
+                (error as unknown as DetailedErrorType)?.stack?.detail,
+              variant: "destructive",
+            });
+          } else {
+            callback();
+            toast({
+              title: "Paiement supprimé",
+              description: "Le paiement a été supprimé avec succès.",
+            });
+          }
+        },
+      },
+    );
+  };
+
+  return {
+    payments,
+    hasPaid,
+    isLoading,
+    error,
+    refetchPayments,
+    makePayment,
+    deleteUserPayment,
+    isPostingPayment,
+    isDeleteLoading,
+  };
+};
