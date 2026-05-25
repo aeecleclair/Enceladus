@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "@/i18n/navigation";
 import NotAuthorized from "./not-authorized";
-import { usePermissions } from "@/hooks/usePermissions"; // Votre hook de base
+import { usePermissions } from "@/hooks/usePermissions";
 import { useMeUser } from "@/hooks/useMeUser";
 
 interface Props {
@@ -32,15 +32,15 @@ export function PermissionGuard({ children, permissionRequired }: Props) {
   }
 
   const access_permission = permissions?.find(
-    (value) => value.permission_name == permissionRequired
+    (value) => value.permission_name == permissionRequired,
   );
 
   const hasAccess = Boolean(
     access_permission &&
       (user.groups?.some((group) =>
-        access_permission.groups.includes(group.id)
+        access_permission.groups.includes(group.id),
       ) ||
-        access_permission.account_types.includes(user.account_type))
+        access_permission.account_types.includes(user.account_type)),
   );
   if (!hasAccess) {
     if (pathname !== "/") router.replace("/");

@@ -1,0 +1,17 @@
+{
+  "home": {
+    "welcome": "Welcome, {userId}!"
+  },
+  "login": {
+    "title": "Welcome to the template!",
+    "description": "This site is a template to help you start your project faster. Feel free to modify it as you see fit!",
+    "or": "or",
+    "alreadyHaveMyECLAccount": "Already have a MyECL account?",
+    "createMyECLAccount": "Create a MyECL account",
+    "register": "Sign up"
+  },
+  "metadata": {
+    "description": "Template for a new site",
+    "title": "Template"
+  }
+}

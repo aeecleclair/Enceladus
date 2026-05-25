@@ -8,6 +8,7 @@ const SUBDOMAIN_ROUTES = {
   pmf: "/pmf",
   "raid-registering": "/raid-registering",
   challenger: "/challenger",
+  template: "/template",
 };
 
 export function proxy(request: Request) {
