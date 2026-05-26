@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { OfferSearch } from "./OfferSearch";
 
 interface SidePanelProps {
@@ -23,7 +23,7 @@ export default function SidePanel({
       />
       <Button
         variant="default"
-        onClick={() => router.push(`/${locale}/new`)}
+        onClick={() => router.push(`/new`)}
         className=""
         size="default"
       >

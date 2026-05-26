@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { OfferUpdate } from "@/api";
 
-export const useOffer = (offerId:string) => {
+export const useOffer = (offerId: string) => {
   const { isTokenExpired } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -14,8 +14,8 @@ export const useOffer = (offerId:string) => {
 
   const { data, isLoading, refetch } = useQuery({
     ...getPmfOffersOfferIdOptions({
-      path: {offer_id:offerId}
-  }),
+      path: { offer_id: offerId }
+    }),
     retry: 3,
     enabled: !isTokenExpired(),
   });
@@ -40,8 +40,8 @@ export const useOffer = (offerId:string) => {
 
   const { mutate: mutateDeleteOffer, isPending: isDeleteLoading } = useMutation({
     ...deletePmfOffersOfferIdMutation({
-      path: {offer_id:offerId}
-  }),
+      path: { offer_id: offerId }
+    }),
     onSuccess: () => {
       toast({
         title: "Succès",
@@ -51,9 +51,9 @@ export const useOffer = (offerId:string) => {
     },
   });
 
-  const patchOffer = (offer:OfferUpdate,callback: () => void) => {
+  const patchOffer = (offer: OfferUpdate, callback: () => void) => {
     mutatePatchOffer(
-      {body:offer,path:{offer_id:offerId}},
+      { body: offer, path: { offer_id: offerId } },
       { onSuccess: () => callback() }
     );
   };

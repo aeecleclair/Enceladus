@@ -10,7 +10,7 @@ import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
-import Footer from "@/components/common/footer";
+import Footer from "@/components/common/Footer";
 
 export default function Home() {
   const showSellerFeatureFlag = true;

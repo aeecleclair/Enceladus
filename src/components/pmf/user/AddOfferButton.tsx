@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { CaretSortIcon } from "@radix-ui/react-icons";
 import { useTranslations, useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -40,7 +40,7 @@ export const AddOfferButton = () => {
     };
     postOffer(body, () => {
       setIsLoading(false);
-      router.push(`/${locale}`)
+      router.push(`/`)
     });
   }
   return (

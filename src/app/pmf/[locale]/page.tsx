@@ -1,7 +1,7 @@
 "use client";
 import OffersPanel from "@/components/pmf/user/OffersPanel";
 import SidePanel from "@/components/pmf/user/SidePanel";
-import Footer from "@/components/common/footer";
+import Footer from "@/components/common/Footer";
 import { useState } from "react";
 
 export default function Page() {
