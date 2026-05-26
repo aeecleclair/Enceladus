@@ -8,12 +8,13 @@
   },
   "login": {
     "title": "Connexion",
-    "student": "Élève",
-    "alumni": "Alumni",
-    "register": "Pas encore de compte ? S'inscrire :"
+    "login": "S'inscrire",
+    "register": "Pas encore de compte ?"
   },
   "topbar": {
-    "logout": "Se déconnecter"
+    "logout": "Se déconnecter",
+    "me": "Mes offres",
+    "profile": "Profil"
   },
   "offersPanel": {
     "title": "Offres"
@@ -38,5 +39,10 @@
   },
   "OfferSearch": {
     "search": "Rechercher"
+  },
+  "OfferPanel": {
+    "apply": "Postuler",
+    "edit": "Modifier",
+    "months": "mois"
   }
 }

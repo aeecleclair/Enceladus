@@ -8,12 +8,13 @@
   },
   "login": {
     "title": "Login",
-    "student": "Student",
-    "alumni": "Alumni",
-    "register": "Don't have an account yet? Register:"
+    "login": "Register",
+    "register": "Don't have an account yet?"
   },
   "topbar": {
-    "logout": "Log out"
+    "logout": "Log out",
+    "me": "My offers",
+    "profile": "Profile"
   },
   "offersPanel": {
     "title": "Offers"
@@ -38,5 +39,10 @@
   },
   "OfferSearch": {
     "search": "Search"
+  },
+  "OfferPanel": {
+    "apply": "Apply",
+    "edit": "Edit",
+    "months": "months"
   }
 }
