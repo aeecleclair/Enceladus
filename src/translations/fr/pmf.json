@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Plateforme de PMF de Centrale Lyon",
-    "title": "Piston mon frère"
+    "title": "Piston mes frère"
   },
   "MyECLButton": {
     "authenticate": "Se connecter avec MyECL"
@@ -32,7 +32,8 @@
     "addOfferDescription": "Décrivez ici votre offre de stage ou d'emploi. Elle sera initialement cachée avant validation par un membre de l'association.",
     "offerTypeTFE": " : Travail de fin d'études (3A)",
     "offerTypeAPP": " : Stage d'application (2A)",
-    "offerTypeEXE": " : Stage d'exécution (1A)"
+    "offerTypeEXE": " : Stage d'exécution (1A)",
+    "locationType": "Télétravail"
   },
   "useOffers": {
     "postSuccessTitle": "Succès",

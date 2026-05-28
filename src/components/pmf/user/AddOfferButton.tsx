@@ -3,7 +3,6 @@ import { DatePicker } from "@/components/common/DatePicker";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import _offerFormSchema from "@/forms/pmf/offerFormSchema";
 import { useOffers } from "@/hooks/pmf/useOffers";
@@ -53,46 +52,54 @@ export const AddOfferButton = () => {
           </p>
         </div>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-2">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <label className="mb-2 block text-sm font-medium">
-                    {t("addOfferButton.offerTitle")}
-                  </label>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="text"
-                      className="w-full border border-color-border px-4 py-3 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                      placeholder={t("addOfferButton.offerTitle")}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="company_name"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <label className="mb-2 block text-sm font-medium">
-                    {t("addOfferButton.offerCompanyName")}
-                  </label>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="text"
-                      className="w-full border border-color-border px-4 py-3 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                      placeholder={t("addOfferButton.offerCompanyName")}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-          </div>
+          <FormField
+            control={form.control}
+            name="title"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <label className="mb-2 block text-sm font-medium">
+                  {t("addOfferButton.offerTitle")}
+                </label>
+                <FormControl>
+                  <textarea
+                    {...field}
+                    rows={1}
+                    className="w-full resize-none overflow-hidden border border-color-border px-4 py-3 rounded-lg shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    placeholder={t("addOfferButton.offerTitle")}
+                    onInput={(event) => {
+                      const target = event.currentTarget;
+                      target.style.height = "auto";
+                      target.style.height = `${target.scrollHeight}px`;
+                    }}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="company_name"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <label className="mb-2 block text-sm font-medium">
+                  {t("addOfferButton.offerCompanyName")}
+                </label>
+                <FormControl>
+                  <textarea
+                    {...field}
+                    rows={1}
+                    className="w-full  resize-none overflow-hidden rounded-lg border border-color-border px-4 py-3 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    placeholder={t("addOfferButton.offerCompanyName")}
+                    onInput={(event) => {
+                      const target = event.currentTarget;
+                      target.style.height = "auto";
+                      target.style.height = `${target.scrollHeight}px`;
+                    }}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="description"
@@ -102,11 +109,16 @@ export const AddOfferButton = () => {
                   {t("addOfferButton.offerDescription")}
                 </label>
                 <FormControl>
-                  <Input
+                  <textarea
                     {...field}
-                    type="text"
-                    className="w-full border border-color-border px-4 py-3 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    rows={4}
+                    className="w-full resize-none overflow-hidden border rounded-lg border-color-border px-4 py-3 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
                     placeholder={t("addOfferButton.offerDescription")}
+                    onInput={(event) => {
+                      const target = event.currentTarget;
+                      target.style.height = "auto";
+                      target.style.height = `${target.scrollHeight}px`;
+                    }}
                   />
                 </FormControl>
               </FormItem>
@@ -122,14 +134,14 @@ export const AddOfferButton = () => {
                     {t("addOfferButton.offerType")}
                   </label>
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="flex h-12 w-full items-center justify-between border px-4 text-left rounded-xl shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-200">
+                    <DropdownMenuTrigger className="flex h-12 w-full items-center justify-between border px-4 text-left rounded-lg shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-200">
                       <span>{field.value || t("addOfferButton.offerType")}</span>
                       <CaretSortIcon className="size-6" />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-full rounded-xl border shadow-lg bg-background">
+                    <DropdownMenuContent className="w-full rounded-lg border shadow-lg bg-background">
                       <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
                         {offerFormSchema.shape.offer_type.options.map((oType: string) => (
-                          <DropdownMenuRadioItem key={oType} value={oType} className="flex cursor-pointer justify-center rounded-xl items-center px-4 py-3 hover:bg-muted">
+                          <DropdownMenuRadioItem key={oType} value={oType} className="flex cursor-pointer justify-center rounded-lg items-center px-4 py-3 hover:bg-muted">
                             <span>{oType}{oType === "TFE" ? t("addOfferButton.offerTypeTFE") : oType === "APP" ? t("addOfferButton.offerTypeAPP") : oType === "EXE" ? t("addOfferButton.offerTypeEXE") : ""}</span>
                           </DropdownMenuRadioItem>
                         ))}
@@ -141,24 +153,55 @@ export const AddOfferButton = () => {
             />
             <FormField
               control={form.control}
-              name="location"
+              name="location_type"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <label className="mb-2 block text-sm font-medium">
-                    {t("addOfferButton.offerLocation")}
+                    {t("addOfferButton.locationType")}
                   </label>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="text"
-                      className="w-full border border-color-border px-4 py-3 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
-                      placeholder={t("addOfferButton.offerLocation")}
-                    />
-                  </FormControl>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger className="flex h-12 w-full items-center justify-between border px-4 text-left rounded-lg shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-200">
+                      <span>{field.value || t("addOfferButton.locationType")}</span>
+                      <CaretSortIcon className="size-6" />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-full rounded-lg border shadow-lg bg-background">
+                      <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
+                        {offerFormSchema.shape.location_type.options.map((lType: string) => (
+                          <DropdownMenuRadioItem key={lType} value={lType} className="flex cursor-pointer justify-center rounded-lg items-center px-4 py-3 hover:bg-muted">
+                            <span>{lType}</span>
+                          </DropdownMenuRadioItem>
+                        ))}
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </FormItem>
               )}
             />
           </div>
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <label className="mb-2 block text-sm font-medium">
+                  {t("addOfferButton.offerLocation")}
+                </label>
+                <FormControl>
+                  <textarea
+                    {...field}
+                    rows={1}
+                    className="w-full overflow-hidden resize-none rounded-lg border border-color-border px-4 py-3 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                    placeholder={t("addOfferButton.offerLocation")}
+                    onInput={(event) => {
+                      const target = event.currentTarget;
+                      target.style.height = "auto";
+                      target.style.height = `${target.scrollHeight}px`;
+                    }}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="start_date"

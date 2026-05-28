@@ -1,7 +1,7 @@
 {
   "metadata": {
     "description": "Plateform of PMF of Centrale Lyon",
-    "title": "Piston mon frère"
+    "title": "Piston mes frère"
   },
   "MyECLButton": {
     "authenticate": "Log in with MyECL"
@@ -32,7 +32,8 @@
     "addOfferDescription": "Describe your internship or job offer here. It will be initially hidden until validated by a member of the association.",
     "offerTypeTFE": ": Travail de fin d'études (3A)",
     "offerTypeAPP": ": Stage d'application (2A)",
-    "offerTypeEXE": ": Stage d'exécution (1A)"
+    "offerTypeEXE": ": Stage d'exécution (1A)",
+    "locationType": "Remote work"
   },
   "useOffers": {
     "postSuccessTitle": "Success",
