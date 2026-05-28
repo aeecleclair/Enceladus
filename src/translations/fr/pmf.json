@@ -25,14 +25,20 @@
     "offerDescription": "Description de l'offre",
     "offerLocation": "Adresse",
     "add": "Publier l'offre",
+    "edit": "Modifier l'offre",
     "date": "Sélectionner une date de début",
-    "offerType": "Type de contrat"
+    "offerType": "Type de contrat",
+    "addOfferTitle": "Publier une offre",
+    "addOfferDescription": "Décrivez ici votre offre de stage ou d'emploi. Elle sera initialement cachée avant validation par un membre de l'association.",
+    "offerTypeTFE": " : Travail de fin d'études (3A)",
+    "offerTypeAPP": " : Stage d'application (2A)",
+    "offerTypeEXE": " : Stage d'exécution (1A)"
   },
   "useOffers": {
-    "postSuccessTitle": "Success",
-    "postSuccessDescription": "Offer successfully created",
-    "postErrorTitle": "Error",
-    "postErrorDescription": "An error has occurred, please try again later"
+    "postSuccessTitle": "Succès",
+    "postSuccessDescription": "Offre créée avec succès",
+    "postErrorTitle": "Erreur",
+    "postErrorDescription": "Une erreur est survenue, veuillez réessayer plus tard"
   },
   "SidePanel": {
     "new": "Publier une offre"

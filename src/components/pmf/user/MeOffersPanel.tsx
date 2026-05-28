@@ -5,6 +5,8 @@ import OfferCard from "./OfferCard";
 
 export default function MeOffersPanel() {
   const t = useTranslations("pmf");
+  // Check account type, if former student useMeOffers, if student useFavorites
+  // Might make the display of the favorite star account type dependent, also the text for my offers -> either published offers or favorite offers
   const { userOffers } = useMeOffers();
 
   if (!userOffers) return null;

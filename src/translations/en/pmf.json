@@ -25,8 +25,14 @@
     "offerDescription": "Description of the offer",
     "offerLocation": "Address",
     "add": "Publish the offer",
+    "edit": "Edit the offer",
     "date": "Choose a starting date",
-    "offerType": "Contract type"
+    "offerType": "Contract type",
+    "addOfferTitle": "Publish an offer",
+    "addOfferDescription": "Describe your internship or job offer here. It will be initially hidden until validated by a member of the association.",
+    "offerTypeTFE": ": Travail de fin d'études (3A)",
+    "offerTypeAPP": ": Stage d'application (2A)",
+    "offerTypeEXE": ": Stage d'exécution (1A)"
   },
   "useOffers": {
     "postSuccessTitle": "Success",
