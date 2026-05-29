@@ -37,7 +37,6 @@ export const EditOfferButton = ({ offerId }: EditOfferButtonProps) => {
     defaultValues: { author_id: userId || "", company_name: offer.company_name || "", title: offer.title || "", description: offer.description || "", offer_type: offer.offer_type || "TFE", location: offer.location || "", location_type: offer.location_type || "On_site", duration: offer.duration || 6, start_date: offer.start_date ? new Date(offer.start_date) : new Date() },
   })
   async function onSubmit(values: z.infer<typeof offerFormSchema>) {
-    console.log('test')
     setIsLoading(true);
     const body: OfferBase = {
       ...values,

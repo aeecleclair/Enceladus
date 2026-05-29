@@ -14,12 +14,12 @@ export default function OfferCard({ offer }: OfferCardProps) {
   const t = useTranslations("pmf");
   const { fav, toggleFav } = useFavorite(offer.id);
   return (
-    <div className="relative border border-color-border rounded-lg p-4">
+    <div className="relative border border-color-border rounded-lg p-4" onClick={() => router.push(`/offer?offerId=${offer.id}`)}>
       <span className="absolute right-4 top-4 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
         {offer.offer_type}
       </span>
       <p className="font-semibold mb-3">{offer.company_name}</p>
-      <p className="font-bold text-3xl mb-3" onClick={() => router.push(`/offer?offerId=${offer.id}`)}>
+      <p className="font-bold text-3xl mb-3">
         {offer.title}
       </p>
       <div className="flex items-center gap-10">

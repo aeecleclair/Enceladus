@@ -45,7 +45,8 @@
     "new": "Create new offer"
   },
   "OfferSearch": {
-    "search": "Search"
+    "search": "Search",
+    "tags": "Filter"
   },
   "OfferPanel": {
     "apply": "Apply",

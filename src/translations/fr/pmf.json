@@ -45,11 +45,18 @@
     "new": "Publier une offre"
   },
   "OfferSearch": {
-    "search": "Rechercher"
+    "search": "Rechercher",
+    "tags": "Filtrer"
   },
   "OfferPanel": {
     "apply": "Postuler",
     "edit": "Modifier",
     "months": "mois"
+  },
+  "useTags": {
+    "postSuccessTitle": "Succès",
+    "postSuccessDescription": "Étiquette créée avec succès",
+    "postErrorTitle": "Erreur",
+    "postErrorDescription": "Une erreur est survenue, veuillez réessayer plus tard"
   }
 }

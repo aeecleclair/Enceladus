@@ -1,15 +1,13 @@
 import { OfferBase } from "@/api";
 import { DatePicker } from "@/components/common/DatePicker";
 import { LoadingButton } from "@/components/common/LoadingButton";
-import { DropdownMenu } from "@/components/ui/dropdown-menu";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import _offerFormSchema from "@/forms/pmf/offerFormSchema";
 import { useOffers } from "@/hooks/pmf/useOffers";
 import { useAuth } from "@/hooks/useAuth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
-import { CaretSortIcon } from "@radix-ui/react-icons";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useTranslations, useLocale } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
 import { useState } from "react";
@@ -31,7 +29,6 @@ export const AddOfferButton = () => {
     defaultValues: { author_id: userId || "", company_name: "", title: "", description: "", offer_type: "TFE", location: "", location_type: "On_site", duration: 6 },
   })
   async function onSubmit(values: z.infer<typeof offerFormSchema>) {
-    console.log('test')
     setIsLoading(true);
     const body: OfferBase = {
       ...values,
@@ -133,21 +130,20 @@ export const AddOfferButton = () => {
                   <label className="mb-2 block text-sm font-medium">
                     {t("addOfferButton.offerType")}
                   </label>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="flex h-12 w-full items-center justify-between border px-4 text-left rounded-lg shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-200">
-                      <span>{field.value || t("addOfferButton.offerType")}</span>
-                      <CaretSortIcon className="size-6" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-full rounded-lg border shadow-lg bg-background">
-                      <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger className="flex h-12 w-full items-center justify-between border border-color-border px-4 text-left rounded-lg shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-200">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
                         {offerFormSchema.shape.offer_type.options.map((oType: string) => (
-                          <DropdownMenuRadioItem key={oType} value={oType} className="flex cursor-pointer justify-center rounded-lg items-center px-4 py-3 hover:bg-muted">
+                          <SelectItem key={oType} value={oType}>
                             <span>{oType}{oType === "TFE" ? t("addOfferButton.offerTypeTFE") : oType === "APP" ? t("addOfferButton.offerTypeAPP") : oType === "EXE" ? t("addOfferButton.offerTypeEXE") : ""}</span>
-                          </DropdownMenuRadioItem>
+                          </SelectItem>
                         ))}
-                      </DropdownMenuRadioGroup>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormItem>
               )}
             />
@@ -159,21 +155,20 @@ export const AddOfferButton = () => {
                   <label className="mb-2 block text-sm font-medium">
                     {t("addOfferButton.locationType")}
                   </label>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger className="flex h-12 w-full items-center justify-between border px-4 text-left rounded-lg shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-200">
-                      <span>{field.value || t("addOfferButton.locationType")}</span>
-                      <CaretSortIcon className="size-6" />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-full rounded-lg border shadow-lg bg-background">
-                      <DropdownMenuRadioGroup value={field.value} onValueChange={field.onChange}>
+                  <Select value={field.value} onValueChange={field.onChange}>
+                    <SelectTrigger className="flex h-12 w-full items-center justify-between border border-color-border px-4 text-left rounded-lg shadow-sm transition focus:outline-none focus:ring-2 focus:ring-blue-200">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
                         {offerFormSchema.shape.location_type.options.map((lType: string) => (
-                          <DropdownMenuRadioItem key={lType} value={lType} className="flex cursor-pointer justify-center rounded-lg items-center px-4 py-3 hover:bg-muted">
+                          <SelectItem key={lType} value={lType}>
                             <span>{lType}</span>
-                          </DropdownMenuRadioItem>
+                          </SelectItem>
                         ))}
-                      </DropdownMenuRadioGroup>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                 </FormItem>
               )}
             />

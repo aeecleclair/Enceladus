@@ -12,7 +12,7 @@ export default function OffersPanel({ globalFilter }: OffersPanelProps) {
 
   if (!offers) return null;
   return (
-    <div className="items-center border">
+    <div className="items-center space-y-4 m-2">
       <p className="text-4xl font-bold items-center">{t("offersPanel.title")}</p>
       {offers.map((offer: OfferSimple) => (
         <OfferCard offer={offer} />
