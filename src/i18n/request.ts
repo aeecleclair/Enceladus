@@ -27,6 +27,8 @@ export default getRequestConfig(async ({ requestLocale }) => {
       raid: (await import(`../translations/${locale}/raid.json`)).default,
       challenger: (await import(`../translations/${locale}/challenger.json`))
         .default,
+      template: (await import(`../translations/${locale}/template.json`))
+        .default,
     },
     formats,
   };

@@ -6,6 +6,7 @@ import pmf from "@/translations/fr/pmf.json";
 import siarnaq from "@/translations/fr/siarnaq.json";
 import raid from "@/translations/fr/raid.json";
 import challenger from "@/translations/fr/challenger.json";
+import template from "@/translations/fr/template.json";
 
 declare module "next-intl" {
   interface AppConfig {
@@ -17,6 +18,7 @@ declare module "next-intl" {
       siarnaq: typeof siarnaq;
       raid: typeof raid;
       challenger: typeof challenger;
+      template: typeof template;
     };
 
     Formats: typeof formats;

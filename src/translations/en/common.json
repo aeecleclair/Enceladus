@@ -28,6 +28,9 @@
   "toast": {
     "error": "Error"
   },
+  "topbar": {
+    "logout": "Logout"
+  },
   "warningDialog": {
     "cancel": "Cancel"
   }
