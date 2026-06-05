@@ -15,8 +15,6 @@ import { AddEditEventForm } from "@/components/sg/admin/EventForm/AddEditEventFo
 
 const CreatePage = () => {
     
-
-    
     const [state, setState] = useState<AddEventState>({
         currentStep: 0,
         stepDone: 0,
@@ -41,10 +39,6 @@ const CreatePage = () => {
             "Récapitulatif": (values, callback) => {},
         } as const
     });
-
-
-
-
 
 
 

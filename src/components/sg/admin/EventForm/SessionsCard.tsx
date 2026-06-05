@@ -37,13 +37,13 @@ export const SessionCard = ({
                     form={form}
                     label={t("quota") + " " +  t("optional")}
                     id="quota"
-                    input={(field) => <Input {...field} type="number" onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
+                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
                     />
                     <StyledFormField
                     form={form}
                     label={t("user_quota") + " " +  t("optional")}
                     id="user_quota"
-                    input={(field) => <Input {...field} type="number" onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
+                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
                     />
                 </div>
                 <div className="flex flex-row gap-2">

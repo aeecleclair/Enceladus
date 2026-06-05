@@ -6,16 +6,19 @@ import z from "zod";
 import _categoryFormSchema from "@/forms/sg/categoryFormSchema";
 import { UseFormReturn } from "react-hook-form";
 import { useTranslations } from "next-intl";
-import { DatePicker } from "@/components/common/DatePicker";
 import type { ReactNode } from "react";
 import type { StagedSession } from "./AddEditEventForm";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxValue,
+} from "@/components/ui/combobox"
 import { PriceInput } from "@/components/ui/priceInput";
 
 interface CategoryCardProps {
@@ -38,21 +41,39 @@ export const CategoryCard = ({
                     label="Linked sessions"
                     id="linked_sessions"
                     input={(field) => (
-                        <Select
-                            value={Array.isArray(field.value) ? field.value[0] : undefined}
-                            onValueChange={(value) => field.onChange(value ? [value] : [])}
-                        >
-                            <SelectTrigger className="w-full">
-                                <SelectValue placeholder="Select a session" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {sessions.map((session) => (
-                                    <SelectItem key={session.id} value={session.id}>
-                                        {session.name}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
+                            <Combobox
+                                items={sessions.map((s) => s.id)}
+                                multiple
+                                value={field.value || []}
+                                onValueChange={field.onChange}
+                                >
+                                <ComboboxChips>
+                                    <ComboboxValue>
+                                    {(field.value || []).map((id:string) => {
+                                        const session = sessions.find((s) => s.id === id);
+                                        return (
+                                            <ComboboxChip key={id}>
+                                            {session ? session.name : id}
+                                            </ComboboxChip>
+                                        );
+                                    })}
+                                    </ComboboxValue>
+                                    <ComboboxChipsInput placeholder={t("addSession")} />
+                                </ComboboxChips>
+                                <ComboboxContent>
+                                    <ComboboxEmpty>No Sessions found.</ComboboxEmpty>
+                                    <ComboboxList>
+                                    {(id) => {
+                                        const session = sessions.find((s) => s.id === id);
+                                        return (
+                                            <ComboboxItem key={id} value={id}>
+                                                {session ? session.name : id}
+                                            </ComboboxItem>
+                                        );
+                                    }}
+                                    </ComboboxList>
+                                </ComboboxContent>
+                                </Combobox>
                     )}
                     />
                 </div>
@@ -88,13 +109,13 @@ export const CategoryCard = ({
                     form={form}
                     label={t("quota") + " " +  t("optional")}
                     id="quota"
-                    input={(field) => <Input {...field} type="number" onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
+                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
                     />
                     <StyledFormField
                     form={form}
                     label={t("user_quota") + " " +  t("optional")}
                     id="user_quota"
-                    input={(field) => <Input {...field} type="number" onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
+                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
                     />
 
                 </div>

@@ -7,7 +7,7 @@ interface SessionsSectionProps {
 
 export function SessionsSection({ sessions }: SessionsSectionProps) {
     return (
-        <section className="rounded-xl border bg-background p-6 grid gap-4">
+        <section className="rounded-xl shadow-md bg-background p-6 grid gap-4">
             <h2 className="text-base font-semibold">
                 Sessions <span className="text-muted-foreground font-normal">({sessions.length})</span>
             </h2>

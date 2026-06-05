@@ -115,8 +115,8 @@ export const AddEditEventForm = ({
           name: "",
           open_date: new Date(),
           close_date: new Date(),
-          quota: 0,
-          user_quota: 0,
+          // quota: 0,
+          // user_quota: 0,
           organiser_id: organiserId,
       },
   });
@@ -128,8 +128,8 @@ export const AddEditEventForm = ({
           event_id: createdEventId || "",
           name: "",
           date: new Date(),
-          quota: 0,
-          user_quota: 0,
+          // quota: 0,
+          // user_quota: 0,
       },
   });
 
@@ -139,8 +139,8 @@ export const AddEditEventForm = ({
       defaultValues: {
           event_id: createdEventId || "",
           name: "",
-          quota: 0,
-          user_quota: 0,
+          // quota: 0,
+          // user_quota: 0,
           price: 0,
           disabled: false,
           linked_sessions: [],
@@ -200,7 +200,7 @@ export const AddEditEventForm = ({
     );
   }, [isEdit, isEditModeFromQuery, eventId, existingEventData, eventForm]);
 
-  
+
     async function onEventSubmit(values: z.infer<typeof eventFormSchema>, onSuccess?: () => void) {
         setIsLoading(true);
 
@@ -468,7 +468,7 @@ export const AddEditEventForm = ({
       }));
     };
 
-  
+
 
   const formatDate = (value?: Date) => {
     if (!value) return "-";
@@ -486,7 +486,7 @@ export const AddEditEventForm = ({
         <CarouselContent>
           <CarouselItem>
             <Form {...eventForm}>
-              <form 
+              <form
                 onSubmit={(e) => {
                     eventForm.setValue("organiser_id", organiserId || "");
                     eventForm.handleSubmit((values) => {
@@ -645,8 +645,8 @@ export const AddEditEventForm = ({
             </Form>
           </CarouselItem>
           <CarouselItem>
-            <div className="grid gap-4 rounded-md border bg-background p-4">
-              <div className="text-lg font-semibold">Review</div>
+            <div className="grid gap-4 rounded-md shadow-md bg-background p-4 m-4">
+              <div className="text-lg font-semibold">Summary</div>
               <div className="grid gap-2">
                 <div className="text-sm font-medium">Event</div>
                 <div className="text-sm text-muted-foreground">
@@ -698,25 +698,32 @@ export const AddEditEventForm = ({
           </CarouselItem>
         </CarouselContent>
       </Carousel>
-      <div className="flex justify-start mt-4 gap-4">
+      <div className="flex items-center justify-between mt-6 pt-4 border-t">
         <Button
-          size="icon"
+          variant="ghost"
+          className="gap-1.5 rounded-full px-5"
           onClick={() => {
             api?.scrollPrev();
-              setState((state) => ({
-                ...state,
-                currentStep: Math.max(0, state.currentStep - 1),
-                headerSubtitle:
-                  state.allHeaderSubtitles[Math.max(0, state.currentStep - 1)],
+            setState((state) => ({
+              ...state,
+              currentStep: Math.max(0, state.currentStep - 1),
+              headerSubtitle:
+                state.allHeaderSubtitles[Math.max(0, state.currentStep - 1)],
             }));
           }}
           disabled={!api?.canScrollPrev()}
         >
           <ChevronLeft className="h-4 w-4" />
+          Retour
         </Button>
+
+        <span className="text-sm font-medium text-muted-foreground tabular-nums">
+          {state.currentStep + 1} / {state.allHeaderSubtitles.length}
+        </span>
+
         {!isLastStep ? (
           <Button
-            size="icon"
+            className="gap-1.5 rounded-full px-5"
             disabled={isLoading || isSubmittingFinal}
             onClick={async () => {
               if (state.currentStep === 0) {
@@ -757,16 +764,17 @@ export const AddEditEventForm = ({
               moveToNextStep();
             }}
           >
+            Suivant
             <ChevronRight className="h-4 w-4" />
           </Button>
         ) : (
           <LoadingButton
             isLoading={isSubmittingFinal}
-            className="w-50"
+            className="rounded-full px-5"
             disabled={!createdEventId || stagedSessions.length === 0 || stagedCategories.length === 0 || isSubmittingFinal}
             onClick={submitAllStagedData}
           >
-            {(isEdit || isEditModeFromQuery) ? "Sauvegarder les modifications" : "Create sessions and categories"}
+            {(isEdit || isEditModeFromQuery) ? "Sauvegarder" : "Créer l'événement"}
           </LoadingButton>
         )}
       </div>

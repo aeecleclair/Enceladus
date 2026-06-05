@@ -1,4 +1,4 @@
-import { useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { AppModulesTicketingSchemasTicketingEventComplete } from "@/api";
 
@@ -8,6 +8,7 @@ interface EventSummaryCardProps {
 
 export function EventSummaryCard({ event }: EventSummaryCardProps) {
     const format = useFormatter();
+    const t = useTranslations("sg");
 
     const formatDate = (value?: string) => {
         if (!value) return "—";
@@ -15,7 +16,7 @@ export function EventSummaryCard({ event }: EventSummaryCardProps) {
     };
 
     return (
-        <section className="rounded-xl border bg-background p-6 grid gap-3">
+        <section className="rounded-xl shadow-md bg-background p-6 grid gap-3">
             <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">{event.name}</h2>
                 {event.disabled && <Badge variant="destructive">Désactivé</Badge>}

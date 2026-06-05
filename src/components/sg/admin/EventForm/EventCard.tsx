@@ -15,14 +15,14 @@ interface EventCardProps {
 }
 
 export const EventCard = ({form}: EventCardProps) => {
-    const t = useTranslations("sg");
+    const t = useTranslations("sg.addEditEventForm");
     return (
         <CardTemplate>
             <div className="grid gap-6 mt-4 px-3">
                 <div className="flex flex-row gap-2 w-full">
                     <StyledFormField
                     form={form}
-                    label={t("addEditEventForm.name")}
+                    label={t("name")}
                     id="name"
                     input={(field) => <Input {...field} />}
                     />
@@ -30,21 +30,21 @@ export const EventCard = ({form}: EventCardProps) => {
                 <div className="flex flex-row gap-2">
                     <StyledFormField
                     form={form}
-                    label={t("addEditEventForm.quota") + " " +  t("addEditEventForm.optional")}
+                    label={t("quota") + " " +  t("optional")}
                     id="quota"
-                    input={(field) => <Input {...field} type="number" onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
+                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
                     />
                     <StyledFormField
                     form={form}
-                    label={t("addEditEventForm.user_quota") + " " +  t("addEditEventForm.optional")}
+                    label={t("user_quota") + " " +  t("optional")}
                     id="user_quota"
-                    input={(field) => <Input {...field} type="number" onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
+                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
                     />
                 </div>
                 <div className="flex flex-row gap-2">
                     <StyledFormField
                     form={form}
-                    label={t("addEditEventForm.start_date")}
+                    label={t("start_date")}
                     id="open_date"
                     input={(field) => (
                         <DatePicker
@@ -60,7 +60,7 @@ export const EventCard = ({form}: EventCardProps) => {
                 <div className="flex flex-row gap-2">
                     <StyledFormField
                         form={form}
-                        label={t("addEditEventForm.close_date")}
+                        label={t("close_date")}
                         id="close_date"
                         input={(field) => (
                             <DatePicker

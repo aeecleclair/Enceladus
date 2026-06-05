@@ -5,8 +5,6 @@ import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 
 import { TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
 import { Label } from "@/components/ui/label";
 
 interface OrganiserTabListProps {
@@ -16,7 +14,6 @@ interface OrganiserTabListProps {
 
 export const OrganiserTabList = ({
   organisers,
-  isAdmin,
 }: OrganiserTabListProps) => {
   const t = useTranslations("siarnaq");
   const router = useRouter();
@@ -35,9 +32,6 @@ export const OrganiserTabList = ({
       <Label htmlFor="search" className="sr-only">
         Search
       </Label>
-      <div className="absolute size-4 select-none w-32">
-        <Search />
-      </div>
       <TabsList className={`grid w-full grid-flow-row grid-cols-7`}>
         {organisers.map((organiser) => (
           <TabsTrigger

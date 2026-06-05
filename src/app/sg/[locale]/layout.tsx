@@ -44,7 +44,7 @@ export default async function RootLayout({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "sg" });
   return (
-    <html lang={locale}>
+    <html lang={locale} data-theme="sg">
       <head>
         <meta charSet="utf-8" />
         <title>{t("metadata.title")}</title>
@@ -68,7 +68,7 @@ export default async function RootLayout({
             <Suspense fallback={<div>Loading...</div>}>
               <QueryProvider>
                 <NextIntlClientProvider locale={locale}>
-                  {/* <TopBar /> */}
+                  <TopBar />
                   <main className="min-h-screen">
                     {children}
                   </main>

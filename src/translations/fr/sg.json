@@ -29,6 +29,7 @@
   },
   "addEditEventForm": {
     "optional": "(optionnel)",
+    "unlimited": "illimité",
     "name": "Intitulé de l'événement",
     "add": "Ajouter",
     "edit": "Modifier",
@@ -40,13 +41,16 @@
   },
   "addEditSessionForm": {
     "optional": "(optionnel)",
+    "unlimited": "illimité",
     "name": "Intitulé de la session",
     "date": "Date de la session",
     "quota": "Quota total",
     "user_quota": "Quota utilisateur"
   },
   "addEditCategoryForm": {
+    "addSession": "Ajouter une session",
     "optional": "(optionnel)",
+    "unlimited": "illimité",
     "name": "Nom de la catégorie",
     "price": "Prix",
     "quota": "Quota total",

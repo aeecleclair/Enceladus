@@ -1,4 +1,4 @@
-import { useFormatter } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { SessionSimple } from "@/api";
 
 interface SessionRowProps {
@@ -7,6 +7,7 @@ interface SessionRowProps {
 
 export function SessionRow({ session }: SessionRowProps) {
     const format = useFormatter();
+    const t = useTranslations("sg"); // TODO : translate everything
 
     const formatDate = (value: string) =>
         format.dateTime(new Date(value), { dateStyle: "medium" });

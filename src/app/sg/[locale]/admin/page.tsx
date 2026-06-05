@@ -6,12 +6,6 @@ import { AdminSidebar } from "@/components/sg/admin/Sidebars/AdminSidebar";
 import { Separator } from "@/components/ui/separator";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 
-interface EventProps {
-    name: string;
-    participants: number;
-    status: string;
-}
-
 const AdminPage = () => {
     return (
         <SidebarProvider>

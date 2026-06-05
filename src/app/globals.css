@@ -132,6 +132,77 @@
 /* 4. Gestion du Dark Mode pour Tailwind */
 @variant dark (&:where(.dark, .dark *));
 
+/* 5. Thème SG (Billetterie) — Violet/Indigo */
+@layer base {
+  [data-theme="sg"] {
+    --background: 270 100% 99.2%;
+    --foreground: 263 50% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 263 50% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 263 50% 8%;
+    --primary: 263 70% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 263 40% 94%;
+    --secondary-foreground: 263 50% 20%;
+    --muted: 270 30% 95%;
+    --muted-foreground: 263 20% 45%;
+    --accent: 243 75% 58%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 263 30% 88%;
+    --input: 263 30% 88%;
+    --ring: 263 70% 50%;
+    --selected: 263 70% 50%;
+  }
+
+  .dark[data-theme="sg"] {
+    --background: 263 80% 5%;
+    --foreground: 263 30% 95%;
+    --card: 263 70% 8%;
+    --card-foreground: 263 30% 95%;
+    --popover: 263 70% 8%;
+    --popover-foreground: 263 30% 95%;
+    --primary: 263 80% 70%;
+    --primary-foreground: 263 80% 10%;
+    --secondary: 263 50% 15%;
+    --secondary-foreground: 263 30% 90%;
+    --muted: 263 45% 12%;
+    --muted-foreground: 263 30% 65%;
+    --accent: 243 75% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 263 50% 18%;
+    --input: 263 50% 18%;
+    --ring: 263 80% 70%;
+    --selected: 0 0% 100%;
+  }
+}
+
+[data-theme="sg"] {
+  --sidebar: hsl(270 100% 97%);
+  --sidebar-foreground: hsl(263 40% 30%);
+  --sidebar-primary: hsl(263 70% 50%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(263 40% 92%);
+  --sidebar-accent-foreground: hsl(263 50% 20%);
+  --sidebar-border: hsl(263 30% 88%);
+  --sidebar-ring: hsl(263 70% 50%);
+}
+
+.dark[data-theme="sg"] {
+  --sidebar: hsl(263 70% 8%);
+  --sidebar-foreground: hsl(263 30% 90%);
+  --sidebar-primary: hsl(263 80% 70%);
+  --sidebar-primary-foreground: hsl(263 80% 10%);
+  --sidebar-accent: hsl(263 50% 15%);
+  --sidebar-accent-foreground: hsl(263 30% 90%);
+  --sidebar-border: hsl(263 50% 18%);
+  --sidebar-ring: hsl(263 80% 70%);
+}
+
 :root {
   --sidebar: hsl(0 0% 98%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);

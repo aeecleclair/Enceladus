@@ -41,7 +41,6 @@ export const OrganiserTabContent = ({
   console.log("userId: ", userId);
   const { productExpansion, setExpandedProducts } = useProductExpansionStore();
   const { token } = useTokenStore();
-  const { year } = useYear();
   const [isOpened, setIsOpened] = useState(false);
 
   const router = useRouter();
@@ -51,8 +50,6 @@ export const OrganiserTabContent = ({
       <div className="flex w-full border-b mb-4 pb-4">
         <AddEventAccordionItem
           organiserId={organiser.id}
-          creatorId={userId!}
-          refreshEvent={refetchEvents}
         />
       </div>
 

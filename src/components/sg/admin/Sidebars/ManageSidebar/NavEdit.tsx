@@ -11,10 +11,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 export function NavEdit() {
     const router = useRouter();
 
-    const eventID = useSearchParams().get("eventId");
+    const eventId = useSearchParams().get("eventId");
 
     function handleClick() {
-        router.push(`manage/edit?eventId=${eventID}&editMode=true`);
+        router.push(`manage/edit?eventId=${eventId}&editMode=true`);
     }
 
     return (
