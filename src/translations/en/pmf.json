@@ -46,7 +46,8 @@
   },
   "OfferSearch": {
     "search": "Search",
-    "tags": "Filter"
+    "tags": "Filter",
+    "title": "Search and filter"
   },
   "OfferPanel": {
     "apply": "Apply",

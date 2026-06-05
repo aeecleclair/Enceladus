@@ -13,18 +13,20 @@ export default function SidePanel({
   const t = useTranslations("pmf");
   const router = useRouter();
   return (
-    <div>
+    <div className="">
       <OfferSearch
         globalFilter={globalFilter}
       />
-      <Button
-        variant="default"
-        onClick={() => router.push(`/new`)}
-        className=""
-        size="default"
-      >
-        {t("SidePanel.new")}
-      </Button>
+      <div className="mt-10 flex justify-center mr-2">
+        <Button
+          variant="default"
+          onClick={() => router.push(`/new`)}
+          className=""
+          size="lg"
+        >
+          {t("SidePanel.new")}
+        </Button>
+      </div>
     </div>
   )
 }

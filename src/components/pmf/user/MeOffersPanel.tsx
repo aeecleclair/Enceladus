@@ -11,7 +11,7 @@ export default function MeOffersPanel() {
 
   if (!userOffers) return null;
   return (
-    <div className="items-center border">
+    <div className="items-center max-w-3xl mx-auto">
       <p className="text-4xl font-bold items-center">{t("offersPanel.title")}</p>
       {userOffers.map((offer: OfferSimple) => (
         <OfferCard offer={offer} />

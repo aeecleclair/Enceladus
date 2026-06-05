@@ -43,12 +43,13 @@ export const OfferSearch = ({
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2 mt-8 mr-2">
+        <span className="text-2xl font-bold">{t("OfferSearch.title")}</span>
         <FormField
           control={form.control}
           name="search"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="w-full mt-4">
               <FormControl>
                 <Input
                   {...field}
@@ -64,7 +65,7 @@ export const OfferSearch = ({
           name="tags"
           render={({field}) => (
             <FormItem className="w-full">
-                <label className="mb-2 block text-sm font-medium">
+                <label className="block text-sm font-medium">
                   {"Tags :"}
                 </label>
                 <FormControl>
@@ -78,7 +79,7 @@ export const OfferSearch = ({
           name="tags"
           render={({field}) => (
             <FormItem className="w-full">
-                <label className="mb-2 block text-sm font-medium">
+                <label className="block text-sm font-medium">
                   {"Type :"}
                 </label>
                 <FormControl>

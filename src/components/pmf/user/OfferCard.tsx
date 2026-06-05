@@ -14,7 +14,7 @@ export default function OfferCard({ offer }: OfferCardProps) {
   const t = useTranslations("pmf");
   const { fav, toggleFav } = useFavorite(offer.id);
   return (
-    <div className="relative border border-color-border rounded-lg p-4" onClick={() => router.push(`/offer?offerId=${offer.id}`)}>
+    <div className="relative border border-color-border rounded-lg p-4 cursor-pointer" onClick={() => router.push(`/offer?offerId=${offer.id}`)}>
       <span className="absolute right-4 top-4 rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
         {offer.offer_type}
       </span>
