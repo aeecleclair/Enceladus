@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
 import { MoreHorizontal } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface ParticipantRowActionsProps {
   participant: RaidParticipantPreview;
@@ -21,12 +22,9 @@ export const ParticipantRowActions = ({
   teamId,
   onOpenTeam,
 }: ParticipantRowActionsProps) => {
-  const {
-    validateParticipant,
-    cancelParticipant,
-    reopenParticipant,
-    submitParticipant,
-  } = useParticipantLifecycle();
+  const { validateParticipant, cancelParticipant, reopenParticipant } =
+    useParticipantLifecycle();
+  const t = useTranslations("raid.admin.participants");
 
   const status = participant.status;
 
@@ -38,25 +36,18 @@ export const ParticipantRowActions = ({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {status === "draft" && (
-          <DropdownMenuItem
-            onClick={() => submitParticipant(participant.user_id)}
-          >
-            Soumettre
-          </DropdownMenuItem>
-        )}
         {status === "submitted" && (
           <DropdownMenuItem
             onClick={() => validateParticipant(participant.user_id)}
           >
-            Valider
+            {t("actions.validate")}
           </DropdownMenuItem>
         )}
         {(status === "submitted" || status === "validated") && (
           <DropdownMenuItem
             onClick={() => reopenParticipant(participant.user_id)}
           >
-            Rouvrir
+            {t("actions.reopen")}
           </DropdownMenuItem>
         )}
         {status !== "cancelled" && (
@@ -64,12 +55,12 @@ export const ParticipantRowActions = ({
             onClick={() => cancelParticipant(participant.user_id)}
             className="text-destructive"
           >
-            Annuler
+            {t("actions.cancel")}
           </DropdownMenuItem>
         )}
         {teamId && onOpenTeam && (
           <DropdownMenuItem onClick={() => onOpenTeam(teamId)}>
-            Voir l&apos;équipe
+            {t("viewTeam")}
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>
