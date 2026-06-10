@@ -11,12 +11,14 @@ import { EditionForm } from "@/components/raid/admin/EditionForm";
 import {
   editionFormSchema,
   EditionFormSchema,
+  editionFormToBody,
 } from "@/forms/raid/edition";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useEditions } from "@/hooks/raid/useEditions";
 import { RaidEdition } from "@/api";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface EditEditionDialogProps {
   open: boolean;
@@ -30,6 +32,7 @@ export const EditEditionDialog = ({
   edition,
 }: EditEditionDialogProps) => {
   const { updateEdition, isUpdateLoading } = useEditions();
+  const t = useTranslations("raid.admin.editions");
 
   const form = useForm<EditionFormSchema>({
     resolver: zodResolver(editionFormSchema),
@@ -55,18 +58,8 @@ export const EditEditionDialog = ({
   }, [edition, form]);
 
   const onSubmit = (values: EditionFormSchema) => {
-    updateEdition(
-      edition.id,
-      {
-        name: values.name,
-        year: values.startDate.getFullYear(),
-        start_date: values.startDate.toISOString().slice(0, 10),
-        end_date: values.endDate.toISOString().slice(0, 10),
-        registering_end_date: values.registeringEndDate
-          ? values.registeringEndDate.toISOString().slice(0, 10)
-          : null,
-      },
-      () => onOpenChange(false),
+    updateEdition(edition.id, editionFormToBody(values), () =>
+      onOpenChange(false),
     );
   };
 
@@ -74,16 +67,14 @@ export const EditEditionDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Modifier l&apos;édition</DialogTitle>
-          <DialogDescription>
-            Mettez à jour les informations de l&apos;édition.
-          </DialogDescription>
+          <DialogTitle>{t("edit")}</DialogTitle>
+          <DialogDescription>{t("editDescription")}</DialogDescription>
         </DialogHeader>
         <EditionForm
           form={form}
           isLoading={isUpdateLoading}
           onSubmit={onSubmit}
-          submitLabel="Enregistrer"
+          submitLabel={t("save")}
         />
       </DialogContent>
     </Dialog>

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { RaidEdition } from "@/api";
 import { useEditions } from "@/hooks/raid/useEditions";
+import { useTranslations } from "next-intl";
 
 interface DeleteEditionDialogProps {
   open: boolean;
@@ -25,6 +26,8 @@ export const DeleteEditionDialog = ({
   edition,
 }: DeleteEditionDialogProps) => {
   const { deleteEdition, isDeleteLoading } = useEditions();
+  const t = useTranslations("raid.admin.editions");
+  const tc = useTranslations("raid.common");
 
   const handleDelete = () => {
     deleteEdition(edition.id, () => onOpenChange(false));
@@ -34,20 +37,19 @@ export const DeleteEditionDialog = ({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Supprimer l&apos;édition ?</AlertDialogTitle>
+          <AlertDialogTitle>{t("deleteConfirmTitle")} ?</AlertDialogTitle>
           <AlertDialogDescription>
-            Cette action est irréversible. L&apos;édition &laquo; {edition.name}
-            &raquo; sera définitivement supprimée.
+            {t("deleteConfirmDescription")} «&nbsp;{edition.name}&nbsp;»
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Annuler</AlertDialogCancel>
+          <AlertDialogCancel>{tc("cancel")}</AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
             disabled={isDeleteLoading}
             className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
           >
-            Supprimer
+            {t("delete")}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

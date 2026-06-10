@@ -3,107 +3,73 @@
 import { EditionCard } from "@/components/raid/admin/editions/EditionCard";
 import { EditEditionDialog } from "@/components/raid/admin/editions/EditEditionDialog";
 import { DeleteEditionDialog } from "@/components/raid/admin/editions/DeleteEditionDialog";
-import { EditionForm } from "@/components/raid/admin/EditionForm";
+import { CreateEditionDialog } from "@/components/raid/admin/editions/CreateEditionDialog";
 import { PageHeader } from "@/components/raid/admin/PageHeader";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { editionFormSchema, EditionFormSchema } from "@/forms/raid/edition";
+import { Button } from "@/components/ui/button";
 import { useEditions } from "@/hooks/raid/useEditions";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { RaidEdition } from "@/api";
 import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const EditionsPage = () => {
-  const { editions, isLoading, createEdition, isCreateLoading } = useEditions();
+  const { editions, isLoading } = useEditions();
   const [editingEdition, setEditingEdition] = useState<RaidEdition | null>(
     null,
   );
   const [deletingEdition, setDeletingEdition] = useState<RaidEdition | null>(
     null,
   );
+  const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const t = useTranslations("raid.admin.editions");
 
-  const form = useForm<EditionFormSchema>({
-    resolver: zodResolver(editionFormSchema),
-  });
-
-  const onCreate = (values: EditionFormSchema) => {
-    createEdition(
-      {
-        name: values.name,
-        year: values.startDate.getFullYear(),
-        start_date: values.startDate.toISOString().slice(0, 10),
-        end_date: values.endDate.toISOString().slice(0, 10),
-        registering_end_date: values.registeringEndDate
-          ? values.registeringEndDate.toISOString().slice(0, 10)
-          : null,
-        active: !editions || editions.length === 0,
-        inscription_enabled: false,
-      },
-      () => form.reset(),
-    );
-  };
+  const isFirstEdition = !editions || editions.length === 0;
 
   return (
     <div className="space-y-6">
       <PageHeader
         icon={CalendarDays}
-        title="Éditions"
-        description="Gérez les éditions et l'ouverture des inscriptions."
+        title={t("title")}
+        description={t("subtitle")}
         accent="amber"
       />
-      <Card className="border-border/70 bg-card/95 shadow-sm">
-        <CardHeader>
-          <CardTitle>Créer une édition</CardTitle>
-          <CardDescription>
-            Chaque édition regroupe les participants et bénévoles d&apos;une
-            année.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <EditionForm
-            form={form}
-            isLoading={isCreateLoading}
-            onSubmit={onCreate}
-            submitLabel="Créer l'édition"
-          />
-        </CardContent>
-      </Card>
 
-      <div className="space-y-4">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-xl font-semibold tracking-tight">
-          Éditions existantes
+          {t("existing")}
         </h2>
-        {isLoading ? (
-          <div className="grid gap-4 md:grid-cols-2">
-            <Skeleton className="h-40" />
-            <Skeleton className="h-40" />
-          </div>
-        ) : !editions || editions.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Aucune édition pour le moment.
-          </p>
-        ) : (
-          <div className="grid gap-4 md:grid-cols-2">
-            {editions.map((edition) => (
-              <EditionCard
-                key={edition.id}
-                edition={edition}
-                onEdit={setEditingEdition}
-                onDelete={setDeletingEdition}
-              />
-            ))}
-          </div>
-        )}
+        <Button onClick={() => setIsCreateOpen(true)} size="sm">
+          <Plus className="mr-2 h-4 w-4" />
+          {t("create")}
+        </Button>
       </div>
 
+      {isLoading ? (
+        <div className="grid gap-4 md:grid-cols-2">
+          <Skeleton className="h-40" />
+          <Skeleton className="h-40" />
+        </div>
+      ) : isFirstEdition ? (
+        <p className="text-sm text-muted-foreground">{t("empty")}</p>
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2">
+          {editions.map((edition) => (
+            <EditionCard
+              key={edition.id}
+              edition={edition}
+              onEdit={setEditingEdition}
+              onDelete={setDeletingEdition}
+            />
+          ))}
+        </div>
+      )}
+
+      <CreateEditionDialog
+        open={isCreateOpen}
+        onOpenChange={setIsCreateOpen}
+        isFirstEdition={isFirstEdition}
+      />
       {editingEdition && (
         <EditEditionDialog
           open={!!editingEdition}

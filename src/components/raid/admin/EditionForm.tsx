@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { UseFormReturn } from "react-hook-form";
 import { EditionFormSchema } from "@/forms/raid/edition";
+import { useTranslations } from "next-intl";
 
 interface EditionFormProps {
   form: UseFormReturn<EditionFormSchema>;
@@ -27,6 +28,7 @@ export const EditionForm = ({
   onSubmit,
   submitLabel,
 }: EditionFormProps) => {
+  const t = useTranslations("raid.admin.editions");
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -35,9 +37,9 @@ export const EditionForm = ({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nom de l&apos;édition</FormLabel>
+              <FormLabel>{t("name")}</FormLabel>
               <FormControl>
-                <Input placeholder="Ex: Raid 2026" {...field} />
+                <Input placeholder={t("namePlaceholder")} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -49,7 +51,7 @@ export const EditionForm = ({
             name="startDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Date de début</FormLabel>
+                <FormLabel>{t("startDate")}</FormLabel>
                 <FormControl>
                   <DatePicker date={field.value} setDate={field.onChange} />
                 </FormControl>
@@ -62,7 +64,7 @@ export const EditionForm = ({
             name="endDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Date de fin</FormLabel>
+                <FormLabel>{t("endDate")}</FormLabel>
                 <FormControl>
                   <DatePicker date={field.value} setDate={field.onChange} />
                 </FormControl>
@@ -75,7 +77,7 @@ export const EditionForm = ({
             name="registeringEndDate"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Fin des inscriptions</FormLabel>
+                <FormLabel>{t("registeringEndDate")}</FormLabel>
                 <FormControl>
                   <DatePicker date={field.value} setDate={field.onChange} />
                 </FormControl>
