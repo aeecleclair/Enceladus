@@ -9,12 +9,13 @@ import {
   patchRaidParticipantsUserIdMutation,
   postRaidParticipantsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/raid/errorTyping";
+import { useReportError } from "./useReportError";
 
 export const useMeParticipant = () => {
   const { userId, isTokenExpired } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const reportError = useReportError();
 
   const participantsQueryKey = userId
     ? getRaidParticipantsUserIdQueryKey({ path: { user_id: userId } })
@@ -50,18 +51,6 @@ export const useMeParticipant = () => {
     enabled: userId !== null && !isTokenExpired(),
     retry: 0,
   });
-
-  const reportError = (title: string) => (error: unknown) => {
-    console.error(error);
-    toast({
-      title,
-      description:
-        (error as ErrorType)?.stack?.body ||
-        (error as DetailedErrorType)?.stack?.detail ||
-        "Une erreur est survenue, veuillez réessayer.",
-      variant: "destructive",
-    });
-  };
 
   const {
     mutate: mutateCreateParticipant,

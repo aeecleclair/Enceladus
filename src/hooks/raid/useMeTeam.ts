@@ -10,13 +10,14 @@ import {
   patchRaidTeamsTeamIdMutation,
   postRaidTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/raid/errorTyping";
+import { useReportError } from "./useReportError";
 
 export const useMeTeam = () => {
   const { userId, isTokenExpired } = useAuth();
   const { toast } = useToast();
   const { me } = useMeParticipant();
   const queryClient = useQueryClient();
+  const reportError = useReportError();
 
   const queryKey = userId
     ? getRaidParticipantsUserIdTeamQueryKey({
@@ -26,18 +27,6 @@ export const useMeTeam = () => {
 
   const invalidate = () => {
     if (queryKey) queryClient.invalidateQueries({ queryKey });
-  };
-
-  const reportError = (title: string) => (error: unknown) => {
-    console.error(error);
-    toast({
-      title,
-      description:
-        (error as ErrorType)?.stack?.body ||
-        (error as DetailedErrorType)?.stack?.detail ||
-        "Une erreur est survenue, veuillez réessayer.",
-      variant: "destructive",
-    });
   };
 
   const {
@@ -75,10 +64,7 @@ export const useMeTeam = () => {
   });
 
   const createTeam = (team: RaidTeamBase, callback: () => void) => {
-    mutateCreateTeam(
-      { body: team },
-      { onSuccess: () => callback() },
-    );
+    mutateCreateTeam({ body: team }, { onSuccess: () => callback() });
   };
 
   const {

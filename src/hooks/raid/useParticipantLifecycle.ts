@@ -6,8 +6,8 @@ import {
   postRaidParticipantsUserIdSubmitMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { useToast } from "@/components/ui/use-toast";
-import { DetailedErrorType, ErrorType } from "@/lib/raid/errorTyping";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useReportError } from "./useReportError";
 
 /**
  * Shared participant lifecycle mutations.
@@ -16,24 +16,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 export const useParticipantLifecycle = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const reportError = useReportError();
 
   const invalidateAll = () => {
     queryClient.invalidateQueries({ queryKey: getRaidTeamsQueryKey() });
     queryClient.invalidateQueries({ queryKey: ["getRaidParticipantsUserId"] });
     queryClient.invalidateQueries({
       queryKey: ["getRaidParticipantsUserIdTeam"],
-    });
-  };
-
-  const reportError = (title: string) => (error: unknown) => {
-    console.error(error);
-    toast({
-      title,
-      description:
-        (error as ErrorType)?.stack?.body ||
-        (error as DetailedErrorType)?.stack?.detail ||
-        "Une erreur est survenue, veuillez réessayer.",
-      variant: "destructive",
     });
   };
 

@@ -8,29 +8,18 @@ import {
   getRaidTeamsTeamIdQueryKey,
   postRaidTeamsTeamIdKickUserIdMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/raid/errorTyping";
+import { useReportError } from "./useReportError";
 
 export const useAdminTeam = (teamId: string) => {
   const { isTokenExpired } = useAuth();
   const { isRaidAdmin } = useHasRaidPermission();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const reportError = useReportError();
 
   const teamQueryKey = getRaidTeamsTeamIdQueryKey({
     path: { team_id: teamId },
   });
-
-  const reportError = (title: string) => (error: unknown) => {
-    console.error(error);
-    toast({
-      title,
-      description:
-        (error as ErrorType)?.stack?.body ||
-        (error as DetailedErrorType)?.stack?.detail ||
-        "Une erreur est survenue, veuillez réessayer.",
-      variant: "destructive",
-    });
-  };
 
   const { data: team, refetch: refetchTeam } = useQuery({
     ...getRaidTeamsTeamIdOptions({

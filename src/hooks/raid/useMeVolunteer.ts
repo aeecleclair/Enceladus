@@ -9,15 +9,11 @@ import {
   postRaidVolunteersMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { useToast } from "@/components/ui/use-toast";
-import { DetailedErrorType, ErrorType } from "@/lib/raid/errorTyping";
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
 import { useMeUser } from "../useMeUser";
 import { useHasRaidPermission } from "./useHasRaidPermission";
+import { useReportError } from "./useReportError";
 
 /**
  * Current user's volunteer record. Handles self-register, update, self-cancel, delete.
@@ -28,6 +24,7 @@ export const useMeVolunteer = () => {
   const { hasRaidAccess } = useHasRaidPermission();
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  const reportError = useReportError();
 
   const invalidate = () =>
     queryClient.invalidateQueries({ queryKey: getRaidVolunteersMeQueryKey() });
@@ -51,18 +48,6 @@ export const useMeVolunteer = () => {
     enabled: !isTokenExpired() && hasRaidAccess,
     retry: false,
   });
-
-  const reportError = (title: string) => (error: unknown) => {
-    console.error(error);
-    toast({
-      title,
-      description:
-        (error as ErrorType)?.stack?.body ||
-        (error as DetailedErrorType)?.stack?.detail ||
-        "Une erreur est survenue, veuillez réessayer.",
-      variant: "destructive",
-    });
-  };
 
   const { mutate: mutateCreate, isPending: isCreateLoading } = useMutation({
     ...postRaidVolunteersMutation(),
