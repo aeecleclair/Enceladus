@@ -22,10 +22,12 @@ import { NavTeams } from "./NavTeams";
 import { NavVolunteers } from "./NavVolunteers";
 import { NavEditions } from "./NavEditions";
 import { NavInformation } from "./NavInformation";
+import { useTranslations } from "next-intl";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { edition } = useEdition();
   const router = useRouter();
+  const t = useTranslations("raid.admin.sidebar");
 
   return (
     <Sidebar variant="inset" className="border-r border-border/70" {...props}>
@@ -53,14 +55,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarSeparator />
         <SidebarGroup className="!py-0">
           <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
-            Vue d&apos;ensemble
+            {t("overview")}
           </SidebarGroupLabel>
         </SidebarGroup>
         <NavDashboard />
         <SidebarSeparator />
         <SidebarGroup className="!py-0">
           <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
-            Inscriptions
+            {t("registration")}
           </SidebarGroupLabel>
         </SidebarGroup>
         <NavParticipants />
@@ -69,7 +71,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarSeparator />
         <SidebarGroup className="!py-0">
           <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
-            Configuration
+            {t("configuration")}
           </SidebarGroupLabel>
         </SidebarGroup>
         <NavInformation />

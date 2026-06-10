@@ -32,7 +32,11 @@
   },
   "home": {
     "sidebar": {
-      "mySpace": "My registration",
+      "mySpace": "My space",
+      "myAccount": "My account",
+      "raidSection": "Raid",
+      "editionYear": "Edition {year}",
+      "noActiveEdition": "No active edition",
       "volunteering": "Volunteering",
       "registration": "Registration",
       "information": "Information",
@@ -41,6 +45,8 @@
       "invite": "Invite a teammate",
       "volunteerStatus": "My volunteering",
       "register": "Register",
+      "registerVolunteer": "Volunteer registration",
+      "raidInfo": "Raid info",
       "contact": "Contact"
     },
     "dashboard": {
@@ -124,6 +130,22 @@
     }
   },
   "volunteer": {
+    "page": {
+      "title": "My volunteering",
+      "subtitle": "Update your availability and logistics.",
+      "inscriptionTitle": "My volunteer registration",
+      "cardCancelled": "Your registration has been cancelled.",
+      "cardValidated": "Thank you for your commitment.",
+      "cardPending": "Your registration is being reviewed.",
+      "informationTitle": "Information",
+      "informationSubtitle": "You can update this information at any time.",
+      "dietPlaceholder": "No specific diet",
+      "allergyPlaceholder": "No allergy",
+      "save": "Save",
+      "unregister": "Unregister",
+      "unregisterTitle": "Unregister from volunteering",
+      "unregisterDescription": "You are about to cancel your volunteer registration. Only the organization can reverse this action."
+    },
     "register": {
       "title": "Volunteer registration",
       "diet": "Diet",
@@ -135,7 +157,8 @@
       "isParcoursHelper": "Course helper"
     },
     "dashboard": {
-      "pending": "Pending validation",
+      "pending": "Pending",
+      "pendingLong": "Pending validation",
       "validated": "Validated",
       "cancelled": "Cancelled"
     },
@@ -167,21 +190,64 @@
     },
     "editions": {
       "title": "Editions",
+      "subtitle": "Manage editions and registration windows.",
+      "existing": "Existing editions",
+      "empty": "No edition yet.",
       "create": "Create edition",
+      "createDescription": "Each edition groups participants and volunteers of a given year.",
+      "edit": "Edit edition",
+      "editDescription": "Update the edition information.",
       "activate": "Activate",
+      "active": "Active",
+      "inscriptionsOpen": "Registrations open",
+      "openInscriptions": "Open registrations",
+      "closeInscriptions": "Close registrations",
       "toggleInscription": "Open/Close registrations",
-      "year": "Year",
-      "name": "Name",
+      "year": "Year {year}",
+      "yearLabel": "Year",
+      "name": "Edition name",
+      "namePlaceholder": "e.g. Raid 2026",
       "dates": "Dates",
+      "startDate": "Start date",
+      "endDate": "End date",
       "registeringEndDate": "Registration end",
-      "delete": "Delete"
+      "delete": "Delete",
+      "deleteConfirmTitle": "Delete edition",
+      "deleteConfirmDescription": "This action is irreversible.",
+      "save": "Save"
     },
     "participants": {
       "title": "Participants",
+      "subtitle": "Track participant dossiers and manage their lifecycle.",
+      "listTitle": "Participant list",
+      "listSubtitle": "Pilot the lifecycle: validate, reopen, cancel.",
+      "searchPlaceholder": "Search a participant or team…",
+      "empty": "No participant.",
+      "filterAll": "All statuses",
+      "columns": {
+        "participant": "Participant",
+        "team": "Team",
+        "status": "Status",
+        "payment": "Payment",
+        "tshirt": "T-shirt"
+      },
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "tshirtPaid": "{size} paid",
+      "tshirtUnpaid": "{size} unpaid",
+      "viewTeam": "View team",
       "actions": {
         "validate": "Validate",
         "cancel": "Cancel",
         "reopen": "Reopen"
+      },
+      "sheet": {
+        "paymentOk": "Payment OK",
+        "paymentPending": "Payment pending",
+        "tshirtPaid": "T-shirt {size} paid",
+        "tshirtUnpaid": "T-shirt {size} unpaid",
+        "tabInfo": "Info",
+        "tabDocument": "Documents"
       }
     },
     "teams": {
@@ -189,20 +255,71 @@
     },
     "volunteers": {
       "title": "Volunteers",
+      "subtitle": "Manage validations and follow-up of volunteer registrations.",
+      "listTitle": "Volunteer list",
+      "listSubtitle": "Validate, cancel or delete volunteer registrations.",
+      "searchPlaceholder": "Search a volunteer…",
+      "empty": "No volunteer.",
+      "filterAll": "All statuses",
+      "filterPending": "Pending",
+      "filterValidated": "Validated",
+      "filterCancelled": "Cancelled",
+      "columns": {
+        "volunteer": "Volunteer",
+        "registeredAt": "Registered on",
+        "status": "Status",
+        "car": "Car",
+        "roles": "Roles"
+      },
+      "carYes": "Yes ({seats} seats)",
+      "carNo": "No",
+      "roleSpecial": "Special vehicle",
+      "roleUtility": "Utility",
+      "roleParcours": "Course",
       "actions": {
         "validate": "Validate",
         "cancel": "Cancel",
         "delete": "Delete"
+      },
+      "deleteConfirmTitle": "Delete this volunteer?",
+      "deleteConfirmDescription": "This action is irreversible.",
+      "sheet": {
+        "registeredOn": "Registered on {date}",
+        "seats": "{count} seats",
+        "identity": "Identity",
+        "email": "Email",
+        "phone": "Phone",
+        "birthday": "Birthday",
+        "volunteeringInfo": "Volunteering information",
+        "diet": "Diet",
+        "allergy": "Allergies",
+        "noDiet": "No specific diet",
+        "noAllergy": "No allergy",
+        "car": "Car"
       }
     },
     "information": {
       "title": "Raid information",
+      "subtitle": "Configure dates, prices, contact and documents shown during registration.",
       "sections": {
         "dates": "Dates",
+        "datesDescription": "Raid window and registration deadline.",
         "prices": "Prices",
+        "pricesDescription": "Price grid for the different profiles and options.",
         "contact": "Contact",
-        "files": "Documents"
+        "contactDescription": "Public email and emergency contacts.",
+        "files": "Files",
+        "filesDescription": "Rules and information sheet sent to participants."
       },
+      "raidDateLabel": "Raid date",
+      "raidDateEmpty": "Window not set",
+      "inscriptionEndLabel": "Registration end",
+      "inscriptionEndDescription": "Last day to register on the active edition.",
+      "inscriptionEndEmpty": "Not set",
+      "footerNotice": "Changes are saved immediately on the active edition.",
+      "loading": "Loading…",
+      "rulesLabel": "Raid rules",
+      "infoLabel": "Information sheet",
       "prices": {
         "student": "Student price",
         "external": "External price",

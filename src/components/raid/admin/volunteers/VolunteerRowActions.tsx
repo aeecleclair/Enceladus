@@ -11,6 +11,7 @@ import {
 import { useAdminVolunteers } from "@/hooks/raid/useAdminVolunteers";
 import { MoreHorizontal } from "lucide-react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,10 +27,14 @@ interface VolunteerRowActionsProps {
   volunteer: RaidVolunteer;
 }
 
-export const VolunteerRowActions = ({ volunteer }: VolunteerRowActionsProps) => {
+export const VolunteerRowActions = ({
+  volunteer,
+}: VolunteerRowActionsProps) => {
   const { validateVolunteer, cancelVolunteer, deleteVolunteer } =
     useAdminVolunteers();
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const t = useTranslations("raid.admin.volunteers");
+  const tc = useTranslations("raid.common");
 
   return (
     <>
@@ -44,14 +49,14 @@ export const VolunteerRowActions = ({ volunteer }: VolunteerRowActionsProps) => 
             <DropdownMenuItem
               onClick={() => validateVolunteer(volunteer.user_id)}
             >
-              Valider
+              {t("actions.validate")}
             </DropdownMenuItem>
           )}
           {!volunteer.cancelled && (
             <DropdownMenuItem
               onClick={() => cancelVolunteer(volunteer.user_id)}
             >
-              Annuler
+              {t("actions.cancel")}
             </DropdownMenuItem>
           )}
           <DropdownMenuSeparator />
@@ -59,20 +64,20 @@ export const VolunteerRowActions = ({ volunteer }: VolunteerRowActionsProps) => 
             onClick={() => setConfirmDelete(true)}
             className="text-destructive"
           >
-            Supprimer
+            {t("actions.delete")}
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       <AlertDialog open={confirmDelete} onOpenChange={setConfirmDelete}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Supprimer ce bénévole ?</AlertDialogTitle>
+            <AlertDialogTitle>{t("deleteConfirmTitle")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Cette action est irréversible.
+              {t("deleteConfirmDescription")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Annuler</AlertDialogCancel>
+            <AlertDialogCancel>{tc("cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => {
                 deleteVolunteer(volunteer.user_id);
@@ -80,7 +85,7 @@ export const VolunteerRowActions = ({ volunteer }: VolunteerRowActionsProps) => 
               }}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Supprimer
+              {t("actions.delete")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

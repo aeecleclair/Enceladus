@@ -7,11 +7,13 @@ import {
 import { useRouter } from "@/i18n/navigation";
 import { LayoutDashboard } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export function NavDashboard() {
   const router = useRouter();
   const pathname = usePathname();
   const isActive = pathname === "/admin";
+  const t = useTranslations("raid.admin.sidebar");
 
   return (
     <SidebarMenu>
@@ -21,7 +23,7 @@ export function NavDashboard() {
           isActive={isActive}
         >
           <LayoutDashboard />
-          <span>Tableau de bord</span>
+          <span>{t("dashboard")}</span>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

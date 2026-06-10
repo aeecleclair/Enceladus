@@ -7,11 +7,13 @@ import {
 import { useRouter } from "@/i18n/navigation";
 import { HeartHandshake } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export function NavVolunteers() {
   const router = useRouter();
   const pathname = usePathname();
   const isActive = pathname.startsWith("/admin/volunteers");
+  const t = useTranslations("raid.admin.sidebar");
 
   return (
     <SidebarMenu>
@@ -21,7 +23,7 @@ export function NavVolunteers() {
           isActive={isActive}
         >
           <HeartHandshake />
-          <span>Bénévoles</span>
+          <span>{t("volunteers")}</span>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>

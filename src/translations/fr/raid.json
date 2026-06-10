@@ -32,7 +32,11 @@
   },
   "home": {
     "sidebar": {
-      "mySpace": "Mon inscription",
+      "mySpace": "Mon espace",
+      "myAccount": "Mon compte",
+      "raidSection": "Raid",
+      "editionYear": "Édition {year}",
+      "noActiveEdition": "Aucune édition active",
       "volunteering": "Bénévolat",
       "registration": "Inscription",
       "information": "Informations",
@@ -41,6 +45,8 @@
       "invite": "Inviter un coéquipier",
       "volunteerStatus": "Mon bénévolat",
       "register": "S'inscrire",
+      "registerVolunteer": "Inscription bénévole",
+      "raidInfo": "Infos du Raid",
       "contact": "Contact"
     },
     "dashboard": {
@@ -124,6 +130,22 @@
     }
   },
   "volunteer": {
+    "page": {
+      "title": "Mon bénévolat",
+      "subtitle": "Mettez à jour vos disponibilités et informations logistiques.",
+      "inscriptionTitle": "Mon inscription bénévole",
+      "cardCancelled": "Votre inscription a été annulée.",
+      "cardValidated": "Merci pour votre engagement.",
+      "cardPending": "Votre inscription est en cours d'examen.",
+      "informationTitle": "Informations",
+      "informationSubtitle": "Vous pouvez mettre à jour ces informations à tout moment.",
+      "dietPlaceholder": "Aucun régime spécifique",
+      "allergyPlaceholder": "Aucune allergie",
+      "save": "Enregistrer",
+      "unregister": "Se désinscrire",
+      "unregisterTitle": "Se désinscrire du bénévolat",
+      "unregisterDescription": "Vous êtes sur le point d'annuler votre inscription bénévole. Cette action peut être réversible seulement par l'organisation."
+    },
     "register": {
       "title": "Inscription bénévole",
       "diet": "Régime alimentaire",
@@ -135,7 +157,8 @@
       "isParcoursHelper": "Aide sur le parcours"
     },
     "dashboard": {
-      "pending": "En attente de validation",
+      "pending": "En attente",
+      "pendingLong": "En attente de validation",
       "validated": "Validé",
       "cancelled": "Annulé"
     },
@@ -167,21 +190,64 @@
     },
     "editions": {
       "title": "Éditions",
+      "subtitle": "Gérez les éditions et l'ouverture des inscriptions.",
+      "existing": "Éditions existantes",
+      "empty": "Aucune édition pour le moment.",
       "create": "Créer une édition",
+      "createDescription": "Chaque édition regroupe les participants et bénévoles d'une année.",
+      "edit": "Modifier l'édition",
+      "editDescription": "Mettez à jour les informations de l'édition.",
       "activate": "Activer",
+      "active": "Active",
+      "inscriptionsOpen": "Inscriptions ouvertes",
+      "openInscriptions": "Ouvrir les inscriptions",
+      "closeInscriptions": "Fermer les inscriptions",
       "toggleInscription": "Ouvrir/Fermer les inscriptions",
-      "year": "Année",
-      "name": "Nom",
+      "year": "Année {year}",
+      "yearLabel": "Année",
+      "name": "Nom de l'édition",
+      "namePlaceholder": "Ex: Raid 2026",
       "dates": "Dates",
+      "startDate": "Date de début",
+      "endDate": "Date de fin",
       "registeringEndDate": "Fin des inscriptions",
-      "delete": "Supprimer"
+      "delete": "Supprimer",
+      "deleteConfirmTitle": "Supprimer l'édition",
+      "deleteConfirmDescription": "Cette action est irréversible.",
+      "save": "Enregistrer"
     },
     "participants": {
       "title": "Participants",
+      "subtitle": "Suivez les dossiers participants et gérez leur cycle de vie.",
+      "listTitle": "Liste des participants",
+      "listSubtitle": "Pilotez le cycle de vie : valider, rouvrir, annuler.",
+      "searchPlaceholder": "Rechercher un participant ou une équipe…",
+      "empty": "Aucun participant.",
+      "filterAll": "Tous les statuts",
+      "columns": {
+        "participant": "Participant",
+        "team": "Équipe",
+        "status": "Statut",
+        "payment": "Paiement",
+        "tshirt": "T-shirt"
+      },
+      "paid": "Payé",
+      "unpaid": "Non payé",
+      "tshirtPaid": "{size} payé",
+      "tshirtUnpaid": "{size} non payé",
+      "viewTeam": "Voir l'équipe",
       "actions": {
         "validate": "Valider",
         "cancel": "Annuler",
         "reopen": "Rouvrir"
+      },
+      "sheet": {
+        "paymentOk": "Paiement OK",
+        "paymentPending": "Paiement en attente",
+        "tshirtPaid": "T-shirt {size} payé",
+        "tshirtUnpaid": "T-shirt {size} non payé",
+        "tabInfo": "Infos",
+        "tabDocument": "Documents"
       }
     },
     "teams": {
@@ -189,20 +255,71 @@
     },
     "volunteers": {
       "title": "Bénévoles",
+      "subtitle": "Gérez les validations et le suivi des inscriptions bénévoles.",
+      "listTitle": "Liste des bénévoles",
+      "listSubtitle": "Validez, annulez ou supprimez les inscriptions bénévoles.",
+      "searchPlaceholder": "Rechercher un bénévole…",
+      "empty": "Aucun bénévole.",
+      "filterAll": "Tous les statuts",
+      "filterPending": "En attente",
+      "filterValidated": "Validés",
+      "filterCancelled": "Annulés",
+      "columns": {
+        "volunteer": "Bénévole",
+        "registeredAt": "Inscrit le",
+        "status": "Statut",
+        "car": "Voiture",
+        "roles": "Rôles"
+      },
+      "carYes": "Oui ({seats} places)",
+      "carNo": "Non",
+      "roleSpecial": "Véhicule spécial",
+      "roleUtility": "Utilitaire",
+      "roleParcours": "Parcours",
       "actions": {
         "validate": "Valider",
         "cancel": "Annuler",
         "delete": "Supprimer"
+      },
+      "deleteConfirmTitle": "Supprimer ce bénévole ?",
+      "deleteConfirmDescription": "Cette action est irréversible.",
+      "sheet": {
+        "registeredOn": "Inscrit le {date}",
+        "seats": "{count} places",
+        "identity": "Identité",
+        "email": "Email",
+        "phone": "Téléphone",
+        "birthday": "Date de naissance",
+        "volunteeringInfo": "Informations bénévolat",
+        "diet": "Régime alimentaire",
+        "allergy": "Allergies",
+        "noDiet": "Aucun régime spécifique",
+        "noAllergy": "Aucune allergie",
+        "car": "Voiture"
       }
     },
     "information": {
-      "title": "Informations du Raid",
+      "title": "Informations Raid",
+      "subtitle": "Configurez dates, tarifs, contact et documents visibles pendant les inscriptions.",
       "sections": {
         "dates": "Dates",
+        "datesDescription": "Période du Raid et clôture des inscriptions.",
         "prices": "Tarifs",
+        "pricesDescription": "Grille de prix pour les différents profils et options.",
         "contact": "Contact",
-        "files": "Documents"
+        "contactDescription": "Email public et contacts d'urgence.",
+        "files": "Fichiers",
+        "filesDescription": "Règlement et fiche d'information distribués aux participants."
       },
+      "raidDateLabel": "Date du raid",
+      "raidDateEmpty": "Période non définie",
+      "inscriptionEndLabel": "Fin des inscriptions",
+      "inscriptionEndDescription": "Dernier jour pour s'inscrire à l'édition active.",
+      "inscriptionEndEmpty": "Non renseignée",
+      "footerNotice": "Les modifications sont enregistrées immédiatement sur l'édition active.",
+      "loading": "Chargement…",
+      "rulesLabel": "Règlement du Raid",
+      "infoLabel": "Fiche d'information",
       "prices": {
         "student": "Tarif étudiant",
         "external": "Tarif externe",

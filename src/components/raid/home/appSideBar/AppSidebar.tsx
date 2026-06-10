@@ -22,11 +22,13 @@ import { NavTeam } from "./NavTeam";
 import { NavVolunteer } from "./NavVolunteer";
 import { NavProfile } from "./NavProfile";
 import { NavInfo } from "./NavInfo";
+import { useTranslations } from "next-intl";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { edition } = useEdition();
   const { me } = useMeParticipant();
   const { meVolunteer } = useMeVolunteer();
+  const t = useTranslations("raid.home.sidebar");
 
   const hasRole = !!me || !!meVolunteer;
 
@@ -42,11 +44,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="truncate font-medium">Raid</span>
                   {edition ? (
                     <span className="truncate text-xs">
-                      Édition {edition.year}
+                      {t("editionYear", { year: edition.year })}
                     </span>
                   ) : (
                     <span className="truncate text-xs">
-                      Aucune édition active
+                      {t("noActiveEdition")}
                     </span>
                   )}
                 </div>
@@ -61,7 +63,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <>
             <SidebarGroup className="!py-0">
               <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
-                Mon espace
+                {t("mySpace")}
               </SidebarGroupLabel>
             </SidebarGroup>
             {me && <NavTeam />}
@@ -73,7 +75,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <>
             <SidebarGroup className="!py-0">
               <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
-                Mon compte
+                {t("myAccount")}
               </SidebarGroupLabel>
             </SidebarGroup>
             <NavProfile />
@@ -82,7 +84,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarSeparator />
         <SidebarGroup className="!py-0">
           <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
-            Raid
+            {t("raidSection")}
           </SidebarGroupLabel>
         </SidebarGroup>
         <NavInfo />

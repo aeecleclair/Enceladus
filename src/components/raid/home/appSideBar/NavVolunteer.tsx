@@ -7,17 +7,20 @@ import {
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
 import { Link, usePathname } from "@/i18n/navigation";
 import { HeartHandshake } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function NavVolunteer() {
   const pathname = usePathname();
   const isActive = pathname.startsWith("/volunteer");
   const { meVolunteer } = useMeVolunteer();
+  const t = useTranslations("raid.home.sidebar");
+  const tv = useTranslations("raid.volunteer.dashboard");
 
   const statusLabel = meVolunteer?.cancelled
-    ? "Annulé"
+    ? tv("cancelled")
     : meVolunteer?.validated
-      ? "Validé"
-      : "En attente";
+      ? tv("validated")
+      : tv("pending");
 
   return (
     <SidebarMenu>
@@ -25,11 +28,11 @@ export function NavVolunteer() {
         <SidebarMenuButton
           asChild
           isActive={isActive}
-          tooltip="Mon bénévolat"
+          tooltip={t("volunteerStatus")}
         >
           <Link href="/volunteer">
             <HeartHandshake />
-            <span>Mon bénévolat</span>
+            <span>{t("volunteerStatus")}</span>
             {meVolunteer && (
               <span className="ml-auto text-[10px] font-medium text-muted-foreground">
                 {statusLabel}

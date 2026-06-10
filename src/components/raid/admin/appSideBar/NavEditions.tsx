@@ -7,11 +7,13 @@ import {
 import { useRouter } from "@/i18n/navigation";
 import { CalendarDays } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 export function NavEditions() {
   const router = useRouter();
   const pathname = usePathname();
   const isActive = pathname.startsWith("/admin/editions");
+  const t = useTranslations("raid.admin.sidebar");
 
   return (
     <SidebarMenu>
@@ -21,7 +23,7 @@ export function NavEditions() {
           isActive={isActive}
         >
           <CalendarDays />
-          <span>Éditions</span>
+          <span>{t("editions")}</span>
         </SidebarMenuButton>
       </SidebarMenuItem>
     </SidebarMenu>
