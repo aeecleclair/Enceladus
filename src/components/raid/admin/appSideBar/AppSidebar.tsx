@@ -51,8 +51,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent className="bg-sidebar/95 [&_[data-sidebar=group]]:!py-0.5">
-        <NavEditions />
-        <SidebarSeparator />
         <SidebarGroup className="!py-0">
           <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
             {t("overview")}
@@ -74,6 +72,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             {t("configuration")}
           </SidebarGroupLabel>
         </SidebarGroup>
+        <NavEditions />
         <NavInformation />
       </SidebarContent>
       <SidebarFooter className="border-t border-border/60 bg-muted/20">
