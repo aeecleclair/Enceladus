@@ -3,6 +3,7 @@
 import { ContactMail } from "@/components/raid/admin/information/ContactMail";
 import { EmergencyPerson } from "@/components/raid/admin/information/EmergencyPersons";
 import { RaidDate } from "@/components/raid/admin/information/RaidDate";
+import { InscriptionEndDate } from "@/components/raid/admin/information/InscriptionEndDate";
 import { RaidInformationDocument } from "@/components/raid/admin/information/RaidInformationDocument";
 import { RaidStudentPrice } from "@/components/raid/admin/information/RaidStudentPrice";
 import { RaidRules } from "@/components/raid/admin/information/RaidRules";
@@ -18,11 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { useInformation } from "@/hooks/raid/useInformation";
-import { useEdition } from "@/hooks/raid/useEdition";
-import { formatDate } from "@/lib/dateFormat";
-import { useRouter } from "@/i18n/navigation";
 import {
   BookOpen,
   CalendarRange,
@@ -33,6 +30,7 @@ import {
 } from "lucide-react";
 import { PageHeader } from "@/components/raid/admin/PageHeader";
 import { LucideIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const SectionCard = ({
   icon: Icon,
@@ -69,56 +67,34 @@ const SectionCard = ({
 
 const InformationPage = () => {
   const { information } = useInformation();
-  const { edition } = useEdition();
-  const router = useRouter();
+  const t = useTranslations("raid.admin.information");
 
   return (
     <div className="space-y-5">
       <PageHeader
         icon={Settings2}
-        title="Informations Raid"
-        description="Configurez dates, tarifs, contact et documents visibles pendant les inscriptions."
+        title={t("title")}
+        description={t("subtitle")}
         accent="sky"
       />
 
       <SectionCard
         icon={CalendarRange}
         iconAccent="bg-amber-500/15 text-amber-700 dark:text-amber-400"
-        title="Dates"
-        description="Période du Raid et clôture des inscriptions."
+        title={t("sections.dates")}
+        description={t("sections.datesDescription")}
       >
         <div className="grid gap-4 sm:grid-cols-2">
-          <CardLayout
-            label="Fin des inscriptions"
-            description="Gérée via l'édition active."
-          >
-            <InfoValue
-              isEmpty={!edition?.registering_end_date}
-              placeholder="Non renseignée"
-              value={
-                edition?.registering_end_date
-                  ? formatDate(edition.registering_end_date)
-                  : ""
-              }
-            />
-            <Button
-              variant="outline"
-              size="sm"
-              className="mt-3"
-              onClick={() => router.push("/admin/editions")}
-            >
-              Modifier dans les éditions
-            </Button>
-          </CardLayout>
           <RaidDate />
+          <InscriptionEndDate />
         </div>
       </SectionCard>
 
       <SectionCard
         icon={Euro}
         iconAccent="bg-violet-500/15 text-violet-700 dark:text-violet-400"
-        title="Tarifs"
-        description="Grille de prix pour les différents profils et options."
+        title={t("sections.prices")}
+        description={t("sections.pricesDescription")}
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <RaidStudentPrice />
@@ -131,8 +107,8 @@ const InformationPage = () => {
       <SectionCard
         icon={Phone}
         iconAccent="bg-sky-500/15 text-sky-700 dark:text-sky-400"
-        title="Contact"
-        description="Email public et contacts d'urgence."
+        title={t("sections.contact")}
+        description={t("sections.contactDescription")}
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <ContactMail />
@@ -143,8 +119,8 @@ const InformationPage = () => {
       <SectionCard
         icon={BookOpen}
         iconAccent="bg-emerald-500/15 text-emerald-700 dark:text-emerald-400"
-        title="Fichiers"
-        description="Règlement et fiche d'information distribués aux participants."
+        title={t("sections.files")}
+        description={t("sections.filesDescription")}
       >
         <div className="grid gap-4 sm:grid-cols-2">
           {information ? (
@@ -154,11 +130,11 @@ const InformationPage = () => {
             </>
           ) : (
             <>
-              <CardLayout label="Règlement du Raid">
-                <InfoValue isEmpty placeholder="Chargement…" value="" />
+              <CardLayout label={t("rulesLabel")}>
+                <InfoValue isEmpty placeholder={t("loading")} value="" />
               </CardLayout>
-              <CardLayout label="Fiche d'information">
-                <InfoValue isEmpty placeholder="Chargement…" value="" />
+              <CardLayout label={t("infoLabel")}>
+                <InfoValue isEmpty placeholder={t("loading")} value="" />
               </CardLayout>
             </>
           )}
@@ -167,8 +143,7 @@ const InformationPage = () => {
 
       <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-muted/10 p-3 text-xs text-muted-foreground">
         <Info className="h-3.5 w-3.5 shrink-0" />
-        Les modifications sont enregistrées immédiatement sur l&apos;édition
-        active.
+        {t("footerNotice")}
       </div>
     </div>
   );

@@ -8,9 +8,12 @@ import { InfoValue } from "./InfoValue";
 import { useInformation } from "@/hooks/raid/useInformation";
 import { toDate } from "date-fns";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { useTranslations } from "next-intl";
 
 export const RaidDate = () => {
   const { information, updateInformation } = useInformation();
+  const t = useTranslations("raid.admin.information");
+  const tc = useTranslations("raid.common");
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dateRange, setDateRange] = useState<DateRange | undefined>(
@@ -19,7 +22,7 @@ export const RaidDate = () => {
           from: toDate(information.raid_start_date),
           to: toDate(information.raid_end_date),
         }
-      : undefined
+      : undefined,
   );
 
   function toggleEdit() {
@@ -34,7 +37,7 @@ export const RaidDate = () => {
         () => {
           setIsLoading(false);
           setIsEdit(false);
-        }
+        },
       );
     } else {
       setIsEdit(!isEdit);
@@ -42,7 +45,7 @@ export const RaidDate = () => {
   }
 
   return (
-    <CardLayout label="Date du raid">
+    <CardLayout label={t("raidDateLabel")}>
       {isEdit ? (
         <>
           <RangeDatePicker dateRange={dateRange} setDateRange={setDateRange} />
@@ -53,14 +56,10 @@ export const RaidDate = () => {
               size="sm"
               onClick={() => setIsEdit(false)}
             >
-              Annuler
+              {tc("cancel")}
             </Button>
-            <LoadingButton
-              size="sm"
-              onClick={toggleEdit}
-              isLoading={isLoading}
-            >
-              Valider
+            <LoadingButton size="sm" onClick={toggleEdit} isLoading={isLoading}>
+              {tc("validate")}
             </LoadingButton>
           </div>
         </>
@@ -70,7 +69,7 @@ export const RaidDate = () => {
             isEmpty={
               !information?.raid_start_date || !information?.raid_end_date
             }
-            placeholder="Période non définie"
+            placeholder={t("raidDateEmpty")}
             value={
               information?.raid_start_date && information?.raid_end_date
                 ? formatDateRange(
@@ -86,7 +85,7 @@ export const RaidDate = () => {
             className="mt-3"
             onClick={toggleEdit}
           >
-            Modifier
+            {tc("edit")}
           </Button>
         </>
       )}
