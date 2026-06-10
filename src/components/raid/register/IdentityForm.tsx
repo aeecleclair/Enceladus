@@ -18,15 +18,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { addYears, toDate } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslations } from "next-intl";
+import { useMemo } from "react";
 
-const identitySchema = z.object({
-  phone: z
-    .string({ error: "Veuillez renseigner un numéro de téléphone" })
-    .min(8, "Veuillez renseigner un numéro de téléphone valide"),
-  birthday: z.date({ error: "Veuillez renseigner votre date de naissance" }),
-});
-
-type IdentityValues = z.infer<typeof identitySchema>;
+interface IdentityValues {
+  phone: string;
+  birthday: Date;
+}
 
 interface IdentityFormProps {
   onComplete: () => void;
@@ -35,9 +33,21 @@ interface IdentityFormProps {
 
 export const IdentityForm = ({
   onComplete,
-  submitLabel = "Continuer",
+  submitLabel,
 }: IdentityFormProps) => {
+  const t = useTranslations("raid.register.identity");
   const { user, updateUser, isUpdateLoading } = useMeUser();
+
+  const identitySchema = useMemo(
+    () =>
+      z.object({
+        phone: z
+          .string({ error: t("phoneRequired") })
+          .min(8, t("phoneInvalid")),
+        birthday: z.date({ error: t("birthdayRequired") }),
+      }),
+    [t],
+  );
 
   const form = useForm<IdentityValues>({
     resolver: zodResolver(identitySchema),
@@ -65,28 +75,25 @@ export const IdentityForm = ({
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="space-y-1">
-            <FormLabel>Prénom</FormLabel>
+            <FormLabel>{t("firstname")}</FormLabel>
             <Input value={user?.firstname ?? ""} disabled />
           </div>
           <div className="space-y-1">
-            <FormLabel>Nom</FormLabel>
+            <FormLabel>{t("lastname")}</FormLabel>
             <Input value={user?.name ?? ""} disabled />
           </div>
         </div>
         <div className="space-y-1">
-          <FormLabel>Email</FormLabel>
+          <FormLabel>{t("email")}</FormLabel>
           <Input value={user?.email ?? ""} disabled />
-          <FormDescription>
-            Prénom, nom et email proviennent de MyECL et ne peuvent être
-            modifiés qu&apos;à partir de votre compte MyECL.
-          </FormDescription>
+          <FormDescription>{t("emailHelp")}</FormDescription>
         </div>
         <FormField
           control={form.control}
           name="phone"
           render={() => (
             <FormItem>
-              <FormLabel>Téléphone</FormLabel>
+              <FormLabel>{t("phone")}</FormLabel>
               <FormControl>
                 <Controller
                   name="phone"
@@ -105,7 +112,7 @@ export const IdentityForm = ({
           name="birthday"
           render={({ field }) => (
             <FormItem className="flex flex-col">
-              <FormLabel>Date de naissance</FormLabel>
+              <FormLabel>{t("birthday")}</FormLabel>
               <FormControl>
                 <DatePicker
                   date={field.value}
@@ -122,7 +129,7 @@ export const IdentityForm = ({
           type="submit"
           className="w-full"
         >
-          {submitLabel}
+          {submitLabel ?? t("continue")}
         </LoadingButton>
       </form>
     </Form>

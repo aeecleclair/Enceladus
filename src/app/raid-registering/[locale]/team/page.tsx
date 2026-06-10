@@ -15,8 +15,10 @@ import { useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const TeamPage = () => {
+  const t = useTranslations("raid.team.page");
   const { isTokenQueried, token } = useAuth();
   const { me, isFetched } = useMeParticipant();
   const { team, isLoading: isTeamLoading } = useMeTeam();
@@ -53,11 +55,10 @@ const TeamPage = () => {
             </div>
             <div className="space-y-2">
               <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
-                Mon équipe
+                {t("title")}
               </h1>
               <p className="text-sm text-muted-foreground">
-                Gérez votre binôme et finalisez les informations de chaque
-                participant.
+                {t("subtitle")}
               </p>
               <UserStatusBadges />
             </div>

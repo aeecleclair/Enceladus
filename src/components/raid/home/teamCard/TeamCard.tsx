@@ -23,12 +23,14 @@ import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
 import { Calendar, MapPin, Pencil, X } from "lucide-react";
 import { useState } from "react";
 import { TeamEdit } from "./TeamEdit";
+import { useTranslations } from "next-intl";
 
 interface TeamCardProps {
   team?: RaidTeam;
 }
 
 export const TeamCard = ({ team }: TeamCardProps) => {
+  const t = useTranslations("raid.team.card");
   const [isEdit, setIsEdit] = useState(false);
   const { edition } = useEdition();
 
@@ -52,7 +54,7 @@ export const TeamCard = ({ team }: TeamCardProps) => {
 
   const difficultyLabel = team.difficulty
     ? getLabelFromValue(difficulties, team.difficulty)
-    : "Parcours à choisir";
+    : t("noDifficulty");
   const difficultyDescription = team.difficulty
     ? getLabelFromValue(difficultyDescriptions, team.difficulty)
     : null;
@@ -70,7 +72,7 @@ export const TeamCard = ({ team }: TeamCardProps) => {
   })();
   const meetingLabel = team.meeting_place
     ? getLabelFromValue(meetingPlaces, team.meeting_place)
-    : "Lieu à choisir";
+    : t("noMeeting");
   const datesLabel =
     edition?.start_date && edition?.end_date
       ? formatDateRange(edition.start_date, edition.end_date)
@@ -82,7 +84,7 @@ export const TeamCard = ({ team }: TeamCardProps) => {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
             <CardTitle className="text-2xl tracking-tight">
-              {isEdit ? "Éditer l'équipe" : team.name}
+              {isEdit ? t("editTitle") : team.name}
             </CardTitle>
             {!isEdit && (
               <CardDescription className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
@@ -107,12 +109,12 @@ export const TeamCard = ({ team }: TeamCardProps) => {
             {isEdit ? (
               <>
                 <X className="mr-2 h-4 w-4" />
-                Annuler
+                {t("cancel")}
               </>
             ) : (
               <>
                 <Pencil className="mr-2 h-4 w-4" />
-                Éditer
+                {t("edit")}
               </>
             )}
           </Button>
@@ -133,24 +135,27 @@ export const TeamCard = ({ team }: TeamCardProps) => {
               </Badge>
               {daysLeft !== null && daysLeft >= 0 && daysLeft > 7 && (
                 <Badge variant="outline">
-                  {`${daysLeft} jours avant clôture`}
+                  {t("daysBeforeClose", { days: daysLeft })}
                 </Badge>
               )}
               {daysLeft !== null && daysLeft >= 0 && daysLeft <= 7 && (
                 <Badge className="bg-amber-100 text-amber-900 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300">
                   {daysLeft === 0
-                    ? "Dernier jour pour s'inscrire"
-                    : `${daysLeft} jour${daysLeft > 1 ? "s" : ""} avant clôture`}
+                    ? t("lastDay")
+                    : t("daysBeforeCloseShort", {
+                        days: daysLeft,
+                        plural: daysLeft > 1 ? "s" : "",
+                      })}
                 </Badge>
               )}
               {daysLeft !== null && daysLeft < 0 && (
-                <Badge variant="destructive">Inscriptions fermées</Badge>
+                <Badge variant="destructive">{t("closed")}</Badge>
               )}
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">
-                  Progression de l&apos;inscription
+                  {t("progress")}
                 </span>
                 <span className="font-medium text-emerald-700 dark:text-emerald-400">
                   {progress.toFixed(0)}%

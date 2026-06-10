@@ -13,6 +13,7 @@ import { LoadingButton } from "@/components/common/LoadingButton";
 import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { CheckCircle2, Clock, FileEdit, XCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface TeamStatusBannerProps {
   team: RaidTeam;
@@ -21,41 +22,30 @@ interface TeamStatusBannerProps {
 const statusConfig: Record<
   RaidRegistrationStatus,
   {
-    label: string;
-    description: string;
     variant: "default" | "secondary" | "destructive" | "outline";
     Icon: typeof CheckCircle2;
   }
 > = {
   draft: {
-    label: "Brouillon",
-    description:
-      "Complétez vos informations puis soumettez votre inscription.",
     variant: "secondary",
     Icon: FileEdit,
   },
   submitted: {
-    label: "Soumis",
-    description:
-      "Votre dossier est en cours d'examen par les organisateurs.",
     variant: "outline",
     Icon: Clock,
   },
   validated: {
-    label: "Validé",
-    description: "Félicitations, votre inscription est validée.",
     variant: "default",
     Icon: CheckCircle2,
   },
   cancelled: {
-    label: "Annulé",
-    description: "Votre inscription a été annulée.",
     variant: "destructive",
     Icon: XCircle,
   },
 };
 
 export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
+  const t = useTranslations("raid.team.status");
   const { me, refetch: refetchMe } = useMeParticipant();
   const {
     submitParticipant,
@@ -74,6 +64,8 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
   const status = selfFromTeam?.status ?? me?.status ?? "draft";
   const config = statusConfig[status];
   const Icon = config.Icon;
+  const label = t(status);
+  const description = t(`${status}Description`);
 
   const canSubmit =
     status === "draft" && (team.validation_progress ?? 0) >= 100;
@@ -87,10 +79,10 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
             <Icon className="h-5 w-5 text-muted-foreground" />
             <div>
               <CardTitle className="flex items-center gap-2">
-                Statut de mon inscription
-                <Badge variant={config.variant}>{config.label}</Badge>
+                {t("title")}
+                <Badge variant={config.variant}>{label}</Badge>
               </CardTitle>
-              <CardDescription>{config.description}</CardDescription>
+              <CardDescription>{description}</CardDescription>
             </div>
           </div>
           {me && (
@@ -102,13 +94,14 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
                     submitParticipant(me.user_id, () => refetchMe())
                   }
                 >
-                  Soumettre mon inscription
+                  {t("submit")}
                 </LoadingButton>
               )}
               {status === "draft" && (team.validation_progress ?? 0) < 100 && (
                 <span className="text-sm text-muted-foreground">
-                  Progression {(team.validation_progress ?? 0).toFixed(0)}% —
-                  complétez pour soumettre
+                  {t("progressHint", {
+                    progress: (team.validation_progress ?? 0).toFixed(0),
+                  })}
                 </span>
               )}
               {canReopen && (
@@ -119,7 +112,7 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
                     reopenParticipant(me.user_id, () => refetchMe())
                   }
                 >
-                  Rouvrir
+                  {t("reopen")}
                 </LoadingButton>
               )}
             </div>

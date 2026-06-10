@@ -14,7 +14,7 @@ import { LoadingButton } from "@/components/common/LoadingButton";
 import { useToast } from "@/components/ui/use-toast";
 import { useInviteToken } from "@/hooks/raid/useInviteToken";
 import { Check, Copy } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 interface InviteLinkDialogProps {
@@ -28,6 +28,7 @@ export const InviteLinkDialog = ({
   onOpenChange,
   teamId,
 }: InviteLinkDialogProps) => {
+  const t = useTranslations("raid.team.inviteDialog");
   const { createInviteToken, isCreationLoading } = useInviteToken();
   const { toast } = useToast();
   const locale = useLocale();
@@ -49,13 +50,13 @@ export const InviteLinkDialog = ({
         await navigator.clipboard.writeText(url);
         setCopied(true);
         toast({
-          title: "Lien d'invitation copié",
-          description: "Partagez-le avec votre coéquipier.",
+          title: t("linkCopiedTitle"),
+          description: t("linkCopiedDescription"),
         });
       } catch {
         toast({
-          title: "Lien généré",
-          description: "Copiez le lien manuellement.",
+          title: t("linkGeneratedTitle"),
+          description: t("linkGeneratedDescription"),
         });
       }
     });
@@ -66,12 +67,12 @@ export const InviteLinkDialog = ({
     try {
       await navigator.clipboard.writeText(link);
       setCopied(true);
-      toast({ title: "Lien copié" });
+      toast({ title: t("copiedTitle") });
     } catch {
       toast({
         variant: "destructive",
-        title: "Erreur",
-        description: "Impossible de copier le lien.",
+        title: t("copyErrorTitle"),
+        description: t("copyErrorDescription"),
       });
     }
   };
@@ -88,11 +89,8 @@ export const InviteLinkDialog = ({
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Inviter un coéquipier</DialogTitle>
-          <DialogDescription>
-            Générez un lien d&apos;invitation personnel et partagez-le avec
-            votre coéquipier. Il pourra rejoindre votre équipe en un clic.
-          </DialogDescription>
+          <DialogTitle>{t("title")}</DialogTitle>
+          <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
         {link ? (
           <div className="space-y-3">
@@ -102,7 +100,7 @@ export const InviteLinkDialog = ({
                 size="icon"
                 variant="outline"
                 onClick={handleCopy}
-                aria-label="Copier"
+                aria-label={t("copy")}
               >
                 {copied ? (
                   <Check className="h-4 w-4" />
@@ -111,9 +109,7 @@ export const InviteLinkDialog = ({
                 )}
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground">
-              Ce lien est unique et ne peut être utilisé qu&apos;une seule fois.
-            </p>
+            <p className="text-xs text-muted-foreground">{t("linkOnce")}</p>
           </div>
         ) : (
           <LoadingButton
@@ -121,12 +117,12 @@ export const InviteLinkDialog = ({
             onClick={handleGenerate}
             className="w-full"
           >
-            Générer un lien d&apos;invitation
+            {t("generate")}
           </LoadingButton>
         )}
         <DialogFooter>
           <Button variant="outline" onClick={() => handleOpenChange(false)}>
-            Fermer
+            {t("close")}
           </Button>
         </DialogFooter>
       </DialogContent>

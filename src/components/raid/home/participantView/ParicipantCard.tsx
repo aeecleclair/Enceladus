@@ -18,6 +18,7 @@ import { getSituationLabel } from "@/lib/raid/teamUtils";
 import { PaymentButton } from "./PaymentButton";
 import { usePrice } from "@/hooks/raid/usePrice";
 import { ViewEditParticipant } from "./ViewEditParticipant";
+import { useTranslations } from "next-intl";
 
 interface ParticipantCardProps {
   participant?: RaidParticipant;
@@ -28,6 +29,7 @@ export const ParticipantCard = ({
   participant,
   isCaptain,
 }: ParticipantCardProps) => {
+  const t = useTranslations("raid.team.participantCard");
   const { price } = usePrice();
   const progress = Math.round(participant?.validation_progress ?? 0);
   // const { information } = useInformation();
@@ -54,7 +56,7 @@ export const ParticipantCard = ({
             </CardTitle>
             <CardDescription>
               {participant ? (
-                <>{isCaptain ? "Capitaine" : " "}</>
+                <>{isCaptain ? t("captain") :" "}</>
               ) : (
                 <Skeleton className="w-24 h-5 mt-1" />
               )}
@@ -67,12 +69,12 @@ export const ParticipantCard = ({
               className="w-27.5"
             >
               <HiX className="mr-2 h-4 w-4" />
-              Annuler
+              {t("cancel")}
             </Button>
           ) : (
             <Button variant="outline" onClick={toggleEdit} className="w-27.5">
               <HiPencil className="mr-2 h-4 w-4" />
-              Éditer
+              {t("edit")}
             </Button>
           )}
         </div>
@@ -92,7 +94,7 @@ export const ParticipantCard = ({
             {participant ? (
               <div className="grid p-2 grid-cols-6 items-center w-full">
                 <span className="font-semibold text-left my-auto col-span-2">
-                  Paiement
+                  {t("payment")}
                 </span>
                 {/* When paying by HelloAsso */}
                 {/* 
@@ -119,7 +121,7 @@ export const ParticipantCard = ({
                     !!price?.t_shirt_price ? (
                       <PaymentButton />
                     ) : (
-                      <span>{"Aucun lien"}</span>
+                      <span>{t("noLink")}</span>
                     )}
                   </>
                 ) : (
@@ -143,7 +145,7 @@ export const ParticipantCard = ({
             <div className="border-t border-border/60 bg-muted/10 px-4 py-3">
               <div className="mb-2 flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">
-                  Progression du dossier
+                  {t("progress")}
                 </span>
                 <span className="font-semibold tabular-nums">{progress}%</span>
               </div>

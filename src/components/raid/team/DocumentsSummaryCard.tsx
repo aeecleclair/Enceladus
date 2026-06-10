@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { FileCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface DocumentsSummaryCardProps {
   team: RaidTeam;
@@ -24,6 +25,7 @@ const ParticipantDocs = ({
   validated: number;
   total: number;
 }) => {
+  const t = useTranslations("raid.team.documentsCard");
   const pct = total > 0 ? (validated / total) * 100 : 0;
   const isComplete = total > 0 && validated === total;
   return (
@@ -37,7 +39,7 @@ const ParticipantDocs = ({
               : "text-muted-foreground"
           }
         >
-          {validated} / {total} validés
+          {t("validatedCount", { validated, total })}
         </span>
       </div>
       <Progress
@@ -49,6 +51,7 @@ const ParticipantDocs = ({
 };
 
 export const DocumentsSummaryCard = ({ team }: DocumentsSummaryCardProps) => {
+  const t = useTranslations("raid.team.documentsCard");
   const captain = team.captain;
   const second = team.second;
 
@@ -60,10 +63,8 @@ export const DocumentsSummaryCard = ({ team }: DocumentsSummaryCardProps) => {
             <FileCheck className="h-4 w-4" />
           </div>
           <div>
-            <CardTitle>Documents</CardTitle>
-            <CardDescription>
-              Suivi de la validation des documents de chaque participant.
-            </CardDescription>
+            <CardTitle>{t("title")}</CardTitle>
+            <CardDescription>{t("description")}</CardDescription>
           </div>
         </div>
       </CardHeader>

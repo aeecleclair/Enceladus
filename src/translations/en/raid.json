@@ -49,6 +49,14 @@
       "raidInfo": "Raid info",
       "contact": "Contact"
     },
+    "badges": {
+      "participant": "Participant",
+      "registrationValidated": "Registration validated",
+      "registrationSubmitted": "Registration submitted",
+      "volunteer": "Volunteer",
+      "volunteerCancelled": "Volunteering cancelled",
+      "admin": "Administrator"
+    },
     "dashboard": {
       "editionWaiting": {
         "title": "Waiting for edition",
@@ -96,6 +104,45 @@
     },
     "volunteer": {
       "title": "Volunteer registration"
+    },
+    "page": {
+      "redirecting": "Redirecting…"
+    },
+    "participantCard": {
+      "cardTitle": "Raid registration",
+      "cardDescription": "Register to take part in the Raid with a teammate.",
+      "stepIdentity": "Information",
+      "stepTeam": "Team",
+      "identityTitle": "Complete your information",
+      "identitySubtitle": "Phone and date of birth — required to participate.",
+      "createTitle": "Create your team",
+      "joinTitle": "Join your team",
+      "createSubtitle": "A team will be created in your name. You can then invite a teammate.",
+      "joinSubtitle": "You are about to join an existing team.",
+      "createButton": "Create my team",
+      "joinButton": "Join the team",
+      "confirmCreateDescription": "A new team will be created in your name. You can then invite a teammate.",
+      "confirmJoinDescription": "You are about to join an existing team.",
+      "confirmCreate": "Create",
+      "confirmJoin": "Join",
+      "alreadyVolunteerTitle": "Registration not possible",
+      "alreadyVolunteerDescription": "You are already registered as a volunteer. Cancel that registration to become a participant.",
+      "teamJoined": "Team joined successfully",
+      "teamCreated": "Team created successfully",
+      "teamNameDefault": "{firstname} {name}'s team"
+    },
+    "identity": {
+      "firstname": "First name",
+      "lastname": "Last name",
+      "email": "Email",
+      "emailHelp": "First name, last name and email come from MyECL and can only be changed from your MyECL account.",
+      "phone": "Phone",
+      "birthday": "Date of birth",
+      "continue": "Continue",
+      "stepsAriaLabel": "Registration steps",
+      "phoneRequired": "Please enter a phone number",
+      "phoneInvalid": "Please enter a valid phone number",
+      "birthdayRequired": "Please enter your date of birth"
     }
   },
   "team": {
@@ -105,6 +152,78 @@
       "editTeam": "Edit team",
       "submit": "Submit my registration",
       "reopen": "Reopen my registration"
+    },
+    "page": {
+      "title": "My team",
+      "subtitle": "Manage your pair and finalize each participant's information."
+    },
+    "empty": {
+      "title": "No teammate yet",
+      "description": "Invite a teammate to complete your team.",
+      "invite": "Invite a teammate"
+    },
+    "status": {
+      "title": "My registration status",
+      "draft": "Draft",
+      "draftDescription": "Complete your information then submit your registration.",
+      "submitted": "Submitted",
+      "submittedDescription": "Your dossier is being reviewed by the organizers.",
+      "validated": "Validated",
+      "validatedDescription": "Congratulations, your registration is validated.",
+      "cancelled": "Cancelled",
+      "cancelledDescription": "Your registration has been cancelled.",
+      "submit": "Submit my registration",
+      "reopen": "Reopen",
+      "progressHint": "Progress {progress}% — complete to submit"
+    },
+    "documentsCard": {
+      "title": "Documents",
+      "description": "Tracking of each participant's document validation.",
+      "validatedCount": "{validated} / {total} validated"
+    },
+    "card": {
+      "editTitle": "Edit team",
+      "noDifficulty": "Course to be chosen",
+      "noMeeting": "Place to be chosen",
+      "daysBeforeClose": "{days} days before closing",
+      "daysBeforeCloseShort": "{days} day{plural} before closing",
+      "lastDay": "Last day to register",
+      "closed": "Registrations closed",
+      "progress": "Registration progress",
+      "cancel": "Cancel",
+      "edit": "Edit"
+    },
+    "participantCard": {
+      "captain": "Captain",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "payment": "Payment",
+      "noLink": "No link",
+      "progress": "Dossier progress"
+    },
+    "inviteDialog": {
+      "title": "Invite a teammate",
+      "description": "Generate a personal invitation link and share it with your teammate. They can join your team in one click.",
+      "linkOnce": "This link is unique and can only be used once.",
+      "generate": "Generate an invitation link",
+      "close": "Close",
+      "copy": "Copy",
+      "linkCopiedTitle": "Invitation link copied",
+      "linkCopiedDescription": "Share it with your teammate.",
+      "linkGeneratedTitle": "Link generated",
+      "linkGeneratedDescription": "Copy the link manually.",
+      "copiedTitle": "Link copied",
+      "copyErrorTitle": "Error",
+      "copyErrorDescription": "Unable to copy the link."
+    },
+    "complete": {
+      "title": "Registration complete",
+      "line1": "Your registration is complete.",
+      "line2": "You will find all the necessary information in the document to download below.",
+      "line3": "Good preparation and see you very soon!",
+      "download": "Download the document",
+      "downloadErrorTitle": "Error",
+      "downloadErrorDescription": "Unable to download the file"
     },
     "invite": {
       "dialogTitle": "Invite a teammate",
@@ -155,6 +274,24 @@
       "isSpecialDriver": "Special vehicle driver",
       "isUtilityVehicleDriver": "Utility vehicle driver",
       "isParcoursHelper": "Course helper"
+    },
+    "registerPage": {
+      "redirecting": "Redirecting…",
+      "stepIdentity": "Information",
+      "stepConfirm": "Confirmation",
+      "cardTitle": "Volunteer registration",
+      "cardDescription": "Support the event — driving, course, logistics.",
+      "changeRole": "Change role",
+      "identityTitle": "Complete your information",
+      "identitySubtitle": "Phone and date of birth — required to participate.",
+      "confirmTitle": "Confirm my volunteer registration",
+      "confirmSubtitle": "You can complete your availability after registration.",
+      "confirmButton": "Confirm my registration",
+      "dialogTitle": "Volunteer registration",
+      "dialogDescription": "Your volunteer registration will be created. You can update your information afterwards.",
+      "dialogValidate": "Confirm",
+      "alreadyParticipantTitle": "Registration not possible",
+      "alreadyParticipantDescription": "You are already registered as a participant. Cancel that registration to become a volunteer."
     },
     "dashboard": {
       "pending": "Pending",

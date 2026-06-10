@@ -3,6 +3,7 @@
 import { cn } from "@/lib/utils";
 import { Check } from "lucide-react";
 import { Fragment } from "react";
+import { useTranslations } from "next-intl";
 
 export type RegisterStepId = "identity" | "confirm";
 
@@ -17,10 +18,11 @@ interface RegisterStepsProps {
 }
 
 export const RegisterSteps = ({ steps, currentStep }: RegisterStepsProps) => {
+  const t = useTranslations("raid.register.identity");
   const currentIndex = steps.findIndex((s) => s.id === currentStep);
 
   return (
-    <nav aria-label="Étapes de l'inscription" className="w-full">
+    <nav aria-label={t("stepsAriaLabel")} className="w-full">
       <ol className="flex items-start">
         {steps.map((step, i) => {
           const isDone = i < currentIndex;

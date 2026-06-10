@@ -7,12 +7,14 @@ import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 const ParticipantRegisterPage = () => {
   const { isTokenQueried, token } = useAuth();
   const { me } = useMeParticipant();
   const { meVolunteer } = useMeVolunteer();
   const router = useRouter();
+  const t = useTranslations("raid.register.page");
 
   useEffect(() => {
     if (isTokenQueried && token === null) {
@@ -34,7 +36,7 @@ const ParticipantRegisterPage = () => {
     <UserShell>
       <main className="mx-auto w-full py-4 sm:py-5">
         {hasExistingRole ? (
-          <p className="text-center text-muted-foreground">Redirection…</p>
+          <p className="text-center text-muted-foreground">{t("redirecting")}</p>
         ) : (
           <ParticipantRegisterCard />
         )}

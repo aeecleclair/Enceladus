@@ -3,8 +3,10 @@
 import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
+import { useTranslations } from "next-intl";
 
 export const UserStatusBadges = () => {
+  const t = useTranslations("raid.home.badges");
   const { me } = useMeParticipant();
   const { meVolunteer } = useMeVolunteer();
   const { isRaidAdmin } = useHasRaidPermission();
@@ -13,18 +15,18 @@ export const UserStatusBadges = () => {
 
   if (me) {
     badges.push({
-      label: "Participant",
+      label: t("participant"),
       className: "bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-300",
     });
     if (me.status === "validated") {
       badges.push({
-        label: "Inscription validée",
+        label: t("registrationValidated"),
         className:
           "bg-green-100 text-green-800 dark:bg-green-950/40 dark:text-green-300",
       });
     } else if (me.status === "submitted") {
       badges.push({
-        label: "Inscription soumise",
+        label: t("registrationSubmitted"),
         className:
           "bg-yellow-100 text-yellow-800 dark:bg-yellow-950/40 dark:text-yellow-300",
       });
@@ -33,13 +35,13 @@ export const UserStatusBadges = () => {
 
   if (meVolunteer) {
     badges.push({
-      label: "Bénévole",
+      label: t("volunteer"),
       className:
         "bg-green-100 text-green-800 dark:bg-green-950/40 dark:text-green-300",
     });
     if (meVolunteer.cancelled) {
       badges.push({
-        label: "Bénévolat annulé",
+        label: t("volunteerCancelled"),
         className: "bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-300",
       });
     }
@@ -47,7 +49,7 @@ export const UserStatusBadges = () => {
 
   if (isRaidAdmin) {
     badges.push({
-      label: "Administrateur",
+      label: t("admin"),
       className:
         "bg-purple-100 text-purple-800 dark:bg-purple-950/40 dark:text-purple-300",
     });

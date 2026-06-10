@@ -25,13 +25,14 @@ import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { ArrowLeft, HeartHandshake } from "lucide-react";
-
-const steps: RegisterStep[] = [
-  { id: "identity", label: "Informations" },
-  { id: "confirm", label: "Confirmation" },
-];
+import { useTranslations } from "next-intl";
 
 const VolunteerRegisterPage = () => {
+  const t = useTranslations("raid.volunteer.registerPage");
+  const steps: RegisterStep[] = [
+    { id: "identity", label: t("stepIdentity") },
+    { id: "confirm", label: t("stepConfirm") },
+  ];
   const { isTokenQueried, token } = useAuth();
   const { user } = useMeUser();
   const { me } = useMeParticipant();
@@ -68,9 +69,8 @@ const VolunteerRegisterPage = () => {
   const handleCreateVolunteer = () => {
     if (me) {
       toast({
-        title: "Inscription impossible",
-        description:
-          "Vous êtes déjà inscrit comme participant. Annulez cette inscription pour devenir bénévole.",
+        title: t("alreadyParticipantTitle"),
+        description: t("alreadyParticipantDescription"),
         variant: "destructive",
       });
       router.replace("/team");
@@ -95,14 +95,12 @@ const VolunteerRegisterPage = () => {
   const stepMeta: Record<RegisterStepId, { title: string; subtitle: string }> =
     {
       identity: {
-        title: "Complétez vos informations",
-        subtitle:
-          "Téléphone et date de naissance — nécessaires pour participer.",
+        title: t("identityTitle"),
+        subtitle: t("identitySubtitle"),
       },
       confirm: {
-        title: "Confirmer mon inscription bénévole",
-        subtitle:
-          "Vous pourrez compléter vos disponibilités après l'inscription.",
+        title: t("confirmTitle"),
+        subtitle: t("confirmSubtitle"),
       },
     };
 
@@ -117,15 +115,15 @@ const VolunteerRegisterPage = () => {
           onClick={() => setIsAlertOpen(true)}
           className="w-full"
         >
-          Confirmer mon inscription
+          {t("confirmButton")}
         </LoadingButton>
         <WarningDialog
           isOpened={isAlertOpen}
           setIsOpened={setIsAlertOpen}
           isLoading={isVolunteerCreating}
-          title="Inscription bénévole"
-          description="Votre inscription bénévole va être créée. Vous pourrez modifier vos informations par la suite."
-          validateLabel="Confirmer"
+          title={t("dialogTitle")}
+          description={t("dialogDescription")}
+          validateLabel={t("dialogValidate")}
           callback={handleCreateVolunteer}
           width="w-35"
         />
@@ -137,7 +135,7 @@ const VolunteerRegisterPage = () => {
     <UserShell>
       <main className="mx-auto w-full max-w-3xl py-4 sm:py-5">
         {hasExistingRole ? (
-          <p className="text-center text-muted-foreground">Redirection…</p>
+          <p className="text-center text-muted-foreground">{t("redirecting")}</p>
         ) : (
           <Card className="overflow-hidden border-border/70 bg-card shadow-sm">
             <CardHeader className="gap-5 border-b border-border/60 bg-muted/20 pb-6">
@@ -148,12 +146,9 @@ const VolunteerRegisterPage = () => {
                   </div>
                   <div className="space-y-1">
                     <CardTitle className="text-xl tracking-tight sm:text-2xl">
-                      Inscription bénévole
+                      {t("cardTitle")}
                     </CardTitle>
-                    <CardDescription>
-                      Soutenez l&apos;événement — conduite, parcours,
-                      logistique.
-                    </CardDescription>
+                    <CardDescription>{t("cardDescription")}</CardDescription>
                   </div>
                 </div>
                 <Button
@@ -162,7 +157,7 @@ const VolunteerRegisterPage = () => {
                   onClick={() => router.push("/")}
                 >
                   <ArrowLeft className="mr-2 h-4 w-4" />
-                  Changer de rôle
+                  {t("changeRole")}
                 </Button>
               </div>
               <RegisterSteps steps={steps} currentStep={currentStep} />

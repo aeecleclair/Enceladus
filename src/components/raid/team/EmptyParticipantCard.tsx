@@ -6,12 +6,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { InviteLinkDialog } from "./InviteLinkDialog";
 import { UserPlus } from "lucide-react";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface EmptyParticipantCardProps {
   team?: RaidTeam;
 }
 
 export const EmptyParticipantCard = ({ team }: EmptyParticipantCardProps) => {
+  const t = useTranslations("raid.team.empty");
   const [open, setOpen] = useState(false);
 
   return (
@@ -22,10 +24,10 @@ export const EmptyParticipantCard = ({ team }: EmptyParticipantCardProps) => {
         </div>
         <div className="max-w-sm space-y-1">
           <p className="font-semibold tracking-tight">
-            Aucun coéquipier pour l&apos;instant
+            {t("title")}
           </p>
           <p className="text-sm text-muted-foreground">
-            Invitez un coéquipier pour compléter votre équipe.
+            {t("description")}
           </p>
         </div>
         <Button
@@ -34,7 +36,7 @@ export const EmptyParticipantCard = ({ team }: EmptyParticipantCardProps) => {
           disabled={!team}
         >
           <UserPlus className="mr-2 h-4 w-4" />
-          Inviter un coéquipier
+          {t("invite")}
         </Button>
       </CardContent>
       {team && (

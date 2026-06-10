@@ -5,6 +5,7 @@ import { StatusDialog } from "@/components/raid/custom/StatusDialog";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "@/i18n/navigation";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { useTranslations } from "next-intl";
 
 interface RegisteringCompleteDialogProps {
   isOpened: boolean;
@@ -15,6 +16,7 @@ export const RegisteringCompleteDialog = ({
   isOpened,
   setIsOpened,
 }: RegisteringCompleteDialogProps) => {
+  const t = useTranslations("raid.team.complete");
   const { toast } = useToast();
   const [isFileLoading, setIsFileLoading] = useState(false);
   const { information } = useInformation();
@@ -28,8 +30,8 @@ export const RegisteringCompleteDialog = ({
       const data = response.data as File | undefined;
       if (!data) {
         toast({
-          title: "Erreur",
-          description: "Impossible de télécharger le fichier",
+          title: t("downloadErrorTitle"),
+          description: t("downloadErrorDescription"),
           variant: "destructive",
         });
         setIsFileLoading(false);
@@ -51,15 +53,12 @@ export const RegisteringCompleteDialog = ({
       <StatusDialog
         isOpened={isOpened}
         setIsOpened={setIsOpened}
-        title="Inscription complète"
+        title={t("title")}
         description={
           <div className="space-y-2">
-            <div>Votre inscription est complète.</div>
-            <div>
-              Vous trouverez toutes les informations nécessaires dans le
-              document à télécharger ci-dessous.
-            </div>
-            <div>Bonne préparation et à très bientôt !</div>
+            <div>{t("line1")}</div>
+            <div>{t("line2")}</div>
+            <div>{t("line3")}</div>
             <LoadingButton
               className="w-full mt-6"
               variant="outline"
@@ -68,7 +67,7 @@ export const RegisteringCompleteDialog = ({
               }
               isLoading={isFileLoading}
             >
-              Télécharger le document
+              {t("download")}
             </LoadingButton>
           </div>
         }

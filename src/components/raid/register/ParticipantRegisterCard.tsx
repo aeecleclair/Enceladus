@@ -25,13 +25,14 @@ import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { Users } from "lucide-react";
-
-const steps: RegisterStep[] = [
-  { id: "identity", label: "Informations" },
-  { id: "confirm", label: "Équipe" },
-];
+import { useTranslations } from "next-intl";
 
 export const ParticipantRegisterCard = () => {
+  const t = useTranslations("raid.register.participantCard");
+  const steps: RegisterStep[] = [
+    { id: "identity", label: t("stepIdentity") },
+    { id: "confirm", label: t("stepTeam") },
+  ];
   const { user } = useMeUser();
   const { createParticipant, isCreationLoading } = useMeParticipant();
   const { createTeam, isCreationLoading: isTeamCreationLoading } = useMeTeam();
@@ -52,9 +53,8 @@ export const ParticipantRegisterCard = () => {
   const handleCreateParticipant = () => {
     if (meVolunteer) {
       toast({
-        title: "Inscription impossible",
-        description:
-          "Vous êtes déjà inscrit comme bénévole. Annulez cette inscription pour devenir participant.",
+        title: t("alreadyVolunteerTitle"),
+        description: t("alreadyVolunteerDescription"),
         variant: "destructive",
       });
       router.replace("/volunteer");
@@ -64,14 +64,22 @@ export const ParticipantRegisterCard = () => {
       if (inviteToken) {
         joinTeam(inviteToken, () => {
           resetInviteToken();
-          toast({ title: "Équipe rejointe avec succès" });
+          toast({ title: t("teamJoined") });
           router.push("/team");
         });
       } else if (user) {
-        createTeam({ name: `Équipe de ${user.firstname} ${user.name}` }, () => {
-          toast({ title: "Équipe créée avec succès" });
-          router.push("/team");
-        });
+        createTeam(
+          {
+            name: t("teamNameDefault", {
+              firstname: user.firstname,
+              name: user.name,
+            }),
+          },
+          () => {
+            toast({ title: t("teamCreated") });
+            router.push("/team");
+          },
+        );
       }
     });
   };
@@ -83,15 +91,12 @@ export const ParticipantRegisterCard = () => {
   const stepMeta: Record<RegisterStepId, { title: string; subtitle: string }> =
     {
       identity: {
-        title: "Complétez vos informations",
-        subtitle:
-          "Téléphone et date de naissance — nécessaires pour participer.",
+        title: t("identityTitle"),
+        subtitle: t("identitySubtitle"),
       },
       confirm: {
-        title: inviteToken ? "Rejoindre votre équipe" : "Créer votre équipe",
-        subtitle: inviteToken
-          ? "Vous allez rejoindre une équipe existante."
-          : "Une équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier.",
+        title: inviteToken ? t("joinTitle") : t("createTitle"),
+        subtitle: inviteToken ? t("joinSubtitle") : t("createSubtitle"),
       },
     };
 
@@ -108,7 +113,7 @@ export const ParticipantRegisterCard = () => {
           onClick={() => setIsAlertOpen(true)}
           className="w-full"
         >
-          {inviteToken ? "Rejoindre l'équipe" : "Créer mon équipe"}
+          {inviteToken ? t("joinButton") : t("createButton")}
         </LoadingButton>
         <WarningDialog
           isOpened={isAlertOpen}
@@ -116,13 +121,13 @@ export const ParticipantRegisterCard = () => {
           isLoading={
             isCreationLoading || isTeamCreationLoading || isJoinLoading
           }
-          title={inviteToken ? "Rejoindre l'équipe" : "Créer mon équipe"}
+          title={inviteToken ? t("joinButton") : t("createButton")}
           description={
             inviteToken
-              ? "Vous allez rejoindre une équipe existante."
-              : "Une nouvelle équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier."
+              ? t("confirmJoinDescription")
+              : t("confirmCreateDescription")
           }
-          validateLabel={inviteToken ? "Rejoindre" : "Créer"}
+          validateLabel={inviteToken ? t("confirmJoin") : t("confirmCreate")}
           callback={handleCreateParticipant}
           width="w-35"
         />
@@ -139,11 +144,9 @@ export const ParticipantRegisterCard = () => {
           </div>
           <div className="space-y-1">
             <CardTitle className="text-xl tracking-tight sm:text-2xl">
-              Inscription au Raid
+              {t("cardTitle")}
             </CardTitle>
-            <CardDescription>
-              Inscrivez-vous pour participer au Raid avec un coéquipier.
-            </CardDescription>
+            <CardDescription>{t("cardDescription")}</CardDescription>
           </div>
         </div>
         <RegisterSteps steps={steps} currentStep={currentStep} />
