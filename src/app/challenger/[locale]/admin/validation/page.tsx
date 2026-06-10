@@ -1,27 +1,29 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
-import { useMemo, useEffect, useState } from "react";
+import { CompetitionUser } from "@/api";
 import { ParticipantData } from "@/components/challenger/admin/validation/ParticipantDataTable";
+import { RequiredPurchase } from "@/components/challenger/admin/validation/UserProductsCell";
+import { ValidationTab } from "@/components/challenger/admin/validation/ValidationTab";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
+import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
+import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuota";
+import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useSportsQuota } from "@/hooks/challenger/useSportsQuota";
 import { useMeUser } from "@/hooks/useMeUser";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useRouter } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
-import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuota";
-import { useProducts } from "@/hooks/challenger/useProducts";
-import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
-import { CompetitionUser } from "@/api";
-import { ValidationTab } from "@/components/challenger/admin/validation/ValidationTab";
-import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
-import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { RequiredPurchase } from "@/components/challenger/admin/validation/UserProductsCell";
-import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
-import { useRouter } from "@/i18n/navigation";
 
 const Dashboard = () => {
   const router = useRouter();

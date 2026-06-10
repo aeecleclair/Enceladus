@@ -1,6 +1,8 @@
 "use client";
 
 import { LocationComplete } from "@/api";
+import { useRouter } from "@/i18n/navigation";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,8 +12,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
 import { Edit, MapPin, Trash2 } from "lucide-react";
-import { useRouter } from "@/i18n/navigation";
 
 interface LocationCardProps {
   location: LocationComplete;

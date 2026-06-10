@@ -1,5 +1,7 @@
-import { z } from "zod";
 import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
+
+import { z } from "zod";
+
 export const editProductSchema = z.object({
   products: z.array(
     z.object({

@@ -1,3 +1,9 @@
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useAuth } from "@/hooks/useAuth";
+
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,13 +13,10 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { Download, Database, Loader2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
+
+import { Database, Download, Loader2 } from "lucide-react";
 
 export const GlobalExport = () => {
   const { edition } = useEdition();

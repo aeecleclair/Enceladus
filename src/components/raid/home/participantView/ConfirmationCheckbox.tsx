@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { ControllerRenderProps, FieldValues } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -6,10 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { FormControl, FormMessage } from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
-import { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 interface ConfirmationCheckboxProps {
   label: string;
@@ -33,7 +34,7 @@ export const ConfirmationCheckbox = ({
   }
 
   function handleCheckboxButtonClick(
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) {
     event.preventDefault();
     field.onChange(!field.value);

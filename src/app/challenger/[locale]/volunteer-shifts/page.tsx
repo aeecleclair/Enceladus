@@ -1,25 +1,28 @@
 "use client";
 
-import { Card, CardContent } from "@/components/ui/card";
+import { VolunteerRegistrationComplete } from "@/api";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 import {
-  UpcomingVolunteerShifts,
-  PastVolunteerShifts,
   AvailableVolunteerShifts,
+  PastVolunteerShifts,
+  UpcomingVolunteerShifts,
 } from "@/components/challenger/home/volunteer-shifts";
+import { VolunteerCalendar } from "@/components/challenger/home/volunteer-shifts/VolunteerCalendar";
+import { VolunteerShopTab } from "@/components/challenger/home/volunteer-shifts/VolunteerShopTab";
 import { useVolunteer } from "@/hooks/challenger/useVolunteer";
 import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
-import { Users, Award, TrendingUp } from "lucide-react";
-import { VolunteerRegistrationComplete } from "@/api";
+
 import { useMemo } from "react";
+
+import { Card, CardContent } from "@/components/ui/card";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { VolunteerShopTab } from "@/components/challenger/home/volunteer-shifts/VolunteerShopTab";
-import { VolunteerCalendar } from "@/components/challenger/home/volunteer-shifts/VolunteerCalendar";
+
+import { Award, TrendingUp, Users } from "lucide-react";
 
 export default function VolunteerShiftsPage() {
   const { volunteer, isLoading } = useVolunteer();

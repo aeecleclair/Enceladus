@@ -1,14 +1,16 @@
+import { LoadingButton } from "@/components/common/LoadingButton";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
+  DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+
 import { AlertTriangle } from "lucide-react";
-import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface CancelCompetitionUserDialogProps {
   open: boolean;

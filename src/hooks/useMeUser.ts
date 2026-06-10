@@ -4,7 +4,6 @@ import {
   getUsersMeOptions,
   patchUsersMeMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useToast } from "@/components/ui/use-toast";
 import {
   APIErrorType,
   DetailedErrorType,
@@ -12,6 +11,8 @@ import {
 } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useMeUser = () => {
   const { isTokenExpired } = useAuth();

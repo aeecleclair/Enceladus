@@ -1,13 +1,12 @@
 "use client";
 
-import * as React from "react";
-import { Clock2Icon, CalendarIcon, ChevronDownIcon } from "lucide-react";
-import { fr } from "date-fns/locale";
-import { format } from "date-fns";
-
 import { cn } from "@/lib/utils";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+
+import * as React from "react";
+
+import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -15,7 +14,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -23,6 +21,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import { CalendarIcon, ChevronDownIcon, Clock2Icon } from "lucide-react";
 
 interface DateTimePickerProps {
   date?: Date;

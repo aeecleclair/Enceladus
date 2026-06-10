@@ -1,7 +1,9 @@
-import { useMutation } from "@tanstack/react-query";
-import { useToast } from "@/components/ui/use-toast";
 import { patchCompetitionUsersUserIdSchoolsMutation } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useAssignSchool = () => {
   const { toast } = useToast();

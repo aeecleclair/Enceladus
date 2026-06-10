@@ -1,13 +1,14 @@
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { JSX } from "react";
+import { HiCheck, HiX } from "react-icons/hi";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { HiCheck, HiX } from "react-icons/hi";
-import { JSX } from "react";
 
 const DialogStatus = {
   SUCCESS: "SUCCESS",

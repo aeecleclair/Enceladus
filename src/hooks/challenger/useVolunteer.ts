@@ -1,12 +1,15 @@
+import { useAuth } from "../useAuth";
+
 import {
   deleteCompetitionVolunteersShiftsShiftIdUnregisterMutation,
   getCompetitionVolunteersMeOptions,
   postCompetitionVolunteersShiftsShiftIdRegisterMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
 import { DetailedErrorType } from "@/lib/challenger/errorTyping";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useVolunteer = () => {
   const { isTokenExpired } = useAuth();

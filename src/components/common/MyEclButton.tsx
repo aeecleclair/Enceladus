@@ -2,6 +2,7 @@
 
 import { LoadingButton } from "./LoadingButton";
 
+import { useRouter } from "@/i18n/navigation";
 import { useCodeVerifierStore } from "@/stores/codeVerifier";
 import { useTokenStore } from "@/stores/token";
 
@@ -10,7 +11,6 @@ import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 import * as auth from "oauth4webapi";
-import { useRouter } from "@/i18n/navigation";
 
 const MyECLButton = ({ subdomain }: { subdomain: string }) => {
   const t = useTranslations("common");
@@ -21,7 +21,7 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
   const issuerUrl = new URL(
-    process.env.NEXT_PUBLIC_BACKEND_URL ?? "https://hyperion.myecl.fr"
+    process.env.NEXT_PUBLIC_BACKEND_URL ?? "https://hyperion.myecl.fr",
   );
   const { token, setToken, setRefreshToken } = useTokenStore();
 
@@ -54,7 +54,7 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
       hyperionIssuer,
       client,
       url,
-      auth.skipStateCheck
+      auth.skipStateCheck,
     );
     if (auth.isOAuth2Error(params)) {
       throw new Error(); // Handle OAuth 2.0 redirect error
@@ -65,13 +65,13 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
       client,
       params,
       redirectUri,
-      codeVerifier ?? ""
+      codeVerifier ?? "",
     );
 
     const result = await auth.processAuthorizationCodeOAuth2Response(
       hyperionIssuer,
       client,
-      response
+      response,
     );
     if (auth.isOAuth2Error(result)) {
       setIsLoading(false);
@@ -88,7 +88,7 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
     const generatedCodeVerifier = auth.generateRandomCodeVerifier();
     setCodeVerifier(generatedCodeVerifier);
     const codeChallenge = await auth.calculatePKCECodeChallenge(
-      generatedCodeVerifier
+      generatedCodeVerifier,
     );
     const codeChallengeMethod = "S256";
 
@@ -100,7 +100,7 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
     authorizationUrl.searchParams.set("code_challenge", codeChallenge);
     authorizationUrl.searchParams.set(
       "code_challenge_method",
-      codeChallengeMethod
+      codeChallengeMethod,
     );
     if (
       hyperionIssuer.code_challenge_methods_supported?.includes("S256") !== true

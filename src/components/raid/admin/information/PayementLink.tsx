@@ -1,7 +1,14 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { CardLayout } from "./CardLayout";
+
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useInformation } from "@/hooks/raid/useInformation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,11 +16,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useInformation } from "@/hooks/raid/useInformation";
+import { Input } from "@/components/ui/input";
 
 export const PaymentLink = () => {
   const { information, updateInformation } = useInformation();
@@ -45,7 +48,7 @@ export const PaymentLink = () => {
         form.reset({
           payment_link: values.payment_link,
         });
-      }
+      },
     );
   }
 

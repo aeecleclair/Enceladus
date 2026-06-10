@@ -1,15 +1,18 @@
 "use client";
 
+import { MatchCarouselCard } from "./MatchCarouselCard";
+
+import { MatchComplete } from "@/api";
+
 import { ReactNode } from "react";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
-  CarouselPrevious,
   CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
-import { MatchComplete } from "@/api";
-import { MatchCarouselCard } from "./MatchCarouselCard";
 
 interface MatchCarouselSectionProps {
   title: string;

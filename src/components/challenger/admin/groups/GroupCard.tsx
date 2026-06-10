@@ -1,5 +1,13 @@
 "use client";
 
+import { UserGroupMembership, UserGroupMembershipComplete } from "@/api";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import Link from "next/link";
+
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,13 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Mail, School, Eye, Trash2 } from "lucide-react";
-import { UserGroupMembership, UserGroupMembershipComplete } from "@/api";
-import Link from "next/link";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { Eye, Mail, School, Trash2 } from "lucide-react";
 
 interface GroupCardProps {
   user: UserGroupMembershipComplete;

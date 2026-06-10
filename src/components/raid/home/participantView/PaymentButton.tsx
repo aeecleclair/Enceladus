@@ -1,19 +1,21 @@
-import { usePaymentUrl } from "@/hooks/raid/usePaymentUrl";
-import { useRouter } from "next/navigation";
-import { WarningDialog } from "@/components/common/WarningDialog";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { usePrice } from "@/hooks/raid/usePrice";
-import { Separator } from "@/components/ui/separator";
 import { HelloAssoButton } from "@/components/common/HelloAssoButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { usePaymentUrl } from "@/hooks/raid/usePaymentUrl";
+import { usePrice } from "@/hooks/raid/usePrice";
+import { getSituationLabel } from "@/lib/raid/teamUtils";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
   TooltipProvider,
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { getSituationLabel } from "@/lib/raid/teamUtils";
 
 export const PaymentButton = () => {
   const { me } = useMeParticipant();
@@ -28,11 +30,11 @@ export const PaymentButton = () => {
   const mustPayRegistering = !me?.payment;
   const isStudent =
     ["centrale", "otherschool"].includes(
-      getSituationLabel(me?.situation || undefined) || ""
+      getSituationLabel(me?.situation || undefined) || "",
     ) && me?.student_card?.validation === "accepted";
   const isNotValidatedStudent =
     ["centrale", "otherschool"].includes(
-      getSituationLabel(me?.situation || undefined) || ""
+      getSituationLabel(me?.situation || undefined) || "",
     ) &&
     me?.student_card?.id !== undefined &&
     me?.student_card?.validation !== "accepted";

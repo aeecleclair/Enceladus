@@ -1,14 +1,18 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import { useState } from "react";
 import { useAuth } from "../useAuth";
-import { useDocumentsStore } from "@/stores/raid/documents";
-import { useToast } from "@/components/ui/use-toast";
+
 import { DocumentValidation } from "@/api";
 import {
   getRaidDocumentDocumentIdOptions,
   postRaidDocumentDocumentIdValidateMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useDocumentsStore } from "@/stores/raid/documents";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
+
+import { useToast } from "@/components/ui/use-toast";
+
+import axios from "axios";
 
 export const useDocument = () => {
   const backUrl: string =
@@ -22,7 +26,7 @@ export const useDocument = () => {
   const uploadDocument = (
     file: File,
     documentType: string,
-    callback: (documentId: string) => void
+    callback: (documentId: string) => void,
   ) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -86,7 +90,7 @@ export const useDocument = () => {
   const setDocumentValidation = (
     documentId: string,
     validation: DocumentValidation,
-    callback: () => void
+    callback: () => void,
   ) => {
     mutateValidateDocument(
       {
@@ -97,7 +101,7 @@ export const useDocument = () => {
           validation: validation,
         },
       },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 

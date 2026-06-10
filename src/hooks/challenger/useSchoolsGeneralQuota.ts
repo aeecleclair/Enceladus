@@ -1,13 +1,16 @@
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
+
 import { SchoolGeneralQuotaBase } from "@/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   getCompetitionSchoolsSchoolIdGeneralQuotaOptions,
   patchCompetitionSchoolsSchoolIdGeneralQuotaMutation,
   postCompetitionSchoolsSchoolIdGeneralQuotaMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface UseSchoolsGeneralQuotaProps {
   schoolId?: string;

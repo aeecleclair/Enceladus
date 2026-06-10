@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import { MapPin, Edit } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+
+import { Edit, MapPin } from "lucide-react";
 
 interface SimpleLocationMarkerProps {
   locationName: string;

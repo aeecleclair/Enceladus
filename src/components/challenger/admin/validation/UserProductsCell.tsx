@@ -5,6 +5,7 @@ import {
   AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
   ProductVariantStats,
 } from "@/api";
+
 import { Badge } from "@/components/ui/badge";
 
 export type RequiredPurchase = Array<{

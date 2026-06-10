@@ -1,7 +1,22 @@
 "use client";
 
+import { DateTimePicker } from "../../custom/DateTimePicker";
+
 import { VolunteerShiftBase, VolunteerShiftComplete } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import {
+  VolunteerShiftFormSchema,
+  volunteerShiftFormSchema,
+} from "@/forms/challenger/volunteerShift";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+import { useAuth } from "@/hooks/useAuth";
+import { useUserSearch } from "@/hooks/useUsersSearch";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -32,19 +47,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  volunteerShiftFormSchema,
-  VolunteerShiftFormSchema,
-} from "@/forms/challenger/volunteerShift";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
-import { useAuth } from "@/hooks/useAuth";
-import { useUserSearch } from "@/hooks/useUsersSearch";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Check, ChevronsUpDown, User } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { DateTimePicker } from "../../custom/DateTimePicker";
 
 interface VolunteerShiftFormProps {
   shiftId?: string | null;

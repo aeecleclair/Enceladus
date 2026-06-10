@@ -1,11 +1,17 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import {
-  productFormSchema,
   ProductFormValues,
+  productFormSchema,
 } from "@/forms/challenger/product";
 import { useProducts } from "@/hooks/challenger/useProducts";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -14,12 +20,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { StyledFormField } from "@/components/common/StyledFormField";
-import { Checkbox } from "@/components/ui/checkbox";
 
 interface AddProductDialogProps {
   isOpen: boolean;

@@ -1,17 +1,13 @@
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ViewEditUserInfo } from "./ViewEditUserInfo";
 import { LogoutButton } from "./logoutButton";
+
+import { ThemeButton } from "@/components/raid/custom/ThemeButton";
+import { useInformation } from "@/hooks/raid/useInformation";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Menubar,
   MenubarContent,
@@ -20,8 +16,15 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { ThemeButton } from "@/components/raid/custom/ThemeButton";
-import { useInformation } from "@/hooks/raid/useInformation";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const UserButton = () => {
   const { me } = useMeParticipant();

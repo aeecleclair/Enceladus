@@ -1,14 +1,17 @@
+import { useAuth } from "../useAuth";
+
+import { SchoolExtensionBase, SchoolExtensionEdit } from "@/api";
 import {
   deleteCompetitionSchoolsSchoolIdMutation,
   getCompetitionSchoolsOptions,
   patchCompetitionSchoolsSchoolIdMutation,
   postCompetitionSchoolsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
-import { SchoolExtensionBase, SchoolExtensionEdit } from "@/api";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useSportSchools = () => {
   const { isTokenExpired } = useAuth();

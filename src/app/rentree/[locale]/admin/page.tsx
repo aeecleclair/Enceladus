@@ -2,8 +2,10 @@
 
 import { SellerTab } from "@/components/siarnaq/admin/sellerProducts/SellerTab";
 import { UserSearch } from "@/components/siarnaq/admin/userSearch/UserSearch";
+import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
 import { useSellers } from "@/hooks/siarnaq/useSellers";
 import { useStatus } from "@/hooks/siarnaq/useStatus";
+import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { useSizeStore } from "@/stores/siarnaq/SizeStore";
 
@@ -15,8 +17,6 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { useMeUser } from "@/hooks/useMeUser";
-import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
 
 const AdminPage = () => {
   const { setSize, size } = useSizeStore();
@@ -30,7 +30,7 @@ const AdminPage = () => {
     if (!user) return;
     const userGroups = user.groups?.map((group) => group.id);
     const isUserInASellerGroup = userGroups?.some((group) =>
-      sellers.some((seller) => seller.group_id === group)
+      sellers.some((seller) => seller.group_id === group),
     );
     if (!isCdrAdmin && !isUserInASellerGroup) {
       router.push("/");

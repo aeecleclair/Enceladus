@@ -1,16 +1,18 @@
 import { RaidTeam } from "@/api";
-import { CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { HiCheck } from "react-icons/hi";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import {
   ParticipantField,
   ValueTypes,
 } from "@/components/raid/custom/ParticipantField";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { FormProvider, useForm } from "react-hook-form";
+import { HiCheck } from "react-icons/hi";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import { CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
 interface TeamCardProps {
@@ -50,7 +52,7 @@ export const TeamEdit = ({ team, setIsEdit }: TeamCardProps) => {
           title: "Équipe mise à jour",
         });
       },
-      values
+      values,
     );
   }
 

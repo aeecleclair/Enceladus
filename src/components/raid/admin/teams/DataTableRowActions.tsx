@@ -1,7 +1,16 @@
 "use client";
 
+import { RemoveMemberDialog } from "./RemoveMemberDialog";
+
+import { RaidTeamPreview } from "@/api";
+import { WarningDialog } from "@/components/common/WarningDialog";
+import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
+import { useTeams } from "@/hooks/raid/useTeams";
+
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
+import { useState } from "react";
+import { HiTrash } from "react-icons/hi";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -13,14 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { HiTrash } from "react-icons/hi";
 import { MergeIcon, UserRoundMinusIcon } from "lucide-react";
-import { WarningDialog } from "@/components/common/WarningDialog";
-import { useState } from "react";
-import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
-import { RaidTeamPreview } from "@/api";
-import { RemoveMemberDialog } from "./RemoveMemberDialog";
-import { useTeams } from "@/hooks/raid/useTeams";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

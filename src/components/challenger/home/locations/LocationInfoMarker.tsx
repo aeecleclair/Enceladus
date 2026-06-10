@@ -1,27 +1,30 @@
 "use client";
 
-import React from "react";
+import { LocationComplete, Match, MatchComplete } from "@/api";
 import { useSports } from "@/hooks/challenger/useSports";
-import {
-  MapPin,
-  Calendar,
-  Clock,
-  Search,
-  ChevronRight,
-  Trophy,
-} from "lucide-react";
+
+import React from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardDescription,
   CardFooter,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { LocationComplete, Match, MatchComplete } from "@/api";
+
+import {
+  Calendar,
+  ChevronRight,
+  Clock,
+  MapPin,
+  Search,
+  Trophy,
+} from "lucide-react";
 
 interface LocationInfoMarkerProps {
   location: LocationComplete;

@@ -2,6 +2,7 @@ import { SellerTabContentList } from "./SellerTabContentList";
 import { SellerTabList } from "./SellerTabList";
 
 import { Status } from "@/api";
+import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
 import { useSellers } from "@/hooks/siarnaq/useSellers";
 import { useRouter } from "@/i18n/navigation";
 
@@ -9,7 +10,6 @@ import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 import { Tabs } from "@/components/ui/tabs";
-import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
 
 interface SellerTabProps {
   status: Status;

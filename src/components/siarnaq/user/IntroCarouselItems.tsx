@@ -1,17 +1,19 @@
 import { CdrUser, postCdrUsersUserIdCurriculumsCurriculumId } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useCurriculums } from "@/hooks/siarnaq/useCurriculums";
 import { useOnlineSellers } from "@/hooks/siarnaq/useOnlineSellers";
 import { useRouter } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import {
-  CarouselContent,
-  CarouselItem,
   Carousel,
   CarouselApi,
+  CarouselContent,
+  CarouselItem,
 } from "@/components/ui/carousel";
 import {
   Select,
@@ -24,8 +26,6 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 
 import { AnimatePresence, motion } from "framer-motion";
-import React from "react";
-import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface IntroCarouselItemsProps {
   user: CdrUser;
@@ -37,7 +37,7 @@ export const IntroCarouselItems = ({
   refetch,
 }: IntroCarouselItemsProps) => {
   const [carouselApi, setCarouselApi] = React.useState<CarouselApi | null>(
-    null
+    null,
   );
   const { toast } = useToast();
   const t = useTranslations("siarnaq");

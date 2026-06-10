@@ -1,17 +1,17 @@
 "use client";
 
+import { AddPurchaseDialog } from "../purchases/AddPurchaseDialog";
+import { DeletePurchaseDialog } from "../purchases/DeletePurchaseDialog";
+import { EditPurchaseDialog } from "../purchases/EditPurchaseDialog";
+
 import { GetCompetitionProductsResponse } from "@/api";
 import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseComplete } from "@/api";
+
+import { useMemo, useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ShoppingCart,
-  CheckCircle,
-  XCircle,
-  Package,
-  Plus,
-  Pencil,
-  Trash2,
-} from "lucide-react";
 import {
   Table,
   TableBody,
@@ -20,12 +20,16 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { useMemo, useState } from "react";
-import { AddPurchaseDialog } from "../purchases/AddPurchaseDialog";
-import { EditPurchaseDialog } from "../purchases/EditPurchaseDialog";
-import { DeletePurchaseDialog } from "../purchases/DeletePurchaseDialog";
+
+import {
+  CheckCircle,
+  Package,
+  Pencil,
+  Plus,
+  ShoppingCart,
+  Trash2,
+  XCircle,
+} from "lucide-react";
 
 interface UserPurchasesProps {
   userPurchases: AppModulesSportCompetitionSchemasSportCompetitionPurchaseComplete[];

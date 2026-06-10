@@ -1,7 +1,9 @@
-import { getCompetitionPodiumsSportsSportIdOptions } from "@/api/@tanstack/react-query.gen";
-import { useQueries } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
+
 import { TeamSportResultComplete } from "@/api";
+import { getCompetitionPodiumsSportsSportIdOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQueries } from "@tanstack/react-query";
 
 interface useSportPodiumsProps {
   sportIds: string[];

@@ -24,7 +24,7 @@ export const useProductExpansionStore = create<productExpansionStore>()(
       }),
       {
         name: "cdr-product-expansion-store",
-      }
-    )
-  )
+      },
+    ),
+  ),
 );

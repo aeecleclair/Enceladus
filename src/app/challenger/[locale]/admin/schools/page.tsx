@@ -1,23 +1,26 @@
 "use client";
 
-import SchoolCard from "@/components/challenger/admin/schools/SchoolCard";
 import { DeleteConfirmationDialog } from "@/components/challenger/admin/schools/DeleteConfirmationDialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import SchoolCard from "@/components/challenger/admin/schools/SchoolCard";
 import SchoolDetail from "@/components/challenger/admin/schools/SchoolDetail";
-import { useState, useMemo } from "react";
-import { Search, Plus, School, Users, Filter } from "lucide-react";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useRouter } from "@/i18n/navigation";
+
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRouter } from "@/i18n/navigation";
+import { Input } from "@/components/ui/input";
+
+import { Filter, Plus, School, Search, Users } from "lucide-react";
 
 const Dashboard = () => {
   const router = useRouter();

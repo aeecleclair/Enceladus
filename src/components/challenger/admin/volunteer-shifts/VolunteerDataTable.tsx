@@ -1,6 +1,10 @@
 "use client";
 
-import * as React from "react";
+import VolunteerDetailDialog, { VolunteerRow } from "./VolunteerDetailDialog";
+
+import { VolunteerShiftCompleteWithVolunteers } from "@/api";
+import { fuzzyFilter } from "@/lib/utils";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,7 +16,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import * as React from "react";
+
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -21,12 +29,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
+
 import { ArrowUpDown, Search } from "lucide-react";
-import { VolunteerShiftCompleteWithVolunteers } from "@/api";
-import VolunteerDetailDialog, { VolunteerRow } from "./VolunteerDetailDialog";
-import { fuzzyFilter } from "@/lib/utils";
 
 function aggregateVolunteers(
   shifts: VolunteerShiftCompleteWithVolunteers[],

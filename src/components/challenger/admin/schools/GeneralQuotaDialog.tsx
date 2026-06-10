@@ -1,6 +1,16 @@
 import { SchoolGeneralQuota } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
+import {
+  GeneralQuotaFormInput,
+  GeneralQuotaFormValues,
+  generalQuotaFormSchema,
+} from "@/forms/challenger/generalQuota";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,15 +23,8 @@ import {
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  GeneralQuotaFormInput,
-  generalQuotaFormSchema,
-  GeneralQuotaFormValues,
-} from "@/forms/challenger/generalQuota";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Plus } from "lucide-react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 
 interface GeneralQuotaDialogProps {
   isOpen: boolean;

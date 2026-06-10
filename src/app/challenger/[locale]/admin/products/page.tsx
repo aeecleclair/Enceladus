@@ -1,13 +1,16 @@
 "use client";
 
-import { useProducts } from "@/hooks/challenger/useProducts";
-import { ProductList } from "@/components/challenger/admin/products/ProductList";
 import ProductDetail from "@/components/challenger/admin/products/ProductDetail";
-import { useSearchParams } from "next/navigation";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ProductList } from "@/components/challenger/admin/products/ProductList";
+import { useProducts } from "@/hooks/challenger/useProducts";
 import { useRouter } from "@/i18n/navigation";
+
+import { useSearchParams } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+
+import { ArrowLeft } from "lucide-react";
 
 const ProductsPage = () => {
   const router = useRouter();

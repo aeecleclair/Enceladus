@@ -1,8 +1,11 @@
 "use client";
 
+import MyECLButton from "@/components/common/MyEclButton";
 import { TextSeparator } from "@/components/siarnaq/custom/TextSeparator";
 import { useRouter } from "@/i18n/navigation";
+
 import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,7 +14,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import MyECLButton from "@/components/common/MyEclButton";
 
 const Login = () => {
   const t = useTranslations("template");

@@ -2,7 +2,7 @@ import { Messages } from "next-intl";
 import z from "zod";
 
 export default function paymentFormSchema(
-  t: (key: any, values?: any) => string
+  t: (key: any, values?: any) => string,
 ) {
   // useTranslations("paymentFormSchema") (don't remove!)
   return z.object({
@@ -11,7 +11,7 @@ export default function paymentFormSchema(
         const parsedValue = parseFloat(value);
         return !isNaN(parsedValue) && parsedValue >= 0;
       },
-      { message: t("total") }
+      { message: t("total") },
     ),
     payment_type: z.enum(["cash", "check", "HelloAsso", "card", "archived"], {
       error: t("paymentType"),

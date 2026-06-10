@@ -1,8 +1,8 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
-
 import { compareItems, rankItem } from "@tanstack/match-sorter-utils";
 import { FilterFn, SortingFn, sortingFns } from "@tanstack/react-table";
+
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

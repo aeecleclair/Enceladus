@@ -1,6 +1,8 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { ParticipantInfoTab } from "./ParticipantInfoTab";
+
 import { RaidTeam } from "@/api";
+
+import { Card, CardContent } from "@/components/ui/card";
 
 interface InformationTabProps {
   team: RaidTeam;

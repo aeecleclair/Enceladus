@@ -1,7 +1,9 @@
 import { SecurityFileBase } from "@/api";
-import { useToast } from "@/components/ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
 import { postRaidSecurityFileMutation } from "@/api/@tanstack/react-query.gen";
+
+import { useMutation } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useSecurityFile = () => {
   const { toast } = useToast();
@@ -31,7 +33,7 @@ export const useSecurityFile = () => {
   const setSecurityFile = (
     securityFile: SecurityFileBase,
     participantId: string,
-    callback: (securityFileId: string) => void
+    callback: (securityFileId: string) => void,
   ) => {
     mutateAssignSecurityFile(
       {
@@ -44,7 +46,7 @@ export const useSecurityFile = () => {
         onSuccess: (data) => {
           callback(data.id);
         },
-      }
+      },
     );
   };
 

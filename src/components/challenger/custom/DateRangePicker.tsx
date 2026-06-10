@@ -1,20 +1,22 @@
 "use client";
 
-import * as React from "react";
-import { DateRange } from "react-day-picker";
-import { fr } from "date-fns/locale";
-import { format } from "date-fns";
-import { ChevronDownIcon, CalendarIcon } from "lucide-react";
-
 import { cn } from "@/lib/utils";
+
+import * as React from "react";
+
+import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import { CalendarIcon, ChevronDownIcon } from "lucide-react";
+import { DateRange } from "react-day-picker";
 
 interface DateRangePickerProps {
   startDate?: Date;

@@ -1,27 +1,31 @@
 import { EditUserInfoField } from "./EditUserInfoField";
-import { addYears, toDate } from "date-fns";
-import PhoneInput from "react-phone-input-2";
-import { Label } from "@/components/ui/label";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
+import { UserInfoView } from "./UserInfoView";
+
+import { Participant, RaidParticipant, RaidParticipantUpdate } from "@/api";
 import { DatePicker } from "@/components/common/DatePicker";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { apiFormatDate, formatDate } from "@/lib/dateFormat";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Controller, FormProvider, useForm } from "react-hook-form";
+import { HiCheck, HiPencil, HiX } from "react-icons/hi";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { UserInfoView } from "./UserInfoView";
-import { Participant, RaidParticipant, RaidParticipantUpdate } from "@/api";
-import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { SheetFooter } from "@/components/ui/sheet";
-import { HiPencil, HiCheck, HiX } from "react-icons/hi";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useToast } from "@/components/ui/use-toast";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { apiFormatDate, formatDate } from "@/lib/dateFormat";
-import { useMeTeam } from "@/hooks/raid/useMeTeam";
+
+import { addYears, toDate } from "date-fns";
+import PhoneInput from "react-phone-input-2";
 
 interface UserButtonProps {
   me: RaidParticipant;

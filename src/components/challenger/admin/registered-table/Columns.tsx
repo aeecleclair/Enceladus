@@ -1,14 +1,16 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-
-import { Checkbox } from "@/components/ui/checkbox";
-import { Badge } from "@/components/ui/badge";
-import { DataTableColumnHeader } from "./DataTableColumnHeader";
-import { DataTableRowActions } from "./DataTableRowActions";
 import { CircularProgressBar } from "../../custom/CircularProgressBar";
 import { ProgressBadge } from "../../custom/ProgressBadge";
+import { DataTableColumnHeader } from "./DataTableColumnHeader";
+import { DataTableRowActions } from "./DataTableRowActions";
+
 import { ParticipantInfo, Team } from "@/api";
+
+import { ColumnDef } from "@tanstack/react-table";
+
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export type Participant = {
   firstname: string;

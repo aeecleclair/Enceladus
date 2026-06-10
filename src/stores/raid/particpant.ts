@@ -1,4 +1,5 @@
 import { RaidParticipant } from "@/api";
+
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 
@@ -22,7 +23,7 @@ export const useParticipantStore = create<ParticipantStore>()(
       }),
       {
         name: "raid-participant-storage",
-      }
-    )
-  )
+      },
+    ),
+  ),
 );

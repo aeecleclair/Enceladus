@@ -1,15 +1,17 @@
 "use client";
 
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { useSports } from "@/hooks/challenger/useSports";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { usePodiums } from "@/hooks/challenger/usePodiums";
-import { useSports } from "@/hooks/challenger/useSports";
-import { Medal, Trophy, Award } from "lucide-react";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { Award, Medal, Trophy } from "lucide-react";
 
 interface MockResult {
   team_id: string;

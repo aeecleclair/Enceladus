@@ -1,22 +1,25 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { UpcomingMatches } from "@/components/challenger/home/matches/UpcomingMatches";
+import { Match, MatchComplete } from "@/api";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 import { PastMatches } from "@/components/challenger/home/matches/PastMatches";
-import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { UpcomingMatches } from "@/components/challenger/home/matches/UpcomingMatches";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
-import { Calendar, Trophy, Users, GraduationCap, Zap } from "lucide-react";
-import { Match, MatchComplete } from "@/api";
+
 import { useMemo } from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+
+import { Calendar, GraduationCap, Trophy, Users, Zap } from "lucide-react";
 
 export default function MatchesPage() {
   const { meParticipant } = useParticipant();

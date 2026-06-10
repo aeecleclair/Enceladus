@@ -1,15 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun, SunMoon } from "lucide-react";
-import { useTheme } from "next-themes";
+
 import {
+  MenubarItem,
   MenubarShortcut,
   MenubarSub,
-  MenubarSubTrigger,
   MenubarSubContent,
-  MenubarItem,
+  MenubarSubTrigger,
 } from "@/components/ui/menubar";
+
+import { Moon, Sun, SunMoon } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export function ThemeButton() {
   const { setTheme } = useTheme();

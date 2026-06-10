@@ -1,10 +1,13 @@
-import { RaidInformation } from "@/api";
 import { useAuth } from "../useAuth";
-import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { RaidInformation } from "@/api";
 import {
   getRaidInformationOptions,
   patchRaidInformationMutation,
 } from "@/api/@tanstack/react-query.gen";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
 import { useToast } from "@/components/ui/use-toast";
 
 export const useInformation = () => {
@@ -43,11 +46,11 @@ export const useInformation = () => {
 
   const updateInformation = (
     information: RaidInformation,
-    callback: () => void
+    callback: () => void,
   ) => {
     mutateUpdateInformation(
       { body: information },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 

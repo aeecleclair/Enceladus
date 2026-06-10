@@ -5,6 +5,7 @@ import { DataTableToolbar } from "./DataTableToolbar";
 
 import { CoreUserSimple } from "@/api";
 import { useRouter } from "@/i18n/navigation";
+import { fuzzyFilter } from "@/lib/utils";
 
 import { RankingInfo } from "@tanstack/match-sorter-utils";
 import {
@@ -35,7 +36,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { fuzzyFilter } from "@/lib/utils";
 
 // Extend the FilterFns and FilterMeta interfaces to include our custom filter function and meta
 declare module "@tanstack/react-table" {

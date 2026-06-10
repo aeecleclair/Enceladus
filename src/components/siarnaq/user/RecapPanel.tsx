@@ -4,9 +4,9 @@ import { ProductPart } from "../custom/Product/ProductPart";
 import { PaymentButton } from "./PaymentButton";
 
 import { useOnlineSellers } from "@/hooks/siarnaq/useOnlineSellers";
-import { useMeUser } from "@/hooks/useMeUser";
 import { useUserPayments } from "@/hooks/siarnaq/useUserPayments";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
+import { useMeUser } from "@/hooks/useMeUser";
 import { useTokenStore } from "@/stores/token";
 
 import { useFormatter, useTranslations } from "next-intl";

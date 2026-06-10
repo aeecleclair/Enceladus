@@ -1,14 +1,17 @@
 "use client";
 
-import { MapPin, ExternalLink, Star } from "lucide-react";
-import { CarouselItem } from "@/components/ui/carousel";
-import { MatchComplete } from "@/api";
 import {
-  openMap,
   getTimeBadgeClass,
   getTimeElapsed,
   getTimeUntilEvent,
+  openMap,
 } from "./matchUtils";
+
+import { MatchComplete } from "@/api";
+
+import { CarouselItem } from "@/components/ui/carousel";
+
+import { ExternalLink, MapPin, Star } from "lucide-react";
 
 interface MatchCarouselCardProps {
   match: MatchComplete;

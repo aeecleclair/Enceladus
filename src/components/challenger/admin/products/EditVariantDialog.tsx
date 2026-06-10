@@ -1,14 +1,20 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  variantFormSchema,
+  AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
+  AppModulesSportCompetitionSchemasSportCompetitionProductVariantEdit,
+} from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
+import {
   VariantFormValues,
+  variantFormSchema,
 } from "@/forms/challenger/variant";
 import { useProducts } from "@/hooks/challenger/useProducts";
-import {
-  AppModulesSportCompetitionSchemasSportCompetitionProductVariantEdit,
-  AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
-} from "@/api";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -17,12 +23,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { PriceInput } from "@/components/ui/priceInput";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -30,9 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { StyledFormField } from "@/components/common/StyledFormField";
-import { PriceInput } from "@/components/ui/priceInput";
+import { Textarea } from "@/components/ui/textarea";
 
 interface EditVariantDialogProps {
   variant: AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete;

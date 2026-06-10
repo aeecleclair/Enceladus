@@ -1,25 +1,28 @@
 "use client";
 
-import { VolunteerShiftComplete } from "@/api";
 import {
   Calendar,
   CalendarCurrentDate,
-  CalendarWeekView,
+  CalendarEvent,
   CalendarNextTrigger,
   CalendarPrevTrigger,
   CalendarTodayTrigger,
   CalendarViewTrigger,
-  CalendarEvent,
+  CalendarWeekView,
 } from "../../custom/FullScreenCalendar";
+
+import { VolunteerShiftComplete } from "@/api";
+import { generateLocationColor } from "@/lib/challenger/locationColors";
+
 import { useMemo } from "react";
-import { format, isSameDay, startOfDay, endOfDay } from "date-fns";
+
+import { endOfDay, format, isSameDay, startOfDay } from "date-fns";
 import { fr } from "date-fns/locale";
 import {
+  Calendar as CalendarIcon,
   ChevronLeft,
   ChevronRight,
-  Calendar as CalendarIcon,
 } from "lucide-react";
-import { generateLocationColor } from "@/lib/challenger/locationColors";
 
 interface VolunteerShiftCalendarProps {
   displayShifts: VolunteerShiftComplete[];

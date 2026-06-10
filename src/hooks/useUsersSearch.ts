@@ -1,8 +1,10 @@
-import { getUsersSearchOptions } from "@/api/@tanstack/react-query.gen";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "./useAuth";
 import { useMeUser } from "./useMeUser";
+
 import { AccountType } from "@/api";
+import { getUsersSearchOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
 
 interface UseUserSearchProps {
   query: string;

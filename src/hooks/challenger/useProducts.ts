@@ -1,23 +1,26 @@
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
+
 import {
   AppModulesSportCompetitionSchemasSportCompetitionProductBase,
   AppModulesSportCompetitionSchemasSportCompetitionProductEdit,
   AppModulesSportCompetitionSchemasSportCompetitionProductVariantBase,
   AppModulesSportCompetitionSchemasSportCompetitionProductVariantEdit,
 } from "@/api";
-import { useMutation } from "@tanstack/react-query";
 import {
-  getCompetitionProductsOptions,
   deleteCompetitionProductsProductIdMutation,
   deleteCompetitionProductsVariantsVariantIdMutation,
+  getCompetitionProductsOptions,
   patchCompetitionProductsProductIdMutation,
   patchCompetitionProductsVariantsVariantIdMutation,
   postCompetitionProductsMutation,
   postCompetitionProductsProductIdVariantsMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useProducts = () => {
   const { isTokenExpired } = useAuth();

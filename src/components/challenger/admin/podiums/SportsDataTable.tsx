@@ -1,6 +1,9 @@
 "use client";
 
-import * as React from "react";
+import { SportsDataTableToolbar } from "./SportsDataTableToolbar";
+
+import { fuzzyFilter } from "@/lib/utils";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +16,17 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import * as React from "react";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -22,23 +35,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ArrowUpDown, Edit, Trash2, MoreHorizontal } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { SportsDataTableToolbar } from "./SportsDataTableToolbar";
-import { fuzzyFilter } from "@/lib/utils";
+
+import { ArrowUpDown, Edit, MoreHorizontal, Trash2 } from "lucide-react";
 
 // Sport data for the table
 export interface SportData {

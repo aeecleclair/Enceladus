@@ -1,10 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
-import { createRoot } from "react-dom/client";
-import "leaflet/dist/leaflet.css";
-import { LocationComplete, MatchComplete } from "@/api";
 import { LocationInfoMarker } from "./LocationInfoMarker";
+
+import { LocationComplete, MatchComplete } from "@/api";
+
+import React, { useCallback, useEffect, useRef } from "react";
+
+import "leaflet/dist/leaflet.css";
+import { createRoot } from "react-dom/client";
 
 interface LocationsMapProps {
   locations: LocationComplete[];

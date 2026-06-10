@@ -1,6 +1,7 @@
 "use client";
 
 import { LocationComplete, MatchComplete } from "@/api";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+
 import {
   Calendar,
   Clock,

@@ -1,15 +1,15 @@
 "use client";
 
-import { TeamInfoCard } from "@/components/raid/home/teamCard/TeamInfoCard";
-import { TopBar } from "@/components/raid/admin/TopBar";
-import { TeamsPreview } from "@/components/raid/admin/TeamsPreview";
-import { StatsView } from "@/components/raid/admin/StatsView";
-import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
-import { useTeams } from "@/hooks/raid/useTeams";
-import { formatDate, getDaysLeft } from "@/lib/dateFormat";
-import { useInformation } from "@/hooks/raid/useInformation";
 import { RaidParticipant } from "@/api";
+import { StatsView } from "@/components/raid/admin/StatsView";
+import { TeamsPreview } from "@/components/raid/admin/TeamsPreview";
+import { TopBar } from "@/components/raid/admin/TopBar";
+import { TeamInfoCard } from "@/components/raid/home/teamCard/TeamInfoCard";
+import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
+import { useInformation } from "@/hooks/raid/useInformation";
+import { useTeams } from "@/hooks/raid/useTeams";
 import { useRouter } from "@/i18n/navigation";
+import { formatDate, getDaysLeft } from "@/lib/dateFormat";
 
 const Dashboard = () => {
   const { isRaidAdmin } = useHasRaidPermission();
@@ -74,7 +74,7 @@ const Dashboard = () => {
       description: information?.raid_registering_end_date
         ? isRegisteringOpen
           ? `${getDaysLeft(
-              information?.raid_registering_end_date
+              information?.raid_registering_end_date,
             )} jours restants`
           : "Inscriptions fermées"
         : "Date de fin non renseignée",

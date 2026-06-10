@@ -1,17 +1,19 @@
 import { StyledFormField } from "../../../common/StyledFormField";
-import { Label } from "@/components/ui/label";
-import { UseFormReturn } from "react-hook-form";
-import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { DocumentDialog } from "../../custom/DocumentDialog";
 import { CardTemplate } from "./CardTemplate";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+
+import { Sport, TeamInfo } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { useDocument } from "@/hooks/challenger/useDocument";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useMeUser } from "@/hooks/useMeUser";
+
+import { useEffect, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -20,14 +22,15 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FormMessage } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { Sport, TeamInfo } from "@/api";
-import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
-import { useEffect, useState } from "react";
-import { useDocument } from "@/hooks/challenger/useDocument";
-import { useMeUser } from "@/hooks/useMeUser";
-import { DocumentDialog } from "../../custom/DocumentDialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface SportCardProps {
   form: UseFormReturn<RegisteringFormValues>;

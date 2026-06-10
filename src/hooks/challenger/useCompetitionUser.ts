@@ -1,13 +1,16 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
+
+import { CompetitionUserBase, CompetitionUserEdit } from "@/api";
 import {
   getCompetitionUsersMeOptions,
   patchCompetitionUsersMeMutation,
   postCompetitionUsersMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
-import { CompetitionUserBase, CompetitionUserEdit } from "@/api";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useCompetitionUser = () => {
   const { token, isTokenExpired } = useAuth();

@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useSellerProductData = (
   sellerId: string | null,
-  productId: string | null
+  productId: string | null,
 ) => {
   const { isTokenExpired } = useAuth();
   const { data, isLoading, refetch } = useQuery({

@@ -6,8 +6,8 @@ import {
   postCdrSellers,
 } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
-import { useGroups } from "@/hooks/useGroups";
 import { useSellers } from "@/hooks/siarnaq/useSellers";
+import { useGroups } from "@/hooks/useGroups";
 
 import { useState } from "react";
 import { HiPlus, HiTrash } from "react-icons/hi2";
@@ -75,7 +75,7 @@ export const ToggleSeller = ({ group, sellers }: ToggleSellerProps) => {
           isLoading={isLoading}
           onClick={() =>
             deleteSeller(
-              sellers.find((seller) => seller.group_id === group.id)!.id
+              sellers.find((seller) => seller.group_id === group.id)!.id,
             )
           }
         >

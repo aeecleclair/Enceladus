@@ -1,11 +1,15 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { toDate } from "date-fns";
 import { DatePicker } from "../../../common/DatePicker";
 import { CardLayout } from "./CardLayout";
+
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useInformation } from "@/hooks/raid/useInformation";
 import { apiFormatDate, formatDate } from "@/lib/dateFormat";
-import { LoadingButton } from "@/components/common/LoadingButton";
+
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import { toDate } from "date-fns";
 
 export const InscriptionEnd = () => {
   const { information, updateInformation } = useInformation();
@@ -14,7 +18,7 @@ export const InscriptionEnd = () => {
   const [date, setDate] = useState<Date | undefined>(
     information?.raid_registering_end_date
       ? toDate(information.raid_registering_end_date)
-      : undefined
+      : undefined,
   );
 
   function toggleEdit() {
@@ -28,7 +32,7 @@ export const InscriptionEnd = () => {
         () => {
           setIsLoading(false);
           setIsEdit(false);
-        }
+        },
       );
     } else {
       setIsEdit(!isEdit);

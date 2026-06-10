@@ -35,11 +35,11 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-
 ## How to use the template ?
 
 The template is here to help you create a new website more easily.
 To use it :
+
 - copy the src/app/template folder
 - rename all 'template' string inside with the name of your website
 - duplicate src/translations/{locale}/template.json

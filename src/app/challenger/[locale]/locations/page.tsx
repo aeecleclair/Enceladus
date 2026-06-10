@@ -1,17 +1,19 @@
 "use client";
 
+import { Match } from "@/api";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 import { LocationsMap } from "@/components/challenger/home/locations/LocationsMap";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 import { useLocations } from "@/hooks/challenger/useLocations";
 import { useSports } from "@/hooks/challenger/useSports";
+
 import { useMemo } from "react";
+
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
-import { Match } from "@/api";
-import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 
 export default function LocationsPage() {
   const { locations } = useLocations();

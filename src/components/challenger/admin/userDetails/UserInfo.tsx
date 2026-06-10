@@ -1,10 +1,12 @@
 "use client";
 
 import { CompetitionUser } from "@/api";
-import { Mail, Phone, School, User, IdCard } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { IdCard, Mail, Phone, School, User } from "lucide-react";
 
 export const UserInfo = ({ user }: { user: CompetitionUser }) => {
   const { sportSchools } = useSportSchools();

@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
-import { createRoot } from "react-dom/client";
-import "leaflet/dist/leaflet.css";
-import { SimpleLocationMarker } from "./SimpleLocationMarker";
 import { LocationFormMarker } from "./LocationFormMarker";
+import { SimpleLocationMarker } from "./SimpleLocationMarker";
+
+import React, { useCallback, useEffect, useRef } from "react";
+
+import "leaflet/dist/leaflet.css";
+import { createRoot } from "react-dom/client";
 
 interface MapComponentProps {
   onCoordinatesChange: (lat: number, lng: number, address: string) => void;

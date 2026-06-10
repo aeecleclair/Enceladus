@@ -1,13 +1,14 @@
 "use client";
 
+import { CalendarEvent } from "../../custom/FullScreenCalendar";
+import UserVolunteerShiftDetail from "./UserVolunteerShiftDetail";
+
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { CalendarEvent } from "../../custom/FullScreenCalendar";
-import UserVolunteerShiftDetail from "./UserVolunteerShiftDetail";
 
 interface VolunteerCalendarEventDetailProps {
   event: CalendarEvent | null;

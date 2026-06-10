@@ -1,6 +1,10 @@
 "use client";
 
-import * as React from "react";
+import { CertificateLicense, ParticipantData } from "./CertificateLicense";
+import { DataTableToolbar } from "./DataTableToolbar";
+
+import { fuzzyFilter } from "@/lib/utils";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +17,17 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import * as React from "react";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -22,18 +36,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import { ArrowUpDown, CheckCircle, MoreHorizontal } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { DataTableToolbar } from "./DataTableToolbar";
-import { CertificateLicense, ParticipantData } from "./CertificateLicense";
-import { fuzzyFilter } from "@/lib/utils";
 
 interface ParticipantDataTableProps {
   data: ParticipantData[];

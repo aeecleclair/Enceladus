@@ -1,6 +1,8 @@
-import { getCompetitionMatchesOptions } from "@/api/@tanstack/react-query.gen";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
+
+import { getCompetitionMatchesOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
 
 export const useAllMatches = () => {
   const { isTokenExpired } = useAuth();

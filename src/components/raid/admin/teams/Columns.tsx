@@ -1,17 +1,19 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
-
-import { Badge } from "@/components/ui/badge";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTableRowActions } from "./DataTableRowActions";
+
+import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
+import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
 import {
   difficulties,
   getLabelFromValue,
   meetingPlaces,
 } from "@/lib/raid/comboboxValues";
-import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
-import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
+
+import { ColumnDef } from "@tanstack/react-table";
+
+import { Badge } from "@/components/ui/badge";
 
 export const columns: ColumnDef<RaidTeamPreview>[] = [
   {

@@ -1,6 +1,7 @@
 import { PageIndicator } from "../custom/PageIndicator";
 import { ProductAccordion } from "../custom/productAccordion/ProductAccordion";
 
+import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
 import { useOnlineSellerProducts } from "@/hooks/siarnaq/useOnlineSellerProducts";
 import { useOnlineSellers } from "@/hooks/siarnaq/useOnlineSellers";
 import { useProductExpansionStore } from "@/stores/siarnaq/productExpansionStore";
@@ -18,7 +19,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
 
 export const ProductPanel = () => {
   const t = useTranslations("siarnaq");
@@ -44,7 +44,7 @@ export const ProductPanel = () => {
     ) {
       setExpandedProducts(
         firstSellerId,
-        onlineProducts.map((product) => product.id)
+        onlineProducts.map((product) => product.id),
       );
     }
   }, [
@@ -60,17 +60,17 @@ export const ProductPanel = () => {
       product?.variants?.filter(
         (variant) =>
           variant.allowed_curriculum?.filter(
-            (curriculum) => curriculum.id === user?.curriculum?.id
-          )?.length ?? 0 > 0
-      )?.length ?? 0 > 0
+            (curriculum) => curriculum.id === user?.curriculum?.id,
+          )?.length ?? 0 > 0,
+      )?.length ?? 0 > 0,
   );
 
   const customSellerNames = ["BDE", "BDS", "SDeC", "WEI"] as const;
   function isInCustomSellerNames(
-    sellerName: string
+    sellerName: string,
   ): sellerName is (typeof customSellerNames)[number] {
     return customSellerNames.includes(
-      sellerName as (typeof customSellerNames)[number]
+      sellerName as (typeof customSellerNames)[number],
     );
   }
   const displaySellerName = (sellerName: string) =>

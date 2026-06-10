@@ -1,13 +1,16 @@
-import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "../useAuth";
-import { useMutation, useQuery } from "@tanstack/react-query";
+
 import {
-  getCompetitionProductsProductIdSchoolsQuotasOptions,
   deleteCompetitionSchoolsSchoolIdProductQuotasProductIdMutation,
+  getCompetitionProductsProductIdSchoolsQuotasOptions,
   patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation,
   postCompetitionSchoolsSchoolIdProductQuotasMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface UseProductsQuotaProps {
   productId: string;

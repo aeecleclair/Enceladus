@@ -1,7 +1,19 @@
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { TeamFormValues } from "@/forms/challenger/team";
+import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSchools } from "@/hooks/useSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -19,17 +31,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useSchools } from "@/hooks/useSchools";
-import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
-import { useEffect, useState } from "react";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { TeamFormValues } from "@/forms/challenger/team";
-import { Shield, Trophy, School, Crown, Users, Flag } from "lucide-react";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+
+import { Crown, Flag, School, Shield, Trophy, Users } from "lucide-react";
 
 interface TeamsFormProps {
   form: UseFormReturn<TeamFormValues>;

@@ -1,6 +1,9 @@
+import { RaidParticipant } from "@/api";
 import { ParticipantInfo } from "@/components/raid/custom/ParticipantInfo";
-import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
+import { formatDate } from "@/lib/dateFormat";
 import { getLabelFromValue, situations } from "@/lib/raid/comboboxValues";
+import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
+
 import {
   Card,
   CardContent,
@@ -8,8 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatDate } from "@/lib/dateFormat";
-import { RaidParticipant } from "@/api";
 
 interface ParticipantInfoTabProps {
   participant: RaidParticipant;

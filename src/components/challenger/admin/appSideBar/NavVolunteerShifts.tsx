@@ -1,9 +1,11 @@
 "use client";
-import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
-import { useRouter } from "@/i18n/navigation";
 import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+import { useRouter } from "@/i18n/navigation";
+
 import { useMemo } from "react";
+
 import { Badge } from "@/components/ui/badge";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 
 export function NavVolunteerShifts() {
   const router = useRouter();

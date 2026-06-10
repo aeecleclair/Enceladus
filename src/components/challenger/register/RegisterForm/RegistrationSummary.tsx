@@ -1,15 +1,17 @@
+import { Purchase } from "@/api";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
 import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { Badge } from "@/components/ui/badge";
-import { Edit, XIcon } from "lucide-react";
-import { CheckCircle2 } from "lucide-react";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
-import { Button } from "@/components/ui/button";
-import { Purchase } from "@/api";
 import { useMeUser } from "@/hooks/useMeUser";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+
+import { Edit, XIcon } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 interface RegistrationSummaryProps {
   onPurchaseEdit?: () => void;

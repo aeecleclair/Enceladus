@@ -1,26 +1,29 @@
 "use client";
 
-import { RaidTeam } from "@/api";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import {
-  HiPencil,
-  HiX,
-  HiOutlineCalendar,
-  HiOutlineLocationMarker,
-} from "react-icons/hi";
-import { useState } from "react";
 import { TeamEdit } from "./TeamEdit";
+import { TeamInfoCard } from "./TeamInfoCard";
+
+import { RaidTeam } from "@/api";
+import { useInformation } from "@/hooks/raid/useInformation";
+import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
 import {
   difficulties,
   difficultyDescriptions,
   getLabelFromValue,
   meetingPlaces,
 } from "@/lib/raid/comboboxValues";
-import { TeamInfoCard } from "./TeamInfoCard";
-import { useInformation } from "@/hooks/raid/useInformation";
-import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
+
+import { useState } from "react";
+import {
+  HiOutlineCalendar,
+  HiOutlineLocationMarker,
+  HiPencil,
+  HiX,
+} from "react-icons/hi";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface TeamCardProps {
   team?: RaidTeam;
@@ -51,7 +54,7 @@ export const TeamCard = ({ team }: TeamCardProps) => {
         information?.raid_start_date && information?.raid_end_date
           ? formatDateRange(
               information.raid_start_date,
-              information.raid_end_date
+              information.raid_end_date,
             )
           : "Dates non renseignées",
       description: "week-end complet",
@@ -63,7 +66,7 @@ export const TeamCard = ({ team }: TeamCardProps) => {
       description: information?.raid_registering_end_date
         ? isRegisteringOpen
           ? `${getDaysLeft(
-              information?.raid_registering_end_date
+              information?.raid_registering_end_date,
             )} jours restants`
           : "Inscriptions fermées"
         : "Date de fin non renseignée",
@@ -74,7 +77,7 @@ export const TeamCard = ({ team }: TeamCardProps) => {
       value: getLabelFromValue(difficulties, team?.difficulty ?? undefined),
       description: getLabelFromValue(
         difficultyDescriptions,
-        team?.difficulty ?? undefined
+        team?.difficulty ?? undefined,
       ),
       unit: undefined,
     },

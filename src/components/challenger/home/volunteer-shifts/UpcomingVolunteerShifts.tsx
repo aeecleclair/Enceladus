@@ -1,11 +1,14 @@
 import { VolunteerRegistrationComplete } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Clock, ChevronDown, ChevronUp } from "lucide-react";
-import { useMemo, useState } from "react";
-import { VolunteerShiftCard } from ".";
 import { useVolunteer } from "@/hooks/challenger/useVolunteer";
+
+import { useMemo, useState } from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { VolunteerShiftCard } from ".";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { ChevronDown, ChevronUp, Clock } from "lucide-react";
 
 interface UpcomingVolunteerShiftsProps {
   shifts: (VolunteerRegistrationComplete & { _shiftStartTime: number })[];

@@ -1,18 +1,20 @@
-import { SchoolExtension, SchoolGeneralQuota, SchoolProductQuota } from "@/api";
+import { GlobalQuotaCard } from "./GlobalQuotaCard";
 import { ParticipantData, ParticipantDataTable } from "./ParticipantDataTable";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Button } from "@/components/ui/button";
+
+import { SchoolExtension, SchoolGeneralQuota, SchoolProductQuota } from "@/api";
 import {
   GetCompetitionProductsResponse,
   GetCompetitionSchoolsSchoolIdProductQuotasResponse,
   GetCompetitionSportsSportIdQuotasResponse,
 } from "@/api";
-import { GlobalQuotaCard } from "./GlobalQuotaCard";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export interface ValidationTabProps {
   school: SchoolExtension | undefined;

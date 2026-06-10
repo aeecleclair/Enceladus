@@ -1,8 +1,8 @@
 "use client";
+import { cn } from "@/lib/utils";
+
 import * as React from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-
-import { cn } from "@/lib/utils";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 

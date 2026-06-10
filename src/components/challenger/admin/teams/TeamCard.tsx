@@ -1,25 +1,27 @@
 "use client";
 
 import { TeamComplete } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  AlertTriangle,
-  Users,
-  Crown,
-  Trophy,
-  Edit,
-  Trash2,
-  Shield,
-  UserCheck,
-  UserX,
-  Star,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useSchools } from "@/hooks/useSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import {
+  AlertTriangle,
+  Crown,
+  Edit,
+  Shield,
+  Star,
+  Trash2,
+  Trophy,
+  UserCheck,
+  UserX,
+  Users,
+} from "lucide-react";
 
 interface TeamCardProps {
   team: TeamComplete;

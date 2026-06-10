@@ -1,14 +1,17 @@
 import { StyledFormField } from "../../../common/StyledFormField";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { UseFormReturn } from "react-hook-form";
-import { RegisteringFormValues } from "@/forms/challenger/registering";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+
 import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
 import { EditProductValues } from "@/forms/challenger/editProducts";
-import { Input } from "@/components/ui/input";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+
 import { useEffect } from "react";
+import { UseFormReturn } from "react-hook-form";
+
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface PackageCardProps {
   form: UseFormReturn<EditProductValues | RegisteringFormValues>;

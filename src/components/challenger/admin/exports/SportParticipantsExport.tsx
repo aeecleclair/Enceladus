@@ -1,3 +1,10 @@
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useAuth } from "@/hooks/useAuth";
+
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,10 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { useEdition } from "@/hooks/challenger/useEdition";
 import {
   Select,
   SelectContent,
@@ -16,9 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSports } from "@/hooks/challenger/useSports";
-import { Download, Trophy, Loader2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+
+import { Download, Loader2, Trophy } from "lucide-react";
 
 export const SportParticipantsExport = () => {
   const { edition } = useEdition();

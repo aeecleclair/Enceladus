@@ -1,5 +1,6 @@
-import { z } from "zod";
 import { SportCategory } from "@/api";
+
+import { z } from "zod";
 
 export const sportCategories = [
   { value: "masculine", label: "Masculin" },

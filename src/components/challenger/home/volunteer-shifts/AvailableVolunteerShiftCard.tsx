@@ -1,6 +1,13 @@
 import { VolunteerShiftComplete } from "@/api";
-import { Button } from "@/components/ui/button";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import {
+  generateLocationColor,
+  getLocationDetails,
+  openLocationMap,
+} from "@/lib/challenger/locationColors";
+
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Tooltip,
@@ -8,23 +15,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-  Clock,
-  MapPin,
-  Calendar,
-  Users,
-  User,
-  Award,
-  ExternalLink,
-} from "lucide-react";
+
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useLocations } from "@/hooks/challenger/useLocations";
 import {
-  generateLocationColor,
-  getLocationDetails,
-  openLocationMap,
-} from "@/lib/challenger/locationColors";
+  Award,
+  Calendar,
+  Clock,
+  ExternalLink,
+  MapPin,
+  User,
+  Users,
+} from "lucide-react";
 
 interface AvailableVolunteerShiftCardProps {
   shift: VolunteerShiftComplete;

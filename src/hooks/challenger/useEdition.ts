@@ -1,13 +1,16 @@
+import { useAuth } from "../useAuth";
+
+import { CompetitionEditionBase } from "@/api";
 import {
   getCompetitionEditionsActiveOptions,
   postCompetitionEditionsEditionIdInscriptionMutation,
   postCompetitionEditionsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { CompetitionEditionBase } from "@/api";
+
+import { useToast } from "@/components/ui/use-toast";
 
 /**
  * Hook for managing the currently active edition

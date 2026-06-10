@@ -1,12 +1,20 @@
 "use client";
 
+import type {
+  VolunteerRegistrationWithUser,
+  VolunteerShiftCompleteWithVolunteers,
+} from "@/api";
+
+import { Badge } from "@/components/ui/badge";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 import {
   Award,
   Calendar,
@@ -16,12 +24,6 @@ import {
   Star,
   XCircle,
 } from "lucide-react";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import type {
-  VolunteerShiftCompleteWithVolunteers,
-  VolunteerRegistrationWithUser,
-} from "@/api";
 
 export interface VolunteerRow {
   userId: string;

@@ -1,3 +1,8 @@
+import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { useDocument } from "@/hooks/challenger/useDocument";
+import { useAuth } from "@/hooks/useAuth";
+
+import Image from "next/image";
 import {
   ControllerRenderProps,
   FieldValues,
@@ -6,12 +11,9 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { DropzoneInput } from "@/components/ui/dropzoneInput";
-import Image from "next/image";
-import { useDocument } from "@/hooks/challenger/useDocument";
-import { RegisteringFormValues } from "@/forms/challenger/registering";
+
 import { se } from "date-fns/locale";
 import { on } from "events";
-import { useAuth } from "@/hooks/useAuth";
 
 interface DocumentDialogProps {
   setIsOpen: (value: boolean) => void;

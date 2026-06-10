@@ -1,6 +1,7 @@
 import { MultiSelect } from "../MultiSelect";
 import { StyledFormField } from "../StyledFormField";
 
+import { LoadingButton } from "@/components/common/LoadingButton";
 import _variantFormSchema from "@/forms/siarnaq/variantFormSchema";
 import { useCurriculums } from "@/hooks/siarnaq/useCurriculums";
 
@@ -11,10 +12,9 @@ import z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { PriceInput } from "@/components/ui/priceInput";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
-import { PriceInput } from "@/components/ui/priceInput";
-import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface AddEditVariantFormProps {
   form: UseFormReturn<z.infer<ReturnType<typeof _variantFormSchema>>>;

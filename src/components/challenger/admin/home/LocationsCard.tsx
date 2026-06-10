@@ -1,3 +1,6 @@
+import { Location } from "@/api";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,13 +8,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Location } from "@/api";
 
 interface LocationsCardProps {
   locations: Location[];

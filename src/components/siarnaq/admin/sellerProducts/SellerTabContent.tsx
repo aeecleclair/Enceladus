@@ -60,7 +60,7 @@ export const SellerTabContent = ({
     ) {
       setExpandedProducts(
         seller.id,
-        products.map((product) => product.id)
+        products.map((product) => product.id),
       );
     }
   }, [
@@ -84,7 +84,7 @@ export const SellerTabContent = ({
               "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (!response.ok) {

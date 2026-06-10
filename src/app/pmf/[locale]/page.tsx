@@ -1,7 +1,7 @@
 "use client";
-import { useMeUser } from "@/hooks/useMeUser";
+import OffersPanel from "@/components/pmf/user/OffersPanel";
 import TestPage from "@/components/pmf/user/TestPage";
-import OffersPanel from "@/components/pmf/user/OffersPanel"
+import { useMeUser } from "@/hooks/useMeUser";
 
 export default function Page() {
   const { user } = useMeUser();

@@ -1,26 +1,30 @@
 import { UserStatusBadges } from "./UserStatusBadges";
 import { MatchCard } from "./matches/MatchCard";
+
+import { Match, MatchComplete } from "@/api";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { useSportMatches } from "@/hooks/challenger/useSportMatches";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useSchools } from "@/hooks/useSchools";
 import { useMeUser } from "@/hooks/useMeUser";
+import { useSchools } from "@/hooks/useSchools";
+import { useRouter } from "@/i18n/navigation";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { useMemo } from "react";
+
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import {
-  Clock,
   Calendar,
+  Clock,
+  GraduationCap,
   Trophy,
   Users,
-  GraduationCap,
   Zap,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "@/i18n/navigation";
-import { useMemo } from "react";
-import { Match, MatchComplete } from "@/api";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface FullyRegisteredDashboardProps {
   edition: {

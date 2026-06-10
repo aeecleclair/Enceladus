@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { EditVariantDialog } from "./EditVariantDialog";
+
 import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useProducts } from "@/hooks/challenger/useProducts";
+
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import {
   Dialog,
   DialogContent,
@@ -17,9 +15,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { MoreVertical, Edit, Trash2, Play, Pause } from "lucide-react";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { EditVariantDialog } from "./EditVariantDialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import { Edit, MoreVertical, Pause, Play, Trash2 } from "lucide-react";
 
 interface VariantOptionsMenuProps {
   variant: AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete;

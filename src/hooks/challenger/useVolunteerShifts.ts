@@ -1,3 +1,9 @@
+import { useAuth } from "../useAuth";
+
+import {
+  VolunteerShiftBase,
+  VolunteerShiftCompleteWithVolunteers,
+} from "@/api";
 import {
   deleteCompetitionVolunteersShiftsShiftIdMutation,
   getCompetitionVolunteersShiftsOptions,
@@ -5,16 +11,14 @@ import {
   patchCompetitionVolunteersShiftsShiftIdUsersUserIdValidationMutation,
   postCompetitionVolunteersShiftsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
-import {
-  VolunteerShiftBase,
-  VolunteerShiftCompleteWithVolunteers,
-} from "@/api";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import { isSameDay, endOfDay } from "date-fns";
+
+import { useToast } from "@/components/ui/use-toast";
+
+import { endOfDay, isSameDay } from "date-fns";
 
 /**
  * Split a VolunteerShiftComplete that spans across multiple days into per-day fragments.

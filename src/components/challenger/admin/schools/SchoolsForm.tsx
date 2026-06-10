@@ -1,6 +1,11 @@
 import { CoreSchool } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
+import { SchoolFormValues } from "@/forms/challenger/schools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { UseFormReturn } from "react-hook-form";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import {
@@ -10,9 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SchoolFormValues } from "@/forms/challenger/schools";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { UseFormReturn } from "react-hook-form";
 
 interface SchoolsFormProps {
   form: UseFormReturn<SchoolFormValues>;

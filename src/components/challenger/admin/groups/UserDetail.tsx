@@ -1,25 +1,27 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { UserGroupMembership, UserGroupMembershipComplete } from "@/api";
+import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import {
-  UserMinus,
   ArrowLeft,
   Edit,
+  IdCard,
+  Mail,
+  School,
+  Settings,
+  Shield,
   Trash2,
   User,
-  Mail,
-  IdCard,
-  School,
-  Shield,
-  Settings,
+  UserMinus,
   Users,
 } from "lucide-react";
-import { UserGroupMembership, UserGroupMembershipComplete } from "@/api";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
 
 interface UserDetailProps {
   user: UserGroupMembershipComplete;

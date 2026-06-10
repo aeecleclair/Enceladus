@@ -1,5 +1,3 @@
-import { PaymentPart } from "@/components/siarnaq/custom/Payment/PaymentPart";
-import { ProductPart } from "@/components/siarnaq/custom/Product/ProductPart";
 import { MigrateUserForm } from "./MigrateUserForm";
 
 import {
@@ -11,6 +9,8 @@ import {
 } from "@/api";
 import { CustomDialog } from "@/components/common/CustomDialog";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { PaymentPart } from "@/components/siarnaq/custom/Payment/PaymentPart";
+import { ProductPart } from "@/components/siarnaq/custom/Product/ProductPart";
 import { TextSeparator } from "@/components/siarnaq/custom/TextSeparator";
 import UserDisplayName from "@/components/siarnaq/custom/displayName";
 import _migrateUserFormSchema from "@/forms/siarnaq/migrateUserFormSchema";
@@ -58,7 +58,7 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const hasUserCurriculum = !!user.curriculum?.id;
   const [selectedCurriculum, setSelectedCurriculum] = useState(
-    user.curriculum?.id
+    user.curriculum?.id,
   );
 
   const validEmailRegex = /^[\w\-.]*@etu(-enise)?\.ec-lyon\.fr$/;
@@ -137,7 +137,7 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
       nickname: values.nickname,
       floor: values.floor,
       email:
-        values.email ?? validEmailRegex.test(values.email!)
+        (values.email ?? validEmailRegex.test(values.email!))
           ? values.email
           : null,
       // promo: values.promo ? parseInt(values.promo) : undefined,

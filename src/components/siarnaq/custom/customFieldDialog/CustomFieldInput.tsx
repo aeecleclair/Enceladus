@@ -32,7 +32,7 @@ export const CustomFieldInput = ({
     sellerId,
     productId,
     userId,
-    field.id
+    field.id,
   );
   useEffect(() => {
     if ("value" in response) {

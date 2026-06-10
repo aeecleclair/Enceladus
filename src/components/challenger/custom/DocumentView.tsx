@@ -1,10 +1,12 @@
 "use client";
 
 import { useDocument } from "@/hooks/challenger/useDocument";
+
 import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
 import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface DocumentViewProps {
   documentKey: string;

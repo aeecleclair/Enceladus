@@ -1,6 +1,11 @@
-import { SecurityFile, Size, Document, DocumentValidation } from "@/api";
+import { DocumentView } from "./DocumentView";
+
+import { Document, DocumentValidation, SecurityFile, Size } from "@/api";
+import { SecurityFileDialogView } from "@/components/raid/home/participantView/SecurityFileDialogView";
+import { useDocument } from "@/hooks/raid/useDocument";
+
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Dialog,
   DialogContent,
@@ -8,18 +13,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { DocumentView } from "./DocumentView";
-import { useDocument } from "@/hooks/raid/useDocument";
-import { SecurityFileDialogView } from "@/components/raid/home/participantView/SecurityFileDialogView";
-import PhoneInput from "react-phone-input-2";
-import { BadgeAlertIcon, CheckIcon, ClockIcon, XIcon } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+
+import { BadgeAlertIcon, CheckIcon, ClockIcon, XIcon } from "lucide-react";
+import PhoneInput from "react-phone-input-2";
 
 type ValueType =
   | string

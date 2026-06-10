@@ -1,15 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
-import { Trophy, CheckCircle2 } from "lucide-react";
+
+import { CheckCircle2, Trophy } from "lucide-react";
 
 interface EndMatchDialogProps {
   open: boolean;

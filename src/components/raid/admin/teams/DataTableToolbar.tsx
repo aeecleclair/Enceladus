@@ -1,21 +1,23 @@
 "use client";
 
+import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
+import { DataTableFilterCheckBox } from "./DataTableFilterCheckBox";
+import { DataTableViewOptions } from "./DataTableViewOptions";
+
+import { RaidTeamPreview } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
+import { useTeams } from "@/hooks/raid/useTeams";
+import { difficulties, meetingPlaces } from "@/lib/raid/comboboxValues";
+
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
-import { DataTableViewOptions } from "./DataTableViewOptions";
-import { difficulties, meetingPlaces } from "@/lib/raid/comboboxValues";
-import { DataTableFilterCheckBox } from "./DataTableFilterCheckBox";
-import { RaidTeamPreview } from "@/api";
-import { LoadingButton } from "@/components/common/LoadingButton";
 import { MergeIcon, Trash2Icon } from "lucide-react";
-import { useTeams } from "@/hooks/raid/useTeams";
-import { useState } from "react";
-import { WarningDialog } from "@/components/common/WarningDialog";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -98,7 +100,7 @@ export function DataTableToolbar<TData>({
               <LoadingButton
                 onClick={() => {
                   const selectedTeams = Object.keys(
-                    table.getState().rowSelection
+                    table.getState().rowSelection,
                   ).map((key) => table.getRow(key).original as RaidTeamPreview);
                   const teamIds = selectedTeams.map((team) => team.id);
                   mergeTeams(teamIds[0], teamIds[1], () => {

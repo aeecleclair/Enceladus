@@ -1,4 +1,5 @@
-import { CustomDialog } from "@/components/common/CustomDialog";
+import { Answer } from "../customFieldDialog/CustomFieldInput";
+import { CustomFieldsDialog } from "../customFieldDialog/CustomFieldsDialog";
 import { AddEditVariantForm } from "./AddEditVariantForm";
 
 import {
@@ -9,6 +10,8 @@ import {
   patchCdrSellersSellerIdProductsProductIdVariantsVariantId,
   postCdrSellersSellerIdProductsProductIdUsersUserIdDataFieldId,
 } from "@/api";
+import { CustomDialog } from "@/components/common/CustomDialog";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import _variantFormSchema from "@/forms/siarnaq/variantFormSchema";
 import { useSellerProductData } from "@/hooks/siarnaq/useSellerProductData";
 import { getModifiedFields } from "@/lib/siarnaq-utils";
@@ -33,9 +36,6 @@ import {
   StopIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { Answer } from "../customFieldDialog/CustomFieldInput";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { CustomFieldsDialog } from "../customFieldDialog/CustomFieldsDialog";
 
 interface VariantCardOptionsProps {
   variant: AppModulesCdrSchemasCdrProductVariantComplete;
@@ -120,7 +120,7 @@ export const VariantCardOptions = ({
     setIsLoading(true);
 
     const added_duration = values.related_membership_added_duration?.match(
-      /^P?((\d+Y)?(\d+M)?(\d+D)?)$/
+      /^P?((\d+Y)?(\d+M)?(\d+D)?)$/,
     );
 
     // Valeurs transformées comme attendues par l'API
@@ -223,7 +223,7 @@ export const VariantCardOptions = ({
             },
           });
         }
-      })
+      }),
     );
     setIsInfoDialogOpened(false);
     setIsLoading(false);

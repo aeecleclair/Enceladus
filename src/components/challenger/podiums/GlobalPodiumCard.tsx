@@ -1,10 +1,12 @@
 "use client";
 
 import { SchoolResult } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy } from "lucide-react";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Trophy } from "lucide-react";
 
 interface GlobalPodiumCardProps {
   results: SchoolResult[];

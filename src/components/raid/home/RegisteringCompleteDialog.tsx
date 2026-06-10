@@ -1,10 +1,12 @@
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StatusDialog } from "@/components/raid/custom/StatusDialog";
 import { useDocument } from "@/hooks/raid/useDocument";
 import { useInformation } from "@/hooks/raid/useInformation";
-import { useState } from "react";
-import { StatusDialog } from "@/components/raid/custom/StatusDialog";
-import { useToast } from "@/components/ui/use-toast";
+
 import { useRouter } from "next/navigation";
-import { LoadingButton } from "@/components/common/LoadingButton";
+import { useState } from "react";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface RegisteringCompleteDialogProps {
   isOpened: boolean;

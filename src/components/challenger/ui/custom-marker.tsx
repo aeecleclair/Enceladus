@@ -1,11 +1,15 @@
 "use client";
 
+import { LocationComplete } from "@/api";
+import { LocationFormData, locationSchema } from "@/forms/challenger/location";
+import { cn } from "@/lib/utils";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
+
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,23 +18,22 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+
 import {
-  MapPin,
   Check,
-  Trash2,
-  Navigation,
-  ExternalLink,
   Edit,
-  Save,
-  X,
+  ExternalLink,
+  MapPin,
+  Navigation,
   Plus,
+  Save,
   Star,
+  Trash2,
+  X,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { locationSchema, LocationFormData } from "@/forms/challenger/location";
-import { LocationComplete } from "@/api";
 
 interface CustomMarkerProps {
   latitude: number;

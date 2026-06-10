@@ -1,6 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CompetitionEditionStats } from "@/api";
-import { Users, CreditCard, Wallet, Trophy, Swords, Flag } from "lucide-react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { CreditCard, Flag, Swords, Trophy, Users, Wallet } from "lucide-react";
 
 interface PaymentStatsCardProps {
   stats: CompetitionEditionStats;

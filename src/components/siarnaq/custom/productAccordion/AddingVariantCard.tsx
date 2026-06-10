@@ -1,11 +1,10 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { CustomDialog } from "@/components/common/CustomDialog";
 import { AddEditVariantForm } from "./AddEditVariantForm";
 
 import {
   AppModulesCdrSchemasCdrProductVariantBase,
   postCdrSellersSellerIdProductsProductIdVariants,
 } from "@/api";
+import { CustomDialog } from "@/components/common/CustomDialog";
 import _variantFormSchema from "@/forms/siarnaq/variantFormSchema";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { HiPlus } from "react-icons/hi2";
 import z from "zod";
 
+import { Card, CardContent } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -54,7 +54,7 @@ export const AddingVariantCard = ({
   async function onSubmit(values: z.infer<typeof variantFormSchema>) {
     setIsLoading(true);
     const added_duration = values.related_membership_added_duration?.match(
-      /^P?((\d+Y)?(\d+M)?(\d+D)?)$/
+      /^P?((\d+Y)?(\d+M)?(\d+D)?)$/,
     );
     const body: AppModulesCdrSchemasCdrProductVariantBase = {
       ...values,

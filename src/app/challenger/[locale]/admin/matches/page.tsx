@@ -1,24 +1,25 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { useSportMatches } from "@/hooks/challenger/useSportMatches";
-import { useSports } from "@/hooks/challenger/useSports";
 import MatchCard from "@/components/challenger/admin/matches/MatchCard";
 import { WarningDialog } from "@/components/common/WarningDialog";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useRouter } from "@/i18n/navigation";
+
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
-  Plus,
-  CalendarIcon,
-  Search,
-  Trophy,
-  Clock,
-  CheckCircle,
-  Filter,
-} from "lucide-react";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -26,15 +27,17 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
-import { useRouter } from "@/i18n/navigation";
+
+import {
+  CalendarIcon,
+  CheckCircle,
+  Clock,
+  Filter,
+  Plus,
+  Search,
+  Trophy,
+} from "lucide-react";
 
 const MatchesDashboard = () => {
   const router = useRouter();

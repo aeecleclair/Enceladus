@@ -1,34 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  Locale,
-  addDays,
-  addHours,
-  addMonths,
-  addWeeks,
-  addYears,
-  differenceInMinutes,
-  format,
-  getMonth,
-  isSameDay,
-  isSameHour,
-  isSameMonth,
-  isToday,
-  setHours,
-  setMonth,
-  startOfMonth,
-  startOfWeek,
-  subDays,
-  subMonths,
-  subWeeks,
-  subYears,
-  isWithinInterval,
-  startOfDay,
-  endOfDay,
-} from "date-fns";
-import { enUS } from "date-fns/locale/en-US";
+
 import {
   ReactNode,
   createContext,
@@ -38,6 +11,36 @@ import {
   useMemo,
   useState,
 } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import {
+  Locale,
+  addDays,
+  addHours,
+  addMonths,
+  addWeeks,
+  addYears,
+  differenceInMinutes,
+  endOfDay,
+  format,
+  getMonth,
+  isSameDay,
+  isSameHour,
+  isSameMonth,
+  isToday,
+  isWithinInterval,
+  setHours,
+  setMonth,
+  startOfDay,
+  startOfMonth,
+  startOfWeek,
+  subDays,
+  subMonths,
+  subWeeks,
+  subYears,
+} from "date-fns";
+import { enUS } from "date-fns/locale/en-US";
 
 type View = "day" | "week" | "month" | "year";
 

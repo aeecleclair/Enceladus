@@ -1,21 +1,23 @@
 "use client";
 
+import { VolunteerShiftComplete } from "@/api";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 import {
   Calendar,
   Clock,
-  MapPin,
-  Users,
-  User,
   Edit,
-  Trash2,
   ExternalLink,
+  MapPin,
+  Trash2,
+  User,
+  Users,
 } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import { VolunteerShiftComplete } from "@/api";
 
 interface VolunteerShiftCardProps {
   shift: VolunteerShiftComplete;

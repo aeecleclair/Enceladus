@@ -1,16 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { CompetitionUser, CompetitionUserEdit, SportCategory } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+
+import { useEffect, useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 import {
   Select,
   SelectContent,
@@ -18,9 +21,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LoadingButton } from "@/components/common/LoadingButton";
+import { Switch } from "@/components/ui/switch";
+
 import { Pencil } from "lucide-react";
-import { CompetitionUser, CompetitionUserEdit, SportCategory } from "@/api";
 
 interface EditCompetitionUserDialogProps {
   open: boolean;

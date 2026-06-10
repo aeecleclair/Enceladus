@@ -1,15 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import { useSports } from "@/hooks/challenger/useSports";
-import { usePompomsPodiums } from "@/hooks/challenger/usePompomsPodiums";
-import { useSportPodiums } from "@/hooks/challenger/useSportsPodiums";
-import { usePodiums } from "@/hooks/challenger/usePodiums";
-import { SportsDataTable } from "@/components/challenger/admin/podiums/SportsDataTable";
-import { PodiumRankingsForm } from "@/components/challenger/admin/podiums/PodiumRankingsForm";
 import { GlobalPodiumCard } from "@/components/challenger/admin/podiums/GlobalPodiumCard";
+import { PodiumRankingsForm } from "@/components/challenger/admin/podiums/PodiumRankingsForm";
+import { SportsDataTable } from "@/components/challenger/admin/podiums/SportsDataTable";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { usePompomsPodiums } from "@/hooks/challenger/usePompomsPodiums";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSportPodiums } from "@/hooks/challenger/useSportsPodiums";
+import { useSchools } from "@/hooks/useSchools";
+
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -25,7 +27,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSchools } from "@/hooks/useSchools";
+
+import { Plus } from "lucide-react";
 
 export default function PodiumsPage() {
   const { sports, error: sportsError } = useSports();

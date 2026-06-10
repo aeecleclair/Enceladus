@@ -1,5 +1,10 @@
 "use client";
 
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSchools } from "@/hooks/useSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
 import { Button } from "@/components/ui/button";
 import {
   FormControl,
@@ -16,11 +21,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import { Trash2 } from "lucide-react";
-import { useSchools } from "@/hooks/useSchools";
-import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface RankingRowProps {
   form: any;

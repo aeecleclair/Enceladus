@@ -1,15 +1,17 @@
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useInviteToken } from "@/hooks/raid/useInviteToken";
+import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
+
 import { DialogDescription } from "@radix-ui/react-dialog";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
-import { useInviteToken } from "@/hooks/raid/useInviteToken";
-import { useMeTeam } from "@/hooks/raid/useMeTeam";
-import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface JoinTeamDialogProps {
   isOpened: boolean;

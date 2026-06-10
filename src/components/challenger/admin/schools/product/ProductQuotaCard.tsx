@@ -1,15 +1,19 @@
 "use client";
 
+import { ProductQuotaDataTable } from "./ProductQuotaDataTable";
+import { ProductQuotaDialog } from "./ProductQuotaDialog";
+
 import { SchoolExtension, SchoolProductQuotaBase } from "@/api";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ProductQuotaFormValues } from "@/forms/challenger/productQuota";
 import { useProducts } from "@/hooks/challenger/useProducts";
 import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuota";
-import { Package, Plus } from "lucide-react";
+
 import { useState } from "react";
-import { ProductQuotaDataTable } from "./ProductQuotaDataTable";
-import { ProductQuotaDialog } from "./ProductQuotaDialog";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Package, Plus } from "lucide-react";
 
 interface ProductQuotaCardProps {
   school: SchoolExtension;

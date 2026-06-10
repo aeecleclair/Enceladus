@@ -1,6 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { CoreUserSimple } from "@/api";
+import { useUserSearch } from "@/hooks/useUsersSearch";
+import { cn } from "@/lib/utils";
+
+import { useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,10 +17,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
 import { Check, Loader2, Search, UserPlus } from "lucide-react";
-import { useUserSearch } from "@/hooks/useUsersSearch";
-import { cn } from "@/lib/utils";
-import { CoreUserSimple } from "@/api";
 
 interface AddUserDialogProps {
   isOpen: boolean;

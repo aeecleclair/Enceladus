@@ -1,6 +1,7 @@
 "use client";
 
-import * as React from "react";
+import { fuzzyFilter } from "@/lib/utils";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +14,18 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import * as React from "react";
+
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -24,22 +36,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { ArrowUpDown, MoreHorizontal, Pencil, Trash } from "lucide-react";
-import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { fuzzyFilter } from "@/lib/utils";
+
+import { ArrowUpDown, MoreHorizontal, Pencil, Trash } from "lucide-react";
 
 // Extended QuotaInfo with schoolId and schoolName
 export interface QuotaWithSchool {

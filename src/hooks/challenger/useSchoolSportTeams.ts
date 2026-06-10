@@ -1,14 +1,17 @@
-import { getCompetitionTeamsSportsSportIdSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
+
 import { Team, TeamEdit, TeamInfo } from "@/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { getCompetitionTeamsSportsSportIdSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
 import {
   deleteCompetitionTeamsTeamIdMutation,
   patchCompetitionTeamsTeamIdMutation,
   postCompetitionTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface UseSchoolSportTeamsProps {
   schoolId?: string;

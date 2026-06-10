@@ -1,12 +1,24 @@
 "use client";
 
-import { useMemo, useState, useEffect, useCallback } from "react";
-import { Search, Filter } from "lucide-react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
+import { PastMatches } from "@/components/challenger/home/matches/PastMatches";
+import { UpcomingMatches } from "@/components/challenger/home/matches/UpcomingMatches";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useAllTeams } from "@/hooks/challenger/useAllTeams";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSportTeams } from "@/hooks/challenger/useSportTeams";
+import { useSports } from "@/hooks/challenger/useSports";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -14,25 +26,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Badge } from "@/components/ui/badge";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-import { UpcomingMatches } from "@/components/challenger/home/matches/UpcomingMatches";
-import { PastMatches } from "@/components/challenger/home/matches/PastMatches";
-import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
-
-import { useSports } from "@/hooks/challenger/useSports";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useAllMatches } from "@/hooks/challenger/useAllMatches";
-import { useAllTeams } from "@/hooks/challenger/useAllTeams";
-import { useSportTeams } from "@/hooks/challenger/useSportTeams";
-import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
+import { Filter, Search } from "lucide-react";
 
 interface FilterState {
   sport: string;

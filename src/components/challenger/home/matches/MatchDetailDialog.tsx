@@ -1,26 +1,28 @@
-import {
-  Calendar,
-  Clock,
-  MapPin,
-  Trophy,
-  Timer,
-  ExternalLink,
-} from "lucide-react";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useSports } from "@/hooks/challenger/useSports";
+import { openLocationMap } from "@/lib/challenger/locationColors";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import { useAllMatches } from "@/hooks/challenger/useAllMatches";
-import { useSports } from "@/hooks/challenger/useSports";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { openLocationMap } from "@/lib/challenger/locationColors";
+import { Separator } from "@/components/ui/separator";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import {
+  Calendar,
+  Clock,
+  ExternalLink,
+  MapPin,
+  Timer,
+  Trophy,
+} from "lucide-react";
 
 interface MatchDetailDialogProps {
   matchId: string;

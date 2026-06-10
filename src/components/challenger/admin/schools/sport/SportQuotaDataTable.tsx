@@ -1,5 +1,21 @@
 "use client";
 
+import { fuzzyFilter } from "@/lib/utils";
+
+import {
+  ColumnDef,
+  ColumnFiltersState,
+  SortingState,
+  VisibilityState,
+  flexRender,
+  getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import * as React from "react";
+
 import { Button } from "@/components/ui/button";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import {
@@ -25,21 +41,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { fuzzyFilter } from "@/lib/utils";
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
+
 import { ArrowUpDown, MoreHorizontal, Pencil, Trash } from "lucide-react";
-import * as React from "react";
 
 // Extended QuotaInfo with sportId and sportName
 export interface QuotaWithSport {

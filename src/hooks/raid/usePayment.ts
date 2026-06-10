@@ -2,6 +2,7 @@ import {
   postRaidParticipantParticipantIdPaymentMutation,
   postRaidParticipantParticipantIdTShirtPaymentMutation,
 } from "@/api/@tanstack/react-query.gen";
+
 import { useMutation } from "@tanstack/react-query";
 
 export const usePayment = () => {
@@ -17,7 +18,7 @@ export const usePayment = () => {
           participant_id: participantId,
         },
       },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 
@@ -30,7 +31,7 @@ export const usePayment = () => {
 
   const validateTShirtPayment = (
     participantId: string,
-    callback: () => void
+    callback: () => void,
   ) => {
     mutateValidateTShirtPayment(
       {
@@ -38,7 +39,7 @@ export const usePayment = () => {
           participant_id: participantId,
         },
       },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 

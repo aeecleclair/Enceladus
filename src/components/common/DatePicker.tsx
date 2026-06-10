@@ -1,18 +1,20 @@
 "use client";
 
-import * as React from "react";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon } from "lucide-react";
-import { fr } from "date-fns/locale";
-
 import { cn } from "@/lib/utils";
+
+import * as React from "react";
+
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import { Calendar as CalendarIcon } from "lucide-react";
 import { before } from "node:test";
 
 interface DatePickerProps {
@@ -38,7 +40,7 @@ export function DatePicker({
           variant={"outline"}
           className={cn(
             "w-full justify-start text-left font-normal",
-            !date && "text-muted-foreground"
+            !date && "text-muted-foreground",
           )}
           type="button"
         >

@@ -1,37 +1,39 @@
-import {
-  Calendar,
-  Clock,
-  MapPin,
-  Users,
-  User,
-  Award,
-  UserPlus,
-  UserMinus,
-  ExternalLink,
-  CheckCircle,
-  Timer,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
+import { VolunteerShiftComplete } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useLocations } from "@/hooks/challenger/useLocations";
 import { useVolunteer } from "@/hooks/challenger/useVolunteer";
 import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { VolunteerShiftComplete } from "@/api";
+import {
+  generateLocationColor,
+  getLocationDetails,
+  openLocationMap,
+} from "@/lib/challenger/locationColors";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { Separator } from "@/components/ui/separator";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 import {
-  generateLocationColor,
-  getLocationDetails,
-  openLocationMap,
-} from "@/lib/challenger/locationColors";
-import { LoadingButton } from "@/components/common/LoadingButton";
+  Award,
+  Calendar,
+  CheckCircle,
+  Clock,
+  ExternalLink,
+  MapPin,
+  Timer,
+  User,
+  UserMinus,
+  UserPlus,
+  Users,
+} from "lucide-react";
 
 interface UserVolunteerShiftDetailProps {
   shiftId: string;

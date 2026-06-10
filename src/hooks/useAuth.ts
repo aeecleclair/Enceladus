@@ -1,14 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { useCodeVerifierStore } from "../stores/codeVerifier";
-import { useTokenStore } from "@/stores/token";
-import { BodyTokenAuthTokenPost, TokenResponse } from "@/api/types.gen";
-import { stringify } from "querystring";
-import axios from "axios";
 import { useWebsite } from "./useWebsite";
+
+import { BodyTokenAuthTokenPost, TokenResponse } from "@/api/types.gen";
+import { useTokenStore } from "@/stores/token";
+
+import { useQuery } from "@tanstack/react-query";
+import { usePathname, useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+
+import axios from "axios";
+import { stringify } from "querystring";
 
 const clientId: string = process.env.NEXT_PUBLIC_CLIENT_ID || "Challenger";
 const backUrl: string =

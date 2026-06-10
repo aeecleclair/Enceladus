@@ -1,12 +1,15 @@
-import { Card } from "@/components/ui/card";
 import { ParticipantDocumentCard } from "./ParticipantDocumentCard";
+
+import { Document, DocumentValidation, RaidParticipant, RaidTeam } from "@/api";
 import { DocumentView } from "@/components/raid/custom/DocumentView";
-import { useState } from "react";
-import { useDocument } from "@/hooks/raid/useDocument";
 import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
-import { useToast } from "@/components/ui/use-toast";
+import { useDocument } from "@/hooks/raid/useDocument";
 import { useTeams } from "@/hooks/raid/useTeams";
-import { RaidTeam, Document, RaidParticipant, DocumentValidation } from "@/api";
+
+import { useState } from "react";
+
+import { Card } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DocumentTabProps {
   team: RaidTeam;
@@ -19,7 +22,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
   const { refetchTeam } = useAdminTeam(team.id);
   const { refetchTeams } = useTeams();
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(
-    null
+    null,
   );
   const [selectedDocumentUser, setSelectedDocumentUser] = useState<
     string | null
@@ -48,7 +51,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
   function validateCallback(
     documentId: string,
     validation: DocumentValidation,
-    callback: () => void
+    callback: () => void,
   ) {
     setDocumentValidation(documentId, validation, () => {
       refetchTeam();

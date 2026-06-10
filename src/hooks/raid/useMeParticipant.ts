@@ -1,8 +1,6 @@
-import { useToast } from "@/components/ui/use-toast";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useHasRaidPermission } from "./useHasRaidPermission";
 import { useAuth } from "../useAuth";
-import { useParticipantStore } from "@/stores/raid/particpant";
+import { useHasRaidPermission } from "./useHasRaidPermission";
+
 import { RaidParticipantBase, RaidParticipantUpdate } from "@/api";
 import {
   getRaidParticipantsParticipantIdOptions,
@@ -10,6 +8,11 @@ import {
   patchRaidParticipantsParticipantIdMutation,
   postRaidParticipantsMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useParticipantStore } from "@/stores/raid/particpant";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useMeParticipant = () => {
   const { token, userId, isTokenExpired } = useAuth();
@@ -61,13 +64,13 @@ export const useMeParticipant = () => {
 
   const createParticipant = (
     participant: RaidParticipantBase,
-    callback: () => void
+    callback: () => void,
   ) => {
     mutateCreateParticipant(
       {
         body: participant,
       },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 
@@ -97,7 +100,7 @@ export const useMeParticipant = () => {
   const updateParticipant = (
     participant: RaidParticipantUpdate,
     participantId: string,
-    callback: () => void
+    callback: () => void,
   ) => {
     mutateUpdateParticipant(
       {
@@ -111,7 +114,7 @@ export const useMeParticipant = () => {
           refetch();
           callback();
         },
-      }
+      },
     );
   };
 

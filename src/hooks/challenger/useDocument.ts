@@ -1,9 +1,13 @@
-import axios from "axios";
-import { getCompetitionParticipantsUsersUserIdCertificateOptions } from "@/api/@tanstack/react-query.gen";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
 import { useHasChallengerPermission } from "./useHasChallengerPermission";
+
+import { getCompetitionParticipantsUsersUserIdCertificateOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
+
+import axios from "axios";
 
 export const useDocument = (userId: string | null) => {
   const backUrl: string =

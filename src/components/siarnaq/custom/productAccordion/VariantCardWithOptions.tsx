@@ -1,9 +1,10 @@
+import { VariantCard } from "../VariantCard";
+import { VariantCardOptions } from "./VariantCardOptions";
+
 import {
   AppModulesCdrSchemasCdrProductComplete,
   AppModulesCdrSchemasCdrProductVariantComplete,
 } from "@/api";
-import { VariantCard } from "../VariantCard";
-import { VariantCardOptions } from "./VariantCardOptions";
 
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 

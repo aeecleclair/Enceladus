@@ -1,8 +1,7 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useMeParticipant } from "./useMeParticipant";
-import { useToast } from "@/components/ui/use-toast";
-import { useHasRaidPermission } from "./useHasRaidPermission";
 import { useAuth } from "../useAuth";
+import { useHasRaidPermission } from "./useHasRaidPermission";
+import { useMeParticipant } from "./useMeParticipant";
+
 import { RaidTeamBase, RaidTeamUpdate } from "@/api";
 import {
   getRaidParticipantsParticipantIdTeamOptions,
@@ -10,6 +9,10 @@ import {
   patchRaidTeamsTeamIdMutation,
   postRaidTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useMeTeam = () => {
   const { userId, isTokenExpired } = useAuth();
@@ -68,7 +71,7 @@ export const useMeTeam = () => {
       {
         body: team,
       },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 
@@ -86,7 +89,7 @@ export const useMeTeam = () => {
   const updateTeam = (
     teamId: string,
     callback: () => void,
-    team: RaidTeamUpdate
+    team: RaidTeamUpdate,
   ) => {
     mutateUpdateTeam(
       {
@@ -95,7 +98,7 @@ export const useMeTeam = () => {
           team_id: teamId,
         },
       },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 

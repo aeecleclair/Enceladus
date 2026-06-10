@@ -1,13 +1,16 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "../useAuth";
 import { useHasRaidPermission } from "./useHasRaidPermission";
+
 import {
   deleteRaidTeamsTeamIdMutation,
   getRaidTeamsTeamIdOptions,
   getRaidTeamsTeamIdQueryKey,
   postRaidTeamsTeamIdKickParticipantIdMutation,
 } from "@/api/@tanstack/react-query.gen";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useAdminTeam = (teamId: string) => {
   const { isTokenExpired } = useAuth();
@@ -60,14 +63,14 @@ export const useAdminTeam = (teamId: string) => {
   const kickMember = (participantId: string, callback: () => void) => {
     mutateKickMember(
       { path: { team_id: teamId, participant_id: participantId } },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 
   const deleteTeam = (callback: () => void) => {
     mutateDeleteTeam(
       { path: { team_id: teamId } },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 

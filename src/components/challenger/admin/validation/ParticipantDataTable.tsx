@@ -1,6 +1,26 @@
 "use client";
 
-import * as React from "react";
+import { CancelCompetitionUserDialog } from "../../admin/users/CancelCompetitionUserDialog";
+import { ChangeUserSportDialog } from "../../admin/users/ChangeUserSportDialog";
+import { ChangeUserTeamDialog } from "../../admin/users/ChangeUserTeamDialog";
+import { ConfirmActionDialog } from "../../admin/users/ConfirmActionDialog";
+import { EditCompetitionUserDialog } from "../../admin/users/EditCompetitionUserDialog";
+import { AddPaymentDialog } from "./AddPaymentDialog";
+import { DataTableToolbar } from "./DataTableToolbar";
+import { RequiredPurchase, UserProductsCell } from "./UserProductsCell";
+
+import {
+  AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
+  AppModulesSportCompetitionSchemasSportCompetitionProductComplete,
+  AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
+  CompetitionUserEdit,
+} from "@/api";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { useUserPayments } from "@/hooks/challenger/useUserPayments";
+import { fuzzyFilter } from "@/lib/utils";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +33,19 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import Link from "next/link";
+import * as React from "react";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -23,55 +55,27 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import {
-  ArrowUpDown,
-  CheckCircle,
-  MoreHorizontal,
-  UserPlus,
-  Users,
-  XCircle,
-  Trash2,
-  Ban,
-  Shuffle,
-  Users2,
-  Pencil,
-} from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
-import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { DataTableToolbar } from "./DataTableToolbar";
-import { RequiredPurchase, UserProductsCell } from "./UserProductsCell";
-import { useProducts } from "@/hooks/challenger/useProducts";
-import {
-  AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
-  AppModulesSportCompetitionSchemasSportCompetitionProductComplete,
-  AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
-  CompetitionUserEdit,
-} from "@/api";
-import { AddPaymentDialog } from "./AddPaymentDialog";
-import { ConfirmActionDialog } from "../../admin/users/ConfirmActionDialog";
-import { CancelCompetitionUserDialog } from "../../admin/users/CancelCompetitionUserDialog";
-import { EditCompetitionUserDialog } from "../../admin/users/EditCompetitionUserDialog";
-import { ChangeUserSportDialog } from "../../admin/users/ChangeUserSportDialog";
-import { ChangeUserTeamDialog } from "../../admin/users/ChangeUserTeamDialog";
-import { CreditCard } from "lucide-react";
-import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
-import { useUserPayments } from "@/hooks/challenger/useUserPayments";
-import Link from "next/link";
-import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { useToast } from "@/components/ui/use-toast";
-import { fuzzyFilter } from "@/lib/utils";
+
+import {
+  ArrowUpDown,
+  Ban,
+  CheckCircle,
+  MoreHorizontal,
+  Pencil,
+  Shuffle,
+  Trash2,
+  UserPlus,
+  Users,
+  Users2,
+  XCircle,
+} from "lucide-react";
+import { CreditCard } from "lucide-react";
 
 export interface ParticipantData {
   userId: string;

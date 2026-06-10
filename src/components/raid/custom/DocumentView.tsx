@@ -2,18 +2,20 @@
 
 import { useDocument } from "@/hooks/raid/useDocument";
 import { useDocumentsStore } from "@/stores/raid/documents";
-import Image from "next/image";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
+
 import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useState } from "react";
+
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PdfViewer = dynamic(
   () => import("./PdfViewer").then((mod) => mod.PdfViewer),
   {
     ssr: false,
     loading: () => <Skeleton className="w-full h-80" />,
-  }
+  },
 );
 
 interface DocumentViewProps {

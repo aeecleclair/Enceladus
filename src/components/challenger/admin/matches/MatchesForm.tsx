@@ -1,7 +1,23 @@
+import { EndMatchDialog } from "./EndMatchDialog";
+
+import { DateTimePicker } from "@/components/challenger/custom/DateTimePicker";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { MatchFormValues } from "@/forms/challenger/match";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSports } from "@/hooks/challenger/useSports";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -19,32 +35,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import { DateTimePicker } from "@/components/challenger/custom/DateTimePicker";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { useEffect, useState } from "react";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { MatchFormValues } from "@/forms/challenger/match";
+
 import {
-  Trophy,
   Calendar,
-  MapPin,
-  Users,
-  Target,
-  School,
-  Gamepad2,
-  Flag,
   CheckCircle2,
+  Flag,
+  Gamepad2,
+  MapPin,
+  School,
+  Target,
+  Trophy,
+  Users,
 } from "lucide-react";
-import { EndMatchDialog } from "./EndMatchDialog";
 import { RotateCcw } from "lucide-react";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface MatchesFormProps {
   form: UseFormReturn<MatchFormValues>;

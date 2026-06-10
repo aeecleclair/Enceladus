@@ -1,5 +1,5 @@
-import { CarouselItem } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import { CarouselItem } from "@/components/ui/carousel";
 
 interface CardTemplateProps {
   children?: React.ReactNode;

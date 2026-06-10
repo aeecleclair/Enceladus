@@ -1,13 +1,16 @@
-import { getCompetitionPodiumsPompomsOptions } from "@/api/@tanstack/react-query.gen";
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
-import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { SchoolResult } from "@/api";
+import { getCompetitionPodiumsPompomsOptions } from "@/api/@tanstack/react-query.gen";
 import {
   deleteCompetitionPodiumsPompomsMutation,
   postCompetitionPodiumsPompomsMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
-import { SchoolResult } from "@/api";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const usePompomsPodiums = () => {
   const { isTokenExpired } = useAuth();

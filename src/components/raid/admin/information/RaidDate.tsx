@@ -1,12 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { RangeDatePicker } from "../../custom/RangeDatePicker";
-import { DateRange } from "react-day-picker";
-import { apiFormatDate, formatDateRange } from "@/lib/dateFormat";
 import { CardLayout } from "./CardLayout";
-import { useInformation } from "@/hooks/raid/useInformation";
-import { toDate } from "date-fns";
+
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { useInformation } from "@/hooks/raid/useInformation";
+import { apiFormatDate, formatDateRange } from "@/lib/dateFormat";
+
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import { toDate } from "date-fns";
+import { DateRange } from "react-day-picker";
 
 export const RaidDate = () => {
   const { information, updateInformation } = useInformation();
@@ -18,7 +22,7 @@ export const RaidDate = () => {
           from: toDate(information.raid_start_date),
           to: toDate(information.raid_end_date),
         }
-      : undefined
+      : undefined,
   );
 
   function toggleEdit() {
@@ -33,7 +37,7 @@ export const RaidDate = () => {
         () => {
           setIsLoading(false);
           setIsEdit(false);
-        }
+        },
       );
     } else {
       setIsEdit(!isEdit);
@@ -71,7 +75,7 @@ export const RaidDate = () => {
             {information?.raid_start_date && information?.raid_end_date ? (
               formatDateRange(
                 information.raid_start_date.toString(),
-                information.raid_end_date.toString()
+                information.raid_end_date.toString(),
               )
             ) : (
               <span>Période non définie</span>

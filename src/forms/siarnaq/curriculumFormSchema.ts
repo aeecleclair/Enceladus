@@ -2,7 +2,7 @@ import { Messages } from "next-intl";
 import z from "zod";
 
 export default function curriculumFormSchema(
-  t: (key: any, values?: any) => string
+  t: (key: any, values?: any) => string,
 ) {
   // useTranslations("curriculumFormSchema") (don't remove!)
   return z.object({

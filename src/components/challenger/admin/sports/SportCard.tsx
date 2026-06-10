@@ -1,6 +1,11 @@
 "use client";
 
 import { Sport } from "@/api";
+import { sportCategories } from "@/forms/challenger/sport";
+import { useRouter } from "@/i18n/navigation";
+
+import Link from "next/link";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,21 +15,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { sportCategories } from "@/forms/challenger/sport";
+
 import {
   AlertTriangle,
+  CheckCircle,
+  Edit,
   Eye,
   Swords,
-  Users,
-  UserPlus,
-  CheckCircle,
-  XCircle,
-  Edit,
   Trash2,
   Trophy,
+  UserPlus,
+  Users,
+  XCircle,
 } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "@/i18n/navigation";
 
 interface SportCardProps {
   sport: Sport;

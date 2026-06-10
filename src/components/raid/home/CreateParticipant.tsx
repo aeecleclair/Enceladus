@@ -1,13 +1,27 @@
+import { CoreUser } from "@/api";
+import { DatePicker } from "@/components/common/DatePicker";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
+import { PersonField } from "@/components/raid/custom/PersonField";
+import { useInviteToken } from "@/hooks/raid/useInviteToken";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { apiFormatDate } from "@/lib/dateFormat";
+import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
+
 import {
-  DialogHeader,
-  DialogFooter,
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
+  DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { PersonField } from "@/components/raid/custom/PersonField";
-import { DatePicker } from "@/components/common/DatePicker";
 import {
   Form,
   FormField,
@@ -15,21 +29,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import { CoreUser } from "@/api";
-import { addYears, toDate } from "date-fns";
 import { useToast } from "@/components/ui/use-toast";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { useState } from "react";
+
+import { addYears, toDate } from "date-fns";
 import PhoneInput from "react-phone-input-2";
-import { useMeTeam } from "@/hooks/raid/useMeTeam";
-import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
-import { useInviteToken } from "@/hooks/raid/useInviteToken";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { apiFormatDate } from "@/lib/dateFormat";
-import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
 
 interface CreateParticipantProps {
   user: CoreUser;
@@ -116,7 +119,7 @@ export const CreateParticipant = ({
               toast({
                 title: "Votre profil a été créé avec succès",
               });
-            }
+            },
           );
         } else {
           joinTeam(inviteToken, () => {
@@ -128,7 +131,7 @@ export const CreateParticipant = ({
             });
           });
         }
-      }
+      },
     );
   }
 

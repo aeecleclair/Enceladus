@@ -1,11 +1,13 @@
 "use client";
 
 import { CompetitionUser, ParticipantComplete } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Users2, Shield, Camera, Music, Heart } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { useSports } from "@/hooks/challenger/useSports";
+
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+
+import { Camera, Heart, Music, Shield, Trophy, Users2 } from "lucide-react";
 
 export const UserCompetition = ({
   user,
