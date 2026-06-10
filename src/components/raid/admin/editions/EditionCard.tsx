@@ -13,6 +13,7 @@ import { RaidEdition } from "@/api";
 import { formatDate } from "@/lib/dateFormat";
 import { useEditions } from "@/hooks/raid/useEditions";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { useTranslations } from "next-intl";
 
 interface EditionCardProps {
   edition: RaidEdition;
@@ -25,14 +26,17 @@ export const EditionCard = ({
   onDelete,
   onEdit,
 }: EditionCardProps) => {
-  const { activateEdition, updateEdition, isUpdateLoading, isDeleteLoading } =
-    useEditions();
+  const {
+    activateEdition,
+    toggleInscription,
+    isToggleLoading,
+    isDeleteLoading,
+  } = useEditions();
+  const t = useTranslations("raid.admin.editions");
+  const tc = useTranslations("raid.common");
 
-  const toggleInscription = () => {
-    updateEdition(edition.id, {
-      inscription_enabled: !edition.inscription_enabled,
-    });
-  };
+  const handleToggleInscription = () =>
+    toggleInscription(edition.id, !edition.inscription_enabled);
 
   return (
     <Card
@@ -46,7 +50,9 @@ export const EditionCard = ({
         <div className="flex items-start justify-between gap-2 flex-wrap">
           <div>
             <CardTitle>{edition.name}</CardTitle>
-            <CardDescription>Année {edition.year}</CardDescription>
+            <CardDescription>
+              {t("year", { year: edition.year })}
+            </CardDescription>
           </div>
           <div className="flex flex-wrap gap-2">
             {edition.active && (
@@ -54,7 +60,7 @@ export const EditionCard = ({
                 variant="outline"
                 className="bg-emerald-100 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300"
               >
-                Active
+                {t("active")}
               </Badge>
             )}
             {edition.inscription_enabled && (
@@ -62,7 +68,7 @@ export const EditionCard = ({
                 variant="outline"
                 className="bg-amber-100 text-amber-900 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300"
               >
-                Inscriptions ouvertes
+                {t("inscriptionsOpen")}
               </Badge>
             )}
           </div>
@@ -70,15 +76,17 @@ export const EditionCard = ({
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-2 gap-2 text-sm">
-          <span className="text-muted-foreground">Début</span>
+          <span className="text-muted-foreground">{t("startDate")}</span>
           <span className="font-medium">
             {edition.start_date ? formatDate(edition.start_date) : "—"}
           </span>
-          <span className="text-muted-foreground">Fin</span>
+          <span className="text-muted-foreground">{t("endDate")}</span>
           <span className="font-medium">
             {edition.end_date ? formatDate(edition.end_date) : "—"}
           </span>
-          <span className="text-muted-foreground">Fin des inscriptions</span>
+          <span className="text-muted-foreground">
+            {t("registeringEndDate")}
+          </span>
           <span className="font-medium">
             {edition.registering_end_date
               ? formatDate(edition.registering_end_date)
@@ -92,21 +100,21 @@ export const EditionCard = ({
               variant="outline"
               onClick={() => activateEdition(edition.id)}
             >
-              Activer
+              {t("activate")}
             </Button>
           )}
           <LoadingButton
             size="sm"
             variant="outline"
-            isLoading={isUpdateLoading}
-            onClick={toggleInscription}
+            isLoading={isToggleLoading}
+            onClick={handleToggleInscription}
           >
             {edition.inscription_enabled
-              ? "Fermer les inscriptions"
-              : "Ouvrir les inscriptions"}
+              ? t("closeInscriptions")
+              : t("openInscriptions")}
           </LoadingButton>
           <Button size="sm" variant="outline" onClick={() => onEdit(edition)}>
-            Modifier
+            {tc("edit")}
           </Button>
           <LoadingButton
             size="sm"
@@ -114,7 +122,7 @@ export const EditionCard = ({
             isLoading={isDeleteLoading}
             onClick={() => onDelete(edition)}
           >
-            Supprimer
+            {t("delete")}
           </LoadingButton>
         </div>
       </CardContent>

@@ -1,14 +1,18 @@
 "use client";
 import { EditionForm } from "@/components/raid/admin/EditionForm";
-import { editionFormSchema, EditionFormSchema } from "@/forms/raid/edition";
-import { useEdition } from "@/hooks/raid/useEdition";
+import {
+  editionFormSchema,
+  EditionFormSchema,
+  editionFormToBody,
+} from "@/forms/raid/edition";
+import { useEditions } from "@/hooks/raid/useEditions";
 import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { CalendarPlus } from "lucide-react";
 
 const AdminFallback = () => {
-  const { createEdition, isCreationLoading } = useEdition();
+  const { createEdition, isCreateLoading } = useEditions();
   const { isRaidAdmin } = useHasRaidPermission();
 
   const form = useForm<EditionFormSchema>({
@@ -19,13 +23,7 @@ const AdminFallback = () => {
   const onSubmit = (values: EditionFormSchema) => {
     createEdition(
       {
-        name: values.name,
-        year: values.startDate.getFullYear(),
-        start_date: values.startDate.toISOString().slice(0, 10),
-        end_date: values.endDate.toISOString().slice(0, 10),
-        registering_end_date: values.registeringEndDate
-          ? values.registeringEndDate.toISOString().slice(0, 10)
-          : null,
+        ...editionFormToBody(values),
         active: true,
         inscription_enabled: false,
       },
@@ -53,14 +51,14 @@ const AdminFallback = () => {
               Créer la première édition
             </h2>
             <p className="text-sm text-muted-foreground">
-              Aucune édition active pour le moment. Créez-en une pour ouvrir
-              les inscriptions participants et bénévoles.
+              Aucune édition active pour le moment. Créez-en une pour ouvrir les
+              inscriptions participants et bénévoles.
             </p>
           </div>
         </div>
         <EditionForm
           form={form}
-          isLoading={isCreationLoading}
+          isLoading={isCreateLoading}
           onSubmit={onSubmit}
           submitLabel="Créer l'édition"
         />
