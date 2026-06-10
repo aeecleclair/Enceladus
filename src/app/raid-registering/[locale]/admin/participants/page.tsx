@@ -2,6 +2,7 @@
 
 import { RaidParticipantPreview, RaidRegistrationStatus } from "@/api";
 import { ParticipantRowActions } from "@/components/raid/admin/participants/ParticipantRowActions";
+import { ParticipantSheet } from "@/components/raid/admin/participants/ParticipantSheet";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -32,6 +33,8 @@ import { useRouter } from "@/i18n/navigation";
 import { useMemo, useState } from "react";
 import { Users } from "lucide-react";
 import { PageHeader } from "@/components/raid/admin/PageHeader";
+import { participantStatusClass as statusClass } from "@/lib/raid/participantStatus";
+import { useTranslations } from "next-intl";
 
 type StatusFilter = RaidRegistrationStatus | "all";
 
@@ -41,29 +44,24 @@ type ParticipantRow = {
   teamName: string;
 };
 
-const statusClass: Record<RaidRegistrationStatus, string> = {
-  draft:
-    "bg-slate-100 text-slate-800 border-slate-200 dark:bg-slate-900/40 dark:text-slate-300 dark:border-slate-800",
-  submitted:
-    "bg-amber-100 text-amber-900 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-900",
-  validated:
-    "bg-emerald-100 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-900",
-  cancelled:
-    "bg-rose-100 text-rose-900 border-rose-200 dark:bg-rose-950/40 dark:text-rose-300 dark:border-rose-900",
-};
-
-const statusLabel: Record<RaidRegistrationStatus, string> = {
-  draft: "Brouillon",
-  submitted: "Soumis",
-  validated: "Validé",
-  cancelled: "Annulé",
-};
-
 const ParticipantsAdminPage = () => {
   const { teams, isLoading } = useTeams();
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [openParticipant, setOpenParticipant] = useState<{
+    userId: string;
+    teamId: string;
+  } | null>(null);
+  const t = useTranslations("raid.admin.participants");
+  const ts = useTranslations("raid.common.status");
+
+  const statusLabel: Record<RaidRegistrationStatus, string> = {
+    draft: ts("draft"),
+    submitted: ts("submitted"),
+    validated: ts("validated"),
+    cancelled: ts("cancelled"),
+  };
 
   const rows = useMemo<ParticipantRow[]>(() => {
     if (!teams) return [];
@@ -110,21 +108,19 @@ const ParticipantsAdminPage = () => {
     <div className="space-y-4">
       <PageHeader
         icon={Users}
-        title="Participants"
-        description="Suivez les dossiers participants et gérez leur cycle de vie."
+        title={t("title")}
+        description={t("subtitle")}
         accent="emerald"
       />
       <Card className="border-border/70 bg-card/95 shadow-sm">
         <CardHeader>
-          <CardTitle>Liste des participants</CardTitle>
-          <CardDescription>
-            Pilotez le cycle de vie : soumettre, valider, rouvrir, annuler.
-          </CardDescription>
+          <CardTitle>{t("listTitle")}</CardTitle>
+          <CardDescription>{t("listSubtitle")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-wrap items-center gap-2 rounded-lg border border-border/60 bg-muted/20 p-2">
             <Input
-              placeholder="Rechercher un participant ou une équipe…"
+              placeholder={t("searchPlaceholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="max-w-sm bg-background"
@@ -137,11 +133,11 @@ const ParticipantsAdminPage = () => {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Tous les statuts</SelectItem>
-                <SelectItem value="draft">Brouillon</SelectItem>
-                <SelectItem value="submitted">Soumis</SelectItem>
-                <SelectItem value="validated">Validé</SelectItem>
-                <SelectItem value="cancelled">Annulé</SelectItem>
+                <SelectItem value="all">{t("filterAll")}</SelectItem>
+                <SelectItem value="draft">{ts("draft")}</SelectItem>
+                <SelectItem value="submitted">{ts("submitted")}</SelectItem>
+                <SelectItem value="validated">{ts("validated")}</SelectItem>
+                <SelectItem value="cancelled">{ts("cancelled")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -156,11 +152,11 @@ const ParticipantsAdminPage = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Participant</TableHead>
-                    <TableHead>Équipe</TableHead>
-                    <TableHead>Statut</TableHead>
-                    <TableHead>Paiement</TableHead>
-                    <TableHead>T-shirt</TableHead>
+                    <TableHead>{t("columns.participant")}</TableHead>
+                    <TableHead>{t("columns.team")}</TableHead>
+                    <TableHead>{t("columns.status")}</TableHead>
+                    <TableHead>{t("columns.payment")}</TableHead>
+                    <TableHead>{t("columns.tshirt")}</TableHead>
                     <TableHead className="w-12" />
                   </TableRow>
                 </TableHeader>
@@ -171,12 +167,21 @@ const ParticipantsAdminPage = () => {
                         colSpan={6}
                         className="text-center text-muted-foreground"
                       >
-                        Aucun participant.
+                        {t("empty")}
                       </TableCell>
                     </TableRow>
                   ) : (
                     filtered.map(({ participant, teamId, teamName }) => (
-                      <TableRow key={participant.user_id}>
+                      <TableRow
+                        key={participant.user_id}
+                        className="cursor-pointer"
+                        onClick={() =>
+                          setOpenParticipant({
+                            userId: participant.user_id,
+                            teamId,
+                          })
+                        }
+                      >
                         <TableCell>
                           <div className="font-medium">
                             {participant.user.firstname} {participant.user.name}
@@ -185,7 +190,7 @@ const ParticipantsAdminPage = () => {
                             {participant.user.email}
                           </div>
                         </TableCell>
-                        <TableCell>
+                        <TableCell onClick={(e) => e.stopPropagation()}>
                           <button
                             onClick={() => openTeam(teamId)}
                             className="text-primary underline-offset-4 hover:underline"
@@ -207,10 +212,10 @@ const ParticipantsAdminPage = () => {
                               variant="outline"
                               className="bg-emerald-100 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300"
                             >
-                              Payé
+                              {t("paid")}
                             </Badge>
                           ) : (
-                            <Badge variant="outline">Non payé</Badge>
+                            <Badge variant="outline">{t("unpaid")}</Badge>
                           )}
                         </TableCell>
                         <TableCell>
@@ -220,11 +225,15 @@ const ParticipantsAdminPage = () => {
                                 variant="outline"
                                 className="bg-emerald-100 text-emerald-900 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300"
                               >
-                                {participant.t_shirt_size} payé
+                                {t("tshirtPaid", {
+                                  size: participant.t_shirt_size,
+                                })}
                               </Badge>
                             ) : (
                               <Badge variant="outline">
-                                {participant.t_shirt_size} non payé
+                                {t("tshirtUnpaid", {
+                                  size: participant.t_shirt_size,
+                                })}
                               </Badge>
                             )
                           ) : (
@@ -233,7 +242,7 @@ const ParticipantsAdminPage = () => {
                             </span>
                           )}
                         </TableCell>
-                        <TableCell>
+                        <TableCell onClick={(e) => e.stopPropagation()}>
                           <ParticipantRowActions
                             participant={participant}
                             teamId={teamId}
@@ -249,6 +258,13 @@ const ParticipantsAdminPage = () => {
           )}
         </CardContent>
       </Card>
+      <ParticipantSheet
+        isOpened={!!openParticipant}
+        onClose={() => setOpenParticipant(null)}
+        userId={openParticipant?.userId ?? null}
+        teamId={openParticipant?.teamId}
+        onOpenTeam={openTeam}
+      />
     </div>
   );
 };
