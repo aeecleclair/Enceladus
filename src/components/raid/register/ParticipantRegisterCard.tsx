@@ -76,9 +76,9 @@ export const ParticipantRegisterCard = () => {
     });
   };
 
-  const currentStep: RegisterStepId = !identityConfirmed
-    ? "identity"
-    : "confirm";
+  const currentStep: RegisterStepId = identityConfirmed
+    ? "confirm"
+    : "identity";
 
   const stepMeta: Record<RegisterStepId, { title: string; subtitle: string }> =
     {
@@ -102,7 +102,9 @@ export const ParticipantRegisterCard = () => {
     return (
       <div className="space-y-3">
         <LoadingButton
-          isLoading={isCreationLoading || isTeamCreationLoading || isJoinLoading}
+          isLoading={
+            isCreationLoading || isTeamCreationLoading || isJoinLoading
+          }
           onClick={() => setIsAlertOpen(true)}
           className="w-full"
         >

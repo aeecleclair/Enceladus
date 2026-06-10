@@ -88,9 +88,9 @@ const VolunteerRegisterPage = () => {
   };
 
   const hasExistingRole = !!me || !!meVolunteer;
-  const currentStep: RegisterStepId = !identityConfirmed
-    ? "identity"
-    : "confirm";
+  const currentStep: RegisterStepId = identityConfirmed
+    ? "confirm"
+    : "identity";
 
   const stepMeta: Record<RegisterStepId, { title: string; subtitle: string }> =
     {
