@@ -20,7 +20,6 @@ import {
   Clock,
   ExternalLink,
   MapPin,
-  Timer,
   Trophy,
 } from "lucide-react";
 
@@ -56,8 +55,6 @@ export default function MatchDetailDialog({
   const now = new Date();
   const matchDate = match.date ? new Date(match.date) : null;
   const isLive = matchDate && matchDate <= now && !match.ended;
-  const isPast = match.ended;
-  const isUpcoming = !match.ended && matchDate && matchDate > now;
 
   const getStatusBadge = () => {
     if (match.ended)
@@ -83,12 +80,6 @@ export default function MatchDetailDialog({
     }
   };
 
-  const winnerTeam =
-    match.winner_id === match.team1_id
-      ? match.team1
-      : match.winner_id === match.team2_id
-        ? match.team2
-        : null;
 
   return (
     <Dialog open={true} onOpenChange={onClose}>

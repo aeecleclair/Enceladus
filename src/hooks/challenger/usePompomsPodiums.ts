@@ -34,7 +34,7 @@ export const usePompomsPodiums = () => {
     isPending: isUpdateLoading,
   } = useMutation({
     ...postCompetitionPodiumsPompomsMutation(),
-    onError: (error: any) => {
+    onError: (error) => {
       console.log(error);
       toast({
         title: "Erreur lors de la mise à jour du podium pompoms",
@@ -69,7 +69,7 @@ export const usePompomsPodiums = () => {
   const { mutate: mutateDeletePompomsPodium, isPending: isDeleteLoading } =
     useMutation({
       ...deleteCompetitionPodiumsPompomsMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.log(error);
         toast({
           title: "Erreur lors de la suppression du podium pompoms",

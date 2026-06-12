@@ -77,9 +77,6 @@ export function LocationCard({
     return sports.find((sport) => sport.id === sportId)?.name || "Sport";
   };
 
-  const getSchoolName = (schoolId: string) => {
-    return schools.find((school) => school.id === schoolId)?.name || "École";
-  };
 
   const getTeamName = (teamId: string) => {
     // For now, return team ID as name since we don't have team data in this context

@@ -14,7 +14,7 @@ export const useProductExpansionStore = create<productExpansionStore>()(
         productExpansion: [],
         loaded: true,
         setExpandedProducts: (productIds: string[]) => {
-          set((state) => ({
+          set(() => ({
             productExpansion: productIds,
           }));
         },

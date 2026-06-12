@@ -36,6 +36,7 @@ export const EmptyParticipantCard = ({ team }: EmptyParticipantCardProps) => {
           description: `Le lien d'invitation a été copié dans le presse-papier.`,
         });
       } catch (error) {
+        console.error(error);
         toast({
           variant: "destructive",
           title: "Erreur",

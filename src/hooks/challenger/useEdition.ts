@@ -35,7 +35,7 @@ export const useEdition = () => {
   const { mutate: mutateCreateEdition, isPending: isCreationLoading } =
     useMutation({
       ...postCompetitionEditionsMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la création de l'édition",
@@ -74,12 +74,14 @@ export const useEdition = () => {
   const { mutate: mutateOpenInscription, isPending: isOpenInscriptionLoading } =
     useMutation({
       ...postCompetitionEditionsEditionIdInscriptionMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ouverture de l'inscription",
           description:
-            error?.stack?.body || error?.stack?.detail || "Erreur inconnue.",
+            (error as unknown as ErrorType)?.stack?.body ||
+            (error as unknown as DetailedErrorType)?.stack?.detail ||
+            "Erreur inconnue.",
           variant: "destructive",
         });
       },
@@ -114,12 +116,14 @@ export const useEdition = () => {
     isPending: isCloseInscriptionLoading,
   } = useMutation({
     ...postCompetitionEditionsEditionIdInscriptionMutation(),
-    onError: (error: any) => {
+    onError: (error) => {
       console.error(error);
       toast({
         title: "Erreur lors de la fermeture de l'inscription",
         description:
-          error?.stack?.body || error?.stack?.detail || "Erreur inconnue.",
+          (error as unknown as ErrorType)?.stack?.body ||
+          (error as unknown as DetailedErrorType)?.stack?.detail ||
+          "Erreur inconnue.",
         variant: "destructive",
       });
     },

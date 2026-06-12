@@ -1,6 +1,5 @@
 import { useCoreVariables } from "@/hooks/useCoreVariables";
 
-import { Messages } from "next-intl";
 import z from "zod";
 
 import { isValidPhoneNumber } from "libphonenumber-js";

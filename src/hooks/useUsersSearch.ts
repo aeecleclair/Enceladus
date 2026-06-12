@@ -1,5 +1,4 @@
 import { useAuth } from "./useAuth";
-import { useMeUser } from "./useMeUser";
 
 import { AccountType } from "@/api";
 import { getUsersSearchOptions } from "@/api/@tanstack/react-query.gen";

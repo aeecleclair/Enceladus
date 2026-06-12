@@ -1,7 +1,7 @@
 import { EditUserInfoField } from "./EditUserInfoField";
 import { UserInfoView } from "./UserInfoView";
 
-import { Participant, RaidParticipant, RaidParticipantUpdate } from "@/api";
+import { RaidParticipant, RaidParticipantUpdate } from "@/api";
 import { DatePicker } from "@/components/common/DatePicker";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";

@@ -8,7 +8,7 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Tooltip,
   TooltipContent,
@@ -40,11 +40,6 @@ export const AvailableVolunteerShiftCard = ({
   const { locations } = useLocations();
   const startDate = new Date(shift.start_time);
   const endDate = new Date(shift.end_time);
-
-  // Calculate duration in hours
-  const durationHours = Math.round(
-    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60),
-  );
 
   // Calculate time until the shift
   const now = new Date();
@@ -97,7 +92,7 @@ export const AvailableVolunteerShiftCard = ({
             {/* Left side - Shift info */}
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <div
-                className="w-4 h-4 rounded-full flex-shrink-0"
+                className="w-4 h-4 rounded-full shrink-0"
                 style={{ backgroundColor: locationColor }}
               />
               <div className="flex-1 min-w-0">

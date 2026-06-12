@@ -1,4 +1,3 @@
-import { Messages } from "next-intl";
 import z from "zod";
 
 export default function variantFormSchema(

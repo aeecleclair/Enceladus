@@ -1,14 +1,12 @@
 import { UserStatusBadges } from "./UserStatusBadges";
 import { MatchCard } from "./matches/MatchCard";
 
-import { Match, MatchComplete } from "@/api";
+import { MatchComplete } from "@/api";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useSportMatches } from "@/hooks/challenger/useSportMatches";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useMeUser } from "@/hooks/useMeUser";
-import { useSchools } from "@/hooks/useSchools";
 import { useRouter } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
@@ -48,7 +46,6 @@ export const FullyRegisteredDashboard = ({
   meCompetition,
 }: FullyRegisteredDashboardProps) => {
   const { meParticipant } = useParticipant();
-  const { user } = useMeUser();
   const router = useRouter();
 
   const { sportMatches } = useSportMatches({

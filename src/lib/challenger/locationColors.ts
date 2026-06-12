@@ -25,7 +25,7 @@ export function generateLocationColor(
 
 export function getLocationName(
   locationId: string | null | undefined,
-  locations: any[] | undefined,
+  locations: Location[] | undefined,
 ): string {
   if (!locationId) return "Lieu non spécifié";
   if (!locations) return locationId;
@@ -58,7 +58,7 @@ export function getLocationDetails(
 
 export function openLocationMap(
   locationId: string | null | undefined,
-  locations: any[] | undefined,
+  locations: Location[] | undefined,
 ) {
   const locationDetails = getLocationDetails(locationId, locations);
 

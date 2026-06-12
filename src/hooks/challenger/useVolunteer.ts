@@ -5,7 +5,7 @@ import {
   getCompetitionVolunteersMeOptions,
   postCompetitionVolunteersShiftsShiftIdRegisterMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -45,23 +45,23 @@ export const useVolunteer = () => {
         },
       },
       {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de l'assignation du bénévole",
-              description:
-                (error as any)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            callback();
-            toast({
-              title: "Bénévole assigné",
-              description: "Le bénévole a été assigné avec succès.",
-            });
-          }
+        onSuccess: () => {
+          callback();
+          toast({
+            title: "Bénévole assigné",
+            description: "Le bénévole a été assigné avec succès.",
+          });
+        },
+        onError: (error) => {
+          console.error(error);
+          toast({
+            title: "Erreur lors de l'assignation du bénévole",
+            description:
+              (error as unknown as ErrorType)?.stack?.body ||
+              (error as unknown as DetailedErrorType)?.stack?.detail ||
+              "Une erreur est survenue, veuillez réessayer.",
+            variant: "destructive",
+          });
         },
       },
     );
@@ -75,24 +75,24 @@ export const useVolunteer = () => {
         },
       },
       {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la désinscription",
-              description:
-                (error as any)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchVolunteer();
-            callback();
-            toast({
-              title: "Désinscription réussie",
-              description: "Vous avez été désinscrit du créneau.",
-            });
-          }
+        onSuccess: () => {
+          refetchVolunteer();
+          callback();
+          toast({
+            title: "Désinscription réussie",
+            description: "Vous avez été désinscrit du créneau.",
+          });
+        },
+        onError: (error) => {
+          console.error(error);
+          toast({
+            title: "Erreur lors de la désinscription",
+            description:
+              (error as unknown as ErrorType)?.stack?.body ||
+              (error as unknown as DetailedErrorType)?.stack?.detail ||
+              "Une erreur est survenue, veuillez réessayer.",
+            variant: "destructive",
+          });
         },
       },
     );

@@ -9,7 +9,6 @@ import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { UseFormReturn } from "react-hook-form";
 
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 

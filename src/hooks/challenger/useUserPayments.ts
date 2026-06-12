@@ -71,29 +71,23 @@ export const useUserPayments = () => {
         },
       },
       {
-        onSettled: (_data, error) => {
-          if (
-            (error as any)?.message ===
-              "Network error (NetworkError when attempting to fetch resource.)" ||
-            (error as any)?.stack?.body ||
-            (error as any)?.stack?.detail
-          ) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la suppression",
-              description:
-                (error as any)?.message ||
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            callback();
-            toast({
-              title: "Paiement supprimé",
-              description: "Le paiement a été supprimé avec succès.",
-            });
-          }
+        onSuccess: () => {
+          callback();
+          toast({
+            title: "Paiement supprimé",
+            description: "Le paiement a été supprimé avec succès.",
+          });
+        },
+        onError: (error) => {
+          console.error(error);
+          toast({
+            title: "Erreur lors de la suppression",
+            description:
+              (error as unknown as ErrorType)?.stack?.body ||
+              (error as unknown as DetailedErrorType)?.stack?.detail ||
+              "Une erreur est survenue, veuillez réessayer.",
+            variant: "destructive",
+          });
         },
       },
     );

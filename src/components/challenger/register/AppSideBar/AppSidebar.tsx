@@ -9,7 +9,6 @@ import {
 } from "@/components/challenger/custom/Timeline";
 import { RegisterState } from "@/lib/challenger/registerState";
 
-import Image from "next/image";
 import * as React from "react";
 
 import {
@@ -21,8 +20,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
-import { Command, LogIn } from "lucide-react";
 
 export function AppSidebar({
   state,

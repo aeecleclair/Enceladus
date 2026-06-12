@@ -38,12 +38,12 @@ export const SecurityFileDialog = ({
 
   const isFieldMissing = form.formState.errors["securityFile"] !== undefined;
 
-  function onValidate(_: any) {
+  function onValidate() {
     form.setValue("securityFile.updated", true);
     const securityFile: SecurityFile = {
       ...form.getValues("securityFile"),
     };
-    setSecurityFile(securityFile, participantId, (_) => {
+    setSecurityFile(securityFile, participantId, () => {
       // Not working, to investigate
     });
     setIsOpen(false);

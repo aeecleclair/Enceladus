@@ -48,7 +48,7 @@ export const ConfirmationCheckbox = ({
         <FormControl>
           <Checkbox
             checked={field.value}
-            onCheckedChange={(value) => {
+            onCheckedChange={() => {
               handleCheckboxChange();
             }}
           />

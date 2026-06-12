@@ -21,7 +21,7 @@ export const usePayment = () => {
           variant: "destructive",
         });
       },
-      onSuccess: (data: any) => {
+      onSuccess: (data) => {
         if (data?.url) {
           toast({
             title: "Redirection vers le paiement",
@@ -35,7 +35,7 @@ export const usePayment = () => {
     return mutateGetPaymentUrl(
       {},
       {
-        onSuccess: (data: any) => {
+        onSuccess: (data) => {
           if (data?.url) {
             callback(data.url);
           }

@@ -17,7 +17,7 @@ import { useMemo } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
 export const useCompetitionUsers = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { toast } = useToast();
 
   const {
@@ -108,7 +108,6 @@ export const useCompetitionUsers = () => {
         toast({
           title: "Erreur lors de la suppression",
           description:
-            (error as any)?.message ||
             (error as unknown as ErrorType)?.stack?.body ||
             (error as unknown as DetailedErrorType)?.stack?.detail ||
             "Une erreur est survenue, veuillez réessayer.",

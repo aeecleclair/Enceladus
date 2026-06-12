@@ -1,6 +1,6 @@
 import { MatchCard } from "./MatchCard";
 
-import { Match, MatchComplete } from "@/api";
+import { MatchComplete } from "@/api";
 import { useFavoriteMatches } from "@/hooks/challenger/useFavoriteMatches";
 
 import { useState } from "react";

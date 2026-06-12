@@ -1,4 +1,3 @@
-import { Card, CardContent } from "@/components/ui/card";
 import { CarouselItem } from "@/components/ui/carousel";
 
 interface CardTemplateProps {

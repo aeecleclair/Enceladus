@@ -1,13 +1,10 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   Popover,
@@ -24,7 +21,7 @@ import {
 
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { CalendarIcon, ChevronDownIcon, Clock2Icon } from "lucide-react";
+import { ChevronDownIcon } from "lucide-react";
 
 interface DateTimePickerProps {
   date?: Date;
@@ -79,11 +76,6 @@ export function DateTimePicker({
     setDate(newDate);
   };
 
-  const formatTime = (date?: Date): string => {
-    if (!date) return "14:00:00";
-
-    return format(date, "HH:mm:ss", { locale: fr });
-  };
 
   const formatDateTime = () => {
     if (!date) {

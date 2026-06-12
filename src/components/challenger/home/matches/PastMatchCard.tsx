@@ -1,4 +1,4 @@
-import { Match, MatchComplete } from "@/api";
+import { MatchComplete } from "@/api";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { cn } from "@/lib/utils";
 

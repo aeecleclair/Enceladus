@@ -65,7 +65,7 @@ export const RegisteringCompleteDialog = ({
             <LoadingButton
               className="w-full mt-6"
               variant="outline"
-              onClick={(_) =>
+              onClick={() =>
                 downloadRaidInformation(information.raid_information_id!)
               }
               isLoading={isFileLoading}

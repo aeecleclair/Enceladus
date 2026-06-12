@@ -14,7 +14,6 @@ export const EditionWaitingCard = ({
   edition,
   isSchoolInscriptionEnabled,
 }: EditionWaitingCardProps) => {
-  const router = useRouter();
   return (
     <div className="px-4 justify-center items-center flex h-full flex-col space-y-4">
       <h2 className="text-xl font-semibold">

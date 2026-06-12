@@ -12,7 +12,7 @@ import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
 import { useTranslation } from "@/translations/utils";
 
 import { QueryObserverResult } from "@tanstack/react-query";
-import { Messages, useFormatter, useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { HiCheck, HiOutlineExclamationCircle, HiXMark } from "react-icons/hi2";
 import { HiOutlineCheckBadge } from "react-icons/hi2";

@@ -16,7 +16,11 @@ import {
 
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
-import { ControllerRenderProps, FieldValues } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  UseFormReturn,
+} from "react-hook-form";
 import { HiArrowNarrowRight, HiDownload } from "react-icons/hi";
 
 import { Button } from "@/components/ui/button";
@@ -74,8 +78,7 @@ interface ParticipantFieldProps<T extends ValueType> {
   label: string;
   id: string;
   placeholder?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  form: any;
+  form: UseFormReturn;
   type: T;
   layer?: number;
   needDialog?: boolean;

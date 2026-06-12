@@ -11,7 +11,7 @@ import { EditProductValues } from "@/forms/challenger/editProducts";
 import { RegisteringFormValues } from "@/forms/challenger/registering";
 import { RegisterState } from "@/lib/challenger/registerState";
 
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";

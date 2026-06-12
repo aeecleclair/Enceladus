@@ -1,4 +1,3 @@
-import { RegisteringFormValues } from "@/forms/challenger/registering";
 import { useDocument } from "@/hooks/challenger/useDocument";
 import { useAuth } from "@/hooks/useAuth";
 
@@ -6,14 +5,11 @@ import Image from "next/image";
 import {
   ControllerRenderProps,
   FieldValues,
-  UseFormReturn,
 } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { DropzoneInput } from "@/components/ui/dropzoneInput";
 
-import { se } from "date-fns/locale";
-import { on } from "events";
 
 interface DocumentDialogProps {
   setIsOpen: (value: boolean) => void;
@@ -78,7 +74,7 @@ export const DocumentDialog = ({
           {sportId ? (
             <DropzoneInput
               setIsOpen={setIsOpen}
-              onDropAccepted={(files, _) => {
+              onDropAccepted={(files) => {
                 const file = files[0];
                 onFileSet?.(file);
               }}

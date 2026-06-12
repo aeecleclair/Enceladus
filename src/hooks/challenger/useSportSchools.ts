@@ -44,24 +44,24 @@ export const useSportSchools = () => {
         body,
       },
       {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la fusion des équipes",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSchools();
-            callback();
-            toast({
-              title: "École ajoutée",
-              description: "L'école a été ajoutée avec succès.",
-            });
-          }
+        onSuccess: () => {
+          refetchSchools();
+          callback();
+          toast({
+            title: "École ajoutée",
+            description: "L'école a été ajoutée avec succès.",
+          });
+        },
+        onError: (error) => {
+          console.error(error);
+          toast({
+            title: "Erreur lors de l'ajout de l'école",
+            description:
+              (error as unknown as ErrorType)?.stack?.body ||
+              (error as unknown as DetailedErrorType)?.stack?.detail ||
+              "Une erreur est survenue, veuillez réessayer.",
+            variant: "destructive",
+          });
         },
       },
     );
@@ -85,24 +85,24 @@ export const useSportSchools = () => {
         body,
       },
       {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la mise à jour",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSchools();
-            callback();
-            toast({
-              title: "École mise à jour",
-              description: "L'école a été mise à jour avec succès.",
-            });
-          }
+        onSuccess: () => {
+          refetchSchools();
+          callback();
+          toast({
+            title: "École mise à jour",
+            description: "L'école a été mise à jour avec succès.",
+          });
+        },
+        onError: (error) => {
+          console.error(error);
+          toast({
+            title: "Erreur lors de la mise à jour de l'école",
+            description:
+              (error as unknown as ErrorType)?.stack?.body ||
+              (error as unknown as DetailedErrorType)?.stack?.detail ||
+              "Une erreur est survenue, veuillez réessayer.",
+            variant: "destructive",
+          });
         },
       },
     );
@@ -121,24 +121,24 @@ export const useSportSchools = () => {
         },
       },
       {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la suppression",
-              description:
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchSchools();
-            callback();
-            toast({
-              title: "École supprimée",
-              description: "L'école a été supprimée avec succès.",
-            });
-          }
+        onSuccess: () => {
+          refetchSchools();
+          callback();
+          toast({
+            title: "École supprimée",
+            description: "L'école a été supprimée avec succès.",
+          });
+        },
+        onError: (error) => {
+          console.error(error);
+          toast({
+            title: "Erreur lors de la suppression de l'école",
+            description:
+              (error as unknown as ErrorType)?.stack?.body ||
+              (error as unknown as DetailedErrorType)?.stack?.detail ||
+              "Une erreur est survenue, veuillez réessayer.",
+            variant: "destructive",
+          });
         },
       },
     );

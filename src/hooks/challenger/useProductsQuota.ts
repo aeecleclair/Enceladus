@@ -38,7 +38,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
   const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
       ...postCompetitionSchoolsSchoolIdProductQuotasMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout du quota",
@@ -61,7 +61,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
   const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } = useMutation(
     {
       ...patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la mise à jour du quota",
@@ -84,7 +84,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
   const { mutate: mutateDeleteQuota, isPending: isDeleteLoading } = useMutation(
     {
       ...deleteCompetitionSchoolsSchoolIdProductQuotasProductIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression du quota",

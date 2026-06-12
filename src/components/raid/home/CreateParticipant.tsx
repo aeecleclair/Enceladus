@@ -32,7 +32,6 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 
 import { addYears, toDate } from "date-fns";
-import PhoneInput from "react-phone-input-2";
 
 interface CreateParticipantProps {
   user: CoreUser;

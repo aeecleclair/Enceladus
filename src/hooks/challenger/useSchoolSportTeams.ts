@@ -44,7 +44,7 @@ export const useSchoolSportTeams = ({
   const { mutate: mutateCreateSchoolSportTeam, isPending: isCreateLoading } =
     useMutation({
       ...postCompetitionTeamsMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout de l'équipe",
@@ -77,7 +77,7 @@ export const useSchoolSportTeams = ({
   const { mutate: mutateUpdateSchoolSportTeam, isPending: isUpdateLoading } =
     useMutation({
       ...patchCompetitionTeamsTeamIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la mise à jour de l'équipe",
@@ -115,7 +115,7 @@ export const useSchoolSportTeams = ({
   const { mutate: mutateDeleteSchoolSportTeam, isPending: isDeleteLoading } =
     useMutation({
       ...deleteCompetitionTeamsTeamIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression de l'équipe",

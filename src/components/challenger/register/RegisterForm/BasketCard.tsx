@@ -100,7 +100,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
               form={form}
               label={`${product.product.name}${product.product.required ? " *" : ""}`}
               id={`products[${productId}]`}
-              input={(field) => (
+              input={() => (
                 <>
                   {products.length > 1 ? (
                     <div className="flex items-center space-x-2 pt-2">

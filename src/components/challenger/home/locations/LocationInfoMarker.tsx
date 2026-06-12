@@ -1,29 +1,16 @@
 "use client";
 
-import { LocationComplete, Match, MatchComplete } from "@/api";
-import { useSports } from "@/hooks/challenger/useSports";
+import { LocationComplete, MatchComplete } from "@/api";
 
 import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 
 import {
-  Calendar,
-  ChevronRight,
   Clock,
   MapPin,
   Search,
-  Trophy,
 } from "lucide-react";
 
 interface LocationInfoMarkerProps {
@@ -43,15 +30,6 @@ export function LocationInfoMarker({
   upcomingMatches = [],
   sports,
 }: LocationInfoMarkerProps) {
-  const openInMaps = () => {
-    if (location.latitude && location.longitude) {
-      window.open(
-        `https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}`,
-        "_blank",
-      );
-    }
-  };
-
   const navigateToSearchWithLocation = () => {
     const params = new URLSearchParams();
     params.set("location", location.id);
@@ -144,7 +122,7 @@ export function LocationInfoMarker({
           <div className="absolute left-1/2 top-full transform -translate-x-1/2">
             <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[7px] border-l-transparent border-r-transparent border-t-white drop-shadow-sm" />
           </div>
-          <div className="w-[300px] bg-white rounded-2xl shadow-xl border overflow-hidden">
+          <div className="w-7.5 bg-white rounded-2xl shadow-xl border overflow-hidden">
             {/* Header — inspired by reference card */}
             <div className="p-4 pb-3">
               <div className="flex items-start gap-3">
@@ -350,7 +328,7 @@ export function LocationInfoMarker({
       )}
       {/* Pin */}
       <div
-        className="cursor-pointer absolute left-1/2 bottom-0 -translate-x-1/2 z-[3]"
+        className="cursor-pointer absolute left-1/2 bottom-0 -translate-x-1/2 z-3"
         onClick={() => setIsOpen((open) => !open)}
       >
         {hasMatches ? (

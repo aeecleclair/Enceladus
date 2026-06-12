@@ -26,7 +26,6 @@ import {
   format,
   getMonth,
   isSameDay,
-  isSameHour,
   isSameMonth,
   isToday,
   isWithinInterval,
@@ -106,11 +105,6 @@ const Calendar = ({
 }: CalendarProps) => {
   const [view, setView] = useState<View>(_defaultMode);
   const [date, setDate] = useState(defaultDate);
-
-  const changeView = (view: View) => {
-    setView(view);
-    onChangeView?.(view);
-  };
 
   return (
     <Context.Provider
@@ -534,7 +528,7 @@ const CalendarNextTrigger = forwardRef<
   HTMLButtonElement,
   React.HTMLAttributes<HTMLButtonElement>
 >(({ children, onClick, ...props }, ref) => {
-  const { date, setDate, view, enableHotkeys } = useCalendar();
+  const { date, setDate, view } = useCalendar();
 
   const next = useCallback(() => {
     if (view === "day") {

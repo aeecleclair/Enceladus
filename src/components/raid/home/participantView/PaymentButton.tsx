@@ -65,7 +65,7 @@ export const PaymentButton = () => {
           <Button
             className="col-span-4 ml-auto w-25"
             disabled={!mustPayRegistering}
-            onClick={(_) => {
+            onClick={() => {
               setIsOpened(true);
               setIsStudentWarningOpened(false);
             }}
@@ -138,7 +138,7 @@ export const PaymentButton = () => {
               className="col-span-4 ml-auto w-25"
               disabled={!mustPayRegistering}
               variant={isNotValidatedStudent ? "destructive" : "default"}
-              onClick={(_) => {
+              onClick={() => {
                 if (isNotValidatedStudent) {
                   setIsStudentWarningOpened(true);
                 } else {

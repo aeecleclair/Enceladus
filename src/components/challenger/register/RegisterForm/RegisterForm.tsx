@@ -56,7 +56,7 @@ export const RegisterForm = ({
     form.setValue("sport.team_id", meParticipant?.team_id || "");
   }, [form, me, meCompetition, meParticipant]);
 
-  async function onSubmit(values: RegisteringFormValues) {
+  async function onSubmit() {
     setIsLoading(true);
     router.refresh();
   }
@@ -134,7 +134,6 @@ export const RegisterForm = ({
     //   allHeaderSubtitles: newSubtitles,
     // });
     // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meCompetition, meParticipant]);
 
   return meCompetition === undefined ||

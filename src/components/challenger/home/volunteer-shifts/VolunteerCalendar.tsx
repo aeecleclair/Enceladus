@@ -17,7 +17,6 @@ import { generateLocationColor } from "@/lib/challenger/locationColors";
 
 import { useMemo, useState } from "react";
 
-import { endOfDay, isSameDay, startOfDay } from "date-fns";
 import { fr } from "date-fns/locale";
 import {
   Calendar as CalendarIcon,

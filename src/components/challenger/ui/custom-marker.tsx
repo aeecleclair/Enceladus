@@ -23,15 +23,11 @@ import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 
 import {
-  Check,
   Edit,
-  ExternalLink,
   MapPin,
   Navigation,
-  Plus,
   Save,
   Star,
-  Trash2,
   X,
 } from "lucide-react";
 
@@ -70,19 +66,13 @@ export function CustomMarker({
   address,
   existingLocation,
   isExisting = false,
-  isAdded = false,
-  onCoordinatesChange,
-  onLocationAdd,
   onLocationEdit,
   onLocationCreate,
   onLocationUpdate,
-  onLocationDelete,
   onCancel,
   form,
   isCreateLoading = false,
   isUpdateLoading = false,
-  isDeleteLoading = false,
-  onDelete,
   showForm = false,
 }: CustomMarkerProps) {
   const [isFormExpanded, setIsFormExpanded] = useState(showForm || !isExisting);

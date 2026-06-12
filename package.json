@@ -94,7 +94,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@hey-api/openapi-ts": "^0.88.0",
+    "@hey-api/openapi-ts": "^0.98.0",
     "@lingual/i18n-check": "^0.9.5",
     "@tailwindcss/postcss": "^4.1.17",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
@@ -111,7 +111,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.8",
     "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.8.3",
+    "prettier": "^3.8.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "qs": "^6.11.2",
     "tailwindcss": "^4.1.17",

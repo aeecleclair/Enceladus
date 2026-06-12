@@ -148,7 +148,7 @@ export const AddUserWithCurriculum = () => {
                     <CommandItem
                       key={user.id}
                       value={user.id}
-                      onSelect={(userId) => {
+                      onSelect={() => {
                         setSelectedUser(user);
                         setFoundUsers([]);
                       }}
