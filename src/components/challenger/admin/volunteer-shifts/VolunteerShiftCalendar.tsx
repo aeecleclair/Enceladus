@@ -7,7 +7,6 @@ import {
   CalendarNextTrigger,
   CalendarPrevTrigger,
   CalendarTodayTrigger,
-  CalendarViewTrigger,
   CalendarWeekView,
 } from "../../custom/FullScreenCalendar";
 
@@ -16,7 +15,6 @@ import { generateLocationColor } from "@/lib/challenger/locationColors";
 
 import { useMemo } from "react";
 
-import { endOfDay, format, isSameDay, startOfDay } from "date-fns";
 import { fr } from "date-fns/locale";
 import {
   Calendar as CalendarIcon,

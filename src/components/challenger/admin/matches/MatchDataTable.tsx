@@ -1,6 +1,6 @@
 "use client";
 
-import { Match, MatchComplete } from "@/api";
+import { MatchComplete } from "@/api";
 import { DataTableFacetedFilter } from "@/components/challenger/admin/registered-table/DataTableFacetedFilter";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useRouter } from "@/i18n/navigation";

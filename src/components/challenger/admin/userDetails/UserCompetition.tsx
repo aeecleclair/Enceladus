@@ -9,6 +9,49 @@ import { Separator } from "@/components/ui/separator";
 
 import { Camera, Heart, Music, Shield, Trophy, Users2 } from "lucide-react";
 
+const InfoSection = ({
+  title,
+  items,
+}: {
+  title: string;
+  items: { label: string; value: React.ReactNode }[];
+}) => (
+  <div className="space-y-4">
+    <h3 className="font-semibold text-lg">{title}</h3>
+    <div className="space-y-3">
+      {items.map((item, index) => (
+        <div key={index} className="flex flex-col gap-1">
+          <p className="text-sm font-medium text-muted-foreground">
+            {item.label}
+          </p>
+          <div className="text-sm">{item.value}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const StatusBadge = ({
+  isValid,
+  trueLabel = "Oui",
+  falseLabel = "Non",
+}: {
+  isValid: boolean;
+  trueLabel?: string;
+  falseLabel?: string;
+}) => (
+  <Badge
+    variant="secondary"
+    className={
+      isValid
+        ? "bg-green-100 text-green-800 hover:bg-green-200 border-green-300"
+        : "bg-red-100 text-red-800 hover:bg-red-200 border-red-300"
+    }
+  >
+    {isValid ? trueLabel : falseLabel}
+  </Badge>
+);
+
 export const UserCompetition = ({
   user,
   userParticipant,
@@ -74,49 +117,6 @@ export const UserCompetition = ({
     sports && userParticipant
       ? sports.find((s) => s.id === userParticipant.sport_id)
       : null;
-
-  const InfoSection = ({
-    title,
-    items,
-  }: {
-    title: string;
-    items: { label: string; value: React.ReactNode }[];
-  }) => (
-    <div className="space-y-4">
-      <h3 className="font-semibold text-lg">{title}</h3>
-      <div className="space-y-3">
-        {items.map((item, index) => (
-          <div key={index} className="flex flex-col gap-1">
-            <p className="text-sm font-medium text-muted-foreground">
-              {item.label}
-            </p>
-            <div className="text-sm">{item.value}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-
-  const StatusBadge = ({
-    isValid,
-    trueLabel = "Oui",
-    falseLabel = "Non",
-  }: {
-    isValid: boolean;
-    trueLabel?: string;
-    falseLabel?: string;
-  }) => (
-    <Badge
-      variant="secondary"
-      className={
-        isValid
-          ? "bg-green-100 text-green-800 hover:bg-green-200 border-green-300"
-          : "bg-red-100 text-red-800 hover:bg-red-200 border-red-300"
-      }
-    >
-      {isValid ? trueLabel : falseLabel}
-    </Badge>
-  );
 
   const competitionInfo = [
     {

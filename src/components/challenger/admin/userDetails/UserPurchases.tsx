@@ -50,7 +50,6 @@ export const UserPurchases = ({
   products,
   isAdmin = false,
   isUserValidated = false,
-  userId,
   onCreatePurchase,
   isCreateLoading = false,
   onEditPurchase,

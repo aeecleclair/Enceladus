@@ -299,7 +299,11 @@ const UserDetailsPage = () => {
         open={validateDialogOpen}
         onClose={() => setValidateDialogOpen(false)}
         onConfirm={() => {
-          userCompetition?.validated ? onInvalidate() : onValidate();
+          if (userCompetition?.validated) {
+            onInvalidate();
+          } else {
+            onValidate();
+          }
           setValidateDialogOpen(false);
         }}
         isLoading={isValidateLoading || isInvalidateLoading}

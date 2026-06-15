@@ -1,11 +1,7 @@
 "use client";
 
-import { CircularProgressBar } from "../../custom/CircularProgressBar";
-import { ProgressBadge } from "../../custom/ProgressBadge";
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTableRowActions } from "./DataTableRowActions";
-
-import { ParticipantInfo, Team } from "@/api";
 
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -91,6 +87,6 @@ export const columns: ColumnDef<Participant>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: () => <DataTableRowActions />,
   },
 ];

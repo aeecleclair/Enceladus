@@ -3,16 +3,11 @@ import { TeamFormValues } from "@/forms/challenger/team";
 import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useSchools } from "@/hooks/useSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { z } from "zod";
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
@@ -32,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { Crown, Flag, School, Shield, Trophy, Users } from "lucide-react";
+import { Crown, Flag, School, Shield, Trophy } from "lucide-react";
 
 interface TeamsFormProps {
   form: UseFormReturn<TeamFormValues>;
@@ -228,7 +223,7 @@ export const TeamsForm = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {schoolParticipants?.map((participant: any) => (
+                      {schoolParticipants?.map((participant) => (
                         <SelectItem
                           key={participant.user_id}
                           value={participant.user_id}
@@ -263,12 +258,12 @@ export const TeamsForm = ({
                     <span className="font-medium">Capitaine:</span>{" "}
                     {
                       schoolParticipants?.find(
-                        (p: any) => p.user_id === form.getValues("captain_id"),
+                        (p) => p.user_id === form.getValues("captain_id"),
                       )?.user.user.firstname
                     }{" "}
                     {
                       schoolParticipants?.find(
-                        (p: any) => p.user_id === form.getValues("captain_id"),
+                        (p) => p.user_id === form.getValues("captain_id"),
                       )?.user.user.name
                     }
                   </p>

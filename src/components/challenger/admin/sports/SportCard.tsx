@@ -2,7 +2,6 @@
 
 import { Sport } from "@/api";
 import { sportCategories } from "@/forms/challenger/sport";
-import { useRouter } from "@/i18n/navigation";
 
 import Link from "next/link";
 
@@ -49,7 +48,6 @@ export const SportCard = ({
   const hasNoMatches = matchCount !== undefined && matchCount === 0;
   const hasNoTeams = teamCount !== undefined && teamCount === 0;
   const hasWarning = hasNoMatches || hasNoTeams;
-  const router = useRouter();
   const categoryLabel =
     sportCategories.find((cat) => cat.value === sport.sport_category)?.label ||
     sport.sport_category;

@@ -4,12 +4,11 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-import { type LucideIcon, MoreHorizontal } from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 
 export function NavSecondary({
   items,

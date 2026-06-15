@@ -1,3 +1,5 @@
+import { SchoolSportQuota } from "@/api";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -7,7 +9,7 @@ interface GlobalQuotaCardProps {
   totalParticipants: number;
   totalValidated: number;
   totalTeams: number;
-  sportQuotas: any[];
+  sportQuotas: SchoolSportQuota[];
   schoolName: string;
 }
 

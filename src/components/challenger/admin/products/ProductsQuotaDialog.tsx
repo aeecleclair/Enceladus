@@ -68,7 +68,7 @@ export function ProductsQuotaDialog({
 }: ProductsQuotaDialogProps) {
   const productQuotaForm = useForm<
     ProductQuotaFormInput,
-    any,
+    unknown,
     ProductQuotaFormValues
   >({
     resolver: zodResolver(productQuotaFormSchema),

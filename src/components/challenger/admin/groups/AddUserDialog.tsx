@@ -40,11 +40,7 @@ export function AddUserDialog({
   const [selectedUserData, setSelectedUserData] =
     useState<CoreUserSimple | null>(null);
 
-  const {
-    userSearch,
-    refetchUsers,
-    isLoading: isApiLoading,
-  } = useUserSearch({
+  const { userSearch, isLoading: isApiLoading } = useUserSearch({
     query: searchQuery,
   });
 

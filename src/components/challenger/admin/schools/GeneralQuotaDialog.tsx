@@ -47,30 +47,31 @@ export function GeneralQuotaDialog({
   submitLabel,
   isLoading,
 }: GeneralQuotaDialogProps) {
-  const quotaForm = useForm<GeneralQuotaFormInput, any, GeneralQuotaFormValues>(
-    {
-      resolver: zodResolver(generalQuotaFormSchema),
-      defaultValues: {
-        athlete_quota: existingQuota?.athlete_quota?.toString() || undefined,
-        cameraman_quota:
-          existingQuota?.cameraman_quota?.toString() || undefined,
-        pompom_quota: existingQuota?.pompom_quota?.toString() || undefined,
-        fanfare_quota: existingQuota?.fanfare_quota?.toString() || undefined,
-        athlete_cameraman_quota:
-          existingQuota?.athlete_cameraman_quota?.toString() || undefined,
-        athlete_pompom_quota:
-          existingQuota?.athlete_pompom_quota?.toString() || undefined,
-        athlete_fanfare_quota:
-          existingQuota?.athlete_fanfare_quota?.toString() || undefined,
-        non_athlete_cameraman_quota:
-          existingQuota?.non_athlete_cameraman_quota?.toString() || undefined,
-        non_athlete_pompom_quota:
-          existingQuota?.non_athlete_pompom_quota?.toString() || undefined,
-        non_athlete_fanfare_quota:
-          existingQuota?.non_athlete_fanfare_quota?.toString() || undefined,
-      },
+  const quotaForm = useForm<
+    GeneralQuotaFormInput,
+    unknown,
+    GeneralQuotaFormValues
+  >({
+    resolver: zodResolver(generalQuotaFormSchema),
+    defaultValues: {
+      athlete_quota: existingQuota?.athlete_quota?.toString() || undefined,
+      cameraman_quota: existingQuota?.cameraman_quota?.toString() || undefined,
+      pompom_quota: existingQuota?.pompom_quota?.toString() || undefined,
+      fanfare_quota: existingQuota?.fanfare_quota?.toString() || undefined,
+      athlete_cameraman_quota:
+        existingQuota?.athlete_cameraman_quota?.toString() || undefined,
+      athlete_pompom_quota:
+        existingQuota?.athlete_pompom_quota?.toString() || undefined,
+      athlete_fanfare_quota:
+        existingQuota?.athlete_fanfare_quota?.toString() || undefined,
+      non_athlete_cameraman_quota:
+        existingQuota?.non_athlete_cameraman_quota?.toString() || undefined,
+      non_athlete_pompom_quota:
+        existingQuota?.non_athlete_pompom_quota?.toString() || undefined,
+      non_athlete_fanfare_quota:
+        existingQuota?.non_athlete_fanfare_quota?.toString() || undefined,
     },
-  );
+  });
 
   useEffect(() => {
     if (existingQuota) {

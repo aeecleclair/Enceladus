@@ -10,13 +10,11 @@ import {
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-import { format } from "date-fns";
 import { Calendar, Plus, Users } from "lucide-react";
 
 export default function VolunteerShiftsPage() {

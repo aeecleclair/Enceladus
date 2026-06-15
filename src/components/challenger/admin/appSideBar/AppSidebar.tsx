@@ -36,8 +36,6 @@ import {
   SidebarSeparator,
 } from "@/components/ui/sidebar";
 
-import { Command, LifeBuoy, Send } from "lucide-react";
-
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { edition } = useEdition();
   const router = useRouter();

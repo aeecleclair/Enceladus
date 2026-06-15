@@ -2,7 +2,6 @@
 
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useSchools } from "@/hooks/useSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 import { Button } from "@/components/ui/button";

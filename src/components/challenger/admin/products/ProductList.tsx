@@ -3,7 +3,6 @@ import { ProductOptionsMenu } from "./ProductOptionsMenu";
 import { ProductVariantStatsGrid } from "./ProductVariantStatsGrid";
 
 import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
-import { useProducts } from "@/hooks/challenger/useProducts";
 
 import { useState } from "react";
 
@@ -19,11 +18,9 @@ import { Input } from "@/components/ui/input";
 
 import {
   ChevronRight,
-  Eye,
   Package,
   Plus,
   Search,
-  Settings,
   ShoppingCart,
   Users,
 } from "lucide-react";

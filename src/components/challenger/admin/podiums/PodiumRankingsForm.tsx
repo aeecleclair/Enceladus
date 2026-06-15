@@ -2,7 +2,6 @@
 
 import { RankingRow } from "./RankingRow";
 
-import { SchoolResult, TeamSportResultComplete } from "@/api";
 import {
   PodiumRankingsFormData,
   podiumRankingsSchema,
@@ -21,13 +20,11 @@ import { Plus } from "lucide-react";
 
 interface PodiumRankingsFormProps {
   sportId: string;
-  isLoading?: boolean;
   onClose: () => void;
 }
 
 export function PodiumRankingsForm({
   sportId,
-  isLoading = false,
   onClose,
 }: PodiumRankingsFormProps) {
   const isPompoms = sportId === "pompoms";
@@ -52,7 +49,7 @@ export function PodiumRankingsForm({
 
   // Transform pompoms data to match the regular form structure
   const defaultValues = isPompoms
-    ? pompomsResults?.map((result, index) => ({
+    ? pompomsResults?.map((result) => ({
         school_id: result.school_id,
         sport_id: "pompoms",
         team_id: result.school_id, // Use school_id as team_id for pompoms

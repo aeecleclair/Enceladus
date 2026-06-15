@@ -18,7 +18,7 @@ import {
 export default function PodiumsPage() {
   const { sports, error: sportsError } = useSports();
   const { schools } = useSchools();
-  const { pompomsResults, isPompomsLoading } = usePompomsPodiums();
+  const { pompomsResults } = usePompomsPodiums();
   const { podiumsBySport } = useSportPodiums({
     sportIds:
       sports?.filter((sport) => sport.active).map((sport) => sport.id) || [],

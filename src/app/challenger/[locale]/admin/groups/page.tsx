@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  CompetitionGroupType,
-  UserGroupMembership,
-  UserGroupMembershipComplete,
-} from "@/api";
+import { CompetitionGroupType, UserGroupMembershipComplete } from "@/api";
 import { AddUserDialog } from "@/components/challenger/admin/groups/AddUserDialog";
 import { DeleteConfirmationDialog } from "@/components/challenger/admin/groups/DeleteConfirmationDialog";
 import GroupCard from "@/components/challenger/admin/groups/GroupCard";
@@ -13,7 +9,6 @@ import { useGroups } from "@/hooks/challenger/useGroups";
 import { useRouter } from "@/i18n/navigation";
 import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
@@ -28,14 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 
-import {
-  Filter,
-  Search,
-  Settings,
-  Shield,
-  UserPlus,
-  Users,
-} from "lucide-react";
+import { Filter, Search, Settings, UserPlus, Users } from "lucide-react";
 
 export default function GroupsPage() {
   const router = useRouter();

@@ -205,7 +205,6 @@ export default function PodiumsPage() {
               {selectedSportForEdit && (
                 <PodiumRankingsForm
                   sportId={selectedSportForEdit}
-                  isLoading={false}
                   onClose={() => {
                     setEditDialogOpen(false);
                     setSelectedSportForEdit("");

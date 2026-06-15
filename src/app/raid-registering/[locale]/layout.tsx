@@ -42,7 +42,6 @@ export default async function RootLayout({
 }>) {
   const { locale } = (await params) as { locale: Locale };
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "raid" });
   return (
     <html lang="en">
       <head>

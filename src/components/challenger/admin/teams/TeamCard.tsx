@@ -3,7 +3,6 @@
 import { TeamComplete } from "@/api";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useSchools } from "@/hooks/useSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 import { Badge } from "@/components/ui/badge";
@@ -78,7 +77,7 @@ const TeamCard = ({ team, onEdit, onDelete }: TeamCardProps) => {
         </div>
       </CardHeader>
 
-      <CardContent className="py-3 flex-grow">
+      <CardContent className="py-3 grow">
         {/* Team Info */}
         <div className="space-y-4">
           {/* Captain */}

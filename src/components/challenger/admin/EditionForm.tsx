@@ -50,6 +50,7 @@ export const EditionForm = ({
               }
               // If only start date is selected, clear end date
               if (startDate && !endDate) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 form.setValue("endDate", undefined as any, {
                   shouldValidate: true,
                 });

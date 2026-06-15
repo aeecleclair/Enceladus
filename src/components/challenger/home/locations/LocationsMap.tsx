@@ -1,25 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { LocationInfoMarker } from "./LocationInfoMarker";
 
-import { LocationComplete, MatchComplete } from "@/api";
+import { LocationComplete, MatchComplete, SchoolExtension, Sport } from "@/api";
 
 import React, { useCallback, useEffect, useRef } from "react";
 
+import type {
+  LeafletEvent,
+  Map as LeafletMap,
+  Marker as LeafletMarker,
+} from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { createRoot } from "react-dom/client";
 
+interface LocationWithMatches extends LocationComplete {
+  nextMatch?: MatchComplete;
+  totalMatches: number;
+  upcomingMatches?: MatchComplete[];
+}
+
 interface LocationsMapProps {
   locations: LocationComplete[];
-  locationsWithMatches: Array<
-    LocationComplete & {
-      nextMatch?: MatchComplete;
-      totalMatches: number;
-      upcomingMatches?: MatchComplete[];
-    }
-  >;
-  sports?: any[];
-  schools?: any[];
+  locationsWithMatches: LocationWithMatches[];
+  sports?: Sport[];
+  schools?: SchoolExtension[];
   className?: string;
 }
 
@@ -30,15 +36,15 @@ export function LocationsMap({
   className = "h-[calc(100vh-15rem)] w-full",
 }: LocationsMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
-  const markersRef = useRef<any[]>([]);
+  const mapInstanceRef = useRef<LeafletMap | null>(null);
+  const markersRef = useRef<LeafletMarker[]>([]);
 
   const createLocationMarker = useCallback(
     (
-      L: any,
+      L: typeof import("leaflet"),
       location: LocationComplete,
-      locationWithMatches: any,
-      sports?: any[],
+      locationWithMatches: LocationWithMatches,
+      sports?: Sport[],
     ) => {
       if (!location.latitude || !location.longitude) return null;
 
@@ -72,7 +78,7 @@ export function LocationsMap({
         icon: customIcon,
       });
 
-      marker.on("click", (e: any) => {
+      marker.on("click", (e: LeafletEvent) => {
         L.DomEvent.stopPropagation(e);
         if (mapInstanceRef.current) {
           const map = mapInstanceRef.current;
@@ -92,7 +98,7 @@ export function LocationsMap({
     [],
   );
 
-  const cleanupMarker = (marker: any) => {
+  const cleanupMarker = (marker: LeafletMarker | null | undefined) => {
     if (marker && (marker as any)._reactRoot) {
       const rootToCleanup = (marker as any)._reactRoot;
       setTimeout(() => {
@@ -138,6 +144,7 @@ export function LocationsMap({
           const locationWithMatches = locationsWithMatches.find(
             (lwm) => lwm.id === location.id,
           );
+          if (!locationWithMatches) return;
 
           const marker = createLocationMarker(
             L,
@@ -201,6 +208,7 @@ export function LocationsMap({
           const locationWithMatches = locationsWithMatches.find(
             (lwm) => lwm.id === location.id,
           );
+          if (!locationWithMatches) return;
 
           const marker = createLocationMarker(
             L,

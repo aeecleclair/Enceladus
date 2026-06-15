@@ -146,7 +146,7 @@ const Dashboard = () => {
 
           console.log("userPurchases", userPurchases);
 
-          var requiredPurchases: RequiredPurchase = [];
+          const requiredPurchases: RequiredPurchase = [];
 
           userPurchases.forEach((purchase) => {
             const product = products?.find((p) =>

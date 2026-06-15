@@ -9,7 +9,6 @@ import {
 import { useEditions } from "@/hooks/challenger/useEditions";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import {
@@ -66,7 +65,7 @@ export const CreateEditionDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>Créer une nouvelle édition</DialogTitle>
           <DialogDescription>

@@ -8,7 +8,6 @@ import {
 import { useProducts } from "@/hooks/challenger/useProducts";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";

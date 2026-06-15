@@ -1,17 +1,13 @@
 "use client";
 
-import { LocationComplete, MatchComplete } from "@/api";
+import { LocationComplete, MatchComplete, Sport } from "@/api";
 
 import React from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-import {
-  Clock,
-  MapPin,
-  Search,
-} from "lucide-react";
+import { Clock, MapPin, Search } from "lucide-react";
 
 interface LocationInfoMarkerProps {
   location: LocationComplete;
@@ -19,7 +15,7 @@ interface LocationInfoMarkerProps {
   totalMatches: number;
   nextMatch?: MatchComplete;
   upcomingMatches?: MatchComplete[];
-  sports?: any[];
+  sports?: Sport[];
 }
 
 export function LocationInfoMarker({
@@ -78,10 +74,10 @@ export function LocationInfoMarker({
     const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
     const allSports = sorted
       .map(([id, count]) => ({
-        sport: sports.find((s: any) => s.id === id),
+        sport: sports.find((s) => s.id === id),
         count,
       }))
-      .filter((s) => s.sport);
+      .filter((s) => s.sport) as { sport: Sport; count: number }[];
     return {
       isSingleSport: allSports.length === 1,
       allSports,
@@ -188,7 +184,7 @@ export function LocationInfoMarker({
                             : `${h}h${m.toString().padStart(2, "0")}`;
                         })();
                 const sportObj = Array.isArray(sports)
-                  ? sports.find((s: any) => s.id === nextMatch.sport_id)
+                  ? sports.find((s) => s.id === nextMatch.sport_id)
                   : null;
 
                 return (
@@ -253,9 +249,7 @@ export function LocationInfoMarker({
                 <div className="mt-1.5 space-y-0.5 max-h-24 overflow-y-auto">
                   {upcomingMatches.slice(1, 4).map((match) => {
                     const matchDate = formatMatchDate(match.date!);
-                    const sport = sports?.find(
-                      (s: any) => s.id === match.sport_id,
-                    );
+                    const sport = sports?.find((s) => s.id === match.sport_id);
                     return (
                       <div
                         key={match.id}

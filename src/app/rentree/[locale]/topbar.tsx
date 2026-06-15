@@ -35,7 +35,6 @@ export default function TopBar() {
   const t = useTranslations("siarnaq");
   const { setToken, setRefreshToken } = useTokenStore();
   const pathname = usePathname();
-  const locale = useLocale();
   const router = useRouter();
   const { user } = useMeUser();
   const { isCdrAdmin } = useHasCdrPermission();
@@ -92,7 +91,6 @@ export default function TopBar() {
 function LocaleDropdown() {
   const locale = useLocale();
   const { localeStore, setLocaleStore } = useLocaleStore();
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const sellerId = searchParams.get("sellerId") ?? "";

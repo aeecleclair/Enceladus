@@ -12,7 +12,6 @@ import {
   Calendar,
   Clock,
   Edit,
-  ExternalLink,
   MapPin,
   Trash2,
   User,
@@ -36,10 +35,6 @@ export default function VolunteerShiftCard({
   const endDate = new Date(shift.end_time);
   const isUpcoming = startDate > new Date();
   const isPast = endDate < new Date();
-  const duration =
-    Math.round(
-      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 100),
-    ) / 10;
 
   const getStatusColor = () => {
     if (isPast) return "secondary";
@@ -59,7 +54,7 @@ export default function VolunteerShiftCard({
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full flex-shrink-0" />
+              <div className="w-3 h-3 rounded-full shrink-0" />
               <CardTitle className="text-lg">{shift.name}</CardTitle>
             </div>
             <Badge variant={getStatusColor()}>{getStatusText()}</Badge>
@@ -102,7 +97,7 @@ export default function VolunteerShiftCard({
           {shift.location && (
             <div className="flex items-start gap-2 text-sm">
               <div className="flex items-center gap-1.5 mt-0.5">
-                <div className="w-3 h-3 rounded-full flex-shrink-0" />
+                <div className="w-3 h-3 rounded-full shrink-0" />
                 <MapPin className="h-4 w-4 text-muted-foreground" />
               </div>
               <div className="flex-1 min-w-0">

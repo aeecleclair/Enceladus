@@ -30,8 +30,6 @@ export const SportQuotaCard = ({
     createQuota,
     isUpdateLoading,
     updateQuota,
-    isDeleteLoading,
-    deleteQuota,
   } = useSchoolsSportQuota({
     schoolId: school.school_id,
   });
@@ -39,9 +37,6 @@ export const SportQuotaCard = ({
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
-  const [selectedSportForDelete, setSelectedSportForDelete] = useState<
-    string | null
-  >(null);
 
   const handleEditQuota = (sportId: string) => {
     const currentQuota = schoolsSportQuota?.find((q) => q.sport_id === sportId);
@@ -131,7 +126,7 @@ export const SportQuotaCard = ({
             }))}
             onEditQuota={handleEditQuota}
             onDeleteQuota={(sportId) => {
-              setSelectedSportForDelete(sportId);
+              setSelectedSport(sportId);
               setIsDeleteDialogOpen(true);
             }}
           />

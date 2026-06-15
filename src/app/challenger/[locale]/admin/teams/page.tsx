@@ -4,19 +4,16 @@ import TeamCard from "@/components/challenger/admin/teams/TeamCard";
 import { TeamsForm } from "@/components/challenger/admin/teams/TeamsForm";
 import { WarningDialog } from "@/components/common/WarningDialog";
 import { TeamFormValues, teamFormSchema } from "@/forms/challenger/team";
-import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 import { useAllTeams } from "@/hooks/challenger/useAllTeams";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSportTeams } from "@/hooks/challenger/useSportTeams";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useSchools } from "@/hooks/useSchools";
 import { useRouter } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -44,18 +41,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useToast } from "@/components/ui/use-toast";
 
-import {
-  Filter,
-  Grid,
-  Plus,
-  Search,
-  Shield,
-  Table,
-  Trophy,
-  Users,
-} from "lucide-react";
+import { Filter, Plus, Search, Shield, Users } from "lucide-react";
 import { AlertTriangle } from "lucide-react";
 
 const TeamsDashboard = () => {
@@ -110,7 +97,7 @@ const TeamsDashboard = () => {
     updateURL(selectedSportId, schoolId);
   };
 
-  const { allTeams, refetchAllTeams } = useAllTeams();
+  const { allTeams } = useAllTeams();
 
   // Fetch sport-specific teams when only sport is selected
   const { sportTeams } = useSportTeams({
@@ -130,7 +117,6 @@ const TeamsDashboard = () => {
 
   const {
     // teams,
-    refetchTeams,
     deleteSchoolSportTeam,
     createSchoolSportTeam,
     updateSchoolSportTeam,

@@ -2,15 +2,17 @@
 
 import { DateTimePicker } from "../../custom/DateTimePicker";
 
-import { VolunteerShiftBase, VolunteerShiftComplete } from "@/api";
+import {
+  CoreUserSimple,
+  VolunteerShiftBase,
+  VolunteerShiftComplete,
+} from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import {
   VolunteerShiftFormSchema,
   volunteerShiftFormSchema,
 } from "@/forms/challenger/volunteerShift";
-import { useLocations } from "@/hooks/challenger/useLocations";
 import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
-import { useAuth } from "@/hooks/useAuth";
 import { useUserSearch } from "@/hooks/useUsersSearch";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -71,13 +73,12 @@ export default function VolunteerShiftForm({
     isUpdateLoading,
   } = useVolunteerShifts();
 
-  const { locations } = useLocations();
-  const { userId } = useAuth();
-
   const [managerQuery, setManagerQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("*"); // Initialize with "*" to load users immediately
   const [isManagerPopoverOpen, setIsManagerPopoverOpen] = useState(false);
-  const [selectedManager, setSelectedManager] = useState<any>(null);
+  const [selectedManager, setSelectedManager] = useState<CoreUserSimple | null>(
+    null,
+  );
   const { userSearch, isLoading: isSearchLoading } = useUserSearch({
     query: debouncedQuery,
   });

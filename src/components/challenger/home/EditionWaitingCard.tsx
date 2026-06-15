@@ -1,5 +1,3 @@
-import { useRouter } from "@/i18n/navigation";
-
 interface EditionWaitingCardProps {
   edition: {
     year: number;

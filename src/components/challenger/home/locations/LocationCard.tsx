@@ -36,7 +36,6 @@ export function LocationCard({
   nextMatch,
   totalMatches,
   sports = [],
-  schools = [],
 }: LocationCardProps) {
   // Helper function to open map application
   const openMap = (location: { name: string; address?: string | null }) => {
@@ -76,7 +75,6 @@ export function LocationCard({
   const getSportName = (sportId: string) => {
     return sports.find((sport) => sport.id === sportId)?.name || "Sport";
   };
-
 
   const getTeamName = (teamId: string) => {
     // For now, return team ID as name since we don't have team data in this context
@@ -120,7 +118,7 @@ export function LocationCard({
         {/* Address */}
         {location.address && (
           <div className="flex items-start gap-2 text-sm text-muted-foreground">
-            <Navigation className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <Navigation className="h-4 w-4 mt-0.5 shrink-0" />
             <span className="line-clamp-2">{location.address}</span>
           </div>
         )}

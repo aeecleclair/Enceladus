@@ -3,12 +3,11 @@
 import { CoreUserSimple } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { useAssignSchool } from "@/hooks/challenger/useAssignSchool";
-import { useAuth } from "@/hooks/useAuth";
 import { useSchools } from "@/hooks/useSchools";
 import { useUserSearch } from "@/hooks/useUsersSearch";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,7 +31,6 @@ import {
 import { School, Search, UserCheck } from "lucide-react";
 
 export default function SchoolAssignPage() {
-  const { token, isTokenExpired } = useAuth();
   const { filteredSchools } = useSchools();
   const { assignSchool, isAssignLoading } = useAssignSchool();
 

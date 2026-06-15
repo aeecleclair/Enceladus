@@ -1,37 +1,29 @@
 "use client";
 
-import { Match, MatchComplete } from "@/api";
+import { MatchComplete } from "@/api";
 import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 import { PastMatches } from "@/components/challenger/home/matches/PastMatches";
 import { UpcomingMatches } from "@/components/challenger/home/matches/UpcomingMatches";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useSportMatches } from "@/hooks/challenger/useSportMatches";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useSports } from "@/hooks/challenger/useSports";
 
 import { useMemo } from "react";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-import { Calendar, GraduationCap, Trophy, Users, Zap } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 export default function MatchesPage() {
   const { meParticipant } = useParticipant();
-  const { teams } = useSchoolSportTeams({
-    sportId: meParticipant?.sport_id,
-    schoolId: meParticipant?.school_id,
-  });
+
   const { sportMatches } = useSportMatches({
     sportId: meParticipant?.sport_id,
   });
-  const { sports } = useSports();
-  const { sportSchools } = useSportSchools();
 
   const userTeamId = meParticipant?.team_id;
 
@@ -83,15 +75,7 @@ export default function MatchesPage() {
     );
   }, [sportMatches, userTeamId]);
 
-  const { upcomingMatches, pastMatches, totalMatches, victories } = matchStats;
-
-  const userTeam = teams?.find((team) => team.id === userTeamId);
-  const userSport = sports?.find(
-    (sport) => sport.id === meParticipant?.sport_id,
-  );
-  const userSchool = sportSchools?.find(
-    (school) => school.school_id === meParticipant?.school_id,
-  );
+  const { upcomingMatches, pastMatches } = matchStats;
 
   useMemo(() => {
     upcomingMatches.sort((a, b) => a._matchTime - b._matchTime);

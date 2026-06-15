@@ -124,11 +124,11 @@ const Register = () => {
       Récapitulatif: [],
     } as const,
     onValidateCardActions: {
-      Informations: (values, callback) => {},
-      Participation: (values, callback) => {},
-      Sport: (values, callback) => {},
-      Panier: (values, callback) => {},
-      Récapitulatif: (values, callback) => {},
+      Informations: () => {},
+      Participation: () => {},
+      Sport: () => {},
+      Panier: () => {},
+      Récapitulatif: () => {},
     } as const,
   });
 
@@ -270,7 +270,7 @@ const Register = () => {
           });
           callback();
         },
-        Récapitulatif: (values, callback) => {
+        Récapitulatif: () => {
           router.push("/");
         },
       } as const,

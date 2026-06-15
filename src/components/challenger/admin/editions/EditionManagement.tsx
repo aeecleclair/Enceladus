@@ -19,19 +19,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import {
-  CalendarDays,
-  Edit,
-  PlayCircle,
-  Plus,
-  Settings,
-  StopCircle,
-  Users,
-} from "lucide-react";
+import { CalendarDays, Edit, PlayCircle, Plus, Users } from "lucide-react";
 
 export const EditionManagement = () => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);

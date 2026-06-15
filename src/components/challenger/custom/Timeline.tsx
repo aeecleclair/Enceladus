@@ -9,7 +9,7 @@ import { type VariantProps, cva } from "class-variance-authority";
 const Timeline = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => <div {...props} ref={ref} />);
+>(({ ...props }, ref) => <div {...props} ref={ref} />);
 Timeline.displayName = "Timeline";
 
 const TimelineItem = React.forwardRef<

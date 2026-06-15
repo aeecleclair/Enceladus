@@ -1,7 +1,5 @@
 "use client";
 
-import { useSellers } from "@/hooks/siarnaq/useSellers";
-import { useMeUser } from "@/hooks/useMeUser";
 import { Link, usePathname } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { useLocaleStore } from "@/stores/locale";

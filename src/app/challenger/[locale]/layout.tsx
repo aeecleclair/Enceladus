@@ -42,12 +42,11 @@ export default async function RootLayout({
 }>) {
   const { locale } = (await params) as { locale: Locale };
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "challenger" });
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <title>Raid Registering</title>
+        <title>Challenger</title>
         <link rel="shortcut icon" href="/challenger.ico" />
       </head>
 

@@ -60,13 +60,15 @@ export function SportQuotaDialog({
   submitLabel,
   isLoading,
 }: SportQuotaDialogProps) {
-  const quotaForm = useForm<SportQuotaFormInput, any, SportQuotaFormValues>({
-    resolver: zodResolver(sportQuotaFormSchema),
-    defaultValues: {
-      participant_quota: undefined,
-      team_quota: undefined,
+  const quotaForm = useForm<SportQuotaFormInput, unknown, SportQuotaFormValues>(
+    {
+      resolver: zodResolver(sportQuotaFormSchema),
+      defaultValues: {
+        participant_quota: undefined,
+        team_quota: undefined,
+      },
     },
-  });
+  );
 
   useEffect(() => {
     if (existingQuota) {

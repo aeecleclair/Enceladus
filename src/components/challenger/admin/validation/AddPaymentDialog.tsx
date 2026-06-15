@@ -56,6 +56,7 @@ export function AddPaymentDialog({
         description: `Le paiement de ${numericAmount}€ pour ${participantName} a été enregistré avec succès.`,
       });
     } catch (error) {
+      console.error("Error while adding payment:", error);
       toast({
         title: "Erreur",
         description: "Impossible d'enregistrer le paiement",
@@ -66,7 +67,7 @@ export function AddPaymentDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Enregistrer un paiement</DialogTitle>

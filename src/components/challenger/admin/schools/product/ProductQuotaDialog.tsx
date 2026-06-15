@@ -63,14 +63,16 @@ export function ProductQuotaDialog({
   submitLabel,
   isLoading,
 }: ProductQuotaDialogProps) {
-  const quotaForm = useForm<ProductQuotaFormInput, any, ProductQuotaFormValues>(
-    {
-      resolver: zodResolver(productQuotaFormSchema),
-      defaultValues: {
-        quota: undefined,
-      },
+  const quotaForm = useForm<
+    ProductQuotaFormInput,
+    unknown,
+    ProductQuotaFormValues
+  >({
+    resolver: zodResolver(productQuotaFormSchema),
+    defaultValues: {
+      quota: undefined,
     },
-  );
+  });
 
   useEffect(() => {
     if (existingQuota) {

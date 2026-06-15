@@ -56,14 +56,12 @@ export interface QuotaWithSchool {
 
 interface QuotaDataTableProps {
   data: QuotaWithSchool[];
-  sportName: string;
   onEditQuota: (schoolId: string) => void;
   onDeleteQuota: (schoolId: string) => void;
 }
 
 export function QuotaDataTable({
   data,
-  sportName,
   onEditQuota,
   onDeleteQuota,
 }: QuotaDataTableProps) {

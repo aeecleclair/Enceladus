@@ -31,7 +31,6 @@ import {
   Search,
   Target,
   Trophy,
-  Users,
 } from "lucide-react";
 
 const Dashboard = () => {

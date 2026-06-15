@@ -1,12 +1,11 @@
 "use client";
 
-import { UserGroupMembership, UserGroupMembershipComplete } from "@/api";
+import { UserGroupMembershipComplete } from "@/api";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 import Link from "next/link";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,

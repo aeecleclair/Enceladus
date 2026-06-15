@@ -2,6 +2,7 @@
 
 import { MatchCarouselSection } from "./dashboard/MatchCarouselSection";
 import { StandingsSection } from "./dashboard/StandingsSection";
+import { Shift } from "./dashboard/VolunteerShiftCard";
 import { VolunteerShiftsSection } from "./dashboard/VolunteerShiftsSection";
 import MatchDetailDialog from "./matches/MatchDetailDialog";
 import SchoolStandingsDialog from "./standings/SchoolStandingsDialog";
@@ -104,7 +105,7 @@ export const UserDashboard = ({
     }
 
     // Volunteer next shifts — user's registered shifts only
-    let volunteerNextShifts: any[] = [];
+    let volunteerNextShifts: Shift[] = [];
     if (volunteer && volunteer.length > 0 && volunteerShifts) {
       const registeredIds = new Set(volunteer.map((reg) => reg.shift_id));
       volunteerNextShifts = volunteerShifts

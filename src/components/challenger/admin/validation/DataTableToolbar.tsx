@@ -5,17 +5,9 @@ import { DataTableFilterCheckBox } from "../registered-table/DataTableFilterChec
 
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
-import React, { useMemo } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

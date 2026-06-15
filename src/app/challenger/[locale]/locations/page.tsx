@@ -23,8 +23,6 @@ export default function LocationsPage() {
   const locationsWithMatches = useMemo(() => {
     if (!locations || !allMatches) return [];
 
-    const now = new Date();
-
     return locations.map((location) => {
       const locationMatches = allMatches.filter(
         (match: Match) => match.location_id === location.id,

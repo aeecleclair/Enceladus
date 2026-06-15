@@ -9,11 +9,9 @@ import { sportCategories } from "@/forms/challenger/sport";
 import { SportQuotaFormValues } from "@/forms/challenger/sportQuota";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSportsQuota } from "@/hooks/challenger/useSportsQuota";
-import { useSchools } from "@/hooks/useSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
-import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -308,7 +306,6 @@ const SportDetail = ({ sport, onEdit, onDelete }: SportDetailProps) => {
                 team_quota: quota.team_quota || 0,
                 sport_id: quota.sport_id,
               }))}
-              sportName={sport.name || ""}
               onEditQuota={handleEditQuota}
               onDeleteQuota={(schoolId) => {
                 setSelectedSchoolForDelete(schoolId);

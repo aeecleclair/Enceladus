@@ -11,8 +11,6 @@ import { RequiredPurchase, UserProductsCell } from "./UserProductsCell";
 
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
-  AppModulesSportCompetitionSchemasSportCompetitionProductComplete,
-  AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete,
   CompetitionUserEdit,
 } from "@/api";
 import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";

@@ -45,6 +45,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
 
   // Check if at least one required product is selected
   const requiredProducts = Object.entries(groupedByProductId).filter(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ([_, products]) => products[0].product.required,
   );
   const hasRequiredProductSelected = requiredProducts.some(
@@ -106,6 +107,10 @@ export const BasketCard = ({ form }: PackageCardProps) => {
                     <div className="flex items-center space-x-2 pt-2">
                       <RadioGroup
                         onValueChange={(value) => {
+                          const selectedProduct = availableProducts?.find(
+                            (product) => product.id === value,
+                          );
+                          if (!selectedProduct) return;
                           form.setValue("products", [
                             ...purchases.filter(
                               (purchase) =>
@@ -113,9 +118,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
                                 selectedPerProduct[productId][0],
                             ),
                             {
-                              product: availableProducts?.find(
-                                (product) => product.id === value,
-                              )!,
+                              product: selectedProduct,
                               quantity: 1,
                             },
                           ]);

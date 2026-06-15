@@ -85,9 +85,9 @@ export const PaymentButton = () => {
                 <div className="flex justify-between">
                   <span>Participation</span>
                   <span>
-                    {(isStudent || isNotValidatedStudent
-                      ? price?.student_price!
-                      : price?.external_price!) / 100}{" "}
+                    {((isStudent || isNotValidatedStudent
+                      ? price?.student_price
+                      : price?.external_price) ?? 0) / 100}{" "}
                     €
                   </span>
                 </div>
@@ -95,7 +95,7 @@ export const PaymentButton = () => {
               {mustPayTShirt && (
                 <div className="flex justify-between">
                   <span>T-Shirt taille {me.t_shirt_size}</span>
-                  <span>{price?.t_shirt_price! / 100} €</span>
+                  <span>{(price?.t_shirt_price ?? 0) / 100} €</span>
                 </div>
               )}
               {mustPayRegistering && mustPayTShirt && (
@@ -104,10 +104,10 @@ export const PaymentButton = () => {
                   <div className="flex justify-between">
                     <span>Total</span>
                     <span>
-                      {((isStudent || isNotValidatedStudent
-                        ? price?.student_price!
-                        : price?.external_price!) +
-                        price?.t_shirt_price!) /
+                      {(((isStudent || isNotValidatedStudent
+                        ? price?.student_price
+                        : price?.external_price) ?? 0) +
+                        (price?.t_shirt_price ?? 0)) /
                         100}{" "}
                       €
                     </span>

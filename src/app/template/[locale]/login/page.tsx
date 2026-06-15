@@ -41,7 +41,7 @@ const Login = () => {
             size="lg"
             className="w-full m-auto"
             onClick={() => {
-              let redirectUri =
+              const redirectUri =
                 process.env.NEXT_PUBLIC_BACKEND_URL + "/calypsso/register";
               router.push(redirectUri);
             }}

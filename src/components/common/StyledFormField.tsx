@@ -1,4 +1,8 @@
-import { ControllerRenderProps, FieldValues } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  UseFormReturn,
+} from "react-hook-form";
 
 import {
   FormControl,
@@ -11,7 +15,7 @@ import {
 interface StyledFormFieldProps {
   label?: string;
   id: string;
-  form: any;
+  form: UseFormReturn<any>;
   input: (field: ControllerRenderProps<FieldValues, string>) => React.ReactNode;
   className?: string;
 }

@@ -1,7 +1,7 @@
 import { GlobalQuotaCard } from "./GlobalQuotaCard";
 import { ParticipantData, ParticipantDataTable } from "./ParticipantDataTable";
 
-import { SchoolExtension, SchoolGeneralQuota, SchoolProductQuota } from "@/api";
+import { SchoolExtension, SchoolGeneralQuota } from "@/api";
 import {
   GetCompetitionProductsResponse,
   GetCompetitionSchoolsSchoolIdProductQuotasResponse,

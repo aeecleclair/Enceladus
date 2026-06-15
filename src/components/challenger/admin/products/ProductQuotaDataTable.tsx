@@ -25,7 +25,6 @@ interface ProductQuotaDataTableProps {
 
 export function ProductQuotaDataTable({
   data,
-  productName,
   onEditQuota,
   onDeleteQuota,
 }: ProductQuotaDataTableProps) {

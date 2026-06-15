@@ -1,10 +1,9 @@
 "use client";
 
-import { UserGroupMembership, UserGroupMembershipComplete } from "@/api";
+import { UserGroupMembershipComplete } from "@/api";
 import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,14 +11,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ArrowLeft,
   Edit,
-  IdCard,
   Mail,
   School,
   Settings,
-  Shield,
   Trash2,
   User,
-  UserMinus,
   Users,
 } from "lucide-react";
 

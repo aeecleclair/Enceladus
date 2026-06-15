@@ -250,7 +250,7 @@ const EventGroup = ({
             }}
             onClick={(e) => {
               e.stopPropagation();
-              onEventClick && onEventClick(event);
+              onEventClick?.(event);
             }}
             title={`${event.title}${event.subtitle ? ` - ${event.subtitle}` : ""} - ${format(event.start, "HH:mm")} à ${format(event.end, "HH:mm")}`}
           >

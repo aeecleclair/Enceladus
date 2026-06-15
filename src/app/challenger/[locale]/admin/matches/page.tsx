@@ -76,15 +76,10 @@ const MatchesDashboard = () => {
     [updateURL],
   );
 
-  const {
-    sportMatches,
-    refetchSportMatches,
-    deleteMatch,
-    error,
-    isDeleteLoading,
-  } = useSportMatches({
-    sportId: selectedSportId || undefined,
-  });
+  const { sportMatches, refetchSportMatches, deleteMatch, isDeleteLoading } =
+    useSportMatches({
+      sportId: selectedSportId || undefined,
+    });
 
   // Auto-select first sport when sports are loaded and no sport is selected
   useEffect(() => {

@@ -1,7 +1,6 @@
 import { SchoolExtension } from "@/api";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Card,

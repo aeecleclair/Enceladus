@@ -60,11 +60,12 @@ export const SportCard = ({ form, sports }: SportCardProps) => {
   );
 
   const createTeam = (name: string) => {
+    if (!me?.school?.id || !me?.id) return;
     const body: TeamInfo = {
       name,
       sport_id: form.watch("sport.id")!,
-      school_id: me?.school?.id!,
-      captain_id: me?.id!,
+      school_id: me?.school?.id,
+      captain_id: me?.id,
     };
     createSchoolSportTeam(body, (team) => {
       form.setValue("sport.team_id", team.id);

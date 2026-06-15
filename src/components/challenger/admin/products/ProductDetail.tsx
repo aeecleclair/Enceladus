@@ -20,7 +20,6 @@ import {
   ArrowLeft,
   CheckCircle,
   Edit,
-  Euro,
   Info,
   Package,
   Plus,

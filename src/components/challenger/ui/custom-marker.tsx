@@ -22,14 +22,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 
-import {
-  Edit,
-  MapPin,
-  Navigation,
-  Save,
-  Star,
-  X,
-} from "lucide-react";
+import { Edit, MapPin, Navigation, Save, Star, X } from "lucide-react";
 
 interface CustomMarkerProps {
   latitude: number;
@@ -93,9 +86,9 @@ export function CustomMarker({
   const handleSubmit = async (data: LocationFormData) => {
     try {
       if (existingLocation) {
-        await onLocationUpdate?.(existingLocation.id, data);
+        onLocationUpdate?.(existingLocation.id, data);
       } else {
-        await onLocationCreate?.({
+        onLocationCreate?.({
           ...data,
           latitude,
           longitude,

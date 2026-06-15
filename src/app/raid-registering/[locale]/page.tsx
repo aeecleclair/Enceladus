@@ -20,7 +20,7 @@ import { getDaysLeft } from "@/lib/dateFormat";
 import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
 

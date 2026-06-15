@@ -1,4 +1,4 @@
-import { CoreSchool, SchoolExtension, SchoolSportQuota } from "@/api";
+import { SchoolExtension, SchoolSportQuota } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
 import {
@@ -68,7 +68,7 @@ export function QuotaDialog({
 }: QuotaDialogProps) {
   const SportquotaForm = useForm<
     SportQuotaFormInput,
-    any,
+    unknown,
     SportQuotaFormValues
   >({
     resolver: zodResolver(sportQuotaFormSchema),
