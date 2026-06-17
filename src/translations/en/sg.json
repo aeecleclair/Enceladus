@@ -91,6 +91,43 @@
     "patchSuccessDescription": "The session has been updated successfully.",
     "patchErrorTitle": "Error updating the session",
     "patchErrorDescription": "An error occurred while updating the session. Please try again."
+  },
+  "dataTable": {
+    "noResult": "No results"
+  },
+  "dataTableColumnHeader": {
+    "asc": "Ascending",
+    "desc": "Descending",
+    "hide": "Hide",
+    "name": "Last name",
+    "firstname": "First name",
+    "nickname": "Nickname",
+    "status": "Status",
+    "nb_scan": "Scans"
+  },
+  "dataTablePagination": {
+    "byPage": "per page",
+    "goToFirstPage": "Go to first page",
+    "goToLastPage": "Go to last page",
+    "goToNextPage": "Go to next page",
+    "goToPreviousPage": "Go to previous page",
+    "pagination": "Page {number, number} of {total, number}",
+    "selected": "{size, number} selected"
+  },
+  "dataTableFacetedFilter": {
+    "deleteFilters": "Clear filters",
+    "noResult": "No results"
+  },
+  "dataTableViewOptions": {
+    "activateColumns": "Toggle columns",
+    "columns": "Columns",
+    "name": "Last name",
+    "firstname": "First name",
+    "nickname": "Nickname",
+    "status": "Status",
+    "nb_scan": "Scans"
+  },
+  "dataTableToolbar": {
+    "filter": "Filter"
   }
-  
 }

@@ -14,7 +14,7 @@ export function CategoriesSection({ categories }: CategoriesSectionProps) {
     const [open, setOpen] = useState(false);
     return (
         <>
-        {/* <section className="rounded-xl shadow-md bg-background p-6 grid gap-4">
+        <section className="rounded-xl shadow-md bg-background p-6 grid gap-4">
             <h2 className="text-base font-semibold">
                 Catégories <span className="text-muted-foreground font-normal">({categories.length})</span>
             </h2>
@@ -27,8 +27,8 @@ export function CategoriesSection({ categories }: CategoriesSectionProps) {
                     ))}
                 </div>
             )}
-        </section> */}
-        <Collapsible key="categories" open={open} onOpenChange={setOpen} className="rounded-xl shadow-md bg-background p-6">
+        </section>
+        {/* <Collapsible key="categories" open={open} onOpenChange={setOpen} className="rounded-xl shadow-md bg-background p-6">
             <CollapsibleTrigger asChild>
                 <Button variant="ghost" className="group w-full flex justify-between items-center font-semibold">
                     <div>Catégories <span className="text-muted-foreground font-normal">({categories.length})</span></div>
@@ -46,7 +46,7 @@ export function CategoriesSection({ categories }: CategoriesSectionProps) {
                     </div>
                 )}
             </CollapsibleContent>
-        </Collapsible>
+        </Collapsible> */}
         </>
     );
 }

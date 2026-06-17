@@ -68,7 +68,7 @@ export default async function RootLayout({
             <Suspense fallback={<div>Loading...</div>}>
               <QueryProvider>
                 <NextIntlClientProvider locale={locale}>
-                  <TopBar />
+                  {/* <TopBar /> */}
                   <main className="min-h-screen">
                     {children}
                   </main>

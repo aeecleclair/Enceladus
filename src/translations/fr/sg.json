@@ -91,6 +91,43 @@
     "patchSuccessDescription": "La session a été modifiée avec succès.",
     "patchErrorTitle": "Erreur lors de la modification de la session",
     "patchErrorDescription": "Une erreur est survenue lors de la modification de la session. Veuillez réessayer."
+  },
+  "dataTable": {
+    "noResult": "Pas de résultat"
+  },
+  "dataTableColumnHeader": {
+    "asc": "Ascendant",
+    "desc": "Descendant",
+    "hide": "Cacher",
+    "name": "Nom",
+    "firstname": "Prénom",
+    "nickname": "Pseudo",
+    "status": "Statut",
+    "nb_scan": "Scans"
+  },
+  "dataTablePagination": {
+    "byPage": "par page",
+    "goToFirstPage": "Aller à la première page",
+    "goToLastPage": "Aller à la dernière page",
+    "goToNextPage": "Aller à la page suivante",
+    "goToPreviousPage": "Aller à la page précédente",
+    "pagination": "Page {number, number} sur {total, number}",
+    "selected": "{size, number} sélectionnés"
+  },
+  "dataTableFacetedFilter": {
+    "deleteFilters": "Supprimer les filtres",
+    "noResult": "Aucun résultat"
+  },
+  "dataTableViewOptions": {
+    "activateColumns": "Activer les colonnes",
+    "columns": "Colonnes",
+    "name": "Nom",
+    "firstname": "Prénom",
+    "nickname": "Pseudo",
+    "status": "Statut",
+    "nb_scan": "Scans"
+  },
+  "dataTableToolbar": {
+    "filter": "Filtrer"
   }
-
 }

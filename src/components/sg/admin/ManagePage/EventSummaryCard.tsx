@@ -1,12 +1,15 @@
 import { useFormatter, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { AppModulesTicketingSchemasTicketingEventComplete } from "@/api";
+import { useEventQuota } from "@/hooks/sg/useEventQuota";
 
 interface EventSummaryCardProps {
     event: AppModulesTicketingSchemasTicketingEventComplete;
 }
 
 export function EventSummaryCard({ event }: EventSummaryCardProps) {
+    const {events: used_quota} = useEventQuota({ eventId: event.id });
+
     const format = useFormatter();
     const t = useTranslations("sg");
 
@@ -32,7 +35,7 @@ export function EventSummaryCard({ event }: EventSummaryCardProps) {
                 </div>
                 <div>
                     <div className="font-medium text-foreground">Quota</div>
-                    {event.used_quota} / {event.quota ?? "∞"}
+                    {used_quota} / {event.quota ?? "∞"}
                 </div>
                 <div>
                     <div className="font-medium text-foreground">Quota par utilisateur</div>

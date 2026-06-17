@@ -18,6 +18,7 @@ import { NavEdit } from "./NavEdit";
 import { NavInscriptions } from "./NavInscriptions";
 import { NavSessions } from "./NavSessions";
 import { NavCategories } from "./NavCategories";
+import { NavOverview } from "./NavOverview";
 
 
 export function ManageEventSidebar({
@@ -40,36 +41,11 @@ export function ManageEventSidebar({
                 </SidebarMenu>
             </ SidebarHeader >
             <SidebarContent>
+                <NavOverview />
                 <NavInscriptions />
                 <NavEdit />
                 <NavSessions />
                 <NavCategories />
-                {/* <SidebarGroup />
-                    <SidebarGroupLabel>
-                        <div
-                            onClick={handleManageSGClick}
-                            className="cursor-pointer hover:underline"
-                        >
-                            Modifier le SG
-                        </div>
-                        <SidebarMenuAction className="data-[state=open]:rotate-90 mr-2">
-                            <ChevronRight />
-                            <span className="sr-only">Toggle</span>
-                        </SidebarMenuAction>
-                    </SidebarGroupLabel>
-                    <SidebarGroupLabel>
-                        <div
-                            onClick={handleManageSGClick}
-                            className="cursor-pointer hover:underline"
-                        >
-                            Liste des inscriptions
-                        </div>
-                        <SidebarMenuAction className="data-[state=open]:rotate-90 mr-2">
-                            <ChevronRight />
-                            <span className="sr-only">Toggle</span>
-                        </SidebarMenuAction>
-                    </SidebarGroupLabel>
-                <SidebarGroup /> */}
             </SidebarContent>
         <SidebarFooter />
         </Sidebar>

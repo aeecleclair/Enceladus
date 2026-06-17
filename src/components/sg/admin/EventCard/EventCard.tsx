@@ -2,6 +2,7 @@ import { EventSimple } from "@/api";
 import { Card } from "@/components/ui/card";
 import { format, formatDistanceToNow } from "date-fns";
 import { fr } from "date-fns/locale";
+import { useEventQuota } from "@/hooks/sg/useEventQuota";
 
 interface EventCardProps {
   event: EventSimple;
@@ -9,6 +10,8 @@ interface EventCardProps {
 }
 
 export function EventCard({ event }: EventCardProps) {
+  const { events: quota } = useEventQuota({ eventId: event.id });
+
   const relativeDate = formatDistanceToNow(new Date(event.open_date), {
     addSuffix: true,
     locale: fr,
@@ -74,7 +77,7 @@ export function EventCard({ event }: EventCardProps) {
           <div className="flex shrink-0 items-center gap-6 rounded-md bg-gray-50 px-[18px] py-3 [@container(max-width:1024px)]:gap-[18px] [@container(max-width:1024px)]:px-[14px] [@container(max-width:1024px)]:py-[10px] [@container(max-width:768px)]:justify-around [@container(max-width:768px)]:p-3">
             <div className="flex min-w-[75px] cursor-default flex-col items-center gap-[3px] [@container(max-width:1024px)]:min-w-[65px]">
               <span className="text-[18px] font-bold leading-none text-foreground [@container(max-width:1024px)]:text-[16px]">
-                {event.used_quota} / {event.quota}
+                {quota} / {event.quota}
               </span>
               <span className="text-[10px] font-medium uppercase tracking-[0.3px] text-muted-foreground">
                 Quotas
