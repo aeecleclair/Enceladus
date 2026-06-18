@@ -10,7 +10,7 @@ import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { Badge } from "@/components/ui/badge";
@@ -81,11 +81,18 @@ export const MatchesForm = ({
     form.getValues("sport_id") || null,
   );
 
-  const [schoolOptions, setSchoolOptions] = useState<
-    { id: string; name: string }[]
-  >([]);
   const [team1SchoolId, setTeam1SchoolId] = useState<string | null>(null);
   const [team2SchoolId, setTeam2SchoolId] = useState<string | null>(null);
+
+  const schoolOptions: { id: string; name: string }[] = useMemo(() => {
+    if (!selectedSport || !sportSchools) return [];
+    return sportSchools
+      .filter((school) => school.active)
+      .map((school) => ({
+        id: school.school_id,
+        name: school.school.name,
+      }));
+  }, [selectedSport, sportSchools]);
   const [endDialogOpen, setEndDialogOpen] = useState(false);
 
   const { teams: team1Options } = useSchoolSportTeams({
@@ -108,44 +115,12 @@ export const MatchesForm = ({
     }
   }, [edition, form]);
 
-  useEffect(() => {
-    if (isEditing && initialTeam1SchoolId && !team1SchoolId) {
-      setTeam1SchoolId(initialTeam1SchoolId);
-    }
-    if (isEditing && initialTeam2SchoolId && !team2SchoolId) {
-      setTeam2SchoolId(initialTeam2SchoolId);
-    }
-  }, [
-    isEditing,
-    initialTeam1SchoolId,
-    initialTeam2SchoolId,
-    team1SchoolId,
-    team2SchoolId,
-  ]);
-
-  useEffect(() => {
-    if (selectedSport && sportSchools) {
-      const schoolsForSport = sportSchools.filter((school) => school.active);
-
-      setSchoolOptions(
-        schoolsForSport.map((school) => ({
-          id: school.school_id,
-          name: school.school.name,
-        })),
-      );
-    } else {
-      setSchoolOptions([]);
-    }
-  }, [selectedSport, sportSchools]);
-
-  useEffect(() => {
-    if (selectedSport && !isEditing) {
-      form.setValue("team1_id", "");
-      form.setValue("team2_id", "");
-      setTeam1SchoolId(null);
-      setTeam2SchoolId(null);
-    }
-  }, [selectedSport, form, isEditing]);
+  if (isEditing && initialTeam1SchoolId && !team1SchoolId) {
+    setTeam1SchoolId(initialTeam1SchoolId);
+  }
+  if (isEditing && initialTeam2SchoolId && !team2SchoolId) {
+    setTeam2SchoolId(initialTeam2SchoolId);
+  }
 
   return (
     <Form {...form}>
@@ -196,6 +171,10 @@ export const MatchesForm = ({
                         field.onChange(value);
                         setSelectedSport(value);
                         onSportChange?.(value);
+                        form.setValue("team1_id", "");
+                        form.setValue("team2_id", "");
+                        setTeam1SchoolId(null);
+                        setTeam2SchoolId(null);
                       }}
                       value={field.value}
                     >

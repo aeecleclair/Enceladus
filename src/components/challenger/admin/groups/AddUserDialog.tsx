@@ -4,7 +4,7 @@ import { CoreUserSimple } from "@/api";
 import { useUserSearch } from "@/hooks/useUsersSearch";
 import { cn } from "@/lib/utils";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -37,38 +37,31 @@ export function AddUserDialog({
 }: AddUserDialogProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedUserId, setSelectedUserId] = useState<string>("");
-  const [selectedUserData, setSelectedUserData] =
-    useState<CoreUserSimple | null>(null);
 
   const { userSearch, isLoading: isApiLoading } = useUserSearch({
     query: searchQuery,
   });
 
-  // Update selected user data when userId changes
-  useEffect(() => {
-    if (selectedUserId && userSearch) {
-      const user = userSearch.find((u) => u.id === selectedUserId);
-      if (user) {
-        setSelectedUserData(user);
-      }
-    } else if (!selectedUserId) {
-      setSelectedUserData(null);
-    }
-  }, [selectedUserId, userSearch]);
+  // Selected user data is derived from the current selection and search results.
+  const selectedUserData: CoreUserSimple | null = useMemo(
+    () =>
+      selectedUserId
+        ? (userSearch?.find((u) => u.id === selectedUserId) ?? null)
+        : null,
+    [selectedUserId, userSearch],
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (selectedUserId) {
       onAddUser(selectedUserId);
       setSelectedUserId("");
-      setSelectedUserData(null);
       setSearchQuery("");
     }
   };
 
   const resetDialog = () => {
     setSelectedUserId("");
-    setSelectedUserData(null);
     setSearchQuery("");
   };
 

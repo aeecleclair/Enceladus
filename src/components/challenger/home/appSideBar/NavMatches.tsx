@@ -18,7 +18,7 @@ export function NavMatches() {
   });
   const { sportSchools } = useSportSchools();
 
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const interval = setInterval(() => setNow(Date.now()), 30_000);
     return () => clearInterval(interval);
@@ -53,7 +53,7 @@ export function NavMatches() {
     }
 
     return { upcomingCount: userMatches.length, imminentMatch: imminent };
-  }, [sportMatches, meParticipant?.team_id, now, sportSchools]);
+  }, [sportMatches, meParticipant, now, sportSchools]);
 
   return (
     <SidebarGroup>

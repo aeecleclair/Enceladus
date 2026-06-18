@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -50,12 +50,13 @@ export function EndMatchDialog({
     defaultWinner,
   );
 
-  // Reset selection when dialog opens
-  useEffect(() => {
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
     if (open) {
       setSelected(defaultWinner);
     }
-  }, [open, defaultWinner]);
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

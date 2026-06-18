@@ -11,7 +11,7 @@ import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { HiCheck } from "react-icons/hi";
 import { z } from "zod";
 
@@ -223,6 +223,8 @@ export const ViewEditParticipant = ({
     },
   });
 
+  const situation = useWatch({ control: form.control, name: "situation" });
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!form.formState.isDirty) {
       setIsEdit(!isEdit);
@@ -242,7 +244,10 @@ export const ViewEditParticipant = ({
         (values.tShirtSize === "no"
           ? "None"
           : (values.tShirtSize?.toUpperCase() as Size)) ?? null,
-      situation: switchSituation(values),
+      // The backend stores `situation` as a composite free string
+      // (e.g. "otherschool : <school>") which getSituationLabel/Title parse
+      // back; the generated enum type is narrower than this real contract.
+      situation: switchSituation(values) as RaidParticipantUpdate["situation"],
       address: values.address ?? null,
       diet: values.diet ?? null,
       attestation_on_honour: values.attestationHonour,
@@ -267,7 +272,7 @@ export const ViewEditParticipant = ({
       }
     }
 
-    updateParticipant(updatedParticipant, participant.id, () => {
+    updateParticipant(updatedParticipant, participant.user_id, () => {
       toast({
         title: "Profil mis à jour",
         description: "Vos informations ont été mises à jour avec succès",
@@ -396,7 +401,7 @@ export const ViewEditParticipant = ({
           form={form}
           type={ValueTypes.SITUATION}
         />
-        {form.watch("situation") === "otherschool" && (
+        {situation === "otherschool" && (
           <ParticipantField
             label="Nom de l'école"
             id="otherSchool"
@@ -405,7 +410,7 @@ export const ViewEditParticipant = ({
             layer={1}
           />
         )}
-        {form.watch("situation") === "corporatepartner" && (
+        {situation === "corporatepartner" && (
           <ParticipantField
             label="Nom de l'entreprise"
             id="company"
@@ -414,7 +419,7 @@ export const ViewEditParticipant = ({
             layer={1}
           />
         )}
-        {form.watch("situation") === "other" && (
+        {situation === "other" && (
           <ParticipantField
             label="Autre situation"
             id="other"
@@ -465,16 +470,14 @@ export const ViewEditParticipant = ({
                 type={ValueTypes.STRING}
               />
               {getSituationEdit()}
-              {["centrale", "otherschool"].includes(
-                form.watch("situation") ?? "",
-              ) && (
+              {["centrale", "otherschool"].includes(situation ?? "") && (
                 <ParticipantField
                   label="Carte étudiante"
                   id="studentCard"
                   form={form}
                   type={ValueTypes.DOCUMENT}
                   layer={1}
-                  participantId={participant.id!}
+                  participantId={participant.user_id!}
                 />
               )}
               <ParticipantField
@@ -482,21 +485,21 @@ export const ViewEditParticipant = ({
                 id="idCard"
                 form={form}
                 type={ValueTypes.DOCUMENT}
-                participantId={participant.id!}
+                participantId={participant.user_id!}
               />
               <ParticipantField
                 label="Certificat médical"
                 id="medicalCertificate"
                 form={form}
                 type={ValueTypes.DOCUMENT}
-                participantId={participant.id!}
+                participantId={participant.user_id!}
               />
               <ParticipantField
                 label="Fiche de sécurité"
                 id="securityFile"
                 form={form}
                 type={ValueTypes.SECURITYFILE}
-                participantId={participant.id!}
+                participantId={participant.user_id!}
               />
               {participant.is_minor && (
                 <ParticipantField
@@ -504,7 +507,7 @@ export const ViewEditParticipant = ({
                   id="parentAuthorization"
                   form={form}
                   type={ValueTypes.DOCUMENT}
-                  participantId={participant.id!}
+                  participantId={participant.user_id!}
                 />
               )}
               <ParticipantField
@@ -512,7 +515,7 @@ export const ViewEditParticipant = ({
                 id="raidRules"
                 form={form}
                 type={ValueTypes.DOCUMENT}
-                participantId={participant.id!}
+                participantId={participant.user_id!}
               />
               <ParticipantField
                 label="Attestation sur l'honneur"
@@ -545,18 +548,18 @@ export const ViewEditParticipant = ({
                 <ParticipantInfo
                   label="Carte étudiante"
                   value={participant.student_card}
-                  participantId={participant.id!}
+                  participantId={participant.user_id!}
                 />
               )}
               <ParticipantInfo
                 label="Carte d'identité"
                 value={participant.id_card}
-                participantId={participant.id!}
+                participantId={participant.user_id!}
               />
               <ParticipantInfo
                 label="Certificat médical"
                 value={participant.medical_certificate}
-                participantId={participant.id!}
+                participantId={participant.user_id!}
               />
               <ParticipantInfo
                 label="Fiche de sécurité"
@@ -566,13 +569,13 @@ export const ViewEditParticipant = ({
                 <ParticipantInfo
                   label="Autorisation parentale"
                   value={participant.parent_authorization}
-                  participantId={participant.id!}
+                  participantId={participant.user_id!}
                 />
               )}
               <ParticipantInfo
                 label="Règlement du raid"
                 value={participant.raid_rules}
-                participantId={participant.id!}
+                participantId={participant.user_id!}
               />
               <ParticipantInfo
                 label="Attestation sur l'honneur"

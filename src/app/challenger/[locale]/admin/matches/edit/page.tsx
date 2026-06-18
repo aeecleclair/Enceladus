@@ -29,23 +29,15 @@ const EditMatchPage = () => {
 
   const match = sportMatches?.find((m) => m.id === matchId);
 
-  useEffect(() => {
-    if (match && match.sport_id !== sportId) {
-      setSportId(match.sport_id);
-    }
-  }, [match, sportId]);
-
-  // Set school IDs when match data is available
-  useEffect(() => {
-    if (match) {
-      if (match.team1?.school_id && team1SchoolId !== match.team1.school_id) {
-        setTeam1SchoolId(match.team1.school_id);
-      }
-      if (match.team2?.school_id && team2SchoolId !== match.team2.school_id) {
-        setTeam2SchoolId(match.team2.school_id);
-      }
-    }
-  }, [match, team1SchoolId, team2SchoolId]);
+  if (match && match.sport_id !== sportId) {
+    setSportId(match.sport_id);
+  }
+  if (match?.team1?.school_id && team1SchoolId !== match.team1.school_id) {
+    setTeam1SchoolId(match.team1.school_id);
+  }
+  if (match?.team2?.school_id && team2SchoolId !== match.team2.school_id) {
+    setTeam2SchoolId(match.team2.school_id);
+  }
 
   const form = useForm<MatchFormValues>({
     resolver: zodResolver(matchFormSchema),

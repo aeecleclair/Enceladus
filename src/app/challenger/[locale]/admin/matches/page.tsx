@@ -81,14 +81,15 @@ const MatchesDashboard = () => {
       sportId: selectedSportId || undefined,
     });
 
-  // Auto-select first sport when sports are loaded and no sport is selected
+  if (sports && sports.length > 0 && !selectedSportId) {
+    setSelectedSportId(sports[0].id);
+  }
+
   useEffect(() => {
-    if (sports && sports.length > 0 && !selectedSportId) {
-      const firstSportId = sports[0].id;
-      setSelectedSportId(firstSportId);
-      updateURL(firstSportId);
+    if (selectedSportId) {
+      updateURL(selectedSportId);
     }
-  }, [sports, selectedSportId, updateURL]);
+  }, [selectedSportId, updateURL]);
 
   const filteredMatches = useMemo(() => {
     if (!sportMatches) return [];

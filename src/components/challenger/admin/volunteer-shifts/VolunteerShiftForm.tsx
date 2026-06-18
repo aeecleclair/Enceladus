@@ -83,6 +83,11 @@ export default function VolunteerShiftForm({
     query: debouncedQuery,
   });
 
+  const [minShiftDate] = useState(() => new Date());
+  const [maxShiftDate] = useState(
+    () => new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
+  );
+
   // Debounce the search query
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -93,11 +98,13 @@ export default function VolunteerShiftForm({
   }, [managerQuery]);
 
   // Reset to show all users when popover reopens
-  useEffect(() => {
+  const [wasPopoverOpen, setWasPopoverOpen] = useState(isManagerPopoverOpen);
+  if (isManagerPopoverOpen !== wasPopoverOpen) {
+    setWasPopoverOpen(isManagerPopoverOpen);
     if (isManagerPopoverOpen && managerQuery === "") {
       setDebouncedQuery("*");
     }
-  }, [isManagerPopoverOpen, managerQuery]);
+  }
 
   const isEditing = !!shiftId;
   const shift = isEditing
@@ -105,11 +112,9 @@ export default function VolunteerShiftForm({
     : null;
 
   // Initialize selected manager for editing
-  useEffect(() => {
-    if (isEditing && shift?.manager && !selectedManager) {
-      setSelectedManager(shift.manager);
-    }
-  }, [isEditing, shift, selectedManager]);
+  if (isEditing && shift?.manager && !selectedManager) {
+    setSelectedManager(shift.manager);
+  }
 
   const form = useForm<VolunteerShiftFormSchema>({
     resolver: zodResolver(volunteerShiftFormSchema),
@@ -306,10 +311,8 @@ export default function VolunteerShiftForm({
                       <DateTimePicker
                         date={field.value}
                         setDate={field.onChange}
-                        fromDate={new Date()}
-                        toDate={
-                          new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
-                        } // 1 year from now
+                        fromDate={minShiftDate}
+                        toDate={maxShiftDate}
                       />
                     </FormControl>
                     <FormMessage />
@@ -327,10 +330,8 @@ export default function VolunteerShiftForm({
                       <DateTimePicker
                         date={field.value}
                         setDate={field.onChange}
-                        fromDate={new Date()}
-                        toDate={
-                          new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
-                        } // 1 year from now
+                        fromDate={minShiftDate}
+                        toDate={maxShiftDate}
                       />
                     </FormControl>
                     <FormMessage />

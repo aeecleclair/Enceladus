@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 const CreateMatchPage = () => {
   const router = useRouter();
@@ -48,14 +48,10 @@ const CreateMatchPage = () => {
     }
   }, [selectedSportId, form]);
 
-  useEffect(() => {
-    const subscription = form.watch((value) => {
-      if (value.sport_id && value.sport_id !== selectedSportId) {
-        setSelectedSportId(value.sport_id);
-      }
-    });
-    return () => subscription.unsubscribe();
-  }, [form, selectedSportId]);
+  const watchedSportId = useWatch({ control: form.control, name: "sport_id" });
+  if (watchedSportId && watchedSportId !== selectedSportId) {
+    setSelectedSportId(watchedSportId);
+  }
 
   function onSubmit(values: MatchFormValues) {
     const sportIdToUse = values.sport_id || selectedSportId;

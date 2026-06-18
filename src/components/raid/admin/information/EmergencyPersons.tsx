@@ -6,7 +6,7 @@ import { useInformation } from "@/hooks/raid/useInformation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { HiCheck } from "react-icons/hi";
 import { z } from "zod";
 
@@ -180,6 +180,8 @@ export const EmergencyPerson = () => {
     },
   });
 
+  const watchedValues = useWatch({ control: form.control });
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     updateInformation(
@@ -233,30 +235,30 @@ export const EmergencyPerson = () => {
 
   const isPresidentFilled = () => {
     return (
-      form.watch("president.firstname") &&
-      form.watch("president.name") &&
-      form.watch("president.phone")
+      watchedValues.president?.firstname &&
+      watchedValues.president?.name &&
+      watchedValues.president?.phone
     );
   };
 
   const isVolunteerResponsibleFilled = () => {
     return (
-      form.watch("volunteer_responsible.firstname") &&
-      form.watch("volunteer_responsible.name") &&
-      form.watch("volunteer_responsible.phone")
+      watchedValues.volunteer_responsible?.firstname &&
+      watchedValues.volunteer_responsible?.name &&
+      watchedValues.volunteer_responsible?.phone
     );
   };
 
   const isSecurityResponsibleFilled = () => {
     return (
-      form.watch("security_responsible.firstname") &&
-      form.watch("security_responsible.name") &&
-      form.watch("security_responsible.phone")
+      watchedValues.security_responsible?.firstname &&
+      watchedValues.security_responsible?.name &&
+      watchedValues.security_responsible?.phone
     );
   };
 
   const isRescueFilled = () => {
-    return form.watch("rescue.phone");
+    return watchedValues.rescue?.phone;
   };
 
   const numberOfFilledPerson = () => {

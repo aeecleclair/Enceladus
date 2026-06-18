@@ -20,7 +20,7 @@ import { useRouter } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -31,9 +31,6 @@ const Dashboard = () => {
   const { sports } = useSports();
   const { user: currentUser } = useMeUser();
   const { isChallengerAdmin } = useHasChallengerPermission();
-
-  const [schoolCompetitionUsersCounter, setSchoolCompetitionUsersCounter] =
-    useState<string[][]>([]);
 
   const searchParam = useSearchParams();
   const schoolId = searchParam.get("school_id");
@@ -329,16 +326,14 @@ const Dashboard = () => {
     refetchSportsQuota,
   ]);
 
-  useEffect(() => {
-    if (competitionUsers && sportSchools) {
-      const newCounter: string[][] = sportSchools.map((school) => {
-        const participants = competitionUsers.filter(
-          (user) => user.user.school_id === school.school_id,
-        );
-        return [school.school_id, participants.length.toString()];
-      });
-      setSchoolCompetitionUsersCounter(newCounter);
-    }
+  const schoolCompetitionUsersCounter: string[][] = useMemo(() => {
+    if (!competitionUsers || !sportSchools) return [];
+    return sportSchools.map((school) => {
+      const participants = competitionUsers.filter(
+        (user) => user.user.school_id === school.school_id,
+      );
+      return [school.school_id, participants.length.toString()];
+    });
   }, [competitionUsers, sportSchools]);
 
   if (!schoolId && userSchoolId) {

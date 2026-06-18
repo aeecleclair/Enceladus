@@ -13,7 +13,7 @@ import { useSports } from "@/hooks/challenger/useSports";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -52,6 +52,27 @@ const FILTER_DEFAULTS: FilterState = {
   search: "",
 };
 
+const parseUrlFilters = (params: {
+  get(name: string): string | null;
+}): Partial<FilterState> => {
+  const urlFilters: Partial<FilterState> = {};
+  const sport = params.get("sport");
+  const school = params.get("school");
+  const sportCategory = params.get("sportCategory");
+  const team = params.get("team");
+  const location = params.get("location");
+  const search = params.get("search");
+
+  if (sport) urlFilters.sport = sport;
+  if (school) urlFilters.school = school;
+  if (sportCategory) urlFilters.sportCategory = sportCategory;
+  if (team) urlFilters.team = team;
+  if (location) urlFilters.location = location;
+  if (search) urlFilters.search = search;
+
+  return urlFilters;
+};
+
 const SPORT_CATEGORY_LABELS = {
   all: "Toutes les catégories",
   masculine: "Masculin",
@@ -67,31 +88,21 @@ export default function SearchPage() {
   const router = useRouter();
   const pathname = usePathname();
 
-  const [filters, setFilters] = useState<FilterState>(FILTER_DEFAULTS);
+  const [filters, setFilters] = useState<FilterState>(() => ({
+    ...FILTER_DEFAULTS,
+    ...parseUrlFilters(searchParams),
+  }));
 
-  // Initialize filters from URL parameters
-  useEffect(() => {
-    const urlFilters: Partial<FilterState> = {};
-
-    const sportParam = searchParams.get("sport");
-    const schoolParam = searchParams.get("school");
-    const sportCategoryParam = searchParams.get("sportCategory");
-    const teamParam = searchParams.get("team");
-    const locationParam = searchParams.get("location");
-    const searchParam = searchParams.get("search");
-
-    if (sportParam) urlFilters.sport = sportParam;
-    if (schoolParam) urlFilters.school = schoolParam;
-    if (sportCategoryParam) urlFilters.sportCategory = sportCategoryParam;
-    if (teamParam) urlFilters.team = teamParam;
-    if (locationParam) urlFilters.location = locationParam;
-    if (searchParam) urlFilters.search = searchParam;
-
-    // Only update if we have URL parameters
+  // Re-sync filters when the URL parameters change (e.g. back/forward
+  // navigation). Adjust during render rather than in an effect.
+  const [syncedParams, setSyncedParams] = useState(searchParams);
+  if (searchParams !== syncedParams) {
+    setSyncedParams(searchParams);
+    const urlFilters = parseUrlFilters(searchParams);
     if (Object.keys(urlFilters).length > 0) {
       setFilters((prev) => ({ ...prev, ...urlFilters }));
     }
-  }, [searchParams]);
+  }
 
   const updateFilter = useCallback(
     (key: keyof FilterState, value: string) => {
@@ -166,27 +177,17 @@ export default function SearchPage() {
     return [];
   }, [filters.school, filters.sport, teams, sportTeams, schoolTeams]);
 
-  useEffect(() => {
-    if (filters.team !== "all" && availableTeams.length === 0) {
-      updateFilter("team", "all");
-    }
-  }, [availableTeams.length, filters.team, updateFilter]);
-
-  useEffect(() => {
-    if (
-      (filters.school !== "all" || filters.sport !== "all") &&
-      filters.team === "all" &&
-      availableTeams.length === 1
-    ) {
-      updateFilter("team", availableTeams[0].id);
-    }
-  }, [
-    filters.school,
-    filters.sport,
-    filters.team,
-    availableTeams,
-    updateFilter,
-  ]);
+  // Keep the team filter consistent with the available teams. Adjust during
+  // render rather than in an effect; each branch converges.
+  if (filters.team !== "all" && availableTeams.length === 0) {
+    updateFilter("team", "all");
+  } else if (
+    (filters.school !== "all" || filters.sport !== "all") &&
+    filters.team === "all" &&
+    availableTeams.length === 1
+  ) {
+    updateFilter("team", availableTeams[0].id);
+  }
 
   const filteredMatches = useMemo(() => {
     if (!allMatches || !sports) return [];

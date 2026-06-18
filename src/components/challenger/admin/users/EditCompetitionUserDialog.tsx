@@ -3,7 +3,7 @@
 import { CompetitionUser, CompetitionUserEdit, SportCategory } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -52,17 +52,19 @@ export const EditCompetitionUserDialog = ({
     user.allow_pictures ?? true,
   );
 
-  useEffect(() => {
-    if (open) {
-      setSportCategory(user.sport_category);
-      setIsAthlete(user.is_athlete ?? false);
-      setIsPompom(user.is_pompom ?? false);
-      setIsFanfare(user.is_fanfare ?? false);
-      setIsCameraman(user.is_cameraman ?? false);
-      setIsVolunteer(user.is_volunteer ?? false);
-      setAllowPictures(user.allow_pictures ?? true);
-    }
-  }, [open, user]);
+  const [syncedUser, setSyncedUser] = useState({ open, user });
+  if (open && (open !== syncedUser.open || user !== syncedUser.user)) {
+    setSyncedUser({ open, user });
+    setSportCategory(user.sport_category);
+    setIsAthlete(user.is_athlete ?? false);
+    setIsPompom(user.is_pompom ?? false);
+    setIsFanfare(user.is_fanfare ?? false);
+    setIsCameraman(user.is_cameraman ?? false);
+    setIsVolunteer(user.is_volunteer ?? false);
+    setAllowPictures(user.allow_pictures ?? true);
+  } else if (open !== syncedUser.open) {
+    setSyncedUser({ open, user });
+  }
 
   const handleSubmit = () => {
     const body: CompetitionUserEdit = {};

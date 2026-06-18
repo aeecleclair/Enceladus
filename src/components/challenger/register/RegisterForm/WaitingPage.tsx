@@ -28,7 +28,7 @@ import { useMeUser } from "@/hooks/useMeUser";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
@@ -71,6 +71,11 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
       license_number: meParticipant?.license || "",
       certificate: certificateData ? "Certificat chargé" : undefined,
     },
+  });
+
+  const licenseCertificate = useWatch({
+    control: licenseForm.control,
+    name: "certificate",
   });
 
   const substituteForm = useForm<SubstituteFormValues>({
@@ -304,7 +309,7 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
                           <DialogTrigger asChild>
                             <Button variant="outline" className="w-60">
                               <span className="text-gray-500 overflow-hidden truncate">
-                                {licenseForm.watch("certificate") ??
+                                {licenseCertificate ??
                                   "Aucun fichier sélectionné"}
                               </span>
                             </Button>

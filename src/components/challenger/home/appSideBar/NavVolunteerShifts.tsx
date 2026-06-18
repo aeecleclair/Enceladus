@@ -11,7 +11,7 @@ export function NavVolunteerShifts() {
   const router = useRouter();
   const { volunteer } = useVolunteer();
 
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const interval = setInterval(() => setNow(Date.now()), 30_000);
     return () => clearInterval(interval);
