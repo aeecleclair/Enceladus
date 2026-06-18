@@ -153,7 +153,7 @@ const Home = () => {
             setIsLoading(true);
             createTeam(
               {
-                name: `Équipe de ${me.firstname} ${me.name}`,
+                name: `Équipe de ${me.user.firstname} ${me.user.name}`,
               },
               () => {
                 refetchTeam();

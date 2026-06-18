@@ -1,3 +1,5 @@
+import { FieldPath, FieldValues, UseFormReturn } from "react-hook-form";
+
 import {
   FormControl,
   FormField,
@@ -7,19 +9,19 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-interface EditUserInfoFieldProps {
+interface EditUserInfoFieldProps<T extends FieldValues> {
   label: string;
-  id: string;
+  id: FieldPath<T>;
   placeholder?: string;
-  form: any;
+  form: UseFormReturn<T>;
 }
 
-export const EditUserInfoField = ({
+export const EditUserInfoField = <T extends FieldValues>({
   form,
   label,
   id,
   placeholder,
-}: EditUserInfoFieldProps) => {
+}: EditUserInfoFieldProps<T>) => {
   return (
     <FormField
       control={form.control}

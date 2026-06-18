@@ -38,9 +38,11 @@ const RemoveParticipantCard = (
       <CardContent className="flex flex-col justify-between items-center">
         <div className="h-5"></div>
         <p className="text-lg font-semibold">
-          {participant.firstname} {participant.name}
+          {participant.user.firstname} {participant.user.name}
         </p>
-        <p className="text-sm text-foreground-muted">{participant.email}</p>
+        <p className="text-sm text-foreground-muted">
+          {participant.user.email}
+        </p>
       </CardContent>
     </Card>
   );
@@ -66,7 +68,7 @@ export const RemoveMemberDialog = ({
   function onValidate(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();
     if (!selectedMember) return;
-    callback(selectedMember?.id);
+    callback(selectedMember?.user_id);
   }
 
   return (

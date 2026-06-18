@@ -22,7 +22,7 @@ export const PaymentCardItem = ({
     <Card>
       <CardHeader>
         <CardTitle>
-          {participant.firstname} {participant.name}
+          {participant.user.firstname} {participant.user.name}
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -33,7 +33,7 @@ export const PaymentCardItem = ({
             <LoadingButton
               onClick={() => {
                 setIsLoading(true);
-                validateCallback(participant.id, () => {
+                validateCallback(participant.user_id, () => {
                   setIsLoading(false);
                 });
               }}
@@ -51,7 +51,7 @@ export const PaymentCardItem = ({
                 <LoadingButton
                   onClick={() => {
                     setIsTShirtLoading(true);
-                    validateTShirtCallback(participant.id, () => {
+                    validateTShirtCallback(participant.user_id, () => {
                       setIsTShirtLoading(false);
                     });
                   }}

@@ -35,10 +35,10 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
 
   function downloadDocument(doc: Document, participant: RaidParticipant) {
     const key = doc.type;
-    const file = getDocument(participant.id, key);
+    const file = getDocument(participant.user_id, key);
     if (file !== undefined) {
       const extension = file.type.split("/")[1];
-      const name = `${participant.firstname}_${participant.name}_${key}.${extension}`;
+      const name = `${participant.user.firstname}_${participant.user.name}_${key}.${extension}`;
       const url = window.URL.createObjectURL(new Blob([file]));
       const link = document.createElement("a");
       link.href = url;
@@ -69,7 +69,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
       <Card>
         <ParticipantDocumentCard
           participant={team.captain}
-          setDocument={(doc) => setDocument(doc, team.captain.id)}
+          setDocument={(doc) => setDocument(doc, team.captain.user_id)}
           downloadDocument={(doc) => downloadDocument(doc, team.captain)}
           validateDocument={validateCallback}
           isValidationLoading={isValidationLoading}
@@ -77,7 +77,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
         {team.second && (
           <ParticipantDocumentCard
             participant={team.second}
-            setDocument={(doc) => setDocument(doc, team.second!.id)}
+            setDocument={(doc) => setDocument(doc, team.second!.user_id)}
             downloadDocument={(doc) => downloadDocument(doc, team.second!)}
             validateDocument={validateCallback}
             isValidationLoading={isValidationLoading}

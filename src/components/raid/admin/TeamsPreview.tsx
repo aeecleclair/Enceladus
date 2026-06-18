@@ -1,4 +1,4 @@
-import { RaidTeamPreview } from "@/api";
+import { RaidParticipant, RaidTeamPreview } from "@/api";
 import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
 import { useSecurityFiles } from "@/hooks/raid/useSecurityFiles";
 import { useTeamFiles } from "@/hooks/raid/useTeamFiles";
@@ -168,12 +168,14 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                   )
                   .slice(0, 5)
                   .map((team) => {
+                    const captain = team.captain as RaidParticipant;
+                    const second = team.second as RaidParticipant | null;
                     const number_of_validated_document =
-                      team.captain.number_of_validated_document +
-                      (team.second?.number_of_validated_document ?? 0);
+                      captain.number_of_validated_document +
+                      (second?.number_of_validated_document ?? 0);
                     const number_of_document =
-                      team.captain.number_of_document +
-                      (team.second?.number_of_document ?? 0);
+                      captain.number_of_document +
+                      (second?.number_of_document ?? 0);
                     return (
                       <TableRow
                         key={team.id}
@@ -182,14 +184,16 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                         <TableCell className="h-19.5">{team.name}</TableCell>
                         <TableCell className="max-md:hidden">
                           <div className="font-medium">
-                            {team.captain?.firstname} {team.captain?.name}
+                            {team.captain?.user?.firstname}{" "}
+                            {team.captain?.user?.name}
                           </div>
                         </TableCell>
                         <TableCell className="max-md:hidden">
                           {team.second ? (
                             <>
                               <div className="font-medium">
-                                {team.second.firstname} {team.second.name}
+                                {team.second.user.firstname}{" "}
+                                {team.second.user.name}
                               </div>
                             </>
                           ) : (

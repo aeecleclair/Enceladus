@@ -45,8 +45,8 @@ export const ParticipantCard = ({
         <div className="flex flex-row justify-between">
           <div>
             <CardTitle>
-              {participant?.firstname && participant?.firstname ? (
-                participant?.firstname + " " + participant?.name
+              {participant?.user?.firstname && participant?.user?.firstname ? (
+                participant?.user?.firstname + " " + participant?.user?.name
               ) : (
                 <div className="flex flex-row gap-2">
                   <Skeleton className="w-32 h-8" />

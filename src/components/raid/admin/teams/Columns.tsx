@@ -3,7 +3,11 @@
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTableRowActions } from "./DataTableRowActions";
 
-import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
+import {
+  RaidParticipant,
+  RaidParticipantPreview,
+  RaidTeamPreview,
+} from "@/api";
 import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
 import {
   difficulties,
@@ -34,7 +38,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
       const captain = row.getValue("captain") as RaidParticipantPreview;
       return (
         <div className="flex space-x-2">
-          {captain.firstname} {captain.name}
+          {captain.user.firstname} {captain.user.name}
         </div>
       );
     },
@@ -51,7 +55,9 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
         | undefined;
       return (
         <div className={`flex space-x-2 ${second ?? "text-muted-foreground"}`}>
-          {second ? `${second.firstname} ${second.name}` : "Non renseigné"}
+          {second
+            ? `${second.user.firstname} ${second.user.name}`
+            : "Non renseigné"}
         </div>
       );
     },
@@ -127,13 +133,13 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
     ),
     cell: ({ row }) => {
       const number_of_validated_document =
-        (row.getValue("captain") as RaidParticipantPreview)
+        (row.getValue("captain") as RaidParticipant)
           .number_of_validated_document +
-        ((row.getValue("second") as RaidParticipantPreview | null)
+        ((row.getValue("second") as RaidParticipant | null)
           ?.number_of_validated_document ?? 0);
       const number_of_document =
-        (row.getValue("captain") as RaidParticipantPreview).number_of_document +
-        ((row.getValue("second") as RaidParticipantPreview | null)
+        (row.getValue("captain") as RaidParticipant).number_of_document +
+        ((row.getValue("second") as RaidParticipant | null)
           ?.number_of_document ?? 0);
       return (
         <ProgressBadge

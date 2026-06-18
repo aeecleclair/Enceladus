@@ -48,7 +48,7 @@ export const UserButton = () => {
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger>
-          {me?.firstname === undefined || me?.name === undefined ? (
+          {me?.user?.firstname === undefined || me?.user?.name === undefined ? (
             <>
               {/* <Skeleton className="w-10 h-10 rounded-full" />
               <div className="mr-2" /> */}
@@ -60,14 +60,14 @@ export const UserButton = () => {
                 {profilePicture && (
                   <AvatarImage
                     src={URL.createObjectURL(profilePicture)}
-                    alt={me.firstname + " " + me.name}
+                    alt={me.user.firstname + " " + me.user.name}
                   />
                 )}
                 <AvatarFallback>
-                  {me.firstname.charAt(0) + me.name.charAt(0)}
+                  {me.user.firstname.charAt(0) + me.user.name.charAt(0)}
                 </AvatarFallback>
               </Avatar> */}
-              {me.firstname + " " + me.name}
+              {me.user.firstname + " " + me.user.name}
             </>
           )}
         </MenubarTrigger>

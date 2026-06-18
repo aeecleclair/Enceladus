@@ -28,14 +28,14 @@ export const ParticipantDocumentCard = ({
     <>
       <CardHeader>
         <CardTitle>
-          {participant.firstname} {participant.name}
+          {participant.user.firstname} {participant.user.name}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <Accordion type="single" collapsible className="w-full">
           <DocumentItem
             value="Carte d'identité"
-            document={participant.id_card}
+            document={participant.id_card ?? null}
             index={0}
             setDocument={setDocument}
             downloadDocument={downloadDocument}
@@ -43,7 +43,7 @@ export const ParticipantDocumentCard = ({
           />
           <DocumentItem
             value="Certificat médical"
-            document={participant.medical_certificate}
+            document={participant.medical_certificate ?? null}
             index={1}
             setDocument={setDocument}
             downloadDocument={downloadDocument}
