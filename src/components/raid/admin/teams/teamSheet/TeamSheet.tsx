@@ -1,5 +1,18 @@
 "use client";
 
+import { DocumentTab } from "./DocumentTab";
+import { InformationTab } from "./InformationTab";
+import { PaymentTab } from "./PaymentTab";
+
+import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
+import {
+  difficulties,
+  getLabelFromValue,
+  meetingPlaces,
+} from "@/lib/raid/comboboxValues";
+
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
@@ -7,20 +20,10 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Badge } from "@/components/ui/badge";
-import { InformationTab } from "./InformationTab";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DocumentTab } from "./DocumentTab";
-import { PaymentTab } from "./PaymentTab";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  difficulties,
-  getLabelFromValue,
-  meetingPlaces,
-} from "@/lib/raid/comboboxValues";
-import { FileText, Info, Wallet, MapPin, Route } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
+import { FileText, Info, MapPin, Route, Wallet } from "lucide-react";
 
 interface TeamSheetProps {
   isOpened: boolean;

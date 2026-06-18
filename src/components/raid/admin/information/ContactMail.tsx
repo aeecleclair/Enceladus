@@ -1,11 +1,15 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { CardLayout } from "./CardLayout";
 import { InfoValue } from "./InfoValue";
+
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useInformation } from "@/hooks/raid/useInformation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useInformation } from "@/hooks/raid/useInformation";
+
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,7 +18,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoadingButton } from "@/components/common/LoadingButton";
 
 export const ContactMail = () => {
   const { information, updateInformation } = useInformation();
@@ -45,7 +48,7 @@ export const ContactMail = () => {
         setIsLoading(false);
         setIsEdit(false);
         form.reset({ email: values.email });
-      }
+      },
     );
   }
 
@@ -82,11 +85,7 @@ export const ContactMail = () => {
                 >
                   Annuler
                 </Button>
-                <LoadingButton
-                  size="sm"
-                  type="submit"
-                  isLoading={isLoading}
-                >
+                <LoadingButton size="sm" type="submit" isLoading={isLoading}>
                   Valider
                 </LoadingButton>
               </div>

@@ -1,17 +1,22 @@
 "use client";
 
+import { PageHeader } from "@/components/raid/admin/PageHeader";
+import { CardLayout } from "@/components/raid/admin/information/CardLayout";
 import { ContactMail } from "@/components/raid/admin/information/ContactMail";
 import { EmergencyPerson } from "@/components/raid/admin/information/EmergencyPersons";
-import { RaidDate } from "@/components/raid/admin/information/RaidDate";
-import { InscriptionEndDate } from "@/components/raid/admin/information/InscriptionEndDate";
-import { RaidInformationDocument } from "@/components/raid/admin/information/RaidInformationDocument";
-import { RaidStudentPrice } from "@/components/raid/admin/information/RaidStudentPrice";
-import { RaidRules } from "@/components/raid/admin/information/RaidRules";
-import { TShirtPrice } from "@/components/raid/admin/information/TShirtPrice";
-import { RaidExternalPrice } from "@/components/raid/admin/information/RaidExternalPrice";
-import { RaidPartnerPrice } from "@/components/raid/admin/information/RaidPartnerPrice";
-import { CardLayout } from "@/components/raid/admin/information/CardLayout";
 import { InfoValue } from "@/components/raid/admin/information/InfoValue";
+import { InscriptionEndDate } from "@/components/raid/admin/information/InscriptionEndDate";
+import { RaidDate } from "@/components/raid/admin/information/RaidDate";
+import { RaidExternalPrice } from "@/components/raid/admin/information/RaidExternalPrice";
+import { RaidInformationDocument } from "@/components/raid/admin/information/RaidInformationDocument";
+import { RaidPartnerPrice } from "@/components/raid/admin/information/RaidPartnerPrice";
+import { RaidRules } from "@/components/raid/admin/information/RaidRules";
+import { RaidStudentPrice } from "@/components/raid/admin/information/RaidStudentPrice";
+import { TShirtPrice } from "@/components/raid/admin/information/TShirtPrice";
+import { useInformation } from "@/hooks/raid/useInformation";
+
+import { useTranslations } from "next-intl";
+
 import {
   Card,
   CardContent,
@@ -19,7 +24,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useInformation } from "@/hooks/raid/useInformation";
+
 import {
   BookOpen,
   CalendarRange,
@@ -28,9 +33,7 @@ import {
   Phone,
   Settings2,
 } from "lucide-react";
-import { PageHeader } from "@/components/raid/admin/PageHeader";
 import { LucideIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 const SectionCard = ({
   icon: Icon,

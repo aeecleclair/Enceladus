@@ -140,7 +140,9 @@ export function DataTableToolbar<TData>({
             className="h-8 px-2 flex items-center"
           >
             <Trash2Icon className="h-4 w-4 mr-2" />
-            <span className="hidden md:inline">Supprimer toutes les équipes</span>
+            <span className="hidden md:inline">
+              Supprimer toutes les équipes
+            </span>
             <span className="md:hidden">Tout supprimer</span>
           </Button>
           <DataTableViewOptions table={table} />

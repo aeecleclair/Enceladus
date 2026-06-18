@@ -1,6 +1,12 @@
 "use client";
 
+import MyECLButton from "@/components/common/MyEclButton";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "@/i18n/navigation";
+
+import { useSearchParams } from "next/navigation";
 import * as React from "react";
+import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,11 +17,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useRouter } from "@/i18n/navigation";
-import MyECLButton from "@/components/common/MyEclButton";
-import { useAuth } from "@/hooks/useAuth";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
 
 const Login = () => {
   const router = useRouter();

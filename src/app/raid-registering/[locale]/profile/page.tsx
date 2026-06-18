@@ -2,6 +2,13 @@
 
 import { UserShell } from "@/components/raid/home/UserShell";
 import { IdentityForm } from "@/components/raid/register/IdentityForm";
+import { useAuth } from "@/hooks/useAuth";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useRouter } from "@/i18n/navigation";
+import { formatDate } from "@/lib/dateFormat";
+
+import { useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -10,11 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useMeUser } from "@/hooks/useMeUser";
-import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "@/i18n/navigation";
-import { useEffect, useState } from "react";
-import { formatDate } from "@/lib/dateFormat";
+
 import { Pencil, UserRound, X } from "lucide-react";
 
 const ProfilePage = () => {

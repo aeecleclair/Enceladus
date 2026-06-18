@@ -1,5 +1,9 @@
 "use client";
-import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
+import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
+import { useAuth } from "@/hooks/useAuth";
+import { useMeUser } from "@/hooks/useMeUser";
+import { usePathname, useRouter } from "@/i18n/navigation";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,10 +16,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useAuth } from "@/hooks/useAuth";
-import { useMeUser } from "@/hooks/useMeUser";
-import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
-import { usePathname, useRouter } from "@/i18n/navigation";
+
+import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 
 export function NavUser() {
   const pathname = usePathname();

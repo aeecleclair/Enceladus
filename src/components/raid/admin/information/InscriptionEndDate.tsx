@@ -1,16 +1,20 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { DatePicker } from "@/components/common/DatePicker";
-import { apiFormatDate, formatDate } from "@/lib/dateFormat";
 import { CardLayout } from "./CardLayout";
 import { InfoValue } from "./InfoValue";
+
+import { DatePicker } from "@/components/common/DatePicker";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useEdition } from "@/hooks/raid/useEdition";
 import { useEditions } from "@/hooks/raid/useEditions";
-import { toDate } from "date-fns";
-import { LoadingButton } from "@/components/common/LoadingButton";
+import { apiFormatDate, formatDate } from "@/lib/dateFormat";
+
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import { toDate } from "date-fns";
 
 export const InscriptionEndDate = () => {
   const { edition } = useEdition();
@@ -24,14 +28,17 @@ export const InscriptionEndDate = () => {
       : undefined,
   );
 
-  // Resync local state when the edition refetches (after save, edition switch, etc.).
-  useEffect(() => {
+  // Resync local state when the edition refetches (after save, edition switch,
+  // etc.) — adjust during render (React-recommended) rather than in an effect.
+  const [prevEndDate, setPrevEndDate] = useState(edition?.registering_end_date);
+  if (edition?.registering_end_date !== prevEndDate) {
+    setPrevEndDate(edition?.registering_end_date);
     setDate(
       edition?.registering_end_date
         ? toDate(edition.registering_end_date)
         : undefined,
     );
-  }, [edition?.registering_end_date]);
+  }
 
   const save = () => {
     if (!edition) return;

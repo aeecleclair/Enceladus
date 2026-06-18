@@ -1,5 +1,6 @@
-import { useToast } from "@/components/ui/use-toast";
 import { getErrorDescription } from "@/lib/raid/errorTyping";
+
+import { useToast } from "@/components/ui/use-toast";
 
 /**
  * Returns a factory for react-query `onError` handlers.

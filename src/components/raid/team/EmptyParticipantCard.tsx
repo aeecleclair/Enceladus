@@ -1,12 +1,16 @@
 "use client";
 
+import { InviteLinkDialog } from "./InviteLinkDialog";
+
 import { RaidTeam } from "@/api";
+
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { InviteLinkDialog } from "./InviteLinkDialog";
+
 import { UserPlus } from "lucide-react";
-import { useState } from "react";
-import { useTranslations } from "next-intl";
 
 interface EmptyParticipantCardProps {
   team?: RaidTeam;
@@ -23,12 +27,8 @@ export const EmptyParticipantCard = ({ team }: EmptyParticipantCardProps) => {
           <UserPlus className="h-6 w-6" />
         </div>
         <div className="max-w-sm space-y-1">
-          <p className="font-semibold tracking-tight">
-            {t("title")}
-          </p>
-          <p className="text-sm text-muted-foreground">
-            {t("description")}
-          </p>
+          <p className="font-semibold tracking-tight">{t("title")}</p>
+          <p className="text-sm text-muted-foreground">{t("description")}</p>
         </div>
         <Button
           variant="default"

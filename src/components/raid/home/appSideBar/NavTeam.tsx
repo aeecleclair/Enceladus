@@ -1,13 +1,16 @@
 "use client";
+import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { Link, usePathname } from "@/i18n/navigation";
+
+import { useTranslations } from "next-intl";
+
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useMeTeam } from "@/hooks/raid/useMeTeam";
-import { Link, usePathname } from "@/i18n/navigation";
+
 import { Users } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 export function NavTeam() {
   const pathname = usePathname();

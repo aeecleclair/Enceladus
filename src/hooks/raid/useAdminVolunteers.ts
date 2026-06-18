@@ -1,3 +1,7 @@
+import { useAuth } from "../useAuth";
+import { useHasRaidPermission } from "./useHasRaidPermission";
+import { useReportError } from "./useReportError";
+
 import {
   deleteRaidVolunteersUserIdMutation,
   getRaidVolunteersOptions,
@@ -5,11 +9,10 @@ import {
   patchRaidVolunteersUserIdCancelMutation,
   patchRaidVolunteersUserIdValidateMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useToast } from "@/components/ui/use-toast";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../useAuth";
-import { useHasRaidPermission } from "./useHasRaidPermission";
-import { useReportError } from "./useReportError";
+
+import { useToast } from "@/components/ui/use-toast";
 
 /**
  * Admin-only: list all volunteers and perform validate/cancel/delete actions.

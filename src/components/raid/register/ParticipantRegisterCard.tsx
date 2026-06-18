@@ -1,11 +1,24 @@
 "use client";
 
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
 import { IdentityForm } from "@/components/raid/register/IdentityForm";
 import {
   RegisterStep,
   RegisterStepId,
   RegisterSteps,
 } from "@/components/raid/register/RegisterSteps";
+import { useInviteToken } from "@/hooks/raid/useInviteToken";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useRouter } from "@/i18n/navigation";
+import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
+
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+
 import {
   Card,
   CardContent,
@@ -13,19 +26,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { WarningDialog } from "@/components/common/WarningDialog";
 import { useToast } from "@/components/ui/use-toast";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { useMeTeam } from "@/hooks/raid/useMeTeam";
-import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
-import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
-import { useInviteToken } from "@/hooks/raid/useInviteToken";
-import { useMeUser } from "@/hooks/useMeUser";
-import { useRouter } from "@/i18n/navigation";
-import { useEffect, useState } from "react";
+
 import { Users } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 export const ParticipantRegisterCard = () => {
   const t = useTranslations("raid.register.participantCard");
@@ -46,9 +49,10 @@ export const ParticipantRegisterCard = () => {
   const [identityConfirmed, setIdentityConfirmed] = useState(hasIdentity);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
-  useEffect(() => {
-    if (hasIdentity) setIdentityConfirmed(true);
-  }, [hasIdentity]);
+  // Adjust state during render (React-recommended) rather than in an effect.
+  if (hasIdentity && !identityConfirmed) {
+    setIdentityConfirmed(true);
+  }
 
   const handleCreateParticipant = () => {
     if (meVolunteer) {

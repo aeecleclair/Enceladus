@@ -1,5 +1,7 @@
 "use client";
 import { RaidTeam } from "@/api";
+import { useRouter } from "@/i18n/navigation";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,7 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { useRouter } from "@/i18n/navigation";
+
 import { ArrowRight, ClipboardList } from "lucide-react";
 
 interface IncompleteTeamCardProps {

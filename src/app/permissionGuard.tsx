@@ -1,11 +1,14 @@
 "use client";
 
-import { usePathname, useRouter } from "@/i18n/navigation";
 import NotAuthorized from "./not-authorized";
-import { usePermissions } from "@/hooks/usePermissions"; // Votre hook de base
-import { useMeUser } from "@/hooks/useMeUser";
+
 import { useAuth } from "@/hooks/useAuth";
-import { useEffect, useState } from "react";
+// Votre hook de base
+import { useMeUser } from "@/hooks/useMeUser";
+import { usePermissions } from "@/hooks/usePermissions";
+import { usePathname, useRouter } from "@/i18n/navigation";
+
+import { useEffect, useSyncExternalStore } from "react";
 
 interface Props {
   children: React.ReactNode;
@@ -18,7 +21,14 @@ export function PermissionGuard({ children, permissionRequired }: Props) {
   const { token } = useAuth();
   const { user } = useMeUser();
   const { permissions } = usePermissions();
-  const [isMounted, setIsMounted] = useState(false);
+  // `false` during SSR and the first client render, `true` after hydration —
+  // detects mount without a set-state-in-effect, keeping SSR/client markup in
+  // sync to avoid hydration mismatch.
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   const hasToken = !!token;
 
@@ -33,16 +43,12 @@ export function PermissionGuard({ children, permissionRequired }: Props) {
     user && permissions
       ? Boolean(
           access_permission &&
-            (user.groups?.some((group) =>
-              access_permission.groups.includes(group.id),
-            ) ||
-              access_permission.account_types.includes(user.account_type)),
+          (user.groups?.some((group) =>
+            access_permission.groups.includes(group.id),
+          ) ||
+            access_permission.account_types.includes(user.account_type)),
         )
       : null;
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!isMounted) return;

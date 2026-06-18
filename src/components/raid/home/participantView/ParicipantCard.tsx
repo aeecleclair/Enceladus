@@ -1,4 +1,16 @@
+import { ParticipantLoading } from "./ParticipantLoading";
+import { PaymentButton } from "./PaymentButton";
+import { ViewEditParticipant } from "./ViewEditParticipant";
+
 import { RaidParticipant } from "@/api";
+import { usePrice } from "@/hooks/raid/usePrice";
+import { getSituationLabel } from "@/lib/raid/teamUtils";
+
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+import { HiPencil, HiX } from "react-icons/hi";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -6,19 +18,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
-import { HiPencil, HiX } from "react-icons/hi";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
-import { ParticipantLoading } from "./ParticipantLoading";
 // import { PaymentButton } from "./PaymentButton";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getSituationLabel } from "@/lib/raid/teamUtils";
-import { PaymentButton } from "./PaymentButton";
-import { usePrice } from "@/hooks/raid/usePrice";
-import { ViewEditParticipant } from "./ViewEditParticipant";
-import { useTranslations } from "next-intl";
+import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ParticipantCardProps {
   participant?: RaidParticipant;
@@ -56,7 +59,7 @@ export const ParticipantCard = ({
             </CardTitle>
             <CardDescription>
               {participant ? (
-                <>{isCaptain ? t("captain") :" "}</>
+                <>{isCaptain ? t("captain") : " "}</>
               ) : (
                 <Skeleton className="w-24 h-5 mt-1" />
               )}
@@ -144,9 +147,7 @@ export const ParticipantCard = ({
           {participant ? (
             <div className="border-t border-border/60 bg-muted/10 px-4 py-3">
               <div className="mb-2 flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">
-                  {t("progress")}
-                </span>
+                <span className="text-muted-foreground">{t("progress")}</span>
                 <span className="font-semibold tabular-nums">{progress}%</span>
               </div>
               <Progress value={progress} className="h-2.5 bg-muted" />

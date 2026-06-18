@@ -1,8 +1,16 @@
 "use client";
 
+import { DatePicker } from "@/components/common/DatePicker";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
-import { DatePicker } from "@/components/common/DatePicker";
+import { useMeUser } from "@/hooks/useMeUser";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
+
 import {
   Form,
   FormControl,
@@ -13,13 +21,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useMeUser } from "@/hooks/useMeUser";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { addYears, toDate } from "date-fns";
-import { Controller, useForm } from "react-hook-form";
-import { z } from "zod";
-import { useTranslations } from "next-intl";
-import { useMemo } from "react";
 
 interface IdentityValues {
   phone: string;

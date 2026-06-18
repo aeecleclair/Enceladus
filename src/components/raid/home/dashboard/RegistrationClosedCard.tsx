@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { Lock } from "lucide-react";
 
 export const RegistrationClosedCard = () => {

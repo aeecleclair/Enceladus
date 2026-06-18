@@ -1,13 +1,15 @@
 "use client";
 
-import { Card } from "@/components/ui/card";
+import { Document, DocumentValidation, RaidParticipant } from "@/api";
 import { ParticipantDocumentCard } from "@/components/raid/admin/teams/teamSheet/ParticipantDocumentCard";
 import { DocumentView } from "@/components/raid/custom/DocumentView";
-import { useState } from "react";
-import { useDocument } from "@/hooks/raid/useDocument";
 import { useAdminParticipant } from "@/hooks/raid/useAdminParticipant";
+import { useDocument } from "@/hooks/raid/useDocument";
+
+import { useState } from "react";
+
+import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-import { Document, DocumentValidation, RaidParticipant } from "@/api";
 
 interface ParticipantDocumentTabProps {
   participant: RaidParticipant;

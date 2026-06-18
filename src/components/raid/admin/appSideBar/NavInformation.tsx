@@ -1,13 +1,16 @@
 "use client";
+import { useRouter } from "@/i18n/navigation";
+
+import { useTranslations } from "next-intl";
+import { usePathname } from "next/navigation";
+
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useRouter } from "@/i18n/navigation";
+
 import { Settings2 } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
 
 export function NavInformation() {
   const router = useRouter();

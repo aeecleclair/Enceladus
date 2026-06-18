@@ -1,14 +1,15 @@
 "use client";
 
-import { TeamInfoCard } from "@/components/raid/home/teamCard/TeamInfoCard";
-import { TeamsPreview } from "@/components/raid/admin/TeamsPreview";
-import { StatsView } from "@/components/raid/admin/StatsView";
+import { RaidParticipantPreview } from "@/api";
 import { PageHeader } from "@/components/raid/admin/PageHeader";
-import { useTeams } from "@/hooks/raid/useTeams";
+import { StatsView } from "@/components/raid/admin/StatsView";
+import { TeamsPreview } from "@/components/raid/admin/TeamsPreview";
+import { TeamInfoCard } from "@/components/raid/home/teamCard/TeamInfoCard";
 import { useAdminVolunteers } from "@/hooks/raid/useAdminVolunteers";
 import { useEdition } from "@/hooks/raid/useEdition";
+import { useTeams } from "@/hooks/raid/useTeams";
 import { formatDate, getDaysLeft } from "@/lib/dateFormat";
-import { RaidParticipantPreview } from "@/api";
+
 import { LayoutDashboard } from "lucide-react";
 
 const Dashboard = () => {
@@ -39,55 +40,56 @@ const Dashboard = () => {
     ? getDaysLeft(edition.registering_end_date) >= 0
     : false;
 
-  const informationCard: import("@/components/raid/home/teamCard/TeamInfoCard").TeamInfo[] = [
-    {
-      title: "Participants inscrits",
-      value: allParticipants?.length.toString() || "0",
-      description: "inscriptions débutées",
-      accent: "emerald",
-    },
-    {
-      title: "Binômes constitués",
-      value: twoMembersTeam.length.toString() || "0",
-      description: `${
-        allParticipants.length - 2 * twoMembersTeam.length
-      } participants sans binôme`,
-      accent: "emerald",
-    },
-    {
-      title: "Paiements effectués",
-      value: allPayments?.toString() || "0",
-      description: `${allParticipants.length - allPayments} paiements manquants`,
-      accent: "violet",
-    },
-    {
-      title: "Équipes validées",
-      value:
-        teams
-          ?.filter((team) => team.validation_progress === 100)
-          .length.toString() || "0",
-      description: "dossiers complets validés et payés",
-      accent: "emerald",
-    },
-    {
-      title: "Bénévoles",
-      value: validatedVolunteers.toString(),
-      description: `${pendingVolunteers} en attente de validation`,
-      accent: "orange",
-    },
-    {
-      title: "Clôture des inscriptions",
-      value: edition?.registering_end_date
-        ? formatDate(edition.registering_end_date)
-        : "Date non renseignée",
-      description: edition?.registering_end_date
-        ? isRegisteringOpen
-          ? `${getDaysLeft(edition.registering_end_date)} jours restants`
-          : "Inscriptions fermées"
-        : "Date de fin non renseignée",
-      accent: isRegisteringOpen ? "amber" : "rose",
-    },
-  ];
+  const informationCard: import("@/components/raid/home/teamCard/TeamInfoCard").TeamInfo[] =
+    [
+      {
+        title: "Participants inscrits",
+        value: allParticipants?.length.toString() || "0",
+        description: "inscriptions débutées",
+        accent: "emerald",
+      },
+      {
+        title: "Binômes constitués",
+        value: twoMembersTeam.length.toString() || "0",
+        description: `${
+          allParticipants.length - 2 * twoMembersTeam.length
+        } participants sans binôme`,
+        accent: "emerald",
+      },
+      {
+        title: "Paiements effectués",
+        value: allPayments?.toString() || "0",
+        description: `${allParticipants.length - allPayments} paiements manquants`,
+        accent: "violet",
+      },
+      {
+        title: "Équipes validées",
+        value:
+          teams
+            ?.filter((team) => team.validation_progress === 100)
+            .length.toString() || "0",
+        description: "dossiers complets validés et payés",
+        accent: "emerald",
+      },
+      {
+        title: "Bénévoles",
+        value: validatedVolunteers.toString(),
+        description: `${pendingVolunteers} en attente de validation`,
+        accent: "orange",
+      },
+      {
+        title: "Clôture des inscriptions",
+        value: edition?.registering_end_date
+          ? formatDate(edition.registering_end_date)
+          : "Date non renseignée",
+        description: edition?.registering_end_date
+          ? isRegisteringOpen
+            ? `${getDaysLeft(edition.registering_end_date)} jours restants`
+            : "Inscriptions fermées"
+          : "Date de fin non renseignée",
+        accent: isRegisteringOpen ? "amber" : "rose",
+      },
+    ];
 
   return (
     <div className="flex flex-1 flex-col gap-5 md:gap-6">

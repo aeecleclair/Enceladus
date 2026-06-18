@@ -1,5 +1,7 @@
 "use client";
 
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
 import { IdentityForm } from "@/components/raid/register/IdentityForm";
 import {
@@ -7,6 +9,15 @@ import {
   RegisterStepId,
   RegisterSteps,
 } from "@/components/raid/register/RegisterSteps";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
+import { useAuth } from "@/hooks/useAuth";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useRouter } from "@/i18n/navigation";
+
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -15,17 +26,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { WarningDialog } from "@/components/common/WarningDialog";
 import { useToast } from "@/components/ui/use-toast";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
-import { useAuth } from "@/hooks/useAuth";
-import { useMeUser } from "@/hooks/useMeUser";
-import { useRouter } from "@/i18n/navigation";
-import { useEffect, useState } from "react";
+
 import { ArrowLeft, HeartHandshake } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 const VolunteerRegisterPage = () => {
   const t = useTranslations("raid.volunteer.registerPage");
@@ -48,9 +51,10 @@ const VolunteerRegisterPage = () => {
   const [identityConfirmed, setIdentityConfirmed] = useState(hasIdentity);
   const [isAlertOpen, setIsAlertOpen] = useState(false);
 
-  useEffect(() => {
-    if (hasIdentity) setIdentityConfirmed(true);
-  }, [hasIdentity]);
+  // Adjust state during render (React-recommended) rather than in an effect.
+  if (hasIdentity && !identityConfirmed) {
+    setIdentityConfirmed(true);
+  }
 
   useEffect(() => {
     if (isTokenQueried && token === null) {
@@ -135,7 +139,9 @@ const VolunteerRegisterPage = () => {
     <UserShell>
       <main className="mx-auto w-full max-w-3xl py-4 sm:py-5">
         {hasExistingRole ? (
-          <p className="text-center text-muted-foreground">{t("redirecting")}</p>
+          <p className="text-center text-muted-foreground">
+            {t("redirecting")}
+          </p>
         ) : (
           <Card className="overflow-hidden border-border/70 bg-card shadow-sm">
             <CardHeader className="gap-5 border-b border-border/60 bg-muted/20 pb-6">

@@ -1,9 +1,11 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Check } from "lucide-react";
-import { Fragment } from "react";
+
 import { useTranslations } from "next-intl";
+import { Fragment } from "react";
+
+import { Check } from "lucide-react";
 
 export type RegisterStepId = "identity" | "confirm";
 

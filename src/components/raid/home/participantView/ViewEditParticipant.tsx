@@ -1,22 +1,23 @@
 import { RaidParticipant, RaidParticipantUpdate, Situation, Size } from "@/api";
-import { CardContent } from "@/components/ui/card";
-import { ParticipantInfo } from "@/components/raid/custom/ParticipantInfo";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { HiCheck } from "react-icons/hi";
-import { useMeTeam } from "@/hooks/raid/useMeTeam";
 import {
   ParticipantField,
   ValueTypes,
 } from "@/components/raid/custom/ParticipantField";
+import { ParticipantInfo } from "@/components/raid/custom/ParticipantInfo";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { useMeTeam } from "@/hooks/raid/useMeTeam";
 import { getLabelFromValue, situations } from "@/lib/raid/comboboxValues";
 import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { FormProvider, useForm } from "react-hook-form";
+import { HiCheck } from "react-icons/hi";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
+import { CardContent } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ViewEditParticipantProps {
   participant: RaidParticipant;
@@ -46,7 +47,7 @@ export const ViewEditParticipant = ({
           (value) => {
             return ["xs", "s", "m", "l", "xl"].includes(value);
           },
-          { message: "Veuillez renseigner une taille de vélo valide" }
+          { message: "Veuillez renseigner une taille de vélo valide" },
         )
         .optional(),
       tShirtSize: z
@@ -55,7 +56,7 @@ export const ViewEditParticipant = ({
           (value) => {
             return ["xs", "s", "m", "l", "xl", "no"].includes(value);
           },
-          { message: "Veuillez renseigner une taille de t-shirt valide" }
+          { message: "Veuillez renseigner une taille de t-shirt valide" },
         )
         .optional(),
       situation: z.string().optional(),
@@ -143,7 +144,7 @@ export const ViewEditParticipant = ({
       {
         message: "Vous avez déjà payer pour un t-shirt, veuillez choisir un",
         path: ["tShirtSize"],
-      }
+      },
     );
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -377,7 +378,7 @@ export const ViewEditParticipant = ({
   function getSituation() {
     const situation = getSituationLabel(participant.situation ?? undefined);
     let title: string | null = getSituationTitle(
-      participant.situation ?? undefined
+      participant.situation ?? undefined,
     );
     if (title === "undefined") {
       title = null;
@@ -480,7 +481,7 @@ export const ViewEditParticipant = ({
               />
               {getSituationEdit()}
               {["centrale", "otherschool"].includes(
-                form.watch("situation") ?? ""
+                form.watch("situation") ?? "",
               ) && (
                 <ParticipantField
                   label="Carte étudiante"
@@ -554,7 +555,7 @@ export const ViewEditParticipant = ({
               />
               {getSituation()}
               {["centrale", "otherschool"].includes(
-                getSituationLabel(participant.situation ?? undefined) ?? ""
+                getSituationLabel(participant.situation ?? undefined) ?? "",
               ) && (
                 <ParticipantInfo
                   label="Carte étudiante"

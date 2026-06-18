@@ -1,5 +1,9 @@
 "use client";
 import { RaidParticipantPreview } from "@/api";
+import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
+
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -7,9 +11,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
+
 import { MoreHorizontal } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface ParticipantRowActionsProps {
   participant: RaidParticipantPreview;

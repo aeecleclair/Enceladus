@@ -1,7 +1,15 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { CardLayout } from "./CardLayout";
 import { InfoValue } from "./InfoValue";
+
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { usePrice } from "@/hooks/raid/usePrice";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -9,11 +17,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { usePrice } from "@/hooks/raid/usePrice";
-import { LoadingButton } from "@/components/common/LoadingButton";
 import { PriceInput } from "@/components/ui/priceInput";
 
 export const RaidExternalPrice = () => {
@@ -45,7 +48,7 @@ export const RaidExternalPrice = () => {
         setIsLoading(false);
         setIsEdit(false);
         form.reset({ external_price: values.external_price });
-      }
+      },
     );
   }
 
@@ -87,11 +90,7 @@ export const RaidExternalPrice = () => {
                 >
                   Annuler
                 </Button>
-                <LoadingButton
-                  size="sm"
-                  type="submit"
-                  isLoading={isLoading}
-                >
+                <LoadingButton size="sm" type="submit" isLoading={isLoading}>
                   Valider
                 </LoadingButton>
               </div>

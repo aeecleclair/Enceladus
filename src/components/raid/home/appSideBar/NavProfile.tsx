@@ -1,12 +1,15 @@
 "use client";
+import { Link, usePathname } from "@/i18n/navigation";
+
+import { useTranslations } from "next-intl";
+
 import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Link, usePathname } from "@/i18n/navigation";
+
 import { UserRound } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 export function NavProfile() {
   const pathname = usePathname();

@@ -1,6 +1,20 @@
 "use client";
 
+import { TeamEdit } from "./TeamEdit";
+
 import { RaidTeam } from "@/api";
+import { useEdition } from "@/hooks/raid/useEdition";
+import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
+import {
+  difficulties,
+  difficultyDescriptions,
+  getLabelFromValue,
+  meetingPlaces,
+} from "@/lib/raid/comboboxValues";
+
+import { useTranslations } from "next-intl";
+import { useState } from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,18 +26,8 @@ import {
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useEdition } from "@/hooks/raid/useEdition";
-import {
-  difficulties,
-  difficultyDescriptions,
-  getLabelFromValue,
-  meetingPlaces,
-} from "@/lib/raid/comboboxValues";
-import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
+
 import { Calendar, MapPin, Pencil, X } from "lucide-react";
-import { useState } from "react";
-import { TeamEdit } from "./TeamEdit";
-import { useTranslations } from "next-intl";
 
 interface TeamCardProps {
   team?: RaidTeam;
@@ -154,9 +158,7 @@ export const TeamCard = ({ team }: TeamCardProps) => {
             </div>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">
-                  {t("progress")}
-                </span>
+                <span className="text-muted-foreground">{t("progress")}</span>
                 <span className="font-medium text-emerald-700 dark:text-emerald-400">
                   {progress.toFixed(0)}%
                 </span>

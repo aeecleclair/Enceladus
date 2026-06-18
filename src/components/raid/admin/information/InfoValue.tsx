@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+
 import { ReactNode } from "react";
 
 interface InfoValueProps {
@@ -22,10 +23,7 @@ export const InfoValue = ({
   if (isEmpty) {
     return (
       <div
-        className={cn(
-          "text-base font-medium text-muted-foreground",
-          className,
-        )}
+        className={cn("text-base font-medium text-muted-foreground", className)}
       >
         {placeholder}
       </div>

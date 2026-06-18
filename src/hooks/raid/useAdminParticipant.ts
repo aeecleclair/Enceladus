@@ -1,7 +1,9 @@
-import { getRaidParticipantsUserIdOptions } from "@/api/@tanstack/react-query.gen";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
 import { useHasRaidPermission } from "./useHasRaidPermission";
+
+import { getRaidParticipantsUserIdOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
 
 /**
  * Admin-only: fetch a single participant by user id.

@@ -1,16 +1,19 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useMeParticipant } from "./useMeParticipant";
-import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "../useAuth";
+import { useMeParticipant } from "./useMeParticipant";
+import { useReportError } from "./useReportError";
+
 import { RaidTeam, RaidTeamBase, RaidTeamUpdate } from "@/api";
-import { getRaidParticipantsUserIdTeam } from "@/api/sdk.gen";
 import {
   getRaidParticipantsUserIdTeamOptions,
   getRaidParticipantsUserIdTeamQueryKey,
   patchRaidTeamsTeamIdMutation,
   postRaidTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useReportError } from "./useReportError";
+import { getRaidParticipantsUserIdTeam } from "@/api/sdk.gen";
+
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useMeTeam = () => {
   const { userId, isTokenExpired } = useAuth();

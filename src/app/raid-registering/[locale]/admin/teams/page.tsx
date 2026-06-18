@@ -1,5 +1,15 @@
 "use client";
 
+import { PageHeader } from "@/components/raid/admin/PageHeader";
+import { columns } from "@/components/raid/admin/teams/Columns";
+import { DataTable } from "@/components/raid/admin/teams/DataTable";
+import { TeamSheet } from "@/components/raid/admin/teams/teamSheet/TeamSheet";
+import { useTeams } from "@/hooks/raid/useTeams";
+import { useRouter } from "@/i18n/navigation";
+
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+
 import {
   Card,
   CardContent,
@@ -7,14 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DataTable } from "@/components/raid/admin/teams/DataTable";
-import { columns } from "@/components/raid/admin/teams/Columns";
-import { PageHeader } from "@/components/raid/admin/PageHeader";
-import { useTeams } from "@/hooks/raid/useTeams";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { TeamSheet } from "@/components/raid/admin/teams/teamSheet/TeamSheet";
-import { useRouter } from "@/i18n/navigation";
+
 import { UsersRound } from "lucide-react";
 
 const TeamsAdminPage = () => {
@@ -25,12 +28,11 @@ const TeamsAdminPage = () => {
   const [teamId, setTeamId] = useState<string | null>(null);
 
   const selectedTeamId = searchParams.get("teamId");
-  useEffect(() => {
-    if (selectedTeamId !== teamId) {
-      setTeamId(selectedTeamId);
-      setIsOpened(!!selectedTeamId);
-    }
-  }, [selectedTeamId, teamId]);
+  // Adjust state during render (React-recommended) rather than in an effect.
+  if (selectedTeamId !== teamId) {
+    setTeamId(selectedTeamId);
+    setIsOpened(!!selectedTeamId);
+  }
 
   function handleModalClose() {
     setIsOpened(false);
@@ -53,7 +55,9 @@ const TeamsAdminPage = () => {
         <CardHeader>
           <CardTitle>Liste des équipes</CardTitle>
           <CardDescription>
-            {teams ? `${teams.length} équipe${teams.length > 1 ? "s" : ""} enregistrée${teams.length > 1 ? "s" : ""}` : "Chargement…"}
+            {teams
+              ? `${teams.length} équipe${teams.length > 1 ? "s" : ""} enregistrée${teams.length > 1 ? "s" : ""}`
+              : "Chargement…"}
           </CardDescription>
         </CardHeader>
         <CardContent>

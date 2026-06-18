@@ -1,5 +1,17 @@
 "use client";
 
+import { RaidRegistrationStatus } from "@/api";
+import { ParticipantDocumentTab } from "@/components/raid/admin/participants/ParticipantDocumentTab";
+import { ParticipantInfoTab } from "@/components/raid/admin/teams/teamSheet/ParticipantInfoTab";
+import { useAdminParticipant } from "@/hooks/raid/useAdminParticipant";
+import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
+import { participantStatusClass as statusClass } from "@/lib/raid/participantStatus";
+
+import { useTranslations } from "next-intl";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
@@ -7,19 +19,10 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { ParticipantInfoTab } from "@/components/raid/admin/teams/teamSheet/ParticipantInfoTab";
-import { ParticipantDocumentTab } from "@/components/raid/admin/participants/ParticipantDocumentTab";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useAdminParticipant } from "@/hooks/raid/useAdminParticipant";
-import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
-import { RaidRegistrationStatus } from "@/api";
-import { participantStatusClass as statusClass } from "@/lib/raid/participantStatus";
+
 import { FileText, Info, Users } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface ParticipantSheetProps {
   isOpened: boolean;

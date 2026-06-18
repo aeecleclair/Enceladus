@@ -1,11 +1,23 @@
-import { useState } from "react";
+import { PersonField } from "../../custom/PersonField";
 import { CardLayout } from "./CardLayout";
 import { InfoValue } from "./InfoValue";
+
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useInformation } from "@/hooks/raid/useInformation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { HiCheck } from "react-icons/hi";
 import { z } from "zod";
-import { PersonField } from "../../custom/PersonField";
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -22,16 +34,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
+
 import PhoneInput from "react-phone-input-2";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { HiCheck } from "react-icons/hi";
 
 export const EmergencyPerson = () => {
   const { information, updateInformation } = useInformation();
@@ -65,7 +69,7 @@ export const EmergencyPerson = () => {
               }
               return true;
             },
-            { message: "Veuillez renseigner un numéro de téléphone valide" }
+            { message: "Veuillez renseigner un numéro de téléphone valide" },
           ),
       })
       .partial(),
@@ -91,7 +95,7 @@ export const EmergencyPerson = () => {
               }
               return true;
             },
-            { message: "Veuillez renseigner un numéro de téléphone valide" }
+            { message: "Veuillez renseigner un numéro de téléphone valide" },
           ),
       })
       .partial(),
@@ -117,7 +121,7 @@ export const EmergencyPerson = () => {
               }
               return true;
             },
-            { message: "Veuillez renseigner un numéro de téléphone valide" }
+            { message: "Veuillez renseigner un numéro de téléphone valide" },
           ),
       })
       .partial(),
@@ -137,7 +141,7 @@ export const EmergencyPerson = () => {
               }
               return true;
             },
-            { message: "Veuillez renseigner un numéro de téléphone valide" }
+            { message: "Veuillez renseigner un numéro de téléphone valide" },
           ),
       })
       .partial(),
@@ -224,7 +228,7 @@ export const EmergencyPerson = () => {
             phone: getPhone(values.rescue.phone),
           },
         });
-      }
+      },
     );
   }
 

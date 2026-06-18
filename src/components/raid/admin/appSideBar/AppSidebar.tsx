@@ -1,5 +1,19 @@
 "use client";
+import { NavDashboard } from "./NavDashboard";
+import { NavEditions } from "./NavEditions";
+import { NavInformation } from "./NavInformation";
+import { NavParticipants } from "./NavParticipants";
+import { NavTeams } from "./NavTeams";
+import { NavVolunteers } from "./NavVolunteers";
+
+import { Logo } from "@/components/raid/custom/Logo";
+import { NavUser } from "@/components/raid/custom/NavUser";
+import { useEdition } from "@/hooks/raid/useEdition";
+import { useRouter } from "@/i18n/navigation";
+
+import { useTranslations } from "next-intl";
 import * as React from "react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -12,17 +26,6 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { Logo } from "@/components/raid/custom/Logo";
-import { NavUser } from "@/components/raid/custom/NavUser";
-import { useRouter } from "@/i18n/navigation";
-import { useEdition } from "@/hooks/raid/useEdition";
-import { NavDashboard } from "./NavDashboard";
-import { NavParticipants } from "./NavParticipants";
-import { NavTeams } from "./NavTeams";
-import { NavVolunteers } from "./NavVolunteers";
-import { NavEditions } from "./NavEditions";
-import { NavInformation } from "./NavInformation";
-import { useTranslations } from "next-intl";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { edition } = useEdition();

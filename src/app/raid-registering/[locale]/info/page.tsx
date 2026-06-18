@@ -1,6 +1,14 @@
 "use client";
 
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { UserShell } from "@/components/raid/home/UserShell";
+import { useDocument } from "@/hooks/raid/useDocument";
+import { useEdition } from "@/hooks/raid/useEdition";
+import { useInformation } from "@/hooks/raid/useInformation";
+import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
+
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,12 +17,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LoadingButton } from "@/components/common/LoadingButton";
 import { useToast } from "@/components/ui/use-toast";
-import { useDocument } from "@/hooks/raid/useDocument";
-import { useEdition } from "@/hooks/raid/useEdition";
-import { useInformation } from "@/hooks/raid/useInformation";
-import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
+
 import {
   BookOpen,
   Calendar,
@@ -23,7 +27,6 @@ import {
   LifeBuoy,
   Mail,
 } from "lucide-react";
-import { useState } from "react";
 
 const InfoPage = () => {
   const { edition } = useEdition();
@@ -96,8 +99,7 @@ const InfoPage = () => {
               Informations du Raid
             </h1>
             <p className="text-sm text-muted-foreground">
-              Dates, contacts et documents officiels de l&apos;édition en
-              cours.
+              Dates, contacts et documents officiels de l&apos;édition en cours.
             </p>
           </div>
         </div>
@@ -158,9 +160,7 @@ const InfoPage = () => {
                 </a>
               </div>
             ) : (
-              <p className="text-muted-foreground">
-                Aucun contact renseigné.
-              </p>
+              <p className="text-muted-foreground">Aucun contact renseigné.</p>
             )}
             {emergencyContacts.length > 0 && (
               <div className="border-t border-border/60 pt-3 space-y-2">

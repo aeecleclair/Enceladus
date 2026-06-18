@@ -3,6 +3,7 @@
 import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
+
 import { useTranslations } from "next-intl";
 
 export const UserStatusBadges = () => {
@@ -16,7 +17,8 @@ export const UserStatusBadges = () => {
   if (me) {
     badges.push({
       label: t("participant"),
-      className: "bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-300",
+      className:
+        "bg-blue-100 text-blue-800 dark:bg-blue-950/40 dark:text-blue-300",
     });
     if (me.status === "validated") {
       badges.push({
@@ -42,7 +44,8 @@ export const UserStatusBadges = () => {
     if (meVolunteer.cancelled) {
       badges.push({
         label: t("volunteerCancelled"),
-        className: "bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-300",
+        className:
+          "bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-300",
       });
     }
   }

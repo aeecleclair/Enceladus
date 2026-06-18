@@ -1,6 +1,12 @@
 "use client";
 
 import { RaidParticipant, RaidRegistrationStatus, RaidTeam } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
+
+import { useTranslations } from "next-intl";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -9,11 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+
 import { CheckCircle2, Clock, FileEdit, XCircle } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface TeamStatusBannerProps {
   team: RaidTeam;
@@ -58,7 +61,7 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
     team.captain?.user_id === me?.user_id
       ? team.captain
       : team.second?.user_id === me?.user_id
-        ? team.second ?? undefined
+        ? (team.second ?? undefined)
         : undefined;
 
   const status = selfFromTeam?.status ?? me?.status ?? "draft";

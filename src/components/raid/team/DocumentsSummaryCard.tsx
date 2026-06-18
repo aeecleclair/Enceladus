@@ -1,6 +1,9 @@
 "use client";
 
 import { RaidTeam } from "@/api";
+
+import { useTranslations } from "next-intl";
+
 import {
   Card,
   CardContent,
@@ -9,8 +12,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+
 import { FileCheck } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface DocumentsSummaryCardProps {
   team: RaidTeam;

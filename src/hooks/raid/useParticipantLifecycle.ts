@@ -1,3 +1,5 @@
+import { useReportError } from "./useReportError";
+
 import {
   getRaidTeamsQueryKey,
   patchRaidParticipantsUserIdCancelMutation,
@@ -5,9 +7,10 @@ import {
   postRaidParticipantsUserIdReopenMutation,
   postRaidParticipantsUserIdSubmitMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useToast } from "@/components/ui/use-toast";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useReportError } from "./useReportError";
+
+import { useToast } from "@/components/ui/use-toast";
 
 /**
  * Shared participant lifecycle mutations.

@@ -1,21 +1,24 @@
 "use client";
 
-import { ParticipantCard } from "@/components/raid/home/participantView/ParicipantCard";
 import { RegisteringCompleteDialog } from "@/components/raid/home/RegisteringCompleteDialog";
-import { TeamCard } from "@/components/raid/home/teamCard/TeamCard";
 import { UserShell } from "@/components/raid/home/UserShell";
+import { UserStatusBadges } from "@/components/raid/home/UserStatusBadges";
+import { ParticipantCard } from "@/components/raid/home/participantView/ParicipantCard";
+import { TeamCard } from "@/components/raid/home/teamCard/TeamCard";
 import { DocumentsSummaryCard } from "@/components/raid/team/DocumentsSummaryCard";
 import { EmptyParticipantCard } from "@/components/raid/team/EmptyParticipantCard";
 import { TeamStatusBanner } from "@/components/raid/team/TeamStatusBanner";
-import { UserStatusBadges } from "@/components/raid/home/UserStatusBadges";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
-import { useRouter } from "@/i18n/navigation";
 import { useAuth } from "@/hooks/useAuth";
-import { useEffect, useState } from "react";
-import { Users } from "lucide-react";
+import { useRouter } from "@/i18n/navigation";
+
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+
+import { Skeleton } from "@/components/ui/skeleton";
+
+import { Users } from "lucide-react";
 
 const TeamPage = () => {
   const t = useTranslations("raid.team.page");
@@ -57,9 +60,7 @@ const TeamPage = () => {
               <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">
                 {t("title")}
               </h1>
-              <p className="text-sm text-muted-foreground">
-                {t("subtitle")}
-              </p>
+              <p className="text-sm text-muted-foreground">{t("subtitle")}</p>
               <UserStatusBadges />
             </div>
           </div>

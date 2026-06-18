@@ -1,17 +1,21 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
 import { RangeDatePicker } from "../../custom/RangeDatePicker";
-import { DateRange } from "react-day-picker";
-import { apiFormatDate, formatDateRange } from "@/lib/dateFormat";
 import { CardLayout } from "./CardLayout";
 import { InfoValue } from "./InfoValue";
+
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useEdition } from "@/hooks/raid/useEdition";
 import { useEditions } from "@/hooks/raid/useEditions";
-import { toDate } from "date-fns";
-import { LoadingButton } from "@/components/common/LoadingButton";
+import { apiFormatDate, formatDateRange } from "@/lib/dateFormat";
+
 import { useTranslations } from "next-intl";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import { toDate } from "date-fns";
+import { DateRange } from "react-day-picker";
 
 export const RaidDate = () => {
   const { edition } = useEdition();
@@ -28,8 +32,13 @@ export const RaidDate = () => {
       : undefined,
   );
 
-  // Resync local state when the edition refetches (after save, edition switch, etc.).
-  useEffect(() => {
+  // Resync local state when the edition refetches (after save, edition switch,
+  // etc.) — adjust during render (React-recommended) rather than in an effect.
+  const [prevDates, setPrevDates] = useState(
+    `${edition?.start_date}|${edition?.end_date}`,
+  );
+  if (`${edition?.start_date}|${edition?.end_date}` !== prevDates) {
+    setPrevDates(`${edition?.start_date}|${edition?.end_date}`);
     setDateRange(
       edition?.start_date && edition?.end_date
         ? {
@@ -38,7 +47,7 @@ export const RaidDate = () => {
           }
         : undefined,
     );
-  }, [edition?.start_date, edition?.end_date]);
+  }
 
   const save = () => {
     if (!edition) return;

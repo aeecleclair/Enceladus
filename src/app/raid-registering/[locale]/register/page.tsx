@@ -1,13 +1,14 @@
 "use client";
 
-import { ParticipantRegisterCard } from "@/components/raid/register/ParticipantRegisterCard";
 import { UserShell } from "@/components/raid/home/UserShell";
+import { ParticipantRegisterCard } from "@/components/raid/register/ParticipantRegisterCard";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
-import { useEffect } from "react";
+
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
 
 const ParticipantRegisterPage = () => {
   const { isTokenQueried, token } = useAuth();
@@ -36,7 +37,9 @@ const ParticipantRegisterPage = () => {
     <UserShell>
       <main className="mx-auto w-full py-4 sm:py-5">
         {hasExistingRole ? (
-          <p className="text-center text-muted-foreground">{t("redirecting")}</p>
+          <p className="text-center text-muted-foreground">
+            {t("redirecting")}
+          </p>
         ) : (
           <ParticipantRegisterCard />
         )}

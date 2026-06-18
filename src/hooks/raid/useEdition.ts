@@ -1,6 +1,8 @@
-import { getRaidEditionsActiveOptions } from "@/api/@tanstack/react-query.gen";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
+
+import { getRaidEditionsActiveOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
 
 /**
  * Read-only access to the currently active raid edition.

@@ -23,7 +23,7 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
   const issuerUrl = new URL(
     process.env.NEXT_PUBLIC_BACKEND_URL ?? "https://hyperion.myecl.fr",
   );
-  const { token, setToken, setRefreshToken } = useTokenStore();
+  const { setToken, setRefreshToken } = useTokenStore();
   const hasLoggedInRef = useRef(false);
 
   async function getIssuer() {
@@ -120,8 +120,7 @@ const MyECLButton = ({ subdomain }: { subdomain: string }) => {
       codeChallengeMethod,
     );
     if (
-      hyperionIssuer.code_challenge_methods_supported?.includes("S256") !==
-      true
+      hyperionIssuer.code_challenge_methods_supported?.includes("S256") !== true
     ) {
       const state = auth.generateRandomState();
       authorizationUrl.searchParams.set("state", state);

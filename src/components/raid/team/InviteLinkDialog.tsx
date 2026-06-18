@@ -1,5 +1,11 @@
 "use client";
 
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useInviteToken } from "@/hooks/raid/useInviteToken";
+
+import { useLocale, useTranslations } from "next-intl";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,12 +16,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { LoadingButton } from "@/components/common/LoadingButton";
 import { useToast } from "@/components/ui/use-toast";
-import { useInviteToken } from "@/hooks/raid/useInviteToken";
+
 import { Check, Copy } from "lucide-react";
-import { useLocale, useTranslations } from "next-intl";
-import { useState } from "react";
 
 interface InviteLinkDialogProps {
   open: boolean;

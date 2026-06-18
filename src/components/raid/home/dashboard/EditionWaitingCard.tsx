@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { CalendarDays } from "lucide-react";
 
 export const EditionWaitingCard = () => {

@@ -1,6 +1,21 @@
 "use client";
 
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
+import {
+  VolunteerFormSchema,
+  volunteerFormSchema,
+} from "@/forms/raid/volunteer";
+import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
+import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "@/i18n/navigation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -19,20 +34,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { WarningDialog } from "@/components/common/WarningDialog";
-import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
-import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "@/i18n/navigation";
-import { useEffect, useState } from "react";
+
 import { HeartHandshake } from "lucide-react";
-import {
-  volunteerFormSchema,
-  VolunteerFormSchema,
-} from "@/forms/raid/volunteer";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useTranslations } from "next-intl";
 
 const DEFAULT_VALUES: VolunteerFormSchema = {
   diet: "",
@@ -106,7 +109,7 @@ const VolunteerPage = () => {
       diet: values.diet || null,
       allergy: values.allergy || null,
       has_car: values.has_car,
-      car_seats: values.has_car ? values.car_seats ?? null : null,
+      car_seats: values.has_car ? (values.car_seats ?? null) : null,
       is_special_driver: values.is_special_driver,
       is_utility_vehicle_driver: values.is_utility_vehicle_driver,
       is_parcours_helper: values.is_parcours_helper,

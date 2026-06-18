@@ -1,5 +1,9 @@
+import { useAuth } from "../useAuth";
+import { useMeUser } from "../useMeUser";
+import { useHasRaidPermission } from "./useHasRaidPermission";
+import { useReportError } from "./useReportError";
+
 import { RaidVolunteer, RaidVolunteerBase, RaidVolunteerEdit } from "@/api";
-import { getRaidVolunteersMe } from "@/api/sdk.gen";
 import {
   deleteRaidVolunteersUserIdMutation,
   getRaidVolunteersMeOptions,
@@ -8,12 +12,11 @@ import {
   patchRaidVolunteersUserIdMutation,
   postRaidVolunteersMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useToast } from "@/components/ui/use-toast";
+import { getRaidVolunteersMe } from "@/api/sdk.gen";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../useAuth";
-import { useMeUser } from "../useMeUser";
-import { useHasRaidPermission } from "./useHasRaidPermission";
-import { useReportError } from "./useReportError";
+
+import { useToast } from "@/components/ui/use-toast";
 
 /**
  * Current user's volunteer record. Handles self-register, update, self-cancel, delete.

@@ -1,6 +1,7 @@
 "use client";
 
-import { ParticipantRegisterCard } from "@/components/raid/register/ParticipantRegisterCard";
+import { StatusDialog } from "@/components/raid/custom/StatusDialog";
+import { UserShell } from "@/components/raid/home/UserShell";
 import { EditionWaitingCard } from "@/components/raid/home/dashboard/EditionWaitingCard";
 import { FullyRegisteredDashboard } from "@/components/raid/home/dashboard/FullyRegisteredDashboard";
 import { IncompleteTeamCard } from "@/components/raid/home/dashboard/IncompleteTeamCard";
@@ -10,9 +11,7 @@ import {
   VolunteerDashboardCard,
   VolunteerPendingCard,
 } from "@/components/raid/home/dashboard/VolunteerStateCards";
-import { StatusDialog } from "@/components/raid/custom/StatusDialog";
-import { UserShell } from "@/components/raid/home/UserShell";
-import { Skeleton } from "@/components/ui/skeleton";
+import { ParticipantRegisterCard } from "@/components/raid/register/ParticipantRegisterCard";
 import { useEdition } from "@/hooks/raid/useEdition";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
@@ -20,9 +19,12 @@ import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 import { getDaysLeft } from "@/lib/dateFormat";
+import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
+
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
+
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Home = () => {
   const { isTokenQueried, token } = useAuth();

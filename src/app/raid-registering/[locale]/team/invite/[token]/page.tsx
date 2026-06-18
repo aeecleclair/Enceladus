@@ -5,7 +5,9 @@ import { UserShell } from "@/components/raid/home/UserShell";
 import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
+
 import { use, useEffect, useState } from "react";
+
 import { UserPlus2 } from "lucide-react";
 
 interface InviteLandingProps {
@@ -26,8 +28,8 @@ const InviteLanding = ({ params }: InviteLandingProps) => {
       return;
     }
     if (inviteToken) {
+      // `isOpened` already defaults to true; only persist the token here.
       setInviteToken(inviteToken);
-      setIsOpened(true);
     }
   }, [isTokenQueried, token, inviteToken, setInviteToken, router]);
 
