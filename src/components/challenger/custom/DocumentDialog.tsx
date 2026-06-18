@@ -2,14 +2,10 @@ import { useDocument } from "@/hooks/challenger/useDocument";
 import { useAuth } from "@/hooks/useAuth";
 
 import Image from "next/image";
-import {
-  ControllerRenderProps,
-  FieldValues,
-} from "react-hook-form";
+import { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { DropzoneInput } from "@/components/ui/dropzoneInput";
-
 
 interface DocumentDialogProps {
   setIsOpen: (value: boolean) => void;
@@ -56,7 +52,7 @@ export const DocumentDialog = ({
               alt={field.name}
               width={300}
               height={200}
-              className="rounded-lg w-auto max-h-[400px]"
+              className="rounded-lg w-auto max-h-100"
             />
           )}
           <Button
