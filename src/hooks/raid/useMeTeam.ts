@@ -4,8 +4,8 @@ import { useMeParticipant } from "./useMeParticipant";
 
 import { RaidTeamBase, RaidTeamUpdate } from "@/api";
 import {
-  getRaidParticipantsParticipantIdTeamOptions,
-  getRaidParticipantsParticipantIdTeamQueryKey,
+  getRaidParticipantsUserIdTeamOptions,
+  getRaidParticipantsUserIdTeamQueryKey,
   patchRaidTeamsTeamIdMutation,
   postRaidTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
@@ -21,9 +21,9 @@ export const useMeTeam = () => {
   const { isRaidAdmin } = useHasRaidPermission();
   const queryClient = useQueryClient();
 
-  const queryKey = getRaidParticipantsParticipantIdTeamQueryKey({
+  const queryKey = getRaidParticipantsUserIdTeamQueryKey({
     path: {
-      participant_id: userId!,
+      user_id: userId!,
     },
   });
 
@@ -32,9 +32,9 @@ export const useMeTeam = () => {
     isLoading,
     refetch: refetchTeam,
   } = useQuery({
-    ...getRaidParticipantsParticipantIdTeamOptions({
+    ...getRaidParticipantsUserIdTeamOptions({
       path: {
-        participant_id: userId!,
+        user_id: userId!,
       },
     }),
     enabled:

@@ -5,7 +5,7 @@ import {
   deleteRaidTeamsTeamIdMutation,
   getRaidTeamsTeamIdOptions,
   getRaidTeamsTeamIdQueryKey,
-  postRaidTeamsTeamIdKickParticipantIdMutation,
+  postRaidTeamsTeamIdKickUserIdMutation,
 } from "@/api/@tanstack/react-query.gen";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -31,7 +31,7 @@ export const useAdminTeam = (teamId: string) => {
   });
 
   const { mutate: mutateKickMember, isPending: isKickLoading } = useMutation({
-    ...postRaidTeamsTeamIdKickParticipantIdMutation(),
+    ...postRaidTeamsTeamIdKickUserIdMutation(),
     onSuccess: () => {
       toast({
         title: "Succès",
@@ -62,7 +62,7 @@ export const useAdminTeam = (teamId: string) => {
 
   const kickMember = (participantId: string, callback: () => void) => {
     mutateKickMember(
-      { path: { team_id: teamId, participant_id: participantId } },
+      { path: { team_id: teamId, user_id: participantId } },
       { onSuccess: () => callback() },
     );
   };

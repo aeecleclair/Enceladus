@@ -1,11 +1,11 @@
 import { useAuth } from "../useAuth";
 import { useHasRaidPermission } from "./useHasRaidPermission";
 
-import { RaidParticipantBase, RaidParticipantUpdate } from "@/api";
+import { RaidParticipantUpdate } from "@/api";
 import {
-  getRaidParticipantsParticipantIdOptions,
-  getRaidParticipantsParticipantIdQueryKey,
-  patchRaidParticipantsParticipantIdMutation,
+  getRaidParticipantsUserIdOptions,
+  getRaidParticipantsUserIdQueryKey,
+  patchRaidParticipantsUserIdMutation,
   postRaidParticipantsMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { useParticipantStore } from "@/stores/raid/particpant";
@@ -21,8 +21,8 @@ export const useMeParticipant = () => {
   const queryClient = useQueryClient();
   const { participant, setParticipant } = useParticipantStore();
 
-  const participantsQueryKey = getRaidParticipantsParticipantIdQueryKey({
-    path: { participant_id: userId! },
+  const participantsQueryKey = getRaidParticipantsUserIdQueryKey({
+    path: { user_id: userId! },
   });
 
   const {
@@ -31,8 +31,8 @@ export const useMeParticipant = () => {
     isFetched,
     refetch,
   } = useQuery({
-    ...getRaidParticipantsParticipantIdOptions({
-      path: { participant_id: userId! },
+    ...getRaidParticipantsUserIdOptions({
+      path: { user_id: userId! },
     }),
     enabled:
       userId !== null && !isRaidAdmin && !isTokenExpired() && !participant,
@@ -62,16 +62,10 @@ export const useMeParticipant = () => {
     },
   });
 
-  const createParticipant = (
-    participant: RaidParticipantBase,
-    callback: () => void,
-  ) => {
-    mutateCreateParticipant(
-      {
-        body: participant,
-      },
-      { onSuccess: () => callback() },
-    );
+  // The create endpoint derives the participant from the authenticated user
+  // and accepts no body.
+  const createParticipant = (callback: () => void) => {
+    mutateCreateParticipant({}, { onSuccess: () => callback() });
   };
 
   const {
@@ -79,7 +73,7 @@ export const useMeParticipant = () => {
     isPending: isUpdateLoading,
     isSuccess: isUpdateSuccess,
   } = useMutation({
-    ...patchRaidParticipantsParticipantIdMutation(),
+    ...patchRaidParticipantsUserIdMutation(),
     onSuccess: () => {
       toast({
         title: "Succès",
@@ -106,7 +100,7 @@ export const useMeParticipant = () => {
       {
         body: participant,
         path: {
-          participant_id: participantId,
+          user_id: participantId,
         },
       },
       {

@@ -6,7 +6,6 @@ import { PersonField } from "@/components/raid/custom/PersonField";
 import { useInviteToken } from "@/hooks/raid/useInviteToken";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
-import { apiFormatDate } from "@/lib/dateFormat";
 import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -98,40 +97,33 @@ export const CreateParticipant = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    const dateString = apiFormatDate(values.birthday);
     setIsLoading(true);
-    createParticipant(
-      {
-        ...values,
-        birthday: dateString!,
-      },
-      () => {
-        if (inviteToken === undefined) {
-          createTeam(
-            {
-              name: `Équipe de ${values.firstname} ${values.name}`,
-            },
-            () => {
-              refetchTeam();
-              setIsOpened(false);
-              setIsLoading(false);
-              toast({
-                title: "Votre profil a été créé avec succès",
-              });
-            },
-          );
-        } else {
-          joinTeam(inviteToken, () => {
+    createParticipant(() => {
+      if (inviteToken === undefined) {
+        createTeam(
+          {
+            name: `Équipe de ${values.firstname} ${values.name}`,
+          },
+          () => {
             refetchTeam();
             setIsOpened(false);
             setIsLoading(false);
             toast({
-              title: "Vous avez rejoint l'équipe avec succès",
+              title: "Votre profil a été créé avec succès",
             });
+          },
+        );
+      } else {
+        joinTeam(inviteToken, () => {
+          refetchTeam();
+          setIsOpened(false);
+          setIsLoading(false);
+          toast({
+            title: "Vous avez rejoint l'équipe avec succès",
           });
-        }
-      },
-    );
+        });
+      }
+    });
   }
 
   return (
