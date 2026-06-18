@@ -17,6 +17,7 @@ import _migrateUserFormSchema from "@/forms/siarnaq/migrateUserFormSchema";
 import { useCurriculums } from "@/hooks/siarnaq/useCurriculums";
 import { useUserPayments } from "@/hooks/siarnaq/useUserPayments";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
+import { useCoreVariables } from "@/hooks/useCoreVariables";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormatter, useTranslations } from "next-intl";
@@ -46,7 +47,8 @@ interface RecapPanelProps {
 
 export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
   const tZod = useTranslations("siarnaq.migrateUserFormSchema");
-  const migrateUserFormSchema = _migrateUserFormSchema(tZod);
+  const { variables } = useCoreVariables();
+  const migrateUserFormSchema = _migrateUserFormSchema(tZod, variables);
   const t = useTranslations("siarnaq");
   const format = useFormatter();
   const { toast } = useToast();
