@@ -33,15 +33,21 @@ export const useAuth = () => {
   const redirectUrlHost: string = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${website}/fr/login`;
 
   function generateRandomString(length: number): string {
-    let result = "";
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
-    const values = crypto.getRandomValues(new Uint8Array(length));
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(
-        Math.floor((values[i] / length) * charactersLength),
+
+    const maxUnbiased = Math.floor(256 / charactersLength) * charactersLength;
+    let result = "";
+    while (result.length < length) {
+      const values = crypto.getRandomValues(
+        new Uint8Array(length - result.length),
       );
+      for (let i = 0; i < values.length && result.length < length; i++) {
+        if (values[i] < maxUnbiased) {
+          result += characters.charAt(values[i] % charactersLength);
+        }
+      }
     }
     return result;
   }
