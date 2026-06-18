@@ -1,8 +1,10 @@
-import { Match, MatchComplete } from "@/api";
-import { Badge } from "@/components/ui/badge";
-import { Trophy, X, School, Users, Target, Star } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { MatchComplete } from "@/api";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { cn } from "@/lib/utils";
+
+import { Badge } from "@/components/ui/badge";
+
+import { School, Star, Target, Trophy, Users, X } from "lucide-react";
 
 interface PastMatchCardProps {
   match: MatchComplete;

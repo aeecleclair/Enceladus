@@ -1,17 +1,18 @@
+import QueryProvider from "../../QueryProvider";
 import "../../globals.css";
+import { ThemeProvider } from "../../theme-provider";
 
+import { AuthInterceptor } from "@/app/provider";
 import { routing } from "@/i18n/routing";
-import { Suspense } from "react";
-import { Locale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import type { Metadata } from "next";
-import { AuthInterceptor } from "@/app/provider";
-import QueryProvider from "../../QueryProvider";
-import Script from "next/script";
-import { ThemeProvider } from "../../theme-provider";
-import { Toaster } from "@/components/ui/toaster";
+import { Locale, NextIntlClientProvider } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Outfit } from "next/font/google";
+import Script from "next/script";
+import { Suspense } from "react";
+
+import { Toaster } from "@/components/ui/toaster";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

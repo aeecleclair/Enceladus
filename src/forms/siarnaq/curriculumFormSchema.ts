@@ -1,8 +1,8 @@
-import { Messages } from "next-intl";
+import { useTranslations } from "next-intl";
 import z from "zod";
 
 export default function curriculumFormSchema(
-  t: (key: any, values?: any) => string
+  t: ReturnType<typeof useTranslations<"siarnaq.curriculumFormSchema">>,
 ) {
   // useTranslations("curriculumFormSchema") (don't remove!)
   return z.object({

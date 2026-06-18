@@ -1,27 +1,29 @@
 "use client";
 
-import { useAuth } from "@/hooks/useAuth";
-import { useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import { useMeUser } from "@/hooks/useMeUser";
+import { EditionWaitingCard } from "@/components/challenger/home/EditionWaitingCard";
+import { FullyRegisteredDashboard } from "@/components/challenger/home/FullyRegisteredDashboard";
+import { IncompleteRegistrationCard } from "@/components/challenger/home/IncompleteRegistrationCard";
+import { UnregisteredCard } from "@/components/challenger/home/UnregisteredCard";
+import { UserDashboard } from "@/components/challenger/home/UserDashboard";
 import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
+import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
+import { useAuth } from "@/hooks/useAuth";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useSchools } from "@/hooks/useSchools";
+import { useRouter } from "@/i18n/navigation";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { Button } from "@/components/ui/button";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
-import { EditionWaitingCard } from "@/components/challenger/home/EditionWaitingCard";
-import { IncompleteRegistrationCard } from "@/components/challenger/home/IncompleteRegistrationCard";
-import { FullyRegisteredDashboard } from "@/components/challenger/home/FullyRegisteredDashboard";
-import { UserDashboard } from "@/components/challenger/home/UserDashboard";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { UnregisteredCard } from "@/components/challenger/home/UnregisteredCard";
-import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
-import { useSchools } from "@/hooks/useSchools";
-import { useRouter } from "@/i18n/navigation";
 
 const Home = () => {
   const { isTokenQueried, token } = useAuth();

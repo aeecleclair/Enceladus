@@ -1,8 +1,6 @@
 import MyECLButton from "@/components/common/MyEclButton";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { useRouter } from "@/i18n/navigation";
-import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 export function LoginForm({
   className,
@@ -28,7 +26,7 @@ export function LoginForm({
         Vous n&apos;avez pas de compte ?{" "}
         <button
           onClick={() => {
-            let redirectUri =
+            const redirectUri =
               process.env.NEXT_PUBLIC_BACKEND_URL +
               "/calypsso/register?external=true";
 

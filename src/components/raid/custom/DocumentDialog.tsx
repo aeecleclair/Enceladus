@@ -1,21 +1,22 @@
+import { useDocument } from "@/hooks/raid/useDocument";
+import { useDocumentsStore } from "@/stores/raid/documents";
+
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import { useState } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { DropzoneInput } from "@/components/ui/dropzoneInput";
-import { useDocument } from "@/hooks/raid/useDocument";
-import Image from "next/image";
-import { useDocumentsStore } from "@/stores/raid/documents";
-import { useState } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import dynamic from "next/dynamic";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PdfViewer = dynamic(
   () => import("./PdfViewer").then((mod) => mod.PdfViewer),
   {
     ssr: false,
     loading: () => <Skeleton className="w-full h-80" />,
-  }
+  },
 );
 
 interface DocumentDialogProps {

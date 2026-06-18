@@ -1,23 +1,26 @@
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
+
 import {
   AppModulesSportCompetitionSchemasSportCompetitionProductBase,
   AppModulesSportCompetitionSchemasSportCompetitionProductEdit,
   AppModulesSportCompetitionSchemasSportCompetitionProductVariantBase,
   AppModulesSportCompetitionSchemasSportCompetitionProductVariantEdit,
 } from "@/api";
-import { useMutation } from "@tanstack/react-query";
 import {
-  getCompetitionProductsOptions,
   deleteCompetitionProductsProductIdMutation,
   deleteCompetitionProductsVariantsVariantIdMutation,
+  getCompetitionProductsOptions,
   patchCompetitionProductsProductIdMutation,
   patchCompetitionProductsVariantsVariantIdMutation,
   postCompetitionProductsMutation,
   postCompetitionProductsProductIdVariantsMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useProducts = () => {
   const { isTokenExpired } = useAuth();
@@ -37,7 +40,7 @@ export const useProducts = () => {
   const { mutate: mutateCreateProduct, isPending: isCreateLoading } =
     useMutation({
       ...postCompetitionProductsMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout du produit",
@@ -72,7 +75,7 @@ export const useProducts = () => {
   const { mutate: mutateUpdateProduct, isPending: isUpdateLoading } =
     useMutation({
       ...patchCompetitionProductsProductIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la modification du produit",
@@ -111,7 +114,7 @@ export const useProducts = () => {
   const { mutate: mutateDeleteProduct, isPending: isDeleteLoading } =
     useMutation({
       ...deleteCompetitionProductsProductIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression du product",
@@ -143,7 +146,7 @@ export const useProducts = () => {
   const { mutate: mutateCreateVariant, isPending: isCreateVariantLoading } =
     useMutation({
       ...postCompetitionProductsProductIdVariantsMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout de la variante",
@@ -182,7 +185,7 @@ export const useProducts = () => {
   const { mutate: mutateUpdateVariant, isPending: isUpdateVariantLoading } =
     useMutation({
       ...patchCompetitionProductsVariantsVariantIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la modification de la variante",
@@ -221,7 +224,7 @@ export const useProducts = () => {
   const { mutate: mutateDeleteVariant, isPending: isDeleteVariantLoading } =
     useMutation({
       ...deleteCompetitionProductsVariantsVariantIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression de la variante",

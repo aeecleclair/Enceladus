@@ -1,8 +1,10 @@
 "use client";
 
-import { Heart } from "lucide-react";
+import { Shift, VolunteerShiftCard } from "./VolunteerShiftCard";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { VolunteerShiftCard, Shift } from "./VolunteerShiftCard";
+
+import { Heart } from "lucide-react";
 
 interface VolunteerShiftsSectionProps {
   shifts: Shift[];

@@ -1,7 +1,8 @@
 "use client";
-import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
-import { useRouter } from "@/i18n/navigation";
 import { useEditions } from "@/hooks/challenger/useEditions";
+import { useRouter } from "@/i18n/navigation";
+
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 
 export function NavEditions() {
   const router = useRouter();

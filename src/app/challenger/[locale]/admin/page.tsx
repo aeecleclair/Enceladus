@@ -2,33 +2,35 @@
 
 import EditionForm from "@/components/challenger/admin/EditionForm";
 import {
+  ConfigurationStatusCard,
+  LocationsCard,
+  PaymentStatsCard,
+  ProductsCard,
+  SchoolsCard,
+  SportsCard,
+} from "@/components/challenger/admin/home";
+import {
   EditionFormSchema,
   editionFormSchema,
 } from "@/forms/challenger/edition";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { useProducts } from "@/hooks/challenger/useProducts";
-import { usePodiums } from "@/hooks/challenger/usePodiums";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useMemo } from "react";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import {
-  ConfigurationStatusCard,
-  LocationsCard,
-  ProductsCard,
-  SportsCard,
-  SchoolsCard,
-  PaymentStatsCard,
-} from "@/components/challenger/admin/home";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useEditionStats } from "@/hooks/challenger/useEditionStats";
 import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 import { useAllTeams } from "@/hooks/challenger/useAllTeams";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useEditionStats } from "@/hooks/challenger/useEditionStats";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSports } from "@/hooks/challenger/useSports";
 import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMemo } from "react";
+import { useForm } from "react-hook-form";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 
 const AdminPage = () => {
   const {

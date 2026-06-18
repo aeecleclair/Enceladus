@@ -1,38 +1,29 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { useGroups } from "@/hooks/challenger/useGroups";
+import { CompetitionGroupType, UserGroupMembershipComplete } from "@/api";
+import { AddUserDialog } from "@/components/challenger/admin/groups/AddUserDialog";
+import { DeleteConfirmationDialog } from "@/components/challenger/admin/groups/DeleteConfirmationDialog";
 import GroupCard from "@/components/challenger/admin/groups/GroupCard";
 import UserDetail from "@/components/challenger/admin/groups/UserDetail";
-import { DeleteConfirmationDialog } from "@/components/challenger/admin/groups/DeleteConfirmationDialog";
-import { AddUserDialog } from "@/components/challenger/admin/groups/AddUserDialog";
-import {
-  UserPlus,
-  Search,
-  Users,
-  Shield,
-  Filter,
-  Settings,
-} from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-  CompetitionGroupType,
-  UserGroupMembership,
-  UserGroupMembershipComplete,
-} from "@/api";
+import { useGroups } from "@/hooks/challenger/useGroups";
+import { useRouter } from "@/i18n/navigation";
+import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { AVAILABLE_GROUPS } from "@/lib/challenger/groups";
-import { useRouter } from "@/i18n/navigation";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+
+import { Filter, Search, Settings, UserPlus, Users } from "lucide-react";
 
 export default function GroupsPage() {
   const router = useRouter();

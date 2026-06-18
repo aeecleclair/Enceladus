@@ -2,9 +2,12 @@
 
 import { CompetitionUser } from "@/api";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { Phone, Copy, UsersIcon, CheckIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import { CheckIcon, Copy, Phone, UsersIcon } from "lucide-react";
 
 interface TeamScoreDisplayProps {
   teamName: string;

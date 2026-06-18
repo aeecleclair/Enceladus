@@ -1,12 +1,20 @@
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useChangeParticipantSport } from "@/hooks/challenger/useChangeParticipantSport";
+import { useCreateTeam } from "@/hooks/challenger/useCreateTeam";
+import { useSportTeams } from "@/hooks/challenger/useSportTeams";
+
 import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -14,12 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useSportTeams } from "@/hooks/challenger/useSportTeams";
-import { useChangeParticipantSport } from "@/hooks/challenger/useChangeParticipantSport";
-import { useCreateTeam } from "@/hooks/challenger/useCreateTeam";
 
 interface ChangeUserTeamDialogProps {
   open: boolean;

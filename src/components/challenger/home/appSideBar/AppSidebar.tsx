@@ -1,29 +1,33 @@
 "use client";
-import * as React from "react";
+import { Logo } from "../../custom/Logo";
+import { NavUser } from "../../custom/NavUser";
+import { NavLocations } from "./NavLocations";
+import { NavMatches } from "./NavMatches";
+import { NavPodium } from "./NavPodium";
+import { NavSearch } from "./NavSearch";
+import { NavVolunteerShifts } from "./NavVolunteerShifts";
+
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
+
+import * as React from "react";
+
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-  SidebarGroup,
-  SidebarGroupLabel,
 } from "@/components/ui/sidebar";
-import { NavUser } from "../../custom/NavUser";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { NavMatches } from "./NavMatches";
-import { NavVolunteerShifts } from "./NavVolunteerShifts";
-import { NavSearch } from "./NavSearch";
-import { NavLocations } from "./NavLocations";
-import { NavPodium } from "./NavPodium";
-import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { Logo } from "../../custom/Logo";
+
 import { FlaskConical } from "lucide-react";
-import { useMeUser } from "@/hooks/useMeUser";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { edition } = useEdition();

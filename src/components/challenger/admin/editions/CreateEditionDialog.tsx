@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { EditionForm } from "../EditionForm";
+
 import {
-  editionFormSchema,
   type EditionFormSchema,
+  editionFormSchema,
 } from "@/forms/challenger/edition";
+import { useEditions } from "@/hooks/challenger/useEditions";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
 import {
   Dialog,
   DialogContent,
@@ -15,7 +18,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useEditions } from "@/hooks/challenger/useEditions";
 
 interface CreateEditionDialogProps {
   open: boolean;
@@ -63,7 +65,7 @@ export const CreateEditionDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>Créer une nouvelle édition</DialogTitle>
           <DialogDescription>

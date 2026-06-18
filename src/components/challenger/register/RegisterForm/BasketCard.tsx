@@ -1,14 +1,17 @@
 import { StyledFormField } from "../../../common/StyledFormField";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Label } from "@/components/ui/label";
-import { UseFormReturn } from "react-hook-form";
-import { RegisteringFormValues } from "@/forms/challenger/registering";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+
 import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
 import { EditProductValues } from "@/forms/challenger/editProducts";
-import { Input } from "@/components/ui/input";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+
 import { useEffect } from "react";
+import { UseFormReturn } from "react-hook-form";
+
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface PackageCardProps {
   form: UseFormReturn<EditProductValues | RegisteringFormValues>;
@@ -42,6 +45,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
 
   // Check if at least one required product is selected
   const requiredProducts = Object.entries(groupedByProductId).filter(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ([_, products]) => products[0].product.required,
   );
   const hasRequiredProductSelected = requiredProducts.some(
@@ -97,12 +101,16 @@ export const BasketCard = ({ form }: PackageCardProps) => {
               form={form}
               label={`${product.product.name}${product.product.required ? " *" : ""}`}
               id={`products[${productId}]`}
-              input={(field) => (
+              input={() => (
                 <>
                   {products.length > 1 ? (
                     <div className="flex items-center space-x-2 pt-2">
                       <RadioGroup
                         onValueChange={(value) => {
+                          const selectedProduct = availableProducts?.find(
+                            (product) => product.id === value,
+                          );
+                          if (!selectedProduct) return;
                           form.setValue("products", [
                             ...purchases.filter(
                               (purchase) =>
@@ -110,9 +118,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
                                 selectedPerProduct[productId][0],
                             ),
                             {
-                              product: availableProducts?.find(
-                                (product) => product.id === value,
-                              )!,
+                              product: selectedProduct,
                               quantity: 1,
                             },
                           ]);

@@ -35,7 +35,7 @@ export const DropzoneInput = ({
         setIsOpen(false);
         onDropAccepted(files, event);
       }}
-      onDropRejected={(files, _) => {
+      onDropRejected={(files) => {
         const file = files[0];
         if (file.file.size > maxSize) {
           setRejectionMessage(`Fichier trop lourd (max: ${maxSizeInMo}Mo)`);

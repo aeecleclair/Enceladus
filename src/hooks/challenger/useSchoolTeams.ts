@@ -1,6 +1,8 @@
-import { getCompetitionTeamsSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
+
+import { getCompetitionTeamsSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
 
 interface UseSchoolTeamsProps {
   schoolId?: string;

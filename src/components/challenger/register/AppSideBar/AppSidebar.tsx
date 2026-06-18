@@ -1,11 +1,16 @@
 "use client";
-import Image from "next/image";
-import * as React from "react";
-import { Command, LogIn } from "lucide-react";
+import { Logo } from "../../custom/Logo";
+import { NavUser } from "../../custom/NavUser";
+import { TimelineStep } from "./TimelineStep";
+
 import {
   Timeline,
   TimelineItemLabel,
 } from "@/components/challenger/custom/Timeline";
+import { RegisterState } from "@/lib/challenger/registerState";
+
+import * as React from "react";
+
 import {
   Sidebar,
   SidebarContent,
@@ -15,10 +20,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { NavUser } from "../../custom/NavUser";
-import { TimelineStep } from "./TimelineStep";
-import { Logo } from "../../custom/Logo";
-import { RegisterState } from "@/lib/challenger/registerState";
 
 export function AppSidebar({
   state,

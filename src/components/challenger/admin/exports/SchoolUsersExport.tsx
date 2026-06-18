@@ -1,3 +1,11 @@
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useAuth } from "@/hooks/useAuth";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,11 +15,6 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import {
   Select,
   SelectContent,
@@ -19,10 +22,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { Download, School, Loader2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
+
+import { Download, Loader2, School } from "lucide-react";
 
 export const SchoolUsersExport = () => {
   const { edition } = useEdition();

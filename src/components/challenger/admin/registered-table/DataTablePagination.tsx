@@ -1,3 +1,5 @@
+import { useRouter } from "@/i18n/navigation";
+
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -5,6 +7,7 @@ import {
   DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
+import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,8 +17,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/i18n/navigation";
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;

@@ -1,6 +1,9 @@
+import { RaidParticipant } from "@/api";
 import { ParticipantInfo } from "@/components/raid/custom/ParticipantInfo";
-import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
+import { formatDate } from "@/lib/dateFormat";
 import { getLabelFromValue, situations } from "@/lib/raid/comboboxValues";
+import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
+
 import {
   Card,
   CardContent,
@@ -8,8 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatDate } from "@/lib/dateFormat";
-import { RaidParticipant } from "@/api";
 
 interface ParticipantInfoTabProps {
   participant: RaidParticipant;
@@ -42,7 +43,9 @@ export const ParticipantInfoTab = ({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>{participant.firstname + " " + participant.name}</CardTitle>
+        <CardTitle>
+          {participant.user.firstname + " " + participant.user.name}
+        </CardTitle>
         <CardDescription>
           dossier particiant completé à{" "}
           {participant.validation_progress.toFixed(0)}%
@@ -51,9 +54,13 @@ export const ParticipantInfoTab = ({
       <CardContent>
         <ParticipantInfo
           label="Date de naissance"
-          value={formatDate(participant.birthday)}
+          value={
+            participant.user.birthday
+              ? formatDate(participant.user.birthday)
+              : "Non renseigné"
+          }
         />
-        <ParticipantInfo label="Email" value={participant.email} />
+        <ParticipantInfo label="Email" value={participant.user.email} />
         <ParticipantInfo label="Adresse" value={participant.address} />
         <ParticipantInfo label="Taille de vélo" value={participant.bike_size} />
         <ParticipantInfo

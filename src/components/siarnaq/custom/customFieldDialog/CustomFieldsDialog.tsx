@@ -1,3 +1,11 @@
+import { Answer, CustomFieldInput } from "./CustomFieldInput";
+
+import { CustomDataFieldComplete } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+
+import { useTranslations } from "next-intl";
+import React, { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -8,13 +16,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Answer, CustomFieldInput } from "./CustomFieldInput";
-
-import { CustomDataFieldComplete } from "@/api";
-
-import { useTranslations } from "next-intl";
-import React, { useState } from "react";
-import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface CustomFieldsDialogProps {
   isOpened: boolean;
@@ -58,7 +59,7 @@ export const CustomFieldsDialog = ({
           <DialogDescription className="py-6 m-1">
             {productFields
               .filter((field) =>
-                onlyUserAnswerable ? field.can_user_answer : true
+                onlyUserAnswerable ? field.can_user_answer : true,
               )
               .map((field) => (
                 <CustomFieldInput

@@ -1,30 +1,33 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  ArrowLeft,
-  Edit,
-  Trash2,
-  Package,
-  Euro,
-  CheckCircle,
-  XCircle,
-  Plus,
-  ShoppingCart,
-  Info,
-  Target,
-} from "lucide-react";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
-import { ProductsQuotaDialog } from "./ProductsQuotaDialog";
-import { ProductQuotaDataTable } from "./ProductQuotaDataTable";
 import { DeleteConfirmationDialog } from "../sports/DeleteConfirmationDialog";
+import { ProductQuotaDataTable } from "./ProductQuotaDataTable";
+import { ProductsQuotaDialog } from "./ProductsQuotaDialog";
+
+import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
+import { ProductQuotaFormValues } from "@/forms/challenger/productQuota";
 import { useProductsQuota } from "@/hooks/challenger/useProductsQuota";
 import { useSchools } from "@/hooks/useSchools";
-import { ProductQuotaFormValues } from "@/forms/challenger/productQuota";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
 import { useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import {
+  ArrowLeft,
+  CheckCircle,
+  Edit,
+  Info,
+  Package,
+  Plus,
+  ShoppingCart,
+  Target,
+  Trash2,
+  XCircle,
+} from "lucide-react";
 
 interface ProductDetailProps {
   product: AppModulesSportCompetitionSchemasSportCompetitionProductComplete;

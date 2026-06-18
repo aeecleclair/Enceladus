@@ -1,23 +1,27 @@
-import { useSecurityFile } from "@/hooks/raid/useSecurityFile";
-import { Button } from "@/components/ui/button";
+import { SecurityFile } from "@/api";
 import {
   ParticipantField,
   ValueTypes,
 } from "@/components/raid/custom/ParticipantField";
-import { SecurityFile } from "@/api";
+import { useSecurityFile } from "@/hooks/raid/useSecurityFile";
+
+import { FieldValues, UseFormReturn } from "react-hook-form";
+import { HiCheck, HiX } from "react-icons/hi";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+
 import { BadgeAlertIcon, ClockIcon } from "lucide-react";
-import { HiCheck, HiX } from "react-icons/hi";
 
 interface SecurityFileDialogProps {
   setIsOpen: (value: boolean) => void;
   participantId: string;
-  form: any;
+  form: UseFormReturn<FieldValues>;
 }
 
 export const SecurityFileDialog = ({
@@ -35,12 +39,12 @@ export const SecurityFileDialog = ({
 
   const isFieldMissing = form.formState.errors["securityFile"] !== undefined;
 
-  function onValidate(_: any) {
+  function onValidate() {
     form.setValue("securityFile.updated", true);
     const securityFile: SecurityFile = {
       ...form.getValues("securityFile"),
     };
-    setSecurityFile(securityFile, participantId, (_) => {
+    setSecurityFile(securityFile, participantId, () => {
       // Not working, to investigate
     });
     setIsOpen(false);

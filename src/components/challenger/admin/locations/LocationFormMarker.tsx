@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import { Location } from "@/api";
+import { cn } from "@/lib/utils";
+
+import React from "react";
+
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,8 +16,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { MapPin, Save, X, Trash2, Navigation, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+
+import { Check, MapPin, Trash2, X } from "lucide-react";
 
 interface LocationFormMarkerProps {
   isAdded: boolean;
@@ -27,7 +32,7 @@ interface LocationFormMarkerProps {
   isUpdateLoading?: boolean;
   isDeleteLoading?: boolean;
   onDelete?: () => void;
-  editingLocation?: any;
+  editingLocation?: Location;
 }
 
 export function LocationFormMarker({
@@ -73,7 +78,7 @@ export function LocationFormMarker({
 
   return (
     <div className="relative" onClick={handleCardClick}>
-      <div className="w-[400px] sm:w-[450px] bg-white rounded-lg shadow-lg border p-4">
+      <div className="w-100 sm:w-112.5 bg-white rounded-lg shadow-lg border p-4">
         <div className="flex items-start gap-3 mb-4">
           <div className="bg-rose-500/10 p-2 rounded-full shrink-0">
             {getIcon()}
@@ -207,7 +212,7 @@ export function LocationFormMarker({
 
       {/* Triangular pointer at the bottom */}
       <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-2">
-        <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[12px] border-l-transparent border-r-transparent border-t-white drop-shadow-sm" />
+        <div className="w-0 h-0 border-l-12 border-r-12 border-t-12 border-l-transparent border-r-transparent border-t-white drop-shadow-sm" />
       </div>
     </div>
   );

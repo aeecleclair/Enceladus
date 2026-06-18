@@ -1,28 +1,29 @@
-import { useState } from "react";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
-import { useProducts } from "@/hooks/challenger/useProducts";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import {
-  Search,
-  Plus,
-  Package,
-  Settings,
-  ChevronRight,
-  Users,
-  ShoppingCart,
-  Eye,
-} from "lucide-react";
-import { ProductVariantStatsGrid } from "./ProductVariantStatsGrid";
 import { AddProductDialog } from "./AddProductDialog";
 import { ProductOptionsMenu } from "./ProductOptionsMenu";
+import { ProductVariantStatsGrid } from "./ProductVariantStatsGrid";
+
+import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
+
+import { useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { Input } from "@/components/ui/input";
+
+import {
+  ChevronRight,
+  Package,
+  Plus,
+  Search,
+  ShoppingCart,
+  Users,
+} from "lucide-react";
 
 interface ProductListProps {
   products: AppModulesSportCompetitionSchemasSportCompetitionProductComplete[];

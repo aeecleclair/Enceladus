@@ -1,29 +1,30 @@
 "use client";
 
-import { useEffect } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, useFieldArray } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import {
-  podiumRankingsSchema,
-  PodiumRankingsFormData,
-} from "@/forms/challenger/podium";
-import { Plus } from "lucide-react";
-import { TeamSportResultComplete, SchoolResult } from "@/api";
 import { RankingRow } from "./RankingRow";
+
+import {
+  PodiumRankingsFormData,
+  podiumRankingsSchema,
+} from "@/forms/challenger/podium";
 import { usePodiums } from "@/hooks/challenger/usePodiums";
 import { usePompomsPodiums } from "@/hooks/challenger/usePompomsPodiums";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
+
+import { Plus } from "lucide-react";
+
 interface PodiumRankingsFormProps {
   sportId: string;
-  isLoading?: boolean;
   onClose: () => void;
 }
 
 export function PodiumRankingsForm({
   sportId,
-  isLoading = false,
   onClose,
 }: PodiumRankingsFormProps) {
   const isPompoms = sportId === "pompoms";
@@ -48,7 +49,7 @@ export function PodiumRankingsForm({
 
   // Transform pompoms data to match the regular form structure
   const defaultValues = isPompoms
-    ? pompomsResults?.map((result, index) => ({
+    ? pompomsResults?.map((result) => ({
         school_id: result.school_id,
         sport_id: "pompoms",
         team_id: result.school_id, // Use school_id as team_id for pompoms

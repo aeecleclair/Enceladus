@@ -1,3 +1,7 @@
+import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -5,14 +9,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
 
 interface ProductsCardProps {
   products: AppModulesSportCompetitionSchemasSportCompetitionProductComplete[];

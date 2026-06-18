@@ -1,3 +1,5 @@
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -6,9 +8,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
+
 import { Edit, Trash2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 
 interface ProductQuotaDataTableProps {
   data: Array<{
@@ -24,7 +25,6 @@ interface ProductQuotaDataTableProps {
 
 export function ProductQuotaDataTable({
   data,
-  productName,
   onEditQuota,
   onDeleteQuota,
 }: ProductQuotaDataTableProps) {

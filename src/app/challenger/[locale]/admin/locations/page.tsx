@@ -1,13 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { DeleteConfirmationDialog } from "@/components/challenger/admin/locations/DeleteConfirmationDialog";
 import { LocationComplete } from "@/api";
+import { DeleteConfirmationDialog } from "@/components/challenger/admin/locations/DeleteConfirmationDialog";
 import { MapPicker } from "@/components/challenger/admin/locations/MapPicker";
-import { useForm } from "react-hook-form";
+import { LocationFormData, locationSchema } from "@/forms/challenger/location";
+import { useLocations } from "@/hooks/challenger/useLocations";
+
 import { zodResolver } from "@hookform/resolvers/zod";
-import { locationSchema, LocationFormData } from "@/forms/challenger/location";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function LocationsPage() {
   const {
@@ -146,7 +147,7 @@ export default function LocationsPage() {
           onSubmit={handleSubmit}
           onCancel={handleCancel}
           isCreating={isCreating}
-          editingLocation={editingLocation}
+          editingLocation={editingLocation ?? undefined}
           isCreateLoading={isCreateLoading}
           isUpdateLoading={isUpdateLoading}
           isDeleteLoading={isDeleteLoading}

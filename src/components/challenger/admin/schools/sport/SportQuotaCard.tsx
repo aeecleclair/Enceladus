@@ -1,15 +1,19 @@
 "use client";
 
+import { SportQuotaDataTable } from "./SportQuotaDataTable";
+import { SportQuotaDialog } from "./SportQuotaDialog";
+
 import { SchoolExtension, SportQuotaInfo } from "@/api";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SportQuotaFormValues } from "@/forms/challenger/sportQuota";
 import { useSchoolsSportQuota } from "@/hooks/challenger/useSchoolsSportQuota";
 import { useSports } from "@/hooks/challenger/useSports";
-import { Plus, Trophy } from "lucide-react";
+
 import { useState } from "react";
-import { SportQuotaDataTable } from "./SportQuotaDataTable";
-import { SportQuotaDialog } from "./SportQuotaDialog";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Plus, Trophy } from "lucide-react";
 
 interface SportQuotaCardProps {
   school: SchoolExtension;
@@ -26,8 +30,6 @@ export const SportQuotaCard = ({
     createQuota,
     isUpdateLoading,
     updateQuota,
-    isDeleteLoading,
-    deleteQuota,
   } = useSchoolsSportQuota({
     schoolId: school.school_id,
   });
@@ -35,9 +37,6 @@ export const SportQuotaCard = ({
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
-  const [selectedSportForDelete, setSelectedSportForDelete] = useState<
-    string | null
-  >(null);
 
   const handleEditQuota = (sportId: string) => {
     const currentQuota = schoolsSportQuota?.find((q) => q.sport_id === sportId);
@@ -127,7 +126,7 @@ export const SportQuotaCard = ({
             }))}
             onEditQuota={handleEditQuota}
             onDeleteQuota={(sportId) => {
-              setSelectedSportForDelete(sportId);
+              setSelectedSport(sportId);
               setIsDeleteDialogOpen(true);
             }}
           />

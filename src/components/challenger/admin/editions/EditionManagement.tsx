@@ -1,6 +1,16 @@
 "use client";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ActivateEditionDialog } from "./ActivateEditionDialog";
+import { CreateEditionDialog } from "./CreateEditionDialog";
+import { EditEditionDialog } from "./EditEditionDialog";
+
+import type * as Schemas from "@/api";
+import { useEditions } from "@/hooks/challenger/useEditions";
+
+import { useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,26 +18,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  CalendarDays,
-  Settings,
-  Users,
-  PlayCircle,
-  StopCircle,
-  Edit,
-  Plus,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { CreateEditionDialog } from "./CreateEditionDialog";
-import { EditEditionDialog } from "./EditEditionDialog";
-import { ActivateEditionDialog } from "./ActivateEditionDialog";
-import type * as Schemas from "@/api";
+import { Skeleton } from "@/components/ui/skeleton";
+
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useEditions } from "@/hooks/challenger/useEditions";
+import { CalendarDays, Edit, PlayCircle, Plus, Users } from "lucide-react";
 
 export const EditionManagement = () => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);

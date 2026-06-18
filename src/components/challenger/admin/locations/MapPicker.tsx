@@ -1,18 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React from "react";
+import { Location } from "@/api";
+
 import dynamic from "next/dynamic";
+import React from "react";
 
 interface MapPickerProps {
   onCoordinatesChange: (lat: number, lng: number, address: string) => void;
-  onLocationEdit?: (location: any) => void;
-  locations?: any[];
+  onLocationEdit?: (location: Location) => void;
+  locations?: Location[];
   className?: string;
   form?: any;
   onSubmit?: (data: any) => void;
   onCancel?: () => void;
   isCreating?: boolean;
-  editingLocation?: any;
+  editingLocation?: Location;
   isCreateLoading?: boolean;
   isUpdateLoading?: boolean;
   isDeleteLoading?: boolean;

@@ -1,11 +1,15 @@
 "use client";
 
+import { LocationComplete } from "@/api";
+import { LocationFormData, locationSchema } from "@/forms/challenger/location";
+import { cn } from "@/lib/utils";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { UseFormReturn, useForm } from "react-hook-form";
+
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -14,23 +18,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {
-  MapPin,
-  Check,
-  Trash2,
-  Navigation,
-  ExternalLink,
-  Edit,
-  Save,
-  X,
-  Plus,
-  Star,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { locationSchema, LocationFormData } from "@/forms/challenger/location";
-import { LocationComplete } from "@/api";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+
+import { Edit, MapPin, Navigation, Save, Star, X } from "lucide-react";
 
 interface CustomMarkerProps {
   latitude: number;
@@ -52,7 +44,7 @@ interface CustomMarkerProps {
   onLocationUpdate?: (locationId: string, data: LocationFormData) => void;
   onLocationDelete?: (lat: number, lng: number) => void;
   onCancel?: () => void;
-  form?: any;
+  form?: UseFormReturn<LocationFormData>;
   isCreateLoading?: boolean;
   isUpdateLoading?: boolean;
   isDeleteLoading?: boolean;
@@ -67,19 +59,13 @@ export function CustomMarker({
   address,
   existingLocation,
   isExisting = false,
-  isAdded = false,
-  onCoordinatesChange,
-  onLocationAdd,
   onLocationEdit,
   onLocationCreate,
   onLocationUpdate,
-  onLocationDelete,
   onCancel,
   form,
   isCreateLoading = false,
   isUpdateLoading = false,
-  isDeleteLoading = false,
-  onDelete,
   showForm = false,
 }: CustomMarkerProps) {
   const [isFormExpanded, setIsFormExpanded] = useState(showForm || !isExisting);
@@ -100,9 +86,9 @@ export function CustomMarker({
   const handleSubmit = async (data: LocationFormData) => {
     try {
       if (existingLocation) {
-        await onLocationUpdate?.(existingLocation.id, data);
+        onLocationUpdate?.(existingLocation.id, data);
       } else {
-        await onLocationCreate?.({
+        onLocationCreate?.({
           ...data,
           latitude,
           longitude,

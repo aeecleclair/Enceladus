@@ -1,20 +1,30 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React, { useEffect, useRef, useCallback } from "react";
-import { createRoot } from "react-dom/client";
-import "leaflet/dist/leaflet.css";
-import { SimpleLocationMarker } from "./SimpleLocationMarker";
 import { LocationFormMarker } from "./LocationFormMarker";
+import { SimpleLocationMarker } from "./SimpleLocationMarker";
+
+import { Location } from "@/api";
+
+import React, { useCallback, useEffect, useRef } from "react";
+
+import type {
+  LeafletEvent,
+  Map as LeafletMap,
+  Marker as LeafletMarker,
+} from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { createRoot } from "react-dom/client";
 
 interface MapComponentProps {
   onCoordinatesChange: (lat: number, lng: number, address: string) => void;
-  onLocationEdit?: (location: any) => void;
-  locations?: any[];
+  onLocationEdit?: (location: Location) => void;
+  locations?: Location[];
   form?: any;
   onSubmit?: (data: any) => void;
   onCancel?: () => void;
   isCreating?: boolean;
-  editingLocation?: any;
+  editingLocation?: Location;
   isCreateLoading?: boolean;
   isUpdateLoading?: boolean;
   isDeleteLoading?: boolean;
@@ -36,10 +46,10 @@ export default function MapComponent({
   onDelete,
 }: MapComponentProps) {
   const mapRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<any>(null);
-  const addMarkerRef = useRef<any>(null);
-  const locationMarkersRef = useRef<any[]>([]);
-  const editMarkerRef = useRef<any>(null);
+  const mapInstanceRef = useRef<LeafletMap>(null);
+  const addMarkerRef = useRef<LeafletMarker>(null);
+  const locationMarkersRef = useRef<LeafletMarker[]>([]);
+  const editMarkerRef = useRef<LeafletMarker>(null);
 
   const getLocationName = async (lat: number, lng: number): Promise<string> => {
     try {
@@ -62,7 +72,12 @@ export default function MapComponent({
   };
 
   const createLocationMarker = useCallback(
-    (L: any, lat: number, lng: number, location: any) => {
+    (
+      L: typeof import("leaflet"),
+      lat: number,
+      lng: number,
+      location: Location,
+    ) => {
       const markerDiv = document.createElement("div");
       markerDiv.className = "location-marker-container";
 
@@ -70,7 +85,7 @@ export default function MapComponent({
       root.render(
         <SimpleLocationMarker
           locationName={location.name || location.address || "Lieu sans nom"}
-          address={location.address}
+          address={location.address ?? undefined}
           latitude={lat}
           longitude={lng}
           onClick={() => {
@@ -90,7 +105,7 @@ export default function MapComponent({
 
       const marker = L.marker([lat, lng], { icon: customIcon });
 
-      marker.on("click", (e: any) => {
+      marker.on("click", (e: LeafletEvent) => {
         L.DomEvent.stopPropagation(e);
       });
 
@@ -179,7 +194,6 @@ export default function MapComponent({
               isCreateLoading={isCreateLoading}
               isUpdateLoading={isUpdateLoading}
               isDeleteLoading={isDeleteLoading}
-              editingLocation={null}
             />,
           );
 
@@ -192,12 +206,13 @@ export default function MapComponent({
 
           addMarkerRef.current = L.marker([lat, lng], { icon: customIcon });
 
-          addMarkerRef.current.on("click", (e: any) => {
+          addMarkerRef.current.on("click", (e: LeafletEvent) => {
             L.DomEvent.stopPropagation(e);
           });
 
           (addMarkerRef.current as any)._reactRoot = root;
 
+          if (!mapInstanceRef.current) return;
           addMarkerRef.current.addTo(mapInstanceRef.current);
 
           const zoom = mapInstanceRef.current.getZoom();
@@ -356,7 +371,7 @@ export default function MapComponent({
           { icon: customIcon },
         );
 
-        editMarkerRef.current.on("click", (e: any) => {
+        editMarkerRef.current.on("click", (e: LeafletEvent) => {
           L.DomEvent.stopPropagation(e);
         });
 

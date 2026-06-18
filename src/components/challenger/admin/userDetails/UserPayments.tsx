@@ -1,18 +1,27 @@
 "use client";
 
+import { AddPaymentDialog } from "../validation/AddPaymentDialog";
+
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
   AppModulesSportCompetitionSchemasSportCompetitionPaymentComplete,
   CompetitionUser,
 } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CreditCard, Trash2, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useUserPayments } from "@/hooks/challenger/useUserPayments";
 import { useSchoolsPayments } from "@/hooks/challenger/useSchoolsPayments";
-import { AddPaymentDialog } from "../validation/AddPaymentDialog";
-import { useState } from "react";
 import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
+import { useUserPayments } from "@/hooks/challenger/useUserPayments";
+
+import { useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {
   Table,
   TableBody,
@@ -21,13 +30,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+
+import { CreditCard, Plus, Trash2 } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 
 export const UserPayments = ({

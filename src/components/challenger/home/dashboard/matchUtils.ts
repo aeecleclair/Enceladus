@@ -1,6 +1,9 @@
 "use client";
 
-export const openMap = (location: { name: string; address?: string | null }) => {
+export const openMap = (location: {
+  name: string;
+  address?: string | null;
+}) => {
   const query = location.address
     ? `${location.name}, ${location.address}`
     : location.name;

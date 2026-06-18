@@ -5,6 +5,7 @@ import {
   CdrUser,
   ProductCompleteNoConstraint,
 } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useProducts } from "@/hooks/siarnaq/useProducts";
 import { useUserMemberships } from "@/hooks/siarnaq/useUserMemberships";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
@@ -16,7 +17,6 @@ import { useState } from "react";
 import { CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
-import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface ProductPartProps {
   user: CdrUser;
@@ -37,17 +37,17 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
   const allConstraint = allProducts
     .map(
       (product: AppModulesCdrSchemasCdrProductComplete) =>
-        product.product_constraints || []
+        product.product_constraints || [],
     )
     .flat();
   const allConstraintIds = allConstraint.map(
-    (constraint: ProductCompleteNoConstraint) => constraint.id
+    (constraint: ProductCompleteNoConstraint) => constraint.id,
   );
   const userAssociationsMembershipsIds = memberships
     .filter(
       (membership) =>
         new Date(membership.end_date).getTime() >
-        new Date(new Date().getFullYear(), 9, 30).getTime()
+        new Date(new Date().getFullYear(), 9, 30).getTime(),
     )
     .map((membership) => membership.association_membership_id);
 
@@ -58,7 +58,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
         purchases
           .filter(
             (purchase) =>
-              !purchase.validated && purchase.product.needs_validation
+              !purchase.validated && purchase.product.needs_validation,
           )
           .map((purchase) =>
             onValidate(
@@ -68,9 +68,9 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
               setIsLoading,
               refetch,
               toast,
-              tOnValidate
-            )
-          )
+              tOnValidate,
+            ),
+          ),
       );
     } catch {
       toast({
@@ -82,7 +82,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
         toast({
           title: data?.some(
             (purchase) =>
-              purchase.product.needs_validation && !purchase.validated
+              purchase.product.needs_validation && !purchase.validated,
           )
             ? t("productPart.unvalidated")
             : t("productPart.validated"),
@@ -107,12 +107,12 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
         </div>
         <div className="space-y-2">
           {purchases?.filter(
-            (purchase) => purchase.product.needs_validation === true
+            (purchase) => purchase.product.needs_validation === true,
           )?.length > 0 ? (
             <>
               {purchases
                 ?.filter(
-                  (purchase) => purchase.product.needs_validation === true
+                  (purchase) => purchase.product.needs_validation === true,
                 )
                 .map((purchase) => (
                   <PurchaseItem
@@ -120,7 +120,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
                     allProducts={allProducts}
                     allConstraintIds={allConstraintIds}
                     allPurchasesIds={purchases.map(
-                      (purchase) => purchase.product.id
+                      (purchase) => purchase.product.id,
                     )}
                     purchase={purchase}
                     userAssociationsMembershipsIds={
@@ -151,12 +151,12 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
         </div>
         <div className="space-y-2">
           {purchases?.filter(
-            (purchase) => purchase.product.needs_validation === false
+            (purchase) => purchase.product.needs_validation === false,
           )?.length > 0 ? (
             <>
               {purchases
                 ?.filter(
-                  (purchase) => purchase.product.needs_validation === false
+                  (purchase) => purchase.product.needs_validation === false,
                 )
                 .map((purchase) => (
                   <PurchaseItem
@@ -164,7 +164,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
                     allProducts={allProducts}
                     allConstraintIds={allConstraintIds}
                     allPurchasesIds={purchases.map(
-                      (purchase) => purchase.product.id
+                      (purchase) => purchase.product.id,
                     )}
                     purchase={purchase}
                     userAssociationsMembershipsIds={

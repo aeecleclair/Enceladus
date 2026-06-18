@@ -1,13 +1,13 @@
 "use client";
+import { cn } from "@/lib/utils";
+
 import * as React from "react";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-
-import { cn } from "@/lib/utils";
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, ...props }, ref) => {
     const [showPassword, setShowPassword] = React.useState(false);
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
 

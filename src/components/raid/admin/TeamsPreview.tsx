@@ -1,6 +1,11 @@
+import { RaidParticipant, RaidTeamPreview } from "@/api";
+import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
+import { useSecurityFiles } from "@/hooks/raid/useSecurityFiles";
+import { useTeamFiles } from "@/hooks/raid/useTeamFiles";
+import { useRouter } from "@/i18n/navigation";
+
 import Link from "next/link";
-import { ArrowUpRight, DownloadIcon, LifeBuoyIcon } from "lucide-react";
-import { UsersIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +16,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
   Table,
   TableBody,
   TableCell,
@@ -18,19 +30,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Skeleton } from "@/components/ui/skeleton";
-import { RaidTeamPreview } from "@/api";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/i18n/navigation";
-import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useTeamFiles } from "@/hooks/raid/useTeamFiles";
-import { useSecurityFiles } from "@/hooks/raid/useSecurityFiles";
+
+import { ArrowUpRight, DownloadIcon, LifeBuoyIcon } from "lucide-react";
+import { UsersIcon } from "lucide-react";
 
 interface TeamsPreviewProps {
   teams?: RaidTeamPreview[];
@@ -166,12 +168,14 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                   )
                   .slice(0, 5)
                   .map((team) => {
+                    const captain = team.captain as RaidParticipant;
+                    const second = team.second as RaidParticipant | null;
                     const number_of_validated_document =
-                      team.captain.number_of_validated_document +
-                      (team.second?.number_of_validated_document ?? 0);
+                      captain.number_of_validated_document +
+                      (second?.number_of_validated_document ?? 0);
                     const number_of_document =
-                      team.captain.number_of_document +
-                      (team.second?.number_of_document ?? 0);
+                      captain.number_of_document +
+                      (second?.number_of_document ?? 0);
                     return (
                       <TableRow
                         key={team.id}
@@ -180,14 +184,16 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                         <TableCell className="h-19.5">{team.name}</TableCell>
                         <TableCell className="max-md:hidden">
                           <div className="font-medium">
-                            {team.captain?.firstname} {team.captain?.name}
+                            {team.captain?.user?.firstname}{" "}
+                            {team.captain?.user?.name}
                           </div>
                         </TableCell>
                         <TableCell className="max-md:hidden">
                           {team.second ? (
                             <>
                               <div className="font-medium">
-                                {team.second.firstname} {team.second.name}
+                                {team.second.user.firstname}{" "}
+                                {team.second.user.name}
                               </div>
                             </>
                           ) : (

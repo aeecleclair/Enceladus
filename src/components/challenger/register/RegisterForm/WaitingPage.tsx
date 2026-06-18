@@ -1,4 +1,38 @@
+import { BasketCard } from "./BasketCard";
+import { RegistrationSummary } from "./RegistrationSummary";
+
+import {
+  AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
+  Purchase,
+} from "@/api";
+import { DocumentDialog } from "@/components/challenger/custom/DocumentDialog";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
+import {
+  EditProductValues,
+  editProductSchema,
+} from "@/forms/challenger/editProducts";
+import {
+  LicenseFormValues,
+  licenseFormSchema,
+} from "@/forms/challenger/license";
+import {
+  SubstituteFormValues,
+  substituteFormSchema,
+} from "@/forms/challenger/substitute";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useDocument } from "@/hooks/challenger/useDocument";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
+import { useMeUser } from "@/hooks/useMeUser";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -6,40 +40,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState, useEffect } from "react";
-import { BasketCard } from "./BasketCard";
-import { RegistrationSummary } from "./RegistrationSummary";
-import {
-  editProductSchema,
-  EditProductValues,
-} from "@/forms/challenger/editProducts";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
 import { Form } from "@/components/ui/form";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import {
-  AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
-  Purchase,
-} from "@/api";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
-import {
-  licenseFormSchema,
-  LicenseFormValues,
-} from "@/forms/challenger/license";
-import {
-  substituteFormSchema,
-  SubstituteFormValues,
-} from "@/forms/challenger/substitute";
-import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { StyledFormField } from "@/components/common/StyledFormField";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { useDocument } from "@/hooks/challenger/useDocument";
-import { useMeUser } from "@/hooks/useMeUser";
 import { useToast } from "@/components/ui/use-toast";
-import { DocumentDialog } from "@/components/challenger/custom/DocumentDialog";
 
 interface WaitingPageProps {
   userMePurchases?: Purchase[];
@@ -68,6 +71,11 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
       license_number: meParticipant?.license || "",
       certificate: certificateData ? "Certificat chargé" : undefined,
     },
+  });
+
+  const licenseCertificate = useWatch({
+    control: licenseForm.control,
+    name: "certificate",
   });
 
   const substituteForm = useForm<SubstituteFormValues>({
@@ -301,7 +309,7 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
                           <DialogTrigger asChild>
                             <Button variant="outline" className="w-60">
                               <span className="text-gray-500 overflow-hidden truncate">
-                                {licenseForm.watch("certificate") ??
+                                {licenseCertificate ??
                                   "Aucun fichier sélectionné"}
                               </span>
                             </Button>

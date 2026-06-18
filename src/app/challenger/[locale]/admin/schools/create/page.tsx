@@ -1,16 +1,19 @@
 "use client";
 
+import { SchoolExtensionBase } from "@/api";
+import { SchoolsForm } from "@/components/challenger/admin/schools/SchoolsForm";
+import { SchoolFormValues, schoolFormSchema } from "@/forms/challenger/schools";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSchools } from "@/hooks/useSchools";
+import { useRouter } from "@/i18n/navigation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { schoolFormSchema, SchoolFormValues } from "@/forms/challenger/schools";
-import { useSchools } from "@/hooks/useSchools";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { SchoolsForm } from "@/components/challenger/admin/schools/SchoolsForm";
-import { SchoolExtensionBase } from "@/api";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { ArrowLeft, Plus, School } from "lucide-react";
-import { useRouter } from "@/i18n/navigation";
 
 const Dashboard = () => {
   const router = useRouter();

@@ -1,20 +1,22 @@
-import { Match, MatchComplete } from "@/api";
+import { MatchComplete } from "@/api";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { cn } from "@/lib/utils";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+
 import {
-  Clock,
-  MapPin,
   Calendar,
-  Users,
-  Trophy,
-  School,
-  Target,
+  Clock,
   ExternalLink,
+  MapPin,
+  School,
   Star,
+  Target,
+  Trophy,
+  Users,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 interface MatchCardProps {
   match: MatchComplete;

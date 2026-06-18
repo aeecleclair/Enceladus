@@ -1,17 +1,18 @@
 "use client";
 
+import { MatchEdit } from "@/api";
+import { MatchesForm } from "@/components/challenger/admin/matches/MatchesForm";
+import { MatchFormValues, matchFormSchema } from "@/forms/challenger/match";
+import { useSportMatches } from "@/hooks/challenger/useSportMatches";
+import { useRouter } from "@/i18n/navigation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { z } from "zod";
-import { useSportMatches } from "@/hooks/challenger/useSportMatches";
-import { MatchFormValues, matchFormSchema } from "@/forms/challenger/match";
-import { MatchesForm } from "@/components/challenger/admin/matches/MatchesForm";
-import { MatchEdit } from "@/api";
+import { useForm } from "react-hook-form";
+
 import { Skeleton } from "@/components/ui/skeleton";
-import { useRouter } from "@/i18n/navigation";
 
 const EditMatchPage = () => {
   const router = useRouter();
@@ -28,23 +29,15 @@ const EditMatchPage = () => {
 
   const match = sportMatches?.find((m) => m.id === matchId);
 
-  useEffect(() => {
-    if (match && match.sport_id !== sportId) {
-      setSportId(match.sport_id);
-    }
-  }, [match, sportId]);
-
-  // Set school IDs when match data is available
-  useEffect(() => {
-    if (match) {
-      if (match.team1?.school_id && team1SchoolId !== match.team1.school_id) {
-        setTeam1SchoolId(match.team1.school_id);
-      }
-      if (match.team2?.school_id && team2SchoolId !== match.team2.school_id) {
-        setTeam2SchoolId(match.team2.school_id);
-      }
-    }
-  }, [match, team1SchoolId, team2SchoolId]);
+  if (match && match.sport_id !== sportId) {
+    setSportId(match.sport_id);
+  }
+  if (match?.team1?.school_id && team1SchoolId !== match.team1.school_id) {
+    setTeam1SchoolId(match.team1.school_id);
+  }
+  if (match?.team2?.school_id && team2SchoolId !== match.team2.school_id) {
+    setTeam2SchoolId(match.team2.school_id);
+  }
 
   const form = useForm<MatchFormValues>({
     resolver: zodResolver(matchFormSchema),

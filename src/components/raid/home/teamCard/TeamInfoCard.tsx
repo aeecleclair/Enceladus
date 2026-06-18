@@ -1,6 +1,7 @@
+import { JSX } from "react";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { JSX } from "react";
 
 interface TeamInfo {
   title: string;

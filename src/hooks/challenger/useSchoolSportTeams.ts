@@ -1,14 +1,17 @@
-import { getCompetitionTeamsSportsSportIdSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
+
 import { Team, TeamEdit, TeamInfo } from "@/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { getCompetitionTeamsSportsSportIdSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
 import {
   deleteCompetitionTeamsTeamIdMutation,
   patchCompetitionTeamsTeamIdMutation,
   postCompetitionTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface UseSchoolSportTeamsProps {
   schoolId?: string;
@@ -41,7 +44,7 @@ export const useSchoolSportTeams = ({
   const { mutate: mutateCreateSchoolSportTeam, isPending: isCreateLoading } =
     useMutation({
       ...postCompetitionTeamsMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout de l'équipe",
@@ -74,7 +77,7 @@ export const useSchoolSportTeams = ({
   const { mutate: mutateUpdateSchoolSportTeam, isPending: isUpdateLoading } =
     useMutation({
       ...patchCompetitionTeamsTeamIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la mise à jour de l'équipe",
@@ -112,7 +115,7 @@ export const useSchoolSportTeams = ({
   const { mutate: mutateDeleteSchoolSportTeam, isPending: isDeleteLoading } =
     useMutation({
       ...deleteCompetitionTeamsTeamIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression de l'équipe",

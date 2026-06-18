@@ -1,3 +1,10 @@
+import { DocumentTab } from "./DocumentTab";
+import { InformationTab } from "./InformationTab";
+import { PaymentTab } from "./PaymentTab";
+
+import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
+
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Sheet,
   SheetContent,
@@ -5,13 +12,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { InformationTab } from "./InformationTab";
 import { Skeleton } from "@/components/ui/skeleton";
-import { DocumentTab } from "./DocumentTab";
-import { PaymentTab } from "./PaymentTab";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 interface TeamSheetProps {
   isOpened: boolean;

@@ -71,14 +71,14 @@ export const AddUserWithCurriculum = () => {
   const [isOpened, setIsOpened] = useState(false);
   const { curriculums } = useCurriculums();
   const [selectedCurriculum, setSelectedCurriculum] = useState(
-    curriculums.length > 0 ? curriculums[0].id : undefined
+    curriculums.length > 0 ? curriculums[0].id : undefined,
   );
 
   const [query, setQuery] = useState(undefined as unknown as string);
   const [foundUsers, setFoundUsers] = useState([] as CoreUserSimple[]);
 
   const [selectedUser, setSelectedUser] = useState(
-    undefined as unknown as CoreUserSimple
+    undefined as unknown as CoreUserSimple,
   );
 
   return (
@@ -148,7 +148,7 @@ export const AddUserWithCurriculum = () => {
                     <CommandItem
                       key={user.id}
                       value={user.id}
-                      onSelect={(userId) => {
+                      onSelect={() => {
                         setSelectedUser(user);
                         setFoundUsers([]);
                       }}

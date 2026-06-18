@@ -35,10 +35,10 @@ export const AssociationPanel = ({
 
   const customSellerNames = ["BDE", "BDS", "SDeC", "WEI"] as const;
   function isInCustomSellerNames(
-    sellerName: string
+    sellerName: string,
   ): sellerName is (typeof customSellerNames)[number] {
     return customSellerNames.includes(
-      sellerName as (typeof customSellerNames)[number]
+      sellerName as (typeof customSellerNames)[number],
     );
   }
   const displaySellerName = (sellerName: string) =>

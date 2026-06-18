@@ -1,12 +1,17 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  purchaseFormSchema,
-  PurchaseFormValues,
-} from "@/forms/challenger/purchase";
 import { GetCompetitionProductsResponse } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
+import {
+  PurchaseFormValues,
+  purchaseFormSchema,
+} from "@/forms/challenger/purchase";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -15,7 +20,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -24,8 +28,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { StyledFormField } from "@/components/common/StyledFormField";
+
 import { AlertTriangle } from "lucide-react";
 
 interface AddPurchaseDialogProps {

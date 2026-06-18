@@ -1,11 +1,12 @@
+import { useAuth } from "../useAuth";
+
 import { getCdrSellersSellerIdUsersUserIdPurchasesOptions } from "@/api/@tanstack/react-query.gen";
 
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../useAuth";
 
 export const useUserSellerPurchases = (
   userId: string | null,
-  sellerId: string | null
+  sellerId: string | null,
 ) => {
   const { isTokenExpired } = useAuth();
   const { data, isLoading, refetch } = useQuery({

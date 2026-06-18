@@ -7,17 +7,17 @@ import {
   PurchaseReturn,
   patchCdrUsersUserIdPurchasesProductVariantIdValidated,
 } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
 import { useTranslation } from "@/translations/utils";
 
 import { QueryObserverResult } from "@tanstack/react-query";
-import { Messages, useFormatter, useTranslations } from "next-intl";
+import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { HiCheck, HiOutlineExclamationCircle, HiXMark } from "react-icons/hi2";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
 
 import { useToast } from "@/components/ui/use-toast";
-import { LoadingButton } from "@/components/common/LoadingButton";
 
 interface PurchaseItemProps {
   purchase: PurchaseReturn;
@@ -47,24 +47,24 @@ export const PurchaseItem = ({
   const { selectTranslation } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const purchaseCompleteProduct = allProducts.find(
-    (product) => product.id === purchase.product.id
+    (product) => product.id === purchase.product.id,
   );
   const missingConstraintProduct =
     purchaseCompleteProduct?.product_constraints?.filter((constraint) =>
-      allConstraintIds?.includes(constraint.id)
+      allConstraintIds?.includes(constraint.id),
     );
 
   const blockingConstraints = missingConstraintProduct?.filter((constraint) => {
     const isPurchased = allPurchasesIds?.includes(constraint.id);
 
     const constraintCompleteProduct = allProducts.find(
-      (product) => product.id === constraint.id
+      (product) => product.id === constraint.id,
     );
 
     const hasMembership =
       constraintCompleteProduct?.related_membership &&
       userAssociationsMembershipsIds?.includes(
-        constraintCompleteProduct.related_membership.id
+        constraintCompleteProduct.related_membership.id,
       );
 
     return !isPurchased && !hasMembership;
@@ -74,7 +74,7 @@ export const PurchaseItem = ({
 
   const variant = purchaseCompleteProduct?.variants?.find(
     (variant: AppModulesCdrSchemasCdrProductVariantComplete) =>
-      variant.id === purchase.product_variant_id
+      variant.id === purchase.product_variant_id,
   );
 
   return (
@@ -103,7 +103,7 @@ export const PurchaseItem = ({
           <span className="md:w-1/3">
             {selectTranslation(
               purchase.product.name_en,
-              purchase.product.name_fr
+              purchase.product.name_fr,
             )}
           </span>
           <span className="md:w-1/3">
@@ -130,7 +130,7 @@ export const PurchaseItem = ({
                 setIsLoading,
                 refetch,
                 toast,
-                t
+                t,
               )
             }
           >
@@ -148,7 +148,7 @@ export const PurchaseItem = ({
             {t("purchaseItem.missing", {
               products: blockingConstraints
                 .map((product: ProductCompleteNoConstraint) =>
-                  selectTranslation(product.name_en, product.name_fr)
+                  selectTranslation(product.name_en, product.name_fr),
                 )
                 .join(", "),
             })}
@@ -168,7 +168,7 @@ export const onValidate = async (
     QueryObserverResult<PurchaseReturn[], HttpValidationError>
   >,
   toast: ReturnType<typeof useToast>["toast"],
-  t: (key: any, values?: any) => string
+  t: ReturnType<typeof useTranslations<"siarnaq">>,
 ) => {
   try {
     // useTranslations("onValidate") (don't remove!)

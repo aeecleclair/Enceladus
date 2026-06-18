@@ -1,8 +1,8 @@
-import * as React from "react";
 import { Column } from "@tanstack/react-table";
+import * as React from "react";
 
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface DataTableFilterCheckBoxProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -25,7 +25,7 @@ export function DataTableFilterCheckBox<TData, TValue>({
   // Add a custom filter function to the column if it doesn't already have one
   React.useEffect(() => {
     if (column && !column.getFilterFn()) {
-      // @ts-ignore - We know this is a valid filter function
+      // eslint-disable-next-line react-hooks/immutability
       column.columnDef.filterFn = (row, columnId, filterValue) => {
         const value = row.getValue(columnId);
         // If filter value is true, only show rows where the column value is true

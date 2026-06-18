@@ -1,12 +1,9 @@
-import {
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import { AddingVariantCard } from "./AddingVariantCard";
 import { ProductAccordionOptions } from "./ProductAccordionOptions";
 import { VariantCardWithOptions } from "./VariantCardWithOptions";
 
+import { AppModulesCdrSchemasCdrProductComplete } from "@/api";
+import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
 import { useMemberships } from "@/hooks/siarnaq/useMemberships";
 import { useUserMemberships } from "@/hooks/siarnaq/useUserMemberships";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
@@ -16,13 +13,16 @@ import { useTranslation } from "@/translations/utils";
 import { useTranslations } from "next-intl";
 import { HiOutlineCheckBadge } from "react-icons/hi2";
 
+import {
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { AppModulesCdrSchemasCdrProductComplete } from "@/api";
-import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
 
 interface ProductAccordionProps {
   product: AppModulesCdrSchemasCdrProductComplete;
@@ -57,7 +57,7 @@ export const ProductAccordion = ({
   const numberOfCard = Math.round(size / 20);
   const { purchases: userPurchases } = useUserPurchases(userId);
   const purchasedVariantIds = userPurchases.map(
-    (purchase) => purchase.product_variant_id
+    (purchase) => purchase.product_variant_id,
   );
   const { user } = useCdrUser(userId);
   const { userMemberships } = useUserMemberships(userId);
@@ -67,23 +67,23 @@ export const ProductAccordion = ({
     : product.variants
         ?.filter(
           (variant) =>
-            variant.enabled || purchasedVariantIds.includes(variant.id)
+            variant.enabled || purchasedVariantIds.includes(variant.id),
         )
         .filter((variant) =>
           variant.allowed_curriculum
             ?.map((curriculum) => curriculum.id)
-            ?.includes(user?.curriculum?.id ?? "")
+            ?.includes(user?.curriculum?.id ?? ""),
         );
   const purchasedProductIds = userPurchases.map(
-    (purchase) => purchase.product.id
+    (purchase) => purchase.product.id,
   );
   const missingConstraintProducts = product.product_constraints?.filter(
-    (constraint) => !purchasedProductIds.includes(constraint.id)
+    (constraint) => !purchasedProductIds.includes(constraint.id),
   );
   const isMissingConstraint =
     missingConstraintProducts && missingConstraintProducts?.length > 0;
   const isOneVariantTaken = product.variants?.some((variant) =>
-    purchasedVariantIds.includes(variant.id)
+    purchasedVariantIds.includes(variant.id),
   );
 
   const takenMembership = userMemberships?.find(
@@ -91,10 +91,11 @@ export const ProductAccordion = ({
       product.related_membership?.id ===
         userMembership.association_membership_id &&
       new Date(userMembership.end_date).getTime() - new Date().getTime() >
-        1000 * 60 * 60 * 24 * 30
+        1000 * 60 * 60 * 24 * 30,
   );
   const takenMembershipName = memberships.find(
-    (membership) => membership.id === takenMembership?.association_membership_id
+    (membership) =>
+      membership.id === takenMembership?.association_membership_id,
   )?.name;
 
   const isMembershipAlreadyTaken = takenMembership !== undefined;
@@ -103,8 +104,8 @@ export const ProductAccordion = ({
     product.product_constraints?.some(
       (constraint) =>
         constraint?.related_membership?.id ===
-        userMembership.association_membership_id
-    )
+        userMembership.association_membership_id,
+    ),
   );
 
   const displayWarning =
@@ -137,7 +138,7 @@ export const ProductAccordion = ({
                   <p className="text-sm text-gray-500">
                     {selectTranslation(
                       product.description_en,
-                      product.description_fr
+                      product.description_fr,
                     )}
                   </p>
                 </div>
@@ -166,7 +167,7 @@ export const ProductAccordion = ({
                 products:
                   missingConstraintProducts
                     ?.map((product) =>
-                      selectTranslation(product.name_en, product.name_fr)
+                      selectTranslation(product.name_en, product.name_fr),
                     )
                     .join(", ") ?? "",
               })}
@@ -179,7 +180,7 @@ export const ProductAccordion = ({
                 date: format(
                   new Date(takenMembership?.end_date),
                   "dd/MM/yyyy",
-                  { locale: fr }
+                  { locale: fr },
                 ),
               })}
             </p>

@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@trivago/prettier-plugin-sort-imports"
+  ],
+  "importOrder": [
+    "^\\.\\.?/(?!ui/)",
+    "^@/(?!components/ui/)",
+    "^(next|react|next-intl|zod|react-hook-form|@hookform|@tanstack|@radix-ui|react-icons)(/|$)",
+    "^(@/components|\\.\\.)/ui/",
+    "<THIRD_PARTY_MODULES>"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "tailwindFunctions": ["cn"]
+}

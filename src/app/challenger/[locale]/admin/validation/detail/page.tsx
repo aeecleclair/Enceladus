@@ -1,16 +1,33 @@
 "use client";
 
+import {
+  AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
+  CompetitionUserEdit,
+} from "@/api";
 import { UserCompetition } from "@/components/challenger/admin/userDetails/UserCompetition";
 import { UserInfo } from "@/components/challenger/admin/userDetails/UserInfo";
 import { UserPayments } from "@/components/challenger/admin/userDetails/UserPayments";
 import { UserPurchases } from "@/components/challenger/admin/userDetails/UserPurchases";
-import { Button } from "@/components/ui/button";
-import { AddPaymentDialog } from "@/components/challenger/admin/validation/AddPaymentDialog";
-import { ConfirmActionDialog } from "@/components/challenger/admin/users/ConfirmActionDialog";
-import { EditCompetitionUserDialog } from "@/components/challenger/admin/users/EditCompetitionUserDialog";
 import { CancelCompetitionUserDialog } from "@/components/challenger/admin/users/CancelCompetitionUserDialog";
 import { ChangeUserSportDialog } from "@/components/challenger/admin/users/ChangeUserSportDialog";
 import { ChangeUserTeamDialog } from "@/components/challenger/admin/users/ChangeUserTeamDialog";
+import { ConfirmActionDialog } from "@/components/challenger/admin/users/ConfirmActionDialog";
+import { EditCompetitionUserDialog } from "@/components/challenger/admin/users/EditCompetitionUserDialog";
+import { AddPaymentDialog } from "@/components/challenger/admin/validation/AddPaymentDialog";
+import { useAdminPurchases } from "@/hooks/challenger/useAdminPurchases";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
+import { useSchoolsPayments } from "@/hooks/challenger/useSchoolsPayments";
+import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
+import { useUserPayments } from "@/hooks/challenger/useUserPayments";
+
+import { useSearchParams } from "next/navigation";
+import React from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,34 +35,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useAdminPurchases } from "@/hooks/challenger/useAdminPurchases";
-import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
-import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { useProducts } from "@/hooks/challenger/useProducts";
-import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
-import { useSchoolsPayments } from "@/hooks/challenger/useSchoolsPayments";
-import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
-import { useUserPayments } from "@/hooks/challenger/useUserPayments";
+
 import {
   ArrowLeft,
-  Users,
-  MoreHorizontal,
-  CheckCircle,
-  XCircle,
-  Trash2,
   Ban,
-  Shuffle,
-  Users2,
+  CheckCircle,
   CreditCard,
+  MoreHorizontal,
   Pencil,
+  Shuffle,
+  Trash2,
+  Users,
+  Users2,
+  XCircle,
 } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import React from "react";
-import {
-  AppModulesSportCompetitionSchemasSportCompetitionPaymentBase,
-  CompetitionUserEdit,
-} from "@/api";
-import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 
 const UserDetailsPage = () => {
   const searchParam = useSearchParams();
@@ -296,7 +299,11 @@ const UserDetailsPage = () => {
         open={validateDialogOpen}
         onClose={() => setValidateDialogOpen(false)}
         onConfirm={() => {
-          userCompetition?.validated ? onInvalidate() : onValidate();
+          if (userCompetition?.validated) {
+            onInvalidate();
+          } else {
+            onValidate();
+          }
           setValidateDialogOpen(false);
         }}
         isLoading={isValidateLoading || isInvalidateLoading}

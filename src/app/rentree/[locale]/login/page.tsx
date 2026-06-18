@@ -1,5 +1,6 @@
 "use client";
 
+import MyECLButton from "@/components/common/MyEclButton";
 import { TextSeparator } from "@/components/siarnaq/custom/TextSeparator";
 import { useYear } from "@/hooks/siarnaq/useYear";
 import { useRouter } from "@/i18n/navigation";
@@ -23,7 +24,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import MyECLButton from "@/components/common/MyEclButton";
 
 const Login = () => {
   const t = useTranslations("siarnaq");
@@ -34,7 +34,7 @@ const Login = () => {
   });
 
   const [selectedPromo, setSelectedPromo] = useState<string | undefined>(
-    undefined
+    undefined,
   );
   return (
     <div className="flex [&>div]:w-full h-[--custom-vh] bg-muted/40">

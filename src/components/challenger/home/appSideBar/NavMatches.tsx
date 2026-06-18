@@ -1,12 +1,14 @@
 "use client";
-import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
-import { Badge } from "@/components/ui/badge";
-import { useRouter } from "@/i18n/navigation";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useSportMatches } from "@/hooks/challenger/useSportMatches";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useRouter } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useMemo, useState, useEffect } from "react";
+
+import { useEffect, useMemo, useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 
 export function NavMatches() {
   const router = useRouter();
@@ -16,7 +18,7 @@ export function NavMatches() {
   });
   const { sportSchools } = useSportSchools();
 
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const interval = setInterval(() => setNow(Date.now()), 30_000);
     return () => clearInterval(interval);
@@ -44,14 +46,14 @@ export function NavMatches() {
           (s) => s.school_id === opponentTeam?.school_id,
         );
         const opponent = opponentSchool
-          ? formatSchoolName(opponentSchool.school.name) ?? "Adversaire"
-          : opponentTeam?.name ?? "Adversaire";
+          ? (formatSchoolName(opponentSchool.school.name) ?? "Adversaire")
+          : (opponentTeam?.name ?? "Adversaire");
         imminent = { opponent, minutesUntil: diff };
       }
     }
 
     return { upcomingCount: userMatches.length, imminentMatch: imminent };
-  }, [sportMatches, meParticipant?.team_id, now, sportSchools]);
+  }, [sportMatches, meParticipant, now, sportSchools]);
 
   return (
     <SidebarGroup>

@@ -1,7 +1,6 @@
-import { useToast } from "@/components/ui/use-toast";
-import { useMemo } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
+
+import { CompetitionUserEdit } from "@/api";
 import {
   deleteCompetitionUsersUserIdMutation,
   getCompetitionUsersOptions,
@@ -11,10 +10,14 @@ import {
   patchCompetitionUsersUserIdValidateMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
-import { CompetitionUserEdit } from "@/api";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useCompetitionUsers = () => {
-  const { token, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { toast } = useToast();
 
   const {
@@ -105,7 +108,6 @@ export const useCompetitionUsers = () => {
         toast({
           title: "Erreur lors de la suppression",
           description:
-            (error as any)?.message ||
             (error as unknown as ErrorType)?.stack?.body ||
             (error as unknown as DetailedErrorType)?.stack?.detail ||
             "Une erreur est survenue, veuillez réessayer.",

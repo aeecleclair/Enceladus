@@ -1,10 +1,10 @@
 import { useAuth } from "./useAuth";
 
+import { CoreUserUpdate } from "@/api";
 import {
   getUsersMeOptions,
   patchUsersMeMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useToast } from "@/components/ui/use-toast";
 import {
   APIErrorType,
   DetailedErrorType,
@@ -12,6 +12,8 @@ import {
 } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useMeUser = () => {
   const { isTokenExpired } = useAuth();
@@ -30,32 +32,32 @@ export const useMeUser = () => {
     ...patchUsersMeMutation(),
   });
 
-  const updateUser = async (body: any, callback: () => void) => {
+  const updateUser = async (body: CoreUserUpdate, callback: () => void) => {
     return mutateUpdateUser(
       {
         body,
       },
       {
-        onSettled: (_data, error) => {
-          if ((error as any)?.stack?.body || (error as any)?.stack?.detail) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la mise à jour de l'utilisateur",
-              description:
-                (error as unknown as APIErrorType)?.stack?.detail?.[0]?.msg ||
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            refetchMe();
-            callback();
-            toast({
-              title: "Utilisateur mis à jour",
-              description:
-                "Les informations de l'utilisateur ont été mises à jour avec succès.",
-            });
-          }
+        onSuccess: () => {
+          refetchMe();
+          callback();
+          toast({
+            title: "Utilisateur mis à jour",
+            description:
+              "Les informations de l'utilisateur ont été mises à jour avec succès.",
+          });
+        },
+        onError: (error) => {
+          console.error(error);
+          toast({
+            title: "Erreur lors de la mise à jour de l'utilisateur",
+            description:
+              (error as unknown as APIErrorType)?.stack?.detail?.[0]?.msg ||
+              (error as unknown as ErrorType)?.stack?.body ||
+              (error as unknown as DetailedErrorType)?.stack?.detail ||
+              "Une erreur est survenue, veuillez réessayer.",
+            variant: "destructive",
+          });
         },
       },
     );

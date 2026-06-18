@@ -1,6 +1,14 @@
 "use client";
 
+import { TeamScoreDisplay } from "./TeamScoreDisplay";
+
 import { CompetitionUser, MatchComplete } from "@/api";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSports } from "@/hooks/challenger/useSports";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,23 +16,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  CalendarIcon,
-  MapPinIcon,
-  Trophy,
-  Flag,
-  Clock,
-  Edit,
-  Trash2,
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
+
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { useSports } from "@/hooks/challenger/useSports";
-import { TeamScoreDisplay } from "./TeamScoreDisplay";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import {
+  CalendarIcon,
+  Clock,
+  Edit,
+  Flag,
+  MapPinIcon,
+  Trash2,
+  Trophy,
+} from "lucide-react";
 
 interface MatchCardProps {
   match: MatchComplete;

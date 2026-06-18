@@ -1,26 +1,28 @@
 "use client";
 
+import { WarningDialog } from "@/components/common/WarningDialog";
+import { StatusDialog } from "@/components/raid/custom/StatusDialog";
+import { CreateParticipant } from "@/components/raid/home/CreateParticipant";
+import { JoinTeamDialog } from "@/components/raid/home/JoinTeamDialog";
+import { RegisteringCompleteDialog } from "@/components/raid/home/RegisteringCompleteDialog";
+import { TopBar } from "@/components/raid/home/TopBar";
 import { EmptyParticipantCard } from "@/components/raid/home/participantView/EmptyParticipantCard";
 import { ParticipantCard } from "@/components/raid/home/participantView/ParicipantCard";
 import { TeamCard } from "@/components/raid/home/teamCard/TeamCard";
-import { TopBar } from "@/components/raid/home/TopBar";
-import { useAuth } from "@/hooks/useAuth";
-import { useSearchParams } from "next/navigation";
-import { useMeTeam } from "@/hooks/raid/useMeTeam";
-import { CreateParticipant } from "@/components/raid/home/CreateParticipant";
 import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { useEffect, useState } from "react";
-import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
-import { JoinTeamDialog } from "@/components/raid/home/JoinTeamDialog";
 import { useInformation } from "@/hooks/raid/useInformation";
-import { getDaysLeft } from "@/lib/dateFormat";
-import { WarningDialog } from "@/components/common/WarningDialog";
-import { StatusDialog } from "@/components/raid/custom/StatusDialog";
-import { RegisteringCompleteDialog } from "@/components/raid/home/RegisteringCompleteDialog";
-import { useToast } from "@/components/ui/use-toast";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
+import { getDaysLeft } from "@/lib/dateFormat";
+import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
+
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+
+import { useToast } from "@/components/ui/use-toast";
 
 const Home = () => {
   const { isTokenQueried, token } = useAuth();
@@ -151,7 +153,7 @@ const Home = () => {
             setIsLoading(true);
             createTeam(
               {
-                name: `Équipe de ${me.firstname} ${me.name}`,
+                name: `Équipe de ${me.user.firstname} ${me.user.name}`,
               },
               () => {
                 refetchTeam();
@@ -160,7 +162,7 @@ const Home = () => {
                 toast({
                   title: "Votre équipe a été créée avec succès",
                 });
-              }
+              },
             );
           }}
         />

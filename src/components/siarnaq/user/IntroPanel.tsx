@@ -1,12 +1,12 @@
 import { IntroCarouselItems } from "./IntroCarouselItems";
 
+import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
 import { useTokenStore } from "@/stores/token";
 
 import { useTranslations } from "next-intl";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel } from "@/components/ui/carousel";
-import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
 
 export const IntroPanel = () => {
   const t = useTranslations("siarnaq");

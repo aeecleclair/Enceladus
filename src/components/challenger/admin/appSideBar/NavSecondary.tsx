@@ -1,13 +1,15 @@
 import * as React from "react";
-import { MoreHorizontal, type LucideIcon } from "lucide-react";
+
 import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+
+import { type LucideIcon } from "lucide-react";
+
 export function NavSecondary({
   items,
   ...props

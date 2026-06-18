@@ -23,7 +23,7 @@ export const SellerTabContentList = ({
   const activeSellerId = searchParams.get("sellerId");
   const isSeller = !["cdradmin", "cdrrecap"].includes(activeSellerId ?? "");
   const { products, refetch: refetchProducts } = useSellerProducts(
-    isSeller ? activeSellerId : null
+    isSeller ? activeSellerId : null,
   );
   const userId = searchParams.get("userId");
   const { user, refetch } = useCdrUser(userId);

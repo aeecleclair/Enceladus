@@ -1,12 +1,7 @@
-import { RegisteringFormValues } from "@/forms/challenger/registering";
-import { SetStateAction, useEffect, useState } from "react";
 import { RegisterFormField } from "./RegisterFormField";
-import { Form } from "@/components/ui/form";
-import { WaitingPage } from "./WaitingPage";
 import { ValidatedPage } from "./ValidatedPage";
-import { useRouter } from "@/i18n/navigation";
-import { CarouselApi } from "@/components/ui/carousel";
-import { UseFormReturn } from "react-hook-form";
+import { WaitingPage } from "./WaitingPage";
+
 import {
   CompetitionUser,
   CoreUser,
@@ -14,7 +9,15 @@ import {
   Purchase,
   Sport,
 } from "@/api";
+import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { useRouter } from "@/i18n/navigation";
 import { RegisterState } from "@/lib/challenger/registerState";
+
+import { SetStateAction, useEffect, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
+
+import { CarouselApi } from "@/components/ui/carousel";
+import { Form } from "@/components/ui/form";
 
 interface RegisterFormProps {
   setState: (value: SetStateAction<RegisterState>) => void;
@@ -53,7 +56,7 @@ export const RegisterForm = ({
     form.setValue("sport.team_id", meParticipant?.team_id || "");
   }, [form, me, meCompetition, meParticipant]);
 
-  async function onSubmit(values: RegisteringFormValues) {
+  async function onSubmit() {
     setIsLoading(true);
     router.refresh();
   }
@@ -131,7 +134,6 @@ export const RegisterForm = ({
     //   allHeaderSubtitles: newSubtitles,
     // });
     // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meCompetition, meParticipant]);
 
   return meCompetition === undefined ||

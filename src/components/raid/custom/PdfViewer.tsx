@@ -1,12 +1,14 @@
 import { useState } from "react";
+
 import { Skeleton } from "@/components/ui/skeleton";
-import { Document, Page, pdfjs } from "react-pdf";
+
 import type { PDFDocumentProxy } from "pdfjs-dist";
+import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url
+  import.meta.url,
 ).toString();
 
 const options = {

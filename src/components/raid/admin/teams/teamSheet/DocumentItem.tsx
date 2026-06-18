@@ -1,14 +1,17 @@
+import { DocumentValidationButton } from "./DocumentValidationButton";
+
+import { Document, DocumentValidation } from "@/api";
+
+import { HiCheck, HiDownload, HiX } from "react-icons/hi";
+
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-import { HiCheck, HiDownload, HiX } from "react-icons/hi";
 import { Button } from "@/components/ui/button";
+
 import { BadgeAlertIcon, ClockIcon } from "lucide-react";
-import { DocumentValidationButton } from "./DocumentValidationButton";
-import { DocumentValidation, Document } from "@/api";
 
 interface DocumentItemProps {
   value: string;
@@ -19,7 +22,7 @@ interface DocumentItemProps {
   validateDocument: (
     documentId: string,
     validation: DocumentValidation,
-    callback: () => void
+    callback: () => void,
   ) => void;
 }
 

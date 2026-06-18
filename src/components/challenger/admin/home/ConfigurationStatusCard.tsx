@@ -1,27 +1,29 @@
 import {
+  CompetitionEdition,
+  Location,
+  SchoolExtension,
+  Sport,
+  TeamComplete,
+  VolunteerShiftCompleteWithVolunteers,
+} from "@/api";
+import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
+
+import React from "react";
+
+import { Badge } from "@/components/ui/badge";
+import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import {
-  CompetitionEdition,
-  Sport,
-  Location,
-  SchoolExtension,
-  TeamComplete,
-  VolunteerShiftCompleteWithVolunteers,
-} from "@/api";
-import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
-import React from "react";
 
 interface ConfigurationStatusCardProps {
   edition: CompetitionEdition;

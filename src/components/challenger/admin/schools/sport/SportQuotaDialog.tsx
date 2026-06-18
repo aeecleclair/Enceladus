@@ -1,6 +1,16 @@
 import { SchoolSportQuota, Sport } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
+import {
+  SportQuotaFormInput,
+  SportQuotaFormValues,
+  sportQuotaFormSchema,
+} from "@/forms/challenger/sportQuota";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,15 +30,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  SportQuotaFormInput,
-  SportQuotaFormValues,
-  sportQuotaFormSchema,
-} from "@/forms/challenger/sportQuota";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Plus } from "lucide-react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 
 interface SportQuotaDialogProps {
   isOpen: boolean;
@@ -57,13 +60,15 @@ export function SportQuotaDialog({
   submitLabel,
   isLoading,
 }: SportQuotaDialogProps) {
-  const quotaForm = useForm<SportQuotaFormInput, any, SportQuotaFormValues>({
-    resolver: zodResolver(sportQuotaFormSchema),
-    defaultValues: {
-      participant_quota: undefined,
-      team_quota: undefined,
+  const quotaForm = useForm<SportQuotaFormInput, unknown, SportQuotaFormValues>(
+    {
+      resolver: zodResolver(sportQuotaFormSchema),
+      defaultValues: {
+        participant_quota: undefined,
+        team_quota: undefined,
+      },
     },
-  });
+  );
 
   useEffect(() => {
     if (existingQuota) {

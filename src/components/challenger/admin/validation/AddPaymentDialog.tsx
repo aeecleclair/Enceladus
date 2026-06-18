@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
@@ -55,6 +56,7 @@ export function AddPaymentDialog({
         description: `Le paiement de ${numericAmount}€ pour ${participantName} a été enregistré avec succès.`,
       });
     } catch (error) {
+      console.error("Error while adding payment:", error);
       toast({
         title: "Erreur",
         description: "Impossible d'enregistrer le paiement",
@@ -65,7 +67,7 @@ export function AddPaymentDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <form onSubmit={handleSubmit}>
           <DialogHeader>
             <DialogTitle>Enregistrer un paiement</DialogTitle>

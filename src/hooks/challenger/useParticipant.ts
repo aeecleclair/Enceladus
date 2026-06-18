@@ -1,13 +1,15 @@
-import { useToast } from "@/components/ui/use-toast";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { ParticipantInfo } from "@/api";
 import {
-  getCompetitionParticipantsMeOptions,
   deleteCompetitionParticipantsUserIdSportsSportIdMutation,
   deleteCompetitionSportsSportIdWithdrawMutation,
+  getCompetitionParticipantsMeOptions,
   postCompetitionSportsSportIdParticipateMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
-import { ParticipantInfo } from "@/api";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useParticipant = () => {
   const { toast } = useToast();

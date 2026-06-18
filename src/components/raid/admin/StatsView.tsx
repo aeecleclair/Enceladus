@@ -1,18 +1,21 @@
 "use client";
 
+import { ChartView } from "./ChartView";
+
+import { RaidTeamPreview } from "@/api";
+import { Switch } from "@/components//ui/switch";
+import { getStats } from "@/lib/raid/statsUtils";
+
+import { useState } from "react";
+
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardContent,
   CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
-import { ChartView } from "./ChartView";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Switch } from "@/components//ui/switch";
-import { useState } from "react";
-import { RaidTeamPreview } from "@/api";
-import { getStats } from "@/lib/raid/statsUtils";
 
 interface StatsViewProps {
   teams?: RaidTeamPreview[];

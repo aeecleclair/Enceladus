@@ -1,27 +1,38 @@
 "use client";
 
-import { useState, useMemo, useEffect, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useSchools } from "@/hooks/useSchools";
 import TeamCard from "@/components/challenger/admin/teams/TeamCard";
 import { TeamsForm } from "@/components/challenger/admin/teams/TeamsForm";
 import { WarningDialog } from "@/components/common/WarningDialog";
+import { TeamFormValues, teamFormSchema } from "@/forms/challenger/team";
+import { useAllTeams } from "@/hooks/challenger/useAllTeams";
+import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSportTeams } from "@/hooks/challenger/useSportTeams";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useRouter } from "@/i18n/navigation";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useForm } from "react-hook-form";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
-  Plus,
-  Search,
-  Trophy,
-  Shield,
-  Users,
-  Filter,
-  Table,
-  Grid,
-} from "lucide-react";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -29,31 +40,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { AlertTriangle } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { teamFormSchema, TeamFormValues } from "@/forms/challenger/team";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useAllMatches } from "@/hooks/challenger/useAllMatches";
-import { useAllTeams } from "@/hooks/challenger/useAllTeams";
-import { useSportTeams } from "@/hooks/challenger/useSportTeams";
-import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "@/i18n/navigation";
+
+import { Filter, Plus, Search, Shield, Users } from "lucide-react";
+import { AlertTriangle } from "lucide-react";
 
 const TeamsDashboard = () => {
   const router = useRouter();
@@ -107,7 +97,7 @@ const TeamsDashboard = () => {
     updateURL(selectedSportId, schoolId);
   };
 
-  const { allTeams, refetchAllTeams } = useAllTeams();
+  const { allTeams } = useAllTeams();
 
   // Fetch sport-specific teams when only sport is selected
   const { sportTeams } = useSportTeams({
@@ -127,7 +117,6 @@ const TeamsDashboard = () => {
 
   const {
     // teams,
-    refetchTeams,
     deleteSchoolSportTeam,
     createSchoolSportTeam,
     updateSchoolSportTeam,

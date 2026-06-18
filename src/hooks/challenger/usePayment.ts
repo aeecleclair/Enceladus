@@ -1,7 +1,9 @@
-import { useToast } from "@/components/ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
 import { postCompetitionPayMutation } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const usePayment = () => {
   const { toast } = useToast();
@@ -19,7 +21,7 @@ export const usePayment = () => {
           variant: "destructive",
         });
       },
-      onSuccess: (data: any) => {
+      onSuccess: (data) => {
         if (data?.url) {
           toast({
             title: "Redirection vers le paiement",
@@ -33,7 +35,7 @@ export const usePayment = () => {
     return mutateGetPaymentUrl(
       {},
       {
-        onSuccess: (data: any) => {
+        onSuccess: (data) => {
           if (data?.url) {
             callback(data.url);
           }

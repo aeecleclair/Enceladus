@@ -1,4 +1,11 @@
 import { VolunteerRegistrationComplete } from "@/api";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import {
+  generateLocationColor,
+  getLocationDetails,
+  openLocationMap,
+} from "@/lib/challenger/locationColors";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -8,12 +15,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import {
-  generateLocationColor,
-  getLocationDetails,
-  openLocationMap,
-} from "@/lib/challenger/locationColors";
+
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import {
@@ -44,10 +46,6 @@ export const VolunteerShiftCard = ({
   const { locations } = useLocations();
   const startDate = new Date(shift.start_time);
   const endDate = new Date(shift.end_time);
-
-  const durationHours = Math.round(
-    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60),
-  );
 
   const now = new Date();
   const timeDiff = Math.abs(startDate.getTime() - now.getTime());
@@ -94,7 +92,7 @@ export const VolunteerShiftCard = ({
             {/* Left side - Shift info */}
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <div
-                className="w-4 h-4 rounded-full flex-shrink-0"
+                className="w-4 h-4 rounded-full shrink-0"
                 style={{ backgroundColor: locationColor }}
               />
               <div className="flex-1 min-w-0">

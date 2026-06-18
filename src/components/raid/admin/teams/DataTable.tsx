@@ -1,6 +1,11 @@
 "use client";
 
-import * as React from "react";
+import { DataTablePagination } from "./DataTablePagination";
+import { DataTableToolbar } from "./DataTableToolbar";
+
+import { RaidTeamPreview } from "@/api";
+import { useRouter } from "@/i18n/navigation";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -16,9 +21,9 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useSearchParams } from "next/navigation";
+import * as React from "react";
 
-import { DataTableToolbar } from "./DataTableToolbar";
-import { DataTablePagination } from "./DataTablePagination";
 import {
   Table,
   TableBody,
@@ -27,10 +32,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/i18n/navigation";
 import { useToast } from "@/components/ui/use-toast";
-import { RaidTeamPreview } from "@/api";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

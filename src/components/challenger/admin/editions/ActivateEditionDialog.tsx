@@ -1,21 +1,23 @@
 "use client";
 
+import type * as Schemas from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useEditions } from "@/hooks/challenger/useEditions";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { PlayCircle, StopCircle, AlertTriangle } from "lucide-react";
-import type * as Schemas from "@/api";
+
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
-import { useEditions } from "@/hooks/challenger/useEditions";
+import { AlertTriangle, PlayCircle, StopCircle } from "lucide-react";
 
 interface ActivateEditionDialogProps {
   open: boolean;

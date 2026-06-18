@@ -1,12 +1,16 @@
-import { UseFormReturn } from "react-hook-form";
-import { RegisteringFormValues } from "@/forms/challenger/registering";
-import { useSports } from "@/hooks/challenger/useSports";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { CardTemplate } from "./CardTemplate";
-import { Badge } from "@/components/ui/badge";
-import { CheckCircle2 } from "lucide-react";
+
+import { RegisteringFormValues } from "@/forms/challenger/registering";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
+import { useSports } from "@/hooks/challenger/useSports";
 import { useMeUser } from "@/hooks/useMeUser";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { UseFormReturn } from "react-hook-form";
+
+import { Badge } from "@/components/ui/badge";
+
+import { CheckCircle2 } from "lucide-react";
 
 interface SummaryCardProps {
   form: UseFormReturn<RegisteringFormValues>;

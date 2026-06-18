@@ -1,7 +1,24 @@
 "use client";
 
-import { VolunteerShiftBase, VolunteerShiftComplete } from "@/api";
+import { DateTimePicker } from "../../custom/DateTimePicker";
+
+import {
+  CoreUserSimple,
+  VolunteerShiftBase,
+  VolunteerShiftComplete,
+} from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import {
+  VolunteerShiftFormSchema,
+  volunteerShiftFormSchema,
+} from "@/forms/challenger/volunteerShift";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+import { useUserSearch } from "@/hooks/useUsersSearch";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -32,19 +49,8 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  volunteerShiftFormSchema,
-  VolunteerShiftFormSchema,
-} from "@/forms/challenger/volunteerShift";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
-import { useAuth } from "@/hooks/useAuth";
-import { useUserSearch } from "@/hooks/useUsersSearch";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Check, ChevronsUpDown, User } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { DateTimePicker } from "../../custom/DateTimePicker";
 
 interface VolunteerShiftFormProps {
   shiftId?: string | null;
@@ -67,16 +73,20 @@ export default function VolunteerShiftForm({
     isUpdateLoading,
   } = useVolunteerShifts();
 
-  const { locations } = useLocations();
-  const { userId } = useAuth();
-
   const [managerQuery, setManagerQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("*"); // Initialize with "*" to load users immediately
   const [isManagerPopoverOpen, setIsManagerPopoverOpen] = useState(false);
-  const [selectedManager, setSelectedManager] = useState<any>(null);
+  const [selectedManager, setSelectedManager] = useState<CoreUserSimple | null>(
+    null,
+  );
   const { userSearch, isLoading: isSearchLoading } = useUserSearch({
     query: debouncedQuery,
   });
+
+  const [minShiftDate] = useState(() => new Date());
+  const [maxShiftDate] = useState(
+    () => new Date(Date.now() + 365 * 24 * 60 * 60 * 1000), // 1 year from now
+  );
 
   // Debounce the search query
   useEffect(() => {
@@ -88,11 +98,13 @@ export default function VolunteerShiftForm({
   }, [managerQuery]);
 
   // Reset to show all users when popover reopens
-  useEffect(() => {
+  const [wasPopoverOpen, setWasPopoverOpen] = useState(isManagerPopoverOpen);
+  if (isManagerPopoverOpen !== wasPopoverOpen) {
+    setWasPopoverOpen(isManagerPopoverOpen);
     if (isManagerPopoverOpen && managerQuery === "") {
       setDebouncedQuery("*");
     }
-  }, [isManagerPopoverOpen, managerQuery]);
+  }
 
   const isEditing = !!shiftId;
   const shift = isEditing
@@ -100,11 +112,9 @@ export default function VolunteerShiftForm({
     : null;
 
   // Initialize selected manager for editing
-  useEffect(() => {
-    if (isEditing && shift?.manager && !selectedManager) {
-      setSelectedManager(shift.manager);
-    }
-  }, [isEditing, shift, selectedManager]);
+  if (isEditing && shift?.manager && !selectedManager) {
+    setSelectedManager(shift.manager);
+  }
 
   const form = useForm<VolunteerShiftFormSchema>({
     resolver: zodResolver(volunteerShiftFormSchema),
@@ -301,10 +311,8 @@ export default function VolunteerShiftForm({
                       <DateTimePicker
                         date={field.value}
                         setDate={field.onChange}
-                        fromDate={new Date()}
-                        toDate={
-                          new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
-                        } // 1 year from now
+                        fromDate={minShiftDate}
+                        toDate={maxShiftDate}
                       />
                     </FormControl>
                     <FormMessage />
@@ -322,10 +330,8 @@ export default function VolunteerShiftForm({
                       <DateTimePicker
                         date={field.value}
                         setDate={field.onChange}
-                        fromDate={new Date()}
-                        toDate={
-                          new Date(Date.now() + 365 * 24 * 60 * 60 * 1000)
-                        } // 1 year from now
+                        fromDate={minShiftDate}
+                        toDate={maxShiftDate}
                       />
                     </FormControl>
                     <FormMessage />

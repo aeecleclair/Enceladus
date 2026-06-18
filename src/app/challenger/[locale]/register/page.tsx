@@ -1,7 +1,33 @@
 "use client";
 
+import {
+  AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
+  CompetitionUserBase,
+  ParticipantInfo,
+} from "@/api";
 import { AppSidebar } from "@/components/challenger/register/AppSideBar/AppSidebar";
 import { RegisterForm } from "@/components/challenger/register/RegisterForm/RegisterForm";
+import {
+  RegisteringFormValues,
+  registeringFormSchema,
+} from "@/forms/challenger/registering";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
+import { useDocument } from "@/hooks/challenger/useDocument";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
+import { useAuth } from "@/hooks/useAuth";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useRouter } from "@/i18n/navigation";
+import { HeaderSubtitle, RegisterState } from "@/lib/challenger/registerState";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,36 +36,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { useRouter } from "@/i18n/navigation";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { useEffect, useState } from "react";
-import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
-import {
-  AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
-  CompetitionUserBase,
-  ParticipantInfo,
-} from "@/api";
-import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
-import {
-  registeringFormSchema,
-  RegisteringFormValues,
-} from "@/forms/challenger/registering";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { useDocument } from "@/hooks/challenger/useDocument";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useAuth } from "@/hooks/useAuth";
-import { useMeUser } from "@/hooks/useMeUser";
-import { HeaderSubtitle, RegisterState } from "@/lib/challenger/registerState";
 
 const Register = () => {
   const { edition } = useEdition();
@@ -122,11 +124,11 @@ const Register = () => {
       Récapitulatif: [],
     } as const,
     onValidateCardActions: {
-      Informations: (values, callback) => {},
-      Participation: (values, callback) => {},
-      Sport: (values, callback) => {},
-      Panier: (values, callback) => {},
-      Récapitulatif: (values, callback) => {},
+      Informations: () => {},
+      Participation: () => {},
+      Sport: () => {},
+      Panier: () => {},
+      Récapitulatif: () => {},
     } as const,
   });
 
@@ -268,7 +270,7 @@ const Register = () => {
           });
           callback();
         },
-        Récapitulatif: (values, callback) => {
+        Récapitulatif: () => {
           router.push("/");
         },
       } as const,

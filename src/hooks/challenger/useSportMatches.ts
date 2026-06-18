@@ -1,14 +1,17 @@
+import { useAuth } from "../useAuth";
+
+import { MatchBase, MatchEdit } from "@/api";
 import {
   deleteCompetitionMatchesMatchIdMutation,
   getCompetitionMatchesSportsSportIdOptions,
   patchCompetitionMatchesMatchIdMutation,
   postCompetitionMatchesSportsSportIdMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
-import { MatchBase, MatchEdit } from "@/api";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface UseSportMatchesProps {
   sportId?: string;

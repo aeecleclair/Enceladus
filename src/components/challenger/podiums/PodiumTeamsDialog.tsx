@@ -1,6 +1,12 @@
 "use client";
 
+import { TeamSportResultComplete } from "@/api";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
 import React from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -8,11 +14,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { TeamSportResultComplete } from "@/api";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { Medal, Trophy, Award } from "lucide-react";
+
+import { Award, Medal, Trophy } from "lucide-react";
 
 interface PodiumTeamsDialogProps {
   results: TeamSportResultComplete[];

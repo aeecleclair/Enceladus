@@ -1,4 +1,15 @@
+import { ParticipantLoading } from "./ParticipantLoading";
+import { PaymentButton } from "./PaymentButton";
+import { ViewEditParticipant } from "./ViewEditParticipant";
+
 import { RaidParticipant } from "@/api";
+import { usePrice } from "@/hooks/raid/usePrice";
+import { getSituationLabel } from "@/lib/raid/teamUtils";
+
+import { useState } from "react";
+import { HiPencil, HiX } from "react-icons/hi";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
@@ -6,18 +17,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
-import { HiPencil, HiX } from "react-icons/hi";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useState } from "react";
-import { ParticipantLoading } from "./ParticipantLoading";
 // import { PaymentButton } from "./PaymentButton";
 import { Checkbox } from "@/components/ui/checkbox";
-import { getSituationLabel } from "@/lib/raid/teamUtils";
-import { PaymentButton } from "./PaymentButton";
-import { usePrice } from "@/hooks/raid/usePrice";
-import { ViewEditParticipant } from "./ViewEditParticipant";
+import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ParticipantCardProps {
   participant?: RaidParticipant;
@@ -42,8 +45,8 @@ export const ParticipantCard = ({
         <div className="flex flex-row justify-between">
           <div>
             <CardTitle>
-              {participant?.firstname && participant?.firstname ? (
-                participant?.firstname + " " + participant?.name
+              {participant?.user?.firstname && participant?.user?.firstname ? (
+                participant?.user?.firstname + " " + participant?.user?.name
               ) : (
                 <div className="flex flex-row gap-2">
                   <Skeleton className="w-32 h-8" />

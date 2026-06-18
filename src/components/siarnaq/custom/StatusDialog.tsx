@@ -1,5 +1,6 @@
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
+import { JSX } from "react";
 import { HiCheck, HiXMark } from "react-icons/hi2";
 
 import { Button } from "@/components/ui/button";
@@ -9,7 +10,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { JSX } from "react";
 
 type DialogStatus = "SUCCESS" | "ERROR";
 

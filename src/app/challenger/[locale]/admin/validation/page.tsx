@@ -1,27 +1,29 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
-import { useMemo, useEffect, useState } from "react";
+import { CompetitionUser } from "@/api";
 import { ParticipantData } from "@/components/challenger/admin/validation/ParticipantDataTable";
+import { RequiredPurchase } from "@/components/challenger/admin/validation/UserProductsCell";
+import { ValidationTab } from "@/components/challenger/admin/validation/ValidationTab";
+import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { useProducts } from "@/hooks/challenger/useProducts";
+import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
+import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
+import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuota";
+import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useSportsQuota } from "@/hooks/challenger/useSportsQuota";
 import { useMeUser } from "@/hooks/useMeUser";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useRouter } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo } from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
-import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuota";
-import { useProducts } from "@/hooks/challenger/useProducts";
-import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
-import { CompetitionUser } from "@/api";
-import { ValidationTab } from "@/components/challenger/admin/validation/ValidationTab";
-import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
-import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { RequiredPurchase } from "@/components/challenger/admin/validation/UserProductsCell";
-import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
-import { useRouter } from "@/i18n/navigation";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -29,9 +31,6 @@ const Dashboard = () => {
   const { sports } = useSports();
   const { user: currentUser } = useMeUser();
   const { isChallengerAdmin } = useHasChallengerPermission();
-
-  const [schoolCompetitionUsersCounter, setSchoolCompetitionUsersCounter] =
-    useState<string[][]>([]);
 
   const searchParam = useSearchParams();
   const schoolId = searchParam.get("school_id");
@@ -144,7 +143,7 @@ const Dashboard = () => {
 
           console.log("userPurchases", userPurchases);
 
-          var requiredPurchases: RequiredPurchase = [];
+          const requiredPurchases: RequiredPurchase = [];
 
           userPurchases.forEach((purchase) => {
             const product = products?.find((p) =>
@@ -327,16 +326,14 @@ const Dashboard = () => {
     refetchSportsQuota,
   ]);
 
-  useEffect(() => {
-    if (competitionUsers && sportSchools) {
-      const newCounter: string[][] = sportSchools.map((school) => {
-        const participants = competitionUsers.filter(
-          (user) => user.user.school_id === school.school_id,
-        );
-        return [school.school_id, participants.length.toString()];
-      });
-      setSchoolCompetitionUsersCounter(newCounter);
-    }
+  const schoolCompetitionUsersCounter: string[][] = useMemo(() => {
+    if (!competitionUsers || !sportSchools) return [];
+    return sportSchools.map((school) => {
+      const participants = competitionUsers.filter(
+        (user) => user.user.school_id === school.school_id,
+      );
+      return [school.school_id, participants.length.toString()];
+    });
   }, [competitionUsers, sportSchools]);
 
   if (!schoolId && userSchoolId) {

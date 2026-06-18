@@ -1,5 +1,8 @@
+import { LoadingButton } from "./LoadingButton";
+
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { useTranslations } from "next-intl";
+import { JSX } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -8,8 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { JSX } from "react";
-import { LoadingButton } from "./LoadingButton";
 
 interface WarningDialogProps {
   isOpened: boolean;

@@ -1,34 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  Locale,
-  addDays,
-  addHours,
-  addMonths,
-  addWeeks,
-  addYears,
-  differenceInMinutes,
-  format,
-  getMonth,
-  isSameDay,
-  isSameHour,
-  isSameMonth,
-  isToday,
-  setHours,
-  setMonth,
-  startOfMonth,
-  startOfWeek,
-  subDays,
-  subMonths,
-  subWeeks,
-  subYears,
-  isWithinInterval,
-  startOfDay,
-  endOfDay,
-} from "date-fns";
-import { enUS } from "date-fns/locale/en-US";
+
 import {
   ReactNode,
   createContext,
@@ -38,6 +11,35 @@ import {
   useMemo,
   useState,
 } from "react";
+
+import { Button } from "@/components/ui/button";
+
+import {
+  Locale,
+  addDays,
+  addHours,
+  addMonths,
+  addWeeks,
+  addYears,
+  differenceInMinutes,
+  endOfDay,
+  format,
+  getMonth,
+  isSameDay,
+  isSameMonth,
+  isToday,
+  isWithinInterval,
+  setHours,
+  setMonth,
+  startOfDay,
+  startOfMonth,
+  startOfWeek,
+  subDays,
+  subMonths,
+  subWeeks,
+  subYears,
+} from "date-fns";
+import { enUS } from "date-fns/locale/en-US";
 
 type View = "day" | "week" | "month" | "year";
 
@@ -103,11 +105,6 @@ const Calendar = ({
 }: CalendarProps) => {
   const [view, setView] = useState<View>(_defaultMode);
   const [date, setDate] = useState(defaultDate);
-
-  const changeView = (view: View) => {
-    setView(view);
-    onChangeView?.(view);
-  };
 
   return (
     <Context.Provider
@@ -253,7 +250,7 @@ const EventGroup = ({
             }}
             onClick={(e) => {
               e.stopPropagation();
-              onEventClick && onEventClick(event);
+              onEventClick?.(event);
             }}
             title={`${event.title}${event.subtitle ? ` - ${event.subtitle}` : ""} - ${format(event.start, "HH:mm")} à ${format(event.end, "HH:mm")}`}
           >
@@ -531,7 +528,7 @@ const CalendarNextTrigger = forwardRef<
   HTMLButtonElement,
   React.HTMLAttributes<HTMLButtonElement>
 >(({ children, onClick, ...props }, ref) => {
-  const { date, setDate, view, enableHotkeys } = useCalendar();
+  const { date, setDate, view } = useCalendar();
 
   const next = useCallback(() => {
     if (view === "day") {

@@ -1,17 +1,18 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { CoreSchool, SchoolProductQuota } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
 import {
   ProductQuotaFormInput,
   ProductQuotaFormValues,
   productQuotaFormSchema,
 } from "@/forms/challenger/productQuota";
-import { StyledFormField } from "@/components/common/StyledFormField";
-import { Input } from "@/components/ui/input";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { Form } from "@/components/ui/form";
-import { FormItem, FormLabel } from "@/components/ui/form";
 import {
   Dialog,
   DialogContent,
@@ -21,6 +22,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
+import { FormItem, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
@@ -28,9 +32,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Plus, AlertTriangle } from "lucide-react";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useEffect } from "react";
+
+import { AlertTriangle, Plus } from "lucide-react";
 
 interface ProductsQuotaDialogProps {
   isOpen: boolean;
@@ -65,7 +68,7 @@ export function ProductsQuotaDialog({
 }: ProductsQuotaDialogProps) {
   const productQuotaForm = useForm<
     ProductQuotaFormInput,
-    any,
+    unknown,
     ProductQuotaFormValues
   >({
     resolver: zodResolver(productQuotaFormSchema),

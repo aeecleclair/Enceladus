@@ -1,17 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { CardLayout } from "./CardLayout";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+
+import { RaidInformation } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { DocumentDialog } from "@/components/raid/custom/DocumentDialog";
+import { useInformation } from "@/hooks/raid/useInformation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { ControllerRenderProps, FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useInformation } from "@/hooks/raid/useInformation";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -19,9 +18,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { DocumentDialog } from "@/components/raid/custom/DocumentDialog";
-import { RaidInformation } from "@/api";
-import { LoadingButton } from "@/components/common/LoadingButton";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 
 interface RaidInformationDocumentProps {
   information: RaidInformation;
@@ -69,7 +72,7 @@ export const RaidInformationDocument = ({
       () => {
         setIsLoading(false);
         form.reset({ raid_information: values.raid_information });
-      }
+      },
     );
   }
 

@@ -1,38 +1,40 @@
 "use client";
-import * as React from "react";
-import { Command, LifeBuoy, Send } from "lucide-react";
+import { Logo } from "../../custom/Logo";
+import { NavUser } from "../../custom/NavUser";
+import { NavEditions } from "./NavEditions";
+import { NavExport } from "./NavExport";
+import { NavGroups } from "./NavGroups";
+import { NavLicense } from "./NavLicense";
+import { NavLocations } from "./NavLocations";
+import { NavMatches } from "./NavMatches";
+import { NavPodiums } from "./NavPodiums";
+import { NavProducts } from "./NavProducts";
+import { NavSchoolAssign } from "./NavSchoolAssign";
+import { NavSchools } from "./NavSchools";
+import { NavSports } from "./NavSports";
+import { NavTeams } from "./NavTeams";
+import { NavValidation } from "./NavValidation";
+import { NavVolunteerShifts } from "./NavVolunteerShifts";
+
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { useRouter } from "@/i18n/navigation";
+
+import * as React from "react";
+
+import { Badge } from "@/components/ui/badge";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarSeparator,
-  SidebarGroup,
-  SidebarGroupLabel,
 } from "@/components/ui/sidebar";
-import { NavUser } from "../../custom/NavUser";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { NavValidation } from "./NavValidation";
-import { NavSchools } from "./NavSchools";
-import { NavSports } from "./NavSports";
-import { NavGroups } from "./NavGroups";
-import { NavMatches } from "./NavMatches";
-import { NavTeams } from "./NavTeams";
-import { NavProducts } from "./NavProducts";
-import { NavLocations } from "./NavLocations";
-import { NavPodiums } from "./NavPodiums";
-import { NavLicense } from "./NavLicense";
-import { NavVolunteerShifts } from "./NavVolunteerShifts";
-import { NavEditions } from "./NavEditions";
-import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
-import { Logo } from "../../custom/Logo";
-import { NavExport } from "./NavExport";
-import { NavSchoolAssign } from "./NavSchoolAssign";
-import { Badge } from "@/components/ui/badge";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { edition } = useEdition();

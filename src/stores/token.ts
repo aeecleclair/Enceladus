@@ -1,6 +1,6 @@
+import Cookies from "js-cookie";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
-import Cookies from "js-cookie";
 
 const hostname = typeof window !== "undefined" ? window.location.hostname : "";
 

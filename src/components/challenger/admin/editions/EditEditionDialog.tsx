@@ -1,12 +1,17 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { EditionForm } from "../EditionForm";
+
+import type * as Schemas from "@/api";
 import {
-  editionFormSchema,
   type EditionFormSchema,
+  editionFormSchema,
 } from "@/forms/challenger/edition";
+import { useEditions } from "@/hooks/challenger/useEditions";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
 import {
   Dialog,
   DialogContent,
@@ -14,8 +19,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import type * as Schemas from "@/api";
-import { useEditions } from "@/hooks/challenger/useEditions";
 
 interface EditEditionDialogProps {
   open: boolean;

@@ -1,11 +1,15 @@
-import { VolunteerShiftComplete } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Calendar, Users, ChevronDown, ChevronUp } from "lucide-react";
-import { useMemo, useState } from "react";
 import { AvailableVolunteerShiftCard } from "./AvailableVolunteerShiftCard";
+
+import { VolunteerShiftComplete } from "@/api";
 import { useVolunteer } from "@/hooks/challenger/useVolunteer";
+
+import { useMemo, useState } from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { Calendar, ChevronDown, ChevronUp, Users } from "lucide-react";
 
 interface AvailableVolunteerShiftsProps {
   shifts: VolunteerShiftComplete[];
@@ -17,8 +21,7 @@ export const AvailableVolunteerShifts = ({
   registeredShiftIds,
 }: AvailableVolunteerShiftsProps) => {
   const [showAllShifts, setShowAllShifts] = useState(false);
-  const { registerVolunteerShift, isRegisterLoading, refetchVolunteer } =
-    useVolunteer();
+  const { registerVolunteerShift, refetchVolunteer } = useVolunteer();
 
   const handleRegister = (shiftId: string) => {
     registerVolunteerShift(shiftId, () => {

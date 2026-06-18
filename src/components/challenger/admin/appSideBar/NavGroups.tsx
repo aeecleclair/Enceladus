@@ -1,6 +1,7 @@
 "use client";
-import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { useRouter } from "@/i18n/navigation";
+
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 
 const AVAILABLE_GROUPS = [
   { id: "schools_bds", name: "BDS" },

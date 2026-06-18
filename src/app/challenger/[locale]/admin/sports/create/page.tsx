@@ -1,17 +1,19 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { sportFormSchema, SportFormValues } from "@/forms/challenger/sport";
-import { useSports } from "@/hooks/challenger/useSports";
+import { SportBase } from "@/api";
 import { SportsForm } from "@/components/challenger/admin/sports/SportsForm";
+import { SportFormValues, sportFormSchema } from "@/forms/challenger/sport";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useRouter } from "@/i18n/navigation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { ArrowLeft, Plus, Trophy } from "lucide-react";
-import { useRouter } from "@/i18n/navigation";
-import { SportBase } from "@/api";
 
 const Dashboard = () => {
   const router = useRouter();

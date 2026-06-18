@@ -1,11 +1,12 @@
-import { Card, CardContent } from "@/components/ui/card";
-
-import { HiPlus } from "react-icons/hi";
-import { useToast } from "@/components/ui/use-toast";
-import { useInviteToken } from "@/hooks/raid/useInviteToken";
 import { RaidTeam } from "@/api";
-import { useState } from "react";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { useInviteToken } from "@/hooks/raid/useInviteToken";
+
+import { useState } from "react";
+import { HiPlus } from "react-icons/hi";
+
+import { Card, CardContent } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 interface EmptyParticipantCardProps {
   team?: RaidTeam;
@@ -35,6 +36,7 @@ export const EmptyParticipantCard = ({ team }: EmptyParticipantCardProps) => {
           description: `Le lien d'invitation a été copié dans le presse-papier.`,
         });
       } catch (error) {
+        console.error(error);
         toast({
           variant: "destructive",
           title: "Erreur",

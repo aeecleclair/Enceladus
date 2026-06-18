@@ -1,6 +1,6 @@
 import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
-import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { SportPodiumRankings } from "@/api";
 import {
   deleteCompetitionPodiumsSportsSportIdMutation,
   getCompetitionPodiumsGlobalOptions,
@@ -9,7 +9,10 @@ import {
   postCompetitionPodiumsSportsSportIdMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
-import { SportPodiumRankings } from "@/api";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface UsePodiumsProps {
   sportId?: string;

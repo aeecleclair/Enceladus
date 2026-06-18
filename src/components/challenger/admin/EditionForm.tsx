@@ -1,12 +1,15 @@
 "use client";
 
+import { DateRangePicker } from "../custom/DateRangePicker";
+
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
+import { EditionFormSchema } from "@/forms/challenger/edition";
+
+import { UseFormReturn } from "react-hook-form";
+
 import { Form, FormDescription } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { UseFormReturn } from "react-hook-form";
-import { EditionFormSchema } from "@/forms/challenger/edition";
-import { DateRangePicker } from "../custom/DateRangePicker";
 
 interface EditionFormProps {
   form: UseFormReturn<EditionFormSchema>;
@@ -47,6 +50,7 @@ export const EditionForm = ({
               }
               // If only start date is selected, clear end date
               if (startDate && !endDate) {
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 form.setValue("endDate", undefined as any, {
                   shouldValidate: true,
                 });

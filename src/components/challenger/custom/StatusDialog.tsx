@@ -1,18 +1,16 @@
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { JSX } from "react";
+import { HiCheck, HiX } from "react-icons/hi";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { HiCheck, HiX } from "react-icons/hi";
-import { JSX } from "react";
 
-const DialogStatus = {
-  SUCCESS: "SUCCESS",
-  ERROR: "ERROR",
-};
+type DialogStatus = "SUCCESS" | "ERROR";
 
 interface StatusDialogProps {
   isOpened: boolean;
@@ -21,7 +19,7 @@ interface StatusDialogProps {
   description: string | JSX.Element;
   width?: string;
   callback: () => void;
-  status?: keyof typeof DialogStatus;
+  status?: DialogStatus;
 }
 
 export const StatusDialog = ({
@@ -42,7 +40,7 @@ export const StatusDialog = ({
   return (
     <Dialog open={isOpened} onOpenChange={setIsOpened}>
       <DialogContent
-        className="sm:max-w-[600px]"
+        className="sm:max-w-150"
         onClick={(e) => e.stopPropagation()}
       >
         <DialogHeader>

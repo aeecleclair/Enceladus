@@ -1,15 +1,16 @@
-import { Messages } from "next-intl";
+import { useCoreVariables } from "@/hooks/useCoreVariables";
+
+import { useTranslations } from "next-intl";
 import z from "zod";
 
 import { isValidPhoneNumber } from "libphonenumber-js";
-import { useCoreVariables } from "@/hooks/useCoreVariables";
 
 // const validEmailRegex = /^[\w\-.]*@etu(-enise)?\.ec-lyon\.fr$/;
 
 export default function migrateUserFormSchema(
-  t: (key: any, values?: any) => string
+  t: ReturnType<typeof useTranslations<"siarnaq.migrateUserFormSchema">>,
+  variables: ReturnType<typeof useCoreVariables>["variables"],
 ) {
-  const { variables } = useCoreVariables();
   // useTranslations("migrateUserFormSchema") (don't remove!)
   return z.object({
     nickname: z.string().optional(),
@@ -39,7 +40,7 @@ export default function migrateUserFormSchema(
           const parsedValue = parseInt(value);
           return !isNaN(parsedValue) && parsedValue >= 0;
         },
-        { message: t("promo") }
+        { message: t("promo") },
       )
       .optional(),
   });

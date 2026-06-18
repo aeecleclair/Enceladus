@@ -1,5 +1,4 @@
 // middleware.js ou middleware.ts
-
 import { NextResponse } from "next/server";
 
 // Mappings des sous-domaines vers les chemins de base de l'App Router

@@ -1,3 +1,10 @@
+import { useAuth } from "../useAuth";
+
+import {
+  CompetitionEdition,
+  CompetitionEditionBase,
+  CompetitionEditionEdit,
+} from "@/api";
 import {
   getCompetitionEditionsActiveOptions,
   getCompetitionEditionsOptions,
@@ -5,16 +12,11 @@ import {
   postCompetitionEditionsEditionIdActivateMutation,
   postCompetitionEditionsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import {
-  CompetitionEdition,
-  CompetitionEditionBase,
-  CompetitionEditionEdit,
-} from "@/api";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useEditions = () => {
   const { isTokenExpired } = useAuth();

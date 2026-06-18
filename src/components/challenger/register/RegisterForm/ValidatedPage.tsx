@@ -1,31 +1,35 @@
-import { CheckCircle2, CreditCard } from "lucide-react";
-import { useState } from "react";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { WarningDialog } from "@/components/common/WarningDialog";
-import { HelloAssoButton } from "@/components/common/HelloAssoButton";
-import { RegistrationSummary } from "./RegistrationSummary";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Form } from "@/components/ui/form";
 import { BasketCard } from "./BasketCard";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useForm } from "react-hook-form";
-import {
-  editProductSchema,
-  EditProductValues,
-} from "@/forms/challenger/editProducts";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
-import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
+import { RegistrationSummary } from "./RegistrationSummary";
+
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
   Purchase,
 } from "@/api";
+import { HelloAssoButton } from "@/components/common/HelloAssoButton";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
+import {
+  EditProductValues,
+  editProductSchema,
+} from "@/forms/challenger/editProducts";
+import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
 import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
-import { useRouter } from "@/i18n/navigation";
-import { useMeUser } from "@/hooks/useMeUser";
 import { usePayment } from "@/hooks/challenger/usePayment";
 import { useUserPayments } from "@/hooks/challenger/useUserPayments";
+import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useRouter } from "@/i18n/navigation";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Form } from "@/components/ui/form";
+
+import { CheckCircle2, CreditCard } from "lucide-react";
 
 interface ValidatedPageProps {
   userMePurchases?: Purchase[];

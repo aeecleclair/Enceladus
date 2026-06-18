@@ -1,10 +1,12 @@
 import { InviteToken } from "@/api";
-import { useToast } from "@/components/ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
 import {
   postRaidTeamsJoinTokenMutation,
   postRaidTeamsTeamIdInviteMutation,
 } from "@/api/@tanstack/react-query.gen";
+
+import { useMutation } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useInviteToken = () => {
   const { toast } = useToast();
@@ -34,7 +36,7 @@ export const useInviteToken = () => {
 
   const createInviteToken = (
     teamId: string,
-    callback: (token: InviteToken) => void
+    callback: (token: InviteToken) => void,
   ) => {
     mutateCreateInviteToken(
       { path: { team_id: teamId } },
@@ -42,7 +44,7 @@ export const useInviteToken = () => {
         onSuccess: (data) => {
           callback(data);
         },
-      }
+      },
     );
   };
 
@@ -71,7 +73,7 @@ export const useInviteToken = () => {
   const joinTeam = (joinToken: string, callback: () => void) => {
     mutateJoinTeam(
       { path: { token: joinToken } },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 

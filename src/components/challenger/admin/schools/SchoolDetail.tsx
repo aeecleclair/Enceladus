@@ -1,6 +1,20 @@
 "use client";
 
+import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
+import { GeneralQuotaDialog } from "./GeneralQuotaDialog";
+import { ProductQuotaCard } from "./product/ProductQuotaCard";
+import { SportQuotaCard } from "./sport/SportQuotaCard";
+
 import { SchoolExtension } from "@/api";
+import { GeneralQuotaFormValues } from "@/forms/challenger/generalQuota";
+import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
+import { useSchoolsSportQuota } from "@/hooks/challenger/useSchoolsSportQuota";
+import { useSports } from "@/hooks/challenger/useSports";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { getSchoolType } from "@/lib/challenger/schools";
+
+import { useState } from "react";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,12 +23,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { GeneralQuotaFormValues } from "@/forms/challenger/generalQuota";
-import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
-import { useSchoolsSportQuota } from "@/hooks/challenger/useSchoolsSportQuota";
-import { useSports } from "@/hooks/challenger/useSports";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { getSchoolType } from "@/lib/challenger/schools";
+
 import {
   ArrowLeft,
   CheckCircle,
@@ -24,11 +33,6 @@ import {
   Users,
   XCircle,
 } from "lucide-react";
-import { useState } from "react";
-import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
-import { GeneralQuotaDialog } from "./GeneralQuotaDialog";
-import { ProductQuotaCard } from "./product/ProductQuotaCard";
-import { SportQuotaCard } from "./sport/SportQuotaCard";
 
 interface SchoolDetailProps {
   school: SchoolExtension;

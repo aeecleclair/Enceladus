@@ -1,24 +1,29 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { Activity, Calendar, Star } from "lucide-react";
 import { MatchCarouselSection } from "./dashboard/MatchCarouselSection";
-import { Badge } from "@/components/ui/badge";
-import { CompetitionEdition, CompetitionUser, MatchComplete } from "@/api";
-import { useAllMatches } from "@/hooks/challenger/useAllMatches";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useLocations } from "@/hooks/challenger/useLocations";
-import { useParticipant } from "@/hooks/challenger/useParticipant";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { usePodiums } from "@/hooks/challenger/usePodiums";
-import { useVolunteer } from "@/hooks/challenger/useVolunteer";
-import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
-import { useFavoriteMatches } from "@/hooks/challenger/useFavoriteMatches";
-import UserVolunteerShiftDetail from "./volunteer-shifts/UserVolunteerShiftDetail";
+import { StandingsSection } from "./dashboard/StandingsSection";
+import { Shift } from "./dashboard/VolunteerShiftCard";
+import { VolunteerShiftsSection } from "./dashboard/VolunteerShiftsSection";
 import MatchDetailDialog from "./matches/MatchDetailDialog";
 import SchoolStandingsDialog from "./standings/SchoolStandingsDialog";
-import { VolunteerShiftsSection } from "./dashboard/VolunteerShiftsSection";
-import { StandingsSection } from "./dashboard/StandingsSection";
+import UserVolunteerShiftDetail from "./volunteer-shifts/UserVolunteerShiftDetail";
+
+import { CompetitionEdition, CompetitionUser, MatchComplete } from "@/api";
+import { useAllMatches } from "@/hooks/challenger/useAllMatches";
+import { useFavoriteMatches } from "@/hooks/challenger/useFavoriteMatches";
+import { useLocations } from "@/hooks/challenger/useLocations";
+import { useParticipant } from "@/hooks/challenger/useParticipant";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+
+import { useEffect, useMemo, useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+
+import { Activity, Calendar, Star } from "lucide-react";
 
 interface UserDashboardProps {
   edition: CompetitionEdition;
@@ -100,7 +105,7 @@ export const UserDashboard = ({
     }
 
     // Volunteer next shifts — user's registered shifts only
-    let volunteerNextShifts: any[] = [];
+    let volunteerNextShifts: Shift[] = [];
     if (volunteer && volunteer.length > 0 && volunteerShifts) {
       const registeredIds = new Set(volunteer.map((reg) => reg.shift_id));
       volunteerNextShifts = volunteerShifts

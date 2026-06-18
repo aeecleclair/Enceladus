@@ -1,20 +1,13 @@
 "use client";
 
+import { DataTableFacetedFilter } from "../registered-table/DataTableFacetedFilter";
+import { DataTableFilterCheckBox } from "../registered-table/DataTableFilterCheckBox";
+
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import React, { useMemo } from "react";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectTrigger,
-  SelectContent,
-  SelectItem,
-  SelectValue,
-} from "@/components/ui/select";
-import { DataTableFacetedFilter } from "../registered-table/DataTableFacetedFilter";
-import { DataTableFilterCheckBox } from "../registered-table/DataTableFilterCheckBox";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

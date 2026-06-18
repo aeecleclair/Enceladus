@@ -1,23 +1,27 @@
+import { BasketCard } from "./BasketCard";
+import { CardTemplate } from "./CardTemplate";
+import { InformationCard } from "./InformationCard";
+import { ParticipationCard } from "./ParticipationCard";
+import { SportCard } from "./SportCard";
+import { SummaryCard } from "./SummaryCard";
+
+import { Sport } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
-import { UseFormReturn } from "react-hook-form";
+import { EditProductValues } from "@/forms/challenger/editProducts";
 import { RegisteringFormValues } from "@/forms/challenger/registering";
+import { RegisterState } from "@/lib/challenger/registerState";
+
+import { SetStateAction, useEffect } from "react";
+import { UseFormReturn } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
 } from "@/components/ui/carousel";
-import { InformationCard } from "./InformationCard";
-import { ParticipationCard } from "./ParticipationCard";
-import { SportCard } from "./SportCard";
-import { BasketCard } from "./BasketCard";
-import { SetStateAction, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { SummaryCard } from "./SummaryCard";
-import { Sport } from "@/api";
-import { EditProductValues } from "@/forms/challenger/editProducts";
-import { CardTemplate } from "./CardTemplate";
-import { RegisterState } from "@/lib/challenger/registerState";
 
 interface RegisterFormFieldProps {
   form: UseFormReturn<RegisteringFormValues>;

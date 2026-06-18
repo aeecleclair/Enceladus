@@ -1,6 +1,11 @@
 "use client";
 
-import * as React from "react";
+import { MatchComplete } from "@/api";
+import { DataTableFacetedFilter } from "@/components/challenger/admin/registered-table/DataTableFacetedFilter";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useRouter } from "@/i18n/navigation";
+import { fuzzyFilter } from "@/lib/utils";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +18,17 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import * as React from "react";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -23,6 +38,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
 import {
   ArrowUpDown,
   Calendar,
@@ -32,21 +50,6 @@ import {
   MoreHorizontal,
   Trophy,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import { Match, MatchComplete } from "@/api";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useRouter } from "@/i18n/navigation";
-import { useSports } from "@/hooks/challenger/useSports";
-import { DataTableFacetedFilter } from "@/components/challenger/admin/registered-table/DataTableFacetedFilter";
-import { fuzzyFilter } from "@/lib/utils";
 
 interface MatchDataTableProps {
   data: MatchComplete[];

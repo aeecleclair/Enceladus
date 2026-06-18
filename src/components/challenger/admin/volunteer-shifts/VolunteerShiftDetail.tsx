@@ -1,27 +1,29 @@
 "use client";
 
-import {
-  Edit,
-  Users,
-  User,
-  Info,
-  AlertCircle,
-  CheckCircle,
-} from "lucide-react";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
-import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { LoadingButton } from "@/components/common/LoadingButton";
+import { Progress } from "@/components/ui/progress";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import {
+  AlertCircle,
+  CheckCircle,
+  Edit,
+  Info,
+  User,
+  Users,
+} from "lucide-react";
 
 interface VolunteerShiftDetailProps {
   shiftId: string;

@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import { MapPin, Edit } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
+
+import { Edit, MapPin } from "lucide-react";
 
 interface SimpleLocationMarkerProps {
   locationName: string;
@@ -32,7 +34,7 @@ export function SimpleLocationMarker({
 
   return (
     <div className="relative" onClick={handleCardClick}>
-      <div className="w-[220px] bg-white rounded-lg shadow-lg border p-1.5">
+      <div className="w-55 bg-white rounded-lg shadow-lg border p-1.5">
         <div className="text-center mb-1">
           <div className="flex items-center justify-center gap-2 mb-0.5">
             <h3 className="font-medium text-base text-gray-900 truncate">
@@ -51,7 +53,7 @@ export function SimpleLocationMarker({
 
       {/* Triangular pointer at the bottom */}
       <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-2">
-        <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[12px] border-l-transparent border-r-transparent border-t-white drop-shadow-sm" />
+        <div className="w-0 h-0 border-l-12 border-r-12 border-t-12 border-l-transparent border-r-transparent border-t-white drop-shadow-sm" />
       </div>
     </div>
   );

@@ -4,6 +4,16 @@ import {
 } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
+import {
+  ProductQuotaFormInput,
+  ProductQuotaFormValues,
+  productQuotaFormSchema,
+} from "@/forms/challenger/productQuota";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -23,15 +33,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  ProductQuotaFormInput,
-  productQuotaFormSchema,
-  ProductQuotaFormValues,
-} from "@/forms/challenger/productQuota";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Plus } from "lucide-react";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
 
 interface ProductQuotaDialogProps {
   isOpen: boolean;
@@ -60,14 +63,16 @@ export function ProductQuotaDialog({
   submitLabel,
   isLoading,
 }: ProductQuotaDialogProps) {
-  const quotaForm = useForm<ProductQuotaFormInput, any, ProductQuotaFormValues>(
-    {
-      resolver: zodResolver(productQuotaFormSchema),
-      defaultValues: {
-        quota: undefined,
-      },
+  const quotaForm = useForm<
+    ProductQuotaFormInput,
+    unknown,
+    ProductQuotaFormValues
+  >({
+    resolver: zodResolver(productQuotaFormSchema),
+    defaultValues: {
+      quota: undefined,
     },
-  );
+  });
 
   useEffect(() => {
     if (existingQuota) {

@@ -1,6 +1,7 @@
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/siarnaq/custom/StyledFormField";
 import _migrateUserFormSchema from "@/forms/siarnaq/migrateUserFormSchema";
+import { useCoreVariables } from "@/hooks/useCoreVariables";
 
 import { useTranslations } from "next-intl";
 import { UseFormReturn } from "react-hook-form";
@@ -15,7 +16,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useCoreVariables } from "@/hooks/useCoreVariables";
 
 interface MigrateUserFormProps {
   form: UseFormReturn<z.infer<ReturnType<typeof _migrateUserFormSchema>>>;
@@ -72,7 +72,7 @@ export const MigrateUserForm = ({
                           {floor}
                         </div>
                       </SelectItem>
-                    )
+                    ),
                   )}
                 </SelectContent>
               </Select>

@@ -1,26 +1,19 @@
 "use client";
 
-import SportCard from "@/components/challenger/admin/sports/SportCard";
 import { DeleteConfirmationDialog } from "@/components/challenger/admin/sports/DeleteConfirmationDialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { useSports } from "@/hooks/challenger/useSports";
+import SportCard from "@/components/challenger/admin/sports/SportCard";
+import SportDetail from "@/components/challenger/admin/sports/SportDetail";
 import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 import { useAllTeams } from "@/hooks/challenger/useAllTeams";
-import { useSearchParams } from "next/navigation";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useRouter } from "@/i18n/navigation";
+
 import Link from "next/link";
-import SportDetail from "@/components/challenger/admin/sports/SportDetail";
-import { useState, useMemo } from "react";
-import {
-  Search,
-  Plus,
-  Trophy,
-  Users,
-  Filter,
-  Target,
-  AlertTriangle,
-} from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -29,7 +22,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRouter } from "@/i18n/navigation";
+import { Input } from "@/components/ui/input";
+
+import {
+  AlertTriangle,
+  Filter,
+  Plus,
+  Search,
+  Target,
+  Trophy,
+} from "lucide-react";
 
 const Dashboard = () => {
   const router = useRouter();

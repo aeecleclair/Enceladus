@@ -1,12 +1,13 @@
-import { CheckIcon } from "lucide-react";
 import {
-  TimelineItem,
   TimelineConnector,
-  TimelineDot,
   TimelineContent,
-  TimelineContentLabel,
   TimelineContentDescription,
+  TimelineContentLabel,
+  TimelineDot,
+  TimelineItem,
 } from "../../custom/Timeline";
+
+import { CheckIcon } from "lucide-react";
 
 export const TimelineStep = ({
   label,

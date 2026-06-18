@@ -1,26 +1,28 @@
 "use client";
 
-import { useMemo, useState } from "react";
 import {
   Calendar,
   CalendarCurrentDate,
   CalendarDayView,
+  CalendarEvent,
   CalendarNextTrigger,
   CalendarPrevTrigger,
   CalendarTodayTrigger,
-  CalendarEvent,
 } from "../../custom/FullScreenCalendar";
+import { VolunteerCalendarEventDetail } from "./VolunteerCalendarEventDetail";
+
+import { useVolunteer } from "@/hooks/challenger/useVolunteer";
+import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
+import { generateLocationColor } from "@/lib/challenger/locationColors";
+
+import { useMemo, useState } from "react";
+
 import { fr } from "date-fns/locale";
-import { isSameDay, startOfDay, endOfDay } from "date-fns";
 import {
+  Calendar as CalendarIcon,
   ChevronLeft,
   ChevronRight,
-  Calendar as CalendarIcon,
 } from "lucide-react";
-import { useVolunteerShifts } from "@/hooks/challenger/useVolunteerShifts";
-import { useVolunteer } from "@/hooks/challenger/useVolunteer";
-import { generateLocationColor } from "@/lib/challenger/locationColors";
-import { VolunteerCalendarEventDetail } from "./VolunteerCalendarEventDetail";
 
 export const VolunteerCalendar = () => {
   const { splitVolunteerShifts } = useVolunteerShifts();

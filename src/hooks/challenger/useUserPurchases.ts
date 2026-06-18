@@ -1,15 +1,18 @@
+import { useAuth } from "../useAuth";
+import { useCompetitionUser } from "./useCompetitionUser";
+
+import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase } from "@/api";
 import {
   deleteCompetitionPurchasesProductVariantIdMutation,
   getCompetitionPurchasesMeOptions,
   getCompetitionPurchasesUsersUserIdOptions,
   postCompetitionPurchasesMeMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase } from "@/api";
-import { useToast } from "@/components/ui/use-toast";
-import { ErrorType, DetailedErrorType } from "@/lib/challenger/errorTyping";
-import { useCompetitionUser } from "./useCompetitionUser";
+import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface UseUserPurchasesProps {
   userId?: string;

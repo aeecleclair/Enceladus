@@ -1,15 +1,30 @@
-import { SecurityFile, Size, Document, Difficulty, MeetingPlace } from "@/api";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Input } from "@/components/ui/input";
-import { Combobox } from "@/components/ui/combobox";
+import { DocumentDialog } from "./DocumentDialog";
+
+import { Difficulty, Document, MeetingPlace, SecurityFile, Size } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { ConfirmationCheckbox } from "@/components/raid/home/participantView/ConfirmationCheckbox";
+import { SecurityFileDialog } from "@/components/raid/home/participantView/SecurityFileDialog";
+import { useDocument } from "@/hooks/raid/useDocument";
+import { useInformation } from "@/hooks/raid/useInformation";
 import {
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  FormControl,
-} from "@/components/ui/form";
-import { ControllerRenderProps, FieldValues } from "react-hook-form";
+  bikeSizes,
+  difficulties,
+  meetingPlaces,
+  situations,
+  tShirtSizes,
+} from "@/lib/raid/comboboxValues";
+
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+import {
+  ControllerRenderProps,
+  FieldValues,
+  UseFormReturn,
+} from "react-hook-form";
+import { HiArrowNarrowRight, HiDownload } from "react-icons/hi";
+
+import { Button } from "@/components/ui/button";
+import { Combobox } from "@/components/ui/combobox";
 import {
   Dialog,
   DialogContent,
@@ -17,25 +32,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { HiArrowNarrowRight, HiDownload } from "react-icons/hi";
-import { useState } from "react";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { DocumentDialog } from "./DocumentDialog";
-import { SecurityFileDialog } from "@/components/raid/home/participantView/SecurityFileDialog";
 import {
-  difficulties,
-  meetingPlaces,
-  situations,
-  tShirtSizes,
-  bikeSizes,
-} from "@/lib/raid/comboboxValues";
-import { ConfirmationCheckbox } from "@/components/raid/home/participantView/ConfirmationCheckbox";
-import PhoneInput from "react-phone-input-2";
-import { useInformation } from "@/hooks/raid/useInformation";
-import { useDocument } from "@/hooks/raid/useDocument";
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
-import { LoadingButton } from "@/components/common/LoadingButton";
+
+import PhoneInput from "react-phone-input-2";
 
 type ValueType =
   | string
@@ -66,12 +74,14 @@ export enum ValueTypes {
   MEETINGPLACE = "meetingPlace",
 }
 
-interface ParticipantFieldProps<T extends ValueType> {
+interface ParticipantFieldProps<
+  T extends ValueType,
+  TFieldValues extends FieldValues = FieldValues,
+> {
   label: string;
   id: string;
   placeholder?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  form: any;
+  form: UseFormReturn<TFieldValues>;
   type: T;
   layer?: number;
   needDialog?: boolean;
@@ -79,17 +89,25 @@ interface ParticipantFieldProps<T extends ValueType> {
   className?: string;
 }
 
-export function ParticipantField<T extends ValueType>({
+export function ParticipantField<
+  T extends ValueType,
+  TFieldValues extends FieldValues = FieldValues,
+>({
   label,
   id,
   placeholder,
-  form,
+  form: typedForm,
   layer,
   type,
   needDialog,
   participantId,
   className,
-}: ParticipantFieldProps<T>) {
+}: ParticipantFieldProps<T, TFieldValues>) {
+  // ParticipantField is schema-agnostic: it only reads `form.control` and sets
+  // fields by string id. Bridge the caller's typed form to a FieldValues view
+  // once — react-hook-form's UseFormReturn generic is invariant, so a specific
+  // form is not assignable to UseFormReturn<FieldValues> without this.
+  const form = typedForm as unknown as UseFormReturn<FieldValues>;
   const { toast } = useToast();
   const [isFileLoading, setIsFileLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -125,7 +143,7 @@ export function ParticipantField<T extends ValueType>({
   const valueComponent = (
     field: ControllerRenderProps<FieldValues, string>,
     open: boolean,
-    setIsOpen: (value: boolean) => void
+    setIsOpen: (value: boolean) => void,
   ) => {
     switch (type) {
       case ValueTypes.BOOLEAN:

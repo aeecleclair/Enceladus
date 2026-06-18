@@ -1,6 +1,8 @@
-import { getCompetitionParticipantsSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
+
+import { getCompetitionParticipantsSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
 
 interface UseSchoolParticipants {
   schoolId: string | null;

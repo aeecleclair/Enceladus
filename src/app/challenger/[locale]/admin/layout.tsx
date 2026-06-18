@@ -2,6 +2,14 @@
 
 import AdminFallback from "@/components/challenger/admin/AdminFallback";
 import { AppSidebar } from "@/components/challenger/admin/appSideBar/AppSidebar";
+import { useEdition } from "@/hooks/challenger/useEdition";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useMeUser } from "@/hooks/useMeUser";
+import { useRouter } from "@/i18n/navigation";
+
+import { usePathname } from "next/navigation";
+import { ReactNode } from "react";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,12 +24,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { useEdition } from "@/hooks/challenger/useEdition";
-import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
-import { useMeUser } from "@/hooks/useMeUser";
-import { useRouter } from "@/i18n/navigation";
-import { usePathname } from "next/navigation";
-import { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const pathname = usePathname();

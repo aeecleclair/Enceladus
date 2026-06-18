@@ -8,7 +8,7 @@ export const useSellerProductUserData = (
   sellerId: string | null,
   productId: string | null,
   userId: string | null,
-  fieldId: string | null
+  fieldId: string | null,
 ) => {
   const { isTokenExpired } = useAuth();
   const { data, isLoading, refetch } = useQuery({

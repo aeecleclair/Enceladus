@@ -1,8 +1,10 @@
-import { Accordion } from "@/components/ui/accordion";
-import { CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { DocumentItem } from "./DocumentItem";
+
+import { Document, DocumentValidation, RaidParticipant } from "@/api";
 import { getSituationLabel } from "@/lib/raid/teamUtils";
-import { DocumentValidation, Document, RaidParticipant } from "@/api";
+
+import { Accordion } from "@/components/ui/accordion";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface ParticipantDocumentCardProps {
   participant: RaidParticipant;
@@ -11,7 +13,7 @@ interface ParticipantDocumentCardProps {
   validateDocument: (
     documentId: string,
     validation: DocumentValidation,
-    callback: () => void
+    callback: () => void,
   ) => void;
   isValidationLoading: boolean;
 }
@@ -26,14 +28,14 @@ export const ParticipantDocumentCard = ({
     <>
       <CardHeader>
         <CardTitle>
-          {participant.firstname} {participant.name}
+          {participant.user.firstname} {participant.user.name}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <Accordion type="single" collapsible className="w-full">
           <DocumentItem
             value="Carte d'identité"
-            document={participant.id_card}
+            document={participant.id_card ?? null}
             index={0}
             setDocument={setDocument}
             downloadDocument={downloadDocument}
@@ -41,7 +43,7 @@ export const ParticipantDocumentCard = ({
           />
           <DocumentItem
             value="Certificat médical"
-            document={participant.medical_certificate}
+            document={participant.medical_certificate ?? null}
             index={1}
             setDocument={setDocument}
             downloadDocument={downloadDocument}
@@ -56,7 +58,7 @@ export const ParticipantDocumentCard = ({
             validateDocument={validateDocument}
           />
           {["centrale", "otherschool"].includes(
-            getSituationLabel(participant.situation ?? undefined) ?? ""
+            getSituationLabel(participant.situation ?? undefined) ?? "",
           ) && (
             <DocumentItem
               value="Carte étudiante"

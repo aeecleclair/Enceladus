@@ -1,10 +1,13 @@
-import { RaidPrice } from "@/api";
 import { useAuth } from "../useAuth";
+
+import { RaidPrice } from "@/api";
 import {
   getRaidPriceOptions,
   patchRaidPriceMutation,
 } from "@/api/@tanstack/react-query.gen";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
+
 import { useToast } from "@/components/ui/use-toast";
 
 export const usePrice = () => {
@@ -39,7 +42,7 @@ export const usePrice = () => {
           variant: "destructive",
         });
       },
-    }
+    },
   );
 
   const updatePrice = (price: RaidPrice, callback: () => void) => {
@@ -47,7 +50,7 @@ export const usePrice = () => {
       {
         body: price,
       },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 

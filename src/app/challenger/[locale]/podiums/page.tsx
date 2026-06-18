@@ -1,23 +1,24 @@
 "use client";
 
-import { useSports } from "@/hooks/challenger/useSports";
-import { useSchools } from "@/hooks/useSchools";
-import { usePompomsPodiums } from "@/hooks/challenger/usePompomsPodiums";
-import { useSportPodiums } from "@/hooks/challenger/useSportsPodiums";
-import { usePodiums } from "@/hooks/challenger/usePodiums";
-import { SportsDataTable } from "@/components/challenger/podiums/SportsDataTable";
+import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 import { GlobalPodiumCard } from "@/components/challenger/podiums/GlobalPodiumCard";
+import { SportsDataTable } from "@/components/challenger/podiums/SportsDataTable";
+import { usePodiums } from "@/hooks/challenger/usePodiums";
+import { usePompomsPodiums } from "@/hooks/challenger/usePompomsPodiums";
+import { useSports } from "@/hooks/challenger/useSports";
+import { useSportPodiums } from "@/hooks/challenger/useSportsPodiums";
+import { useSchools } from "@/hooks/useSchools";
+
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/challenger/home/appSideBar/AppSidebar";
 
 export default function PodiumsPage() {
   const { sports, error: sportsError } = useSports();
   const { schools } = useSchools();
-  const { pompomsResults, isPompomsLoading } = usePompomsPodiums();
+  const { pompomsResults } = usePompomsPodiums();
   const { podiumsBySport } = useSportPodiums({
     sportIds:
       sports?.filter((sport) => sport.active).map((sport) => sport.id) || [],

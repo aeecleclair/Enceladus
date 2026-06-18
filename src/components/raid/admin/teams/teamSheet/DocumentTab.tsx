@@ -1,12 +1,15 @@
-import { Card } from "@/components/ui/card";
 import { ParticipantDocumentCard } from "./ParticipantDocumentCard";
+
+import { Document, DocumentValidation, RaidParticipant, RaidTeam } from "@/api";
 import { DocumentView } from "@/components/raid/custom/DocumentView";
-import { useState } from "react";
-import { useDocument } from "@/hooks/raid/useDocument";
 import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
-import { useToast } from "@/components/ui/use-toast";
+import { useDocument } from "@/hooks/raid/useDocument";
 import { useTeams } from "@/hooks/raid/useTeams";
-import { RaidTeam, Document, RaidParticipant, DocumentValidation } from "@/api";
+
+import { useState } from "react";
+
+import { Card } from "@/components/ui/card";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DocumentTabProps {
   team: RaidTeam;
@@ -19,7 +22,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
   const { refetchTeam } = useAdminTeam(team.id);
   const { refetchTeams } = useTeams();
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(
-    null
+    null,
   );
   const [selectedDocumentUser, setSelectedDocumentUser] = useState<
     string | null
@@ -32,10 +35,10 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
 
   function downloadDocument(doc: Document, participant: RaidParticipant) {
     const key = doc.type;
-    const file = getDocument(participant.id, key);
+    const file = getDocument(participant.user_id, key);
     if (file !== undefined) {
       const extension = file.type.split("/")[1];
-      const name = `${participant.firstname}_${participant.name}_${key}.${extension}`;
+      const name = `${participant.user.firstname}_${participant.user.name}_${key}.${extension}`;
       const url = window.URL.createObjectURL(new Blob([file]));
       const link = document.createElement("a");
       link.href = url;
@@ -48,7 +51,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
   function validateCallback(
     documentId: string,
     validation: DocumentValidation,
-    callback: () => void
+    callback: () => void,
   ) {
     setDocumentValidation(documentId, validation, () => {
       refetchTeam();
@@ -66,7 +69,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
       <Card>
         <ParticipantDocumentCard
           participant={team.captain}
-          setDocument={(doc) => setDocument(doc, team.captain.id)}
+          setDocument={(doc) => setDocument(doc, team.captain.user_id)}
           downloadDocument={(doc) => downloadDocument(doc, team.captain)}
           validateDocument={validateCallback}
           isValidationLoading={isValidationLoading}
@@ -74,7 +77,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
         {team.second && (
           <ParticipantDocumentCard
             participant={team.second}
-            setDocument={(doc) => setDocument(doc, team.second!.id)}
+            setDocument={(doc) => setDocument(doc, team.second!.user_id)}
             downloadDocument={(doc) => downloadDocument(doc, team.second!)}
             validateDocument={validateCallback}
             isValidationLoading={isValidationLoading}

@@ -1,10 +1,14 @@
-import { Match, MatchComplete } from "@/api";
+import { PastMatchCard } from "./PastMatchCard";
+
+import { MatchComplete } from "@/api";
+import { useFavoriteMatches } from "@/hooks/challenger/useFavoriteMatches";
+
+import { useState } from "react";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Trophy, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
-import { PastMatchCard } from "./PastMatchCard";
-import { useFavoriteMatches } from "@/hooks/challenger/useFavoriteMatches";
+
+import { ChevronDown, ChevronUp, Trophy } from "lucide-react";
 
 interface PastMatchesProps {
   matches: MatchComplete[];

@@ -1,27 +1,31 @@
 import { EditUserInfoField } from "./EditUserInfoField";
-import { addYears, toDate } from "date-fns";
-import PhoneInput from "react-phone-input-2";
-import { Label } from "@/components/ui/label";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
+import { UserInfoView } from "./UserInfoView";
+
+import { RaidParticipant, RaidParticipantUpdate } from "@/api";
 import { DatePicker } from "@/components/common/DatePicker";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { apiFormatDate, formatDate } from "@/lib/dateFormat";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import { Controller, FormProvider, useForm } from "react-hook-form";
+import { HiCheck, HiPencil, HiX } from "react-icons/hi";
+import { z } from "zod";
+
+import { Button } from "@/components/ui/button";
 import {
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { UserInfoView } from "./UserInfoView";
-import { Participant, RaidParticipant, RaidParticipantUpdate } from "@/api";
-import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { SheetFooter } from "@/components/ui/sheet";
-import { HiPencil, HiCheck, HiX } from "react-icons/hi";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useToast } from "@/components/ui/use-toast";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { apiFormatDate, formatDate } from "@/lib/dateFormat";
-import { useMeTeam } from "@/hooks/raid/useMeTeam";
+
+import { addYears, toDate } from "date-fns";
+import PhoneInput from "react-phone-input-2";
 
 interface UserButtonProps {
   me: RaidParticipant;
@@ -78,11 +82,11 @@ export const ViewEditUserInfo = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      firstname: me?.firstname,
-      name: me?.name,
-      email: me?.email,
-      phone: getPhone(me?.phone ?? ""),
-      birthday: me?.birthday ? toDate(me?.birthday) : undefined,
+      firstname: me?.user?.firstname,
+      name: me?.user?.name,
+      email: me?.user?.email,
+      phone: getPhone(me?.user?.phone ?? ""),
+      birthday: me?.user?.birthday ? toDate(me?.user?.birthday) : undefined,
     },
   });
 
@@ -92,11 +96,14 @@ export const ViewEditUserInfo = ({
       return;
     }
     const dateString = apiFormatDate(values.birthday);
-    const updatedParticipant: RaidParticipantUpdate = {
+    // NOTE: this sheet edits CoreUser fields (name/email/phone/birthday) but
+    // the only mutation wired here is the participant update, whose type does
+    // not declare those fields. Kept as-is to preserve existing behaviour.
+    const updatedParticipant = {
       ...values,
       birthday: dateString,
-    };
-    updateParticipant(updatedParticipant, me.id, () => {
+    } as RaidParticipantUpdate;
+    updateParticipant(updatedParticipant, me.user_id, () => {
       toast({
         title: "Profil mis à jour",
         description: "Vos informations ont été mises à jour avec succès",
@@ -210,15 +217,15 @@ export const ViewEditUserInfo = ({
             </div>
           ) : (
             <div className="grid w-full items-center gap-10">
-              <UserInfoView label="Prénom" value={me?.firstname} />
-              <UserInfoView label="Nom" value={me?.name} />
-              <UserInfoView label="Email" value={me?.email} />
+              <UserInfoView label="Prénom" value={me?.user?.firstname} />
+              <UserInfoView label="Nom" value={me?.user?.name} />
+              <UserInfoView label="Email" value={me?.user?.email} />
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="phone" className="font-bold">
                   Téléphone :
                 </Label>
                 <PhoneInput
-                  value={me?.phone}
+                  value={me?.user?.phone}
                   country={"fr"}
                   specialLabel=""
                   inputClass="bg-transparent"
@@ -228,7 +235,9 @@ export const ViewEditUserInfo = ({
               <UserInfoView
                 label="Date de naissance"
                 value={
-                  me?.birthday ? formatDate(me!.birthday) : "Non renseigné"
+                  me?.user?.birthday
+                    ? formatDate(me!.user.birthday)
+                    : "Non renseigné"
                 }
               />
             </div>

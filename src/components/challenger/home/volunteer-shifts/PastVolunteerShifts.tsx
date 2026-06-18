@@ -1,10 +1,13 @@
 import { VolunteerRegistrationComplete } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { History, ChevronDown, ChevronUp } from "lucide-react";
+
 import { useMemo, useState } from "react";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { VolunteerShiftCard } from ".";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { ChevronDown, ChevronUp, History } from "lucide-react";
 
 interface PastVolunteerShiftsProps {
   shifts: (VolunteerRegistrationComplete & { _shiftStartTime: number })[];

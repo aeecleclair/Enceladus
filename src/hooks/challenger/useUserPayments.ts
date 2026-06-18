@@ -1,13 +1,16 @@
+import { useAuth } from "../useAuth";
+
+import { AppModulesSportCompetitionSchemasSportCompetitionPaymentBase } from "@/api";
 import {
   deleteCompetitionUsersUserIdPaymentsPaymentIdMutation,
   getCompetitionUsersUserIdPaymentsOptions,
   postCompetitionUsersUserIdPaymentsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { AppModulesSportCompetitionSchemasSportCompetitionPaymentBase } from "@/api";
-import { useToast } from "@/components/ui/use-toast";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useUserPayments = () => {
   const { isTokenExpired, userId } = useAuth();
@@ -68,29 +71,23 @@ export const useUserPayments = () => {
         },
       },
       {
-        onSettled: (_data, error) => {
-          if (
-            (error as any)?.message ===
-              "Network error (NetworkError when attempting to fetch resource.)" ||
-            (error as any)?.stack?.body ||
-            (error as any)?.stack?.detail
-          ) {
-            console.log(error);
-            toast({
-              title: "Erreur lors de la suppression",
-              description:
-                (error as any)?.message ||
-                (error as unknown as ErrorType)?.stack?.body ||
-                (error as unknown as DetailedErrorType)?.stack?.detail,
-              variant: "destructive",
-            });
-          } else {
-            callback();
-            toast({
-              title: "Paiement supprimé",
-              description: "Le paiement a été supprimé avec succès.",
-            });
-          }
+        onSuccess: () => {
+          callback();
+          toast({
+            title: "Paiement supprimé",
+            description: "Le paiement a été supprimé avec succès.",
+          });
+        },
+        onError: (error) => {
+          console.error(error);
+          toast({
+            title: "Erreur lors de la suppression",
+            description:
+              (error as unknown as ErrorType)?.stack?.body ||
+              (error as unknown as DetailedErrorType)?.stack?.detail ||
+              "Une erreur est survenue, veuillez réessayer.",
+            variant: "destructive",
+          });
         },
       },
     );

@@ -6,10 +6,12 @@ import {
   postCdrSellersSellerIdProductsProductIdData,
   postCdrSellersSellerIdProductsProductIdTickets,
 } from "@/api";
+import { DatePicker } from "@/components/common/DatePicker";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { MultiSelect } from "@/components/siarnaq/custom/MultiSelect";
 import { StyledFormField } from "@/components/siarnaq/custom/StyledFormField";
 import _productFormSchema from "@/forms/siarnaq/productFormSchema";
+import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
 import { useMemberships } from "@/hooks/siarnaq/useMemberships";
 import { useProducts } from "@/hooks/siarnaq/useProducts";
 import { useSellerProductData } from "@/hooks/siarnaq/useSellerProductData";
@@ -50,8 +52,6 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
-import { DatePicker } from "@/components/common/DatePicker";
 
 interface AddEditProductFormProps {
   form: UseFormReturn<z.infer<ReturnType<typeof _productFormSchema>>>;
@@ -141,7 +141,7 @@ export const AddEditProductForm = ({
               product_id: productId!,
               ticket_generator_id: id,
             },
-          }
+          },
         );
       if (error) {
         toast({
@@ -155,7 +155,7 @@ export const AddEditProductForm = ({
     }
     form.setValue(
       "tickets",
-      form.getValues("tickets").filter((field) => field.id !== id)
+      form.getValues("tickets").filter((field) => field.id !== id),
     );
   }
 
@@ -221,7 +221,7 @@ export const AddEditProductForm = ({
     } else {
       form.setValue(
         "data_fields",
-        form.getValues("data_fields").filter((field) => field.id !== id)
+        form.getValues("data_fields").filter((field) => field.id !== id),
       );
     }
   }
@@ -410,14 +410,14 @@ export const AddEditProductForm = ({
                       .filter(
                         (constraint) =>
                           constraint.id !== form.watch("id") &&
-                          constraint.needs_validation
+                          constraint.needs_validation,
                       )
                       .map((constraint) => ({
                         label: t("addEditProductForm.constraintName", {
                           constraint: constraint.name_fr,
                           seller:
                             sellers.find(
-                              (seller) => seller.id == constraint.seller_id
+                              (seller) => seller.id == constraint.seller_id,
                             )?.name ?? "",
                         }),
                         value: constraint.id,

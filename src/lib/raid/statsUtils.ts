@@ -1,5 +1,6 @@
-import { RaidTeamPreview } from "@/api";
 import { getSituationLabel } from "./teamUtils";
+
+import { RaidTeamPreview } from "@/api";
 
 export interface Stats {
   difficultyData: { value: number; label: string }[];
@@ -11,7 +12,7 @@ export interface Stats {
 
 export function getStats(seeAll: boolean, teams?: RaidTeamPreview[]): Stats {
   const filteredTeams = teams?.filter(
-    (team) => team.validation_progress === 100 || seeAll
+    (team) => team.validation_progress === 100 || seeAll,
   );
   const difficultyData = getDifficultyData(seeAll, filteredTeams);
   const meetingPlaceData = getMeetingPlaceData(seeAll, filteredTeams);
@@ -29,7 +30,7 @@ export function getStats(seeAll: boolean, teams?: RaidTeamPreview[]): Stats {
 
 function getDifficultyData(
   seeAll: boolean,
-  teams?: RaidTeamPreview[]
+  teams?: RaidTeamPreview[],
 ): { value: number; label: string }[] {
   const response = [
     { value: 0, label: "Découverte" },
@@ -59,7 +60,7 @@ function getDifficultyData(
 
 function getMeetingPlaceData(
   seeAll: boolean,
-  teams?: RaidTeamPreview[]
+  teams?: RaidTeamPreview[],
 ): { value: number; label: string }[] {
   const response = [
     { value: 0, label: "Centrale Lyon" },
@@ -95,7 +96,7 @@ function getMeetingPlaceData(
 
 function getBikeSizeData(
   seeAll: boolean,
-  teams?: RaidTeamPreview[]
+  teams?: RaidTeamPreview[],
 ): { value: number; label: string }[] {
   const response = [
     { value: 0, label: "XS" },
@@ -144,7 +145,7 @@ function getBikeSizeData(
 
 function getTShirtSizeData(
   seeAll: boolean,
-  teams?: RaidTeamPreview[]
+  teams?: RaidTeamPreview[],
 ): { value: number; label: string }[] {
   const response = [
     { value: 0, label: "XS" },
@@ -189,7 +190,7 @@ function getTShirtSizeData(
 
 function getSituationData(
   seeAll: boolean,
-  teams?: RaidTeamPreview[]
+  teams?: RaidTeamPreview[],
 ): { value: number; label: string }[] {
   const response = [
     { value: 0, label: "Centrale Lyon" },

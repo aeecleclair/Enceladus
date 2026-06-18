@@ -1,10 +1,10 @@
 import { GetCdrOnlineSellersResponse } from "@/api";
+import { useRouter } from "@/i18n/navigation";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
-import { useRouter } from "@/i18n/navigation";
 
 interface PageIndicatorProps {
   currentSellerId: string;
@@ -25,7 +25,7 @@ export const PageIndicator = ({
   ];
 
   const pageIndex = availablePagesIds?.findIndex(
-    (sellerId) => sellerId === currentSellerId
+    (sellerId) => sellerId === currentSellerId,
   );
 
   return (

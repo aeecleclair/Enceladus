@@ -1,6 +1,10 @@
 "use client";
 
 import { Sport } from "@/api";
+import { sportCategories } from "@/forms/challenger/sport";
+
+import Link from "next/link";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,21 +14,19 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { sportCategories } from "@/forms/challenger/sport";
+
 import {
   AlertTriangle,
+  CheckCircle,
+  Edit,
   Eye,
   Swords,
-  Users,
-  UserPlus,
-  CheckCircle,
-  XCircle,
-  Edit,
   Trash2,
   Trophy,
+  UserPlus,
+  Users,
+  XCircle,
 } from "lucide-react";
-import Link from "next/link";
-import { useRouter } from "@/i18n/navigation";
 
 interface SportCardProps {
   sport: Sport;
@@ -46,7 +48,6 @@ export const SportCard = ({
   const hasNoMatches = matchCount !== undefined && matchCount === 0;
   const hasNoTeams = teamCount !== undefined && teamCount === 0;
   const hasWarning = hasNoMatches || hasNoTeams;
-  const router = useRouter();
   const categoryLabel =
     sportCategories.find((cat) => cat.value === sport.sport_category)?.label ||
     sport.sport_category;

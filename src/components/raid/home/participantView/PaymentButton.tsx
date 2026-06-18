@@ -1,19 +1,21 @@
-import { usePaymentUrl } from "@/hooks/raid/usePaymentUrl";
-import { useRouter } from "next/navigation";
-import { WarningDialog } from "@/components/common/WarningDialog";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { usePrice } from "@/hooks/raid/usePrice";
-import { Separator } from "@/components/ui/separator";
 import { HelloAssoButton } from "@/components/common/HelloAssoButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+import { usePaymentUrl } from "@/hooks/raid/usePaymentUrl";
+import { usePrice } from "@/hooks/raid/usePrice";
+import { getSituationLabel } from "@/lib/raid/teamUtils";
+
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger,
   TooltipProvider,
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { getSituationLabel } from "@/lib/raid/teamUtils";
 
 export const PaymentButton = () => {
   const { me } = useMeParticipant();
@@ -28,11 +30,11 @@ export const PaymentButton = () => {
   const mustPayRegistering = !me?.payment;
   const isStudent =
     ["centrale", "otherschool"].includes(
-      getSituationLabel(me?.situation || undefined) || ""
+      getSituationLabel(me?.situation || undefined) || "",
     ) && me?.student_card?.validation === "accepted";
   const isNotValidatedStudent =
     ["centrale", "otherschool"].includes(
-      getSituationLabel(me?.situation || undefined) || ""
+      getSituationLabel(me?.situation || undefined) || "",
     ) &&
     me?.student_card?.id !== undefined &&
     me?.student_card?.validation !== "accepted";
@@ -63,7 +65,7 @@ export const PaymentButton = () => {
           <Button
             className="col-span-4 ml-auto w-25"
             disabled={!mustPayRegistering}
-            onClick={(_) => {
+            onClick={() => {
               setIsOpened(true);
               setIsStudentWarningOpened(false);
             }}
@@ -83,9 +85,9 @@ export const PaymentButton = () => {
                 <div className="flex justify-between">
                   <span>Participation</span>
                   <span>
-                    {(isStudent || isNotValidatedStudent
-                      ? price?.student_price!
-                      : price?.external_price!) / 100}{" "}
+                    {((isStudent || isNotValidatedStudent
+                      ? price?.student_price
+                      : price?.external_price) ?? 0) / 100}{" "}
                     €
                   </span>
                 </div>
@@ -93,7 +95,7 @@ export const PaymentButton = () => {
               {mustPayTShirt && (
                 <div className="flex justify-between">
                   <span>T-Shirt taille {me.t_shirt_size}</span>
-                  <span>{price?.t_shirt_price! / 100} €</span>
+                  <span>{(price?.t_shirt_price ?? 0) / 100} €</span>
                 </div>
               )}
               {mustPayRegistering && mustPayTShirt && (
@@ -102,10 +104,10 @@ export const PaymentButton = () => {
                   <div className="flex justify-between">
                     <span>Total</span>
                     <span>
-                      {((isStudent || isNotValidatedStudent
-                        ? price?.student_price!
-                        : price?.external_price!) +
-                        price?.t_shirt_price!) /
+                      {(((isStudent || isNotValidatedStudent
+                        ? price?.student_price
+                        : price?.external_price) ?? 0) +
+                        (price?.t_shirt_price ?? 0)) /
                         100}{" "}
                       €
                     </span>
@@ -136,7 +138,7 @@ export const PaymentButton = () => {
               className="col-span-4 ml-auto w-25"
               disabled={!mustPayRegistering}
               variant={isNotValidatedStudent ? "destructive" : "default"}
-              onClick={(_) => {
+              onClick={() => {
                 if (isNotValidatedStudent) {
                   setIsStudentWarningOpened(true);
                 } else {

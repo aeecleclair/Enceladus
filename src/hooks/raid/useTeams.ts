@@ -1,12 +1,15 @@
+import { useAuth } from "../useAuth";
+import { useHasRaidPermission } from "./useHasRaidPermission";
+
 import {
   deleteRaidTeamsMutation,
   getRaidTeamsOptions,
   getRaidTeamsQueryKey,
   postRaidTeamsMergeMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { useHasRaidPermission } from "./useHasRaidPermission";
+
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { useToast } from "@/components/ui/use-toast";
 
 export const useTeams = () => {
@@ -73,7 +76,7 @@ export const useTeams = () => {
   const mergeTeams = (
     team1Id: string,
     team2Id: string,
-    callback: () => void
+    callback: () => void,
   ) => {
     mutateMergeTeams(
       {
@@ -82,7 +85,7 @@ export const useTeams = () => {
           team2_id: team2Id,
         },
       },
-      { onSuccess: () => callback() }
+      { onSuccess: () => callback() },
     );
   };
 

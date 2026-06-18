@@ -1,14 +1,17 @@
+import { useAuth } from "../useAuth";
+
+import { LocationBase, LocationEdit } from "@/api";
 import {
+  deleteCompetitionLocationsLocationIdMutation,
   getCompetitionLocationsOptions,
   patchCompetitionLocationsLocationIdMutation,
-  deleteCompetitionLocationsLocationIdMutation,
   postCompetitionLocationsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "../useAuth";
-import { useToast } from "@/components/ui/use-toast";
-import { LocationBase, LocationEdit } from "@/api";
-import { useMutation, useQuery } from "@tanstack/react-query";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useLocations = () => {
   const { isTokenExpired } = useAuth();

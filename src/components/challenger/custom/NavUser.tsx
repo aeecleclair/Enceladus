@@ -1,11 +1,13 @@
 "use client";
-import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+import { useAuth } from "@/hooks/useAuth";
+import { useMeUser } from "@/hooks/useMeUser";
+import { usePathname, useRouter } from "@/i18n/navigation";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -14,10 +16,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useAuth } from "@/hooks/useAuth";
-import { useMeUser } from "@/hooks/useMeUser";
-import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
-import { usePathname, useRouter } from "@/i18n/navigation";
+
+import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 
 export function NavUser() {
   const pathname = usePathname();

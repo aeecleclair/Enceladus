@@ -1,7 +1,8 @@
 "use client";
-import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useRouter } from "@/i18n/navigation";
+
+import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 
 export function NavSchools() {
   const { sportSchools } = useSportSchools();

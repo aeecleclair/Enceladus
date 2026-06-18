@@ -1,14 +1,17 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { useCodeVerifierStore } from "../stores/codeVerifier";
-import { useTokenStore } from "@/stores/token";
-import { BodyTokenAuthTokenPost, TokenResponse } from "@/api/types.gen";
-import { stringify } from "querystring";
-import axios from "axios";
 import { useWebsite } from "./useWebsite";
+
+import { BodyTokenAuthTokenPost, TokenResponse } from "@/api/types.gen";
+import { useTokenStore } from "@/stores/token";
+
+import { useQuery } from "@tanstack/react-query";
+import { usePathname, useRouter } from "next/navigation";
+import { useRef, useState } from "react";
+
+import axios from "axios";
+import { stringify } from "querystring";
 
 const clientId: string = process.env.NEXT_PUBLIC_CLIENT_ID || "Challenger";
 const backUrl: string =
@@ -30,15 +33,21 @@ export const useAuth = () => {
   const redirectUrlHost: string = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${website}/fr/login`;
 
   function generateRandomString(length: number): string {
-    let result = "";
     const characters =
       "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;
-    const values = crypto.getRandomValues(new Uint8Array(length));
-    for (let i = 0; i < length; i++) {
-      result += characters.charAt(
-        Math.floor((values[i] / length) * charactersLength),
+
+    const maxUnbiased = Math.floor(256 / charactersLength) * charactersLength;
+    let result = "";
+    while (result.length < length) {
+      const values = crypto.getRandomValues(
+        new Uint8Array(length - result.length),
       );
+      for (let i = 0; i < values.length && result.length < length; i++) {
+        if (values[i] < maxUnbiased) {
+          result += characters.charAt(values[i] % charactersLength);
+        }
+      }
     }
     return result;
   }

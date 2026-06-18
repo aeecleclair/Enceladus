@@ -1,8 +1,10 @@
 "use client";
 
 import { TeamSportResultComplete } from "@/api";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Medal, Award } from "lucide-react";
+
+import { Award, Medal, Trophy } from "lucide-react";
 
 interface PodiumCardProps {
   results: TeamSportResultComplete[];

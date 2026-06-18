@@ -1,12 +1,21 @@
-import { useState, useMemo } from "react";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useChangeParticipantSport } from "@/hooks/challenger/useChangeParticipantSport";
+import { useCreateTeam } from "@/hooks/challenger/useCreateTeam";
+import { useSportTeams } from "@/hooks/challenger/useSportTeams";
+import { useSports } from "@/hooks/challenger/useSports";
+
+import { useMemo, useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -14,13 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useSportTeams } from "@/hooks/challenger/useSportTeams";
-import { useChangeParticipantSport } from "@/hooks/challenger/useChangeParticipantSport";
-import { useCreateTeam } from "@/hooks/challenger/useCreateTeam";
+
 import { ChevronRight } from "lucide-react";
 
 interface ChangeUserSportDialogProps {
@@ -253,8 +256,8 @@ export const ChangeUserSportDialog = ({
                 <strong>
                   {createTeamMode
                     ? newTeamName
-                    : sportTeams?.find((t) => t.id === selectedTeamId)?.name ??
-                      "—"}
+                    : (sportTeams?.find((t) => t.id === selectedTeamId)?.name ??
+                      "—")}
                 </strong>
               </p>
             )}

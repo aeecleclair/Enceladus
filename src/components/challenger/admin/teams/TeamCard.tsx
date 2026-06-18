@@ -1,25 +1,26 @@
 "use client";
 
 import { TeamComplete } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSports } from "@/hooks/challenger/useSports";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import {
   AlertTriangle,
-  Users,
   Crown,
-  Trophy,
   Edit,
-  Trash2,
   Shield,
+  Star,
+  Trash2,
+  Trophy,
   UserCheck,
   UserX,
-  Star,
+  Users,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useSports } from "@/hooks/challenger/useSports";
-import { useSchools } from "@/hooks/useSchools";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 
 interface TeamCardProps {
   team: TeamComplete;
@@ -76,7 +77,7 @@ const TeamCard = ({ team, onEdit, onDelete }: TeamCardProps) => {
         </div>
       </CardHeader>
 
-      <CardContent className="py-3 flex-grow">
+      <CardContent className="py-3 grow">
         {/* Team Info */}
         <div className="space-y-4">
           {/* Captain */}

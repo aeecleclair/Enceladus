@@ -1,11 +1,14 @@
 "use client";
 
-import { TeamSportResultComplete } from "@/api";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Trophy, Medal, Award } from "lucide-react";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { PodiumTeamsDialog } from "./PodiumTeamsDialog";
+
+import { TeamSportResultComplete } from "@/api";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { Award, Medal, Trophy } from "lucide-react";
 
 interface PodiumCardProps {
   results: TeamSportResultComplete[];

@@ -1,6 +1,11 @@
 "use client";
 
 import { SchoolExtension } from "@/api";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { getSchoolType } from "@/lib/challenger/schools";
+
+import Link from "next/link";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,10 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { getSchoolType } from "@/lib/challenger/schools";
+
 import { Edit, Eye, MapPin, Trash2, XCircle } from "lucide-react";
-import Link from "next/link";
 
 interface SchoolCardProps {
   school: SchoolExtension;

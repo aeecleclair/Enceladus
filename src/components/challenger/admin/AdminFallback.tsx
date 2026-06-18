@@ -7,6 +7,7 @@ import {
 } from "@/forms/challenger/edition";
 import { useEdition } from "@/hooks/challenger/useEdition";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 

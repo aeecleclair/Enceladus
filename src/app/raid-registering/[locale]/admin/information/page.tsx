@@ -5,21 +5,22 @@ import { ContactMail } from "@/components/raid/admin/information/ContactMail";
 import { EmergencyPerson } from "@/components/raid/admin/information/EmergencyPersons";
 import { InscriptionEnd } from "@/components/raid/admin/information/InscriptionEnd";
 import { RaidDate } from "@/components/raid/admin/information/RaidDate";
+import { RaidExternalPrice } from "@/components/raid/admin/information/RaidExternalPrice";
 import { RaidInformationDocument } from "@/components/raid/admin/information/RaidInformationDocument";
-import { RaidStudentPrice } from "@/components/raid/admin/information/RaidStudentPrice";
 import { RaidRules } from "@/components/raid/admin/information/RaidRules";
+import { RaidStudentPrice } from "@/components/raid/admin/information/RaidStudentPrice";
 import { TShirtPrice } from "@/components/raid/admin/information/TShirtPrice";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { useInformation } from "@/hooks/raid/useInformation";
 import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
+import { useInformation } from "@/hooks/raid/useInformation";
+import { useRouter } from "@/i18n/navigation";
+
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { RaidExternalPrice } from "@/components/raid/admin/information/RaidExternalPrice";
-import { useRouter } from "@/i18n/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const InformationPage = () => {
   const { isRaidAdmin } = useHasRaidPermission();

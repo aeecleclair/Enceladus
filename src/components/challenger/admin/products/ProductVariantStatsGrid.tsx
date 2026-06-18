@@ -1,22 +1,26 @@
-import { useState } from "react";
+import { AddVariantDialog } from "./AddVariantDialog";
+import { VariantOptionsMenu } from "./VariantOptionsMenu";
+
 import {
   AppModulesSportCompetitionSchemasSportCompetitionProductComplete,
   ProductVariantStats,
 } from "@/api";
-import { Button } from "@/components/ui/button";
+
+import { useState } from "react";
+
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+
 import {
-  Plus,
-  Euro,
-  Users,
-  MapPin,
-  UserCheck,
-  ShoppingCart,
   CheckCircle,
+  Euro,
+  MapPin,
+  Plus,
+  ShoppingCart,
+  UserCheck,
+  Users,
 } from "lucide-react";
-import { AddVariantDialog } from "./AddVariantDialog";
-import { VariantOptionsMenu } from "./VariantOptionsMenu";
 
 interface ProductVariantStatsGridProps {
   product: AppModulesSportCompetitionSchemasSportCompetitionProductComplete;

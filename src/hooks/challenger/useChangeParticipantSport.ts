@@ -1,7 +1,9 @@
 import { patchCompetitionParticipantsSportsSportIdUsersUserIdMutation } from "@/api/@tanstack/react-query.gen";
-import { useToast } from "@/components/ui/use-toast";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
 import { useMutation } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useChangeParticipantSport = () => {
   const { toast } = useToast();

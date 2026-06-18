@@ -1,5 +1,6 @@
-import { Badge } from "@/components/ui/badge";
 import { CircularProgressBar } from "./CircularProgressBar";
+
+import { Badge } from "@/components/ui/badge";
 
 interface ProgressBadgeProps {
   progress: number;

@@ -42,7 +42,7 @@ export const AddProductAccordionItem = ({
   const isSeller = !["cdradmin", "cdrrecap"].includes(activeSellerId ?? "");
   const { products } = useSellerProducts(isSeller ? activeSellerId : null);
   const hasInterestProduct = products.some(
-    (product) => product.needs_validation === false
+    (product) => product.needs_validation === false,
   );
   const { memberships } = useMemberships();
 
@@ -133,8 +133,8 @@ export const AddProductAccordionItem = ({
               can_user_answer: dataField.can_user_answer,
             },
             path: { seller_id: seller.id, product_id: data.id },
-          })
-        )
+          }),
+        ),
       );
     }
 

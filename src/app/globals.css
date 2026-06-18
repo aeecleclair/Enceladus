@@ -34,7 +34,7 @@
   --default-border-color: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  
+
   /* Ajout de ta variable custom "selected" */
   --color-selected: hsl(var(--selected));
 
@@ -50,12 +50,20 @@
 
   /* --- Animations --- */
   @keyframes accordion-down {
-    from { height: 0; }
-    to { height: var(--radix-accordion-content-height); }
+    from {
+      height: 0;
+    }
+    to {
+      height: var(--radix-accordion-content-height);
+    }
   }
   @keyframes accordion-up {
-    from { height: var(--radix-accordion-content-height); }
-    to { height: 0; }
+    from {
+      height: var(--radix-accordion-content-height);
+    }
+    to {
+      height: 0;
+    }
   }
   --animate-accordion-down: accordion-down 0.2s ease-out;
   --animate-accordion-up: accordion-up 0.2s ease-out;
@@ -111,19 +119,21 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
-  
+
   @layer base {
-  * {
-    border-color: hsl(var(--border));
-    border: 0px solid;
+    * {
+      border-color: hsl(var(--border));
+      border: 0px solid;
+    }
   }
-}
   /* Couleurs de fond et de texte par défaut */
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     /* Optionnel : pour un rendu de police plus propre comme shadcn */
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
 }
 

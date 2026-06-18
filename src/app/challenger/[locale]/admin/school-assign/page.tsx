@@ -1,10 +1,17 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
-import { Search, School, UserCheck } from "lucide-react";
+import { CoreUserSimple } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { useAssignSchool } from "@/hooks/challenger/useAssignSchool";
+import { useSchools } from "@/hooks/useSchools";
+import { useUserSearch } from "@/hooks/useUsersSearch";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import React, { useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -20,16 +27,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useAuth } from "@/hooks/useAuth";
-import { useSchools } from "@/hooks/useSchools";
-import { useAssignSchool } from "@/hooks/challenger/useAssignSchool";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { CoreUserSimple } from "@/api";
-import { useUserSearch } from "@/hooks/useUsersSearch";
+
+import { School, Search, UserCheck } from "lucide-react";
 
 export default function SchoolAssignPage() {
-  const { token, isTokenExpired } = useAuth();
   const { filteredSchools } = useSchools();
   const { assignSchool, isAssignLoading } = useAssignSchool();
 

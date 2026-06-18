@@ -2,7 +2,7 @@
 
 export function getModifiedFields<T extends Record<string, any>>(
   original: T,
-  updated: T
+  updated: T,
 ): Partial<T> {
   const result: Partial<T> = {};
 

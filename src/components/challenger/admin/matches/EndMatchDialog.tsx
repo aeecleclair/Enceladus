@@ -1,15 +1,17 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogFooter,
 } from "@/components/ui/dialog";
-import { Trophy, CheckCircle2 } from "lucide-react";
+
+import { CheckCircle2, Trophy } from "lucide-react";
 
 interface EndMatchDialogProps {
   open: boolean;
@@ -48,12 +50,13 @@ export function EndMatchDialog({
     defaultWinner,
   );
 
-  // Reset selection when dialog opens
-  useEffect(() => {
+  const [wasOpen, setWasOpen] = useState(open);
+  if (open !== wasOpen) {
+    setWasOpen(open);
     if (open) {
       setSelected(defaultWinner);
     }
-  }, [open, defaultWinner]);
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

@@ -1,27 +1,13 @@
 "use client";
 
+import { LocationComplete, MatchComplete, Sport } from "@/api";
+
 import React from "react";
-import { useSports } from "@/hooks/challenger/useSports";
-import {
-  MapPin,
-  Calendar,
-  Clock,
-  Search,
-  ChevronRight,
-  Trophy,
-} from "lucide-react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-  CardDescription,
-  CardFooter,
-} from "@/components/ui/card";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { LocationComplete, Match, MatchComplete } from "@/api";
+
+import { Clock, MapPin, Search } from "lucide-react";
 
 interface LocationInfoMarkerProps {
   location: LocationComplete;
@@ -29,7 +15,7 @@ interface LocationInfoMarkerProps {
   totalMatches: number;
   nextMatch?: MatchComplete;
   upcomingMatches?: MatchComplete[];
-  sports?: any[];
+  sports?: Sport[];
 }
 
 export function LocationInfoMarker({
@@ -40,15 +26,6 @@ export function LocationInfoMarker({
   upcomingMatches = [],
   sports,
 }: LocationInfoMarkerProps) {
-  const openInMaps = () => {
-    if (location.latitude && location.longitude) {
-      window.open(
-        `https://www.google.com/maps/search/?api=1&query=${location.latitude},${location.longitude}`,
-        "_blank",
-      );
-    }
-  };
-
   const navigateToSearchWithLocation = () => {
     const params = new URLSearchParams();
     params.set("location", location.id);
@@ -97,10 +74,10 @@ export function LocationInfoMarker({
     const sorted = Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
     const allSports = sorted
       .map(([id, count]) => ({
-        sport: sports.find((s: any) => s.id === id),
+        sport: sports.find((s) => s.id === id),
         count,
       }))
-      .filter((s) => s.sport);
+      .filter((s) => s.sport) as { sport: Sport; count: number }[];
     return {
       isSingleSport: allSports.length === 1,
       allSports,
@@ -141,7 +118,7 @@ export function LocationInfoMarker({
           <div className="absolute left-1/2 top-full transform -translate-x-1/2">
             <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[7px] border-l-transparent border-r-transparent border-t-white drop-shadow-sm" />
           </div>
-          <div className="w-[300px] bg-white rounded-2xl shadow-xl border overflow-hidden">
+          <div className="w-7.5 bg-white rounded-2xl shadow-xl border overflow-hidden">
             {/* Header — inspired by reference card */}
             <div className="p-4 pb-3">
               <div className="flex items-start gap-3">
@@ -207,7 +184,7 @@ export function LocationInfoMarker({
                             : `${h}h${m.toString().padStart(2, "0")}`;
                         })();
                 const sportObj = Array.isArray(sports)
-                  ? sports.find((s: any) => s.id === nextMatch.sport_id)
+                  ? sports.find((s) => s.id === nextMatch.sport_id)
                   : null;
 
                 return (
@@ -272,9 +249,7 @@ export function LocationInfoMarker({
                 <div className="mt-1.5 space-y-0.5 max-h-24 overflow-y-auto">
                   {upcomingMatches.slice(1, 4).map((match) => {
                     const matchDate = formatMatchDate(match.date!);
-                    const sport = sports?.find(
-                      (s: any) => s.id === match.sport_id,
-                    );
+                    const sport = sports?.find((s) => s.id === match.sport_id);
                     return (
                       <div
                         key={match.id}
@@ -347,7 +322,7 @@ export function LocationInfoMarker({
       )}
       {/* Pin */}
       <div
-        className="cursor-pointer absolute left-1/2 bottom-0 -translate-x-1/2 z-[3]"
+        className="cursor-pointer absolute left-1/2 bottom-0 -translate-x-1/2 z-3"
         onClick={() => setIsOpen((open) => !open)}
       >
         {hasMatches ? (

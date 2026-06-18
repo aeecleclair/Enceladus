@@ -1,32 +1,34 @@
 "use client";
 
-import { Sport, SportQuotaInfo } from "@/api";
-import Link from "next/link";
-import { useState, useMemo } from "react";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { QuotaDialog } from "./QuotaDialog";
-import { QuotaDataTable } from "./QuotaDataTable";
 import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
-import { useSportsQuota } from "@/hooks/challenger/useSportsQuota";
-import { useSchools } from "@/hooks/useSchools";
-import { SportQuotaFormValues } from "@/forms/challenger/sportQuota";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { QuotaDataTable } from "./QuotaDataTable";
+import { QuotaDialog } from "./QuotaDialog";
+
+import { Sport, SportQuotaInfo } from "@/api";
 import { sportCategories } from "@/forms/challenger/sport";
+import { SportQuotaFormValues } from "@/forms/challenger/sportQuota";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { useSportsQuota } from "@/hooks/challenger/useSportsQuota";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { useState } from "react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import {
   ArrowLeft,
   CheckCircle,
-  XCircle,
-  Users,
-  UserPlus,
-  Trophy,
-  Plus,
   Edit,
-  Trash2,
+  Plus,
   Target,
+  Trash2,
+  Trophy,
+  UserPlus,
+  Users,
+  XCircle,
 } from "lucide-react";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 
 interface SportDetailProps {
   sport: Sport;
@@ -304,7 +306,6 @@ const SportDetail = ({ sport, onEdit, onDelete }: SportDetailProps) => {
                 team_quota: quota.team_quota || 0,
                 sport_id: quota.sport_id,
               }))}
-              sportName={sport.name || ""}
               onEditQuota={handleEditQuota}
               onDeleteQuota={(schoolId) => {
                 setSelectedSchoolForDelete(schoolId);

@@ -1,17 +1,13 @@
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ViewEditUserInfo } from "./ViewEditUserInfo";
 import { LogoutButton } from "./logoutButton";
+
+import { ThemeButton } from "@/components/raid/custom/ThemeButton";
+import { useInformation } from "@/hooks/raid/useInformation";
+import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
+
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
 import {
   Menubar,
   MenubarContent,
@@ -20,8 +16,15 @@ import {
   MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { ThemeButton } from "@/components/raid/custom/ThemeButton";
-import { useInformation } from "@/hooks/raid/useInformation";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const UserButton = () => {
   const { me } = useMeParticipant();
@@ -45,7 +48,7 @@ export const UserButton = () => {
     <Menubar>
       <MenubarMenu>
         <MenubarTrigger>
-          {me?.firstname === undefined || me?.name === undefined ? (
+          {me?.user?.firstname === undefined || me?.user?.name === undefined ? (
             <>
               {/* <Skeleton className="w-10 h-10 rounded-full" />
               <div className="mr-2" /> */}
@@ -57,14 +60,14 @@ export const UserButton = () => {
                 {profilePicture && (
                   <AvatarImage
                     src={URL.createObjectURL(profilePicture)}
-                    alt={me.firstname + " " + me.name}
+                    alt={me.user.firstname + " " + me.user.name}
                   />
                 )}
                 <AvatarFallback>
-                  {me.firstname.charAt(0) + me.name.charAt(0)}
+                  {me.user.firstname.charAt(0) + me.user.name.charAt(0)}
                 </AvatarFallback>
               </Avatar> */}
-              {me.firstname + " " + me.name}
+              {me.user.firstname + " " + me.user.name}
             </>
           )}
         </MenubarTrigger>

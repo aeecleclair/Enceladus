@@ -1,6 +1,13 @@
 "use client";
 
-import * as React from "react";
+import { PodiumTeamsDialog } from "./PodiumTeamsDialog";
+import { SportsDataTableToolbar } from "./SportsDataTableToolbar";
+
+import { TeamSportResultComplete } from "@/api";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
+import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+import { fuzzyFilter } from "@/lib/utils";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +20,10 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import * as React from "react";
+
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import {
   Table,
   TableBody,
@@ -22,21 +32,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ArrowUpDown, Edit, Trash2 } from "lucide-react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Badge } from "@/components/ui/badge";
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { SportsDataTableToolbar } from "./SportsDataTableToolbar";
-import { TeamSportResultComplete } from "@/api";
-import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-import { PodiumTeamsDialog } from "./PodiumTeamsDialog";
-import { fuzzyFilter } from "@/lib/utils";
+
+import { ArrowUpDown } from "lucide-react";
 
 // Sport data for the table
 export interface SportData {
@@ -187,7 +184,7 @@ export function SportsDataTable({ data }: SportsDataTableProps) {
     },
     {
       accessorKey: "others",
-      header: ({ column }) => (
+      header: () => (
         <div className="flex items-center justify-center">Suite</div>
       ),
       cell: ({ row }) => {

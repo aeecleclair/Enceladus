@@ -1,6 +1,7 @@
 "use client";
 
 import { LocationComplete, MatchComplete } from "@/api";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+
 import {
   Calendar,
   Clock,
@@ -34,7 +36,6 @@ export function LocationCard({
   nextMatch,
   totalMatches,
   sports = [],
-  schools = [],
 }: LocationCardProps) {
   // Helper function to open map application
   const openMap = (location: { name: string; address?: string | null }) => {
@@ -73,10 +74,6 @@ export function LocationCard({
   // Helper functions to get names
   const getSportName = (sportId: string) => {
     return sports.find((sport) => sport.id === sportId)?.name || "Sport";
-  };
-
-  const getSchoolName = (schoolId: string) => {
-    return schools.find((school) => school.id === schoolId)?.name || "École";
   };
 
   const getTeamName = (teamId: string) => {
@@ -121,7 +118,7 @@ export function LocationCard({
         {/* Address */}
         {location.address && (
           <div className="flex items-start gap-2 text-sm text-muted-foreground">
-            <Navigation className="h-4 w-4 mt-0.5 flex-shrink-0" />
+            <Navigation className="h-4 w-4 mt-0.5 shrink-0" />
             <span className="line-clamp-2">{location.address}</span>
           </div>
         )}

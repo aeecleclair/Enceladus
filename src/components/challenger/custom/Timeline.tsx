@@ -1,14 +1,15 @@
 "use client";
 
-import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/lib/utils";
+
+import React from "react";
+
+import { type VariantProps, cva } from "class-variance-authority";
 
 const Timeline = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => <div {...props} ref={ref} />);
+>(({ ...props }, ref) => <div {...props} ref={ref} />);
 Timeline.displayName = "Timeline";
 
 const TimelineItem = React.forwardRef<
@@ -36,8 +37,7 @@ const TimelineItemLabel = React.forwardRef<
 ));
 TimelineItemLabel.displayName = "TimelineItemLabel";
 
-export interface TimelineConnectorProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface TimelineConnectorProps extends React.HTMLAttributes<HTMLDivElement> {
   hideLine?: boolean;
 }
 
@@ -82,7 +82,8 @@ const timelineDotVariants = cva(
 );
 
 export interface TimelineDotProps
-  extends React.HTMLAttributes<HTMLDivElement>,
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof timelineDotVariants> {}
 
 const TimelineDot = React.forwardRef<HTMLDivElement, TimelineDotProps>(

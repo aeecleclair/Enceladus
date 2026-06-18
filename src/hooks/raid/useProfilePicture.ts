@@ -1,5 +1,7 @@
-import { getUsersMeProfilePictureOptions } from "@/api/@tanstack/react-query.gen";
 import { useAuth } from "../useAuth";
+
+import { getUsersMeProfilePictureOptions } from "@/api/@tanstack/react-query.gen";
+
 import { useQuery } from "@tanstack/react-query";
 
 export const useProfilePicture = () => {

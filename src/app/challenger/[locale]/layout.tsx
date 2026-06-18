@@ -1,18 +1,19 @@
+import QueryProvider from "../../QueryProvider";
 import "../../globals.css";
+import { ThemeProvider } from "../../theme-provider";
 
+import { PermissionGuard } from "@/app/permissionGuard";
+import { AuthInterceptor } from "@/app/provider";
 import { routing } from "@/i18n/routing";
-import { Suspense } from "react";
-import { Locale, NextIntlClientProvider } from "next-intl";
-import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import type { Metadata } from "next";
-import { AuthInterceptor } from "@/app/provider";
-import QueryProvider from "../../QueryProvider";
-import Script from "next/script";
-import { ThemeProvider } from "../../theme-provider";
-import { Toaster } from "@/components/ui/toaster";
+import { Locale, NextIntlClientProvider } from "next-intl";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Outfit } from "next/font/google";
-import { PermissionGuard } from "@/app/permissionGuard";
+import Script from "next/script";
+import { Suspense } from "react";
+
+import { Toaster } from "@/components/ui/toaster";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -41,12 +42,11 @@ export default async function RootLayout({
 }>) {
   const { locale } = (await params) as { locale: Locale };
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "challenger" });
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <title>Raid Registering</title>
+        <title>Challenger</title>
         <link rel="shortcut icon" href="/challenger.ico" />
       </head>
 

@@ -1,8 +1,10 @@
 "use client";
 
-import { MapPin, Clock } from "lucide-react";
-import { getTimeUntilEvent, getTimeBadgeClass } from "./matchUtils";
+import { getTimeBadgeClass, getTimeUntilEvent } from "./matchUtils";
+
 import { generateLocationColor } from "@/lib/challenger/locationColors";
+
+import { Clock, MapPin } from "lucide-react";
 
 export interface Shift {
   id: string;

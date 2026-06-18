@@ -1,30 +1,32 @@
 import { VolunteerShiftComplete } from "@/api";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
-  Clock,
-  MapPin,
-  Calendar,
-  Users,
-  User,
-  Award,
-  ExternalLink,
-} from "lucide-react";
-import { format } from "date-fns";
-import { fr } from "date-fns/locale";
 import { useLocations } from "@/hooks/challenger/useLocations";
 import {
   generateLocationColor,
   getLocationDetails,
   openLocationMap,
 } from "@/lib/challenger/locationColors";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+import { format } from "date-fns";
+import { fr } from "date-fns/locale";
+import {
+  Award,
+  Calendar,
+  Clock,
+  ExternalLink,
+  MapPin,
+  User,
+  Users,
+} from "lucide-react";
 
 interface AvailableVolunteerShiftCardProps {
   shift: VolunteerShiftComplete;
@@ -38,11 +40,6 @@ export const AvailableVolunteerShiftCard = ({
   const { locations } = useLocations();
   const startDate = new Date(shift.start_time);
   const endDate = new Date(shift.end_time);
-
-  // Calculate duration in hours
-  const durationHours = Math.round(
-    (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60),
-  );
 
   // Calculate time until the shift
   const now = new Date();
@@ -95,7 +92,7 @@ export const AvailableVolunteerShiftCard = ({
             {/* Left side - Shift info */}
             <div className="flex items-center gap-3 flex-1 min-w-0">
               <div
-                className="w-4 h-4 rounded-full flex-shrink-0"
+                className="w-4 h-4 rounded-full shrink-0"
                 style={{ backgroundColor: locationColor }}
               />
               <div className="flex-1 min-w-0">

@@ -1,8 +1,13 @@
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
+import { sportCategories, sportFormSchema } from "@/forms/challenger/sport";
+
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+
+import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
@@ -10,9 +15,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { UseFormReturn } from "react-hook-form";
-import { z } from "zod";
-import { sportFormSchema, sportCategories } from "@/forms/challenger/sport";
 
 interface SportsFormProps {
   form: UseFormReturn<z.infer<typeof sportFormSchema>>;

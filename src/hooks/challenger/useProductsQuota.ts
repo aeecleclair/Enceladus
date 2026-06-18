@@ -1,13 +1,16 @@
-import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "../useAuth";
-import { useMutation, useQuery } from "@tanstack/react-query";
+
 import {
-  getCompetitionProductsProductIdSchoolsQuotasOptions,
   deleteCompetitionSchoolsSchoolIdProductQuotasProductIdMutation,
+  getCompetitionProductsProductIdSchoolsQuotasOptions,
   patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation,
   postCompetitionSchoolsSchoolIdProductQuotasMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 interface UseProductsQuotaProps {
   productId: string;
@@ -35,7 +38,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
   const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
     {
       ...postCompetitionSchoolsSchoolIdProductQuotasMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout du quota",
@@ -58,7 +61,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
   const { mutate: mutateUpdateQuota, isPending: isUpdateLoading } = useMutation(
     {
       ...patchCompetitionSchoolsSchoolIdProductQuotasProductIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la mise à jour du quota",
@@ -81,7 +84,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
   const { mutate: mutateDeleteQuota, isPending: isDeleteLoading } = useMutation(
     {
       ...deleteCompetitionSchoolsSchoolIdProductQuotasProductIdMutation(),
-      onError: (error: any) => {
+      onError: (error) => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression du quota",

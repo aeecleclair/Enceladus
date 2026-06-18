@@ -1,12 +1,17 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  purchaseEditFormSchema,
-  PurchaseEditFormValues,
-} from "@/forms/challenger/purchase";
 import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseComplete } from "@/api";
+import { LoadingButton } from "@/components/common/LoadingButton";
+import { StyledFormField } from "@/components/common/StyledFormField";
+import {
+  PurchaseEditFormValues,
+  purchaseEditFormSchema,
+} from "@/forms/challenger/purchase";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -15,10 +20,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { StyledFormField } from "@/components/common/StyledFormField";
 
 interface EditPurchaseDialogProps {
   isOpen: boolean;

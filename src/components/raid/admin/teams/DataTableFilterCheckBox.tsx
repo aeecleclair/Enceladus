@@ -1,8 +1,8 @@
-import * as React from "react";
 import { Column } from "@tanstack/react-table";
+import * as React from "react";
 
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface DataTableFilterCheckBoxProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -13,19 +13,18 @@ export function DataTableFilterCheckBox<TData, TValue>({
   column,
   title,
 }: DataTableFilterCheckBoxProps<TData, TValue>) {
-  const selectedValues = new Set(column?.getFilterValue() as null[]);
-
-  const filterValues = Array.from(selectedValues);
+  const filterValues = Array.from(new Set(column?.getFilterValue() as null[]));
   const isSelected = filterValues.length > 0;
 
   const toggleValue = () => {
+    const nextValues = new Set(column?.getFilterValue() as null[]);
     if (isSelected) {
-      selectedValues.delete(null);
+      nextValues.delete(null);
     } else {
-      selectedValues.add(null);
+      nextValues.add(null);
     }
-    const filterValues = Array.from(selectedValues);
-    column?.setFilterValue(filterValues.length ? filterValues : undefined);
+    const updatedValues = Array.from(nextValues);
+    column?.setFilterValue(updatedValues.length ? updatedValues : undefined);
   };
 
   return (

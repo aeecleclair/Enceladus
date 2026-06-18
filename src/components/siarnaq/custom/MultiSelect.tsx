@@ -4,7 +4,6 @@ import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import * as React from "react";
 
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { Check, ChevronsUpDown, X } from "lucide-react";
 
@@ -112,7 +112,7 @@ function MultiSelect({
                   onChange(
                     selected.length === options.length
                       ? []
-                      : options.map((option) => option.value)
+                      : options.map((option) => option.value),
                   );
                   setOpen(true);
                 }}
@@ -123,7 +123,7 @@ function MultiSelect({
                     "mr-2 h-4 w-4",
                     selected.length === options.length
                       ? "opacity-100"
-                      : "opacity-0"
+                      : "opacity-0",
                   )}
                 />
                 {selected.length === options.length
@@ -137,7 +137,7 @@ function MultiSelect({
                     onChange(
                       selected.includes(option.value)
                         ? selected.filter((item) => item !== option.value)
-                        : [...selected, option.value]
+                        : [...selected, option.value],
                     );
                     setOpen(true);
                   }}
@@ -147,7 +147,7 @@ function MultiSelect({
                       "mr-2 h-4 w-4",
                       selected.includes(option.value)
                         ? "opacity-100"
-                        : "opacity-0"
+                        : "opacity-0",
                     )}
                   />
                   {option.label}
