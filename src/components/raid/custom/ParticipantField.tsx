@@ -74,11 +74,14 @@ export enum ValueTypes {
   MEETINGPLACE = "meetingPlace",
 }
 
-interface ParticipantFieldProps<T extends ValueType> {
+interface ParticipantFieldProps<
+  T extends ValueType,
+  TFieldValues extends FieldValues = FieldValues,
+> {
   label: string;
   id: string;
   placeholder?: string;
-  form: UseFormReturn;
+  form: UseFormReturn<TFieldValues>;
   type: T;
   layer?: number;
   needDialog?: boolean;
@@ -86,17 +89,25 @@ interface ParticipantFieldProps<T extends ValueType> {
   className?: string;
 }
 
-export function ParticipantField<T extends ValueType>({
+export function ParticipantField<
+  T extends ValueType,
+  TFieldValues extends FieldValues = FieldValues,
+>({
   label,
   id,
   placeholder,
-  form,
+  form: typedForm,
   layer,
   type,
   needDialog,
   participantId,
   className,
-}: ParticipantFieldProps<T>) {
+}: ParticipantFieldProps<T, TFieldValues>) {
+  // ParticipantField is schema-agnostic: it only reads `form.control` and sets
+  // fields by string id. Bridge the caller's typed form to a FieldValues view
+  // once — react-hook-form's UseFormReturn generic is invariant, so a specific
+  // form is not assignable to UseFormReturn<FieldValues> without this.
+  const form = typedForm as unknown as UseFormReturn<FieldValues>;
   const { toast } = useToast();
   const [isFileLoading, setIsFileLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);

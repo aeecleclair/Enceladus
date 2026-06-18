@@ -1,4 +1,9 @@
-import { ControllerRenderProps, FieldValues } from "react-hook-form";
+import {
+  ControllerRenderProps,
+  FieldPath,
+  FieldValues,
+  UseFormReturn,
+} from "react-hook-form";
 
 import {
   FormControl,
@@ -8,28 +13,36 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-interface StyledFormFieldProps {
+interface StyledFormFieldProps<
+  T extends FieldValues,
+  TTransformed extends FieldValues = T,
+> {
   label: string;
   id: string;
-  form: any;
+  form: UseFormReturn<T, unknown, TTransformed>;
   input: (field: ControllerRenderProps<FieldValues, string>) => React.ReactNode;
 }
 
-export const StyledFormField = ({
+export const StyledFormField = <
+  T extends FieldValues,
+  TTransformed extends FieldValues = T,
+>({
   form,
   label,
   id,
   input,
-}: StyledFormFieldProps) => {
+}: StyledFormFieldProps<T, TTransformed>) => {
   return (
     <FormField
       control={form.control}
-      name={id}
+      name={id as FieldPath<T>}
       render={({ field }) => (
         <FormItem className="w-full">
           <div className="grid gap-2">
             <FormLabel>{label}</FormLabel>
-            <FormControl>{input(field)}</FormControl>
+            <FormControl>
+              {input(field as ControllerRenderProps<FieldValues, string>)}
+            </FormControl>
             <FormMessage />
           </div>
         </FormItem>

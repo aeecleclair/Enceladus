@@ -168,7 +168,7 @@ export const onValidate = async (
     QueryObserverResult<PurchaseReturn[], HttpValidationError>
   >,
   toast: ReturnType<typeof useToast>["toast"],
-  t: (key: any, values?: any) => string,
+  t: ReturnType<typeof useTranslations<"siarnaq">>,
 ) => {
   try {
     // useTranslations("onValidate") (don't remove!)

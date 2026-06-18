@@ -5,6 +5,7 @@ import {
 } from "@/components/raid/custom/ParticipantField";
 import { useSecurityFile } from "@/hooks/raid/useSecurityFile";
 
+import { FieldValues, UseFormReturn } from "react-hook-form";
 import { HiCheck, HiX } from "react-icons/hi";
 
 import {
@@ -20,7 +21,7 @@ import { BadgeAlertIcon, ClockIcon } from "lucide-react";
 interface SecurityFileDialogProps {
   setIsOpen: (value: boolean) => void;
   participantId: string;
-  form: any;
+  form: UseFormReturn<FieldValues>;
 }
 
 export const SecurityFileDialog = ({

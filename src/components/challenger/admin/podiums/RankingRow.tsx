@@ -1,8 +1,11 @@
 "use client";
 
+import { PodiumRankingsFormData } from "@/forms/challenger/podium";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
+
+import { FieldArrayWithId, UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -24,8 +27,8 @@ import {
 import { Trash2 } from "lucide-react";
 
 interface RankingRowProps {
-  form: any;
-  field: any;
+  form: UseFormReturn<PodiumRankingsFormData>;
+  field: FieldArrayWithId<PodiumRankingsFormData, "rankings", "id">;
   index: number;
   sportId: string;
   onRemove: () => void;

@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { UseFormReturn, useForm } from "react-hook-form";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -44,7 +44,7 @@ interface CustomMarkerProps {
   onLocationUpdate?: (locationId: string, data: LocationFormData) => void;
   onLocationDelete?: (lat: number, lng: number) => void;
   onCancel?: () => void;
-  form?: any;
+  form?: UseFormReturn<LocationFormData>;
   isCreateLoading?: boolean;
   isUpdateLoading?: boolean;
   isDeleteLoading?: boolean;

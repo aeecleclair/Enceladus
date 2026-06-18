@@ -1,7 +1,8 @@
+import { useTranslations } from "next-intl";
 import z from "zod";
 
 export default function paymentFormSchema(
-  t: (key: any, values?: any) => string,
+  t: ReturnType<typeof useTranslations<"siarnaq.paymentFormSchema">>,
 ) {
   // useTranslations("paymentFormSchema") (don't remove!)
   return z.object({
