@@ -147,7 +147,7 @@ export default function LocationsPage() {
           onSubmit={handleSubmit}
           onCancel={handleCancel}
           isCreating={isCreating}
-          editingLocation={editingLocation}
+          editingLocation={editingLocation ?? undefined}
           isCreateLoading={isCreateLoading}
           isUpdateLoading={isUpdateLoading}
           isDeleteLoading={isDeleteLoading}

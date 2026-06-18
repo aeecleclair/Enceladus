@@ -47,7 +47,6 @@ export const VolunteerShiftCard = ({
   const startDate = new Date(shift.start_time);
   const endDate = new Date(shift.end_time);
 
-
   const now = new Date();
   const timeDiff = Math.abs(startDate.getTime() - now.getTime());
   const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));

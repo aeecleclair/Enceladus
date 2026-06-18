@@ -76,7 +76,6 @@ export function DateTimePicker({
     setDate(newDate);
   };
 
-
   const formatDateTime = () => {
     if (!date) {
       return "Sélectionnez une date et heure";

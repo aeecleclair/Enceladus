@@ -4,7 +4,6 @@ import { getCompetitionUsersMeGroupsOptions } from "@/api/@tanstack/react-query.
 
 import { useQuery } from "@tanstack/react-query";
 
-
 export const useCompetitionUserGroup = () => {
   const { isTokenExpired } = useAuth();
 

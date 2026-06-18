@@ -21,8 +21,7 @@ export const AvailableVolunteerShifts = ({
   registeredShiftIds,
 }: AvailableVolunteerShiftsProps) => {
   const [showAllShifts, setShowAllShifts] = useState(false);
-  const { registerVolunteerShift, refetchVolunteer } =
-    useVolunteer();
+  const { registerVolunteerShift, refetchVolunteer } = useVolunteer();
 
   const handleRegister = (shiftId: string) => {
     registerVolunteerShift(shiftId, () => {
