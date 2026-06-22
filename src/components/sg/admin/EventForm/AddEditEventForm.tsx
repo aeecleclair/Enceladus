@@ -22,6 +22,8 @@ import AddEventState from "@/infra/AddEventState";
 import { SessionCard } from "./SessionsCard";
 import { useSessions } from "@/hooks/sg/useSessions";
 import { useCategories } from "@/hooks/sg/useCategories";
+import { useSession } from "@/hooks/sg/useSession";
+import { useCategory } from "@/hooks/sg/useCategory";
 
 import {
   AppModulesTicketingSchemasTicketingEventBase as TicketingEventBase,
@@ -43,6 +45,7 @@ interface AddEditEventFormProps {
   isEdit?: boolean;
   creatorId: string;
   eventId?: string;
+  initialStep?: number;
 }
 
 export type StagedSession = z.infer<ReturnType<typeof _sessionFormSchema>> & {
@@ -64,8 +67,15 @@ export const AddEditEventForm = ({
   setState,
   isEdit = false,
   eventId,
+  initialStep = 0,
 }: AddEditEventFormProps) => {
   const [api, setApi] = useState<CarouselApi | undefined>(undefined);
+
+  useEffect(() => {
+    if (api && initialStep > 0) {
+      api.scrollTo(initialStep, true);
+    }
+  }, [api, initialStep]);
   const t = useTranslations("sg");
   const format = useFormatter();
 
@@ -97,6 +107,8 @@ export const AddEditEventForm = ({
 
   const { refetch: refetchSessions, postSessionAsync } = useSessions(createdEventId);
   const { refetch: refetchCategories, postCategoryAsync } = useCategories();
+  const { deleteSession } = useSession({});
+  const { deleteCategory } = useCategory({});
 
   const { mutateAsync: patchSessionAsync } = useMutation({
     ...patchTicketingSessionsSessionIdMutation(),
@@ -320,12 +332,18 @@ export const AddEditEventForm = ({
     };
 
     const removeSession = (sessionId: string) => {
-      setStagedSessions((current) =>
-        current.filter((session) => session.id !== sessionId)
-      );
-      if (editingSessionId === sessionId) {
-        setEditingSessionId(null);
-        resetForm(true);
+      const doRemove = () => {
+        setStagedSessions((current) => current.filter((s) => s.id !== sessionId));
+        if (editingSessionId === sessionId) {
+          setEditingSessionId(null);
+          resetForm(true);
+        }
+      };
+      const session = stagedSessions.find((s) => s.id === sessionId);
+      if (session?.isExisting) {
+        deleteSession(sessionId, doRemove);
+      } else {
+        doRemove();
       }
     };
 
@@ -374,12 +392,18 @@ export const AddEditEventForm = ({
     };
 
     const removeCategory = (categoryId: string) => {
-      setStagedCategories((current) =>
-        current.filter((category) => category.id !== categoryId)
-      );
-      if (editingCategoryId === categoryId) {
-        setEditingCategoryId(null);
-        resetForm(false);
+      const doRemove = () => {
+        setStagedCategories((current) => current.filter((c) => c.id !== categoryId));
+        if (editingCategoryId === categoryId) {
+          setEditingCategoryId(null);
+          resetForm(false);
+        }
+      };
+      const category = stagedCategories.find((c) => c.id === categoryId);
+      if (category?.isExisting) {
+        deleteCategory(categoryId, doRemove);
+      } else {
+        doRemove();
       }
     };
 

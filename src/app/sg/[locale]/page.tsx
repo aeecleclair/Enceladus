@@ -7,7 +7,7 @@ export default function Page() {
   console.log(user);
   return (
     <>
-      {/* <Topbar /> */}
+      <Topbar />
       <main className="flex min-h-[calc(--custom-vh-(--spacing(32)))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
         <div>
           <p>

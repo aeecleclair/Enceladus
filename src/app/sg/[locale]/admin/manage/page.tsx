@@ -1,6 +1,6 @@
 "use client"
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { ManageEventSidebar } from "@/components/sg/admin/Sidebars/ManageSidebar/ManageEventSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -14,6 +14,7 @@ import { SessionsSection } from "@/components/sg/admin/ManagePage/SessionsSectio
 import { CategoriesSection } from "@/components/sg/admin/ManagePage/CategoriesSection";
 
 const ManagePage = () => {
+    const router = useRouter();
     const eventId = useSearchParams().get("eventId") ?? undefined;
     const { events: data, isLoading } = useEvent({ eventId: eventId || "" });
 
@@ -54,8 +55,14 @@ const ManagePage = () => {
                     ) : (
                         <div className="grid gap-6">
                             <EventSummaryCard event={event} />
-                            <SessionsSection sessions={event.sessions} />
-                            <CategoriesSection categories={event.categories} />
+                            <SessionsSection
+                                sessions={event.sessions}
+                                onEdit={() => router.push(`manage/edit?eventId=${eventId}&editMode=true&step=1`)}
+                            />
+                            <CategoriesSection
+                                categories={event.categories}
+                                onEdit={() => router.push(`manage/edit?eventId=${eventId}&editMode=true&step=2`)}
+                            />
                         </div>
                     )}
                 </main>

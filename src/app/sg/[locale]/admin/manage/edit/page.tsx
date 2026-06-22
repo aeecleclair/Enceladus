@@ -11,11 +11,13 @@ import { AddEditEventForm } from "@/components/sg/admin/EventForm/AddEditEventFo
 import AddEventState from "@/infra/AddEventState";
 
 const EditPage = () => {
-    const eventId = useSearchParams().get("eventId") ?? undefined;
+    const searchParams = useSearchParams();
+    const eventId = searchParams.get("eventId") ?? undefined;
+    const initialStep = Math.min(Number(searchParams.get("step") ?? 0), 3);
 
     const [state, setState] = useState<AddEventState>({
-        currentStep: 0,
-        stepDone: 0,
+        currentStep: initialStep,
+        stepDone: initialStep,
         headerTitle: "Admin",
         headerSubtitle: "Création de l'évènement",
         allHeaderSubtitles: [
@@ -65,6 +67,7 @@ const EditPage = () => {
                             isEdit={true}
                             eventId={eventId}
                             creatorId=""
+                            initialStep={initialStep}
                         />
                     ) : (
                         <p className="text-sm text-muted-foreground">Aucun événement sélectionné.</p>
