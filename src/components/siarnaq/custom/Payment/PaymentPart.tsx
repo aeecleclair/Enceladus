@@ -6,6 +6,7 @@ import {
   PaymentType,
   postCdrUsersUserIdPayments,
 } from "@/api";
+import { getCdrUsersUserIdPurchasesQueryKey } from "@/api/@tanstack/react-query.gen";
 import { CustomDialog } from "@/components/common/CustomDialog";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/siarnaq/custom/StyledFormField";
@@ -13,6 +14,7 @@ import _paymentFormSchema from "@/forms/siarnaq/paymentFormSchema";
 import { useUserPayments } from "@/hooks/siarnaq/useUserPayments";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -50,6 +52,10 @@ export const PaymentPart = ({ user, isAdmin }: PaymentPartProps) => {
   const t = useTranslations("siarnaq");
   const format = useFormatter();
   const { payments, total: totalPaid, refetch } = useUserPayments(user.id);
+  const queryClient = useQueryClient();
+  const queryKey = getCdrUsersUserIdPurchasesQueryKey({
+    path: { user_id: user.id },
+  });
   const [isOpened, setIsOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const PaymentTypes: PaymentType[] = [
@@ -102,6 +108,7 @@ export const PaymentPart = ({ user, isAdmin }: PaymentPartProps) => {
       return;
     }
     refetch();
+    queryClient.invalidateQueries({ queryKey: queryKey });
     setIsOpened(false);
     setIsLoading(false);
     form.reset();
