@@ -25,7 +25,7 @@ This file includes important variables (like the url of your website) needed to 
 
 This project uses code generation with [Hey API](https://github.com/hey-api/hey-api) to automatically create functions and types allowing easy integration of an API (Hyperion) in the project.
 
-**You need to edit the openapi-ts.config.ts file to change the input url to your local instance of Hyperion if you modify anything in the API.**
+**You need to edit the [`openapi-ts.config.ts`](openapi-ts.config.ts) file to change the input url to your local instance of Hyperion if you modify anything in the API.**
 
 The URL should then be something like `http://localhost:8000/openapi.json` (don't forget to switch from https to http).
 
@@ -48,12 +48,12 @@ You can then access the different websites, for example `rentree.localhost:3000`
 The template is here to help you create a new website more easily.
 To use it (all of these steps are pretty straightforward, the file editing is basically a copy paste too) :
 
-- copy the src/app/template folder
+- copy the [src/app/template](src/app/template) folder
 - rename all 'template' strings inside with the name of your website (including the folder name)
-- duplicate src/translations/{locale}/template.json
-- modify src/global.d.ts to import the new translation files and add it as a type
-- modify src/i18n/request.ts to add the translation file in the message dictionnary
-- modify src/proxy.ts to add the subdomain mapping with your src/app folder
+- duplicate [src/translations/{locale}/template.json](src/translations) (for all locales).
+- modify [src/global.d.ts](src/global.d.ts) to import the new translation files and add it as a type
+- modify [src/i18n/request.ts](src/i18n/request.ts) to add the translation file in the message dictionnary
+- modify [src/proxy.ts](src/proxy.ts) to add the subdomain mapping with your src/app folder
 
 ## Appendix : how the routing works
 
