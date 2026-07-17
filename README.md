@@ -26,8 +26,10 @@ This file includes important variables (like the url of your website) needed to 
 This project uses code generation with [Hey API](https://github.com/hey-api/hey-api) to automatically create functions and types allowing easy integration of an API (Hyperion) in the project.
 
 **You need to edit the [`openapi-ts.config.ts`](openapi-ts.config.ts) file to change the input url to your local instance of Hyperion if you modify anything in the API.**
-
 The URL should then be something like `http://localhost:8000/openapi.json` (don't forget to switch from https to http).
+
+> [!IMPORTANT]
+> If you did switch to your local Hyperion, keep in mind it has to be running before running the next command.
 
 When you are ready, run `npm run generate` to run the code generation.
 
