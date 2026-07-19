@@ -36,5 +36,15 @@ export const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   });
 
   // Return if the item should be filtered in/out
-  return itemRank.passed;
+  if (itemRank.passed) return true;
+
+  // Names are searched column by column (firstname / name), but users often type
+  // both at once, in either order, with typos. Fall back to fuzzy matching the
+  // combined "firstname name" / "name firstname" string so those queries still match.
+  const original = row.original as { firstname?: string; name?: string };
+  if (!original?.firstname || !original?.name) return false;
+  return (
+    rankItem(`${original.firstname} ${original.name}`, value).passed ||
+    rankItem(`${original.name} ${original.firstname}`, value).passed
+  );
 };

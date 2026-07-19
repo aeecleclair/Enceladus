@@ -1,5 +1,6 @@
 "use client";
 
+import { ACCOUNT_TYPES, DEFAULT_EXCLUDED_ACCOUNT_TYPES } from "./Columns";
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 
@@ -63,7 +64,15 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
+    [
+      {
+        id: "account_type",
+        value: ACCOUNT_TYPES.filter(
+          (accountType) =>
+            !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
+        ),
+      },
+    ],
   );
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [sorting, setSorting] = React.useState<SortingState>([]);

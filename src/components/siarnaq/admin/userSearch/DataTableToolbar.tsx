@@ -1,5 +1,6 @@
 "use client";
 
+import { ACCOUNT_TYPES } from "./Columns";
 import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
 import { DataTableViewOptions } from "./DataTableViewOptions";
 
@@ -48,6 +49,16 @@ export function DataTableToolbar<TData>({
               value: "",
               label: t("dataTableToolbar.noCurriculum"),
             })}
+          />
+        )}
+        {table.getColumn("account_type") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("account_type")}
+            title={t("dataTableToolbar.accountType")}
+            options={ACCOUNT_TYPES.map((accountType) => ({
+              value: accountType,
+              label: t(`accountType.${accountType}`),
+            }))}
           />
         )}
         <AddUserWithCurriculum />

@@ -56,6 +56,7 @@ export function DataTableViewOptions<TData>({
                       | "nickname"
                       | "curriculum"
                       | "promo"
+                      | "account_type"
                   }`,
                 )}
               </DropdownMenuCheckboxItem>
