@@ -38,13 +38,25 @@ export const fuzzyFilter: FilterFn<any> = (row, columnId, value, addMeta) => {
   // Return if the item should be filtered in/out
   if (itemRank.passed) return true;
 
-  // Names are searched column by column (firstname / name), but users often type
-  // both at once, in either order, with typos. Fall back to fuzzy matching the
-  // combined "firstname name" / "name firstname" string so those queries still match.
-  const original = row.original as { firstname?: string; name?: string };
-  if (!original?.firstname || !original?.name) return false;
-  return (
-    rankItem(`${original.firstname} ${original.name}`, value).passed ||
-    rankItem(`${original.name} ${original.firstname}`, value).passed
+  // Names are searched column by column (firstname / name / nickname), but users
+  // often type several of these at once, in any order, with typos. Fall back to
+  // checking that every word of the search matches at least one of the row's
+  // name fields, so e.g. "Jean Dupont" or "Doudou Dupont" (nickname + lastname)
+  // still finds the row.
+  const original = row.original as {
+    firstname?: string;
+    name?: string;
+    nickname?: string;
+  };
+  const fields = [original?.firstname, original?.name, original?.nickname].filter(
+    (field): field is string => !!field,
+  );
+  if (fields.length === 0) return false;
+
+  const words = String(value).trim().split(/\s+/).filter(Boolean);
+  if (words.length < 2) return false;
+
+  return words.every((word) =>
+    fields.some((field) => rankItem(field, word).passed),
   );
 };
