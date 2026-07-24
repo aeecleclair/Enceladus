@@ -51,8 +51,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
     ),
     cell: ({ row }) => {
       const second = row.getValue("second") as
-        | RaidParticipantPreview
-        | undefined;
+        RaidParticipantPreview | undefined;
       return (
         <div className={`flex space-x-2 ${second ?? "text-muted-foreground"}`}>
           {second

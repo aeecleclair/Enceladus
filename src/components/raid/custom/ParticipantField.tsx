@@ -56,10 +56,7 @@ type ValueType =
   | MeetingPlace;
 
 export type Situation =
-  | "centrale"
-  | "otherschool"
-  | "corporatepartner"
-  | "other";
+  "centrale" | "otherschool" | "corporatepartner" | "other";
 
 export enum ValueTypes {
   STRING = "string",
