@@ -228,6 +228,7 @@
     "check": "Check",
     "delete": "Delete",
     "deletePayment": "Delete payment",
+    "MyECLPay": "MyECLPay",
     "noPayment": "No payment where made",
     "paymentType": "Payment type",
     "payments": "Fulfilled payments",

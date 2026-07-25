@@ -16,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { BsLightningCharge } from "react-icons/bs";
 import {
   HiOutlineArchiveBox,
   HiOutlineAtSymbol,
@@ -58,6 +59,7 @@ export const PaymentPart = ({ user, isAdmin }: PaymentPartProps) => {
     "HelloAsso",
     "card",
     "archived",
+    "MyECLPay",
   ];
 
   const paymentIcon = (PaymentType: PaymentType) => {
@@ -72,6 +74,8 @@ export const PaymentPart = ({ user, isAdmin }: PaymentPartProps) => {
         return <HiOutlineCreditCard className="w-5 h-5 mr-2" />;
       case "archived":
         return <HiOutlineArchiveBox className="w-5 h-5 mr-2" />;
+      case "MyECLPay":
+        return <BsLightningCharge className="w-5 h-5 mr-2" />;
     }
   };
 
