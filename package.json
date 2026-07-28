@@ -67,7 +67,7 @@
     "oauth4webapi": "^2.10.4",
     "openapi-typescript-codegen": "^0.29.0",
     "pdfjs-dist": "^5.4.149",
-    "postcss": "^8.5.6",
+    "postcss": "^8.5.18",
     "react": "19.2.1",
     "react-big-calendar": "^1.19.2",
     "react-circular-progressbar": "^2.2.0",
