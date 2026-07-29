@@ -3,11 +3,7 @@
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTableRowActions } from "./DataTableRowActions";
 
-import {
-  RaidParticipant,
-  RaidParticipantPreview,
-  RaidTeamPreview,
-} from "@/api";
+import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
 import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
 import {
   difficulties,
@@ -132,15 +128,29 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
       <DataTableColumnHeader column={column} title="Documents" />
     ),
     cell: ({ row }) => {
+      const captain = row.getValue("captain") as
+        | (RaidParticipantPreview &
+            Partial<
+              Pick<
+                import("@/api").RaidParticipant,
+                "number_of_document" | "number_of_validated_document"
+              >
+            >)
+        | null;
+      const second = row.getValue("second") as
+        | (RaidParticipantPreview &
+            Partial<
+              Pick<
+                import("@/api").RaidParticipant,
+                "number_of_document" | "number_of_validated_document"
+              >
+            >)
+        | null;
       const number_of_validated_document =
-        (row.getValue("captain") as RaidParticipant)
-          .number_of_validated_document +
-        ((row.getValue("second") as RaidParticipant | null)
-          ?.number_of_validated_document ?? 0);
+        (captain?.number_of_validated_document ?? 0) +
+        (second?.number_of_validated_document ?? 0);
       const number_of_document =
-        (row.getValue("captain") as RaidParticipant).number_of_document +
-        ((row.getValue("second") as RaidParticipant | null)
-          ?.number_of_document ?? 0);
+        (captain?.number_of_document ?? 0) + (second?.number_of_document ?? 0);
       return (
         <ProgressBadge
           progress={number_of_validated_document}

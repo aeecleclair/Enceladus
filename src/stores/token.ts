@@ -5,10 +5,18 @@ import { devtools } from "zustand/middleware";
 const hostname = typeof window !== "undefined" ? window.location.hostname : "";
 
 const COOKIE_DOMAIN = (() => {
-  if (!hostname || hostname === "localhost" || hostname === "127.0.0.1") {
+  if (!hostname) return undefined;
+  // Browsers reject Domain cookies for localhost-based hostnames (`.localhost`)
+  // and for bare IPs, so scope those to the host only.
+  if (
+    hostname === "localhost" ||
+    hostname.endsWith(".localhost") ||
+    /^[0-9.]+$/.test(hostname)
+  ) {
     return undefined;
   }
   const parts = hostname.split(".");
+  if (parts.length < 2) return undefined;
   return "." + parts.slice(1).join(".");
 })();
 

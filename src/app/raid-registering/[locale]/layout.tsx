@@ -43,7 +43,7 @@ export default async function RootLayout({
   const { locale } = (await params) as { locale: Locale };
   setRequestLocale(locale);
   return (
-    <html lang="en">
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <title>Raid Registering</title>

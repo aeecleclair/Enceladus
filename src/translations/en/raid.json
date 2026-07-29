@@ -2,5 +2,478 @@
   "metadata": {
     "title": "Raid Registration",
     "description": "Registration for Centrale Lyon RAID"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "validate": "Validate",
+    "reopen": "Reopen",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "loading": "Loading...",
+    "confirm": "Confirm",
+    "close": "Close",
+    "copy": "Copy",
+    "copied": "Copied",
+    "status": {
+      "draft": "Draft",
+      "submitted": "Submitted",
+      "validated": "Validated",
+      "cancelled": "Cancelled"
+    },
+    "role": {
+      "participant": "Participant",
+      "volunteer": "Volunteer",
+      "admin": "Administrator"
+    }
+  },
+  "home": {
+    "sidebar": {
+      "mySpace": "My space",
+      "myAccount": "My account",
+      "raidSection": "Raid",
+      "editionYear": "Edition {year}",
+      "noActiveEdition": "No active edition",
+      "volunteering": "Volunteering",
+      "registration": "Registration",
+      "information": "Information",
+      "team": "My team",
+      "profile": "Profile",
+      "invite": "Invite a teammate",
+      "volunteerStatus": "My volunteering",
+      "register": "Register",
+      "registerVolunteer": "Volunteer registration",
+      "raidInfo": "Raid info",
+      "contact": "Contact"
+    },
+    "badges": {
+      "participant": "Participant",
+      "registrationValidated": "Registration validated",
+      "registrationSubmitted": "Registration submitted",
+      "volunteer": "Volunteer",
+      "volunteerCancelled": "Volunteering cancelled",
+      "admin": "Administrator"
+    },
+    "dashboard": {
+      "editionWaiting": {
+        "title": "Waiting for edition",
+        "description": "The next Raid edition will be announced soon."
+      },
+      "chooseRole": {
+        "title": "How would you like to participate?",
+        "participant": "Register as participant",
+        "volunteer": "Register as volunteer"
+      },
+      "incompleteTeam": {
+        "title": "Registration in progress",
+        "cta": "Go to my team"
+      },
+      "fullyRegistered": {
+        "title": "Registration validated",
+        "countdownLabel": "Raid starts in"
+      },
+      "volunteerPending": {
+        "title": "Volunteer registration pending",
+        "description": "Your registration is being reviewed by the organizers."
+      },
+      "volunteerDashboard": {
+        "title": "You are a volunteer"
+      },
+      "volunteerCancelled": {
+        "title": "Volunteer registration cancelled"
+      },
+      "registrationClosed": {
+        "title": "Registrations closed",
+        "description": "The registration period is over."
+      }
+    }
+  },
+  "register": {
+    "roleChooser": {
+      "title": "How would you like to participate?",
+      "participant": "Participant",
+      "volunteer": "Volunteer"
+    },
+    "participant": {
+      "title": "Participant registration",
+      "createTeam": "Create a team",
+      "joinTeam": "I have an invitation code"
+    },
+    "volunteer": {
+      "title": "Volunteer registration"
+    },
+    "page": {
+      "redirecting": "Redirecting…"
+    },
+    "participantCard": {
+      "cardTitle": "Raid registration",
+      "cardDescription": "Register to take part in the Raid with a teammate.",
+      "stepIdentity": "Information",
+      "stepTeam": "Team",
+      "identityTitle": "Complete your information",
+      "identitySubtitle": "Phone and date of birth — required to participate.",
+      "createTitle": "Create your team",
+      "joinTitle": "Join your team",
+      "createSubtitle": "A team will be created in your name. You can then invite a teammate.",
+      "joinSubtitle": "You are about to join an existing team.",
+      "createButton": "Create my team",
+      "joinButton": "Join the team",
+      "confirmCreateDescription": "A new team will be created in your name. You can then invite a teammate.",
+      "confirmJoinDescription": "You are about to join an existing team.",
+      "confirmCreate": "Create",
+      "confirmJoin": "Join",
+      "alreadyVolunteerTitle": "Registration not possible",
+      "alreadyVolunteerDescription": "You are already registered as a volunteer. Cancel that registration to become a participant.",
+      "teamJoined": "Team joined successfully",
+      "teamCreated": "Team created successfully",
+      "teamNameDefault": "{firstname} {name}'s team"
+    },
+    "identity": {
+      "firstname": "First name",
+      "lastname": "Last name",
+      "email": "Email",
+      "emailHelp": "First name, last name and email come from MyECL and can only be changed from your MyECL account.",
+      "phone": "Phone",
+      "birthday": "Date of birth",
+      "continue": "Continue",
+      "stepsAriaLabel": "Registration steps",
+      "phoneRequired": "Please enter a phone number",
+      "phoneInvalid": "Please enter a valid phone number",
+      "birthdayRequired": "Please enter your date of birth"
+    }
+  },
+  "team": {
+    "dashboard": {
+      "title": "My team",
+      "progress": "Progress",
+      "editTeam": "Edit team",
+      "submit": "Submit my registration",
+      "reopen": "Reopen my registration"
+    },
+    "page": {
+      "title": "My team",
+      "subtitle": "Manage your pair and finalize each participant's information."
+    },
+    "empty": {
+      "title": "No teammate yet",
+      "description": "Invite a teammate to complete your team.",
+      "invite": "Invite a teammate"
+    },
+    "status": {
+      "title": "My registration status",
+      "draft": "Draft",
+      "draftDescription": "Complete your information then submit your registration.",
+      "submitted": "Submitted",
+      "submittedDescription": "Your dossier is being reviewed by the organizers.",
+      "validated": "Validated",
+      "validatedDescription": "Congratulations, your registration is validated.",
+      "cancelled": "Cancelled",
+      "cancelledDescription": "Your registration has been cancelled.",
+      "submit": "Submit my registration",
+      "reopen": "Reopen",
+      "progressHint": "Progress {progress}% — complete to submit"
+    },
+    "documentsCard": {
+      "title": "Documents",
+      "description": "Tracking of each participant's document validation.",
+      "validatedCount": "{validated} / {total} validated"
+    },
+    "card": {
+      "editTitle": "Edit team",
+      "noDifficulty": "Course to be chosen",
+      "noMeeting": "Place to be chosen",
+      "daysBeforeClose": "{days} days before closing",
+      "daysBeforeCloseShort": "{days} day{plural} before closing",
+      "lastDay": "Last day to register",
+      "closed": "Registrations closed",
+      "progress": "Registration progress",
+      "cancel": "Cancel",
+      "edit": "Edit"
+    },
+    "participantCard": {
+      "captain": "Captain",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "payment": "Payment",
+      "noLink": "No link",
+      "progress": "Dossier progress"
+    },
+    "inviteDialog": {
+      "title": "Invite a teammate",
+      "description": "Generate a personal invitation link and share it with your teammate. They can join your team in one click.",
+      "linkOnce": "This link is unique and can only be used once.",
+      "generate": "Generate an invitation link",
+      "close": "Close",
+      "copy": "Copy",
+      "linkCopiedTitle": "Invitation link copied",
+      "linkCopiedDescription": "Share it with your teammate.",
+      "linkGeneratedTitle": "Link generated",
+      "linkGeneratedDescription": "Copy the link manually.",
+      "copiedTitle": "Link copied",
+      "copyErrorTitle": "Error",
+      "copyErrorDescription": "Unable to copy the link."
+    },
+    "complete": {
+      "title": "Registration complete",
+      "line1": "Your registration is complete.",
+      "line2": "You will find all the necessary information in the document to download below.",
+      "line3": "Good preparation and see you very soon!",
+      "download": "Download the document",
+      "downloadErrorTitle": "Error",
+      "downloadErrorDescription": "Unable to download the file"
+    },
+    "invite": {
+      "dialogTitle": "Invite a teammate",
+      "description": "Share this link with your teammate to join your team.",
+      "copyLink": "Copy link"
+    },
+    "join": {
+      "dialogTitle": "Join a team",
+      "description": "You have been invited to join a team.",
+      "confirm": "Join"
+    },
+    "documents": {
+      "title": "Documents",
+      "upload": "Upload"
+    },
+    "payment": {
+      "title": "Payment",
+      "pay": "Pay",
+      "paid": "Paid"
+    },
+    "securityFile": {
+      "title": "Health file"
+    }
+  },
+  "volunteer": {
+    "page": {
+      "title": "My volunteering",
+      "subtitle": "Update your availability and logistics.",
+      "inscriptionTitle": "My volunteer registration",
+      "cardCancelled": "Your registration has been cancelled.",
+      "cardValidated": "Thank you for your commitment.",
+      "cardPending": "Your registration is being reviewed.",
+      "informationTitle": "Information",
+      "informationSubtitle": "You can update this information at any time.",
+      "dietPlaceholder": "No specific diet",
+      "allergyPlaceholder": "No allergy",
+      "save": "Save",
+      "unregister": "Unregister",
+      "unregisterTitle": "Unregister from volunteering",
+      "unregisterDescription": "You are about to cancel your volunteer registration. Only the organization can reverse this action."
+    },
+    "register": {
+      "title": "Volunteer registration",
+      "diet": "Diet",
+      "allergy": "Allergies",
+      "hasCar": "I have a car",
+      "carSeats": "Available seats",
+      "isSpecialDriver": "Special vehicle driver",
+      "isUtilityVehicleDriver": "Utility vehicle driver",
+      "isParcoursHelper": "Course helper"
+    },
+    "registerPage": {
+      "redirecting": "Redirecting…",
+      "stepIdentity": "Information",
+      "stepConfirm": "Confirmation",
+      "cardTitle": "Volunteer registration",
+      "cardDescription": "Support the event — driving, course, logistics.",
+      "changeRole": "Change role",
+      "identityTitle": "Complete your information",
+      "identitySubtitle": "Phone and date of birth — required to participate.",
+      "confirmTitle": "Confirm my volunteer registration",
+      "confirmSubtitle": "You can complete your availability after registration.",
+      "confirmButton": "Confirm my registration",
+      "dialogTitle": "Volunteer registration",
+      "dialogDescription": "Your volunteer registration will be created. You can update your information afterwards.",
+      "dialogValidate": "Confirm",
+      "alreadyParticipantTitle": "Registration not possible",
+      "alreadyParticipantDescription": "You are already registered as a participant. Cancel that registration to become a volunteer."
+    },
+    "dashboard": {
+      "pending": "Pending",
+      "pendingLong": "Pending validation",
+      "validated": "Validated",
+      "cancelled": "Cancelled"
+    },
+    "cancel": {
+      "action": "Unregister",
+      "confirmTitle": "Confirm unregistration",
+      "confirmDescription": "Are you sure you want to unregister as a volunteer?"
+    }
+  },
+  "profile": {
+    "title": "My profile",
+    "identity": "Identity",
+    "logout": "Log out"
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "editions": "Editions",
+      "participants": "Participants",
+      "teams": "Teams",
+      "volunteers": "Volunteers",
+      "information": "Information",
+      "overview": "Overview",
+      "registration": "Registration",
+      "configuration": "Configuration"
+    },
+    "dashboard": {
+      "title": "Dashboard"
+    },
+    "editions": {
+      "title": "Editions",
+      "subtitle": "Manage editions and registration windows.",
+      "existing": "Existing editions",
+      "empty": "No edition yet.",
+      "create": "Create edition",
+      "createDescription": "Each edition groups participants and volunteers of a given year.",
+      "edit": "Edit edition",
+      "editDescription": "Update the edition information.",
+      "activate": "Activate",
+      "active": "Active",
+      "inscriptionsOpen": "Registrations open",
+      "openInscriptions": "Open registrations",
+      "closeInscriptions": "Close registrations",
+      "toggleInscription": "Open/Close registrations",
+      "year": "Year {year}",
+      "yearLabel": "Year",
+      "name": "Edition name",
+      "namePlaceholder": "e.g. Raid 2026",
+      "dates": "Dates",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "registeringEndDate": "Registration end",
+      "delete": "Delete",
+      "deleteConfirmTitle": "Delete edition",
+      "deleteConfirmDescription": "This action is irreversible.",
+      "save": "Save"
+    },
+    "participants": {
+      "title": "Participants",
+      "subtitle": "Track participant dossiers and manage their lifecycle.",
+      "listTitle": "Participant list",
+      "listSubtitle": "Pilot the lifecycle: validate, reopen, cancel.",
+      "searchPlaceholder": "Search a participant or team…",
+      "empty": "No participant.",
+      "filterAll": "All statuses",
+      "columns": {
+        "participant": "Participant",
+        "team": "Team",
+        "status": "Status",
+        "payment": "Payment",
+        "tshirt": "T-shirt"
+      },
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "tshirtPaid": "{size} paid",
+      "tshirtUnpaid": "{size} unpaid",
+      "viewTeam": "View team",
+      "actions": {
+        "validate": "Validate",
+        "cancel": "Cancel",
+        "reopen": "Reopen"
+      },
+      "sheet": {
+        "paymentOk": "Payment OK",
+        "paymentPending": "Payment pending",
+        "tshirtPaid": "T-shirt {size} paid",
+        "tshirtUnpaid": "T-shirt {size} unpaid",
+        "tabInfo": "Info",
+        "tabDocument": "Documents"
+      }
+    },
+    "teams": {
+      "title": "Teams"
+    },
+    "volunteers": {
+      "title": "Volunteers",
+      "subtitle": "Manage validations and follow-up of volunteer registrations.",
+      "listTitle": "Volunteer list",
+      "listSubtitle": "Validate, cancel or delete volunteer registrations.",
+      "searchPlaceholder": "Search a volunteer…",
+      "empty": "No volunteer.",
+      "filterAll": "All statuses",
+      "filterPending": "Pending",
+      "filterValidated": "Validated",
+      "filterCancelled": "Cancelled",
+      "columns": {
+        "volunteer": "Volunteer",
+        "registeredAt": "Registered on",
+        "status": "Status",
+        "car": "Car",
+        "roles": "Roles"
+      },
+      "carYes": "Yes ({seats} seats)",
+      "carNo": "No",
+      "roleSpecial": "Special vehicle",
+      "roleUtility": "Utility",
+      "roleParcours": "Course",
+      "actions": {
+        "validate": "Validate",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      },
+      "deleteConfirmTitle": "Delete this volunteer?",
+      "deleteConfirmDescription": "This action is irreversible.",
+      "sheet": {
+        "registeredOn": "Registered on {date}",
+        "seats": "{count} seats",
+        "identity": "Identity",
+        "email": "Email",
+        "phone": "Phone",
+        "birthday": "Birthday",
+        "volunteeringInfo": "Volunteering information",
+        "diet": "Diet",
+        "allergy": "Allergies",
+        "noDiet": "No specific diet",
+        "noAllergy": "No allergy",
+        "car": "Car"
+      }
+    },
+    "information": {
+      "title": "Raid information",
+      "subtitle": "Configure dates, prices, contact and documents shown during registration.",
+      "sections": {
+        "dates": "Dates",
+        "datesDescription": "Raid window and registration deadline.",
+        "prices": "Prices",
+        "pricesDescription": "Price grid for the different profiles and options.",
+        "contact": "Contact",
+        "contactDescription": "Public email and emergency contacts.",
+        "files": "Files",
+        "filesDescription": "Rules and information sheet sent to participants."
+      },
+      "raidDateLabel": "Raid date",
+      "raidDateEmpty": "Window not set",
+      "inscriptionEndLabel": "Registration end",
+      "inscriptionEndDescription": "Last day to register on the active edition.",
+      "inscriptionEndEmpty": "Not set",
+      "footerNotice": "Changes are saved immediately on the active edition.",
+      "loading": "Loading…",
+      "rulesLabel": "Raid rules",
+      "infoLabel": "Information sheet",
+      "prices": {
+        "student": "Student price",
+        "external": "External price",
+        "partner": "Partner price",
+        "tShirt": "T-shirt price"
+      }
+    },
+    "fallback": {
+      "title": "No active edition",
+      "description": "Create a new edition to get started.",
+      "createEdition": "Manage editions"
+    }
+  },
+  "errors": {
+    "generic": "An error occurred, please try again.",
+    "network": "Server connection problem.",
+    "permission": "You don't have permission to perform this action.",
+    "registerClosed": "Registrations are closed."
   }
 }

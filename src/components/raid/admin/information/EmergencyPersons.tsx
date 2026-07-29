@@ -1,12 +1,13 @@
 import { PersonField } from "../../custom/PersonField";
 import { CardLayout } from "./CardLayout";
+import { InfoValue } from "./InfoValue";
 
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { useInformation } from "@/hooks/raid/useInformation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { HiCheck } from "react-icons/hi";
 import { z } from "zod";
 
@@ -180,8 +181,6 @@ export const EmergencyPerson = () => {
     },
   });
 
-  const watchedValues = useWatch({ control: form.control });
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     updateInformation(
@@ -235,30 +234,30 @@ export const EmergencyPerson = () => {
 
   const isPresidentFilled = () => {
     return (
-      watchedValues.president?.firstname &&
-      watchedValues.president?.name &&
-      watchedValues.president?.phone
+      form.watch("president.firstname") &&
+      form.watch("president.name") &&
+      form.watch("president.phone")
     );
   };
 
   const isVolunteerResponsibleFilled = () => {
     return (
-      watchedValues.volunteer_responsible?.firstname &&
-      watchedValues.volunteer_responsible?.name &&
-      watchedValues.volunteer_responsible?.phone
+      form.watch("volunteer_responsible.firstname") &&
+      form.watch("volunteer_responsible.name") &&
+      form.watch("volunteer_responsible.phone")
     );
   };
 
   const isSecurityResponsibleFilled = () => {
     return (
-      watchedValues.security_responsible?.firstname &&
-      watchedValues.security_responsible?.name &&
-      watchedValues.security_responsible?.phone
+      form.watch("security_responsible.firstname") &&
+      form.watch("security_responsible.name") &&
+      form.watch("security_responsible.phone")
     );
   };
 
   const isRescueFilled = () => {
-    return watchedValues.rescue?.phone;
+    return form.watch("rescue.phone");
   };
 
   const numberOfFilledPerson = () => {
@@ -281,13 +280,16 @@ export const EmergencyPerson = () => {
   return (
     <Dialog open={isOpened} onOpenChange={setIsOpened}>
       <CardLayout label="Personnes à contacter en cas d'urgence">
-        <div className="text-2xl font-bold">
-          {`${numberOfFilledPerson()}/4 remplis`}
-        </div>
+        <InfoValue
+          isEmpty={numberOfFilledPerson() === 0}
+          placeholder="Aucune personne renseignée"
+          value={`${numberOfFilledPerson()}/4 remplis`}
+        />
         <DialogTrigger asChild>
           <Button
             variant="outline"
-            className="mt-4 w-30"
+            size="sm"
+            className="mt-3"
             type="button"
             onClick={toggleEdit}
           >

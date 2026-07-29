@@ -1,190 +1,121 @@
 "use client";
 
-import { WarningDialog } from "@/components/common/WarningDialog";
 import { StatusDialog } from "@/components/raid/custom/StatusDialog";
-import { CreateParticipant } from "@/components/raid/home/CreateParticipant";
-import { JoinTeamDialog } from "@/components/raid/home/JoinTeamDialog";
-import { RegisteringCompleteDialog } from "@/components/raid/home/RegisteringCompleteDialog";
-import { TopBar } from "@/components/raid/home/TopBar";
-import { EmptyParticipantCard } from "@/components/raid/home/participantView/EmptyParticipantCard";
-import { ParticipantCard } from "@/components/raid/home/participantView/ParicipantCard";
-import { TeamCard } from "@/components/raid/home/teamCard/TeamCard";
-import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
-import { useInformation } from "@/hooks/raid/useInformation";
+import { UserShell } from "@/components/raid/home/UserShell";
+import { EditionWaitingCard } from "@/components/raid/home/dashboard/EditionWaitingCard";
+import { FullyRegisteredDashboard } from "@/components/raid/home/dashboard/FullyRegisteredDashboard";
+import { IncompleteTeamCard } from "@/components/raid/home/dashboard/IncompleteTeamCard";
+import { RegistrationClosedCard } from "@/components/raid/home/dashboard/RegistrationClosedCard";
+import {
+  VolunteerCancelledCard,
+  VolunteerDashboardCard,
+  VolunteerPendingCard,
+} from "@/components/raid/home/dashboard/VolunteerStateCards";
+import { ParticipantRegisterCard } from "@/components/raid/register/ParticipantRegisterCard";
+import { useEdition } from "@/hooks/raid/useEdition";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
 import { useAuth } from "@/hooks/useAuth";
-import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { getDaysLeft } from "@/lib/dateFormat";
 import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
 
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import { useToast } from "@/components/ui/use-toast";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Home = () => {
   const { isTokenQueried, token } = useAuth();
-  const { user } = useMeUser();
   const { me, isFetched, refetch } = useMeParticipant();
-  const { isRaidAdmin } = useHasRaidPermission();
-  const {
-    team,
-    createTeam,
-    refetchTeam,
-    isLoading: isTeamLoading,
-  } = useMeTeam();
-  const [isOpened, setIsOpened] = useState(false);
-  const [isEndDialogOpened, setIsEndDialogOpened] = useState(true);
+  const { team } = useMeTeam();
+  const { meVolunteer, isLoading: isVolunteerLoading } = useMeVolunteer();
+  const { edition, isLoading: isEditionLoading } = useEdition();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const newInviteToken = searchParams.get("invite");
   const code = searchParams.get("code");
-  const { inviteToken, setInviteToken } = useInviteTokenStore();
-  const router = useRouter();
-  const { information } = useInformation();
-  const [isLoading, setIsLoading] = useState(false);
+  const { setInviteToken } = useInviteTokenStore();
+  const [isStatusOpen, setIsStatusOpen] = useState(true);
 
-  const { toast } = useToast();
-
-  if (
-    newInviteToken !== null &&
-    inviteToken !== newInviteToken &&
-    typeof window !== "undefined"
-  ) {
-    setInviteToken(newInviteToken);
-    router.replace("/");
-  }
-
-  if (isTokenQueried && token === null) {
-    router.replace("/login");
-  }
-
-  if (isRaidAdmin && typeof window !== "undefined") {
-    const redirection = searchParams.get("redirect");
-    if (redirection !== null) {
-      router.replace(redirection);
-    } else {
-      router.replace("/admin");
+  useEffect(() => {
+    if (isTokenQueried && token === null) {
+      router.replace("/login");
     }
-  }
+  }, [isTokenQueried, token, router]);
 
-  if (isFetched && me === undefined && !isOpened) {
-    setIsOpened(true);
-  }
+  useEffect(() => {
+    if (newInviteToken) {
+      setInviteToken(newInviteToken);
+      router.replace(`/team/invite/${newInviteToken}`);
+    }
+  }, [newInviteToken, setInviteToken, router]);
 
-  if (inviteToken !== undefined && !isOpened) {
-    setIsOpened(true);
-  }
+  const hasRegistrationClosed =
+    edition?.registering_end_date &&
+    getDaysLeft(edition.registering_end_date) < 0;
 
-  if (me !== undefined && team === undefined && !isOpened) {
-    setIsOpened(true);
-  }
+  const renderContent = () => {
+    if (isEditionLoading || !isFetched || isVolunteerLoading) {
+      return (
+        <div className="max-w-2xl mx-auto mt-8 space-y-4">
+          <Skeleton className="h-32 w-full" />
+          <Skeleton className="h-24 w-full" />
+        </div>
+      );
+    }
+    if (!edition) {
+      return <EditionWaitingCard />;
+    }
+    if (me && team?.validation_progress === 100) {
+      return <FullyRegisteredDashboard edition={edition} />;
+    }
+    if (me) {
+      return <IncompleteTeamCard team={team} />;
+    }
+    if (meVolunteer) {
+      if (meVolunteer.cancelled) return <VolunteerCancelledCard />;
+      if (meVolunteer.validated) return <VolunteerDashboardCard />;
+      return <VolunteerPendingCard />;
+    }
+    if (hasRegistrationClosed) {
+      return <RegistrationClosedCard />;
+    }
+    return <ParticipantRegisterCard />;
+  };
 
   return (
-    <>
+    <UserShell>
       {code === "succeeded" && (
         <StatusDialog
-          isOpened={isEndDialogOpened}
-          setIsOpened={setIsEndDialogOpened}
+          isOpened={isStatusOpen}
+          setIsOpened={setIsStatusOpen}
           title="Paiement effectué"
-          description="Votre paiement a été effectué avec succès. Vous pouvez terminer votre inscription, si ce n'est pas encore le cas."
+          description="Votre paiement a été effectué avec succès."
           status="SUCCESS"
           callback={() => {
             refetch();
-            setIsEndDialogOpened(false);
+            setIsStatusOpen(false);
             router.replace("/");
           }}
         />
       )}
       {code === "refused" && (
         <StatusDialog
-          isOpened={isEndDialogOpened}
-          setIsOpened={setIsEndDialogOpened}
+          isOpened={isStatusOpen}
+          setIsOpened={setIsStatusOpen}
           title="Paiement refusé"
-          description="Votre paiement a été refusé. Vous pouvez réessayer de payer, si le problème persiste, veuillez nous contacter."
+          description="Votre paiement a été refusé. Réessayez ou contactez l'organisation."
           status="ERROR"
           callback={() => {
-            setIsEndDialogOpened(false);
+            setIsStatusOpen(false);
             router.replace("/");
           }}
         />
       )}
-      {team?.validation_progress === 100 && (
-        <RegisteringCompleteDialog
-          isOpened={isEndDialogOpened}
-          setIsOpened={setIsEndDialogOpened}
-        />
-      )}
-      {isFetched && me === undefined && isOpened && user && (
-        <>
-          <CreateParticipant
-            isOpened={isOpened}
-            setIsOpened={setIsOpened}
-            user={user}
-          />
-          <>
-            {(information?.raid_registering_end_date
-              ? getDaysLeft(information?.raid_registering_end_date) < 0
-              : false) && (
-              <WarningDialog
-                isOpened={isEndDialogOpened}
-                setIsOpened={setIsEndDialogOpened}
-                isLoading={false}
-                title="Inscriptions terminées"
-                description="Les inscriptions sont terminées. Si vous ne l'avez pas encore fait, nous vous invitons à prendre contact avec l'organisation pour connaître les étapes à suivre."
-                validateLabel="Continuer"
-                callback={() => setIsEndDialogOpened(false)}
-              />
-            )}
-          </>
-        </>
-      )}
-      {isFetched && me && team === undefined && !isTeamLoading && (
-        <WarningDialog
-          isOpened={isEndDialogOpened}
-          setIsOpened={setIsEndDialogOpened}
-          isLoading={isLoading}
-          title="Aucune équipe trouvée"
-          description="Vous n'êtes pas encore inscrit dans une équipe. Vous pouvez en créer une. Si vous avez reçu un lien d'invitation, vous pouvez l'utiliser pour rejoindre une équipe."
-          validateLabel="Créer une équipe"
-          width="w-[140px]"
-          callback={() => {
-            setIsLoading(true);
-            createTeam(
-              {
-                name: `Équipe de ${me.user.firstname} ${me.user.name}`,
-              },
-              () => {
-                refetchTeam();
-                setIsEndDialogOpened(false);
-                setIsLoading(false);
-                toast({
-                  title: "Votre équipe a été créée avec succès",
-                });
-              },
-            );
-          }}
-        />
-      )}
-      {inviteToken !== undefined && (
-        <JoinTeamDialog isOpened={isOpened} setIsOpened={setIsOpened} />
-      )}
-      <TopBar />
-      <main className="flex flex-col items-center mt-4">
-        <div className="w-full px-10 max-md:px-8">
-          <TeamCard team={team} />
-        </div>
-        <div className="grid lg:grid-cols-2 gap-10 w-full p-10 grid-cols-1 max-lg:p-8 max-lg:gap-8">
-          <ParticipantCard participant={team?.captain} isCaptain />
-          {team?.second !== null ? (
-            <ParticipantCard participant={team?.second} isCaptain={false} />
-          ) : (
-            <EmptyParticipantCard team={team} />
-          )}
-        </div>
-      </main>
-    </>
+      <main className="mx-auto w-full py-4 sm:py-6">{renderContent()}</main>
+    </UserShell>
   );
 };
 

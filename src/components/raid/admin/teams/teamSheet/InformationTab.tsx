@@ -10,16 +10,14 @@ interface InformationTabProps {
 
 export const InformationTab = ({ team }: InformationTabProps) => {
   return (
-    <div className="grid xl:grid-cols-2 gap-4 w-full py-6 grid-cols-1 max-md:p-8 max-md:gap-4">
+    <div className="grid w-full grid-cols-1 gap-4 xl:grid-cols-2">
       <ParticipantInfoTab participant={team.captain} />
       {team.second ? (
         <ParticipantInfoTab participant={team.second} />
       ) : (
-        <Card className="w-full h-full">
-          <CardContent className="w-full h-full mt-3">
-            <span className="flex m-auto h-full justify-center items-center text-muted-foreground">
-              {"Aucun coéquipier n'a été ajouté à cette équipe."}
-            </span>
+        <Card className="flex min-h-[200px] items-center justify-center border-dashed border-border/60 bg-muted/10">
+          <CardContent className="p-6 text-center text-sm text-muted-foreground">
+            Aucun coéquipier n&apos;a été ajouté à cette équipe.
           </CardContent>
         </Card>
       )}

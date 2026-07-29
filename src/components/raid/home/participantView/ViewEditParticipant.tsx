@@ -1,4 +1,4 @@
-import { RaidParticipant, RaidParticipantUpdate, Size } from "@/api";
+import { RaidParticipant, RaidParticipantUpdate, Situation, Size } from "@/api";
 import {
   ParticipantField,
   ValueTypes,
@@ -11,7 +11,7 @@ import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { HiCheck } from "react-icons/hi";
 import { z } from "zod";
 
@@ -223,8 +223,6 @@ export const ViewEditParticipant = ({
     },
   });
 
-  const situation = useWatch({ control: form.control, name: "situation" });
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (!form.formState.isDirty) {
       setIsEdit(!isEdit);
@@ -238,16 +236,16 @@ export const ViewEditParticipant = ({
       values.parentAuthorization,
     ].filter((doc) => doc.updated);
 
+    const { situation, other_school, company } = switchSituation(values);
     const updatedParticipant: RaidParticipantUpdate = {
       bike_size: (values.bikeSize?.toUpperCase() as Size) ?? null,
       t_shirt_size:
         (values.tShirtSize === "no"
           ? "None"
           : (values.tShirtSize?.toUpperCase() as Size)) ?? null,
-      // The backend stores `situation` as a composite free string
-      // (e.g. "otherschool : <school>") which getSituationLabel/Title parse
-      // back; the generated enum type is narrower than this real contract.
-      situation: switchSituation(values) as RaidParticipantUpdate["situation"],
+      situation,
+      other_school,
+      company,
       address: values.address ?? null,
       diet: values.diet ?? null,
       attestation_on_honour: values.attestationHonour,
@@ -352,16 +350,28 @@ export const ViewEditParticipant = ({
     });
   }
 
-  function switchSituation(values: z.infer<typeof formSchema>) {
+  function switchSituation(values: z.infer<typeof formSchema>): {
+    situation: Situation;
+    other_school: string | null;
+    company: string | null;
+  } {
     switch (values.situation) {
       case "otherschool":
-        return `otherschool : ${values.otherSchool}`;
+        return {
+          situation: "otherSchool",
+          other_school: values.otherSchool ?? null,
+          company: null,
+        };
       case "corporatepartner":
-        return `corporatepartner : ${values.company}`;
+        return {
+          situation: "corporatePartner",
+          other_school: null,
+          company: values.company ?? null,
+        };
       case "other":
-        return `other : ${values.other}`;
+        return { situation: "other", other_school: null, company: null };
       default:
-        return `centrale`;
+        return { situation: "centrale", other_school: null, company: null };
     }
   }
 
@@ -401,7 +411,7 @@ export const ViewEditParticipant = ({
           form={form}
           type={ValueTypes.SITUATION}
         />
-        {situation === "otherschool" && (
+        {form.watch("situation") === "otherschool" && (
           <ParticipantField
             label="Nom de l'école"
             id="otherSchool"
@@ -410,7 +420,7 @@ export const ViewEditParticipant = ({
             layer={1}
           />
         )}
-        {situation === "corporatepartner" && (
+        {form.watch("situation") === "corporatepartner" && (
           <ParticipantField
             label="Nom de l'entreprise"
             id="company"
@@ -419,7 +429,7 @@ export const ViewEditParticipant = ({
             layer={1}
           />
         )}
-        {situation === "other" && (
+        {form.watch("situation") === "other" && (
           <ParticipantField
             label="Autre situation"
             id="other"
@@ -470,14 +480,16 @@ export const ViewEditParticipant = ({
                 type={ValueTypes.STRING}
               />
               {getSituationEdit()}
-              {["centrale", "otherschool"].includes(situation ?? "") && (
+              {["centrale", "otherschool"].includes(
+                form.watch("situation") ?? "",
+              ) && (
                 <ParticipantField
                   label="Carte étudiante"
                   id="studentCard"
                   form={form}
                   type={ValueTypes.DOCUMENT}
                   layer={1}
-                  participantId={participant.user_id!}
+                  participantId={participant.user_id}
                 />
               )}
               <ParticipantField
@@ -485,21 +497,21 @@ export const ViewEditParticipant = ({
                 id="idCard"
                 form={form}
                 type={ValueTypes.DOCUMENT}
-                participantId={participant.user_id!}
+                participantId={participant.user_id}
               />
               <ParticipantField
                 label="Certificat médical"
                 id="medicalCertificate"
                 form={form}
                 type={ValueTypes.DOCUMENT}
-                participantId={participant.user_id!}
+                participantId={participant.user_id}
               />
               <ParticipantField
                 label="Fiche de sécurité"
                 id="securityFile"
                 form={form}
                 type={ValueTypes.SECURITYFILE}
-                participantId={participant.user_id!}
+                participantId={participant.user_id}
               />
               {participant.is_minor && (
                 <ParticipantField
@@ -507,7 +519,7 @@ export const ViewEditParticipant = ({
                   id="parentAuthorization"
                   form={form}
                   type={ValueTypes.DOCUMENT}
-                  participantId={participant.user_id!}
+                  participantId={participant.user_id}
                 />
               )}
               <ParticipantField
@@ -515,7 +527,7 @@ export const ViewEditParticipant = ({
                 id="raidRules"
                 form={form}
                 type={ValueTypes.DOCUMENT}
-                participantId={participant.user_id!}
+                participantId={participant.user_id}
               />
               <ParticipantField
                 label="Attestation sur l'honneur"
@@ -548,18 +560,18 @@ export const ViewEditParticipant = ({
                 <ParticipantInfo
                   label="Carte étudiante"
                   value={participant.student_card}
-                  participantId={participant.user_id!}
+                  participantId={participant.user_id}
                 />
               )}
               <ParticipantInfo
                 label="Carte d'identité"
                 value={participant.id_card}
-                participantId={participant.user_id!}
+                participantId={participant.user_id}
               />
               <ParticipantInfo
                 label="Certificat médical"
                 value={participant.medical_certificate}
-                participantId={participant.user_id!}
+                participantId={participant.user_id}
               />
               <ParticipantInfo
                 label="Fiche de sécurité"
@@ -569,13 +581,13 @@ export const ViewEditParticipant = ({
                 <ParticipantInfo
                   label="Autorisation parentale"
                   value={participant.parent_authorization}
-                  participantId={participant.user_id!}
+                  participantId={participant.user_id}
                 />
               )}
               <ParticipantInfo
                 label="Règlement du raid"
                 value={participant.raid_rules}
-                participantId={participant.user_id!}
+                participantId={participant.user_id}
               />
               <ParticipantInfo
                 label="Attestation sur l'honneur"

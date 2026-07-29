@@ -32,7 +32,7 @@ export const StatsView = ({ teams }: StatsViewProps) => {
     situationData,
   } = getStats(seeAll, teams);
   return (
-    <Card>
+    <Card className="border-border/70 bg-card/95 shadow-sm">
       <CardHeader className="flex flex-col items-center justify-between">
         <div className="flex flex-row justify-between w-full">
           <CardTitle>Statistiques</CardTitle>
@@ -46,7 +46,7 @@ export const StatsView = ({ teams }: StatsViewProps) => {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="difficulty">
-          <TabsList className="grid w-full grid-cols-5 mb-6">
+          <TabsList className="mb-6 grid w-full grid-cols-5 bg-muted/40">
             <TabsTrigger value="difficulty">Parcours</TabsTrigger>
             <TabsTrigger value="meetingPlace">Départ</TabsTrigger>
             <TabsTrigger value="bikeSize">VTT</TabsTrigger>

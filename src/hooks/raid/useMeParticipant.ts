@@ -1,29 +1,34 @@
 import { useAuth } from "../useAuth";
-import { useHasRaidPermission } from "./useHasRaidPermission";
+import { useReportError } from "./useReportError";
 
-import { RaidParticipantUpdate } from "@/api";
+import { RaidParticipant, RaidParticipantUpdate } from "@/api";
 import {
   getRaidParticipantsUserIdOptions,
   getRaidParticipantsUserIdQueryKey,
   patchRaidParticipantsUserIdMutation,
   postRaidParticipantsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useParticipantStore } from "@/stores/raid/particpant";
+import { getRaidParticipantsUserId } from "@/api/sdk.gen";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useToast } from "@/components/ui/use-toast";
 
 export const useMeParticipant = () => {
-  const { token, userId, isTokenExpired } = useAuth();
+  const { userId, isTokenExpired } = useAuth();
   const { toast } = useToast();
-  const { isRaidAdmin } = useHasRaidPermission();
   const queryClient = useQueryClient();
-  const { participant, setParticipant } = useParticipantStore();
+  const reportError = useReportError();
 
-  const participantsQueryKey = getRaidParticipantsUserIdQueryKey({
-    path: { user_id: userId! },
-  });
+  const participantsQueryKey = userId
+    ? getRaidParticipantsUserIdQueryKey({ path: { user_id: userId } })
+    : undefined;
+
+  const invalidate = () => {
+    if (participantsQueryKey) {
+      queryClient.invalidateQueries({ queryKey: participantsQueryKey });
+    }
+  };
 
   const {
     data: me,
@@ -34,8 +39,19 @@ export const useMeParticipant = () => {
     ...getRaidParticipantsUserIdOptions({
       path: { user_id: userId! },
     }),
-    enabled:
-      userId !== null && !isRaidAdmin && !isTokenExpired() && !participant,
+    // Treat 404 as "no participant yet" (null) instead of an error. Errored
+    // queries bypass staleTime and refetch on every remount, which floods the
+    // backend when many components observe this hook on first paint.
+    queryFn: async ({ signal }) => {
+      const { data, error, response } = await getRaidParticipantsUserId({
+        path: { user_id: userId! },
+        signal,
+      });
+      if (response.status === 404) return null as unknown as RaidParticipant;
+      if (error) throw error;
+      return (data ?? null) as unknown as RaidParticipant;
+    },
+    enabled: userId !== null && !isTokenExpired(),
     retry: 0,
   });
 
@@ -46,26 +62,16 @@ export const useMeParticipant = () => {
   } = useMutation({
     ...postRaidParticipantsMutation(),
     onSuccess: () => {
-      toast({
-        title: "Succès",
-        description: "Le participant a été créé avec succès",
-      });
-      queryClient.invalidateQueries({ queryKey: participantsQueryKey });
+      toast({ title: "Inscription créée" });
+      invalidate();
     },
-    onError: (error) => {
-      console.error(error);
-      toast({
-        title: "Erreur lors de la création du participant",
-        description: "Une erreur est survenue, veuillez réessayer plus tard",
-        variant: "destructive",
-      });
-    },
+    onError: reportError("Erreur lors de la création du participant"),
   });
 
-  // The create endpoint derives the participant from the authenticated user
-  // and accepts no body.
   const createParticipant = (callback: () => void) => {
-    mutateCreateParticipant({}, { onSuccess: () => callback() });
+    mutateCreateParticipant(undefined as never, {
+      onSuccess: () => callback(),
+    });
   };
 
   const {
@@ -75,34 +81,19 @@ export const useMeParticipant = () => {
   } = useMutation({
     ...patchRaidParticipantsUserIdMutation(),
     onSuccess: () => {
-      toast({
-        title: "Succès",
-        description: "Le participant a été mis à jour avec succès",
-      });
-      queryClient.invalidateQueries({ queryKey: participantsQueryKey });
+      toast({ title: "Participant mis à jour" });
+      invalidate();
     },
-    onError: (error) => {
-      console.error(error);
-      toast({
-        title: "Erreur lors de la mise à jour du participant",
-        description: "Une erreur est survenue, veuillez réessayer plus tard",
-        variant: "destructive",
-      });
-    },
+    onError: reportError("Erreur lors de la mise à jour du participant"),
   });
 
   const updateParticipant = (
     participant: RaidParticipantUpdate,
-    participantId: string,
+    participantUserId: string,
     callback: () => void,
   ) => {
     mutateUpdateParticipant(
-      {
-        body: participant,
-        path: {
-          user_id: participantId,
-        },
-      },
+      { body: participant, path: { user_id: participantUserId } },
       {
         onSuccess: () => {
           refetch();
@@ -112,12 +103,8 @@ export const useMeParticipant = () => {
     );
   };
 
-  if (me !== undefined && participant !== me && token !== null) {
-    setParticipant(me);
-  }
-
   return {
-    me: participant,
+    me,
     isLoading,
     isFetched,
     refetch,
