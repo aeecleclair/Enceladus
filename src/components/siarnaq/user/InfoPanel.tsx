@@ -49,7 +49,7 @@ export const InfoPanel = () => {
 
         <div className="pl-10">
           <a
-            href="mailto://edouard.backman@etu.ec-lyon.fr"
+            href="mailto:edouard.backman@etu.ec-lyon.fr"
             className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
           >
             <HiOutlineEnvelope className="h-4 w-4 mr-2" />

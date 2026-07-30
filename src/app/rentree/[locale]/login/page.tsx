@@ -45,7 +45,7 @@ const Login = () => {
             <span>{t("login.description")}</span>
             <span>
               {t("login.contact")}{" "}
-              <a href="mailto://edouard.backman@etu.ec-lyon.fr">
+              <a href="mailto:edouard.backman@etu.ec-lyon.fr">
                 edouard.backman@etu.ec-lyon.fr
               </a>
             </span>
