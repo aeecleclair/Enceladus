@@ -2,6 +2,7 @@ import { useDocument } from "@/hooks/challenger/useDocument";
 import { useAuth } from "@/hooks/useAuth";
 
 import Image from "next/image";
+import { useState } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -24,10 +25,14 @@ export const DocumentDialog = ({
 }: DocumentDialogProps) => {
   const { userId } = useAuth();
   const { data } = useDocument(userId);
+  // The stored certificate stays available until it is replaced: without this
+  // flag, "Modifier" kept displaying the previous document and no new file
+  // could ever be deposited.
+  const [isReplacing, setIsReplacing] = useState(false);
 
   return (
     <>
-      {data?.size !== undefined ? (
+      {data?.size !== undefined && !isReplacing ? (
         <div className="flex flex-col items-center gap-4">
           {data?.type === "application/pdf" ? (
             <Button
@@ -56,10 +61,12 @@ export const DocumentDialog = ({
             />
           )}
           <Button
+            type="button"
             className="w-full"
             onClick={() => {
               field.onChange(null);
               onFileRemove?.();
+              setIsReplacing(true);
             }}
           >
             Modifier

@@ -15,8 +15,12 @@ export const DropzoneInput = ({
   onDropAccepted,
   multiple = false,
   maxSize = 10485760,
+  // Only the formats accepted by the API: `image/*` also let through HEIC or
+  // WEBP files (the default format of iPhone photos), which were refused
+  // afterwards without the user ever being told.
   accept = {
-    "image/*": [".jpg", ".jpeg", ".png"],
+    "image/jpeg": [".jpg", ".jpeg"],
+    "image/png": [".png"],
     "application/pdf": [".pdf"],
   },
 }: DropzoneInputProps) => {
