@@ -7,7 +7,7 @@ import {
   patchCompetitionLocationsLocationIdMutation,
   postCompetitionLocationsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { getApiErrorMessage } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -36,10 +36,7 @@ export const useLocations = () => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout du lieu",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail ||
-            "Une erreur est survenue, veuillez réessayer.",
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -68,10 +65,7 @@ export const useLocations = () => {
         console.error(error);
         toast({
           title: "Erreur lors de la modification du lieu",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail ||
-            "Une erreur est survenue, veuillez réessayer.",
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -107,10 +101,7 @@ export const useLocations = () => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression du lieu",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail ||
-            "Une erreur est survenue, veuillez réessayer.",
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },

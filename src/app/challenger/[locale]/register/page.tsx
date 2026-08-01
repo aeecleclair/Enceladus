@@ -1,5 +1,7 @@
 "use client";
 
+import { submitSportStep } from "./sportStepAction";
+
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
   CompetitionUserBase,
@@ -22,8 +24,6 @@ import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { HeaderSubtitle, RegisterState } from "@/lib/challenger/registerState";
-
-import { submitSportStep } from "./sportStepAction";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";

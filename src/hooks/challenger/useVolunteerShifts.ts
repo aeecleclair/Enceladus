@@ -11,7 +11,7 @@ import {
   patchCompetitionVolunteersShiftsShiftIdUsersUserIdValidationMutation,
   postCompetitionVolunteersShiftsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { getApiErrorMessage } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
@@ -116,9 +116,7 @@ export const useVolunteerShifts = () => {
         console.error(error);
         toast({
           title: "Erreur lors de la création du créneau",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -150,9 +148,7 @@ export const useVolunteerShifts = () => {
         console.error(error);
         toast({
           title: "Erreur lors de la mise à jour",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -188,9 +184,7 @@ export const useVolunteerShifts = () => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },

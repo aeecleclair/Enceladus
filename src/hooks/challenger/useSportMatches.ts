@@ -7,7 +7,7 @@ import {
   patchCompetitionMatchesMatchIdMutation,
   postCompetitionMatchesSportsSportIdMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { getApiErrorMessage } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -50,9 +50,7 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout du match",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -85,9 +83,7 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
         console.error(error);
         toast({
           title: "Erreur lors de la modification du match",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -124,9 +120,7 @@ export const useSportMatches = ({ sportId }: UseSportMatchesProps) => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression du match",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },

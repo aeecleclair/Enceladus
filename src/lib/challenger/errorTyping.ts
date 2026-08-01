@@ -1,23 +1,3 @@
-export type ErrorType = {
-  stack: {
-    body: string;
-  };
-};
-
-export type DetailedErrorType = {
-  stack: {
-    detail: string;
-  };
-};
-
-export type APIErrorType = {
-  stack: {
-    detail: {
-      msg: string;
-    }[];
-  };
-};
-
 export const DEFAULT_ERROR_MESSAGE =
   "Une erreur est survenue, veuillez réessayer plus tard";
 

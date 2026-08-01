@@ -1,22 +1,22 @@
 "use client";
 
 import { CompetitionUser } from "@/api";
+import { SportQuotaUsage } from "@/components/challenger/admin/validation/GlobalQuotaCard";
 import { ParticipantData } from "@/components/challenger/admin/validation/ParticipantDataTable";
 import { RequiredPurchase } from "@/components/challenger/admin/validation/UserProductsCell";
-import { SportQuotaUsage } from "@/components/challenger/admin/validation/GlobalQuotaCard";
 import { ValidationTab } from "@/components/challenger/admin/validation/ValidationTab";
 import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useProducts } from "@/hooks/challenger/useProducts";
 import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants";
+import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
 import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
 import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuota";
 import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
+import { useSchoolsSportQuota } from "@/hooks/challenger/useSchoolsSportQuota";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useSchoolsSportQuota } from "@/hooks/challenger/useSchoolsSportQuota";
-import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
