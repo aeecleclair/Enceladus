@@ -26,6 +26,8 @@ import {
   VisibilityState,
   flexRender,
   getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
@@ -176,10 +178,12 @@ export function ParticipantDataTable({
         sportSet.add(participant.sportName);
       }
     });
-    return Array.from(sportSet).map((sport) => ({
-      label: sport,
-      value: sport,
-    }));
+    return Array.from(sportSet)
+      .sort((a, b) => a.localeCompare(b))
+      .map((sport) => ({
+        label: sport,
+        value: sport,
+      }));
   }, [data]);
 
   const columns: ColumnDef<ParticipantData>[] = [
@@ -327,9 +331,9 @@ export function ParticipantDataTable({
         </div>
       ),
       filterFn: (row, id, filterValue) => {
-        if (filterValue === undefined) return true;
+        if (!filterValue || (filterValue as string[]).length === 0) return true;
         const value = row.getValue<string>(id);
-        return filterValue === true ? Boolean(value) : true;
+        return (filterValue as string[]).includes(value ?? "");
       },
     },
     {
@@ -754,6 +758,8 @@ export function ParticipantDataTable({
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
   const participantTypes = React.useMemo(() => {
