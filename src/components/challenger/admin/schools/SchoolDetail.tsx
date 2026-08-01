@@ -1,6 +1,5 @@
 "use client";
 
-import { DeleteConfirmationDialog } from "./DeleteConfirmationDialog";
 import { GeneralQuotaDialog } from "./GeneralQuotaDialog";
 import { ProductQuotaCard } from "./product/ProductQuotaCard";
 import { SportQuotaCard } from "./sport/SportQuotaCard";
@@ -8,8 +7,6 @@ import { SportQuotaCard } from "./sport/SportQuotaCard";
 import { SchoolExtension } from "@/api";
 import { GeneralQuotaFormValues } from "@/forms/challenger/generalQuota";
 import { useSchoolsGeneralQuota } from "@/hooks/challenger/useSchoolsGeneralQuota";
-import { useSchoolsSportQuota } from "@/hooks/challenger/useSchoolsSportQuota";
-import { useSports } from "@/hooks/challenger/useSports";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { getSchoolType } from "@/lib/challenger/schools";
 
@@ -64,34 +61,7 @@ const SchoolDetail = ({ school, onEdit, onDelete }: SchoolDetailProps) => {
     }
   };
 
-  const {
-    deleteQuota: deleteSportQuota,
-    isDeleteLoading: isDeleteSportLoading,
-  } = useSchoolsSportQuota({
-    schoolId: school.school_id,
-  });
-
-  const { sports } = useSports();
-
   const schoolType = getSchoolType(school);
-
-  const [isDeleteSportQuotaDialogOpen, setIsDeleteSportQuotaDialogOpen] =
-    useState(false);
-  const [selectedSportForDelete, setSelectedSportForDelete] = useState<
-    string | null
-  >(null);
-
-  const handleDeleteSportQuota = () => {
-    if (selectedSportForDelete) {
-      deleteSportQuota(selectedSportForDelete, () => {
-        setSelectedSportForDelete(null);
-      });
-    }
-  };
-
-  const getSportName = (sportId: string) => {
-    return sports?.find((s) => s.id === sportId)?.name || sportId;
-  };
 
   return (
     <TooltipProvider>
@@ -207,25 +177,9 @@ const SchoolDetail = ({ school, onEdit, onDelete }: SchoolDetailProps) => {
           </div>
         </div>
 
-        <SportQuotaCard
-          school={school}
-          setIsDeleteDialogOpen={setIsDeleteSportQuotaDialogOpen}
-        />
+        <SportQuotaCard school={school} />
 
         <ProductQuotaCard school={school} />
-
-        {/* Delete Confirmation Dialog */}
-        <DeleteConfirmationDialog
-          isOpen={isDeleteSportQuotaDialogOpen}
-          onOpenChange={setIsDeleteSportQuotaDialogOpen}
-          title="Supprimer le quota"
-          description={`Êtes-vous sûr de vouloir supprimer le quota pour ${
-            selectedSportForDelete ? getSportName(selectedSportForDelete) : ""
-          } ? Cette action est irréversible.`}
-          onConfirm={handleDeleteSportQuota}
-          onCancel={() => setSelectedSportForDelete(null)}
-          isLoading={isDeleteSportLoading}
-        />
       </div>
     </TooltipProvider>
   );

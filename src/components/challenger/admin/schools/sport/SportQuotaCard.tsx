@@ -1,5 +1,6 @@
 "use client";
 
+import { DeleteConfirmationDialog } from "../DeleteConfirmationDialog";
 import { SportQuotaDataTable } from "./SportQuotaDataTable";
 import { SportQuotaDialog } from "./SportQuotaDialog";
 
@@ -17,19 +18,17 @@ import { Plus, Trophy } from "lucide-react";
 
 interface SportQuotaCardProps {
   school: SchoolExtension;
-  setIsDeleteDialogOpen: (open: boolean) => void;
 }
 
-export const SportQuotaCard = ({
-  school,
-  setIsDeleteDialogOpen,
-}: SportQuotaCardProps) => {
+export const SportQuotaCard = ({ school }: SportQuotaCardProps) => {
   const {
     schoolsSportQuota,
     isCreateLoading,
     createQuota,
     isUpdateLoading,
     updateQuota,
+    isDeleteLoading,
+    deleteQuota,
   } = useSchoolsSportQuota({
     schoolId: school.school_id,
   });
@@ -37,6 +36,10 @@ export const SportQuotaCard = ({
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedSport, setSelectedSport] = useState<string | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedSportForDelete, setSelectedSportForDelete] = useState<
+    string | null
+  >(null);
 
   const handleEditQuota = (sportId: string) => {
     const currentQuota = schoolsSportQuota?.find((q) => q.sport_id === sportId);
@@ -72,6 +75,14 @@ export const SportQuotaCard = ({
 
   const getSportName = (sportId: string) => {
     return sports?.find((s) => s.id === sportId)?.name || sportId;
+  };
+
+  const handleDeleteQuota = () => {
+    if (!selectedSportForDelete) return;
+
+    deleteQuota(selectedSportForDelete, () => {
+      setSelectedSportForDelete(null);
+    });
   };
 
   return (
@@ -126,7 +137,7 @@ export const SportQuotaCard = ({
             }))}
             onEditQuota={handleEditQuota}
             onDeleteQuota={(sportId) => {
-              setSelectedSport(sportId);
+              setSelectedSportForDelete(sportId);
               setIsDeleteDialogOpen(true);
             }}
           />
@@ -146,6 +157,21 @@ export const SportQuotaCard = ({
           </div>
         )}
       </CardContent>
+
+      {/* The dialog lives here, next to the state it reads: when it was rendered
+          by SchoolDetail, the selected sport was stored in this component and
+          the parent confirmed a sport it never received. */}
+      <DeleteConfirmationDialog
+        isOpen={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        title="Supprimer le quota"
+        description={`Êtes-vous sûr de vouloir supprimer le quota de ${
+          selectedSportForDelete ? getSportName(selectedSportForDelete) : ""
+        } pour cette école ? Cette action est irréversible.`}
+        onConfirm={handleDeleteQuota}
+        onCancel={() => setSelectedSportForDelete(null)}
+        isLoading={isDeleteLoading}
+      />
     </Card>
   );
 };
