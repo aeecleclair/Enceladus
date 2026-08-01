@@ -95,6 +95,10 @@ const UserDetailsPage = () => {
   const userPayments = schoolsPayments
     ? schoolsPayments[userId as string]
     : undefined;
+  const paidAmount = (userPayments ?? []).reduce(
+    (sum, payment) => sum + payment.total,
+    0,
+  );
 
   const { deleteParticipant } = useParticipant();
   const { makePayment, isPostingPayment } = useUserPayments();
@@ -263,6 +267,7 @@ const UserDetailsPage = () => {
         <UserPurchases
           userPurchases={userPurchases}
           products={products}
+          paidAmount={paidAmount}
           isAdmin={isChallengerAdmin}
           isUserValidated={userCompetition?.validated ?? false}
           userId={userId as string}

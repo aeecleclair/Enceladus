@@ -151,8 +151,6 @@ const Dashboard = () => {
             (purchase) => !purchase.validated,
           );
 
-          console.log("userPurchases", userPurchases);
-
           const requiredPurchases: RequiredPurchase = [];
 
           userPurchases.forEach((purchase) => {
@@ -175,8 +173,6 @@ const Dashboard = () => {
                 product: product,
               });
           });
-
-          console.log("requiredPurchases", requiredPurchases);
 
           const requiredProductNames = requiredPurchases
             .map((p) => p.product?.name)
