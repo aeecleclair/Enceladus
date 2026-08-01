@@ -8,7 +8,7 @@ import {
 } from "@/api/@tanstack/react-query.gen";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -19,6 +19,23 @@ interface UseProductsQuotaProps {
 export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
   const { isTokenExpired } = useAuth();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  /**
+   * A quota is read from two endpoints — by product and by school — so both
+   * have to be dropped, whichever side was just written.
+   */
+  const invalidateProductQuotaQueries = () => {
+    queryClient.invalidateQueries({
+      predicate: ({ queryKey }) => {
+        const id = (queryKey[0] as { _id?: string } | undefined)?._id;
+        return (
+          id === "getCompetitionProductsProductIdSchoolsQuotas" ||
+          id === "getCompetitionSchoolsSchoolIdProductQuotas"
+        );
+      },
+    });
+  };
 
   const {
     data: productsQuota,
@@ -50,6 +67,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
         });
       },
       onSuccess: () => {
+        invalidateProductQuotaQueries();
         toast({
           title: "Quota ajouté",
           description: "Le quota a été ajouté avec succès.",
@@ -73,6 +91,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
         });
       },
       onSuccess: () => {
+        invalidateProductQuotaQueries();
         toast({
           title: "Quota mis à jour",
           description: "Le quota a été mis à jour avec succès.",
@@ -96,6 +115,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
         });
       },
       onSuccess: () => {
+        invalidateProductQuotaQueries();
         toast({
           title: "Quota supprimé",
           description: "Le quota a été supprimé avec succès.",
@@ -152,6 +172,8 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
       const failureCount = results.filter(
         (r) => r.status === "rejected",
       ).length;
+
+      invalidateProductQuotaQueries();
 
       if (successCount > 0) {
         toast({

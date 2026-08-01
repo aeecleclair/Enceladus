@@ -3,6 +3,7 @@
 import { CompetitionUser } from "@/api";
 import { ParticipantData } from "@/components/challenger/admin/validation/ParticipantDataTable";
 import { RequiredPurchase } from "@/components/challenger/admin/validation/UserProductsCell";
+import { SportQuotaUsage } from "@/components/challenger/admin/validation/GlobalQuotaCard";
 import { ValidationTab } from "@/components/challenger/admin/validation/ValidationTab";
 import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
@@ -14,7 +15,8 @@ import { useSchoolsProductQuota } from "@/hooks/challenger/useSchoolsProductQuot
 import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useSportsQuota } from "@/hooks/challenger/useSportsQuota";
+import { useSchoolsSportQuota } from "@/hooks/challenger/useSchoolsSportQuota";
+import { useSchoolTeams } from "@/hooks/challenger/useSchoolTeams";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
@@ -72,8 +74,16 @@ const Dashboard = () => {
 
   const { deleteParticipant } = useParticipant();
 
-  const { sportsQuota, refetchSportsQuota } = useSportsQuota({
-    sportId: undefined,
+  /**
+   * The per-sport quotas of *this* school, not of one sport across every
+   * school: the backend checks `SchoolSportQuota` per (school, sport) pair.
+   */
+  const { schoolsSportQuota, refetchSchoolsSportQuota } = useSchoolsSportQuota({
+    schoolId: effectiveSchoolId || undefined,
+  });
+
+  const { schoolTeams, refetchTeams } = useSchoolTeams({
+    schoolId: effectiveSchoolId || undefined,
   });
 
   const onValidate = (userId: string) => {
@@ -281,33 +291,47 @@ const Dashboard = () => {
     return counts;
   }, [participantTableData]);
 
-  const schoolsGeneralQuotaUsed: Record<string, number> = useMemo(() => {
+  const schoolsProductQuotaUsed: Record<string, number> = useMemo(() => {
     const used: Record<string, number> = {};
     competitionUsers
-      ?.filter((user) => user.user.school_id === effectiveSchoolId)
-      .map((user) => {
-        const userPurchases = schoolsPurchases
-          ? schoolsPurchases[user.user_id]
-            ? schoolsPurchases[user.user_id]
-            : []
-          : [];
+      ?.filter(
+        (user) => user.user.school_id === effectiveSchoolId && user.validated,
+      )
+      .forEach((user) => {
+        const userPurchases = schoolsPurchases?.[user.user_id] ?? [];
         userPurchases.forEach((purchase) => {
           const product = products?.find((p) =>
-            (p?.variants ?? []).find(
+            (p?.variants ?? []).some(
               (v) => v.id === purchase.product_variant_id,
             ),
           );
 
-          const variant = (product?.variants ?? []).find(
-            (v) => v.id === purchase.product_variant_id,
-          );
-
-          if (variant && product && product.required)
-            used[product.id] = (used[product.id] || 0) + 1;
+          if (product) used[product.id] = (used[product.id] || 0) + 1;
         });
       });
     return used;
   }, [competitionUsers, effectiveSchoolId, products, schoolsPurchases]);
+
+  const sportQuotaUsage: SportQuotaUsage[] = useMemo(
+    () =>
+      (schoolsSportQuota ?? []).map((quota) => ({
+        sportId: quota.sport_id,
+        sportName:
+          sports?.find((sport) => sport.id === quota.sport_id)?.name ??
+          quota.sport_id,
+        participants: (schoolParticipants ?? []).filter(
+          (participant) =>
+            participant.sport_id === quota.sport_id &&
+            participant.user.validated,
+        ).length,
+        participantQuota: quota.participant_quota ?? null,
+        teams: (schoolTeams ?? []).filter(
+          (team) => team.sport_id === quota.sport_id,
+        ).length,
+        teamQuota: quota.team_quota ?? null,
+      })),
+    [schoolsSportQuota, sports, schoolParticipants, schoolTeams],
+  );
 
   useEffect(() => {
     if (effectiveSchoolId) {
@@ -315,7 +339,8 @@ const Dashboard = () => {
       refetchSchoolsGeneralQuota();
       refetchSchoolsProductQuota();
       refetchSchoolsPurchases();
-      refetchSportsQuota();
+      refetchSchoolsSportQuota();
+      refetchTeams();
     }
   }, [
     effectiveSchoolId,
@@ -323,7 +348,8 @@ const Dashboard = () => {
     refetchSchoolsGeneralQuota,
     refetchSchoolsProductQuota,
     refetchSchoolsPurchases,
-    refetchSportsQuota,
+    refetchSchoolsSportQuota,
+    refetchTeams,
   ]);
 
   const schoolCompetitionUsersCounter: string[][] = useMemo(() => {
@@ -432,10 +458,10 @@ const Dashboard = () => {
                 totalParticipants={totalParticipants}
                 totalValidated={totalValidated}
                 totalTeams={totalTeams}
-                sportsQuota={sportsQuota || []}
+                sportQuotaUsage={sportQuotaUsage}
                 schoolsProductQuota={schoolsProductQuota}
                 schoolsGeneralQuota={schoolsGeneralQuota}
-                schoolsProductQuotaUsed={schoolsGeneralQuotaUsed}
+                schoolsProductQuotaUsed={schoolsProductQuotaUsed}
                 products={products}
                 validatedCounts={validatedCounts}
               />
@@ -456,10 +482,10 @@ const Dashboard = () => {
           totalParticipants={totalParticipants}
           totalValidated={totalValidated}
           totalTeams={totalTeams}
-          sportsQuota={sportsQuota || []}
+          sportQuotaUsage={sportQuotaUsage}
           schoolsProductQuota={schoolsProductQuota}
           schoolsGeneralQuota={schoolsGeneralQuota}
-          schoolsProductQuotaUsed={schoolsGeneralQuotaUsed}
+          schoolsProductQuotaUsed={schoolsProductQuotaUsed}
           products={products}
           validatedCounts={validatedCounts}
         />

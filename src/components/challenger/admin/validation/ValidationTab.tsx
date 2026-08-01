@@ -1,11 +1,10 @@
-import { GlobalQuotaCard } from "./GlobalQuotaCard";
+import { GlobalQuotaCard, SportQuotaUsage } from "./GlobalQuotaCard";
 import { ParticipantData, ParticipantDataTable } from "./ParticipantDataTable";
 
 import { SchoolExtension, SchoolGeneralQuota } from "@/api";
 import {
   GetCompetitionProductsResponse,
   GetCompetitionSchoolsSchoolIdProductQuotasResponse,
-  GetCompetitionSportsSportIdQuotasResponse,
 } from "@/api";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
@@ -23,7 +22,7 @@ export interface ValidationTabProps {
     | GetCompetitionSchoolsSchoolIdProductQuotasResponse
     | undefined;
   schoolsProductQuotaUsed: Record<string, number>;
-  sportsQuota: GetCompetitionSportsSportIdQuotasResponse;
+  sportQuotaUsage: SportQuotaUsage[];
   validatedCounts: Record<string, number>;
   participantTableData: ParticipantData[];
   products: GetCompetitionProductsResponse | undefined;
@@ -44,7 +43,7 @@ export function ValidationTab({
   schoolsGeneralQuota,
   schoolsProductQuota,
   schoolsProductQuotaUsed,
-  sportsQuota,
+  sportQuotaUsage,
   validatedCounts,
   participantTableData,
   totalParticipants,
@@ -59,9 +58,9 @@ export function ValidationTab({
   onDelete,
   onCancel,
 }: ValidationTabProps) {
-  const hasExceeded = schoolsProductQuota
-    ?.map((value) => schoolsProductQuotaUsed[value.product_id] > value.quota)
-    .some((b) => b);
+  const hasReachedProductQuota = schoolsProductQuota?.some(
+    (value) => (schoolsProductQuotaUsed[value.product_id] ?? 0) >= value.quota,
+  );
 
   return (
     <>
@@ -77,19 +76,18 @@ export function ValidationTab({
               <Tooltip>
                 <TooltipTrigger asChild>
                   {(() => {
-                    const hasExceeded = Object.entries(schoolsGeneralQuota)
+                    const hasReachedQuota = Object.entries(schoolsGeneralQuota)
                       .filter(([key]) => !key.toLowerCase().includes("id"))
                       .some(([key, value]) => {
-                        if (value === undefined) return false;
+                        if (value === undefined || value === null) return false;
                         const used = validatedCounts[key] ?? 0;
-                        const quota = (value as number) ?? 0;
-                        return used > quota;
+                        return used >= (value as number);
                       });
                     return (
                       <Button
                         variant="ghost"
                         size="sm"
-                        className={`px-2 py-1 text-xs border-primary hover:bg-primary/10${hasExceeded ? " text-red-600" : " text-primary"}`}
+                        className={`px-2 py-1 text-xs border-primary hover:bg-primary/10${hasReachedQuota ? " text-red-600" : " text-primary"}`}
                       >
                         Quota général
                       </Button>
@@ -117,20 +115,22 @@ export function ValidationTab({
                         }
                         const used = validatedCounts[key] ?? 0;
                         const quota = (value as number) ?? 0;
-                        const exceeded =
-                          value === undefined ? false : used > quota;
+                        const reached =
+                          value === undefined || value === null
+                            ? false
+                            : used >= quota;
                         return (
                           <div
                             key={key}
                             className="flex justify-between items-center gap-2 py-1 px-2"
                           >
                             <span
-                              className={`font-medium text-xs text-muted-foreground${exceeded ? " text-red-600" : ""}`}
+                              className={`font-medium text-xs text-muted-foreground${reached ? " text-red-600" : ""}`}
                             >
                               {formattedName}
                             </span>
                             <span
-                              className={`text-xs font-bold${exceeded ? " text-red-600" : " text-primary"}`}
+                              className={`text-xs font-bold${reached ? " text-red-600" : " text-primary"}`}
                             >
                               Utilisé: {used} / {quota}
                             </span>
@@ -152,7 +152,7 @@ export function ValidationTab({
                   >
                     <span>
                       Quota de produit
-                      {hasExceeded && (
+                      {hasReachedProductQuota && (
                         <div className="absolute top-0 right-0 w-3 h-3 bg-red-600 rounded-full border-2 border-white" />
                       )}
                     </span>
@@ -176,7 +176,7 @@ export function ValidationTab({
                             {product?.name}
                           </span>
                           <span
-                            className={`text-xs font-bold ${schoolsProductQuotaUsed[value.product_id] > value.quota ? "text-red-600" : "text-primary"}`}
+                            className={`text-xs font-bold ${(schoolsProductQuotaUsed[value.product_id] ?? 0) >= value.quota ? "text-red-600" : "text-primary"}`}
                           >
                             Utilisé:{" "}
                             {schoolsProductQuotaUsed[value.product_id] || 0} /{" "}
@@ -194,7 +194,7 @@ export function ValidationTab({
             totalParticipants={totalParticipants}
             totalValidated={totalValidated}
             totalTeams={totalTeams}
-            sportQuotas={sportsQuota || []}
+            sportQuotaUsage={sportQuotaUsage}
             schoolName={formatSchoolName(school.school.name) || "École"}
           />
           {participantTableData?.length > 0 ? (

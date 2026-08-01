@@ -35,7 +35,7 @@ export const useSchoolsSportQuota = ({
     }),
     enabled: !isTokenExpired() && !!schoolId,
     retry: false,
-    queryHash: "getschoolsSportQuota",
+    queryHash: `getSchoolsSportQuota-${schoolId}`,
   });
 
   const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
