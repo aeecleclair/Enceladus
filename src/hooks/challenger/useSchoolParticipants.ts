@@ -23,7 +23,7 @@ export const useSchoolParticipants = ({ schoolId }: UseSchoolParticipants) => {
     }),
     enabled: !isTokenExpired() && !!schoolId,
     retry: false,
-    queryHash: "getSchoolParticipants",
+    queryHash: `getSchoolParticipants-${schoolId}`,
   });
 
   return {
