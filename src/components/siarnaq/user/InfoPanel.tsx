@@ -1,7 +1,6 @@
 import { PageIndicator } from "@/components/siarnaq/custom/PageIndicator";
 import { useOnlineSellers } from "@/hooks/siarnaq/useOnlineSellers";
 import { useYear } from "@/hooks/siarnaq/useYear";
-import { Link } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
 import {
@@ -42,16 +41,19 @@ export const InfoPanel = () => {
             mandatory: (chunks) => <span className="font-bold">{chunks}</span>,
           })}
         </div>
-        <div>{t("info.cdrOnsiteDescription")}</div>
-        <div className="font-bold">{t("info.cdrOnsiteMandatoryWarning")}</div>
+        <div>
+          {t.rich("info.cdrOnsiteMandatoryWarning", {
+            mandatory: (chunks) => <span className="font-bold">{chunks}</span>,
+          })}
+        </div>
 
         <div className="pl-10">
           <a
-            href="mailto://bde@ec-lyon.fr"
+            href="mailto:edouard.backman@etu.ec-lyon.fr"
             className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
           >
             <HiOutlineEnvelope className="h-4 w-4 mr-2" />
-            bde@ec-lyon.fr
+            edouard.backman@etu.ec-lyon.fr
           </a>
         </div>
 
@@ -60,25 +62,8 @@ export const InfoPanel = () => {
           <HiOutlineBanknotes className="h-4 w-4 mr-2" />
           {t("info.cautionTitle")}
         </h3>
-        <div>
-          {t.rich("info.cautionDescription", {
-            payable: (chunks) => <span className="italic">{chunks}</span>,
-          })}
-        </div>
-        <div>{t("info.cautionInstructions", { year: yearString })}</div>
-        <div>
-          {t.rich("info.cautionInstructions2", {
-            link: () => (
-              <Link
-                href="https://v2.swik.link/1XxsMUZ"
-                target="_blank"
-                className="font-bold text-sky-600 underline visited:text-purple-600"
-              >
-                https://v2.swik.link/1XxsMUZ
-              </Link>
-            ),
-          })}
-        </div>
+        <div>{t("info.cautionDescription")}</div>
+        <div>{t("info.cautionInstructions")}</div>
         <div>
           {t.rich("info.cautionMandatory", {
             mandatory: (chunks) => <span className="font-bold">{chunks}</span>,
@@ -92,9 +77,9 @@ export const InfoPanel = () => {
         </h3>
         <div>{t("info.facebook", { year: yearString })}</div>
         <div className="pl-10">
-          {/* TODO: provide a clean link like https://www.facebook.com/groups/admis2024 */}
+          {/* TODO: provide a clean link like https://www.facebook.com/groups/admis2026 */}
           <a
-            href="https://www.facebook.com/share/g/1FQ72yPVjk"
+            href="https://www.facebook.com/groups/959246073797752/"
             className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
           >
             <HiOutlineLink className="h-4 w-4 mr-2" />
@@ -123,32 +108,6 @@ export const InfoPanel = () => {
             {t("info.downloadMyECLAndroid")}
           </a>
         </div>
-        {/* */}
-        {/* I'm so sorry Jho...
-        <h3 className="text-lg font-semibold flex flex-row items-center pt-5">
-          <HiOutlineUserGroup className="h-4 w-4 mr-2" />
-          {t("info.elementTitle")}
-        </h3>
-        <div>{t("info.element")}</div>
-        <div className="pl-10">
-          <ol className="list-decimal">
-            <li>
-              <a
-                href="https://element.io/download"
-                className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
-              >
-                <HiOutlineLink className="h-4 w-4 mr-1" />
-                {t("info.elementStep1")}
-              </a>
-            </li>
-            <li>{t("info.elementStep2")}</li>
-            <li>
-              {t("info.elementStep3")} <code>myecl.fr</code>
-            </li>
-            <li>{t("info.elementStep4")}</li>
-          </ol>
-        </div>
-        */}
       </CardContent>
 
       <CardFooter className="px-6 py-4">

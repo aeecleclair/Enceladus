@@ -38,14 +38,16 @@ const Login = () => {
   );
   return (
     <div className="flex [&>div]:w-full h-[--custom-vh] bg-muted/40">
-      <Card className="rounded-xl border bg-card text-muted-foreground shadow max-w-[700px] m-auto">
+      <Card className="rounded-xl border bg-card text-muted-foreground shadow max-w-175 m-auto">
         <CardHeader>
           <CardTitle>{t("login.title", { year: year.toString() })}</CardTitle>
           <CardDescription className="flex flex-col gap-2">
             <span>{t("login.description")}</span>
             <span>
               {t("login.contact")}{" "}
-              <a href="mailto://bde@ec-lyon.fr">bde@ec-lyon.fr</a>
+              <a href="mailto:edouard.backman@etu.ec-lyon.fr">
+                edouard.backman@etu.ec-lyon.fr
+              </a>
             </span>
           </CardDescription>
         </CardHeader>
