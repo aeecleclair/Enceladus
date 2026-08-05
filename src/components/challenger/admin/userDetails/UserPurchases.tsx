@@ -34,6 +34,7 @@ import {
 interface UserPurchasesProps {
   userPurchases: AppModulesSportCompetitionSchemasSportCompetitionPurchaseComplete[];
   products: GetCompetitionProductsResponse;
+  paidAmount?: number;
   isAdmin?: boolean;
   isUserValidated?: boolean;
   userId?: string;
@@ -48,6 +49,7 @@ interface UserPurchasesProps {
 export const UserPurchases = ({
   userPurchases,
   products,
+  paidAmount = 0,
   isAdmin = false,
   isUserValidated = false,
   onCreatePurchase,
@@ -75,17 +77,9 @@ export const UserPurchases = ({
     );
   }, [userPurchases]);
 
-  const validatedAmount = useMemo(() => {
-    return userPurchases
-      .filter((p) => p.validated)
-      .reduce(
-        (sum, purchase) =>
-          sum + purchase.product_variant.price * purchase.quantity,
-        0,
-      );
-  }, [userPurchases]);
-
   const validatedCount = userPurchases.filter((p) => p.validated).length;
+
+  const balance = paidAmount - totalAmount;
 
   const getProductRequiredStatus = (productVariantId: string) => {
     const product = products?.find((p) =>
@@ -256,11 +250,22 @@ export const UserPurchases = ({
                   <CardContent className="pt-6">
                     <div className="text-center">
                       <p className="text-sm text-muted-foreground mb-1">
-                        Montant validé
+                        Montant payé
                       </p>
                       <p className="text-2xl font-bold text-green-700">
-                        {(validatedAmount / 100).toFixed(2)} €
+                        {(paidAmount / 100).toFixed(2)} €
                       </p>
+                      {balance !== 0 && (
+                        <p
+                          className={`text-xs mt-1 ${
+                            balance > 0 ? "text-orange-600" : "text-red-600"
+                          }`}
+                        >
+                          {balance > 0
+                            ? `Trop-perçu : ${(balance / 100).toFixed(2)} €`
+                            : `Reste à payer : ${(-balance / 100).toFixed(2)} €`}
+                        </p>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

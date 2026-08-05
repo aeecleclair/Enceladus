@@ -1,9 +1,10 @@
 "use client";
 
+import { submitSportStep } from "./sportStepAction";
+
 import {
   AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
   CompetitionUserBase,
-  ParticipantInfo,
 } from "@/api";
 import { AppSidebar } from "@/components/challenger/register/AppSideBar/AppSidebar";
 import { RegisterForm } from "@/components/challenger/register/RegisterForm/RegisterForm";
@@ -183,26 +184,12 @@ const Register = () => {
           await createCompetitionUser(body, extendedCallback);
         },
         Sport: async (values, callback) => {
-          const sport = sports?.find((s) => s.id === values.sport!.id);
-          if (!sport) return;
-          const body: ParticipantInfo = {
-            license: values.sport!.license_number!,
-            team_id: sport.team_size == 1 ? null : values.sport!.team_id!,
-            substitute: values.sport!.substitute,
-          };
-          if (meParticipant !== undefined) {
-            await withdrawParticipant(meParticipant.sport_id, () => {});
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-          }
-          await createParticipant(body, values.sport!.id, () => {
-            if (values.sport?.certificate && values.sport?.certificateFile) {
-              uploadDocument(
-                values.sport.certificateFile,
-                values.sport!.id,
-                () => {},
-              );
-            }
-            callback();
+          await submitSportStep(values, callback, {
+            sports,
+            meParticipant,
+            withdrawParticipant,
+            createParticipant,
+            uploadDocument,
           });
         },
         Panier: (values, callback) => {

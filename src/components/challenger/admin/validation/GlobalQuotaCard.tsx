@@ -1,37 +1,40 @@
-import { SchoolSportQuota } from "@/api";
-
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { AlertCircle, CheckCircle, School, Trophy, Users } from "lucide-react";
 
+export interface SportQuotaUsage {
+  sportId: string;
+  sportName: string;
+  participants: number;
+  participantQuota: number | null;
+  teams: number;
+  teamQuota: number | null;
+}
+
 interface GlobalQuotaCardProps {
   totalParticipants: number;
   totalValidated: number;
   totalTeams: number;
-  sportQuotas: SchoolSportQuota[];
+  sportQuotaUsage: SportQuotaUsage[];
   schoolName: string;
 }
+
+const isQuotaReached = (used: number, quota: number | null) =>
+  quota !== null && used >= quota;
 
 export const GlobalQuotaCard = ({
   totalParticipants,
   totalValidated,
   totalTeams,
-  sportQuotas,
+  sportQuotaUsage,
   schoolName,
 }: GlobalQuotaCardProps) => {
-  const totalParticipantQuota = sportQuotas.reduce(
-    (sum, quota) => sum + (quota?.participant_quota || 0),
-    0,
+  const reachedSports = sportQuotaUsage.filter(
+    (sport) =>
+      isQuotaReached(sport.participants, sport.participantQuota) ||
+      isQuotaReached(sport.teams, sport.teamQuota),
   );
-  const totalTeamQuota = sportQuotas.reduce(
-    (sum, quota) => sum + (quota?.team_quota || 0),
-    0,
-  );
-
-  const isOverParticipantQuota =
-    totalParticipantQuota > 0 && totalParticipants > totalParticipantQuota;
-  const isOverTeamQuota = totalTeamQuota > 0 && totalTeams > totalTeamQuota;
 
   return (
     <Card className="mb-6">
@@ -42,16 +45,12 @@ export const GlobalQuotaCard = ({
             Aperçu global - {schoolName}
           </CardTitle>
           <div className="flex items-center gap-2">
-            {isOverParticipantQuota && (
+            {reachedSports.length > 0 && (
               <Badge variant="destructive" className="text-xs">
                 <AlertCircle className="h-3 w-3 mr-1" />
-                Quota participants dépassé
-              </Badge>
-            )}
-            {isOverTeamQuota && (
-              <Badge variant="destructive" className="text-xs">
-                <AlertCircle className="h-3 w-3 mr-1" />
-                Quota équipes dépassé
+                {reachedSports.length === 1
+                  ? `Quota atteint : ${reachedSports[0].sportName}`
+                  : `${reachedSports.length} sports au quota`}
               </Badge>
             )}
           </div>
@@ -64,14 +63,7 @@ export const GlobalQuotaCard = ({
               <Users className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground">Total participants</span>
             </div>
-            <div
-              className={`text-2xl font-bold ${isOverParticipantQuota ? "text-destructive" : ""}`}
-            >
-              {totalParticipants}
-              <span className="text-lg text-muted-foreground ml-1">
-                / {totalParticipantQuota}
-              </span>
-            </div>
+            <div className="text-2xl font-bold">{totalParticipants}</div>
           </div>
 
           <div className="space-y-1">
@@ -79,14 +71,7 @@ export const GlobalQuotaCard = ({
               <Trophy className="h-4 w-4 text-muted-foreground" />
               <span className="text-muted-foreground">Total équipes</span>
             </div>
-            <div
-              className={`text-2xl font-bold ${isOverTeamQuota ? "text-destructive" : ""}`}
-            >
-              {totalTeams}
-              <span className="text-lg text-muted-foreground ml-1">
-                / {totalTeamQuota}
-              </span>
-            </div>
+            <div className="text-2xl font-bold">{totalTeams}</div>
           </div>
 
           <div className="space-y-1">
@@ -120,6 +105,57 @@ export const GlobalQuotaCard = ({
             </div>
           </div>
         </div>
+
+        {sportQuotaUsage.length > 0 && (
+          <div className="mt-6">
+            <div className="text-sm text-muted-foreground mb-2">
+              Quotas par sport
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {sportQuotaUsage.map((sport) => {
+                const participantsReached = isQuotaReached(
+                  sport.participants,
+                  sport.participantQuota,
+                );
+                const teamsReached = isQuotaReached(
+                  sport.teams,
+                  sport.teamQuota,
+                );
+                return (
+                  <div
+                    key={sport.sportId}
+                    className="flex items-center justify-between gap-4 rounded-md border px-3 py-2"
+                  >
+                    <span className="text-sm font-medium truncate">
+                      {sport.sportName}
+                    </span>
+                    <div className="flex items-center gap-3 text-xs whitespace-nowrap">
+                      <span
+                        className={
+                          participantsReached
+                            ? "font-bold text-destructive"
+                            : "text-muted-foreground"
+                        }
+                      >
+                        {sport.participants} /{" "}
+                        {sport.participantQuota ?? "illimité"} participants
+                      </span>
+                      <span
+                        className={
+                          teamsReached
+                            ? "font-bold text-destructive"
+                            : "text-muted-foreground"
+                        }
+                      >
+                        {sport.teams} / {sport.teamQuota ?? "illimité"} équipes
+                      </span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="mt-4">
           <div className="flex justify-between text-sm mb-2">

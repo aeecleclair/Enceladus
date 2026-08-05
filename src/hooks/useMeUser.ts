@@ -5,11 +5,7 @@ import {
   getUsersMeOptions,
   patchUsersMeMutation,
 } from "@/api/@tanstack/react-query.gen";
-import {
-  APIErrorType,
-  DetailedErrorType,
-  ErrorType,
-} from "@/lib/challenger/errorTyping";
+import { getApiErrorMessage } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -51,11 +47,7 @@ export const useMeUser = () => {
           console.error(error);
           toast({
             title: "Erreur lors de la mise à jour de l'utilisateur",
-            description:
-              (error as unknown as APIErrorType)?.stack?.detail?.[0]?.msg ||
-              (error as unknown as ErrorType)?.stack?.body ||
-              (error as unknown as DetailedErrorType)?.stack?.detail ||
-              "Une erreur est survenue, veuillez réessayer.",
+            description: getApiErrorMessage(error),
             variant: "destructive",
           });
         },

@@ -1,5 +1,6 @@
 "use client";
 
+import { DeleteConfirmationDialog } from "../DeleteConfirmationDialog";
 import { ProductQuotaDataTable } from "./ProductQuotaDataTable";
 import { ProductQuotaDialog } from "./ProductQuotaDialog";
 
@@ -26,6 +27,8 @@ export const ProductQuotaCard = ({ school }: ProductQuotaCardProps) => {
     createQuota,
     isUpdateLoading,
     updateQuota,
+    isDeleteLoading,
+    deleteQuota,
   } = useSchoolsProductQuota({
     schoolId: school.school_id,
   });
@@ -33,6 +36,10 @@ export const ProductQuotaCard = ({ school }: ProductQuotaCardProps) => {
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedProductForDelete, setSelectedProductForDelete] = useState<
+    string | null
+  >(null);
 
   const handleEditQuota = (productId: string) => {
     const currentQuota = schoolsProductQuota?.find(
@@ -70,6 +77,14 @@ export const ProductQuotaCard = ({ school }: ProductQuotaCardProps) => {
 
   const getProductName = (productId: string) => {
     return products?.find((s) => s.id === productId)?.name || productId;
+  };
+
+  const handleDeleteQuota = () => {
+    if (!selectedProductForDelete) return;
+
+    deleteQuota(selectedProductForDelete, () => {
+      setSelectedProductForDelete(null);
+    });
   };
 
   return (
@@ -122,6 +137,10 @@ export const ProductQuotaCard = ({ school }: ProductQuotaCardProps) => {
               school_id: quota.school_id,
             }))}
             onEditQuota={handleEditQuota}
+            onDeleteQuota={(productId) => {
+              setSelectedProductForDelete(productId);
+              setIsDeleteDialogOpen(true);
+            }}
           />
         ) : (
           <div className="flex flex-col items-center justify-center py-12 text-center border-2 border-dashed border-muted rounded-lg">
@@ -139,6 +158,22 @@ export const ProductQuotaCard = ({ school }: ProductQuotaCardProps) => {
           </div>
         )}
       </CardContent>
+
+      {/* The dialog lives here, next to the state it reads, so the confirmed
+          product and the open flag can never drift apart. */}
+      <DeleteConfirmationDialog
+        isOpen={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        title="Supprimer le quota"
+        description={`Êtes-vous sûr de vouloir supprimer le quota de ${
+          selectedProductForDelete
+            ? getProductName(selectedProductForDelete)
+            : ""
+        } pour cette école ? Cette action est irréversible.`}
+        onConfirm={handleDeleteQuota}
+        onCancel={() => setSelectedProductForDelete(null)}
+        isLoading={isDeleteLoading}
+      />
     </Card>
   );
 };

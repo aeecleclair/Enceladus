@@ -110,21 +110,28 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
           substitute: meParticipant.substitute,
         },
         meParticipant.sport_id,
-        () => {
-          setLicenseDialogOpen(false);
+        async () => {
           if (values?.certificate) {
-            uploadDocument(values.certificate, meParticipant.sport_id!, () => {
-              toast({
-                title: "Certificat mis à jour",
-                description: `Ton certificat médical ont été mis à jour.`,
-              });
-            });
-          } else {
-            toast({
-              title: "Licence mise à jour",
-              description: `Ton numéro de licence a été mis à jour.`,
-            });
+            // The dialog stays open until the certificate is actually
+            // stored, otherwise leaving the page cancels the upload.
+            await uploadDocument(
+              values.certificate,
+              meParticipant.sport_id!,
+              () => {
+                toast({
+                  title: "Certificat mis à jour",
+                  description: `Ton certificat médical a été mis à jour.`,
+                });
+              },
+            );
+            setLicenseDialogOpen(false);
+            return;
           }
+          setLicenseDialogOpen(false);
+          toast({
+            title: "Licence mise à jour",
+            description: `Ton numéro de licence a été mis à jour.`,
+          });
         },
       ),
     );

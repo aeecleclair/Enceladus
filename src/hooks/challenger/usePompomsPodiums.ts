@@ -6,7 +6,7 @@ import {
   deleteCompetitionPodiumsPompomsMutation,
   postCompetitionPodiumsPompomsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { getApiErrorMessage } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -38,10 +38,7 @@ export const usePompomsPodiums = () => {
       console.log(error);
       toast({
         title: "Erreur lors de la mise à jour du podium pompoms",
-        description:
-          (error as unknown as ErrorType)?.stack?.body ||
-          (error as unknown as DetailedErrorType)?.stack?.detail ||
-          "Une erreur est survenue, veuillez réessayer.",
+        description: getApiErrorMessage(error),
         variant: "destructive",
       });
     },
@@ -73,10 +70,7 @@ export const usePompomsPodiums = () => {
         console.log(error);
         toast({
           title: "Erreur lors de la suppression du podium pompoms",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail ||
-            "Une erreur est survenue, veuillez réessayer.",
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },

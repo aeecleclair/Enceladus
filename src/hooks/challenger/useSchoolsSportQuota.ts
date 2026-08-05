@@ -7,7 +7,7 @@ import {
   patchCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation,
   postCompetitionSchoolsSchoolIdSportsSportIdQuotasMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { getApiErrorMessage } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -35,7 +35,7 @@ export const useSchoolsSportQuota = ({
     }),
     enabled: !isTokenExpired() && !!schoolId,
     retry: false,
-    queryHash: "getschoolsSportQuota",
+    queryHash: `getSchoolsSportQuota-${schoolId}`,
   });
 
   const { mutate: mutateCreateQuota, isPending: isCreateLoading } = useMutation(
@@ -52,9 +52,7 @@ export const useSchoolsSportQuota = ({
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout du quota",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -92,9 +90,7 @@ export const useSchoolsSportQuota = ({
         console.error(error);
         toast({
           title: "Erreur lors de la modification du quota",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -132,9 +128,7 @@ export const useSchoolsSportQuota = ({
         console.error(error);
         toast({
           title: "Erreur lors de la suppression du quota",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },

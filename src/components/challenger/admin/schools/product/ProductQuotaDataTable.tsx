@@ -42,7 +42,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-import { ArrowUpDown, MoreHorizontal, Pencil } from "lucide-react";
+import { ArrowUpDown, MoreHorizontal, Pencil, Trash } from "lucide-react";
 
 // Extended QuotaInfo with productId and productName
 export interface QuotaWithProduct {
@@ -56,11 +56,13 @@ export interface QuotaWithProduct {
 interface ProductQuotaDataTableProps {
   data: QuotaWithProduct[];
   onEditQuota: (productId: string) => void;
+  onDeleteQuota: (productId: string) => void;
 }
 
 export function ProductQuotaDataTable({
   data,
   onEditQuota,
+  onDeleteQuota,
 }: ProductQuotaDataTableProps) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -130,6 +132,13 @@ export function ProductQuotaDataTable({
                       >
                         <Pencil className="mr-2 h-4 w-4" />
                         Modifier
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() => onDeleteQuota(quota.product_id)}
+                        className="cursor-pointer text-destructive focus:text-destructive"
+                      >
+                        <Trash className="mr-2 h-4 w-4" />
+                        Supprimer
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

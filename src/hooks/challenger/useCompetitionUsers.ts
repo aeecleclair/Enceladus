@@ -9,9 +9,9 @@ import {
   patchCompetitionUsersUserIdMutation,
   patchCompetitionUsersUserIdValidateMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { getApiErrorMessage } from "@/lib/challenger/errorTyping";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMemo } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
@@ -19,6 +19,25 @@ import { useToast } from "@/components/ui/use-toast";
 export const useCompetitionUsers = () => {
   const { isTokenExpired } = useAuth();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  /**
+   * Unregistering a participant releases their purchases: the product quotas
+   * and the purchase lists are computed by the API, so they have to be reread
+   * rather than recomputed client-side.
+   */
+  const invalidatePurchaseDerivedQueries = () => {
+    queryClient.invalidateQueries({
+      predicate: ({ queryKey }) => {
+        const id = (queryKey[0] as { _id?: string } | undefined)?._id;
+        return (
+          !!id &&
+          (id.startsWith("getCompetitionPurchases") ||
+            id.startsWith("getCompetitionProducts"))
+        );
+      },
+    });
+  };
 
   const {
     data: competitionUsers,
@@ -45,10 +64,7 @@ export const useCompetitionUsers = () => {
       console.error(error);
       toast({
         title: "Erreur lors de la mise à jour",
-        description:
-          (error as unknown as ErrorType)?.stack?.body ||
-          (error as unknown as DetailedErrorType)?.stack?.detail ||
-          "Une erreur est survenue, veuillez réessayer.",
+        description: getApiErrorMessage(error),
         variant: "destructive",
       });
     },
@@ -77,10 +93,7 @@ export const useCompetitionUsers = () => {
       console.error(error);
       toast({
         title: "Erreur lors de la mise à jour",
-        description:
-          (error as unknown as ErrorType)?.stack?.body ||
-          (error as unknown as DetailedErrorType)?.stack?.detail ||
-          "Une erreur est survenue, veuillez réessayer.",
+        description: getApiErrorMessage(error),
         variant: "destructive",
       });
     },
@@ -98,6 +111,7 @@ export const useCompetitionUsers = () => {
       ...deleteCompetitionUsersUserIdMutation(),
       onSuccess: () => {
         refetchCompetitionUsers();
+        invalidatePurchaseDerivedQueries();
         toast({
           title: "Participant supprimé",
           description: "Le participant a été supprimé avec succès.",
@@ -107,10 +121,7 @@ export const useCompetitionUsers = () => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail ||
-            "Une erreur est survenue, veuillez réessayer.",
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -128,6 +139,7 @@ export const useCompetitionUsers = () => {
       ...patchCompetitionUsersUserIdCancelMutation(),
       onSuccess: () => {
         refetchCompetitionUsers();
+        invalidatePurchaseDerivedQueries();
         toast({
           title: "Participant désinscrit",
           description: "Le participant a été désinscrit avec succès.",
@@ -137,10 +149,7 @@ export const useCompetitionUsers = () => {
         console.error(error);
         toast({
           title: "Erreur lors de la désinscription",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail ||
-            "Une erreur est survenue, veuillez réessayer.",
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -167,10 +176,7 @@ export const useCompetitionUsers = () => {
         console.error(error);
         toast({
           title: "Erreur lors de la mise à jour",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail ||
-            "Une erreur est survenue, veuillez réessayer.",
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },

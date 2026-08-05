@@ -8,7 +8,7 @@ import {
   getCompetitionPurchasesUsersUserIdOptions,
   postCompetitionPurchasesMeMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
+import { getApiErrorMessage } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -60,9 +60,7 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
         console.error(error);
         toast({
           title: "Erreur lors de l'ajout de la variante",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
@@ -95,9 +93,7 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
         console.error(error);
         toast({
           title: "Erreur lors de la suppression de la variante",
-          description:
-            (error as unknown as ErrorType)?.stack?.body ||
-            (error as unknown as DetailedErrorType)?.stack?.detail,
+          description: getApiErrorMessage(error),
           variant: "destructive",
         });
       },
