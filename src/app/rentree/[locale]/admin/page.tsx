@@ -40,9 +40,9 @@ const AdminPage = () => {
   useEffect(() => {
     if (status?.status) {
       if (status.status === "onsite") {
-        setSize(50);
-      } else {
         setSize(100);
+      } else {
+        setSize(50);
       }
     }
   }, [status, setSize]);

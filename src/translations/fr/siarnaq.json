@@ -315,7 +315,9 @@
     "logout": "Se déconnecter",
     "status": "Statut : {status, select, pending {en attente} online {en ligne} onsite {sur place} closed {fermé} other {}}",
     "user": "Vue acheteur·euse",
-    "year": "Session : {year}"
+    "year": "Session : {year}",
+    "recette": "Recette : {amount, number, ::currency/EUR}",
+    "blur_time":"2000"
   },
   "variantCardOptions": {
     "activate": "Activer",
