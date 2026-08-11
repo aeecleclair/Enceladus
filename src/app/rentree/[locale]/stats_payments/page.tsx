@@ -1,12 +1,12 @@
 "use client";
 
-import {
-  useTotalPaymentsPerType,
-  useTotalPaymentsPerSeller,
-  useSumPayments
-} from "@/hooks/siarnaq/useCdrPayments";
-import { PaymentsTableType } from "@/components/siarnaq/admin/sellerProducts/PaymentTableType";
 import { PaymentsTableSeller } from "@/components/siarnaq/admin/sellerProducts/PaymentTableSeller";
+import { PaymentsTableType } from "@/components/siarnaq/admin/sellerProducts/PaymentTableType";
+import {
+  useSumPayments,
+  useTotalPaymentsPerSeller,
+  useTotalPaymentsPerType,
+} from "@/hooks/siarnaq/useCdrPayments";
 
 import { Suspense } from "react";
 
@@ -75,7 +75,9 @@ const PaymentsPage = () => {
                 Erreur lors du chargement des paiements.
               </p>
             )}
-            {!isLoading2 && !error2 && <PaymentsTableSeller data={data2 ?? []} />}
+            {!isLoading2 && !error2 && (
+              <PaymentsTableSeller data={data2 ?? []} />
+            )}
           </Card>
         </div>
       </Suspense>

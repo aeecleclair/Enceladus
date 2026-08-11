@@ -317,7 +317,7 @@
     "user": "Vue acheteur·euse",
     "year": "Session : {year}",
     "recette": "Recette : {amount, number, ::currency/EUR}",
-    "blur_time":"2000"
+    "blur_time": "2000"
   },
   "variantCardOptions": {
     "activate": "Activer",

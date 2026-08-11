@@ -21,7 +21,10 @@ export default function StackedBar({
   rounded = true,
   ariaLabel,
 }: Props) {
-  const total = Math.max(segments.reduce((s, seg) => s + (seg.value || 0), 0), 1);
+  const total = Math.max(
+    segments.reduce((s, seg) => s + (seg.value || 0), 0),
+    1,
+  );
 
   return (
     <div
@@ -61,7 +64,9 @@ export default function StackedBar({
                 transition: "width 300ms ease",
               }}
             >
-              {showText ? `${seg.label ? seg.label + " — " : ""}${seg.value}` : null}
+              {showText
+                ? `${seg.label ? seg.label + " — " : ""}${seg.value}`
+                : null}
             </div>
           );
         })}
