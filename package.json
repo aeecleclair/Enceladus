@@ -71,7 +71,7 @@
     "react": "19.2.1",
     "react-big-calendar": "^1.19.2",
     "react-circular-progressbar": "^2.2.0",
-    "react-currency-input-field": "^4.0.3",
+    "react-currency-input-field": "^4.0.5",
     "react-day-picker": "^9.11.3",
     "react-dom": "19.2.1",
     "react-dropzone": "^14.3.5",
