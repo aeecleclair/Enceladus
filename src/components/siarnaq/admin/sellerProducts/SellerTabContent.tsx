@@ -21,6 +21,7 @@ import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { TabsContent } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
+import { format } from "date-fns";
 
 interface SellerTabContentProps {
   status: Status;
@@ -93,10 +94,11 @@ export const SellerTabContent = ({
 
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
+      const exportedAt = format(new Date(), "yyyy-MM-dd_HH-mm-ss");
 
       const link = document.createElement("a");
       link.href = url;
-      link.download = `CdR_${year}_${seller.name}.xlsx`;
+      link.download = `CdR_${year}_${seller.name}_${exportedAt}.xlsx`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
