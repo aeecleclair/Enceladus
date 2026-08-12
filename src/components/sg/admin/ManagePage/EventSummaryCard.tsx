@@ -2,12 +2,14 @@ import { useFormatter, useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { AppModulesTicketingSchemasTicketingEventComplete } from "@/api";
 import { useEventQuota } from "@/hooks/sg/useEventQuota";
+import { Button } from "@/components/ui/button";
 
 interface EventSummaryCardProps {
     event: AppModulesTicketingSchemasTicketingEventComplete;
+    onEdit?: () => void;
 }
 
-export function EventSummaryCard({ event }: EventSummaryCardProps) {
+export function EventSummaryCard({ event, onEdit }: EventSummaryCardProps) {
     const {events: used_quota} = useEventQuota({ eventId: event.id });
 
     const format = useFormatter();
@@ -23,6 +25,9 @@ export function EventSummaryCard({ event }: EventSummaryCardProps) {
             <div className="flex items-center justify-between">
                 <h2 className="text-lg font-semibold">{event.name}</h2>
                 {event.disabled && <Badge variant="destructive">Désactivé</Badge>}
+                <Button variant="outline" size="sm" className="mt-2" onClick={onEdit}>
+                    Modifier l'événement
+                </Button>
             </div>
             <div className="grid grid-cols-2 gap-2 text-sm text-muted-foreground sm:grid-cols-4">
                 <div>

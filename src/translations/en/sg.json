@@ -19,6 +19,11 @@
     "status": "Status",
     "user": "User"
   },
+  "home": {
+    "welcome": "Welcome{name}!",
+    "explanation": "The official ticketing (SG) platform to book your spot at the school's parties and events. Pick an event, choose your ticket category, and grab your ticket in just a few clicks.",
+    "comingSoon": "The list of upcoming events will be available here soon."
+  },
   "addEventDialogTitle": {
     "newEvent": "Create a new Event",
     "user_quota": "User Quota",

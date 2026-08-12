@@ -19,6 +19,11 @@
     "status": "Status",
     "user": "User"
   },
+  "home": {
+    "welcome": "Bienvenue{name} !",
+    "explanation": "La billetterie officielle (SG) pour réserver tes places aux soirées et événements de l'école. Choisis un événement, sélectionne une catégorie de billet puis récupère ta place en quelques clics.",
+    "comingSoon": "La liste des événements à venir sera bientôt disponible ici."
+  },
   "addEventDialogTitle": {
     "newEvent": "Nouvel événement",
     "user_quota": "Quota d'utilisateur",

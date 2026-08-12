@@ -1,6 +1,7 @@
 import { useFormatter, useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 import _eventFormSchema from "@/forms/sg/eventFormSchema";
 import _sessionFormSchema from "@/forms/sg/sessionFormSchema";
@@ -69,6 +70,7 @@ export const AddEditEventForm = ({
   eventId,
   initialStep = 0,
 }: AddEditEventFormProps) => {
+  const router = useRouter();
   const [api, setApi] = useState<CarouselApi | undefined>(undefined);
 
   useEffect(() => {
@@ -213,16 +215,18 @@ export const AddEditEventForm = ({
   }, [isEdit, isEditModeFromQuery, eventId, existingEventData, eventForm]);
 
 
+    function toIso(value: Date): string {
+        return new Date(value).toISOString();
+    }
+
     async function onEventSubmit(values: z.infer<typeof eventFormSchema>, onSuccess?: () => void) {
         setIsLoading(true);
 
         if ((isEdit || isEditModeFromQuery) && createdEventId) {
             const body = {
                 name: values.name,
-                open_date: new Date(values.open_date).setUTCHours(24, 0, 0, 0).toString(),
-                close_date: values.close_date
-                    ? new Date(values.close_date).setUTCHours(24, 0, 0, 0).toString()
-                    : null,
+                open_date: toIso(values.open_date),
+                close_date: values.close_date ? toIso(values.close_date) : null,
                 quota: values.quota,
                 user_quota: values.user_quota,
             };
@@ -236,8 +240,8 @@ export const AddEditEventForm = ({
 
         const body: TicketingEventBase = {
             ...values,
-            open_date: values.open_date.setUTCHours(24, 0, 0, 0).toString(),
-            close_date: (values.open_date ?? new Date()).setUTCHours(24, 0, 0, 0).toString(),
+            open_date: toIso(values.open_date),
+            close_date: toIso(values.close_date ?? values.open_date ?? new Date()),
         };
 
         postEvent(body, (response) => {
@@ -286,7 +290,7 @@ export const AddEditEventForm = ({
       return {
         ...session,
         event_id: createdEventId || session.event_id,
-        date: session.date.setUTCHours(24, 0, 0, 0).toString(),
+        date: toIso(session.date),
       };
     };
 
@@ -300,10 +304,14 @@ export const AddEditEventForm = ({
       if (!isValid) return;
 
       const values = sessionForm.getValues();
+      const existingSession = editingSessionId
+        ? stagedSessions.find((session) => session.id === editingSessionId)
+        : undefined;
       const nextSession: StagedSession = {
         ...values,
         event_id: createdEventId,
         id: editingSessionId || makeStagedId(),
+        isExisting: existingSession?.isExisting ?? false,
       };
 
       setStagedSessions((current) => {
@@ -357,10 +365,15 @@ export const AddEditEventForm = ({
       if (!isValid) return;
 
       const values = categoryForm.getValues();
+      const existingCategory = editingCategoryId
+        ? stagedCategories.find((category) => category.id === editingCategoryId)
+        : undefined;
       const nextCategory: StagedCategory = {
         ...values,
         event_id: createdEventId,
         id: editingCategoryId || makeStagedId(),
+        isExisting: existingCategory?.isExisting ?? false,
+        price: Math.round(values.price * 100),
       };
 
       setStagedCategories((current) => {
@@ -384,7 +397,7 @@ export const AddEditEventForm = ({
         name: category.name,
         quota: category.quota,
         user_quota: category.user_quota,
-        price: category.price,
+        price: category.price / 100,
         disabled: category.disabled,
         linked_sessions: category.linked_sessions,
         required_membership: category.required_membership,
@@ -440,6 +453,7 @@ export const AddEditEventForm = ({
               name: session.name,
               quota: session.quota,
               user_quota: session.user_quota,
+              date: toIso(session.date),
             };
             await patchSessionAsync({ body, path: { session_id: session.id } });
           } else {
@@ -479,6 +493,7 @@ export const AddEditEventForm = ({
         setStagedCategories([]);
         resetForm(true);
         resetForm(false);
+        router.push(`/admin/manage?eventId=${createdEventId}`);
       }
     };
 
@@ -648,7 +663,7 @@ export const AddEditEventForm = ({
                             <div>
                               <div className="font-medium">{category.name}</div>
                               <div className="text-sm text-muted-foreground">
-                                price {category.price} · quota {category.quota || 0} · user quota {category.user_quota || 0}
+                                price {category.price/100} · quota {category.quota || 0} · user quota {category.user_quota || 0}
                               </div>
                             </div>
                             <div className="flex gap-2">
@@ -703,7 +718,7 @@ export const AddEditEventForm = ({
                   <div className="grid gap-2">
                     {stagedCategories.map((category) => (
                       <div key={category.id} className="text-sm text-muted-foreground">
-                        {category.name} · price {category.price}
+                        {category.name} · price {category.price / 100}
                       </div>
                     ))}
                   </div>

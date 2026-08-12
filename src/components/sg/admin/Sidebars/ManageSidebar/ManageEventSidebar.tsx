@@ -16,8 +16,6 @@ import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { NavEdit } from "./NavEdit";
 import { NavInscriptions } from "./NavInscriptions";
-import { NavSessions } from "./NavSessions";
-import { NavCategories } from "./NavCategories";
 import { NavOverview } from "./NavOverview";
 
 
@@ -44,8 +42,6 @@ export function ManageEventSidebar({
                 <NavOverview />
                 <NavInscriptions />
                 <NavEdit />
-                <NavSessions />
-                <NavCategories />
             </SidebarContent>
         <SidebarFooter />
         </Sidebar>

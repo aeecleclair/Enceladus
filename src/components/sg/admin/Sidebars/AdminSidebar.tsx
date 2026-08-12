@@ -38,14 +38,14 @@ export function AdminSidebar({
             </ SidebarHeader >
             <SidebarContent>
                 <SidebarGroup />
-                    <SidebarGroupLabel>
+            <SidebarGroupLabel className="flex items-center justify-between">
                         <div
                             onClick={handleManageSGClick}
                             className="cursor-pointer hover:underline"
                         >
                             Gérer mes SG
                         </div>
-                        <SidebarMenuAction className="data-[state=open]:rotate-90 mr-2">
+                        <SidebarMenuAction className="static data-[state=open]:rotate-90">
                             <ChevronRight />
                             <span className="sr-only">Toggle</span>
                         </SidebarMenuAction>

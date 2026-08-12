@@ -21,11 +21,11 @@ export function NavInscriptions() {
 
     return (
         <SidebarGroup>
-            <SidebarGroupLabel>
+            <SidebarGroupLabel className="flex items-center justify-between">
                 <div onClick={() => handleClick()} className="cursor-pointer hover:underline">
                     Liste des Inscriptions
                 </div>
-                <SidebarMenuAction className="data-[state=open]:rotate-90 mr-2">
+                <SidebarMenuAction className="static data-[state=open]:rotate-90">
                     <ChevronRight />
                     <span className="sr-only">Toggle</span>
                 </SidebarMenuAction>
