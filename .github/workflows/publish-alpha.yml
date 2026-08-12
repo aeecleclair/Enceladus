@@ -31,7 +31,7 @@ jobs:
             type=raw,value=alpha,enable=true
 
       - name: Login to Registry
-        uses: docker/login-action@v3.6.0
+        uses: docker/login-action@v4.2.0
         with:
           registry: ${{ secrets.DOCKER_REGISTRY_URL }}
           username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
