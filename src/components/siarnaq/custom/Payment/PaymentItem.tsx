@@ -11,10 +11,10 @@ import { LoadingButton } from "@/components/common/LoadingButton";
 
 import { useFormatter, useTranslations } from "next-intl";
 import { useState } from "react";
-import { BsLightningCharge } from "react-icons/bs";
 import {
   HiOutlineArchiveBox,
   HiOutlineAtSymbol,
+  HiOutlineBolt,
   HiOutlineCreditCard,
   HiTrash,
 } from "react-icons/hi2";
@@ -54,7 +54,7 @@ export const PaymentItem = ({
       case "archived":
         return <HiOutlineArchiveBox className="w-5 h-5 mr-2" />;
       case "MyECLPay":
-        return <BsLightningCharge className="w-5 h-5 mr-2" />;
+        return <HiOutlineBolt className="w-5 h-5 mr-2" />;
     }
   };
   function closeDialog(event: React.MouseEvent<HTMLButtonElement>) {
