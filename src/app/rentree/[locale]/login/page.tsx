@@ -93,7 +93,7 @@ const Login = () => {
                 if (selectedPromo === possiblePromos[0].toString()) {
                   redirectUri += "?external=true";
                 }
-                router.push(redirectUri);
+                window.open(redirectUri);
               }}
             >
               {t("login.register")}
