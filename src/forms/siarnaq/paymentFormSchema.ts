@@ -13,8 +13,11 @@ export default function paymentFormSchema(
       },
       { message: t("total") },
     ),
-    payment_type: z.enum(["cash", "check", "HelloAsso", "card", "archived"], {
-      error: t("paymentType"),
-    }),
+    payment_type: z.enum(
+      ["cash", "check", "HelloAsso", "card", "archived", "MyECLPay"],
+      {
+        error: t("paymentType"),
+      },
+    ),
   });
 }

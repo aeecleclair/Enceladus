@@ -219,6 +219,7 @@
     "check": "Chèque",
     "delete": "Supprimer",
     "deletePayment": "Supprimer le paiement",
+    "MyECLPay": "MyECLPay",
     "noPayment": "Aucun paiement réalisé",
     "paymentType": "Type de paiement",
     "payments": "Paiements réalisés",

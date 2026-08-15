@@ -14,6 +14,7 @@ import { useState } from "react";
 import {
   HiOutlineArchiveBox,
   HiOutlineAtSymbol,
+  HiOutlineBolt,
   HiOutlineCreditCard,
   HiTrash,
 } from "react-icons/hi2";
@@ -52,6 +53,8 @@ export const PaymentItem = ({
         return <HiOutlineCreditCard className="w-5 h-5 mr-2" />;
       case "archived":
         return <HiOutlineArchiveBox className="w-5 h-5 mr-2" />;
+      case "MyECLPay":
+        return <HiOutlineBolt className="w-5 h-5 mr-2" />;
     }
   };
   function closeDialog(event: React.MouseEvent<HTMLButtonElement>) {
