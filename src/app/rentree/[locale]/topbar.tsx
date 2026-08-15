@@ -1,5 +1,6 @@
 "use client";
 
+import { useSumPayments } from "@/hooks/siarnaq/useCdrPayments";
 import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
 import { useSellers } from "@/hooks/siarnaq/useSellers";
 import { useStatus } from "@/hooks/siarnaq/useStatus";
@@ -16,7 +17,8 @@ import { useTranslations } from "next-intl";
 import { Locale, useLocale } from "next-intl";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { HiOutlineLibrary } from "react-icons/hi";
+import { useState } from "react";
+import { HiOutlineCurrencyEuro, HiOutlineLibrary } from "react-icons/hi";
 import { HiShoppingCart } from "react-icons/hi2";
 
 import { Button } from "@/components/ui/button";
@@ -45,6 +47,22 @@ export default function TopBar() {
   const isInASellerGroup = user?.groups?.some((group) =>
     sellers.some((seller) => seller.group_id === group.id),
   );
+  const { data } = useSumPayments();
+  const [revealed, setRevealed] = useState(false);
+  const CustomClick = () => {
+    if (!revealed) {
+      setRevealed(true);
+      const timer = setTimeout(
+        () => {
+          setRevealed(false);
+        },
+        parseInt(t("topbar.blur_time")),
+      );
+      return () => clearTimeout(timer);
+    } else {
+      router.push(`/stats_payments`);
+    }
+  };
 
   return (
     <div className="p-6 bg-muted/40 flex flex-row flex-nowrap gap-x-4 justify-between">
@@ -59,19 +77,28 @@ export default function TopBar() {
         </div>
       )}
       <div className="flex gap-x-4">
-        {pathname === "/" && (isCdrAdmin || isInASellerGroup) && (
-          <Button variant="secondary" onClick={() => router.push(`/admin`)}>
-            <HiOutlineLibrary className="mr-2" />
-            {t("topbar.admin")}
+        {pathname === "/admin" && isCdrAdmin && (
+          <Button variant="secondary" onClick={CustomClick}>
+            <HiOutlineCurrencyEuro className="mr-2" />
+            <span className={revealed ? "" : "blur-sm select-none"}>
+              {t("topbar.recette", { amount: data ?? 0 })}
+            </span>
           </Button>
         )}
-        {pathname === "/admin" && (
+        {(pathname === "/" || pathname === "/stats_payments") &&
+          (isCdrAdmin || isInASellerGroup) && (
+            <Button variant="secondary" onClick={() => router.push(`/admin`)}>
+              <HiOutlineLibrary className="mr-2" />
+              {t("topbar.admin")}
+            </Button>
+          )}
+        {(pathname === "/admin" || pathname === "/stats_payments") && (
           <Button variant="secondary" onClick={() => router.push(`/`)}>
             <HiShoppingCart className="mr-2" />
             {t("topbar.user")}
           </Button>
         )}
-        {["/", "/admin"].includes(pathname) && (
+        {["/", "/admin", "/stats_payments"].includes(pathname) && (
           <Button
             variant="secondary"
             onClick={() => {

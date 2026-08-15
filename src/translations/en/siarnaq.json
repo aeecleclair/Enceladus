@@ -308,7 +308,9 @@
     "logout": "Log out",
     "status": "Status: {status, select, pending {pending} online {online} onsite {onsite} closed {closed} other {}}",
     "user": "Buyer view",
-    "year": "Session: {year}"
+    "year": "Session: {year}",
+    "recette": "Recette : {amount, number, ::currency/EUR}",
+    "blur_time": "2000"
   },
   "variantCardOptions": {
     "activate": "Enable",

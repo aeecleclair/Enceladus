@@ -38,7 +38,7 @@ export const useUsers = () => {
     },
     retry: 3,
     enabled: !isTokenExpired(),
-    staleTime: Infinity,
+    // staleTime: Infinity, This was creating a bug when you switch from page to page you can no longuer see the users in the search engine.
   });
 
   const { token } = useTokenStore();
