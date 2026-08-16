@@ -3,7 +3,6 @@
 import MyECLButton from "@/components/common/MyEclButton";
 import { TextSeparator } from "@/components/siarnaq/custom/TextSeparator";
 import { useYear } from "@/hooks/siarnaq/useYear";
-import { useRouter } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
 import { useState } from "react";

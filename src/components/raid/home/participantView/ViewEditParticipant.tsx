@@ -411,15 +411,19 @@ export const ViewEditParticipant = ({
           form={form}
           type={ValueTypes.SITUATION}
         />
-        {form.watch("situation") === "otherschool" && (
-          <ParticipantField
-            label="Nom de l'école"
-            id="otherSchool"
-            form={form}
-            type={ValueTypes.STRING}
-            layer={1}
-          />
-        )}
+
+        {
+          // eslint-disable-next-line react-hooks/incompatible-library
+          form.watch("situation") === "otherschool" && (
+            <ParticipantField
+              label="Nom de l'école"
+              id="otherSchool"
+              form={form}
+              type={ValueTypes.STRING}
+              layer={1}
+            />
+          )
+        }
         {form.watch("situation") === "corporatepartner" && (
           <ParticipantField
             label="Nom de l'entreprise"
