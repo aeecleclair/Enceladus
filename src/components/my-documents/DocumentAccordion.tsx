@@ -1,13 +1,13 @@
+import { DocumentCard } from "./DocumentCard";
+
+import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
+
 import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { useTranslations } from "next-intl";
-import { Badge } from "@/components/ui/badge";
 import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
-import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
-import { DocumentCard } from "./DocumentCard";
 
 interface DocumentAccordionProps {
   title: string;
@@ -18,7 +18,6 @@ export const DocumentAccordion = ({
   title,
   documents,
 }: DocumentAccordionProps) => {
-  const t = useTranslations("myDocuments");
   return (
     <AccordionItem value={title}>
       <ContextMenu>

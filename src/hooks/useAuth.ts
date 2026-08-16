@@ -7,7 +7,7 @@ import { BodyTokenAuthTokenPost, TokenResponse } from "@/api/types.gen";
 import { useTokenStore } from "@/stores/token";
 
 import { useQuery } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 import axios from "axios";
@@ -19,7 +19,6 @@ const backUrl: string =
 const scopes: string[] = ["API"];
 
 export const useAuth = () => {
-  const pathname = usePathname();
   const { website } = useWebsite();
   const [isLoading, setIsLoading] = useState(false);
   const { token, setToken, refreshToken, setRefreshToken, userId } =

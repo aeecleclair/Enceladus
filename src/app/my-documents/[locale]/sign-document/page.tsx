@@ -1,7 +1,9 @@
 "use client";
-import { EmbedSignDocument } from "@documenso/embed-react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+
+import { EmbedSignDocument } from "@documenso/embed-react";
+
 const SignDocumentPage = () => {
   const searchParams = useSearchParams();
   const signingToken = searchParams.get("signingToken");
@@ -17,7 +19,7 @@ const SignDocumentPage = () => {
       host="https://documenso.myecl.fr"
       name="John Doe"
       token={signingToken}
-      onDocumentCompleted={(data) => {
+      onDocumentCompleted={() => {
         setSignedStatus(true);
       }}
     />

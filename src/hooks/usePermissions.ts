@@ -1,5 +1,3 @@
-import { useAuth } from "./useAuth";
-
 import { getPermissionsOptions } from "@/api/@tanstack/react-query.gen";
 
 import { useQuery } from "@tanstack/react-query";

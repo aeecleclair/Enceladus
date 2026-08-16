@@ -1,6 +1,11 @@
 "use client";
 
-import * as React from "react";
+import { DataTableToolbar } from "./DataTableToolbar";
+
+import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
+import { fuzzyFilter } from "@/lib/utils";
+
+import { Cross1Icon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -13,7 +18,12 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import * as React from "react";
+
+import { Checkbox } from "../ui/checkbox";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import {
   Table,
   TableBody,
@@ -22,14 +32,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import { ArrowUpDown, DownloadIcon, Trash } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { DataTableToolbar } from "./DataTableToolbar";
-import { fuzzyFilter } from "@/lib/utils";
-import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
-import { Cross1Icon } from "@radix-ui/react-icons";
-import { Checkbox } from "../ui/checkbox";
 
 export interface TemplateDocuments extends AppCoreDocumentsSchemasDocumentsDocument {
   user: {

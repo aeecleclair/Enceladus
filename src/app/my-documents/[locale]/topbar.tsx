@@ -1,15 +1,16 @@
 "use client";
 
-import { useSellers } from "@/hooks/siarnaq/useSellers";
+import { useAuth } from "@/hooks/useAuth";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { useLocaleStore } from "@/stores/locale";
-import { useTokenStore } from "@/stores/token";
 
 import { CaretSortIcon, ExitIcon } from "@radix-ui/react-icons";
 import { useTranslations } from "next-intl";
 import { Locale, useLocale } from "next-intl";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
+import { HiLibrary, HiOutlineLibrary } from "react-icons/hi";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -22,9 +23,6 @@ import {
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useSearchParams } from "next/navigation";
-import { useAuth } from "@/hooks/useAuth";
-import { HiLibrary, HiOutlineLibrary } from "react-icons/hi";
 
 export default function TopBar() {
   const t = useTranslations("common");

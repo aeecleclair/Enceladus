@@ -1,8 +1,5 @@
 "use client";
-import { DocumentCard } from "@/components/my-documents/DocumentCard";
-import { DocumentDataTable } from "@/components/my-documents/DocumentTable";
-import { Button } from "@/components/ui/button";
-import { useMyDocuments } from "@/hooks/my-documents/useMyDocuments";
+import { DocumentDataTable } from "@/components/my-documents/DocumentDataTable";
 import { useTemplateDocuments } from "@/hooks/my-documents/useTemplateDocuments";
 import { useTemplates } from "@/hooks/my-documents/useTemplates";
 import { useRouter } from "@/i18n/navigation";
@@ -10,6 +7,8 @@ import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
+
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const t = useTranslations("myDocuments");
@@ -20,12 +19,6 @@ export default function Home() {
   const router = useRouter();
 
   const template = teamTemplates.find((t) => t.id === templateId);
-  if (!template) {
-    router.push({
-      pathname: "/admin",
-    });
-    return;
-  }
 
   const names = [
     "Smith",
@@ -67,6 +60,13 @@ export default function Home() {
       })),
     [templateDocuments],
   );
+
+  if (!template) {
+    router.push({
+      pathname: "/admin",
+    });
+    return;
+  }
 
   return (
     <div className="p-6">
