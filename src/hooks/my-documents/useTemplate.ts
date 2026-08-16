@@ -201,6 +201,7 @@ export const useTemplate = (templateId: string) => {
   const template: TemplateCompleteWithDocuments = {
     documenso_id: 1,
     name: "Template " + templateId,
+    recipient_id: 1,
     team_id: "team1",
     id: templateId,
     deleted: false,
