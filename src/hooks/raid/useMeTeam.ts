@@ -45,7 +45,7 @@ export const useMeTeam = () => {
         path: { user_id: userId! },
         signal,
       });
-      if (response.status === 404) return null as unknown as RaidTeam;
+      if (response?.status === 404) return null as unknown as RaidTeam;
       if (error) throw error;
       return (data ?? null) as unknown as RaidTeam;
     },

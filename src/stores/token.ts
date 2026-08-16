@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
 const hostname = typeof window !== "undefined" ? window.location.hostname : "";
 
@@ -28,6 +28,12 @@ const COOKIE_OPTIONS = {
   expires: 7,
 };
 
+const noopStorage = {
+  getItem: () => null,
+  setItem: () => {},
+  removeItem: () => {},
+};
+
 interface TokenStore {
   token: string | null;
   refreshToken: string | null;
@@ -40,33 +46,54 @@ function readCookie(key: string): string | null {
   return Cookies.get(key) ?? null;
 }
 
+function parseUserId(token: string | null): string | null {
+  if (!token) return null;
+  try {
+    return JSON.parse(atob(token.split(".")[1])).sub;
+  } catch {
+    return null;
+  }
+}
+
 export const useTokenStore = create<TokenStore>()(
-  devtools((set) => ({
-    token: readCookie("access_token"),
-    refreshToken: readCookie("refresh_token"),
-    userId: (() => {
-      const t = readCookie("access_token");
-      return t ? JSON.parse(atob(t.split(".")[1])).sub : null;
-    })(),
+  devtools(
+    persist(
+      (set) => ({
+        token: readCookie("access_token"),
+        refreshToken: readCookie("refresh_token"),
+        userId: parseUserId(readCookie("access_token")),
 
-    setToken: (token: string | null) => {
-      if (token) {
-        Cookies.set("access_token", token, COOKIE_OPTIONS);
-        const userId = JSON.parse(atob(token.split(".")[1])).sub;
-        set({ token, userId });
-      } else {
-        Cookies.remove("access_token", { domain: COOKIE_DOMAIN });
-        set({ token: null, userId: null });
-      }
-    },
+        setToken: (token: string | null) => {
+          if (token) {
+            Cookies.set("access_token", token, COOKIE_OPTIONS);
+            set({ token, userId: parseUserId(token) });
+          } else {
+            Cookies.remove("access_token", { domain: COOKIE_DOMAIN });
+            set({ token: null, userId: null });
+          }
+        },
 
-    setRefreshToken: (refreshToken: string | null) => {
-      if (refreshToken) {
-        Cookies.set("refresh_token", refreshToken, COOKIE_OPTIONS);
-      } else {
-        Cookies.remove("refresh_token", { domain: COOKIE_DOMAIN });
-      }
-      set({ refreshToken });
-    },
-  })),
+        setRefreshToken: (refreshToken: string | null) => {
+          if (refreshToken) {
+            Cookies.set("refresh_token", refreshToken, COOKIE_OPTIONS);
+          } else {
+            Cookies.remove("refresh_token", { domain: COOKIE_DOMAIN });
+          }
+          set({ refreshToken });
+        },
+      }),
+      {
+        name: "token-store",
+        storage: createJSONStorage(() =>
+          typeof window !== "undefined" ? localStorage : noopStorage,
+        ),
+        partialize: (state) => ({
+          token: state.token,
+          refreshToken: state.refreshToken,
+          userId: state.userId,
+        }),
+      },
+    ),
+    { name: "TokenStore" },
+  ),
 );

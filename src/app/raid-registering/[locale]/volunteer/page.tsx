@@ -69,6 +69,7 @@ const VolunteerPage = () => {
     defaultValues: DEFAULT_VALUES,
     mode: "onSubmit",
   });
+  // eslint-disable-next-line react-hooks/incompatible-library
   const hasCar = form.watch("has_car");
 
   useEffect(() => {
@@ -199,7 +200,7 @@ const VolunteerPage = () => {
                           onCheckedChange={(v) => field.onChange(v === true)}
                         />
                       </FormControl>
-                      <FormLabel className="!mt-0">{tr("hasCar")}</FormLabel>
+                      <FormLabel className="mt-0!">{tr("hasCar")}</FormLabel>
                     </FormItem>
                   )}
                 />
@@ -243,7 +244,7 @@ const VolunteerPage = () => {
                           onCheckedChange={(v) => field.onChange(v === true)}
                         />
                       </FormControl>
-                      <FormLabel className="!mt-0">
+                      <FormLabel className="mt-0!">
                         {tr("isSpecialDriver")}
                       </FormLabel>
                     </FormItem>
@@ -260,7 +261,7 @@ const VolunteerPage = () => {
                           onCheckedChange={(v) => field.onChange(v === true)}
                         />
                       </FormControl>
-                      <FormLabel className="!mt-0">
+                      <FormLabel className="mt-0!">
                         {tr("isUtilityVehicleDriver")}
                       </FormLabel>
                     </FormItem>
@@ -277,7 +278,7 @@ const VolunteerPage = () => {
                           onCheckedChange={(v) => field.onChange(v === true)}
                         />
                       </FormControl>
-                      <FormLabel className="!mt-0">
+                      <FormLabel className="mt-0!">
                         {tr("isParcoursHelper")}
                       </FormLabel>
                     </FormItem>

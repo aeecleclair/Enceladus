@@ -1,12 +1,18 @@
 import { Locale } from "next-intl";
 
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
 interface LocaleStore {
   localeStore: Locale | undefined;
   setLocaleStore: (size: Locale) => void;
 }
+
+const noopStorage = {
+  getItem: () => null,
+  setItem: () => {},
+  removeItem: () => {},
+};
 
 export const useLocaleStore = create<LocaleStore>()(
   devtools(
@@ -17,6 +23,9 @@ export const useLocaleStore = create<LocaleStore>()(
       }),
       {
         name: "locale-store",
+        storage: createJSONStorage(() =>
+          typeof window !== "undefined" ? localStorage : noopStorage,
+        ),
       },
     ),
   ),

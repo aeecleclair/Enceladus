@@ -1,6 +1,10 @@
 import { useAuth } from "../useAuth";
 
-import { Team, TeamEdit, TeamInfo } from "@/api";
+import {
+  AppModulesSportCompetitionSchemasSportCompetitionTeam,
+  AppModulesSportCompetitionSchemasSportCompetitionTeamInfo,
+  TeamEdit,
+} from "@/api";
 import { getCompetitionTeamsSportsSportIdSchoolsSchoolIdOptions } from "@/api/@tanstack/react-query.gen";
 import {
   deleteCompetitionTeamsTeamIdMutation,
@@ -65,8 +69,10 @@ export const useSchoolSportTeams = ({
     });
 
   const createSchoolSportTeam = (
-    teamData: TeamInfo,
-    callback: (data: Team) => void,
+    teamData: AppModulesSportCompetitionSchemasSportCompetitionTeamInfo,
+    callback: (
+      data: AppModulesSportCompetitionSchemasSportCompetitionTeam,
+    ) => void,
   ) => {
     return mutateCreateSchoolSportTeam(
       { body: teamData },

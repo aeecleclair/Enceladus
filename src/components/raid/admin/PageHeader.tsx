@@ -7,13 +7,7 @@ import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 
 type AccentColor =
-  | "primary"
-  | "emerald"
-  | "amber"
-  | "orange"
-  | "sky"
-  | "teal"
-  | "violet";
+  "primary" | "emerald" | "amber" | "orange" | "sky" | "teal" | "violet";
 
 const accentStyles: Record<AccentColor, string> = {
   primary: "bg-primary/10 text-primary",

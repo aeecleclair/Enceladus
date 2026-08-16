@@ -1,6 +1,10 @@
 import { DocumentItem } from "./DocumentItem";
 
-import { Document, DocumentValidation, RaidParticipant } from "@/api";
+import {
+  AppModulesRaidSchemasRaidDocument,
+  DocumentValidation,
+  RaidParticipant,
+} from "@/api";
 import { getSituationLabel } from "@/lib/raid/teamUtils";
 
 import { Accordion } from "@/components/ui/accordion";
@@ -8,8 +12,8 @@ import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface ParticipantDocumentCardProps {
   participant: RaidParticipant;
-  setDocument: (document: Document) => void;
-  downloadDocument: (document: Document) => void;
+  setDocument: (document: AppModulesRaidSchemasRaidDocument) => void;
+  downloadDocument: (document: AppModulesRaidSchemasRaidDocument) => void;
   validateDocument: (
     documentId: string,
     validation: DocumentValidation,

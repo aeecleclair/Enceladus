@@ -1,6 +1,6 @@
 "use client";
 
-import { TeamComplete } from "@/api";
+import { AppModulesSportCompetitionSchemasSportCompetitionTeamComplete } from "@/api";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 
 interface TeamCardProps {
-  team: TeamComplete;
+  team: AppModulesSportCompetitionSchemasSportCompetitionTeamComplete;
   onEdit?: () => void;
   onDelete?: () => void;
 }

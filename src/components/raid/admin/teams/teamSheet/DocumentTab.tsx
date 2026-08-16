@@ -1,6 +1,11 @@
 import { ParticipantDocumentCard } from "./ParticipantDocumentCard";
 
-import { Document, DocumentValidation, RaidParticipant, RaidTeam } from "@/api";
+import {
+  AppModulesRaidSchemasRaidDocument,
+  DocumentValidation,
+  RaidParticipant,
+  RaidTeam,
+} from "@/api";
 import { DocumentView } from "@/components/raid/custom/DocumentView";
 import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
 import { useDocument } from "@/hooks/raid/useDocument";
@@ -21,19 +26,24 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
     useDocument();
   const { refetchTeam } = useAdminTeam(team.id);
   const { refetchTeams } = useTeams();
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(
-    null,
-  );
+  const [selectedDocument, setSelectedDocument] =
+    useState<AppModulesRaidSchemasRaidDocument | null>(null);
   const [selectedDocumentUser, setSelectedDocumentUser] = useState<
     string | null
   >(null);
 
-  function setDocument(document: Document, userId: string) {
+  function setDocument(
+    document: AppModulesRaidSchemasRaidDocument,
+    userId: string,
+  ) {
     setSelectedDocument(document);
     setSelectedDocumentUser(userId);
   }
 
-  function downloadDocument(doc: Document, participant: RaidParticipant) {
+  function downloadDocument(
+    doc: AppModulesRaidSchemasRaidDocument,
+    participant: RaidParticipant,
+  ) {
     const key = doc.type;
     const file = getDocument(participant.user_id, key);
     if (file !== undefined) {

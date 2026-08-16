@@ -1,6 +1,6 @@
 import { DocumentValidationButton } from "./DocumentValidationButton";
 
-import { Document, DocumentValidation } from "@/api";
+import { AppModulesRaidSchemasRaidDocument, DocumentValidation } from "@/api";
 
 import { HiCheck, HiDownload, HiX } from "react-icons/hi";
 
@@ -15,10 +15,10 @@ import { BadgeAlertIcon, ClockIcon } from "lucide-react";
 
 interface DocumentItemProps {
   value: string;
-  document: Document | null;
+  document: AppModulesRaidSchemasRaidDocument | null;
   index: number;
-  setDocument: (document: Document) => void;
-  downloadDocument: (document: Document) => void;
+  setDocument: (document: AppModulesRaidSchemasRaidDocument) => void;
+  downloadDocument: (document: AppModulesRaidSchemasRaidDocument) => void;
   validateDocument: (
     documentId: string,
     validation: DocumentValidation,

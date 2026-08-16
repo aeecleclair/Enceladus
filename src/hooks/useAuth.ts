@@ -7,7 +7,7 @@ import { BodyTokenAuthTokenPost, TokenResponse } from "@/api/types.gen";
 import { useTokenStore } from "@/stores/token";
 
 import { useQuery } from "@tanstack/react-query";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 import axios from "axios";
@@ -19,7 +19,6 @@ const backUrl: string =
 const scopes: string[] = ["API"];
 
 export const useAuth = () => {
-  const pathname = usePathname();
   const { website } = useWebsite();
   const [isLoading, setIsLoading] = useState(false);
   const { token, setToken, refreshToken, setRefreshToken, userId } =
@@ -83,9 +82,9 @@ export const useAuth = () => {
       setIsLoading(false);
       setToken(tokenResponse.access_token);
       setRefreshToken(tokenResponse.refresh_token);
-    } catch {
+    } catch (error) {
       setIsLoading(false);
-      if (isTokenExpired()) {
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
         logout();
       }
     }
@@ -108,11 +107,9 @@ export const useAuth = () => {
 
   function isTokenExpired() {
     if (token === null) return true;
-    const access_token_expires = token
-      ? JSON.parse(atob(token.split(".")[1])).exp
-      : 0;
+    const exp = JSON.parse(atob(token.split(".")[1])).exp;
     const now = Math.floor(Date.now() / 1000);
-    return access_token_expires < now - 60;
+    return exp < now;
   }
 
   async function login(code: string, callback?: () => void) {
@@ -159,10 +156,6 @@ export const useAuth = () => {
 
     if (token !== null) {
       setIsTokenQueried(true);
-    } else {
-      if (!pathname.endsWith("/login")) {
-        router.replace(`/${website}/login?redirect=${pathname}`);
-      }
     }
     setIsLoading(false);
     return token;

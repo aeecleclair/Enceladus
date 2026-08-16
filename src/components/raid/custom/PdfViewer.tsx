@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 
-import type { PDFDocumentProxy } from "pdfjs-dist";
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
+import { DocumentCallback } from "react-pdf/dist/shared/types.js";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -24,10 +24,8 @@ interface PdfViewerProps {
 export const PdfViewer = ({ file, width }: PdfViewerProps) => {
   const [numPages, setNumPages] = useState<number>();
 
-  function onDocumentLoadSuccess({
-    numPages: nextNumPages,
-  }: PDFDocumentProxy): void {
-    setNumPages(nextNumPages);
+  function onDocumentLoadSuccess(document: DocumentCallback): void {
+    setNumPages(document.numPages);
   }
   return (
     <Document

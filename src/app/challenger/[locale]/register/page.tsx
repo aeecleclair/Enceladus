@@ -139,6 +139,7 @@ const Register = () => {
     } else if (state.allHeaderSubtitles[2] === "Sport") {
       newSubtitles.splice(2, 1);
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setState((state) => ({
       ...state,
       onValidateCardActions: {

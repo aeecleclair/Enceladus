@@ -2,7 +2,10 @@ import { StyledFormField } from "../../../common/StyledFormField";
 import { DocumentDialog } from "../../custom/DocumentDialog";
 import { CardTemplate } from "./CardTemplate";
 
-import { Sport, TeamInfo } from "@/api";
+import {
+  AppModulesSportCompetitionSchemasSportCompetitionTeamInfo,
+  Sport,
+} from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { RegisteringFormValues } from "@/forms/challenger/registering";
 import { useDocument } from "@/hooks/challenger/useDocument";
@@ -61,7 +64,7 @@ export const SportCard = ({ form, sports }: SportCardProps) => {
 
   const createTeam = (name: string) => {
     if (!me?.school?.id || !me?.id) return;
-    const body: TeamInfo = {
+    const body: AppModulesSportCompetitionSchemasSportCompetitionTeamInfo = {
       name,
       sport_id: form.watch("sport.id")!,
       school_id: me?.school?.id,

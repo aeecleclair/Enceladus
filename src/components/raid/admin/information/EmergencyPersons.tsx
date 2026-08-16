@@ -234,6 +234,7 @@ export const EmergencyPerson = () => {
 
   const isPresidentFilled = () => {
     return (
+      // eslint-disable-next-line react-hooks/incompatible-library
       form.watch("president.firstname") &&
       form.watch("president.name") &&
       form.watch("president.phone")

@@ -44,7 +44,7 @@ export const useMeVolunteer = () => {
     // the backend with hundreds of identical requests.
     queryFn: async ({ signal }) => {
       const { data, error, response } = await getRaidVolunteersMe({ signal });
-      if (response.status === 404) return null as unknown as RaidVolunteer;
+      if (response?.status === 404) return null as unknown as RaidVolunteer;
       if (error) throw error;
       return (data ?? null) as unknown as RaidVolunteer;
     },
