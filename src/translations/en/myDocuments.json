@@ -1,10 +1,15 @@
 {
+  "admin": {
+    "detail": "Details"
+  },
   "document": {
     "download": "Download",
+    "sign": "Sign",
     "status": {
-      "signed": "Signed",
-      "pending": "Pending signature",
-      "rejected": "Rejected"
+      "DRAFT": "Draft",
+      "COMPLETED": "Signed",
+      "PENDING": "Pending signature",
+      "REJECTED": "Rejected"
     }
   },
   "home": {

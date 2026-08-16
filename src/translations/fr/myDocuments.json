@@ -1,10 +1,15 @@
 {
+  "admin": {
+    "detail": "Détails"
+  },
   "document": {
     "download": "Télécharger",
+    "sign": "Signer",
     "status": {
-      "signed": "Signé",
-      "pending": "En attente de signature",
-      "rejected": "Rejeté"
+      "DRAFT": "Brouillon",
+      "COMPLETED": "Signé",
+      "PENDING": "En attente de signature",
+      "REJECTED": "Rejeté"
     }
   },
   "home": {
