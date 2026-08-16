@@ -60,6 +60,10 @@ export function DocumentDataTable({
   const { toast } = useToast();
   const { setDocumentId, refetchData: refetch } = useDocument();
   const [isFileLoading, setIsFileLoading] = useState(false);
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
 
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -101,154 +105,157 @@ export function DocumentDataTable({
     });
   }
 
-  const columns: ColumnDef<TemplateDocuments>[] = [
-    {
-      id: "searchField",
-      accessorFn: (row) =>
-        `${row.user.fullName} ${row.user.email}`.toLowerCase(),
-      filterFn: (row, columnId, filterValue) => {
-        const searchTerm = filterValue.toLowerCase();
-        const fullName = row.original.user.fullName.toLowerCase();
-        const email = row.original.user.email.toLowerCase();
-        return fullName.includes(searchTerm) || email.includes(searchTerm);
+  const columns = React.useMemo<ColumnDef<TemplateDocuments>[]>(
+    () => [
+      {
+        id: "searchField",
+        accessorFn: (row) =>
+          `${row.user.fullName} ${row.user.email}`.toLowerCase(),
+        filterFn: (row, columnId, filterValue) => {
+          const searchTerm = filterValue.toLowerCase();
+          const fullName = row.original.user.fullName.toLowerCase();
+          const email = row.original.user.email.toLowerCase();
+          return fullName.includes(searchTerm) || email.includes(searchTerm);
+        },
       },
-    },
-    {
-      id: "select-col",
-      header: ({ table }) => (
-        <Checkbox
-          className="border-gray-700"
-          checked={table.getIsAllPageRowsSelected() ? true : false}
-          onCheckedChange={(checked) =>
-            table.toggleAllPageRowsSelected(!!checked)
-          }
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          className="border-gray-700"
-          checked={row.getIsSelected()}
-          disabled={!row.getCanSelect()}
-          onCheckedChange={row.getToggleSelectedHandler()}
-        />
-      ),
-    },
-    {
-      accessorKey: "fullName",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="flex items-center w-full   "
-        >
-          Nom
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
-      sortingFn: (rowA, rowB) => {
-        const nameA = rowA.original.user.fullName.toLowerCase();
-        const nameB = rowB.original.user.fullName.toLowerCase();
-        return nameA.localeCompare(nameB);
-      },
-      cell: ({ row }) => {
-        const fullName = row.original.user.fullName;
-
-        return (
-          <div className="font-medium text-center flex items-center justify-center gap-2">
-            {fullName}
-          </div>
-        );
-      },
-    },
-    {
-      accessorKey: "email",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="flex items-center w-full"
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
-      sortingFn: (rowA, rowB) => {
-        const emailA = rowA.original.user.email.toLowerCase();
-        const emailB = rowB.original.user.email.toLowerCase();
-        return emailA.localeCompare(emailB);
-      },
-      cell: ({ row }) => (
-        <div className="text-center">{row.original.user.email}</div>
-      ),
-    },
-    {
-      accessorKey: "status",
-      header: ({ column }) => (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          className="flex items-center w-full"
-        >
-          Status
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      ),
-      cell: ({ row }) => (
-        <div className="flex justify-center">
-          <Badge
-            className={
-              badgeClasses[row.original.status] ?? badgeClasses.default
+      {
+        id: "select-col",
+        header: ({ table }) => (
+          <Checkbox
+            className="border-gray-700"
+            checked={table.getIsAllPageRowsSelected() ? true : false}
+            onCheckedChange={(checked) =>
+              table.toggleAllPageRowsSelected(!!checked)
             }
+          />
+        ),
+        cell: ({ row }) => (
+          <Checkbox
+            className="border-gray-700"
+            checked={row.getIsSelected()}
+            disabled={!row.getCanSelect()}
+            onCheckedChange={row.getToggleSelectedHandler()}
+          />
+        ),
+      },
+      {
+        accessorKey: "fullName",
+        header: ({ column }) => (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center w-full   "
           >
-            {t(`document.status.${row.original.status}`)}
-          </Badge>
-        </div>
-      ),
-      filterFn: (row, id, filterValue) => {
-        const status = row.getValue(id);
-        return status === filterValue;
-      },
-      sortingFn: (rowA, rowB) => {
-        const statusA = rowA.original.status;
-        const statusB = rowB.original.status;
-        return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
-      },
-    },
-    {
-      id: "actions",
-      header: () => <div className="text-center w-full">Actions</div>,
-      cell: ({ row }) => {
-        const document = row.original;
+            Nom
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        ),
+        sortingFn: (rowA, rowB) => {
+          const nameA = rowA.original.user.fullName.toLowerCase();
+          const nameB = rowB.original.user.fullName.toLowerCase();
+          return nameA.localeCompare(nameB);
+        },
+        cell: ({ row }) => {
+          const fullName = row.original.user.fullName;
 
-        return (
-          <div className="flex flex-row items-center justify-center gap-2">
-            <Button
-              variant="outline"
-              size="sm"
-              disabled={document.status !== "COMPLETED" || isFileLoading}
-              onClick={() => {
-                downloadDocument(document.id);
-              }}
-            >
-              <DownloadIcon />
-            </Button>
-            <Button
-              variant={
-                document.status === "PENDING" ? "outline" : "destructive"
-              }
-              size="sm"
-              onClick={() => {
-                // Implement cancel logic here
-                console.log("Cancelling document:", document.name);
-              }}
-            >
-              {document.status === "PENDING" ? <Cross1Icon /> : <Trash />}
-            </Button>
-          </div>
-        );
+          return (
+            <div className="font-medium text-center flex items-center justify-center gap-2">
+              {fullName}
+            </div>
+          );
+        },
       },
-    },
-  ];
+      {
+        accessorKey: "email",
+        header: ({ column }) => (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center w-full"
+          >
+            Email
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        ),
+        sortingFn: (rowA, rowB) => {
+          const emailA = rowA.original.user.email.toLowerCase();
+          const emailB = rowB.original.user.email.toLowerCase();
+          return emailA.localeCompare(emailB);
+        },
+        cell: ({ row }) => (
+          <div className="text-center">{row.original.user.email}</div>
+        ),
+      },
+      {
+        accessorKey: "status",
+        header: ({ column }) => (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            className="flex items-center w-full"
+          >
+            Status
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        ),
+        cell: ({ row }) => (
+          <div className="flex justify-center">
+            <Badge
+              className={
+                badgeClasses[row.original.status] ?? badgeClasses.default
+              }
+            >
+              {t(`document.status.${row.original.status}`)}
+            </Badge>
+          </div>
+        ),
+        filterFn: (row, id, filterValue) => {
+          const status = row.getValue(id);
+          return status === filterValue;
+        },
+        sortingFn: (rowA, rowB) => {
+          const statusA = rowA.original.status;
+          const statusB = rowB.original.status;
+          return statusOrder.indexOf(statusA) - statusOrder.indexOf(statusB);
+        },
+      },
+      {
+        id: "actions",
+        header: () => <div className="text-center w-full">Actions</div>,
+        cell: ({ row }) => {
+          const document = row.original;
+
+          return (
+            <div className="flex flex-row items-center justify-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                disabled={document.status !== "COMPLETED" || isFileLoading}
+                onClick={() => {
+                  downloadDocument(document.id);
+                }}
+              >
+                <DownloadIcon />
+              </Button>
+              <Button
+                variant={
+                  document.status === "PENDING" ? "outline" : "destructive"
+                }
+                size="sm"
+                onClick={() => {
+                  // Implement cancel logic here
+                  console.log("Cancelling document:", document.name);
+                }}
+              >
+                {document.status === "PENDING" ? <Cross1Icon /> : <Trash />}
+              </Button>
+            </div>
+          );
+        },
+      },
+    ],
+    [badgeClasses, isFileLoading, t],
+  );
 
   const table = useReactTable({
     data,
@@ -257,10 +264,12 @@ export function DocumentDataTable({
       sorting,
       columnFilters,
       rowSelection,
+      pagination,
     },
     filterFns: {
       fuzzy: fuzzyFilter,
     },
+    onPaginationChange: setPagination,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
