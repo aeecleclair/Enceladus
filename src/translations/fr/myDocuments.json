@@ -2,9 +2,12 @@
   "admin": {
     "back": "Retour",
     "detail": "Détails",
+    "noTeam": "Aucune équipe",
+    "noTeamDescription": "Vous n'avez pas encore d'équipe. Veuillez en créer une pour accéder à vos modèles et documents.",
+    "noGroup": "Vous n'avez aucun groupe associé à votre compte. Contacter un administrateur pour avoir plus d'informations.",
     "selectTeam": "Sélectionner une équipe",
     "template": "Modèle : {name}",
-    "templates": "Modèles"
+    "templates": "Modèles de"
   },
   "document": {
     "documentCreationDate": "Créé le : {date}",
@@ -59,7 +62,8 @@
     "group": "Groupe associé",
     "invalidApiKey": "La clé API n'a pas le format requis",
     "name": "Nom de l'équipe",
-    "namePlaceholder": "Ex: AEECL, USEECL, etc."
+    "namePlaceholder": "Ex: AEECL, USEECL, etc.",
+    "update": "Modifier l'équipe"
   },
   "template": {
     "clearFilters": "Supprimer les filtres",
@@ -77,6 +81,13 @@
     "of": "sur",
     "searchPlaceholder": "Rechercher par nom ou email...",
     "selectedLabel": "document(s) sélectionné(s)",
+    "statistics": {
+      "tooltip": "Statistiques",
+      "totalSignedDocuments": "Signés : {count}",
+      "totalPendingDocuments": "En attente : {count}",
+      "totalRejectedDocuments": "Rejetés : {count}",
+      "totalDocuments": "Total : {count}"
+    },
     "templateCreationDate": "Créé le : {date}",
     "templateUpdateDate": "Modifié le : {date}",
     "use": {

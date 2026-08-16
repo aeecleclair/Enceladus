@@ -218,14 +218,6 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
             {t("template.use.useTemplate")} {csvTooltip}
           </Button>
         </CustomDialog>
-
-        {/* <Button
-          variant="destructive"
-          onClick={handleMassDelete}
-          disabled={table.getSelectedRowModel().rows.length === 0}
-        >
-          Supprimer les documents sélectionnés
-        </Button> */}
       </div>
     </div>
   );

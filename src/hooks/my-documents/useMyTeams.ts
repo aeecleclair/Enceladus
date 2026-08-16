@@ -4,16 +4,18 @@ import { AppCoreDocumentsSchemasDocumentsTeamComplete } from "@/api";
 import {
   getDocumentsTeamsMeOptions,
   getDocumentsTeamsMeQueryKey,
+  patchDocumentsTeamsTeamIdMutation,
   postDocumentsTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useToast } from "@/components/ui/use-toast";
 
 export const useMyTeams = () => {
   const { isTokenExpired } = useAuth();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   const { data: myTeams } = useQuery({
     ...getDocumentsTeamsMeOptions({}),
@@ -50,7 +52,41 @@ export const useMyTeams = () => {
     return mutateCreateTeam(
       { body },
       {
-        onSuccess: (data) => {},
+        onSuccess: (data) => {
+          queryClient.invalidateQueries({ queryKey: teamsQueryKey });
+        },
+      },
+    );
+  };
+
+  const { mutate: mutateUpdateTeam, isPending: isUpdateLoading } = useMutation({
+    ...patchDocumentsTeamsTeamIdMutation(),
+    onSuccess: () => {
+      toast({
+        title: "Succès",
+        description: "L'équipe a été mise à jour avec succès.",
+      });
+    },
+    onError: (error) => {
+      console.error(error);
+      toast({
+        title: "Erreur lors de la mise à jour de l'équipe",
+        description: "Une erreur est survenue, veuillez réessayer.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const updateTeam = (
+    teamId: string,
+    body: { name: string; group_id: string; api_key: string },
+  ) => {
+    return mutateUpdateTeam(
+      { path: { team_id: teamId }, body },
+      {
+        onSuccess: (data) => {
+          queryClient.invalidateQueries({ queryKey: teamsQueryKey });
+        },
       },
     );
   };
@@ -75,6 +111,12 @@ export const useMyTeams = () => {
           deleted: false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
+          statistics: {
+            total_documents: 10,
+            total_signed_documents: 5,
+            total_pending_documents: 3,
+            total_rejected_documents: 2,
+          },
         },
         {
           id: "2",
@@ -84,6 +126,12 @@ export const useMyTeams = () => {
           deleted: false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
+          statistics: {
+            total_documents: 20,
+            total_signed_documents: 10,
+            total_pending_documents: 5,
+            total_rejected_documents: 5,
+          },
         },
         {
           id: "3",
@@ -93,6 +141,12 @@ export const useMyTeams = () => {
           deleted: false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
+          statistics: {
+            total_documents: 15,
+            total_signed_documents: 7,
+            total_pending_documents: 5,
+            total_rejected_documents: 3,
+          },
         },
       ],
     },
@@ -115,6 +169,12 @@ export const useMyTeams = () => {
           deleted: false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
+          statistics: {
+            total_documents: 30,
+            total_signed_documents: 15,
+            total_pending_documents: 10,
+            total_rejected_documents: 5,
+          },
         },
         {
           id: "5",
@@ -124,6 +184,12 @@ export const useMyTeams = () => {
           deleted: false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
+          statistics: {
+            total_documents: 1,
+            total_signed_documents: 0,
+            total_pending_documents: 1,
+            total_rejected_documents: 0,
+          },
         },
         {
           id: "6",
@@ -133,6 +199,12 @@ export const useMyTeams = () => {
           deleted: false,
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
+          statistics: {
+            total_documents: 25,
+            total_signed_documents: 12,
+            total_pending_documents: 8,
+            total_rejected_documents: 5,
+          },
         },
       ],
     },
@@ -141,6 +213,8 @@ export const useMyTeams = () => {
   return {
     teams: teams,
     createTeam,
+    updateTeam,
     isCreateTeamLoading,
+    isUpdateLoading,
   };
 };

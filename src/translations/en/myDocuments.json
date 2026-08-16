@@ -2,6 +2,9 @@
   "admin": {
     "back": "Back",
     "detail": "Details",
+    "noTeam": "No team",
+    "noTeamDescription": "You don't have a team yet. Please create one to access your templates and documents.",
+    "noGroup": "You don't have any group associated with your account. Contact an administrator for more information.",
     "selectTeam": "Select a team",
     "template": "Template: {name}",
     "templates": "Templates"
@@ -59,7 +62,8 @@
     "group": "Associated group",
     "invalidApiKey": "API key does not have the required format",
     "name": "Team name",
-    "namePlaceholder": "Ex: AEECL, USEECL, etc."
+    "namePlaceholder": "Ex: AEECL, USEECL, etc.",
+    "update": "Edit the team"
   },
   "template": {
     "clearFilters": "Clear filters",
@@ -77,6 +81,13 @@
     "of": "of",
     "searchPlaceholder": "Search by name or email...",
     "selectedLabel": "document(s) selected",
+    "statistics": {
+      "tooltip": "Statistics",
+      "totalSignedDocuments": "Signed: {count}",
+      "totalPendingDocuments": "Pending: {count}",
+      "totalRejectedDocuments": "Rejected: {count}",
+      "totalDocuments": "Total : {count}"
+    },
     "templateCreationDate": "Created on: {date}",
     "templateUpdateDate": "Updated on: {date}",
     "use": {

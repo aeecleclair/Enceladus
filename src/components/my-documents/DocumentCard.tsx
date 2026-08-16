@@ -39,7 +39,7 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
         return;
       }
       const extension = data.type.split("/")[1];
-      const name = `Réglement_du_raid.${extension}`;
+      const name = `${doc.name}.${extension}`;
       const url = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement("a");
       link.href = url;
@@ -79,10 +79,10 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
 
   return (
     <Card>
-      <CardHeader>{doc.name}</CardHeader>
       <CardContent>
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-2">
+            <h1 className="font-semibold text-xl">{doc.name}</h1>
             <p>
               {t("home.sender", {
                 name: doc.team_info?.name || "Unknown",

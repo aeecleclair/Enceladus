@@ -10,11 +10,17 @@ import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, InfoIcon } from "lucide-react";
 
 export default function Home() {
   const t = useTranslations("myDocuments");
@@ -49,6 +55,21 @@ export default function Home() {
       })),
     [template.documents],
   );
+  const templateStatistics = useMemo(
+    () => ({
+      total_documents: template.documents.length,
+      total_signed_documents: template.documents.filter(
+        (doc) => doc.status === "COMPLETED",
+      ).length,
+      total_pending_documents: template.documents.filter(
+        (doc) => doc.status === "PENDING",
+      ).length,
+      total_rejected_documents: template.documents.filter(
+        (doc) => doc.status === "REJECTED",
+      ).length,
+    }),
+    [template.documents],
+  );
 
   if (!template) {
     router.push({
@@ -67,6 +88,38 @@ export default function Home() {
           <h1 className="text-2xl font-bold">
             {t("admin.template", { name: template.name })}
           </h1>
+          <Tooltip>
+            <TooltipTrigger>
+              <div className="flex flex-row items-center gap-1">
+                <InfoIcon className="ml-2 h-4 w-4" />
+                {t("template.statistics.tooltip")}
+              </div>
+            </TooltipTrigger>
+            <TooltipContent className="text-center">
+              <div className="flex flex-col gap">
+                <p>
+                  {t("template.statistics.totalSignedDocuments", {
+                    count: templateStatistics.total_signed_documents,
+                  })}
+                </p>
+                <p>
+                  {t("template.statistics.totalPendingDocuments", {
+                    count: templateStatistics.total_pending_documents,
+                  })}
+                </p>
+                <p>
+                  {t("template.statistics.totalRejectedDocuments", {
+                    count: templateStatistics.total_rejected_documents,
+                  })}
+                </p>
+                <p>
+                  {t("template.statistics.totalDocuments", {
+                    count: templateStatistics.total_documents,
+                  })}
+                </p>
+              </div>
+            </TooltipContent>
+          </Tooltip>
         </div>
         <CustomDialog
           isOpened={isModalOpen}

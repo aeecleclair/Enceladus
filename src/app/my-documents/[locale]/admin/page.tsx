@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Dialog } from "@/components/ui/dialog";
+import { Card, CardContent } from "@/components/ui/card";
 import {
   Select,
   SelectContent,
@@ -20,6 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+import { PencilIcon, PlusIcon } from "lucide-react";
 
 export default function Admin() {
   const t = useTranslations("myDocuments");
@@ -33,32 +35,99 @@ export default function Admin() {
     resolver: zodResolver(teamFormSchema),
     mode: "onChange",
   });
-  const { teams, createTeam, isCreateTeamLoading } = useMyTeams();
-  const [selectedTeamId, setSelectedTeamId] = useState<string>(teams[0].id);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const {
+    teams,
+    createTeam,
+    updateTeam,
+    isCreateTeamLoading,
+    isUpdateLoading,
+  } = useMyTeams();
+  const [selectedTeamId, setSelectedTeamId] = useState<string | null>(
+    teams[0]?.id ?? null,
+  );
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
+  if (selectedTeamId === null) {
+    return (
+      <div className="p-6 gap-4 flex flex-col">
+        <h1 className="text-2xl font-bold">{t("admin.noTeam")}</h1>
+        {user?.groups && user.groups.length > 0 ? (
+          <div className="flex flex-col gap-4">
+            <p>{t("admin.noTeamDescription")}</p>
+            <Card>
+              <CardContent>
+                <TeamsForm
+                  form={form}
+                  groups={user.groups}
+                  onSubmit={(values) => createTeam(values)}
+                  isLoading={isCreateTeamLoading}
+                  submitLabel={t("team.createSubmit")}
+                />
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
+          <p>{t("admin.noGroup")}</p>
+        )}
+      </div>
+    );
+  }
 
   const team = teams.find((team) => team.id === selectedTeamId);
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold pb-8">{t("admin.templates")}</h1>
-      <div className="flex flex-row gap-4 pb-8 items-center">
-        {t("admin.selectTeam")}
-        <Select onValueChange={setSelectedTeamId} defaultValue={selectedTeamId}>
-          <SelectTrigger className="w-45 border border-black">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {teams.map((team) => (
-              <SelectItem key={team.id} value={team.id}>
-                {team.name}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex flex-row justify-between items-center mb-6 w-full">
+        <div className="flex flex-row gap-2 items-center">
+          <h1 className="text-2xl font-bold">{t("admin.templates")}</h1>
+          <Select
+            onValueChange={setSelectedTeamId}
+            defaultValue={selectedTeamId}
+          >
+            <SelectTrigger className="w-45 border border-black">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {teams.map((team) => (
+                <SelectItem key={team.id} value={team.id}>
+                  {team.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {user?.groups && team && (
+            <CustomDialog
+              isOpened={isUpdateModalOpen}
+              setIsOpened={setIsUpdateModalOpen}
+              title={t("team.update")}
+              description={
+                <TeamsForm
+                  form={form}
+                  groups={user.groups}
+                  onSubmit={(values) => updateTeam(team.id, values)}
+                  isLoading={isUpdateLoading}
+                  submitLabel={t("team.update")}
+                />
+              }
+            >
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  form.setValue("name", team.name);
+                  form.setValue("group_id", team.group_id);
+                  form.setValue("api_key", team.api_key);
+                  setIsUpdateModalOpen(true);
+                }}
+              >
+                <PencilIcon className="h-4 w-4" />
+              </Button>
+            </CustomDialog>
+          )}
+        </div>
         {user?.groups && (
           <CustomDialog
-            isOpened={isModalOpen}
-            setIsOpened={setIsModalOpen}
+            isOpened={isCreateModalOpen}
+            setIsOpened={setIsCreateModalOpen}
             title={t("team.creation")}
             description={
               <TeamsForm
@@ -70,7 +139,11 @@ export default function Admin() {
               />
             }
           >
-            <Button variant="secondary" onClick={() => setIsModalOpen(true)}>
+            <Button
+              variant="secondary"
+              onClick={() => setIsCreateModalOpen(true)}
+            >
+              <PlusIcon className="h-4 w-4" />
               {t("team.create")}
             </Button>
           </CustomDialog>
