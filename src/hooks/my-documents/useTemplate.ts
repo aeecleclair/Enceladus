@@ -1,6 +1,6 @@
 import { useAuth } from "../useAuth";
 
-import { TemplateComplete, TemplateUseResponse } from "@/api";
+import { TemplateCompleteWithDocuments, TemplateUseResponse } from "@/api";
 import {
   getDocumentsTemplatesTemplateIdOptions,
   patchDocumentsTemplatesTemplateIdMutation,
@@ -198,7 +198,7 @@ export const useTemplate = (templateId: string) => {
     callback && callback(response);
   };
 
-  const template: TemplateComplete = {
+  const template: TemplateCompleteWithDocuments = {
     documenso_id: 1,
     name: "Template " + templateId,
     team_id: "team1",

@@ -7,6 +7,10 @@
     "templates": "Templates"
   },
   "document": {
+    "documentCreationDate": "Created on: {date}",
+    "documentSignedDate": "Signed on: {date}",
+    "documentRejectedDate": "Rejected on: {date}",
+    "documentStatus": "Status: {status}",
     "download": "Download",
     "sign": "Sign",
     "status": {
@@ -18,12 +22,10 @@
   },
   "home": {
     "completed": "Signed ({count})",
-    "documentCreation": "Created on: {date}",
-    "documentUpdate": "Updated on: {date}",
-    "documentStatus": "Status: {status}",
     "myDocuments": "My documents",
     "pending": "Pending signature ({count})",
-    "rejected": "Rejected ({count})"
+    "rejected": "Rejected ({count})",
+    "sender": "Mandate owner: {name}"
   },
   "login": {
     "title": "Welcome on MyDocuments!",
@@ -48,6 +50,17 @@
     "missingSigningToken": "No signing token provided",
     "missingSigningTokenDescription": "Please provide a valid signing token in the URL to sign a document."
   },
+  "team": {
+    "apiKey": "Documenso API key",
+    "apiKeyPlaceholder": "api_XXXXXXXXXXXXXXXXXX",
+    "create": "Create a team",
+    "createSubmit": "Create the team",
+    "creation": "Team creation",
+    "group": "Associated group",
+    "invalidApiKey": "API key does not have the required format",
+    "name": "Team name",
+    "namePlaceholder": "Ex: AEECL, USEECL, etc."
+  },
   "template": {
     "clearFilters": "Clear filters",
     "documentDirectoryId": "Document directory ID",
@@ -64,6 +77,8 @@
     "of": "of",
     "searchPlaceholder": "Search by name or email...",
     "selectedLabel": "document(s) selected",
+    "templateCreationDate": "Created on: {date}",
+    "templateUpdateDate": "Updated on: {date}",
     "use": {
       "allowDuplicate": "Allow duplicates",
       "close": "Close",

@@ -3,10 +3,13 @@ import { useAuth } from "../useAuth";
 import { AppCoreDocumentsSchemasDocumentsTeam } from "@/api";
 import { getDocumentsTeamsOptions } from "@/api/@tanstack/react-query.gen";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useTeams = () => {
   const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
 
   const { data: allTeams } = useQuery({
     ...getDocumentsTeamsOptions({}),

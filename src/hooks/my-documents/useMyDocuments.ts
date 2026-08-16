@@ -1,7 +1,7 @@
 import { useAuth } from "../useAuth";
 import { useMeUser } from "../useMeUser";
 
-import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
+import { DocumentWithTeamInfo } from "@/api";
 import { getDocumentsMeOptions } from "@/api/@tanstack/react-query.gen";
 
 import { useQuery } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export const useMyDocuments = () => {
     retry: false,
   });
 
-  const documents: AppCoreDocumentsSchemasDocumentsDocument[] = [
+  const documents: DocumentWithTeamInfo[] = [
     {
       id: "1",
       documenso_id: 1,
@@ -27,6 +27,10 @@ export const useMyDocuments = () => {
       status: "PENDING",
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
+      team_info: {
+        id: "team1",
+        name: "Team 1",
+      },
     },
     {
       id: "2",
@@ -38,6 +42,10 @@ export const useMyDocuments = () => {
       status: "COMPLETED",
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
+      team_info: {
+        id: "team2",
+        name: "Team 2",
+      },
     },
     {
       id: "3",
@@ -49,6 +57,10 @@ export const useMyDocuments = () => {
       status: "REJECTED",
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
+      team_info: {
+        id: "team3",
+        name: "Team 3",
+      },
     },
   ];
 

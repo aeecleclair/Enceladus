@@ -1,18 +1,59 @@
 import { useAuth } from "../useAuth";
 
 import { AppCoreDocumentsSchemasDocumentsTeamComplete } from "@/api";
-import { getDocumentsTeamsMeOptions } from "@/api/@tanstack/react-query.gen";
+import {
+  getDocumentsTeamsMeOptions,
+  getDocumentsTeamsMeQueryKey,
+  postDocumentsTeamsMutation,
+} from "@/api/@tanstack/react-query.gen";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useMyTeams = () => {
   const { isTokenExpired } = useAuth();
+  const { toast } = useToast();
 
   const { data: myTeams } = useQuery({
     ...getDocumentsTeamsMeOptions({}),
     enabled: !isTokenExpired(),
     retry: false,
   });
+
+  const teamsQueryKey = getDocumentsTeamsMeQueryKey();
+
+  const { mutate: mutateCreateTeam, isPending: isCreateTeamLoading } =
+    useMutation({
+      ...postDocumentsTeamsMutation(),
+      onSuccess: () => {
+        toast({
+          title: "Succès",
+          description: "L'équipe a été créée avec succès.",
+        });
+      },
+      onError: (error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de la création de l'équipe",
+          description: "Une erreur est survenue, veuillez réessayer.",
+          variant: "destructive",
+        });
+      },
+    });
+
+  const createTeam = (body: {
+    name: string;
+    group_id: string;
+    api_key: string;
+  }) => {
+    return mutateCreateTeam(
+      { body },
+      {
+        onSuccess: (data) => {},
+      },
+    );
+  };
 
   const teams: AppCoreDocumentsSchemasDocumentsTeamComplete[] = [
     {
@@ -99,5 +140,7 @@ export const useMyTeams = () => {
 
   return {
     teams: teams,
+    createTeam,
+    isCreateTeamLoading,
   };
 };

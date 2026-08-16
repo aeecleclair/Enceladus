@@ -1,10 +1,18 @@
 "use client";
+import { CustomDialog } from "@/components/common/CustomDialog";
+import { TeamsForm } from "@/components/my-documents/TeamForm";
 import { TemplateCard } from "@/components/my-documents/TemplateCard";
+import { teamFormSchema } from "@/forms/myDocuments/team";
 import { useMyTeams } from "@/hooks/my-documents/useMyTeams";
+import { useMeUser } from "@/hooks/useMeUser";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
+import { Button } from "@/components/ui/button";
+import { Dialog } from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
@@ -15,8 +23,19 @@ import {
 
 export default function Admin() {
   const t = useTranslations("myDocuments");
-  const { teams } = useMyTeams();
+  const { user } = useMeUser();
+  const form = useForm({
+    defaultValues: {
+      name: "",
+      group_id: "",
+      api_key: "",
+    },
+    resolver: zodResolver(teamFormSchema),
+    mode: "onChange",
+  });
+  const { teams, createTeam, isCreateTeamLoading } = useMyTeams();
   const [selectedTeamId, setSelectedTeamId] = useState<string>(teams[0].id);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const team = teams.find((team) => team.id === selectedTeamId);
   return (
@@ -36,6 +55,26 @@ export default function Admin() {
             ))}
           </SelectContent>
         </Select>
+        {user?.groups && (
+          <CustomDialog
+            isOpened={isModalOpen}
+            setIsOpened={setIsModalOpen}
+            title={t("team.creation")}
+            description={
+              <TeamsForm
+                form={form}
+                groups={user.groups}
+                onSubmit={(values) => createTeam(values)}
+                isLoading={isCreateTeamLoading}
+                submitLabel={t("team.createSubmit")}
+              />
+            }
+          >
+            <Button variant="secondary" onClick={() => setIsModalOpen(true)}>
+              {t("team.create")}
+            </Button>
+          </CustomDialog>
+        )}
       </div>
       {team && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

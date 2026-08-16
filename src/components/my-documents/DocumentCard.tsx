@@ -1,4 +1,4 @@
-import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
+import { DocumentWithTeamInfo } from "@/api";
 import { useDocument } from "@/hooks/my-documents/useDocument";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
@@ -6,16 +6,11 @@ import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
-import { Badge } from "../ui/badge";
 import { useToast } from "../ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-export const DocumentCard = ({
-  doc,
-}: {
-  doc: AppCoreDocumentsSchemasDocumentsDocument;
-}) => {
+export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
   const { user } = useMeUser();
   const t = useTranslations("myDocuments");
   const router = useRouter();
@@ -82,34 +77,36 @@ export const DocumentCard = ({
     });
   }
 
-  const badgeClasses: Record<string, string> = {
-    PENDING: "bg-blue-200 text-blue-800",
-    COMPLETED: "bg-green-200  text-green-800",
-    REJECTED: "bg-red-200    text-red-800",
-    default: "bg-gray-200   text-gray-800",
-  };
-
   return (
     <Card>
       <CardHeader>{doc.name}</CardHeader>
       <CardContent>
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-2">
-            <Badge className={badgeClasses[doc.status] ?? badgeClasses.default}>
-              {t(`document.status.${doc.status}`)}
-            </Badge>
             <p>
-              {t("home.documentCreation", {
+              {t("home.sender", {
+                name: doc.team_info?.name || "Unknown",
+              })}
+            </p>
+            <p>
+              {t("document.documentCreationDate", {
                 date: new Date(doc.created_at).toLocaleDateString(),
               })}
             </p>
-            {doc.status !== "PENDING" && (
-              <p>
-                {t("home.documentUpdate", {
-                  date: new Date(doc.updated_at).toLocaleDateString(),
-                })}
-              </p>
-            )}
+            {doc.status !== "PENDING" &&
+              (doc.status === "COMPLETED" ? (
+                <p>
+                  {t("document.documentSignedDate", {
+                    date: new Date(doc.updated_at).toLocaleDateString(),
+                  })}
+                </p>
+              ) : (
+                <p>
+                  {t("document.documentRejectedDate", {
+                    date: new Date(doc.updated_at).toLocaleDateString(),
+                  })}
+                </p>
+              ))}
           </div>
           {doc.status === "COMPLETED" && (
             <Button

@@ -22,12 +22,12 @@ export const TemplateCard = ({ template }: { template: Template }) => {
       <CardContent>
         <div className="flex flex-col gap-2">
           <p>
-            {t("home.documentCreation", {
+            {t("template.templateCreationDate", {
               date: new Date(template.created_at).toLocaleDateString(),
             })}
           </p>
           <p>
-            {t("home.documentUpdate", {
+            {t("template.templateUpdateDate", {
               date: new Date(template.updated_at).toLocaleDateString(),
             })}
           </p>

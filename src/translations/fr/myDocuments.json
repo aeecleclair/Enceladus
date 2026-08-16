@@ -7,6 +7,10 @@
     "templates": "Modèles"
   },
   "document": {
+    "documentCreationDate": "Créé le : {date}",
+    "documentSignedDate": "Signé le : {date}",
+    "documentRejectedDate": "Rejeté le : {date}",
+    "documentStatus": "Statut : {status}",
     "download": "Télécharger",
     "sign": "Signer",
     "status": {
@@ -18,12 +22,10 @@
   },
   "home": {
     "completed": "Signés ({count})",
-    "documentCreation": "Créé le : {date}",
-    "documentUpdate": "Mis à jour le : {date}",
-    "documentStatus": "Statut : {status}",
     "myDocuments": "Mes documents",
     "pending": "En attente de signature ({count})",
-    "rejected": "Rejetés ({count})"
+    "rejected": "Rejetés ({count})",
+    "sender": "Mandataire : {name}"
   },
   "login": {
     "title": "Bienvenue sur MyDocuments !",
@@ -48,6 +50,17 @@
     "missingSigningToken": "Aucun jeton de signature fourni",
     "missingSigningTokenDescription": "Veuillez fournir un jeton de signature valide dans l'URL pour signer un document."
   },
+  "team": {
+    "apiKey": "Clé API Documenso",
+    "apiKeyPlaceholder": "api_XXXXXXXXXXXXXXXXXX",
+    "create": "Créer une équipe",
+    "createSubmit": "Créer l'équipe",
+    "creation": "Création d'équipe",
+    "group": "Groupe associé",
+    "invalidApiKey": "La clé API n'a pas le format requis",
+    "name": "Nom de l'équipe",
+    "namePlaceholder": "Ex: AEECL, USEECL, etc."
+  },
   "template": {
     "clearFilters": "Supprimer les filtres",
     "documentDirectoryId": "ID du répertoire de documents",
@@ -64,6 +77,8 @@
     "of": "sur",
     "searchPlaceholder": "Rechercher par nom ou email...",
     "selectedLabel": "document(s) sélectionné(s)",
+    "templateCreationDate": "Créé le : {date}",
+    "templateUpdateDate": "Modifié le : {date}",
     "use": {
       "allowDuplicate": "Autoriser les doublons",
       "close": "Fermer",

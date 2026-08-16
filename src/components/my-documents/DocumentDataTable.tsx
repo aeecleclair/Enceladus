@@ -122,7 +122,7 @@ export function DocumentDataTable({
         id: "select-col",
         header: ({ table }) => (
           <Checkbox
-            className="border-gray-700"
+            className="border-gray-700 dark:border-gray-200"
             checked={table.getIsAllPageRowsSelected() ? true : false}
             onCheckedChange={(checked) =>
               table.toggleAllPageRowsSelected(!!checked)
@@ -131,7 +131,7 @@ export function DocumentDataTable({
         ),
         cell: ({ row }) => (
           <Checkbox
-            className="border-gray-700"
+            className="border-gray-700 dark:border-gray-200"
             checked={row.getIsSelected()}
             disabled={!row.getCanSelect()}
             onCheckedChange={row.getToggleSelectedHandler()}

@@ -41,6 +41,27 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
     console.log("Selected IDs for deletion:", selectedIds);
   };
 
+  const csvTooltip = (
+    <div
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
+      <Tooltip>
+        <TooltipTrigger>
+          <InfoIcon className="ml-2 h-4 w-4" />
+        </TooltipTrigger>
+        <TooltipContent className="text-center">
+          {t("template.useTooltip1")}
+          <br />
+          {t("template.useTooltip2")}
+          <br />
+          {t("template.useTooltip3")}
+        </TooltipContent>
+      </Tooltip>
+    </div>
+  );
+
   const handleCSVLoading = () => {
     const CSVInput = document.createElement("input");
     CSVInput.type = "file";
@@ -146,6 +167,7 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
               <div className="flex flex-col gap-4 mt-4">
                 <div className="flex flex-row gap-2">
                   <Checkbox
+                    id="allowDuplicate"
                     className="border border-black"
                     onCheckedChange={(checked) => {
                       setAllowDuplicate(checked as boolean);
@@ -153,7 +175,9 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
                     defaultChecked={allowDuplicate}
                     checked={allowDuplicate}
                   />
-                  <Label>{t("template.use.allowDuplicate")}</Label>
+                  <Label htmlFor="allowDuplicate" className="cursor-pointer">
+                    {t("template.use.allowDuplicate")}
+                  </Label>
                 </div>
                 <Button
                   variant="secondary"
@@ -162,6 +186,7 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
                   }}
                 >
                   {t("template.use.loadCSV")}
+                  {csvTooltip}
                 </Button>
                 {t("template.use.recipients", { count: recipients.length })}
                 <Button
@@ -190,25 +215,7 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
               setIsModalOpen(true);
             }}
           >
-            {t("template.use.useTemplate")}
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <Tooltip>
-                <TooltipTrigger>
-                  <InfoIcon className="ml-2 h-4 w-4" />
-                </TooltipTrigger>
-                <TooltipContent className="text-center">
-                  {t("template.useTooltip1")}
-                  <br />
-                  {t("template.useTooltip2")}
-                  <br />
-                  {t("template.useTooltip3")}
-                </TooltipContent>
-              </Tooltip>
-            </div>
+            {t("template.use.useTemplate")} {csvTooltip}
           </Button>
         </CustomDialog>
 
