@@ -51,11 +51,7 @@ export function DataTableViewOptions<TData>({
                 {t(
                   `dataTableViewOptions.${
                     column.id as
-                      | "name"
-                      | "firstname"
-                      | "nickname"
-                      | "curriculum"
-                      | "promo"
+                      "name" | "firstname" | "nickname" | "curriculum" | "promo"
                   }`,
                 )}
               </DropdownMenuCheckboxItem>

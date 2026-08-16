@@ -36,7 +36,6 @@ export function PermissionGuard({
   );
 
   const hasToken = !!token;
-  
 
   const access_permission = permissions?.find(
     (value) => value.permission_name == permissionRequired,
@@ -58,8 +57,11 @@ export function PermissionGuard({
 
   useEffect(() => {
     if (!isMounted) return;
-    
-    if (!hasToken && !(pathname == "/login" || noAuthRequiredPages?.includes(pathname))) {
+
+    if (
+      !hasToken &&
+      !(pathname == "/login" || noAuthRequiredPages?.includes(pathname))
+    ) {
       router.replace("/login");
       return;
     }
@@ -75,7 +77,7 @@ export function PermissionGuard({
   if (!isMounted) {
     return null;
   }
-  
+
   if (userLoading || permLoading) {
     return (
       <div className="flex h-screen items-center justify-center">

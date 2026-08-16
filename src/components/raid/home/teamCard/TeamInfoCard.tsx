@@ -6,13 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export type InfoAccent =
-  | "default"
-  | "emerald"
-  | "amber"
-  | "orange"
-  | "sky"
-  | "violet"
-  | "rose";
+  "default" | "emerald" | "amber" | "orange" | "sky" | "violet" | "rose";
 
 const accentClasses: Record<InfoAccent, { border: string; value: string }> = {
   default: { border: "border-border/70", value: "" },
