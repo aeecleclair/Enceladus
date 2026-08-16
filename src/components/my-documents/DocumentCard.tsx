@@ -21,10 +21,17 @@ export const DocumentCard = ({
               })}
             </p>
             <p>
-              {t("home.documentDate", {
+              {t("home.documentCreation", {
                 date: new Date(document.created_at).toLocaleDateString(),
               })}
             </p>
+            {document.status !== "PENDING" && (
+              <p>
+                {t("home.documentUpdate", {
+                  date: new Date(document.updated_at).toLocaleDateString(),
+                })}
+              </p>
+            )}
           </div>
           {document.status === "COMPLETED" && (
             <Button

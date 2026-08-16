@@ -26,7 +26,7 @@ import { ArrowUpDown, DownloadIcon, Trash } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableToolbar } from "./DataTableToolbar";
-import { fuzzyFilter, fuzzySort } from "@/lib/utils";
+import { fuzzyFilter } from "@/lib/utils";
 import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import { Checkbox } from "../ui/checkbox";
@@ -67,15 +67,19 @@ export function DocumentDataTable({ data }: ParticipantDataTableProps) {
       id: "select-col",
       header: ({ table }) => (
         <Checkbox
-          checked={table.getIsAllRowsSelected()}
-          onChange={table.getToggleAllPageRowsSelectedHandler()}
+          className="border-gray-700"
+          checked={table.getIsAllPageRowsSelected() ? true : false}
+          onCheckedChange={(checked) =>
+            table.toggleAllPageRowsSelected(!!checked)
+          }
         />
       ),
       cell: ({ row }) => (
         <Checkbox
+          className="border-gray-700"
           checked={row.getIsSelected()}
           disabled={!row.getCanSelect()}
-          onChange={row.getToggleSelectedHandler()}
+          onCheckedChange={row.getToggleSelectedHandler()}
         />
       ),
     },
@@ -219,9 +223,11 @@ export function DocumentDataTable({ data }: ParticipantDataTableProps) {
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    enableMultiRowSelection: true,
     enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
+    onRowSelectionChange: (updater) => {
+      setRowSelection(updater);
+      console.log("Selected rows:", rowSelection);
+    },
   });
 
   return (

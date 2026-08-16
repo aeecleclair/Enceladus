@@ -16,9 +16,13 @@
     }
   },
   "home": {
-    "documentDate": "Date: {date}",
+    "completed": "Signed ({count})",
+    "documentCreation": "Created on: {date}",
+    "documentUpdate": "Updated on: {date}",
     "documentStatus": "Status: {status}",
-    "myDocuments": "My documents"
+    "myDocuments": "My documents",
+    "pending": "Pending signature ({count})",
+    "rejected": "Rejected ({count})"
   },
   "login": {
     "title": "Welcome on MyDocuments!",

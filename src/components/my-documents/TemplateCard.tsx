@@ -14,8 +14,13 @@ export const TemplateCard = ({ template }: { template: Template }) => {
         <div className="flex flex-row items-center justify-between">
           <div className="flex flex-col gap-2">
             <p>
-              {t("home.documentDate", {
+              {t("home.documentCreation", {
                 date: new Date(template.created_at).toLocaleDateString(),
+              })}
+            </p>
+            <p>
+              {t("home.documentUpdate", {
+                date: new Date(template.updated_at).toLocaleDateString(),
               })}
             </p>
           </div>
