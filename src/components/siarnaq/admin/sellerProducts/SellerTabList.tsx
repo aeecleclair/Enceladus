@@ -29,7 +29,7 @@ export const SellerTabList = ({
   };
 
   return (
-    <TabsList className={`grid w-full grid-flow-row grid-cols-7`}>
+    <TabsList className={`grid w-full grid-flow-row grid-cols-7 h-fit`}>
       {sellers.map((seller) => (
         <TabsTrigger
           key={seller.id}
