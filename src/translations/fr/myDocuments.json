@@ -51,6 +51,9 @@
   "template": {
     "documentDirectoryId": "ID du répertoire de documents",
     "edit": "Modifier {name}",
-    "name": "Nom du modèle"
+    "name": "Nom du modèle",
+    "useTooltip1": "Mettre un mail par ligne dans le CSV.",
+    "useTooltip2": "Le mail doit correspondre à un utilisateur MyECL.",
+    "useTooltip3": "Un document sera généré pour chaque utilisateur."
   }
 }

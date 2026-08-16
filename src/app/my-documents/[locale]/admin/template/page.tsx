@@ -59,7 +59,7 @@ export default function Home() {
 
   return (
     <div className="p-6">
-      <div className="flex flex-row justify-between pb-8">
+      <div className="flex flex-row justify-between ">
         <div className="flex flex-row gap-4 items-center">
           <Button variant="secondary" onClick={() => router.push(`/admin`)}>
             <ArrowLeft />

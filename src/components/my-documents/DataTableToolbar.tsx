@@ -7,9 +7,13 @@ import { useTemplate } from "@/hooks/my-documents/useTemplate";
 
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
+import { InfoIcon } from "lucide-react";
 
 interface DataTableToolbarProps {
   table: Table<TemplateDocuments>;
@@ -17,6 +21,7 @@ interface DataTableToolbarProps {
 }
 
 export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
+  const t = useTranslations("myDocuments");
   const { useTemplateForRecipients } = useTemplate(template.id);
 
   const isFiltered = table.getState().columnFilters.length > 0;
@@ -79,15 +84,33 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
           }}
         >
           Générer des documents à partir d'un CSV
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <Tooltip>
+              <TooltipTrigger>
+                <InfoIcon className="ml-2 h-4 w-4" />
+              </TooltipTrigger>
+              <TooltipContent className="text-center">
+                {t("template.useTooltip1")}
+                <br />
+                {t("template.useTooltip2")}
+                <br />
+                {t("template.useTooltip3")}
+              </TooltipContent>
+            </Tooltip>
+          </div>
         </Button>
 
-        <Button
+        {/* <Button
           variant="destructive"
           onClick={handleMassDelete}
           disabled={table.getSelectedRowModel().rows.length === 0}
         >
           Supprimer les documents sélectionnés
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

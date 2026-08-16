@@ -51,6 +51,9 @@
   "template": {
     "documentDirectoryId": "Document directory ID",
     "edit": "Edit {name}",
-    "name": "Template name"
+    "name": "Template name",
+    "useTooltip1": "Put one email per line in the CSV.",
+    "useTooltip2": "The email must correspond to a MyECL user.",
+    "useTooltip3": "A document will be generated for each user."
   }
 }
