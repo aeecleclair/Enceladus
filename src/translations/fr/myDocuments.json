@@ -67,7 +67,8 @@
   },
   "template": {
     "clearFilters": "Supprimer les filtres",
-    "documentDirectoryId": "ID du répertoire de documents",
+    "documentDirectoryCurrentId": "ID du dossier des documents actuel : {id}",
+    "documentDirectoryPath": "Chemin du dossier des documents",
     "edit": "Modifier {name}",
     "headers": {
       "actions": "Actions",

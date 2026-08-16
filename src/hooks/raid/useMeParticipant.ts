@@ -47,7 +47,7 @@ export const useMeParticipant = () => {
         path: { user_id: userId! },
         signal,
       });
-      if (response.status === 404) return null as unknown as RaidParticipant;
+      if (response?.status === 404) return null as unknown as RaidParticipant;
       if (error) throw error;
       return (data ?? null) as unknown as RaidParticipant;
     },

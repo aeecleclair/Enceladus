@@ -49,14 +49,14 @@ export const useTemplate = (templateId: string) => {
 
   const editTemplate = (
     templateId: string,
-    documentDirectoryId: string | null,
+    documentDirectoryPath: string | null,
   ) => {
     mutateEditTemplate({
       path: {
         template_id: templateId,
       },
       body: {
-        document_directory_id: documentDirectoryId,
+        document_directory_path: documentDirectoryPath,
       },
     });
   };

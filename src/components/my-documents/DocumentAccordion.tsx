@@ -1,6 +1,6 @@
 import { DocumentCard } from "./DocumentCard";
 
-import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
+import { DocumentWithTeamInfo } from "@/api";
 
 import {
   AccordionContent,
@@ -11,7 +11,7 @@ import { ContextMenu, ContextMenuTrigger } from "@/components/ui/context-menu";
 
 interface DocumentAccordionProps {
   title: string;
-  documents: AppCoreDocumentsSchemasDocumentsDocument[];
+  documents: DocumentWithTeamInfo[];
 }
 
 export const DocumentAccordion = ({

@@ -1,5 +1,5 @@
 "use client";
-import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
+import { DocumentWithTeamInfo } from "@/api";
 import { DocumentAccordion } from "@/components/my-documents/DocumentAccordion";
 import { useMyDocuments } from "@/hooks/my-documents/useMyDocuments";
 
@@ -29,10 +29,7 @@ export default function Home() {
         pending: [],
         completed: [],
         rejected: [],
-      } as Record<
-        "pending" | "completed" | "rejected",
-        AppCoreDocumentsSchemasDocumentsDocument[]
-      >,
+      } as Record<"pending" | "completed" | "rejected", DocumentWithTeamInfo[]>,
     );
   }, [myDocuments]);
 

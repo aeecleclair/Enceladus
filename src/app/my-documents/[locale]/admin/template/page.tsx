@@ -29,7 +29,7 @@ export default function Home() {
   const router = useRouter();
   const tCommon = useTranslations("common");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [documentDirectoryId, setDocumentDirectoryId] = useState(
+  const [documentDirectoryPath, setdocumentDirectoryPath] = useState(
     template?.document_directory_id ?? "",
   );
 
@@ -125,10 +125,17 @@ export default function Home() {
           title={t("template.edit", { name: template.name })}
           description={
             <div className="flex flex-col gap-4 mt-4">
-              <Label>{t("template.documentDirectoryId")}</Label>
+              <Label>{t("template.documentDirectoryPath")}</Label>
+              {template.document_directory_id && (
+                <p className="text-sm text-muted-foreground">
+                  {t("template.documentDirectoryCurrentId", {
+                    id: template.document_directory_id,
+                  })}
+                </p>
+              )}
               <Input
                 onChange={(e) => {
-                  setDocumentDirectoryId(e.target.value);
+                  setdocumentDirectoryPath(e.target.value);
                 }}
                 defaultValue={template.document_directory_id ?? ""}
               />
@@ -146,7 +153,7 @@ export default function Home() {
                   className="w-25"
                   type="button"
                   onClick={() => {
-                    editTemplate(template.id, documentDirectoryId);
+                    editTemplate(template.id, documentDirectoryPath);
                   }}
                 >
                   {tCommon("form.edit")}

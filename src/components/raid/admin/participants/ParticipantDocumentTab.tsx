@@ -1,6 +1,10 @@
 "use client";
 
-import { Document, DocumentValidation, RaidParticipant } from "@/api";
+import {
+  AppModulesRaidSchemasRaidDocument,
+  DocumentValidation,
+  RaidParticipant,
+} from "@/api";
 import { ParticipantDocumentCard } from "@/components/raid/admin/teams/teamSheet/ParticipantDocumentCard";
 import { DocumentView } from "@/components/raid/custom/DocumentView";
 import { useAdminParticipant } from "@/hooks/raid/useAdminParticipant";
@@ -22,11 +26,10 @@ export const ParticipantDocumentTab = ({
   const { getDocument, setDocumentValidation, isValidationLoading } =
     useDocument();
   const { refetchParticipant } = useAdminParticipant(participant.user_id);
-  const [selectedDocument, setSelectedDocument] = useState<Document | null>(
-    null,
-  );
+  const [selectedDocument, setSelectedDocument] =
+    useState<AppModulesRaidSchemasRaidDocument | null>(null);
 
-  const downloadDocument = (doc: Document) => {
+  const downloadDocument = (doc: AppModulesRaidSchemasRaidDocument) => {
     const key = doc.type;
     const file = getDocument(participant.user_id, key);
     if (file === undefined) return;

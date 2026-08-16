@@ -67,7 +67,8 @@
   },
   "template": {
     "clearFilters": "Clear filters",
-    "documentDirectoryId": "Document directory ID",
+    "documentDirectoryCurrentId": "Current document directory ID: {id}",
+    "documentDirectoryPath": "Document directory path",
     "edit": "Edit {name}",
     "headers": {
       "actions": "Actions",
