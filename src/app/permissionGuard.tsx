@@ -36,21 +36,7 @@ export function PermissionGuard({
   );
 
   const hasToken = !!token;
-  if (pathname == "/login" || noAuthRequiredPages?.includes(pathname)) {
-    return <>{children}</>;
-  }
-  if (userLoading || permLoading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        Chargement...
-      </div>
-    );
-  }
-  if (!user) {
-    console.log("Redirecting to login");
-    router.replace(`/login?redirect=${pathname}`);
-    return null;
-  }
+  
 
   const access_permission = permissions?.find(
     (value) => value.permission_name == permissionRequired,
@@ -72,8 +58,12 @@ export function PermissionGuard({
 
   useEffect(() => {
     if (!isMounted) return;
-    if (!hasToken && pathname !== "/login") {
+    
+    if (!hasToken && !(pathname == "/login" || noAuthRequiredPages?.includes(pathname))) {
       router.replace("/login");
+      return;
+    }
+    if (userLoading || permLoading) {
       return;
     }
     if (hasAccess === false && pathname !== "/") {
@@ -84,6 +74,14 @@ export function PermissionGuard({
   // Keep SSR and first client render identical to avoid hydration mismatch.
   if (!isMounted) {
     return null;
+  }
+  
+  if (userLoading || permLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Chargement...
+      </div>
+    );
   }
 
   if (pathname === "/login") {
