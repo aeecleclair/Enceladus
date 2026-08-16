@@ -1,0 +1,17 @@
+{
+  "home": {
+    "welcome": "Welcome, {userId}!"
+  },
+  "login": {
+    "title": "Welcome on MyDocuments!",
+    "description": "This site allows you to consult your documents related to the centralien associative.",
+    "or": "or",
+    "alreadyHaveMyECLAccount": "Already have a MyECL account?",
+    "createMyECLAccount": "Create a MyECL account",
+    "register": "Sign up"
+  },
+  "metadata": {
+    "description": "Your documents related to the centralien associative",
+    "title": "MyDocuments"
+  }
+}

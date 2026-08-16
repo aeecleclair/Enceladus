@@ -1,0 +1,17 @@
+{
+  "home": {
+    "welcome": "Bonjour, {userId}!"
+  },
+  "login": {
+    "title": "Bienvenue sur MyDocuments !",
+    "description": "Ce site vous permet de consulter vos documents relatif à l'associatif centralien.",
+    "or": "ou",
+    "alreadyHaveMyECLAccount": "Vous avez déjà un compte MyECL ?",
+    "createMyECLAccount": "Créer un compte MyECL",
+    "register": "S'inscrire"
+  },
+  "metadata": {
+    "description": "Vos documents relatifs à l'associatif centralien",
+    "title": "MyDocuments"
+  }
+}

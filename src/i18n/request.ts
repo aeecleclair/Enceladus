@@ -21,12 +21,14 @@ export default getRequestConfig(async ({ requestLocale }) => {
   return {
     locale,
     messages: {
-      common: (await import(`../translations/${locale}/common.json`)).default,
-      pmf: (await import(`../translations/${locale}/pmf.json`)).default,
-      siarnaq: (await import(`../translations/${locale}/siarnaq.json`)).default,
-      raid: (await import(`../translations/${locale}/raid.json`)).default,
       challenger: (await import(`../translations/${locale}/challenger.json`))
         .default,
+      common: (await import(`../translations/${locale}/common.json`)).default,
+      myDocuments: (await import(`../translations/${locale}/myDocuments.json`))
+        .default,
+      pmf: (await import(`../translations/${locale}/pmf.json`)).default,
+      raid: (await import(`../translations/${locale}/raid.json`)).default,
+      siarnaq: (await import(`../translations/${locale}/siarnaq.json`)).default,
       template: (await import(`../translations/${locale}/template.json`))
         .default,
     },

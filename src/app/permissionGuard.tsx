@@ -13,14 +13,19 @@ import { useEffect, useSyncExternalStore } from "react";
 interface Props {
   children: React.ReactNode;
   permissionRequired: string;
+  noAuthRequiredPages?: string[];
 }
 
-export function PermissionGuard({ children, permissionRequired }: Props) {
+export function PermissionGuard({
+  children,
+  permissionRequired,
+  noAuthRequiredPages,
+}: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const { token } = useAuth();
-  const { user } = useMeUser();
-  const { permissions } = usePermissions();
+  const { user, isUpdateLoading: userLoading } = useMeUser();
+  const { permissions, isLoading: permLoading } = usePermissions();
   // `false` during SSR and the first client render, `true` after hydration —
   // detects mount without a set-state-in-effect, keeping SSR/client markup in
   // sync to avoid hydration mismatch.
@@ -31,6 +36,32 @@ export function PermissionGuard({ children, permissionRequired }: Props) {
   );
 
   const hasToken = !!token;
+  if (userLoading || permLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Chargement...
+      </div>
+    );
+  }
+  if (!user) {
+    console.log("User not authenticated");
+    console.log("Current pathname:", pathname);
+    console.log("No auth required pages:", noAuthRequiredPages);
+    console.log(
+      "Is current page no auth required?",
+      noAuthRequiredPages?.includes(pathname),
+    );
+    console.log(
+      "Redirecting to login:",
+      pathname !== "/login" && !noAuthRequiredPages?.includes(pathname),
+    );
+    if (pathname !== "/login" && !noAuthRequiredPages?.includes(pathname)) {
+      console.log("Redirecting to login");
+      router.replace("/login");
+      return null;
+    }
+    return <>{children}</>;
+  }
 
   const access_permission = permissions?.find(
     (value) => value.permission_name == permissionRequired,

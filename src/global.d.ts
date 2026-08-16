@@ -6,17 +6,19 @@ import pmf from "@/translations/fr/pmf.json";
 import raid from "@/translations/fr/raid.json";
 import siarnaq from "@/translations/fr/siarnaq.json";
 import template from "@/translations/fr/template.json";
+import myDocuments from "@/translations/fr/my-documents.json";
 
 declare module "next-intl" {
   interface AppConfig {
     Locale: (typeof routing.locales)[number];
 
     Messages: {
-      common: typeof common;
-      pmf: typeof pmf;
-      siarnaq: typeof siarnaq;
-      raid: typeof raid;
       challenger: typeof challenger;
+      common: typeof common;
+      myDocuments: typeof myDocuments;
+      pmf: typeof pmf;
+      raid: typeof raid;
+      siarnaq: typeof siarnaq;
       template: typeof template;
     };
 
