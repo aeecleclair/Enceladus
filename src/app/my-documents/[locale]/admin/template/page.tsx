@@ -26,14 +26,20 @@ export default function Home() {
   const t = useTranslations("myDocuments");
   const params = useSearchParams();
   const templateId = params.get("templateId") || "";
-  const { template } = useTemplate(templateId);
+  const { template, editTemplate, isEditLoading } = useTemplate(templateId);
   const router = useRouter();
   const tCommon = useTranslations("common");
-  const { editTemplate, isEditLoading } = useTemplate(template.id);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [documentDirectoryId, setDocumentDirectoryId] = useState(
-    template.document_directory_id ?? "",
+    template?.document_directory_id ?? "",
   );
+
+  if (!template) {
+    router.push({
+      pathname: "/admin",
+    });
+    return;
+  }
 
   const documentData = useMemo(
     () =>
@@ -70,13 +76,6 @@ export default function Home() {
     }),
     [template.documents],
   );
-
-  if (!template) {
-    router.push({
-      pathname: "/admin",
-    });
-    return;
-  }
 
   return (
     <div className="p-6">

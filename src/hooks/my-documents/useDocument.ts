@@ -37,22 +37,9 @@ export const useDocument = () => {
     enabled: documentId !== "" && documentId !== undefined && !isTokenExpired(),
   });
 
-  const documentWithTokenData: DocumentWithToken = {
-    id: "1",
-    documenso_id: 1,
-    template_id: "template1",
-    name: "Document 1",
-    module: "module1",
-    user_id: "user1",
-    status: "PENDING",
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    signing_token: "token",
-  };
-
   return {
     data: data as File,
-    documentWithToken: documentWithTokenData,
+    documentWithToken,
     refetchData,
     refetchDocumentWithToken,
     isDocumentWithTokenLoading,
