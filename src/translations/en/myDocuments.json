@@ -1,6 +1,9 @@
 {
   "admin": {
-    "detail": "Details"
+    "back": "Back",
+    "detail": "Details",
+    "template": "Template: {name}",
+    "templates": "Templates"
   },
   "document": {
     "download": "Download",

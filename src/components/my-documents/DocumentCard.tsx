@@ -26,7 +26,7 @@ export const DocumentCard = ({
               })}
             </p>
           </div>
-          {document.status !== "COMPLETED" && (
+          {document.status === "COMPLETED" && (
             <Button
               variant="outline"
               size="sm"
@@ -38,7 +38,7 @@ export const DocumentCard = ({
               {t("document.download")}
             </Button>
           )}
-          {document.status !== "PENDING" && (
+          {document.status === "PENDING" && (
             <Button
               variant="outline"
               size="sm"

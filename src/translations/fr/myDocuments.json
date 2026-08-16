@@ -1,6 +1,9 @@
 {
   "admin": {
-    "detail": "Détails"
+    "back": "Retour",
+    "detail": "Détails",
+    "template": "Modèle : {name}",
+    "templates": "Modèles"
   },
   "document": {
     "download": "Télécharger",

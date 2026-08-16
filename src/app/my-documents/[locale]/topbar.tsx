@@ -1,7 +1,7 @@
 "use client";
 
 import { useSellers } from "@/hooks/siarnaq/useSellers";
-import { Link, usePathname } from "@/i18n/navigation";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { useLocaleStore } from "@/stores/locale";
 import { useTokenStore } from "@/stores/token";
@@ -24,11 +24,12 @@ import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
+import { HiLibrary, HiOutlineLibrary } from "react-icons/hi";
 
 export default function TopBar() {
   const t = useTranslations("common");
-  const { setToken, setRefreshToken } = useTokenStore();
   const pathname = usePathname();
+  const router = useRouter();
   const { logout, token } = useAuth();
 
   return (
@@ -38,6 +39,18 @@ export default function TopBar() {
         <ThemeToggle />
       </div>
       <div className="flex gap-x-4">
+        {pathname === "/" && (
+          <Button variant="secondary" onClick={() => router.push(`/admin`)}>
+            <HiOutlineLibrary className="mr-2" />
+            {t("topbar.admin")}
+          </Button>
+        )}
+        {pathname.includes("/admin") && (
+          <Button variant="secondary" onClick={() => router.push(`/`)}>
+            <HiLibrary className="mr-2" />
+            {t("topbar.home")}
+          </Button>
+        )}
         {token && (
           <Button variant="secondary" onClick={() => logout()}>
             <ExitIcon className="mr-2" />
