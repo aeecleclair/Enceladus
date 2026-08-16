@@ -10,7 +10,6 @@ import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { HiOutlinePencil } from "react-icons/hi";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,16 +33,9 @@ export default function Home() {
     template?.document_directory_id ?? "",
   );
 
-  if (!template) {
-    router.push({
-      pathname: "/admin",
-    });
-    return;
-  }
-
   const documentData = useMemo(
     () =>
-      template.documents.map((doc, index) => ({
+      (template?.documents ?? []).map((doc) => ({
         id: doc.id,
         documenso_id: doc.documenso_id,
         template_id: doc.template_id,
@@ -59,23 +51,30 @@ export default function Home() {
         updated_at: doc.updated_at,
         module: doc.module,
       })),
-    [template.documents],
+    [template?.documents],
   );
   const templateStatistics = useMemo(
     () => ({
-      total_documents: template.documents.length,
-      total_signed_documents: template.documents.filter(
+      total_documents: template?.documents.length,
+      total_signed_documents: template?.documents.filter(
         (doc) => doc.status === "COMPLETED",
       ).length,
-      total_pending_documents: template.documents.filter(
+      total_pending_documents: template?.documents.filter(
         (doc) => doc.status === "PENDING",
       ).length,
-      total_rejected_documents: template.documents.filter(
+      total_rejected_documents: template?.documents.filter(
         (doc) => doc.status === "REJECTED",
       ).length,
     }),
-    [template.documents],
+    [template?.documents],
   );
+
+  if (!template) {
+    router.push({
+      pathname: "/admin",
+    });
+    return;
+  }
 
   return (
     <div className="p-6">
@@ -98,22 +97,22 @@ export default function Home() {
               <div className="flex flex-col gap">
                 <p>
                   {t("template.statistics.totalSignedDocuments", {
-                    count: templateStatistics.total_signed_documents,
+                    count: templateStatistics.total_signed_documents ?? 0,
                   })}
                 </p>
                 <p>
                   {t("template.statistics.totalPendingDocuments", {
-                    count: templateStatistics.total_pending_documents,
+                    count: templateStatistics.total_pending_documents ?? 0,
                   })}
                 </p>
                 <p>
                   {t("template.statistics.totalRejectedDocuments", {
-                    count: templateStatistics.total_rejected_documents,
+                    count: templateStatistics.total_rejected_documents ?? 0,
                   })}
                 </p>
                 <p>
                   {t("template.statistics.totalDocuments", {
-                    count: templateStatistics.total_documents,
+                    count: templateStatistics.total_documents ?? 0,
                   })}
                 </p>
               </div>

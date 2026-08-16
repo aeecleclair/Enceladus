@@ -1,6 +1,5 @@
 import { useAuth } from "../useAuth";
 
-import { DocumentWithToken } from "@/api";
 import {
   getDocumentsDocumentIdDownloadOptions,
   getDocumentsDocumentIdTokenOptions,

@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import { useToast } from "../ui/use-toast";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 
 export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
   const { user } = useMeUser();
@@ -52,7 +52,7 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
 
   function signDocument(documentId: string) {
     setDocumentId(documentId);
-    refetchDocumentWithToken().then((response) => {
+    refetchDocumentWithToken().then(() => {
       if (!documentWithToken) {
         toast({
           title: "Erreur",

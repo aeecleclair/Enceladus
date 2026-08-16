@@ -26,7 +26,9 @@ interface DataTableToolbarProps {
 
 export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
   const t = useTranslations("myDocuments");
-  const { useTemplateForRecipients } = useTemplate(template.id);
+  const { useTemplateForRecipients: sendTemplateToRecipients } = useTemplate(
+    template.id,
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [allowDuplicate, setAllowDuplicate] = useState(false);
   const [recipients, setRecipients] = useState<string[]>([]);
@@ -34,12 +36,6 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
     useState<TemplateUseResponse | null>(null);
 
   const isFiltered = table.getState().columnFilters.length > 0;
-
-  const handleMassDelete = () => {
-    const selectedRows = table.getSelectedRowModel().rows;
-    const selectedIds = selectedRows.map((row) => row.original.id);
-    console.log("Selected IDs for deletion:", selectedIds);
-  };
 
   const csvTooltip = (
     <div
@@ -191,16 +187,16 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
                 {t("template.use.recipients", { count: recipients.length })}
                 <Button
                   variant="secondary"
-                  onClick={() => {
-                    useTemplateForRecipients(
+                  onClick={() =>
+                    sendTemplateToRecipients(
                       template.id,
                       recipients,
                       allowDuplicate,
                       (response) => {
                         setSendingResult(response);
                       },
-                    );
-                  }}
+                    )
+                  }
                   disabled={recipients.length === 0}
                 >
                   {t("template.use.send")}

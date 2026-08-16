@@ -1,7 +1,6 @@
 "use client";
 import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
 import { DocumentAccordion } from "@/components/my-documents/DocumentAccordion";
-import { useDocument } from "@/hooks/my-documents/useDocument";
 import { useMyDocuments } from "@/hooks/my-documents/useMyDocuments";
 
 import { useTranslations } from "next-intl";

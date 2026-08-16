@@ -258,7 +258,8 @@ export function DocumentDataTable({
         },
       },
     ],
-    [badgeClasses, isFileLoading, t],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [t],
   );
 
   const table = useReactTable({

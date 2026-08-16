@@ -51,7 +51,7 @@ export const useMyTeams = () => {
     return mutateCreateTeam(
       { body },
       {
-        onSuccess: (data) => {
+        onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: teamsQueryKey });
         },
       },
@@ -83,7 +83,7 @@ export const useMyTeams = () => {
     return mutateUpdateTeam(
       { path: { team_id: teamId }, body },
       {
-        onSuccess: (data) => {
+        onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: teamsQueryKey });
         },
       },

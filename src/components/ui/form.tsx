@@ -140,6 +140,8 @@ function FormDescription({ className, ...props }: React.ComponentProps<"p">) {
 function FormMessage({ className, ...props }: React.ComponentProps<"p">) {
   const { error, formMessageId } = useFormField()
   const t = useTranslations();
+  
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const body = error ? String(t(error?.message as any) ?? "") : props.children
 
   if (!body) {

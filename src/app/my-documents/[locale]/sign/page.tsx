@@ -1,5 +1,4 @@
 "use client";
-import { useMeUser } from "@/hooks/useMeUser";
 
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";

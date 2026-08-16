@@ -1,4 +1,4 @@
-import { Template, TemplateWithStatistics } from "@/api";
+import { TemplateWithStatistics } from "@/api";
 import { useRouter } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
