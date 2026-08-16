@@ -8,6 +8,11 @@
   "datePicker": {
     "select": "Select a date"
   },
+  "form": {
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "confirm": "Confirm"
+  },
   "multiselect": {
     "deselect": "Deselect all",
     "noItemFound": "No item found.",

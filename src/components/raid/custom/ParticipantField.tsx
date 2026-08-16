@@ -1,6 +1,12 @@
 import { DocumentDialog } from "./DocumentDialog";
 
-import { Difficulty, Document, MeetingPlace, SecurityFile, Size } from "@/api";
+import {
+  AppModulesRaidSchemasRaidDocument,
+  Difficulty,
+  MeetingPlace,
+  SecurityFile,
+  Size,
+} from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { ConfirmationCheckbox } from "@/components/raid/home/participantView/ConfirmationCheckbox";
 import { SecurityFileDialog } from "@/components/raid/home/participantView/SecurityFileDialog";
@@ -49,7 +55,7 @@ type ValueType =
   | string
   | Size
   | boolean
-  | Document
+  | AppModulesRaidSchemasRaidDocument
   | SecurityFile
   | Situation
   | Difficulty

@@ -2,6 +2,7 @@
   "admin": {
     "back": "Back",
     "detail": "Details",
+    "selectTeam": "Select a team",
     "template": "Template: {name}",
     "templates": "Templates"
   },
@@ -11,7 +12,7 @@
     "status": {
       "DRAFT": "Draft",
       "COMPLETED": "Signed",
-      "PENDING": "Pending signature",
+      "PENDING": "Pending",
       "REJECTED": "Rejected"
     }
   },
@@ -35,5 +36,21 @@
   "metadata": {
     "description": "Your documents related to the centralien associative",
     "title": "MyDocuments"
+  },
+  "sign": {
+    "documentSigned": "Document signed",
+    "documentSignedDescription": "The document has been successfully signed.",
+    "backToHomepage": "Back to homepage",
+    "loading": "Loading document...",
+    "loadingDescription": "Please wait while the document is being loaded.",
+    "loadingError": "Error loading document",
+    "loadingErrorDescription": "An error occurred while loading the document. Please try again later.",
+    "missingSigningToken": "No signing token provided",
+    "missingSigningTokenDescription": "Please provide a valid signing token in the URL to sign a document."
+  },
+  "template": {
+    "documentDirectoryId": "Document directory ID",
+    "edit": "Edit {name}",
+    "name": "Template name"
   }
 }

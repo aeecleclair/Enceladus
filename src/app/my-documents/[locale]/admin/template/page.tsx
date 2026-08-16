@@ -1,55 +1,44 @@
 "use client";
+import { CustomDialog } from "@/components/common/CustomDialog";
+import { LoadingButton } from "@/components/common/LoadingButton";
 import { DocumentDataTable } from "@/components/my-documents/DocumentDataTable";
-import { useTemplateDocuments } from "@/hooks/my-documents/useTemplateDocuments";
-import { useTemplates } from "@/hooks/my-documents/useTemplates";
+import { useTemplate } from "@/hooks/my-documents/useTemplate";
 import { useRouter } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { HiOutlinePencil } from "react-icons/hi";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+import { ArrowLeft } from "lucide-react";
 
 export default function Home() {
   const t = useTranslations("myDocuments");
   const params = useSearchParams();
   const templateId = params.get("templateId") || "";
-  const { teamTemplates } = useTemplates("teamId");
-  const { templateDocuments } = useTemplateDocuments(templateId);
+  const { template } = useTemplate(templateId);
   const router = useRouter();
-
-  const template = teamTemplates.find((t) => t.id === templateId);
-
-  const names = [
-    "Smith",
-    "Johnson",
-    "Williams",
-    "Jones",
-    "Brown",
-    "Davis",
-    "Miller",
-    "Wilson",
-    "Moore",
-    "Taylor",
-  ];
-  const firstNames = [
-    "James",
-    "Mary",
-    "John",
-    "Patricia",
-    "Robert",
-    "Jennifer",
-  ];
+  const tCommon = useTranslations("common");
+  const { editTemplate, isEditLoading } = useTemplate(template.id);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [documentDirectoryId, setDocumentDirectoryId] = useState(
+    template.document_directory_id ?? "",
+  );
 
   const documentData = useMemo(
     () =>
-      templateDocuments.map((doc, index) => ({
+      template.documents.map((doc, index) => ({
         id: doc.id,
+        documenso_id: doc.documenso_id,
         template_id: doc.template_id,
         user_id: doc.user_id,
         user: {
-          fullName: `${firstNames[index % firstNames.length]} ${names[index % names.length]}`,
-          email: `${firstNames[index % firstNames.length].toLowerCase()}.${names[index % names.length].toLowerCase()}@example.com`,
+          fullName: `${doc.user.firstname} ${doc.user.name}`,
+          email: doc.user.email,
           id: doc.user_id,
         },
         name: doc.name,
@@ -58,7 +47,7 @@ export default function Home() {
         updated_at: doc.updated_at,
         module: doc.module,
       })),
-    [templateDocuments],
+    [template.documents],
   );
 
   if (!template) {
@@ -70,13 +59,57 @@ export default function Home() {
 
   return (
     <div className="p-6">
-      <Button variant="secondary" onClick={() => router.push(`/admin`)}>
-        {t("admin.back")}
-      </Button>
-      <h1 className="text-2xl font-bold pb-8">
-        {t("admin.template", { name: template.name })}
-      </h1>
-      <DocumentDataTable data={documentData} />
+      <div className="flex flex-row justify-between pb-8">
+        <div className="flex flex-row gap-4 items-center">
+          <Button variant="secondary" onClick={() => router.push(`/admin`)}>
+            <ArrowLeft />
+          </Button>
+          <h1 className="text-2xl font-bold">
+            {t("admin.template", { name: template.name })}
+          </h1>
+        </div>
+        <CustomDialog
+          isOpened={isModalOpen}
+          setIsOpened={setIsModalOpen}
+          title={t("template.edit", { name: template.name })}
+          description={
+            <div className="flex flex-col gap-4 mt-4">
+              <Label>{t("template.documentDirectoryId")}</Label>
+              <Input
+                onChange={(e) => {
+                  setDocumentDirectoryId(e.target.value);
+                }}
+                defaultValue={template.document_directory_id ?? ""}
+              />
+              <div className="flex justify-end mt-2 space-x-4">
+                <Button
+                  variant="outline"
+                  onClick={() => setIsModalOpen(false)}
+                  disabled={isEditLoading}
+                  className="w-25"
+                >
+                  {tCommon("form.cancel")}
+                </Button>
+                <LoadingButton
+                  isLoading={isEditLoading}
+                  className="w-25"
+                  type="button"
+                  onClick={() => {
+                    editTemplate(template.id, documentDirectoryId);
+                  }}
+                >
+                  {tCommon("form.edit")}
+                </LoadingButton>
+              </div>
+            </div>
+          }
+        >
+          <Button size="icon" variant="outline" className="w-10">
+            <HiOutlinePencil className="h-5 w-5" />
+          </Button>
+        </CustomDialog>
+      </div>
+      <DocumentDataTable data={documentData} template={template} />
     </div>
   );
 }

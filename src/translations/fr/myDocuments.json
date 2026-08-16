@@ -2,6 +2,7 @@
   "admin": {
     "back": "Retour",
     "detail": "Détails",
+    "selectTeam": "Sélectionner une équipe",
     "template": "Modèle : {name}",
     "templates": "Modèles"
   },
@@ -11,7 +12,7 @@
     "status": {
       "DRAFT": "Brouillon",
       "COMPLETED": "Signé",
-      "PENDING": "En attente de signature",
+      "PENDING": "En attente",
       "REJECTED": "Rejeté"
     }
   },
@@ -35,5 +36,21 @@
   "metadata": {
     "description": "Vos documents relatifs à l'associatif centralien",
     "title": "MyDocuments"
+  },
+  "sign": {
+    "documentSigned": "Document signé",
+    "documentSignedDescription": "Le document a été signé avec succès.",
+    "backToHomepage": "Retour à l'accueil",
+    "loading": "Chargement du document...",
+    "loadingDescription": "Veuillez patienter pendant le chargement du document.",
+    "loadingError": "Erreur lors du chargement du document",
+    "loadingErrorDescription": "Une erreur est survenue lors du chargement du document. Veuillez réessayer plus tard.",
+    "missingSigningToken": "Aucun jeton de signature fourni",
+    "missingSigningTokenDescription": "Veuillez fournir un jeton de signature valide dans l'URL pour signer un document."
+  },
+  "template": {
+    "documentDirectoryId": "ID du répertoire de documents",
+    "edit": "Modifier {name}",
+    "name": "Nom du modèle"
   }
 }

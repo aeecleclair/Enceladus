@@ -67,7 +67,7 @@ export const ViewEditParticipant = ({
       idCard: z
         .object({
           name: z.string(),
-          id: z.string().uuid(),
+          id: z.uuid(),
           updated: z.boolean(),
           type: z.literal("idCard"),
         })
@@ -75,7 +75,7 @@ export const ViewEditParticipant = ({
       medicalCertificate: z
         .object({
           name: z.string(),
-          id: z.string().uuid(),
+          id: z.uuid(),
           updated: z.boolean(),
           type: z.literal("medicalCertificate"),
         })
@@ -83,7 +83,7 @@ export const ViewEditParticipant = ({
       studentCard: z
         .object({
           name: z.string(),
-          id: z.string().uuid(),
+          id: z.uuid(),
           updated: z.boolean(),
           type: z.literal("studentCard"),
         })
@@ -91,7 +91,7 @@ export const ViewEditParticipant = ({
       raidRules: z
         .object({
           name: z.string(),
-          id: z.string().uuid(),
+          id: z.uuid(),
           updated: z.boolean(),
           type: z.literal("raidRules"),
         })
@@ -99,7 +99,7 @@ export const ViewEditParticipant = ({
       parentAuthorization: z
         .object({
           name: z.string(),
-          id: z.string().uuid(),
+          id: z.uuid(),
           updated: z.boolean(),
           type: z.literal("parentAuthorization"),
         })
@@ -116,7 +116,7 @@ export const ViewEditParticipant = ({
           surgical_operation: z.string().optional(),
           trauma: z.string().optional(),
           family: z.string().optional(),
-          id: z.string().uuid(),
+          id: z.uuid(),
           updated: z.boolean(),
           emergency_person_name: z.string().min(1, {
             message: "Veuillez renseigner le nom de la personne à contacter",

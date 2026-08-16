@@ -1,14 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
-import { getDocumentsTemplatesOptions } from "@/api/@tanstack/react-query.gen";
+
 import { Template } from "@/api";
+import { getDocumentsTeamsTeamIdTemplatesOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
 
 export const useTemplates = (teamId: string) => {
   const { isTokenExpired } = useAuth();
 
   const { data: teamTemplates } = useQuery({
-    ...getDocumentsTemplatesOptions({
-      query: {
+    ...getDocumentsTeamsTeamIdTemplatesOptions({
+      path: {
         team_id: teamId,
       },
     }),
@@ -19,7 +21,7 @@ export const useTemplates = (teamId: string) => {
   const templates: Template[] = [
     {
       id: "1",
-      documenso_id: "template1",
+      documenso_id: 1,
       name: "Template 1",
       team_id: teamId,
       deleted: false,
@@ -28,7 +30,7 @@ export const useTemplates = (teamId: string) => {
     },
     {
       id: "2",
-      documenso_id: "template2",
+      documenso_id: 2,
       name: "Template 2",
       team_id: teamId,
       deleted: false,
@@ -37,7 +39,7 @@ export const useTemplates = (teamId: string) => {
     },
     {
       id: "3",
-      documenso_id: "template3",
+      documenso_id: 3,
       name: "Template 3",
       team_id: teamId,
       deleted: false,

@@ -1,8 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "../useAuth";
-import { getDocumentsMeOptions } from "@/api/@tanstack/react-query.gen";
-import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
 import { useMeUser } from "../useMeUser";
+
+import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
+import { getDocumentsMeOptions } from "@/api/@tanstack/react-query.gen";
+
+import { useQuery } from "@tanstack/react-query";
 
 export const useMyDocuments = () => {
   const { isTokenExpired } = useAuth();
@@ -17,6 +19,7 @@ export const useMyDocuments = () => {
   const documents: AppCoreDocumentsSchemasDocumentsDocument[] = [
     {
       id: "1",
+      documenso_id: 1,
       template_id: "template1",
       name: "Document 1",
       module: "module1",
@@ -27,6 +30,7 @@ export const useMyDocuments = () => {
     },
     {
       id: "2",
+      documenso_id: 2,
       template_id: "template2",
       name: "Document 2",
       module: "module2",
@@ -37,6 +41,7 @@ export const useMyDocuments = () => {
     },
     {
       id: "3",
+      documenso_id: 3,
       template_id: "template3",
       name: "Document 3",
       module: "module3",

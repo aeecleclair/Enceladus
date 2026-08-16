@@ -1,36 +1,51 @@
 "use client";
+import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
 import { DocumentAccordion } from "@/components/my-documents/DocumentAccordion";
-import { Accordion } from "@/components/ui/accordion";
+import { useDocument } from "@/hooks/my-documents/useDocument";
 import { useMyDocuments } from "@/hooks/my-documents/useMyDocuments";
 
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
+import { Accordion } from "@/components/ui/accordion";
+
 export default function Home() {
   const t = useTranslations("myDocuments");
   const { myDocuments } = useMyDocuments();
 
-  const pendingDocuments = useMemo(
-    () => myDocuments.filter((doc) => doc.status === "PENDING"),
-    [myDocuments],
-  );
-  const completedDocuments = useMemo(
-    () => myDocuments.filter((doc) => doc.status === "COMPLETED"),
-    [myDocuments],
-  );
-  const rejectedDocuments = useMemo(
-    () => myDocuments.filter((doc) => doc.status === "REJECTED"),
-    [myDocuments],
-  );
+  const filteredDocuments = useMemo(() => {
+    return myDocuments.reduce(
+      (acc, doc) => {
+        if (doc.status === "PENDING") {
+          acc.pending.push(doc);
+        } else if (doc.status === "COMPLETED") {
+          acc.completed.push(doc);
+        } else if (doc.status === "REJECTED") {
+          acc.rejected.push(doc);
+        }
+
+        return acc;
+      },
+      {
+        pending: [],
+        completed: [],
+        rejected: [],
+      } as Record<
+        "pending" | "completed" | "rejected",
+        AppCoreDocumentsSchemasDocumentsDocument[]
+      >,
+    );
+  }, [myDocuments]);
+
   const [documentExpansion, setDocumentExpansion] = useState<string[]>([
-    pendingDocuments.length > 0
-      ? t("home.pending", { count: pendingDocuments.length })
-      : t("home.completed", { count: completedDocuments.length }),
+    filteredDocuments.pending.length > 0
+      ? t("home.pending", { count: filteredDocuments.pending.length })
+      : t("home.completed", { count: filteredDocuments.completed.length }),
   ]);
 
   return (
     <div className="p-6 flew flex-col gap-4">
-      <h1 className="text-2xl font-bold pb-8">{t("home.myDocuments")}</h1>
+      <h1 className="text-2xl font-bold ">{t("home.myDocuments")}</h1>
 
       <Accordion
         type="multiple"
@@ -38,16 +53,20 @@ export default function Home() {
         onValueChange={(value) => setDocumentExpansion(value)}
       >
         <DocumentAccordion
-          title={t("home.pending", { count: pendingDocuments.length })}
-          documents={pendingDocuments}
+          title={t("home.pending", { count: filteredDocuments.pending.length })}
+          documents={filteredDocuments.pending}
         />
         <DocumentAccordion
-          title={t("home.completed", { count: completedDocuments.length })}
-          documents={completedDocuments}
+          title={t("home.completed", {
+            count: filteredDocuments.completed.length,
+          })}
+          documents={filteredDocuments.completed}
         />
         <DocumentAccordion
-          title={t("home.rejected", { count: rejectedDocuments.length })}
-          documents={rejectedDocuments}
+          title={t("home.rejected", {
+            count: filteredDocuments.rejected.length,
+          })}
+          documents={filteredDocuments.rejected}
         />
       </Accordion>
     </div>

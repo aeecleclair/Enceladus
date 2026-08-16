@@ -43,7 +43,7 @@ export default function TopBar() {
             {t("topbar.admin")}
           </Button>
         )}
-        {pathname.includes("/admin") && (
+        {(pathname.includes("/admin") || pathname === "/sign") && (
           <Button variant="secondary" onClick={() => router.push(`/`)}>
             <HiLibrary className="mr-2" />
             {t("topbar.home")}

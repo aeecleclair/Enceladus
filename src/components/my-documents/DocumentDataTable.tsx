@@ -2,7 +2,8 @@
 
 import { DataTableToolbar } from "./DataTableToolbar";
 
-import { AppCoreDocumentsSchemasDocumentsDocument } from "@/api";
+import { AppCoreDocumentsSchemasDocumentsDocument, Template } from "@/api";
+import { useDocument } from "@/hooks/my-documents/useDocument";
 import { fuzzyFilter } from "@/lib/utils";
 
 import { Cross1Icon } from "@radix-ui/react-icons";
@@ -18,9 +19,12 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 import * as React from "react";
+import { useState } from "react";
 
 import { Checkbox } from "../ui/checkbox";
+import { useToast } from "../ui/use-toast";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
@@ -44,16 +48,58 @@ export interface TemplateDocuments extends AppCoreDocumentsSchemasDocumentsDocum
 }
 
 interface ParticipantDataTableProps {
+  template: Template;
   data: TemplateDocuments[];
 }
 
-export function DocumentDataTable({ data }: ParticipantDataTableProps) {
+export function DocumentDataTable({
+  template,
+  data,
+}: ParticipantDataTableProps) {
+  const t = useTranslations("myDocuments");
+  const { toast } = useToast();
+  const { setDocumentId, refetchData: refetch } = useDocument();
+  const [isFileLoading, setIsFileLoading] = useState(false);
+
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
   );
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>({});
   const statusOrder = ["PENDING", "REJECTED", "COMPLETED"];
+
+  const badgeClasses: Record<string, string> = {
+    PENDING: "bg-blue-200 text-blue-800",
+    COMPLETED: "bg-green-200  text-green-800",
+    REJECTED: "bg-red-200    text-red-800",
+    default: "bg-gray-200   text-gray-800",
+  };
+
+  function downloadDocument(documentId: string) {
+    setIsFileLoading(true);
+    setDocumentId(documentId);
+    refetch().then((response) => {
+      const data = response.data as File | null;
+      if (!data) {
+        toast({
+          title: "Erreur",
+          description: "Impossible de télécharger le fichier",
+          variant: "destructive",
+        });
+        setIsFileLoading(false);
+        return;
+      }
+      const extension = data.type.split("/")[1];
+      const name = `Réglement_du_raid.${extension}`;
+      const url = window.URL.createObjectURL(new Blob([data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", name);
+      document.body.appendChild(link);
+      setIsFileLoading(false);
+      link.click();
+    });
+  }
 
   const columns: ColumnDef<TemplateDocuments>[] = [
     {
@@ -149,18 +195,13 @@ export function DocumentDataTable({ data }: ParticipantDataTableProps) {
       ),
       cell: ({ row }) => (
         <div className="flex justify-center">
-          {row.original.status === "COMPLETED" ? (
-            <Badge
-              variant="secondary"
-              className="bg-green-100 text-green-800 hover:bg-green-200"
-            >
-              Complet
-            </Badge>
-          ) : row.original.status === "REJECTED" ? (
-            <Badge variant="destructive">Rejeté</Badge>
-          ) : (
-            <Badge variant="secondary">En attente</Badge>
-          )}
+          <Badge
+            className={
+              badgeClasses[row.original.status] ?? badgeClasses.default
+            }
+          >
+            {t(`document.status.${row.original.status}`)}
+          </Badge>
         </div>
       ),
       filterFn: (row, id, filterValue) => {
@@ -184,10 +225,9 @@ export function DocumentDataTable({ data }: ParticipantDataTableProps) {
             <Button
               variant="outline"
               size="sm"
-              disabled={document.status !== "COMPLETED"}
+              disabled={document.status !== "COMPLETED" || isFileLoading}
               onClick={() => {
-                // Implement download logic here
-                console.log("Downloading document:", document.name);
+                downloadDocument(document.id);
               }}
             >
               <DownloadIcon />
@@ -236,7 +276,7 @@ export function DocumentDataTable({ data }: ParticipantDataTableProps) {
 
   return (
     <div>
-      <DataTableToolbar table={table} />
+      <DataTableToolbar table={table} template={template} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
