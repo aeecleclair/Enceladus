@@ -1,21 +1,30 @@
 "use client";
 import { EmbedSignDocument } from "@documenso/embed-react";
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 const SignDocumentPage = () => {
   const searchParams = useSearchParams();
-  const signingToken = searchParams.get("signing-token");
+  const signingToken = searchParams.get("signingToken");
+
+  const [isSigned, setSignedStatus] = useState(false);
+
   if (!signingToken) {
     return <div>Missing signing token</div>;
   }
-  return (
+  return !isSigned ? (
     <EmbedSignDocument
+      className="w-full h-screen"
       host="https://documenso.myecl.fr"
       name="John Doe"
       token={signingToken}
       onDocumentCompleted={(data) => {
-        console.log("Signed:", data.documentId);
+        setSignedStatus(true);
       }}
     />
+  ) : (
+    <div className="flex h-screen items-center justify-center">
+      Document signed successfully!
+    </div>
   );
 };
 

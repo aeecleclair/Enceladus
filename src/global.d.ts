@@ -6,7 +6,7 @@ import pmf from "@/translations/fr/pmf.json";
 import raid from "@/translations/fr/raid.json";
 import siarnaq from "@/translations/fr/siarnaq.json";
 import template from "@/translations/fr/template.json";
-import myDocuments from "@/translations/fr/my-documents.json";
+import myDocuments from "@/translations/fr/myDocuments.json";
 
 declare module "next-intl" {
   interface AppConfig {

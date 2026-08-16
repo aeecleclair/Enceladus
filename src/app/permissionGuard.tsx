@@ -24,7 +24,7 @@ export function PermissionGuard({
   const router = useRouter();
   const pathname = usePathname();
   const { token } = useAuth();
-  const { user, isUpdateLoading: userLoading } = useMeUser();
+  const { user, isLoading: userLoading } = useMeUser();
   const { permissions, isLoading: permLoading } = usePermissions();
   // `false` during SSR and the first client render, `true` after hydration —
   // detects mount without a set-state-in-effect, keeping SSR/client markup in
@@ -36,6 +36,9 @@ export function PermissionGuard({
   );
 
   const hasToken = !!token;
+  if (pathname == "/login" || noAuthRequiredPages?.includes(pathname)) {
+    return <>{children}</>;
+  }
   if (userLoading || permLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -44,23 +47,9 @@ export function PermissionGuard({
     );
   }
   if (!user) {
-    console.log("User not authenticated");
-    console.log("Current pathname:", pathname);
-    console.log("No auth required pages:", noAuthRequiredPages);
-    console.log(
-      "Is current page no auth required?",
-      noAuthRequiredPages?.includes(pathname),
-    );
-    console.log(
-      "Redirecting to login:",
-      pathname !== "/login" && !noAuthRequiredPages?.includes(pathname),
-    );
-    if (pathname !== "/login" && !noAuthRequiredPages?.includes(pathname)) {
-      console.log("Redirecting to login");
-      router.replace("/login");
-      return null;
-    }
-    return <>{children}</>;
+    console.log("Redirecting to login");
+    router.replace(`/login?redirect=${pathname}`);
+    return null;
   }
 
   const access_permission = permissions?.find(

@@ -1,6 +1,16 @@
 {
+  "document": {
+    "download": "Télécharger",
+    "status": {
+      "signed": "Signé",
+      "pending": "En attente de signature",
+      "rejected": "Rejeté"
+    }
+  },
   "home": {
-    "welcome": "Bonjour, {userId}!"
+    "documentDate": "Date : {date}",
+    "documentStatus": "Statut : {status}",
+    "myDocuments": "Mes documents"
   },
   "login": {
     "title": "Bienvenue sur MyDocuments !",

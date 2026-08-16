@@ -159,10 +159,6 @@ export const useAuth = () => {
 
     if (token !== null) {
       setIsTokenQueried(true);
-    } else {
-      if (!pathname.endsWith("/login")) {
-        router.replace(`/${website}/login?redirect=${pathname}`);
-      }
     }
     setIsLoading(false);
     return token;

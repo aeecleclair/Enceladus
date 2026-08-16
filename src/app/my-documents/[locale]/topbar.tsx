@@ -22,11 +22,14 @@ import {
 
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useSearchParams } from "next/navigation";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function TopBar() {
   const t = useTranslations("common");
   const { setToken, setRefreshToken } = useTokenStore();
   const pathname = usePathname();
+  const { logout, token } = useAuth();
 
   return (
     <div className="p-6 bg-muted/40 flex flex-row flex-nowrap gap-x-4 justify-between">
@@ -35,14 +38,8 @@ export default function TopBar() {
         <ThemeToggle />
       </div>
       <div className="flex gap-x-4">
-        {pathname !== "/login" && (
-          <Button
-            variant="secondary"
-            onClick={() => {
-              setRefreshToken(null);
-              setToken(null);
-            }}
-          >
+        {token && (
+          <Button variant="secondary" onClick={() => logout()}>
             <ExitIcon className="mr-2" />
             {t("topbar.logout")}
           </Button>
@@ -56,6 +53,7 @@ function LocaleDropdown() {
   const locale = useLocale();
   const { localeStore, setLocaleStore } = useLocaleStore();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
   if (!localeStore) setLocaleStore(locale);
 
   const localeName = {
@@ -87,7 +85,7 @@ function LocaleDropdown() {
           {routing.locales.map((l) => (
             <DropdownMenuRadioItem key={l} value={l}>
               <Link
-                href={{ pathname }}
+                href={{ pathname, query: searchParams.toString() }}
                 locale={l}
                 className="flex flex-row p-1"
               >
