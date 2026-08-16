@@ -87,7 +87,6 @@ export const useTokenStore = create<TokenStore>()(
         storage: createJSONStorage(() =>
           typeof window !== "undefined" ? localStorage : noopStorage,
         ),
-        // On ne persiste pas les fonctions, seulement l'état
         partialize: (state) => ({
           token: state.token,
           refreshToken: state.refreshToken,

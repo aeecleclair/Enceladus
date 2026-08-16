@@ -110,7 +110,9 @@ const SignDocumentPage = () => {
     <div ref={wrapperRef} className="relative w-full h-[80vh]">
       <EmbedSignDocument
         className="w-full h-full"
-        host="https://documenso.myecl.fr"
+        host={
+          process.env.NEXT_PUBLIC_DOCUMENSO_URL || "https://documenso.myecl.fr"
+        }
         name={fullName}
         email={email}
         token={signingToken}

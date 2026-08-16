@@ -63,6 +63,7 @@
     "invalidApiKey": "API key does not have the required format",
     "name": "Team name",
     "namePlaceholder": "Ex: AEECL, USEECL, etc.",
+    "submit": "Create the team",
     "update": "Edit the team"
   },
   "template": {

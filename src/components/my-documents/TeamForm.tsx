@@ -79,7 +79,7 @@ export const TeamsForm = ({
 
         <div className="flex gap-3 pt-4">
           <LoadingButton type="submit" className="flex-1" isLoading={isLoading}>
-            {submitLabel || "Ajouter le sport"}
+            {submitLabel || t("team.submit")}
           </LoadingButton>
         </div>
       </form>

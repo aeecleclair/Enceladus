@@ -79,9 +79,9 @@ export function DocumentDataTable({
     default: "bg-gray-200   text-gray-800",
   };
 
-  function downloadDocument(documentId: string) {
+  function downloadDocument(targetDocument: TemplateDocuments) {
     setIsFileLoading(true);
-    setDocumentId(documentId);
+    setDocumentId(targetDocument.id);
     refetch().then((response) => {
       const data = response.data as File | null;
       if (!data) {
@@ -94,7 +94,7 @@ export function DocumentDataTable({
         return;
       }
       const extension = data.type.split("/")[1];
-      const name = `Réglement_du_raid.${extension}`;
+      const name = `${targetDocument.name}.${extension}`;
       const url = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement("a");
       link.href = url;
@@ -236,7 +236,7 @@ export function DocumentDataTable({
                 size="sm"
                 disabled={document.status !== "COMPLETED" || isFileLoading}
                 onClick={() => {
-                  downloadDocument(document.id);
+                  downloadDocument(document);
                 }}
               >
                 <DownloadIcon />
