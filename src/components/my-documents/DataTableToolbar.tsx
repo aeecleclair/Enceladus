@@ -64,7 +64,7 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
     <div className="flex flex-wrap items-center justify-between gap-2 py-4">
       <div className="flex flex-1 items-center gap-2 flex-wrap">
         <Input
-          placeholder="Rechercher par nom ou email..."
+          placeholder={t("template.searchPlaceholder")}
           value={
             (table.getColumn("searchField")?.getFilterValue() as string) ?? ""
           }
@@ -80,7 +80,7 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >
-            Supprimer les filtres
+            {t("template.clearFilters")}
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
         )}
@@ -190,7 +190,7 @@ export function DataTableToolbar({ table, template }: DataTableToolbarProps) {
               setIsModalOpen(true);
             }}
           >
-            Générer des documents à partir d'un CSV
+            {t("template.use.useTemplate")}
             <div
               onClick={(e) => {
                 e.stopPropagation();

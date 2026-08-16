@@ -49,9 +49,21 @@
     "missingSigningTokenDescription": "Veuillez fournir un jeton de signature valide dans l'URL pour signer un document."
   },
   "template": {
+    "clearFilters": "Supprimer les filtres",
     "documentDirectoryId": "ID du répertoire de documents",
     "edit": "Modifier {name}",
+    "headers": {
+      "actions": "Actions",
+      "email": "Email",
+      "name": "Nom",
+      "status": "Status"
+    },
+    "itemsPerPage": "Document(s) par page",
     "name": "Nom du modèle",
+    "noResults": "Aucune donnée à afficher.",
+    "of": "sur",
+    "searchPlaceholder": "Rechercher par nom ou email...",
+    "selectedLabel": "document(s) sélectionné(s)",
     "use": {
       "allowDuplicate": "Autoriser les doublons",
       "close": "Fermer",
@@ -61,7 +73,8 @@
       "results": "Résultats",
       "send": "Envoyer",
       "success": "{ count, plural, =0 {Aucun document généré} =1 {Un document généré} other {# documents générés} } avec succès",
-      "title": "Utiliser le modèle"
+      "title": "Utiliser le modèle",
+      "useTemplate": "Générer des documents à partir d'un CSV"
     },
     "useTooltip1": "Mettre un mail par ligne dans le CSV.",
     "useTooltip2": "Le mail doit correspondre à un utilisateur MyECL.",

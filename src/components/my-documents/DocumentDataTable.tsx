@@ -146,7 +146,7 @@ export function DocumentDataTable({
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             className="flex items-center w-full   "
           >
-            Nom
+            {t("template.headers.name")}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         ),
@@ -173,7 +173,7 @@ export function DocumentDataTable({
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             className="flex items-center w-full"
           >
-            Email
+            {t("template.headers.email")}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         ),
@@ -194,7 +194,7 @@ export function DocumentDataTable({
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
             className="flex items-center w-full"
           >
-            Status
+            {t("template.headers.status")}
             <ArrowUpDown className="ml-2 h-4 w-4" />
           </Button>
         ),
@@ -221,7 +221,11 @@ export function DocumentDataTable({
       },
       {
         id: "actions",
-        header: () => <div className="text-center w-full">Actions</div>,
+        header: () => (
+          <div className="text-center w-full">
+            {t("template.headers.actions")}
+          </div>
+        ),
         cell: ({ row }) => {
           const document = row.original;
 
@@ -344,7 +348,7 @@ export function DocumentDataTable({
                   colSpan={columns.length - 1}
                   className="text-center py-4 text-muted-foreground"
                 >
-                  Aucune donnée à afficher.
+                  {t("template.noResults")}
                 </TableCell>
               </TableRow>
             )}
@@ -354,9 +358,9 @@ export function DocumentDataTable({
       <div className="mt-4">
         <DataTablePagination
           table={table}
-          selectedLabel="document(s) sélectionné(s)"
-          itemsPerPageLabel="Document(s) par page"
+          itemsPerPageLabel={t("template.itemsPerPage")}
           showSelectedCount={false}
+          ofLabel={t("template.of")}
         />
       </div>
     </div>

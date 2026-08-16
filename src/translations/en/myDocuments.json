@@ -49,9 +49,21 @@
     "missingSigningTokenDescription": "Please provide a valid signing token in the URL to sign a document."
   },
   "template": {
+    "clearFilters": "Clear filters",
     "documentDirectoryId": "Document directory ID",
     "edit": "Edit {name}",
+    "headers": {
+      "actions": "Actions",
+      "email": "Email",
+      "name": "Name",
+      "status": "Status"
+    },
+    "itemsPerPage": "Document(s) per page",
     "name": "Template name",
+    "noResults": "No data to display.",
+    "of": "of",
+    "searchPlaceholder": "Search by name or email...",
+    "selectedLabel": "document(s) selected",
     "use": {
       "allowDuplicate": "Allow duplicates",
       "close": "Close",
@@ -61,7 +73,8 @@
       "results": "Results",
       "send": "Send",
       "success": "{ count, plural, =0 {No documents generated} =1 {One document generated} other {# documents generated} } successfully",
-      "title": "Use template"
+      "title": "Use template",
+      "useTemplate": "Generate documents from a CSV"
     },
     "useTooltip1": "Put one email per line in the CSV.",
     "useTooltip2": "The email must correspond to a MyECL user.",
