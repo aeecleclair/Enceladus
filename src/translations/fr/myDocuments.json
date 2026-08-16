@@ -52,6 +52,17 @@
     "documentDirectoryId": "ID du répertoire de documents",
     "edit": "Modifier {name}",
     "name": "Nom du modèle",
+    "use": {
+      "allowDuplicate": "Autoriser les doublons",
+      "close": "Fermer",
+      "errors": "{ count, plural, =0 {Pas d'erreur} =1 {Une erreur : } other {# erreurs : } }",
+      "loadCSV": "Charger un CSV",
+      "recipients": "{ count, plural, =0 {Pas de destinataire} =1 {Un destinataire} other {# destinataires} }",
+      "results": "Résultats",
+      "send": "Envoyer",
+      "success": "{ count, plural, =0 {Aucun document généré} =1 {Un document généré} other {# documents générés} } avec succès",
+      "title": "Utiliser le modèle"
+    },
     "useTooltip1": "Mettre un mail par ligne dans le CSV.",
     "useTooltip2": "Le mail doit correspondre à un utilisateur MyECL.",
     "useTooltip3": "Un document sera généré pour chaque utilisateur."

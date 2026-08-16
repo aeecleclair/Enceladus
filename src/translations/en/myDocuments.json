@@ -52,6 +52,17 @@
     "documentDirectoryId": "Document directory ID",
     "edit": "Edit {name}",
     "name": "Template name",
+    "use": {
+      "allowDuplicate": "Allow duplicates",
+      "close": "Close",
+      "errors": "{ count, plural, =0 {No errors} =1 {One error: } other {# errors: } }",
+      "loadCSV": "Load CSV",
+      "recipients": "{ count, plural, =0 {No recipients} =1 {One recipient} other {# recipients} }",
+      "results": "Results",
+      "send": "Send",
+      "success": "{ count, plural, =0 {No documents generated} =1 {One document generated} other {# documents generated} } successfully",
+      "title": "Use template"
+    },
     "useTooltip1": "Put one email per line in the CSV.",
     "useTooltip2": "The email must correspond to a MyECL user.",
     "useTooltip3": "A document will be generated for each user."

@@ -1,6 +1,6 @@
 import { useAuth } from "../useAuth";
 
-import { TemplateComplete } from "@/api";
+import { TemplateComplete, TemplateUseResponse } from "@/api";
 import {
   getDocumentsTemplatesTemplateIdOptions,
   patchDocumentsTemplatesTemplateIdMutation,
@@ -65,15 +65,6 @@ export const useTemplate = (templateId: string) => {
     useMutation({
       ...postDocumentsTemplatesTemplateIdDocumentsMutation(),
       onSuccess: (response) => {
-        if (response.errors) {
-          console.error(response.errors);
-          const nbErrors = Object.keys(response.errors).length;
-          toast({
-            title: "Erreur lors de l'utilisation du template",
-            description: `Il y a eu une erreur pour ${nbErrors} utilisateur(s), ouvrez la console pour plus d'informations`,
-            variant: "destructive",
-          });
-        }
         if (response.documents) {
           toast({
             title: "Succès",
@@ -97,15 +88,114 @@ export const useTemplate = (templateId: string) => {
   const useTemplateForRecipients = (
     templateId: string,
     recipients: string[],
+    allowDuplicate: boolean,
+    callback?: (response: TemplateUseResponse) => void,
   ) => {
-    mutateUseTemplate({
-      path: {
-        template_id: templateId,
+    mutateUseTemplate(
+      {
+        path: {
+          template_id: templateId,
+        },
+        body: {
+          recipients: recipients,
+          allow_duplicate: allowDuplicate,
+        },
       },
-      body: {
-        recipients: recipients,
+      { onSuccess: (response) => callback && callback(response) },
+    );
+  };
+
+  const mockUseTemplate = (
+    templateId: string,
+    recipients: string[],
+    allowDuplicate: boolean,
+    callback?: (response: TemplateUseResponse) => void,
+  ) => {
+    const response: TemplateUseResponse = {
+      errors: {
+        user1: "L'utilisateur n'existe pas",
+        user2: "L'utilisateur n'existe pas",
+        user3: "L'utilisateur n'existe pas",
+        user4: "L'utilisateur n'existe pas",
+        user5: "Un document a déjà été généré pour cet utilisateur",
+        user6: "Un document a déjà été généré pour cet utilisateur",
+        user7: "Un document a déjà été généré pour cet utilisateur",
+        user8: "Un document a déjà été généré pour cet utilisateur",
+        user9: "Un document a déjà été généré pour cet utilisateur",
+        user10: "Une erreur est survenue lors de la génération du document",
+        user11: "Une erreur est survenue lors de la génération du document",
+        user12: "Une erreur est survenue lors de la génération du document",
+        user13: "Une erreur est survenue lors de la génération du document",
+        user14: "Une erreur est survenue lors de la génération du document",
+        user15: "L'utilisateur n'existe pas",
+        user26: "L'utilisateur n'existe pas",
+        user37: "L'utilisateur n'existe pas",
+        user47: "L'utilisateur n'existe pas",
+        user57: "Un document a déjà été généré pour cet utilisateur",
+        user67: "Un document a déjà été généré pour cet utilisateur",
+        user77: "Un document a déjà été généré pour cet utilisateur",
+        user87: "Un document a déjà été généré pour cet utilisateur",
+        user97: "Un document a déjà été généré pour cet utilisateur",
+        user101: "Une erreur est survenue lors de la génération du document",
+        user111: "Une erreur est survenue lors de la génération du document",
+        user121: "Une erreur est survenue lors de la génération du document",
+        user131: "Une erreur est survenue lors de la génération du document",
+        user141: "Une erreur est survenue lors de la génération du document",
+        user100: "L'utilisateur n'existe pas",
+        user21: "L'utilisateur n'existe pas",
+        user31: "L'utilisateur n'existe pas",
+        user41: "L'utilisateur n'existe pas",
+        user51: "Un document a déjà été généré pour cet utilisateur",
+        user61: "Un document a déjà été généré pour cet utilisateur",
+        user71: "Un document a déjà été généré pour cet utilisateur",
+        user81: "Un document a déjà été généré pour cet utilisateur",
+        user91: "Un document a déjà été généré pour cet utilisateur",
+        user102: "Une erreur est survenue lors de la génération du document",
+        user112: "Une erreur est survenue lors de la génération du document",
+        user122: "Une erreur est survenue lors de la génération du document",
+        user132: "Une erreur est survenue lors de la génération du document",
+        user142: "Une erreur est survenue lors de la génération du document",
+        user120: "L'utilisateur n'existe pas",
+        user22: "L'utilisateur n'existe pas",
+        user32: "L'utilisateur n'existe pas",
+        user42: "L'utilisateur n'existe pas",
+        user52: "Un document a déjà été généré pour cet utilisateur",
+        user62: "Un document a déjà été généré pour cet utilisateur",
+        user72: "Un document a déjà été généré pour cet utilisateur",
+        user82: "Un document a déjà été généré pour cet utilisateur",
+        user92: "Un document a déjà été généré pour cet utilisateur",
+        user104: "Une erreur est survenue lors de la génération du document",
+        user115: "Une erreur est survenue lors de la génération du document",
+        user123: "Une erreur est survenue lors de la génération du document",
+        user133: "Une erreur est survenue lors de la génération du document",
+        user143: "Une erreur est survenue lors de la génération du document",
       },
-    });
+      documents: [
+        {
+          name: "Document 1",
+          id: "doc1",
+          documenso_id: 1,
+          template_id: templateId,
+          user_id: "user15",
+          status: "COMPLETED",
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          module: "module1",
+        },
+        {
+          name: "Document 2",
+          id: "doc2",
+          documenso_id: 2,
+          template_id: templateId,
+          user_id: "user16",
+          status: "PENDING",
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          module: "module1",
+        },
+      ],
+    };
+    callback && callback(response);
   };
 
   const template: TemplateComplete = {
@@ -186,7 +276,7 @@ export const useTemplate = (templateId: string) => {
   return {
     template: template,
     editTemplate,
-    useTemplateForRecipients,
+    useTemplateForRecipients: mockUseTemplate,
     isEditLoading,
     isUseTemplateLoading,
   };
