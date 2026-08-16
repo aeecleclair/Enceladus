@@ -27,7 +27,6 @@ import {
 
 const Login = () => {
   const t = useTranslations("siarnaq");
-  const router = useRouter();
   const { year } = useYear();
   const possiblePromos = Array.from({ length: 5 }).map((_, index) => {
     return (year - index).toString();
@@ -93,7 +92,7 @@ const Login = () => {
                 if (selectedPromo === possiblePromos[0].toString()) {
                   redirectUri += "?external=true";
                 }
-                router.push(redirectUri);
+                window.open(redirectUri);
               }}
             >
               {t("login.register")}
