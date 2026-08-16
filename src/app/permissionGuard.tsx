@@ -71,7 +71,16 @@ export function PermissionGuard({
     if (hasAccess === false && pathname !== "/") {
       router.replace("/");
     }
-  }, [isMounted, hasToken, hasAccess, pathname, router]);
+  }, [
+    isMounted,
+    hasToken,
+    hasAccess,
+    pathname,
+    router,
+    noAuthRequiredPages,
+    userLoading,
+    permLoading,
+  ]);
 
   // Keep SSR and first client render identical to avoid hydration mismatch.
   if (!isMounted) {
