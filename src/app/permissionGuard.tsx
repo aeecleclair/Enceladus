@@ -3,7 +3,6 @@
 import NotAuthorized from "./not-authorized";
 
 import { useAuth } from "@/hooks/useAuth";
-// Votre hook de base
 import { useMeUser } from "@/hooks/useMeUser";
 import { usePermissions } from "@/hooks/usePermissions";
 import { usePathname, useRouter } from "@/i18n/navigation";
@@ -25,7 +24,7 @@ export function PermissionGuard({
   const pathname = usePathname();
   const { token } = useAuth();
   const { user, isLoading: userLoading } = useMeUser();
-  const { permissions, isLoading: permLoading } = usePermissions();
+  const { permissions } = usePermissions();
   // `false` during SSR and the first client render, `true` after hydration —
   // detects mount without a set-state-in-effect, keeping SSR/client markup in
   // sync to avoid hydration mismatch.
@@ -65,10 +64,13 @@ export function PermissionGuard({
       router.replace("/login");
       return;
     }
-    if (userLoading || permLoading) {
+    if (userLoading) {
       return;
     }
     if (hasAccess === false && pathname !== "/") {
+      router.replace("/");
+    }
+    if (hasToken && pathname === "/login") {
       router.replace("/");
     }
   }, [
@@ -79,7 +81,6 @@ export function PermissionGuard({
     router,
     noAuthRequiredPages,
     userLoading,
-    permLoading,
   ]);
 
   // Keep SSR and first client render identical to avoid hydration mismatch.
@@ -87,7 +88,7 @@ export function PermissionGuard({
     return null;
   }
 
-  if (userLoading || permLoading) {
+  if (userLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
         Chargement...
@@ -95,7 +96,7 @@ export function PermissionGuard({
     );
   }
 
-  if (pathname === "/login") {
+  if (pathname === "/login" || noAuthRequiredPages?.includes(pathname)) {
     return <>{children}</>;
   }
 
