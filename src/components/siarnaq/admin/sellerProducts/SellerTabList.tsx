@@ -37,9 +37,7 @@ export const SellerTabList = ({
           className="min-w-0 w-full"
           onClick={() => handleClick(seller.id)}
         >
-          <span className="block w-full truncate">
-            {seller.name}
-          </span>
+          <span className="block w-full truncate">{seller.name}</span>
         </TabsTrigger>
       ))}
       {isAdmin && (
