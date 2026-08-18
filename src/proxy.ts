@@ -7,7 +7,7 @@ const SUBDOMAIN_ROUTES = {
   documents: "/my-documents",
   pmf: "/pmf",
   rentree: "/rentree",
-  "raid-registering": "/raid-registering",
+  "inscription-raid": "/raid-registering",
   template: "/template",
 };
 
