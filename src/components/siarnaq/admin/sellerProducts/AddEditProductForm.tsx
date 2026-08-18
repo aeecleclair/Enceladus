@@ -288,7 +288,7 @@ export const AddEditProductForm = ({
         <StyledFormField
           form={form}
           label={t("addEditProductForm.related_membership")}
-          id="related_membership"
+          id="related_membership_id"
           input={(field) => (
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <SelectTrigger>
