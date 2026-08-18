@@ -52,7 +52,7 @@ export default async function RootLayout({
 
       <Script
         defer
-        data-domain="raid-registering.myecl.fr"
+        data-domain="inscription-raid.myecl.fr"
         src="https://plausible.eclair.ec-lyon.fr/js/script.js"
         strategy="lazyOnload"
       />
