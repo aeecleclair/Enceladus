@@ -42,7 +42,7 @@ export const InviteLinkDialog = ({
     if (typeof window === "undefined") return `?invite=${token}`;
     const { protocol, host } = window.location;
     const baseHost = host.replace(/^[^.]+\./, "");
-    return `${protocol}//raid-registering.${baseHost}/${locale}/team/invite/${token}`;
+    return `${protocol}//inscription-raid.${baseHost}/${locale}/team/invite/${token}`;
   };
 
   const handleGenerate = () => {

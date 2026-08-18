@@ -46,7 +46,7 @@ const Login = () => {
         <CardContent>
           <form>
             <div className="grid w-full items-center gap-4">
-              <MyECLButton subdomain="raid-registering" />
+              <MyECLButton subdomain="inscription-raid" />
             </div>
           </form>
         </CardContent>
