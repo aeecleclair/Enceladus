@@ -48,6 +48,7 @@ export const AddProductAccordionItem = ({
     resolver: zodResolver(productFormSchema),
     mode: "onBlur",
     defaultValues: {
+      related_membership_id: "null",
       product_constraints: [],
       document_constraints: [],
       data_fields: [],
@@ -94,7 +95,10 @@ export const AddProductAccordionItem = ({
       ...values,
       available_online: values.available_online === "true",
       needs_validation: true,
-      related_membership_id: values.related_membership_id,
+      related_membership_id:
+        values.related_membership_id === "null"
+          ? null
+          : values.related_membership_id,
       tickets: values.tickets.map((ticket) => ({
         ...ticket,
         expiration: ticket.expiration.toISOString(),
