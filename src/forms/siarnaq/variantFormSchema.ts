@@ -21,13 +21,9 @@ export default function variantFormSchema(
         .string()
         .regex(/^([0-9]+Y)?([0-9]+M)?([0-9]+D)?$/)
         .optional(),
-      price: z
-        .string({
-          error: t("price"),
-        })
-        .min(0, {
-          message: t("price"),
-        }),
+      price: z.string({
+        error: t("price"),
+      }),
       unique: z.enum(["unique", "multiple"], {
         error: t("unique"),
       }),
