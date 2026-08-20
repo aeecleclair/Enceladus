@@ -59,7 +59,7 @@ export default function Home() {
           <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
             <AssociationPanel
               canClick={!!user?.curriculum}
-              onlineSellers={onlineSellers}
+              onlineSellers={onlineSellers.sort((a, b) => a.order - b.order)}
               showSellerFeatureFlag={showSellerFeatureFlag}
             />
             {user && (

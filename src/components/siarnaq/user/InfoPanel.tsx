@@ -3,6 +3,7 @@ import { useOnlineSellers } from "@/hooks/siarnaq/useOnlineSellers";
 import { useYear } from "@/hooks/siarnaq/useYear";
 
 import { useTranslations } from "next-intl";
+import { HiOutlineInformationCircle } from "react-icons/hi";
 import {
   HiOutlineBanknotes,
   HiOutlineCalendar,
@@ -49,11 +50,11 @@ export const InfoPanel = () => {
 
         <div className="pl-10">
           <a
-            href="mailto:edouard.backman@etu.ec-lyon.fr"
+            href="mailto:bde@ec-lyon.fr"
             className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
           >
             <HiOutlineEnvelope className="h-4 w-4 mr-2" />
-            edouard.backman@etu.ec-lyon.fr
+            bde@ec-lyon.fr
           </a>
         </div>
 
@@ -63,13 +64,55 @@ export const InfoPanel = () => {
           {t("info.cautionTitle")}
         </h3>
         <div>{t("info.cautionDescription")}</div>
-        <div>{t("info.cautionInstructions")}</div>
+        <div className="pl-10">
+          {/* TODO: provide a clean link like https://www.facebook.com/groups/admis2026 */}
+          <a
+            href="https://v2.swik.link/ni1hTTw"
+            className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
+          >
+            <HiOutlineLink className="h-4 w-4 mr-2" />
+            {t("info.cautionLink")}
+          </a>
+        </div>
         <div>
           {t.rich("info.cautionMandatory", {
             mandatory: (chunks) => <span className="font-bold">{chunks}</span>,
           })}
         </div>
 
+        {/* */}
+        <h3 className="text-lg font-semibold flex flex-row items-center pt-5">
+          <HiOutlineInformationCircle className="h-4 w-4 mr-2" />
+          {t("info.welcomeGuide")}
+        </h3>
+        <div>{t("info.welcomeGuideDescription", { year: yearString })}</div>
+        <div className="pl-10">
+          <a
+            href="https://drive.google.com/file/d/1-Vg4xRVZl9IvJWvH89eQ1iTBv5b-ZBIn/view?usp=sharing"
+            className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
+          >
+            <HiOutlineLink className="h-4 w-4 mr-2" />
+            {t("info.welcomeGuideFR", { year: yearString })}
+          </a>
+        </div>
+        <div className="pl-10">
+          <a
+            href="https://drive.google.com/file/d/1xVGqq4ht5pbRNzb7MUkKztUTSg8nNPZS/view?usp=sharing"
+            className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
+          >
+            <HiOutlineLink className="h-4 w-4 mr-2" />
+            {t("info.welcomeGuideEN", { year: yearString })}
+          </a>
+        </div>
+        <div className="pl-10">
+          <a
+            href="https://drive.google.com/file/d/1rPuM15aQQXyTjwsUkN46kyI_X4twQE-N/view?usp=sharing"
+            className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
+          >
+            <HiOutlineLink className="h-4 w-4 mr-2" />
+            {t("info.welcomeEmail", { year: yearString })}
+          </a>
+        </div>
         {/* */}
         <h3 className="text-lg font-semibold flex flex-row items-center pt-5">
           <HiOutlineNewspaper className="h-4 w-4 mr-2" />

@@ -63,10 +63,10 @@ export const IntroCarouselItems = ({
       <span>
         {t("introCarouselItem.contact")}
         <a
-          href="mailto:edouard.backman@etu.ec-lyon.fr"
-          className="whitespace-pre"
+          href="mailto:bde@ec-lyon.fr"
+          className="font-medium hover:underline underline-offset-4 "
         >
-          edouard.backman@etu.ec-lyon.fr
+          bde@ec-lyon.fr
         </a>
       </span>
     </div>,

@@ -33,7 +33,7 @@ export const AssociationPanel = ({
     purchases?.reduce<number>((acc, purchase) => acc + purchase.quantity, 0) ??
     0;
 
-  const customSellerNames = ["BDE", "BDS", "SDeC", "WEI"] as const;
+  const customSellerNames = ["BDE", "BDS", "SDeC", "WEI", "Adhésion"] as const;
   function isInCustomSellerNames(
     sellerName: string,
   ): sellerName is (typeof customSellerNames)[number] {
