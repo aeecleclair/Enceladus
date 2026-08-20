@@ -22,7 +22,7 @@ export function PermissionGuard({
 }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-  const { token } = useAuth();
+  const { token, refreshTokens, isTokenExpired, isLoading } = useAuth();
   const { user, isLoading: userLoading } = useMeUser();
   const { permissions } = usePermissions();
   // `false` during SSR and the first client render, `true` after hydration —
@@ -55,6 +55,10 @@ export function PermissionGuard({
       : null;
 
   useEffect(() => {
+    if (hasToken && isTokenExpired() && !isLoading) {
+      refreshTokens();
+    }
+
     if (!isMounted) return;
 
     if (
@@ -81,6 +85,9 @@ export function PermissionGuard({
     router,
     noAuthRequiredPages,
     userLoading,
+    isLoading,
+    refreshTokens,
+    isTokenExpired,
   ]);
 
   // Keep SSR and first client render identical to avoid hydration mismatch.
