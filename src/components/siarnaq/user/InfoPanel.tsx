@@ -88,6 +88,15 @@ export const InfoPanel = () => {
         <div>{t("info.welcomeGuideDescription", { year: yearString })}</div>
         <div className="pl-10">
           <a
+            href="https://drive.google.com/file/d/1rPuM15aQQXyTjwsUkN46kyI_X4twQE-N/view?usp=sharing"
+            className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
+          >
+            <HiOutlineLink className="h-4 w-4 mr-2" />
+            {t("info.welcomeEmail", { year: yearString })}
+          </a>
+        </div>
+        <div className="pl-10">
+          <a
             href="https://drive.google.com/file/d/1-Vg4xRVZl9IvJWvH89eQ1iTBv5b-ZBIn/view?usp=sharing"
             className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
           >
@@ -102,15 +111,6 @@ export const InfoPanel = () => {
           >
             <HiOutlineLink className="h-4 w-4 mr-2" />
             {t("info.welcomeGuideEN", { year: yearString })}
-          </a>
-        </div>
-        <div className="pl-10">
-          <a
-            href="https://drive.google.com/file/d/1rPuM15aQQXyTjwsUkN46kyI_X4twQE-N/view?usp=sharing"
-            className="font-medium hover:underline underline-offset-4 flex flex-row items-center"
-          >
-            <HiOutlineLink className="h-4 w-4 mr-2" />
-            {t("info.welcomeEmail", { year: yearString })}
           </a>
         </div>
         {/* */}

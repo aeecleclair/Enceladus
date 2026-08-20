@@ -76,7 +76,9 @@ export const AddEditVariantForm = ({
             form={form}
             label={t("addEditVariantForm.price")}
             id="price"
-            input={(field) => <PriceInput id="price" {...field} />}
+            input={(field) => (
+              <PriceInput id="price" {...field} allowNegativeValue />
+            )}
           />
         )}
         <StyledFormField
