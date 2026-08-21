@@ -10,14 +10,14 @@ import { Button } from "@/components/ui/button";
 import { QRCodeSVG } from "qrcode.react";
 
 interface PaymentQrButtonProps {
-  userId: string;
+  targetUserId: string;
   userName: string;
   amount: number;
   disabled?: boolean;
 }
 
 export const PaymentQrButton = ({
-  userId,
+  targetUserId,
   userName,
   amount,
   disabled,
@@ -26,7 +26,8 @@ export const PaymentQrButton = ({
   const format = useFormatter();
   const [isOpened, setIsOpened] = useState(false);
 
-  const { paymentUrl, isError, isLoading, refetch } = usePaymentUrl(userId);
+  const { paymentUrl, isError, isLoading, refetch } =
+    usePaymentUrl(targetUserId);
 
   return (
     <CustomDialog

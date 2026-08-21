@@ -2,14 +2,14 @@ import { postCdrPay } from "@/api";
 
 import { useQuery } from "@tanstack/react-query";
 
-export const usePaymentUrl = (userId?: string) => {
+export const usePaymentUrl = (targetUserId?: string) => {
   const { data, isError, isLoading, refetch } = useQuery({
-    queryKey: ["paymentUrl", userId],
+    queryKey: ["paymentUrl", targetUserId],
     queryFn: () =>
-      userId
+      targetUserId
         ? postCdrPay({
             query: {
-              user_id: userId,
+              target_user_id: targetUserId,
             },
           })
         : postCdrPay(),

@@ -263,7 +263,7 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
 
         <div className="flex justify-end">
           <PaymentQrButton
-            userId={user.id}
+            targetUserId={user.id}
             userName={`${user.firstname} ${user.name}`}
             amount={remainingToPay}
             disabled={remainingToPay < 1}
