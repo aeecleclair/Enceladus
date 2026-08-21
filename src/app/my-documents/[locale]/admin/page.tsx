@@ -8,7 +8,7 @@ import { useMeUser } from "@/hooks/useMeUser";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
@@ -47,6 +47,13 @@ export default function Admin() {
   );
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (teams.length > 0 && selectedTeamId === null) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSelectedTeamId(teams[0].id);
+    }
+  }, [teams, selectedTeamId]);
 
   if (selectedTeamId === null) {
     return (
