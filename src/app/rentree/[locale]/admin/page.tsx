@@ -54,16 +54,12 @@ const AdminPage = () => {
           <Card>
             {status.status === "onsite" ||
             (isCdrAdmin && status.status === "online") ? (
-              <ResizablePanelGroup direction="horizontal">
+              <ResizablePanelGroup orientation="horizontal">
                 <ResizablePanel defaultSize={100 - size} minSize={10}>
                   <UserSearch />
                 </ResizablePanel>
                 <ResizableHandle withHandle />
-                <ResizablePanel
-                  defaultSize={size}
-                  minSize={10}
-                  onResize={setSize}
-                >
+                <ResizablePanel defaultSize={size} minSize={10}>
                   <SellerTab status={status} />
                 </ResizablePanel>
               </ResizablePanelGroup>
