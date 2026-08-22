@@ -24,7 +24,7 @@ export function DataTableViewOptions<TData>({
   const t = useTranslations("siarnaq");
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger asChild>
         <Button variant="outline" size="sm" className="hidden h-8 lg:flex">
           <MixerHorizontalIcon className="mr-2 h-4 w-4" />
           {t("dataTableViewOptions.columns")}
