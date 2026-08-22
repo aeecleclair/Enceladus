@@ -45,7 +45,18 @@ export const PaymentQrButton = ({
 
           {!isLoading && paymentUrl && (
             <div className="bg-white p-4">
-              <QRCodeSVG value={paymentUrl.url} size={256} marginSize={4} />
+              <QRCodeSVG
+                value={paymentUrl.url}
+                size={256}
+                level="H"
+                marginSize={4}
+                imageSettings={{
+                  src: "/eclair.svg",
+                  height: 90,
+                  width: 90,
+                  excavate: true,
+                }}
+              />
             </div>
           )}
 
