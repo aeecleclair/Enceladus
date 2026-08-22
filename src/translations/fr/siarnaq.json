@@ -288,7 +288,10 @@
     "editCurriculum": "Modifier le cursus",
     "editUser": "Modifier l'utilisateur",
     "leftToPay": "Reste à payer",
-    "noCurriculum": "Pas de cursus"
+    "noCurriculum": "Pas de cursus",
+    "paymentQr": "QR de paiement",
+    "paymentQrError": "Impossible de générer le lien de paiement.",
+    "paymentQrTitle": "Paiement HelloAsso"
   },
   "sellerAccordionItem": {
     "association": "Association"

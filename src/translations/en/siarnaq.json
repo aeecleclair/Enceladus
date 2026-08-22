@@ -289,7 +289,10 @@
     "editCurriculum": "Edit curriculum",
     "editUser": "Edit user",
     "leftToPay": "Left to pay",
-    "noCurriculum": "No curriculum"
+    "noCurriculum": "No curriculum",
+    "paymentQr": "Payment QR code",
+    "paymentQrError": "Unable to generate the payment link.",
+    "paymentQrTitle": "HelloAsso payment"
   },
   "sellerAccordionItem": {
     "association": "Association"

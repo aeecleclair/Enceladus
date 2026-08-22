@@ -1,4 +1,5 @@
 import { MigrateUserForm } from "./MigrateUserForm";
+import { PaymentQrButton } from "./PaymentQrButton";
 
 import {
   CdrUser,
@@ -252,13 +253,22 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
       </div>
       <ProductPart user={user} isAdmin />
       <PaymentPart user={user} isAdmin />
-      <div className="grid gap-6">
+      <div className="grid gap-4">
         <CardTitle className="flex flex-row w-full">
           <span className="font-bold">{t("recapPanel.leftToPay")}</span>
           <span className="ml-auto font-semibold">
             {format.number(remainingToPay, "euro")}
           </span>
         </CardTitle>
+
+        <div className="flex justify-end">
+          <PaymentQrButton
+            targetUserId={user.id}
+            userName={`${user.firstname} ${user.name}`}
+            amount={remainingToPay}
+            disabled={remainingToPay < 1}
+          />
+        </div>
       </div>
     </div>
   );
