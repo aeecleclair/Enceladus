@@ -8,7 +8,7 @@ export const usePaymentUrl = (targetUserId?: string) => {
     queryFn: () =>
       targetUserId
         ? postCdrPay({
-            query: {
+            body: {
               target_user_id: targetUserId,
             },
           })
