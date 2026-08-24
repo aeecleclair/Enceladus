@@ -32,7 +32,7 @@ export const PaymentQrButton = ({
   return (
     <CustomDialog
       isOpened={isOpened}
-      setIsOpened={setIsOpened}
+      setIsOpened={disabled ? () => {} : setIsOpened}
       title={t("recapPanel.paymentQrTitle")}
       description={
         <div className="flex flex-col items-center gap-4 py-4">
