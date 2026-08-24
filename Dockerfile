@@ -1,8 +1,8 @@
-# Multi-stage Dockerfile for a Next.js app (Node 20)
+# Multi-stage Dockerfile for a Next.js app (Node 24)
 # Builder uses Debian slim for compatibility during build
 
 ########## Dependencies stage (production deps) ##########
-FROM node:20-bullseye-slim AS deps
+FROM node:24-trixie-slim AS deps
 WORKDIR /app
 
 # Copy package metadata and install only production dependencies (for final image)
@@ -11,7 +11,7 @@ RUN npm install --production
 
 
 ########## Builder stage (install dev deps & build) ##########
-FROM node:20-bullseye-slim AS builder
+FROM node:24-trixie-slim AS builder
 WORKDIR /app
 
 # Déclarer les arguments de build
@@ -34,7 +34,7 @@ RUN npm install
 RUN npm run build
 
 ########## Runner stage (smaller runtime image) ##########
-FROM node:20-bullseye-slim AS runner
+FROM node:24-trixie-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
