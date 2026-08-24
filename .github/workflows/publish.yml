@@ -20,7 +20,7 @@ jobs:
       - name: Install Node & Generate API
         run: |
           npm install @hey-api/openapi-ts@^0.88.0
-          sed -i 's|https://hyperion.myecl.fr|'"$NEXT_PUBLIC_BACKEND_URL"'|g' openapi-ts.config.ts
+          sed -i 's|http://127.0.0.1:8000|'"$NEXT_PUBLIC_BACKEND_URL"'|g' openapi-ts.config.ts
           npm run generate
         env:
           NEXT_PUBLIC_BACKEND_URL: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
