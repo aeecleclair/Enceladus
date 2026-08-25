@@ -97,7 +97,6 @@ export const AddProductAccordionItem = ({
   }
 
   async function onSubmit(values: z.infer<typeof productFormSchema>) {
-    console.log("test");
     setIsLoading(true);
     const body: AppModulesCdrSchemasCdrProductBase = {
       ...values,
