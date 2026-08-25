@@ -4,6 +4,7 @@ import { PaymentQrButton } from "./PaymentQrButton";
 import {
   CdrUser,
   CdrUserUpdate,
+  UserMembershipComplete,
   patchCdrUsersUserId,
   patchCdrUsersUserIdCurriculumsCurriculumId,
   postCdrUsersUserIdCurriculumsCurriculumId,
@@ -16,6 +17,8 @@ import { TextSeparator } from "@/components/siarnaq/custom/TextSeparator";
 import UserDisplayName from "@/components/siarnaq/custom/displayName";
 import _migrateUserFormSchema from "@/forms/siarnaq/migrateUserFormSchema";
 import { useCurriculums } from "@/hooks/siarnaq/useCurriculums";
+import { useMemberships } from "@/hooks/siarnaq/useMemberships";
+import { useUserMemberships } from "@/hooks/siarnaq/useUserMemberships";
 import { useUserPayments } from "@/hooks/siarnaq/useUserPayments";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
 import { useCoreVariables } from "@/hooks/useCoreVariables";
@@ -56,6 +59,8 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
   const { total: totalPaid } = useUserPayments(user.id);
   const { total: totalToPay } = useUserPurchases(user.id);
   const { curriculums } = useCurriculums();
+  const { userMemberships } = useUserMemberships(user.id);
+  const { memberships } = useMemberships();
   const remainingToPay = (totalToPay ?? 0) - (totalPaid ?? 0);
   const [isOpened, setIsOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -249,6 +254,38 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
             </CustomDialog>
           </div>
         </CardTitle>
+        <span className="font-semibold text-muted-foreground">
+          {t("recapPanel.memberships")} :
+        </span>
+
+        <div className="flew flew-col gap-2">
+          {userMemberships?.map((membership: UserMembershipComplete) => {
+            const membershipName = memberships.find(
+              (association_membership) =>
+                association_membership.id ===
+                membership.association_membership_id,
+            )?.name;
+            const membershipStartDate = new Date(membership.start_date);
+            const membershipEndDate = new Date(membership.end_date);
+            const isMembershipActive =
+              new Date().getTime() < membershipEndDate.getTime();
+            return (
+              <div
+                key={membership.id}
+                className={
+                  isMembershipActive ? "text-green-400" : "text-red-400"
+                }
+              >
+                <span>{membershipName} : </span>
+                <span className="font-light">
+                  {membershipStartDate.toLocaleDateString()}
+                  {" - "}
+                  {membershipEndDate.toLocaleDateString()}
+                </span>
+              </div>
+            );
+          })}
+        </div>
         <Separator />
       </div>
       <ProductPart user={user} isAdmin />
