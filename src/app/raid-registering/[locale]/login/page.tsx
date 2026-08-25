@@ -1,7 +1,7 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import MyECLButton from "@/components/common/MyEclButton";
-import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 
 import { useSearchParams } from "next/navigation";

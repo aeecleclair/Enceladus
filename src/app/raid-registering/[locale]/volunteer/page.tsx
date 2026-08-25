@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { WarningDialog } from "@/components/common/WarningDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
@@ -8,7 +9,6 @@ import {
   volunteerFormSchema,
 } from "@/forms/raid/volunteer";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
-import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";

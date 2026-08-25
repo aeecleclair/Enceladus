@@ -1,11 +1,10 @@
-import { useAuth } from "../useAuth";
-
 import {
   getDocumentsTeamsMeOptions,
   getDocumentsTeamsMeQueryKey,
   patchDocumentsTeamsTeamIdMutation,
   postDocumentsTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 

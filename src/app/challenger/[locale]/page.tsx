@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import { EditionWaitingCard } from "@/components/challenger/home/EditionWaitingCard";
 import { FullyRegisteredDashboard } from "@/components/challenger/home/FullyRegisteredDashboard";
 import { IncompleteRegistrationCard } from "@/components/challenger/home/IncompleteRegistrationCard";
@@ -10,7 +11,6 @@ import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 import { useEdition } from "@/hooks/challenger/useEdition";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
-import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useSchools } from "@/hooks/useSchools";
 import { useRouter } from "@/i18n/navigation";

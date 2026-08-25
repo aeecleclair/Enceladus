@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import { StatusDialog } from "@/components/raid/custom/StatusDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
 import { EditionWaitingCard } from "@/components/raid/home/dashboard/EditionWaitingCard";
@@ -16,7 +17,6 @@ import { useEdition } from "@/hooks/raid/useEdition";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
-import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 import { getDaysLeft } from "@/lib/dateFormat";
 import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";

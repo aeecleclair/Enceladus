@@ -2,7 +2,7 @@
 
 import NotAuthorized from "./not-authorized";
 
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/app/authContext";
 import { useMeUser } from "@/hooks/useMeUser";
 import { usePermissions } from "@/hooks/usePermissions";
 import { usePathname, useRouter } from "@/i18n/navigation";
@@ -22,9 +22,15 @@ export function PermissionGuard({
 }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-  const { token, refreshTokens, isTokenExpired, isLoading } = useAuth();
-  const { user, isLoading: userLoading } = useMeUser();
-  const { permissions } = usePermissions();
+  const { token, refreshToken, refreshTokens, isTokenExpired, isLoading } =
+    useAuth();
+  const { user, isLoading: userLoading, isSuccess: userReady } = useMeUser();
+  const {
+    permissions,
+    isLoading: permissionsLoading,
+    isSuccess: permissionsReady,
+  } = usePermissions();
+
   // `false` during SSR and the first client render, `true` after hydration —
   // detects mount without a set-state-in-effect, keeping SSR/client markup in
   // sync to avoid hydration mismatch.
@@ -40,12 +46,10 @@ export function PermissionGuard({
     (value) => value.permission_name == permissionRequired,
   );
 
-  // `hasAccess` can only be evaluated once user AND permissions are loaded.
-  // Until then it's `null` (unknown) — the guard treats unknown as permissive
-  // so individual pages can render and run their own loading states.
   const hasAccess: boolean | null =
-    user && permissions
+    userReady && permissionsReady
       ? Boolean(
+          user &&
           access_permission &&
           (user.groups?.some((group) =>
             access_permission.groups.includes(group.id),
@@ -54,8 +58,10 @@ export function PermissionGuard({
         )
       : null;
 
+  const isLoadingUserOrPermissions = userLoading || permissionsLoading;
+
   useEffect(() => {
-    if (hasToken && isTokenExpired() && !isLoading) {
+    if (hasToken && isTokenExpired() && !isLoading && refreshToken) {
       refreshTokens();
     }
 
@@ -68,7 +74,7 @@ export function PermissionGuard({
       router.replace("/login");
       return;
     }
-    if (userLoading) {
+    if (isLoadingUserOrPermissions) {
       return;
     }
     if (hasAccess === false && pathname !== "/") {
@@ -80,11 +86,12 @@ export function PermissionGuard({
   }, [
     isMounted,
     hasToken,
+    refreshToken,
     hasAccess,
     pathname,
     router,
     noAuthRequiredPages,
-    userLoading,
+    isLoadingUserOrPermissions,
     isLoading,
     refreshTokens,
     isTokenExpired,
@@ -95,7 +102,7 @@ export function PermissionGuard({
     return null;
   }
 
-  if (userLoading) {
+  if (isLoadingUserOrPermissions) {
     return (
       <div className="flex h-screen items-center justify-center">
         Chargement...

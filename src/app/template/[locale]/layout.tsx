@@ -3,8 +3,8 @@ import "../../globals.css";
 import { ThemeProvider } from "../../theme-provider";
 import TopBar from "./topbar";
 
+import { AuthInterceptor } from "@/app/authInterceptor";
 import { PermissionGuard } from "@/app/permissionGuard";
-import { AuthInterceptor } from "@/app/provider";
 import { routing } from "@/i18n/routing";
 
 import type { Metadata } from "next";

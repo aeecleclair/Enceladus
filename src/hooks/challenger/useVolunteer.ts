@@ -1,10 +1,9 @@
-import { useAuth } from "../useAuth";
-
 import {
   deleteCompetitionVolunteersShiftsShiftIdUnregisterMutation,
   getCompetitionVolunteersMeOptions,
   postCompetitionVolunteersShiftsShiftIdRegisterMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";

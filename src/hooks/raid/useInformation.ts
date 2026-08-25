@@ -1,10 +1,9 @@
-import { useAuth } from "../useAuth";
-
 import { RaidInformation } from "@/api";
 import {
   getRaidInformationOptions,
   patchRaidInformationMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
