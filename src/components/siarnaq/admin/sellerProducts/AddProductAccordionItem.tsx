@@ -48,10 +48,17 @@ export const AddProductAccordionItem = ({
     resolver: zodResolver(productFormSchema),
     mode: "onBlur",
     defaultValues: {
+      name_fr: "",
+      name_en: "",
+      description_en: "",
+      description_fr: "",
+      available_online: "false",
       related_membership_id: "null",
       product_constraints: [],
       document_constraints: [],
       data_fields: [],
+      data_field_name: "",
+      data_field_can_user_answer: false,
       tickets: [],
       ticket_name: "",
       ticket_max_use: "1",
@@ -90,6 +97,7 @@ export const AddProductAccordionItem = ({
   }
 
   async function onSubmit(values: z.infer<typeof productFormSchema>) {
+    console.log("test");
     setIsLoading(true);
     const body: AppModulesCdrSchemasCdrProductBase = {
       ...values,
