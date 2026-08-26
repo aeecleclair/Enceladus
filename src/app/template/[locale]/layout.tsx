@@ -3,6 +3,7 @@ import "../../globals.css";
 import { ThemeProvider } from "../../theme-provider";
 import TopBar from "./topbar";
 
+import { AuthProvider } from "@/app/authContext";
 import { AuthInterceptor } from "@/app/authInterceptor";
 import { PermissionGuard } from "@/app/permissionGuard";
 import { routing } from "@/i18n/routing";
@@ -69,11 +70,13 @@ export default async function RootLayout({
             <Suspense fallback={<div>Loading...</div>}>
               <QueryProvider>
                 <NextIntlClientProvider locale={locale}>
-                  <PermissionGuard permissionRequired="app">
-                    <TopBar />
-                    {children}
-                    <Toaster />
-                  </PermissionGuard>
+                  <AuthProvider>
+                    <PermissionGuard permissionRequired="app">
+                      <TopBar />
+                      {children}
+                      <Toaster />
+                    </PermissionGuard>
+                  </AuthProvider>
                 </NextIntlClientProvider>
               </QueryProvider>
             </Suspense>
