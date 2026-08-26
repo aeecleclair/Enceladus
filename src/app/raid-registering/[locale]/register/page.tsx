@@ -1,10 +1,10 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import { UserShell } from "@/components/raid/home/UserShell";
 import { ParticipantRegisterCard } from "@/components/raid/register/ParticipantRegisterCard";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
-import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";

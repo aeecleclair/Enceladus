@@ -1,8 +1,8 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import { UserShell } from "@/components/raid/home/UserShell";
 import { IdentityForm } from "@/components/raid/register/IdentityForm";
-import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { formatDate } from "@/lib/dateFormat";

@@ -1,8 +1,8 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import { JoinTeamDialog } from "@/components/raid/home/JoinTeamDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
-import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
 

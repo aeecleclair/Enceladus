@@ -17,10 +17,7 @@ client.interceptors.request.use((options) => {
     }
   }
 });
-/**
- * Ce composant n'a pour seul but que de garantir l'initialisation de l'intercepteur
- * sur le client. Il ne rend rien et enveloppe les enfants.
- */
+
 export function AuthInterceptor({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

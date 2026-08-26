@@ -1,11 +1,10 @@
-import { useAuth } from "../useAuth";
-
 import { AppModulesSportCompetitionSchemasSportCompetitionPaymentBase } from "@/api";
 import {
   deleteCompetitionUsersUserIdPaymentsPaymentIdMutation,
   getCompetitionUsersUserIdPaymentsOptions,
   postCompetitionUsersUserIdPaymentsMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 
 import { useMutation, useQuery } from "@tanstack/react-query";

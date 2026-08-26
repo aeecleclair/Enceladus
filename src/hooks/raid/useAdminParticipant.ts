@@ -1,7 +1,7 @@
-import { useAuth } from "../useAuth";
 import { useHasRaidPermission } from "./useHasRaidPermission";
 
 import { getRaidParticipantsUserIdOptions } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 
 import { useQuery } from "@tanstack/react-query";
 

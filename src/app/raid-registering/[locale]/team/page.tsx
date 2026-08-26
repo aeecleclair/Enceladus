@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import { RegisteringCompleteDialog } from "@/components/raid/home/RegisteringCompleteDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
 import { UserStatusBadges } from "@/components/raid/home/UserStatusBadges";
@@ -10,7 +11,6 @@ import { EmptyParticipantCard } from "@/components/raid/team/EmptyParticipantCar
 import { TeamStatusBanner } from "@/components/raid/team/TeamStatusBanner";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
-import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";

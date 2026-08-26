@@ -1,6 +1,6 @@
 "use client";
+import { useAuth } from "@/app/authContext";
 import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
-import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { usePathname, useRouter } from "@/i18n/navigation";
 

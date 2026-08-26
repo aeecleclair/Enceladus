@@ -1,4 +1,3 @@
-import { useAuth } from "../useAuth";
 import { useHasRaidPermission } from "./useHasRaidPermission";
 import { useReportError } from "./useReportError";
 
@@ -9,6 +8,7 @@ import {
   patchRaidVolunteersUserIdCancelMutation,
   patchRaidVolunteersUserIdValidateMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 

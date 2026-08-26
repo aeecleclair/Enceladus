@@ -1,5 +1,6 @@
 "use client";
 
+import { useAuth } from "@/app/authContext";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { WarningDialog } from "@/components/common/WarningDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
@@ -11,7 +12,6 @@ import {
 } from "@/components/raid/register/RegisterSteps";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
-import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 

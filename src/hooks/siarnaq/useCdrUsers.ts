@@ -1,6 +1,5 @@
-import { useAuth } from "../useAuth";
-
 import { CdrUser, CdrUserPreview, getCdrUsers } from "@/api";
+import { useAuth } from "@/app/authContext";
 import { useTokenStore } from "@/stores/token";
 
 import { useQuery } from "@tanstack/react-query";

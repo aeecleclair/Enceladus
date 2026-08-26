@@ -1,14 +1,13 @@
 "use client";
 
-import { useCodeVerifierStore } from "../stores/codeVerifier";
-import { useWebsite } from "./useWebsite";
-
 import { BodyTokenAuthTokenPost, TokenResponse } from "@/api/types.gen";
+import { useWebsite } from "@/hooks/useWebsite";
+import { useCodeVerifierStore } from "@/stores/codeVerifier";
 import { useTokenStore } from "@/stores/token";
 
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { ReactNode, createContext, useContext, useRef, useState } from "react";
 
 import axios from "axios";
 import { stringify } from "querystring";
@@ -17,8 +16,24 @@ const clientId: string = process.env.NEXT_PUBLIC_CLIENT_ID || "Challenger";
 const backUrl: string =
   process.env.NEXT_PUBLIC_BACKEND_URL || "https://hyperion.myecl.fr";
 const scopes: string[] = ["API"];
+const REFRESH_TOKEN_BUFFER = 60;
 
-export const useAuth = () => {
+interface AuthContextValue {
+  getTokenFromRequest: () => Promise<void>;
+  isLoading: boolean;
+  token: string | null;
+  refreshToken: string | null;
+  isTokenQueried: boolean;
+  logout: () => void;
+  userId: string | null;
+  isTokenExpired: () => boolean;
+  login: (code: string, callback?: () => void) => Promise<void>;
+  refreshTokens: () => Promise<string | null>;
+}
+
+const AuthContext = createContext<AuthContextValue | null>(null);
+
+export function AuthProvider({ children }: { children: ReactNode }) {
   const { website } = useWebsite();
   const [isLoading, setIsLoading] = useState(false);
   const { token, setToken, refreshToken, setRefreshToken, userId } =
@@ -28,7 +43,6 @@ export const useAuth = () => {
   const { codeVerifier, setCodeVerifier, resetCodeVerifier } =
     useCodeVerifierStore();
   const timer = useRef<NodeJS.Timeout | null>(null);
-  const REFRESH_TOKEN_BUFFER = 60;
   const redirectUrlHost: string = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/${website}/fr/login`;
 
   function generateRandomString(length: number): string {
@@ -102,6 +116,7 @@ export const useAuth = () => {
       await getToken(params);
       return refreshToken;
     }
+    setIsLoading(false);
     return null;
   }
 
@@ -152,7 +167,10 @@ export const useAuth = () => {
   async function getTokenFromStorage(): Promise<string | null> {
     if (isLoading) return null;
     setIsLoading(true);
-    if (typeof window === "undefined") return null;
+    if (typeof window === "undefined") {
+      setIsLoading(false);
+      return null;
+    }
 
     if (token !== null) {
       setIsTokenQueried(true);
@@ -174,7 +192,6 @@ export const useAuth = () => {
       REFRESH_TOKEN_BUFFER * 1000;
 
     if (timeToRefreshToken <= 0) {
-      // server call to update app state with new token and new expirationDate
       refreshTokens();
     } else {
       timer.current = setTimeout(() => {
@@ -201,10 +218,11 @@ export const useAuth = () => {
     refetchOnMount: false,
   });
 
-  return {
+  const value: AuthContextValue = {
     getTokenFromRequest,
     isLoading,
     token,
+    refreshToken,
     isTokenQueried,
     logout,
     userId,
@@ -212,4 +230,14 @@ export const useAuth = () => {
     login,
     refreshTokens,
   };
-};
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
+export function useAuth(): AuthContextValue {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error("useAuth() must be used with an <AuthProvider>.");
+  }
+  return ctx;
+}

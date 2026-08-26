@@ -1,6 +1,6 @@
+import { useAuth } from "@/app/authContext";
 import { useEdition } from "@/hooks/challenger/useEdition";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useAuth } from "@/hooks/useAuth";
 
 import { useState } from "react";
 

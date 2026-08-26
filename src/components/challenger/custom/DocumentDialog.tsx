@@ -1,5 +1,5 @@
+import { useAuth } from "@/app/authContext";
 import { useDocument } from "@/hooks/challenger/useDocument";
-import { useAuth } from "@/hooks/useAuth";
 
 import Image from "next/image";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";

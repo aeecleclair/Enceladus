@@ -1,9 +1,8 @@
-import { useAuth } from "../useAuth";
-
 import {
   getDocumentsDocumentIdDownloadOptions,
   getDocumentsDocumentIdTokenOptions,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";

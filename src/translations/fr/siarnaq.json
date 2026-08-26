@@ -166,12 +166,10 @@
   },
   "login": {
     "alreadyHaveMyECLAccount": "Vous avez déjà un compte MyECL ?",
-    "contact": "Au moindre problème, ou pour toute question, n'hésitez pas à contacter la Fédération des Associations :",
+    "contact": "Au moindre problème, ou pour toute question, n'hésitez pas à contacter le Bureau des Élèves : ",
     "description": "Bienvenue dans la Chaîne De Rentrée associative de Centrale Lyon. Ce site web, à destination des nouveaux admis, des élèves actuels ainsi que des élèves en césure, vous permettra d'adhérer aux associations et souscrire aux services associatifs de l'école.",
     "or": "Sinon",
-    "promotion": "Promotion {year}",
     "register": "S'inscrire",
-    "selectPromotion": "Sélectionnez votre promo pour créer un compte MyECL :",
     "title": "Chaîne de rentrée associative {year}",
     "usePersonalEmail": "Si votre adresse e-mail étudiante n'est pas encore activée, vous pouvez utiliser une adresse personnelle. Vous devrez effectuer un changement d'adresse dès que possible."
   },

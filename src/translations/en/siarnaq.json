@@ -155,7 +155,7 @@
   "introCarouselItem": {
     "begin": "Next",
     "contact": "If you have any problems or questions, please do not hesitate to contact the Students council: ",
-    "description": "This website allows you to join associations (student clubs), to take your ticket for the orientation weekend (WEI) or for other events scheduled for the Centralian integration. At the end of the process, you will be brought to pay online by credit card. This will save you precious time during the face-to-face mandatory validation.",
+    "description": "This website allows you to join associations (student clubs), to take your ticket for the integration weekend (WEI) or for other events scheduled for the Centralian integration. At the end of the process, you will be brought to pay online by credit card. This will save you precious time during the face-to-face mandatory validation.",
     "selectCurriculum": "To start, please select your curriculum:",
     "solidarity": "Some products contain a scholarship or solidarity price. The conditions for access to scholarship prices will be indicated each time. If you are not a scholarship holder but your situation does not allow you to pay without putting yourself in a critical situation, you can select the solidarity rate and you will be contacted to study your situation and propose a reduction accordingly.",
     "validate": "Confirm",
@@ -167,12 +167,10 @@
   },
   "login": {
     "alreadyHaveMyECLAccount": "Already have a MyECL account?",
-    "contact": "If you have any problems or questions, please do not hesitate to contact the Federation of Associations:",
+    "contact": "If you have any problems or questions, please do not hesitate to contact the Students council: ",
     "description": "Welcome to Centrale Lyon's associative Chaîne De Rentrée. This website, designed for new, current and gap-year students, will allow you to join associations and subscribe to the school's associative services.",
     "or": "Or",
-    "promotion": "School year {year}",
     "register": "Register",
-    "selectPromotion": "Please select your school year to create a MyECL account:",
     "title": "Chaîne de rentrée {year}",
     "usePersonalEmail": "If your student e-mail adress is not yet activated, you may use a personal one. You will have to change it as soon as possible."
   },
@@ -261,7 +259,7 @@
     "BDE": "Student Association (AE)",
     "BDS": "Student sports union (USE)",
     "SDeC": "Handouts of lessons (SDeC)",
-    "WEI": "Orientation weekend (WEI)",
+    "WEI": "Integration weekend (WEI)",
     "noProductFound": "No product available",
     "noSellerFound": "No seller found"
   },
