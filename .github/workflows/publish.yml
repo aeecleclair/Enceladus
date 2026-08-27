@@ -54,3 +54,7 @@ jobs:
             NEXT_PUBLIC_BACKEND_URL=${{ vars.NEXT_PUBLIC_BACKEND_URL }}
             NEXT_PUBLIC_CLIENT_ID=${{ vars.NEXT_PUBLIC_CLIENT_ID }}
             NEXT_PUBLIC_FRONTEND_URL=${{ vars.NEXT_PUBLIC_FRONTEND_URL }}
+          cache-from: |
+            type=registry,ref=${{ secrets.DOCKER_REGISTRY_IDENTIFER }}/enceladus:alpha
+            type=registry,ref=${{ secrets.DOCKER_REGISTRY_IDENTIFER }}/enceladus:latest
+          cache-to: type=inline
