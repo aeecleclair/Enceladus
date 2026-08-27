@@ -98,7 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setRefreshToken(tokenResponse.refresh_token);
     } catch (error) {
       setIsLoading(false);
-      if (axios.isAxiosError(error) && error.response?.status === 401) {
+      if (axios.isAxiosError(error) && error.response?.status === 400) {
         logout();
       }
     }
