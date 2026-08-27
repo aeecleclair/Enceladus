@@ -1,23 +1,19 @@
-import Cookies from "js-cookie";
 import { create } from "zustand";
-import { devtools } from "zustand/middleware";
+import { createJSONStorage, devtools, persist } from "zustand/middleware";
 
-const hostname = typeof window !== "undefined" ? window.location.hostname : "";
-
-const COOKIE_DOMAIN = (() => {
-  if (!hostname || hostname === "localhost" || hostname === "127.0.0.1") {
-    return undefined;
+function parseUserId(token: string | null): string | null {
+  if (!token) return null;
+  try {
+    return JSON.parse(atob(token.split(".")[1])).sub;
+  } catch {
+    return null;
   }
-  const parts = hostname.split(".");
-  return "." + parts.slice(1).join(".");
-})();
+}
 
-const COOKIE_OPTIONS = {
-  ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}),
-  secure:
-    typeof window !== "undefined" && window.location.protocol === "https:",
-  sameSite: "lax" as const,
-  expires: 7,
+const noopStorage = {
+  getItem: () => null,
+  setItem: () => {},
+  removeItem: () => {},
 };
 
 interface TokenStore {
@@ -28,37 +24,34 @@ interface TokenStore {
   setRefreshToken: (refreshToken: string | null) => void;
 }
 
-function readCookie(key: string): string | null {
-  return Cookies.get(key) ?? null;
-}
-
 export const useTokenStore = create<TokenStore>()(
-  devtools((set) => ({
-    token: readCookie("access_token"),
-    refreshToken: readCookie("refresh_token"),
-    userId: (() => {
-      const t = readCookie("access_token");
-      return t ? JSON.parse(atob(t.split(".")[1])).sub : null;
-    })(),
+  devtools(
+    persist(
+      (set) => ({
+        token: null,
+        refreshToken: null,
+        userId: null,
 
-    setToken: (token: string | null) => {
-      if (token) {
-        Cookies.set("access_token", token, COOKIE_OPTIONS);
-        const userId = JSON.parse(atob(token.split(".")[1])).sub;
-        set({ token, userId });
-      } else {
-        Cookies.remove("access_token", { domain: COOKIE_DOMAIN });
-        set({ token: null, userId: null });
-      }
-    },
+        setToken: (token: string | null) => {
+          set({ token, userId: parseUserId(token) });
+        },
 
-    setRefreshToken: (refreshToken: string | null) => {
-      if (refreshToken) {
-        Cookies.set("refresh_token", refreshToken, COOKIE_OPTIONS);
-      } else {
-        Cookies.remove("refresh_token", { domain: COOKIE_DOMAIN });
-      }
-      set({ refreshToken });
-    },
-  })),
+        setRefreshToken: (refreshToken: string | null) => {
+          set({ refreshToken });
+        },
+      }),
+      {
+        name: "token-store",
+        storage: createJSONStorage(() =>
+          typeof window !== "undefined" ? localStorage : noopStorage,
+        ),
+        partialize: (state) => ({
+          token: state.token,
+          refreshToken: state.refreshToken,
+          userId: state.userId,
+        }),
+      },
+    ),
+    { name: "TokenStore" },
+  ),
 );

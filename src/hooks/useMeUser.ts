@@ -1,10 +1,9 @@
-import { useAuth } from "./useAuth";
-
 import { CoreUserUpdate } from "@/api";
 import {
   getUsersMeOptions,
   patchUsersMeMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 import {
   APIErrorType,
   DetailedErrorType,
@@ -22,6 +21,7 @@ export const useMeUser = () => {
   const {
     data: me,
     isLoading,
+    isSuccess,
     refetch: refetchMe,
   } = useQuery({
     ...getUsersMeOptions(),
@@ -66,6 +66,7 @@ export const useMeUser = () => {
   return {
     user: me,
     isLoading,
+    isSuccess,
     updateUser,
     isUpdateLoading,
   };

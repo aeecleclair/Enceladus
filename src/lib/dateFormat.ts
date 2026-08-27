@@ -7,8 +7,11 @@ export function getDaysLeft(dateString: string) {
   return differenceInDays(date, now);
 }
 
-export function formatDate(date: string) {
-  return format(date, "PPP", { locale: fr });
+export function formatDate(date: string | null | undefined) {
+  if (!date) return "—";
+  const d = new Date(date);
+  if (Number.isNaN(d.getTime())) return "—";
+  return format(d, "PPP", { locale: fr });
 }
 
 export function formatDateRange(start: string, end: string) {

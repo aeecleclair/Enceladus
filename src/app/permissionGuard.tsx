@@ -2,49 +2,124 @@
 
 import NotAuthorized from "./not-authorized";
 
+import { useAuth } from "@/app/authContext";
 import { useMeUser } from "@/hooks/useMeUser";
 import { usePermissions } from "@/hooks/usePermissions";
 import { usePathname, useRouter } from "@/i18n/navigation";
 
+import { useEffect, useSyncExternalStore } from "react";
+
 interface Props {
   children: React.ReactNode;
   permissionRequired: string;
+  noAuthRequiredPages?: string[];
 }
 
-export function PermissionGuard({ children, permissionRequired }: Props) {
+export function PermissionGuard({
+  children,
+  permissionRequired,
+  noAuthRequiredPages,
+}: Props) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, isLoading: userLoading } = useMeUser();
-  const { permissions, isLoading: permLoading } = usePermissions();
+  const { token, refreshToken, refreshTokens, isTokenExpired, isLoading } =
+    useAuth();
+  const { user, isLoading: userLoading, isSuccess: userReady } = useMeUser();
+  const {
+    permissions,
+    isLoading: permissionsLoading,
+    isSuccess: permissionsReady,
+  } = usePermissions();
 
-  if (userLoading || permLoading) {
+  // `false` during SSR and the first client render, `true` after hydration —
+  // detects mount without a set-state-in-effect, keeping SSR/client markup in
+  // sync to avoid hydration mismatch.
+  const isMounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  const hasToken = !!token;
+
+  const access_permission = permissions?.find(
+    (value) => value.permission_name == permissionRequired,
+  );
+
+  const hasAccess: boolean | null =
+    userReady && permissionsReady
+      ? Boolean(
+          user &&
+          access_permission &&
+          (user.groups?.some((group) =>
+            access_permission.groups.includes(group.id),
+          ) ||
+            access_permission.account_types.includes(user.account_type)),
+        )
+      : null;
+
+  const isLoadingUserOrPermissions = userLoading || permissionsLoading;
+
+  useEffect(() => {
+    if (hasToken && isTokenExpired() && !isLoading && refreshToken) {
+      refreshTokens();
+    }
+
+    if (!isMounted) return;
+
+    if (
+      !hasToken &&
+      !(pathname == "/login" || noAuthRequiredPages?.includes(pathname))
+    ) {
+      router.replace("/login");
+      return;
+    }
+    if (isLoadingUserOrPermissions) {
+      return;
+    }
+    if (hasAccess === false && pathname !== "/") {
+      router.replace("/");
+    }
+    if (hasToken && pathname === "/login") {
+      router.replace("/");
+    }
+  }, [
+    isMounted,
+    hasToken,
+    refreshToken,
+    hasAccess,
+    pathname,
+    router,
+    noAuthRequiredPages,
+    isLoadingUserOrPermissions,
+    isLoading,
+    refreshTokens,
+    isTokenExpired,
+  ]);
+
+  // Keep SSR and first client render identical to avoid hydration mismatch.
+  if (!isMounted) {
+    return null;
+  }
+
+  if (isLoadingUserOrPermissions) {
     return (
       <div className="flex h-screen items-center justify-center">
         Chargement...
       </div>
     );
   }
-  if (!user) {
-    if (pathname !== "/login") {
-      router.replace("/login");
-      return null;
-    }
+
+  if (pathname === "/login" || noAuthRequiredPages?.includes(pathname)) {
     return <>{children}</>;
   }
 
-  const access_permission = permissions?.find(
-    (value) => value.permission_name == permissionRequired,
-  );
+  if (!hasToken) {
+    // Effect above will redirect to /login.
+    return null;
+  }
 
-  const hasAccess = Boolean(
-    access_permission &&
-    (user.groups?.some((group) =>
-      access_permission.groups.includes(group.id),
-    ) ||
-      access_permission.account_types.includes(user.account_type)),
-  );
-  if (!hasAccess) {
-    if (pathname !== "/") router.replace("/");
+  if (hasAccess === false) {
     return <NotAuthorized />;
   }
 

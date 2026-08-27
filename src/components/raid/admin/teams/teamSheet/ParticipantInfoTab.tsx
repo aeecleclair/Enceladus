@@ -40,25 +40,30 @@ export const ParticipantInfoTab = ({
       </>
     );
   }
+  const participantProgress = participant.validation_progress ?? 0;
+  const participantProgressClass =
+    participantProgress === 100
+      ? "text-emerald-700 dark:text-emerald-400"
+      : participantProgress >= 50
+        ? "text-amber-700 dark:text-amber-400"
+        : "text-muted-foreground";
   return (
-    <Card>
+    <Card className="border-border/70 shadow-sm">
       <CardHeader>
         <CardTitle>
           {participant.user.firstname + " " + participant.user.name}
         </CardTitle>
         <CardDescription>
-          dossier particiant completé à{" "}
-          {participant.validation_progress.toFixed(0)}%
+          Dossier participant complété à{" "}
+          <span className={`font-semibold ${participantProgressClass}`}>
+            {participantProgress.toFixed(0)}%
+          </span>
         </CardDescription>
       </CardHeader>
       <CardContent>
         <ParticipantInfo
           label="Date de naissance"
-          value={
-            participant.user.birthday
-              ? formatDate(participant.user.birthday)
-              : "Non renseigné"
-          }
+          value={formatDate(participant.user.birthday)}
         />
         <ParticipantInfo label="Email" value={participant.user.email} />
         <ParticipantInfo label="Adresse" value={participant.address} />

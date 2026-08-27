@@ -288,20 +288,22 @@ export const AddEditProductForm = ({
         <StyledFormField
           form={form}
           label={t("addEditProductForm.related_membership")}
-          id="related_membership"
+          id="related_membership_id"
           input={(field) => (
             <Select onValueChange={field.onChange} defaultValue={field.value}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent side="top">
-                {memberships.map((membership) => (
-                  <SelectItem key={membership.id} value={membership.id}>
-                    <div className="flex items-center flex-row gap-2">
-                      {membership.name}
-                    </div>
-                  </SelectItem>
-                ))}
+                {[{ id: "null", name: "Aucune" }, ...memberships].map(
+                  (membership) => (
+                    <SelectItem key={membership.id} value={membership.id}>
+                      <div className="flex items-center flex-row gap-2">
+                        {membership.name}
+                      </div>
+                    </SelectItem>
+                  ),
+                )}
               </SelectContent>
             </Select>
           )}

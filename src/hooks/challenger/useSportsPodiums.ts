@@ -1,7 +1,6 @@
-import { useAuth } from "../useAuth";
-
 import { TeamSportResultComplete } from "@/api";
 import { getCompetitionPodiumsSportsSportIdOptions } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 
 import { useQueries } from "@tanstack/react-query";
 

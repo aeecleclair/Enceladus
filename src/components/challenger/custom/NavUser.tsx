@@ -1,6 +1,6 @@
 "use client";
+import { useAuth } from "@/app/authContext";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
-import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { usePathname, useRouter } from "@/i18n/navigation";
 

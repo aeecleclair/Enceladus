@@ -1,10 +1,9 @@
-import { useAuth } from "../useAuth";
-
 import { RaidPrice } from "@/api";
 import {
   getRaidPriceOptions,
   patchRaidPriceMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 

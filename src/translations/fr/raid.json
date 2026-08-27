@@ -2,5 +2,478 @@
   "metadata": {
     "title": "Inscription Raid",
     "description": "Inscription au RAID de Centrale Lyon"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "submit": "Soumettre",
+    "validate": "Valider",
+    "reopen": "Rouvrir",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "back": "Retour",
+    "next": "Suivant",
+    "loading": "Chargement...",
+    "confirm": "Confirmer",
+    "close": "Fermer",
+    "copy": "Copier",
+    "copied": "Copié",
+    "status": {
+      "draft": "Brouillon",
+      "submitted": "Soumis",
+      "validated": "Validé",
+      "cancelled": "Annulé"
+    },
+    "role": {
+      "participant": "Participant",
+      "volunteer": "Bénévole",
+      "admin": "Administrateur"
+    }
+  },
+  "home": {
+    "sidebar": {
+      "mySpace": "Mon espace",
+      "myAccount": "Mon compte",
+      "raidSection": "Raid",
+      "editionYear": "Édition {year}",
+      "noActiveEdition": "Aucune édition active",
+      "volunteering": "Bénévolat",
+      "registration": "Inscription",
+      "information": "Informations",
+      "team": "Mon équipe",
+      "profile": "Profil",
+      "invite": "Inviter un coéquipier",
+      "volunteerStatus": "Mon bénévolat",
+      "register": "S'inscrire",
+      "registerVolunteer": "Inscription bénévole",
+      "raidInfo": "Infos du Raid",
+      "contact": "Contact"
+    },
+    "badges": {
+      "participant": "Participant",
+      "registrationValidated": "Inscription validée",
+      "registrationSubmitted": "Inscription soumise",
+      "volunteer": "Bénévole",
+      "volunteerCancelled": "Bénévolat annulé",
+      "admin": "Administrateur"
+    },
+    "dashboard": {
+      "editionWaiting": {
+        "title": "En attente de l'édition",
+        "description": "La prochaine édition du Raid sera bientôt annoncée."
+      },
+      "chooseRole": {
+        "title": "Comment souhaitez-vous participer ?",
+        "participant": "Je m'inscris en tant que participant",
+        "volunteer": "Je m'inscris en tant que bénévole"
+      },
+      "incompleteTeam": {
+        "title": "Inscription en cours",
+        "cta": "Aller à mon équipe"
+      },
+      "fullyRegistered": {
+        "title": "Inscription validée",
+        "countdownLabel": "Début du Raid dans"
+      },
+      "volunteerPending": {
+        "title": "Inscription bénévole en attente",
+        "description": "Votre inscription est en cours d'examen par les organisateurs."
+      },
+      "volunteerDashboard": {
+        "title": "Vous êtes bénévole"
+      },
+      "volunteerCancelled": {
+        "title": "Inscription bénévole annulée"
+      },
+      "registrationClosed": {
+        "title": "Inscriptions fermées",
+        "description": "La période d'inscription est terminée."
+      }
+    }
+  },
+  "register": {
+    "roleChooser": {
+      "title": "Comment souhaitez-vous participer ?",
+      "participant": "Participant",
+      "volunteer": "Bénévole"
+    },
+    "participant": {
+      "title": "Inscription participant",
+      "createTeam": "Créer une équipe",
+      "joinTeam": "J'ai un code d'invitation"
+    },
+    "volunteer": {
+      "title": "Inscription bénévole"
+    },
+    "page": {
+      "redirecting": "Redirection…"
+    },
+    "participantCard": {
+      "cardTitle": "Inscription au Raid",
+      "cardDescription": "Inscrivez-vous pour participer au Raid avec un coéquipier.",
+      "stepIdentity": "Informations",
+      "stepTeam": "Équipe",
+      "identityTitle": "Complétez vos informations",
+      "identitySubtitle": "Téléphone et date de naissance — nécessaires pour participer.",
+      "createTitle": "Créer votre équipe",
+      "joinTitle": "Rejoindre votre équipe",
+      "createSubtitle": "Une équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier.",
+      "joinSubtitle": "Vous allez rejoindre une équipe existante.",
+      "createButton": "Créer mon équipe",
+      "joinButton": "Rejoindre l'équipe",
+      "confirmCreateDescription": "Une nouvelle équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier.",
+      "confirmJoinDescription": "Vous allez rejoindre une équipe existante.",
+      "confirmCreate": "Créer",
+      "confirmJoin": "Rejoindre",
+      "alreadyVolunteerTitle": "Inscription impossible",
+      "alreadyVolunteerDescription": "Vous êtes déjà inscrit comme bénévole. Annulez cette inscription pour devenir participant.",
+      "teamJoined": "Équipe rejointe avec succès",
+      "teamCreated": "Équipe créée avec succès",
+      "teamNameDefault": "Équipe de {firstname} {name}"
+    },
+    "identity": {
+      "firstname": "Prénom",
+      "lastname": "Nom",
+      "email": "Email",
+      "emailHelp": "Prénom, nom et email proviennent de MyECL et ne peuvent être modifiés qu'à partir de votre compte MyECL.",
+      "phone": "Téléphone",
+      "birthday": "Date de naissance",
+      "continue": "Continuer",
+      "stepsAriaLabel": "Étapes de l'inscription",
+      "phoneRequired": "Veuillez renseigner un numéro de téléphone",
+      "phoneInvalid": "Veuillez renseigner un numéro de téléphone valide",
+      "birthdayRequired": "Veuillez renseigner votre date de naissance"
+    }
+  },
+  "team": {
+    "dashboard": {
+      "title": "Mon équipe",
+      "progress": "Progression",
+      "editTeam": "Modifier l'équipe",
+      "submit": "Soumettre mon inscription",
+      "reopen": "Rouvrir mon inscription"
+    },
+    "page": {
+      "title": "Mon équipe",
+      "subtitle": "Gérez votre binôme et finalisez les informations de chaque participant."
+    },
+    "empty": {
+      "title": "Aucun coéquipier pour l'instant",
+      "description": "Invitez un coéquipier pour compléter votre équipe.",
+      "invite": "Inviter un coéquipier"
+    },
+    "status": {
+      "title": "Statut de mon inscription",
+      "draft": "Brouillon",
+      "draftDescription": "Complétez vos informations puis soumettez votre inscription.",
+      "submitted": "Soumis",
+      "submittedDescription": "Votre dossier est en cours d'examen par les organisateurs.",
+      "validated": "Validé",
+      "validatedDescription": "Félicitations, votre inscription est validée.",
+      "cancelled": "Annulé",
+      "cancelledDescription": "Votre inscription a été annulée.",
+      "submit": "Soumettre mon inscription",
+      "reopen": "Rouvrir",
+      "progressHint": "Progression {progress}% — complétez pour soumettre"
+    },
+    "documentsCard": {
+      "title": "Documents",
+      "description": "Suivi de la validation des documents de chaque participant.",
+      "validatedCount": "{validated} / {total} validés"
+    },
+    "card": {
+      "editTitle": "Éditer l'équipe",
+      "noDifficulty": "Parcours à choisir",
+      "noMeeting": "Lieu à choisir",
+      "daysBeforeClose": "{days} jours avant clôture",
+      "daysBeforeCloseShort": "{days} jour{plural} avant clôture",
+      "lastDay": "Dernier jour pour s'inscrire",
+      "closed": "Inscriptions fermées",
+      "progress": "Progression de l'inscription",
+      "cancel": "Annuler",
+      "edit": "Éditer"
+    },
+    "participantCard": {
+      "captain": "Capitaine",
+      "cancel": "Annuler",
+      "edit": "Éditer",
+      "payment": "Paiement",
+      "noLink": "Aucun lien",
+      "progress": "Progression du dossier"
+    },
+    "inviteDialog": {
+      "title": "Inviter un coéquipier",
+      "description": "Générez un lien d'invitation personnel et partagez-le avec votre coéquipier. Il pourra rejoindre votre équipe en un clic.",
+      "linkOnce": "Ce lien est unique et ne peut être utilisé qu'une seule fois.",
+      "generate": "Générer un lien d'invitation",
+      "close": "Fermer",
+      "copy": "Copier",
+      "linkCopiedTitle": "Lien d'invitation copié",
+      "linkCopiedDescription": "Partagez-le avec votre coéquipier.",
+      "linkGeneratedTitle": "Lien généré",
+      "linkGeneratedDescription": "Copiez le lien manuellement.",
+      "copiedTitle": "Lien copié",
+      "copyErrorTitle": "Erreur",
+      "copyErrorDescription": "Impossible de copier le lien."
+    },
+    "complete": {
+      "title": "Inscription complète",
+      "line1": "Votre inscription est complète.",
+      "line2": "Vous trouverez toutes les informations nécessaires dans le document à télécharger ci-dessous.",
+      "line3": "Bonne préparation et à très bientôt !",
+      "download": "Télécharger le document",
+      "downloadErrorTitle": "Erreur",
+      "downloadErrorDescription": "Impossible de télécharger le fichier"
+    },
+    "invite": {
+      "dialogTitle": "Inviter un coéquipier",
+      "description": "Partagez ce lien avec votre coéquipier pour qu'il rejoigne votre équipe.",
+      "copyLink": "Copier le lien"
+    },
+    "join": {
+      "dialogTitle": "Rejoindre une équipe",
+      "description": "Vous avez été invité à rejoindre une équipe.",
+      "confirm": "Rejoindre"
+    },
+    "documents": {
+      "title": "Documents",
+      "upload": "Téléverser"
+    },
+    "payment": {
+      "title": "Paiement",
+      "pay": "Payer",
+      "paid": "Payé"
+    },
+    "securityFile": {
+      "title": "Fiche sanitaire"
+    }
+  },
+  "volunteer": {
+    "page": {
+      "title": "Mon bénévolat",
+      "subtitle": "Mettez à jour vos disponibilités et informations logistiques.",
+      "inscriptionTitle": "Mon inscription bénévole",
+      "cardCancelled": "Votre inscription a été annulée.",
+      "cardValidated": "Merci pour votre engagement.",
+      "cardPending": "Votre inscription est en cours d'examen.",
+      "informationTitle": "Informations",
+      "informationSubtitle": "Vous pouvez mettre à jour ces informations à tout moment.",
+      "dietPlaceholder": "Aucun régime spécifique",
+      "allergyPlaceholder": "Aucune allergie",
+      "save": "Enregistrer",
+      "unregister": "Se désinscrire",
+      "unregisterTitle": "Se désinscrire du bénévolat",
+      "unregisterDescription": "Vous êtes sur le point d'annuler votre inscription bénévole. Cette action peut être réversible seulement par l'organisation."
+    },
+    "register": {
+      "title": "Inscription bénévole",
+      "diet": "Régime alimentaire",
+      "allergy": "Allergies",
+      "hasCar": "J'ai une voiture",
+      "carSeats": "Nombre de places",
+      "isSpecialDriver": "Conducteur véhicule spécial",
+      "isUtilityVehicleDriver": "Conducteur utilitaire",
+      "isParcoursHelper": "Aide sur le parcours"
+    },
+    "registerPage": {
+      "redirecting": "Redirection…",
+      "stepIdentity": "Informations",
+      "stepConfirm": "Confirmation",
+      "cardTitle": "Inscription bénévole",
+      "cardDescription": "Soutenez l'événement — conduite, parcours, logistique.",
+      "changeRole": "Changer de rôle",
+      "identityTitle": "Complétez vos informations",
+      "identitySubtitle": "Téléphone et date de naissance — nécessaires pour participer.",
+      "confirmTitle": "Confirmer mon inscription bénévole",
+      "confirmSubtitle": "Vous pourrez compléter vos disponibilités après l'inscription.",
+      "confirmButton": "Confirmer mon inscription",
+      "dialogTitle": "Inscription bénévole",
+      "dialogDescription": "Votre inscription bénévole va être créée. Vous pourrez modifier vos informations par la suite.",
+      "dialogValidate": "Confirmer",
+      "alreadyParticipantTitle": "Inscription impossible",
+      "alreadyParticipantDescription": "Vous êtes déjà inscrit comme participant. Annulez cette inscription pour devenir bénévole."
+    },
+    "dashboard": {
+      "pending": "En attente",
+      "pendingLong": "En attente de validation",
+      "validated": "Validé",
+      "cancelled": "Annulé"
+    },
+    "cancel": {
+      "action": "Se désinscrire",
+      "confirmTitle": "Confirmer la désinscription",
+      "confirmDescription": "Êtes-vous sûr de vouloir vous désinscrire en tant que bénévole ?"
+    }
+  },
+  "profile": {
+    "title": "Mon profil",
+    "identity": "Identité",
+    "logout": "Se déconnecter"
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Tableau de bord",
+      "editions": "Éditions",
+      "participants": "Participants",
+      "teams": "Équipes",
+      "volunteers": "Bénévoles",
+      "information": "Informations",
+      "overview": "Vue d'ensemble",
+      "registration": "Inscriptions",
+      "configuration": "Configuration"
+    },
+    "dashboard": {
+      "title": "Tableau de bord"
+    },
+    "editions": {
+      "title": "Éditions",
+      "subtitle": "Gérez les éditions et l'ouverture des inscriptions.",
+      "existing": "Éditions existantes",
+      "empty": "Aucune édition pour le moment.",
+      "create": "Créer une édition",
+      "createDescription": "Chaque édition regroupe les participants et bénévoles d'une année.",
+      "edit": "Modifier l'édition",
+      "editDescription": "Mettez à jour les informations de l'édition.",
+      "activate": "Activer",
+      "active": "Active",
+      "inscriptionsOpen": "Inscriptions ouvertes",
+      "openInscriptions": "Ouvrir les inscriptions",
+      "closeInscriptions": "Fermer les inscriptions",
+      "toggleInscription": "Ouvrir/Fermer les inscriptions",
+      "year": "Année {year}",
+      "yearLabel": "Année",
+      "name": "Nom de l'édition",
+      "namePlaceholder": "Ex: Raid 2026",
+      "dates": "Dates",
+      "startDate": "Date de début",
+      "endDate": "Date de fin",
+      "registeringEndDate": "Fin des inscriptions",
+      "delete": "Supprimer",
+      "deleteConfirmTitle": "Supprimer l'édition",
+      "deleteConfirmDescription": "Cette action est irréversible.",
+      "save": "Enregistrer"
+    },
+    "participants": {
+      "title": "Participants",
+      "subtitle": "Suivez les dossiers participants et gérez leur cycle de vie.",
+      "listTitle": "Liste des participants",
+      "listSubtitle": "Pilotez le cycle de vie : valider, rouvrir, annuler.",
+      "searchPlaceholder": "Rechercher un participant ou une équipe…",
+      "empty": "Aucun participant.",
+      "filterAll": "Tous les statuts",
+      "columns": {
+        "participant": "Participant",
+        "team": "Équipe",
+        "status": "Statut",
+        "payment": "Paiement",
+        "tshirt": "T-shirt"
+      },
+      "paid": "Payé",
+      "unpaid": "Non payé",
+      "tshirtPaid": "{size} payé",
+      "tshirtUnpaid": "{size} non payé",
+      "viewTeam": "Voir l'équipe",
+      "actions": {
+        "validate": "Valider",
+        "cancel": "Annuler",
+        "reopen": "Rouvrir"
+      },
+      "sheet": {
+        "paymentOk": "Paiement OK",
+        "paymentPending": "Paiement en attente",
+        "tshirtPaid": "T-shirt {size} payé",
+        "tshirtUnpaid": "T-shirt {size} non payé",
+        "tabInfo": "Infos",
+        "tabDocument": "Documents"
+      }
+    },
+    "teams": {
+      "title": "Équipes"
+    },
+    "volunteers": {
+      "title": "Bénévoles",
+      "subtitle": "Gérez les validations et le suivi des inscriptions bénévoles.",
+      "listTitle": "Liste des bénévoles",
+      "listSubtitle": "Validez, annulez ou supprimez les inscriptions bénévoles.",
+      "searchPlaceholder": "Rechercher un bénévole…",
+      "empty": "Aucun bénévole.",
+      "filterAll": "Tous les statuts",
+      "filterPending": "En attente",
+      "filterValidated": "Validés",
+      "filterCancelled": "Annulés",
+      "columns": {
+        "volunteer": "Bénévole",
+        "registeredAt": "Inscrit le",
+        "status": "Statut",
+        "car": "Voiture",
+        "roles": "Rôles"
+      },
+      "carYes": "Oui ({seats} places)",
+      "carNo": "Non",
+      "roleSpecial": "Véhicule spécial",
+      "roleUtility": "Utilitaire",
+      "roleParcours": "Parcours",
+      "actions": {
+        "validate": "Valider",
+        "cancel": "Annuler",
+        "delete": "Supprimer"
+      },
+      "deleteConfirmTitle": "Supprimer ce bénévole ?",
+      "deleteConfirmDescription": "Cette action est irréversible.",
+      "sheet": {
+        "registeredOn": "Inscrit le {date}",
+        "seats": "{count} places",
+        "identity": "Identité",
+        "email": "Email",
+        "phone": "Téléphone",
+        "birthday": "Date de naissance",
+        "volunteeringInfo": "Informations bénévolat",
+        "diet": "Régime alimentaire",
+        "allergy": "Allergies",
+        "noDiet": "Aucun régime spécifique",
+        "noAllergy": "Aucune allergie",
+        "car": "Voiture"
+      }
+    },
+    "information": {
+      "title": "Informations Raid",
+      "subtitle": "Configurez dates, tarifs, contact et documents visibles pendant les inscriptions.",
+      "sections": {
+        "dates": "Dates",
+        "datesDescription": "Période du Raid et clôture des inscriptions.",
+        "prices": "Tarifs",
+        "pricesDescription": "Grille de prix pour les différents profils et options.",
+        "contact": "Contact",
+        "contactDescription": "Email public et contacts d'urgence.",
+        "files": "Fichiers",
+        "filesDescription": "Règlement et fiche d'information distribués aux participants."
+      },
+      "raidDateLabel": "Date du raid",
+      "raidDateEmpty": "Période non définie",
+      "inscriptionEndLabel": "Fin des inscriptions",
+      "inscriptionEndDescription": "Dernier jour pour s'inscrire à l'édition active.",
+      "inscriptionEndEmpty": "Non renseignée",
+      "footerNotice": "Les modifications sont enregistrées immédiatement sur l'édition active.",
+      "loading": "Chargement…",
+      "rulesLabel": "Règlement du Raid",
+      "infoLabel": "Fiche d'information",
+      "prices": {
+        "student": "Tarif étudiant",
+        "external": "Tarif externe",
+        "partner": "Tarif partenaire",
+        "tShirt": "Tarif t-shirt"
+      }
+    },
+    "fallback": {
+      "title": "Aucune édition active",
+      "description": "Créez une nouvelle édition pour commencer.",
+      "createEdition": "Gérer les éditions"
+    }
+  },
+  "errors": {
+    "generic": "Une erreur est survenue, veuillez réessayer.",
+    "network": "Problème de connexion au serveur.",
+    "permission": "Vous n'avez pas les droits pour effectuer cette action.",
+    "registerClosed": "Les inscriptions sont fermées."
   }
 }

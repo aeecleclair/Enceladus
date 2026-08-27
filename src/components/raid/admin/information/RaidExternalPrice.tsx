@@ -1,4 +1,5 @@
 import { CardLayout } from "./CardLayout";
+import { InfoValue } from "./InfoValue";
 
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { usePrice } from "@/hooks/raid/usePrice";
@@ -80,37 +81,35 @@ export const RaidExternalPrice = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex flex-row">
+              <div className="mt-3 flex gap-2">
                 <Button
                   variant="outline"
-                  className="mt-2 mr-2 w-30"
-                  onClick={() => {
-                    setIsEdit(false);
-                  }}
+                  size="sm"
+                  onClick={() => setIsEdit(false)}
+                  type="button"
                 >
                   Annuler
                 </Button>
-                <LoadingButton
-                  className="mt-2 w-30"
-                  type="submit"
-                  isLoading={isLoading}
-                >
+                <LoadingButton size="sm" type="submit" isLoading={isLoading}>
                   Valider
                 </LoadingButton>
               </div>
             </>
           ) : (
             <>
-              <div className="text-2xl font-bold">
-                {price?.external_price ? (
-                  `${(price.external_price / 100).toFixed(2)} €`
-                ) : (
-                  <span>{"Prix non fixé"}</span>
-                )}
-              </div>
+              <InfoValue
+                isEmpty={!price?.external_price}
+                placeholder="Prix non fixé"
+                value={
+                  price?.external_price
+                    ? `${(price.external_price / 100).toFixed(2)} €`
+                    : ""
+                }
+              />
               <Button
                 variant="outline"
-                className="mt-4 w-30"
+                size="sm"
+                className="mt-3"
                 type="button"
                 onClick={toggleEdit}
               >

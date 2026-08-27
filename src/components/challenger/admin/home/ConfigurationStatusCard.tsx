@@ -1,9 +1,9 @@
 import {
+  AppModulesSportCompetitionSchemasSportCompetitionTeamComplete,
   CompetitionEdition,
   Location,
   SchoolExtension,
   Sport,
-  TeamComplete,
   VolunteerShiftCompleteWithVolunteers,
 } from "@/api";
 import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
@@ -33,7 +33,7 @@ interface ConfigurationStatusCardProps {
   locations?: Location[];
   products?: AppModulesSportCompetitionSchemasSportCompetitionProductComplete[];
   matchCountBySport?: Map<string, number>;
-  allTeams?: TeamComplete[];
+  allTeams?: AppModulesSportCompetitionSchemasSportCompetitionTeamComplete[];
   volunteerShifts?: VolunteerShiftCompleteWithVolunteers[];
   onOpenInscription: (editionId: string) => void;
   onCloseInscription: (editionId: string) => void;
