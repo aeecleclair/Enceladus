@@ -1,10 +1,10 @@
 "use client";
 
-import { ACCOUNT_TYPES, DEFAULT_EXCLUDED_ACCOUNT_TYPES } from "./Columns";
+import { DEFAULT_EXCLUDED_ACCOUNT_TYPES } from "./Columns";
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 
-import { CoreUserSimple } from "@/api";
+import { CdrUserPreview, CoreUserSimple } from "@/api";
 import { useRouter } from "@/i18n/navigation";
 import { fuzzyFilter } from "@/lib/utils";
 
@@ -64,15 +64,7 @@ export function DataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [
-      {
-        id: "account_type",
-        value: ACCOUNT_TYPES.filter(
-          (accountType) =>
-            !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
-        ),
-      },
-    ],
+    [],
   );
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -106,6 +98,23 @@ export function DataTable<TData, TValue>({
     globalFilterFn: "fuzzy",
     onGlobalFilterChange: setGlobalFilter,
   });
+  const hasAppliedDefaultAccountTypeFilter = React.useRef(false);
+  React.useEffect(() => {
+    if (hasAppliedDefaultAccountTypeFilter.current || data.length === 0) {
+      return;
+    }
+    hasAppliedDefaultAccountTypeFilter.current = true;
+    const accountTypes = Array.from(
+      new Set((data as CdrUserPreview[]).map((user) => user.account_type)),
+    ).filter(
+      (accountType) => !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
+    );
+    setColumnFilters((prev) => [
+      ...prev,
+      { id: "account_type", value: accountTypes },
+    ]);
+  }, [data]);
+
   React.useEffect(() => {
     if (userId && !table.getIsSomeRowsSelected()) {
       const userIndex = data.findIndex(

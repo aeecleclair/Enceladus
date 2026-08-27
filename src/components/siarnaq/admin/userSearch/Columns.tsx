@@ -10,19 +10,11 @@ import { useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 
-// Mirrors the AccountType union from the generated API types.
-export const ACCOUNT_TYPES: AccountType[] = [
-  "student",
-  "former_student",
-  "staff",
-  "association",
-  "external",
-  "other_school_student",
-  "demo",
-];
-
 // Account types excluded from the student search by default: students from
-// other schools are not relevant to most CDR searches.
+// other schools are not relevant to most CDR searches. The set of all possible
+// account types isn't hardcoded here — it's derived from whichever types are
+// actually present in the loaded users, so new account types don't require a
+// code change to show up.
 export const DEFAULT_EXCLUDED_ACCOUNT_TYPES: AccountType[] = [
   "other_school_student",
 ];

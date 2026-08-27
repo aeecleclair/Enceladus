@@ -1,9 +1,9 @@
 "use client";
 
-import { ACCOUNT_TYPES } from "./Columns";
 import { DataTableFacetedFilter } from "./DataTableFacetedFilter";
 import { DataTableViewOptions } from "./DataTableViewOptions";
 
+import { AccountType } from "@/api";
 import { AddUserWithCurriculum } from "@/components/siarnaq/custom/User/AddUserWithCurriculum";
 import { useCurriculums } from "@/hooks/siarnaq/useCurriculums";
 
@@ -55,7 +55,12 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("account_type")}
             title={t("dataTableToolbar.accountType")}
-            options={ACCOUNT_TYPES.map((accountType) => ({
+            options={Array.from(
+              table
+                .getColumn("account_type")
+                ?.getFacetedUniqueValues()
+                .keys() ?? [],
+            ).map((accountType: AccountType) => ({
               value: accountType,
               label: t(`accountType.${accountType}`),
             }))}
