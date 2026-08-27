@@ -39,6 +39,7 @@ export default function Admin() {
     teams,
     createTeam,
     updateTeam,
+    isTeamLoading,
     isCreateTeamLoading,
     isUpdateLoading,
   } = useMyTeams();
@@ -54,6 +55,14 @@ export default function Admin() {
       setSelectedTeamId(teams[0].id);
     }
   }, [teams, selectedTeamId]);
+
+  if (isTeamLoading) {
+    return (
+      <div className="p-6 gap-4 flex flex-col">
+        <h1 className="text-2xl font-bold">{t("admin.loading")}</h1>
+      </div>
+    );
+  }
 
   if (selectedTeamId === null) {
     return (

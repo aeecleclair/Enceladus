@@ -2,6 +2,7 @@
   "admin": {
     "back": "Back",
     "detail": "Details",
+    "loading": "Loading teams...",
     "noTeam": "No team",
     "noTeamDescription": "You don't have a team yet. Please create one to access your templates and documents.",
     "noGroup": "You don't have any group associated with your account. Contact an administrator for more information.",
@@ -78,6 +79,7 @@
       "status": "Status"
     },
     "itemsPerPage": "Document(s) per page",
+    "loading": "Loading template...",
     "name": "Template name",
     "noResults": "No data to display.",
     "of": "of",
