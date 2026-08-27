@@ -63,7 +63,7 @@ export const JoinTeamDialog = ({
             onClick={onJoinTeam}
             className="w-35"
           >
-            Rejoindre l&appos;équipe
+            Rejoindre l&apos;équipe
           </LoadingButton>
         </div>
       </DialogContent>

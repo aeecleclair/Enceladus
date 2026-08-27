@@ -1,5 +1,3 @@
-import { useAuth } from "../useAuth";
-
 import {
   AppModulesSportCompetitionSchemasSportCompetitionProductBase,
   AppModulesSportCompetitionSchemasSportCompetitionProductEdit,
@@ -15,6 +13,7 @@ import {
   postCompetitionProductsMutation,
   postCompetitionProductsProductIdVariantsMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 import { DetailedErrorType, ErrorType } from "@/lib/challenger/errorTyping";
 
 import { useMutation } from "@tanstack/react-query";

@@ -1,10 +1,9 @@
-import { useAuth } from "../useAuth";
-
 import { DocumentValidation } from "@/api";
 import {
   getRaidDocumentDocumentIdOptions,
   postRaidDocumentDocumentIdValidateMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 import { useDocumentsStore } from "@/stores/raid/documents";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";

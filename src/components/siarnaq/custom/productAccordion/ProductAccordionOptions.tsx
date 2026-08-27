@@ -8,7 +8,6 @@ import { CustomDialog } from "@/components/common/CustomDialog";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { AddEditProductForm } from "@/components/siarnaq/admin/sellerProducts/AddEditProductForm";
 import _productFormSchema from "@/forms/siarnaq/productFormSchema";
-import { useMemberships } from "@/hooks/siarnaq/useMemberships";
 import { getModifiedFields } from "@/lib/siarnaq-utils";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -51,8 +50,6 @@ export const ProductAccordionOptions = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const { memberships } = useMemberships();
-
   const initialValues: z.infer<typeof productFormSchema> = {
     id: product.id,
     name_fr: product.name_fr,
@@ -70,7 +67,7 @@ export const ProductAccordionOptions = ({
           expiration: new Date(ticket.expiration),
         }))
       : [],
-    related_membership: product.related_membership?.id || undefined,
+    related_membership_id: product.related_membership?.id || "null",
     data_fields: [],
   };
 
@@ -105,17 +102,19 @@ export const ProductAccordionOptions = ({
 
     const resolvedValues: AppModulesCdrSchemasCdrProductEdit = {
       ...values,
-      related_membership: values.related_membership
-        ? memberships.find((m) => m.id == values.related_membership)
-        : undefined,
+      related_membership_id:
+        values.related_membership_id === "null"
+          ? null
+          : values.related_membership_id,
       available_online: values.available_online === "true",
     };
 
     const resolvedInitial: typeof resolvedValues = {
       ...initialValues,
-      related_membership: initialValues.related_membership
-        ? memberships.find((m) => m.id == initialValues.related_membership)
-        : undefined,
+      related_membership_id:
+        initialValues.related_membership_id === "null"
+          ? null
+          : initialValues.related_membership_id,
       available_online: initialValues.available_online === "true",
     };
 

@@ -5,6 +5,7 @@ import {
   CompetitionUserBase,
   ParticipantInfo,
 } from "@/api";
+import { useAuth } from "@/app/authContext";
 import { AppSidebar } from "@/components/challenger/register/AppSideBar/AppSidebar";
 import { RegisterForm } from "@/components/challenger/register/RegisterForm/RegisterForm";
 import {
@@ -19,7 +20,6 @@ import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { useSports } from "@/hooks/challenger/useSports";
 import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
-import { useAuth } from "@/hooks/useAuth";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 import { HeaderSubtitle, RegisterState } from "@/lib/challenger/registerState";
@@ -139,6 +139,7 @@ const Register = () => {
     } else if (state.allHeaderSubtitles[2] === "Sport") {
       newSubtitles.splice(2, 1);
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setState((state) => ({
       ...state,
       onValidateCardActions: {

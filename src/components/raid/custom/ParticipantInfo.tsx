@@ -1,6 +1,11 @@
 import { DocumentView } from "./DocumentView";
 
-import { Document, DocumentValidation, SecurityFile, Size } from "@/api";
+import {
+  AppModulesRaidSchemasRaidDocument,
+  DocumentValidation,
+  SecurityFile,
+  Size,
+} from "@/api";
 import { SecurityFileDialogView } from "@/components/raid/home/participantView/SecurityFileDialogView";
 import { useDocument } from "@/hooks/raid/useDocument";
 
@@ -28,7 +33,7 @@ type ValueType =
   | string
   | Size
   | boolean
-  | Document
+  | AppModulesRaidSchemasRaidDocument
   | SecurityFile
   | null
   | undefined
@@ -69,8 +74,12 @@ export const ParticipantInfo = ({
     return value === null;
   };
 
-  const isDocument = (value: ValueType): value is Document => {
-    return typeof (value as Document)?.type === "string";
+  const isDocument = (
+    value: ValueType,
+  ): value is AppModulesRaidSchemasRaidDocument => {
+    return (
+      typeof (value as AppModulesRaidSchemasRaidDocument)?.type === "string"
+    );
   };
 
   const isSecurityFile = (value: ValueType): value is SecurityFile => {

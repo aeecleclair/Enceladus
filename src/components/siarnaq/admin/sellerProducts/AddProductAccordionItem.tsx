@@ -8,7 +8,6 @@ import {
 } from "@/api";
 import { CustomDialog } from "@/components/common/CustomDialog";
 import _productFormSchema from "@/forms/siarnaq/productFormSchema";
-import { useMemberships } from "@/hooks/siarnaq/useMemberships";
 import { useSellerProducts } from "@/hooks/siarnaq/useSellerProducts";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,15 +43,22 @@ export const AddProductAccordionItem = ({
   const hasInterestProduct = products.some(
     (product) => product.needs_validation === false,
   );
-  const { memberships } = useMemberships();
 
   const form = useForm<z.infer<typeof productFormSchema>>({
     resolver: zodResolver(productFormSchema),
     mode: "onBlur",
     defaultValues: {
+      name_fr: "",
+      name_en: "",
+      description_en: "",
+      description_fr: "",
+      available_online: "false",
+      related_membership_id: "null",
       product_constraints: [],
       document_constraints: [],
       data_fields: [],
+      data_field_name: "",
+      data_field_can_user_answer: false,
       tickets: [],
       ticket_name: "",
       ticket_max_use: "1",
@@ -96,9 +102,10 @@ export const AddProductAccordionItem = ({
       ...values,
       available_online: values.available_online === "true",
       needs_validation: true,
-      related_membership: values.related_membership
-        ? memberships.find((m) => m.id == values.related_membership)
-        : undefined,
+      related_membership_id:
+        values.related_membership_id === "null"
+          ? null
+          : values.related_membership_id,
       tickets: values.tickets.map((ticket) => ({
         ...ticket,
         expiration: ticket.expiration.toISOString(),

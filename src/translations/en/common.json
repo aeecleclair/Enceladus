@@ -8,6 +8,11 @@
   "datePicker": {
     "select": "Select a date"
   },
+  "form": {
+    "cancel": "Cancel",
+    "edit": "Edit",
+    "confirm": "Confirm"
+  },
   "multiselect": {
     "deselect": "Deselect all",
     "noItemFound": "No item found.",
@@ -29,6 +34,8 @@
     "error": "Error"
   },
   "topbar": {
+    "admin": "Admin",
+    "home": "Home",
     "logout": "Logout"
   },
   "warningDialog": {

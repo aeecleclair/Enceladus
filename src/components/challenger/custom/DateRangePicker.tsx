@@ -54,6 +54,7 @@ export function DateRangePicker({
 
   React.useEffect(() => {
     if (startDate && endDate) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDateRange({ from: startDate, to: endDate });
     } else if (startDate) {
       setDateRange({ from: startDate, to: undefined });

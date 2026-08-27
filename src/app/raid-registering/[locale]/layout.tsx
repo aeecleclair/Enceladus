@@ -2,8 +2,9 @@ import QueryProvider from "../../QueryProvider";
 import "../../globals.css";
 import { ThemeProvider } from "../../theme-provider";
 
+import { AuthProvider } from "@/app/authContext";
+import { AuthInterceptor } from "@/app/authInterceptor";
 import { PermissionGuard } from "@/app/permissionGuard";
-import { AuthInterceptor } from "@/app/provider";
 import { routing } from "@/i18n/routing";
 
 import type { Metadata } from "next";
@@ -43,7 +44,7 @@ export default async function RootLayout({
   const { locale } = (await params) as { locale: Locale };
   setRequestLocale(locale);
   return (
-    <html lang="en">
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <title>Raid Registering</title>
@@ -52,7 +53,7 @@ export default async function RootLayout({
 
       <Script
         defer
-        data-domain="raid-registering.myecl.fr"
+        data-domain="inscription-raid.myecl.fr"
         src="https://plausible.eclair.ec-lyon.fr/js/script.js"
         strategy="lazyOnload"
       />
@@ -67,10 +68,12 @@ export default async function RootLayout({
             <Suspense fallback={<div>Loading...</div>}>
               <QueryProvider>
                 <NextIntlClientProvider locale={locale}>
-                  <PermissionGuard permissionRequired="access_raid">
-                    {children}
-                    <Toaster />
-                  </PermissionGuard>
+                  <AuthProvider>
+                    <PermissionGuard permissionRequired="access_raid">
+                      {children}
+                      <Toaster />
+                    </PermissionGuard>
+                  </AuthProvider>
                 </NextIntlClientProvider>
               </QueryProvider>
             </Suspense>

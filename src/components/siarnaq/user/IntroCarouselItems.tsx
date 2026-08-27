@@ -60,9 +60,13 @@ export const IntroCarouselItems = ({
     <div key="intro" className="flex flex-col gap-2">
       <span>{t("introCarouselItem.welcome")}</span>
       <span className="text-justify">{t("introCarouselItem.description")}</span>
+      <span className="text-justify">{t("introCarouselItem.solidarity")}</span>
       <span>
         {t("introCarouselItem.contact")}
-        <a href="mailto://bde@ec-lyon.fr" className="whitespace-pre">
+        <a
+          href="mailto:bde@ec-lyon.fr"
+          className="font-medium hover:underline underline-offset-4 "
+        >
           bde@ec-lyon.fr
         </a>
       </span>
@@ -134,7 +138,7 @@ export const IntroCarouselItems = ({
   }
 
   return (
-    <Carousel setApi={setCarouselApi}>
+    <Carousel setApi={setCarouselApi} opts={{ watchDrag: false }}>
       <CarouselContent>
         {content.map((item, index) => (
           <CarouselItem key={index}>{item}</CarouselItem>

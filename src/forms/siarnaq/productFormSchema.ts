@@ -18,7 +18,7 @@ export default function productFormSchema(
       name_en: z.string().optional(), // still optional?
       description_fr: z.string().optional(),
       description_en: z.string().optional(),
-      related_membership: z.string().optional(),
+      related_membership_id: z.string().optional(),
       available_online: z.enum(["true", "false"], {
         error: t("availableOnline"),
       }),

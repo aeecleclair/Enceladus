@@ -1,0 +1,111 @@
+{
+  "admin": {
+    "back": "Back",
+    "detail": "Details",
+    "noTeam": "No team",
+    "noTeamDescription": "You don't have a team yet. Please create one to access your templates and documents.",
+    "noGroup": "You don't have any group associated with your account. Contact an administrator for more information.",
+    "selectTeam": "Select a team",
+    "template": "Template: {name}",
+    "templates": "Templates"
+  },
+  "document": {
+    "documentCreationDate": "Created on: {date}",
+    "documentSignedDate": "Signed on: {date}",
+    "documentRejectedDate": "Rejected on: {date}",
+    "documentStatus": "Status: {status}",
+    "download": "Download",
+    "sign": "Sign",
+    "status": {
+      "DRAFT": "Draft",
+      "COMPLETED": "Signed",
+      "PENDING": "Pending",
+      "REJECTED": "Rejected"
+    }
+  },
+  "home": {
+    "completed": "Signed ({count})",
+    "myDocuments": "My documents",
+    "pending": "Pending signature ({count})",
+    "rejected": "Rejected ({count})",
+    "sender": "Mandate owner: {name}"
+  },
+  "login": {
+    "title": "Welcome on MyDocuments!",
+    "description": "This site allows you to consult your documents related to the centralien associative.",
+    "or": "or",
+    "alreadyHaveMyECLAccount": "Already have a MyECL account?",
+    "createMyECLAccount": "Create a MyECL account",
+    "register": "Sign up"
+  },
+  "metadata": {
+    "description": "Your documents related to the centralien associative",
+    "title": "MyDocuments"
+  },
+  "sign": {
+    "documentSigned": "Document signed",
+    "documentSignedDescription": "The document has been successfully signed.",
+    "backToHomepage": "Back to homepage",
+    "loading": "Loading document...",
+    "loadingDescription": "Please wait while the document is being loaded.",
+    "loadingError": "Error loading document",
+    "loadingErrorDescription": "An error occurred while loading the document. Please try again later.",
+    "missingSigningToken": "No signing token provided",
+    "missingSigningTokenDescription": "Please provide a valid signing token in the URL to sign a document."
+  },
+  "team": {
+    "apiKey": "Documenso API key",
+    "apiKeyPlaceholder": "api_XXXXXXXXXXXXXXXXXX",
+    "create": "Create a team",
+    "createSubmit": "Create the team",
+    "creation": "Team creation",
+    "group": "Associated group",
+    "invalidApiKey": "API key does not have the required format",
+    "name": "Team name",
+    "namePlaceholder": "Ex: AEECL, USEECL, etc.",
+    "submit": "Create the team",
+    "update": "Edit the team"
+  },
+  "template": {
+    "clearFilters": "Clear filters",
+    "documentDirectoryCurrentId": "Current document directory ID: {id}",
+    "documentDirectoryPath": "Document directory path",
+    "edit": "Edit {name}",
+    "headers": {
+      "actions": "Actions",
+      "email": "Email",
+      "name": "Name",
+      "status": "Status"
+    },
+    "itemsPerPage": "Document(s) per page",
+    "name": "Template name",
+    "noResults": "No data to display.",
+    "of": "of",
+    "searchPlaceholder": "Search by name or email...",
+    "selectedLabel": "document(s) selected",
+    "statistics": {
+      "tooltip": "Statistics",
+      "totalSignedDocuments": "Signed: {count}",
+      "totalPendingDocuments": "Pending: {count}",
+      "totalRejectedDocuments": "Rejected: {count}",
+      "totalDocuments": "Total : {count}"
+    },
+    "templateCreationDate": "Created on: {date}",
+    "templateUpdateDate": "Updated on: {date}",
+    "use": {
+      "allowDuplicate": "Allow duplicates",
+      "close": "Close",
+      "errors": "{ count, plural, =0 {No errors} =1 {One error: } other {# errors: } }",
+      "loadCSV": "Load CSV",
+      "recipients": "{ count, plural, =0 {No recipients} =1 {One recipient} other {# recipients} }",
+      "results": "Results",
+      "send": "Send",
+      "success": "{ count, plural, =0 {No documents generated} =1 {One document generated} other {# documents generated} } successfully",
+      "title": "Use template",
+      "useTemplate": "Generate documents from a CSV"
+    },
+    "useTooltip1": "Put one email per line in the CSV.",
+    "useTooltip2": "The email must correspond to a MyECL user.",
+    "useTooltip3": "A document will be generated for each user."
+  }
+}

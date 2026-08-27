@@ -3,10 +3,11 @@ import { NextResponse } from "next/server";
 
 // Mappings des sous-domaines vers les chemins de base de l'App Router
 const SUBDOMAIN_ROUTES = {
-  rentree: "/rentree",
-  pmf: "/pmf",
-  "raid-registering": "/raid-registering",
   challenger: "/challenger",
+  documents: "/my-documents",
+  pmf: "/pmf",
+  rentree: "/rentree",
+  "inscription-raid": "/raid-registering",
   template: "/template",
 };
 

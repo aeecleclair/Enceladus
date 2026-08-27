@@ -29,15 +29,15 @@ export const SellerTabList = ({
   };
 
   return (
-    <TabsList className={`grid w-full grid-flow-row grid-cols-7`}>
+    <TabsList className={`grid w-full grid-flow-row grid-cols-7 h-fit`}>
       {sellers.map((seller) => (
         <TabsTrigger
           key={seller.id}
           value={seller.id}
-          className="min-w-18 w-full"
+          className="min-w-0 w-full"
           onClick={() => handleClick(seller.id)}
         >
-          {seller.name}
+          <span className="block w-full truncate">{seller.name}</span>
         </TabsTrigger>
       ))}
       {isAdmin && (

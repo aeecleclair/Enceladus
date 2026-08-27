@@ -1,10 +1,9 @@
 "use client";
 
-import { TopBar } from "@/components/raid/admin/TopBar";
+import { PageHeader } from "@/components/raid/admin/PageHeader";
 import { columns } from "@/components/raid/admin/teams/Columns";
 import { DataTable } from "@/components/raid/admin/teams/DataTable";
 import { TeamSheet } from "@/components/raid/admin/teams/teamSheet/TeamSheet";
-import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
 import { useTeams } from "@/hooks/raid/useTeams";
 import { useRouter } from "@/i18n/navigation";
 
@@ -19,21 +18,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-const Dashboard = () => {
-  const { isRaidAdmin } = useHasRaidPermission();
+import { UsersRound } from "lucide-react";
+
+const TeamsAdminPage = () => {
   const { teams } = useTeams();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isOpened, setIsOpened] = useState(false);
   const [teamId, setTeamId] = useState<string | null>(null);
 
-  if (!isRaidAdmin && typeof window !== "undefined") {
-    const redirectUrl = new URL(window.location.href);
-    const path = redirectUrl.pathname + redirectUrl.search;
-    router.replace(`/?redirect=${path}`);
-  }
-
   const selectedTeamId = searchParams.get("teamId");
+  // Adjust state during render (React-recommended) rather than in an effect.
   if (selectedTeamId !== teamId) {
     setTeamId(selectedTeamId);
     setIsOpened(!!selectedTeamId);
@@ -44,24 +39,31 @@ const Dashboard = () => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.delete("teamId");
     const query = current.toString();
-    router.replace(`/admin/teams?${query}`);
+    router.replace(query ? `/admin/teams?${query}` : "/admin/teams");
     setTeamId(null);
   }
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-muted/40">
-      <TopBar />
-      <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 mt-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Equipes</CardTitle>
-            <CardDescription>Liste des équipes enregistrées</CardDescription>
-          </CardHeader>
-          <CardContent>
-            {teams && <DataTable data={teams} columns={columns} />}
-          </CardContent>
-        </Card>
-      </main>
+    <>
+      <PageHeader
+        icon={UsersRound}
+        title="Équipes"
+        description="Consultez les équipes et ouvrez le détail d'un dossier."
+        accent="emerald"
+      />
+      <Card className="border-border/70 bg-card/95 shadow-sm">
+        <CardHeader>
+          <CardTitle>Liste des équipes</CardTitle>
+          <CardDescription>
+            {teams
+              ? `${teams.length} équipe${teams.length > 1 ? "s" : ""} enregistrée${teams.length > 1 ? "s" : ""}`
+              : "Chargement…"}
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          {teams && <DataTable data={teams} columns={columns} />}
+        </CardContent>
+      </Card>
       {teamId && (
         <TeamSheet
           isOpened={isOpened}
@@ -69,8 +71,8 @@ const Dashboard = () => {
           teamId={teamId}
         />
       )}
-    </div>
+    </>
   );
 };
 
-export default Dashboard;
+export default TeamsAdminPage;
