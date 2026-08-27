@@ -18,7 +18,7 @@ export const useTemplate = (templateId: string) => {
   }).queryKey;
   const queryClient = useQueryClient();
 
-  const { data: templateComplete } = useQuery({
+  const { data: templateComplete, isLoading } = useQuery({
     ...getDocumentsTemplatesTemplateIdOptions({
       path: { template_id: templateId },
     }),
@@ -108,6 +108,7 @@ export const useTemplate = (templateId: string) => {
     template: templateComplete,
     editTemplate,
     useTemplateForRecipients,
+    isLoading,
     isEditLoading,
     isUseTemplateLoading,
   };

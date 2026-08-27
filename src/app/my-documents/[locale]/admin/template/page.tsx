@@ -25,7 +25,8 @@ export default function Home() {
   const t = useTranslations("myDocuments");
   const params = useSearchParams();
   const templateId = params.get("templateId") || "";
-  const { template, editTemplate, isEditLoading } = useTemplate(templateId);
+  const { template, isLoading, editTemplate, isEditLoading } =
+    useTemplate(templateId);
   const router = useRouter();
   const tCommon = useTranslations("common");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,6 +70,13 @@ export default function Home() {
     [template?.documents],
   );
 
+  if (isLoading) {
+    return (
+      <div className="p-6 gap-4 flex flex-col">
+        <h1 className="text-2xl font-bold">{t("template.loading")}</h1>
+      </div>
+    );
+  }
   if (!template) {
     router.push({
       pathname: "/admin",

@@ -15,7 +15,7 @@ export const useMyTeams = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  const { data: myTeams } = useQuery({
+  const { data: myTeams, isLoading: isTeamLoading } = useQuery({
     ...getDocumentsTeamsMeOptions({}),
     enabled: !isTokenExpired(),
     retry: false,
@@ -93,6 +93,7 @@ export const useMyTeams = () => {
     teams: myTeams ?? [],
     createTeam,
     updateTeam,
+    isTeamLoading,
     isCreateTeamLoading,
     isUpdateLoading,
   };

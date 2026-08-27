@@ -2,6 +2,7 @@
   "admin": {
     "back": "Retour",
     "detail": "Détails",
+    "loading": "Chargement des équipes...",
     "noTeam": "Aucune équipe",
     "noTeamDescription": "Vous n'avez pas encore d'équipe. Veuillez en créer une pour accéder à vos modèles et documents.",
     "noGroup": "Vous n'avez aucun groupe associé à votre compte. Contacter un administrateur pour avoir plus d'informations.",
@@ -78,6 +79,7 @@
       "status": "Status"
     },
     "itemsPerPage": "Document(s) par page",
+    "loading": "Chargement du modèle...",
     "name": "Nom du modèle",
     "noResults": "Aucune donnée à afficher.",
     "of": "sur",
