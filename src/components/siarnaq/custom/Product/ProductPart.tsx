@@ -24,7 +24,6 @@ interface ProductPartProps {
 }
 
 export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
-  const tOnValidate = useTranslations("siarnaq.onValidate");
   const t = useTranslations("siarnaq");
   const format = useFormatter();
   const pathname = usePathname();
@@ -68,7 +67,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
               setIsLoading,
               refetch,
               toast,
-              tOnValidate,
+              t,
             ),
           ),
       );
