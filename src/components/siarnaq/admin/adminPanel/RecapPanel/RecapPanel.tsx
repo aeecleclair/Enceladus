@@ -4,24 +4,21 @@ import { PaymentQrButton } from "./PaymentQrButton";
 import {
   CdrUser,
   CdrUserUpdate,
-  UserMembershipComplete,
   patchCdrUsersUserId,
   patchCdrUsersUserIdCurriculumsCurriculumId,
   postCdrUsersUserIdCurriculumsCurriculumId,
 } from "@/api";
 import { CustomDialog } from "@/components/common/CustomDialog";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { MembershipRecap } from "@/components/siarnaq/custom/MembershipRecap";
 import { PaymentPart } from "@/components/siarnaq/custom/Payment/PaymentPart";
 import { ProductPart } from "@/components/siarnaq/custom/Product/ProductPart";
 import { TextSeparator } from "@/components/siarnaq/custom/TextSeparator";
 import UserDisplayName from "@/components/siarnaq/custom/displayName";
 import _migrateUserFormSchema from "@/forms/siarnaq/migrateUserFormSchema";
 import { useCurriculums } from "@/hooks/siarnaq/useCurriculums";
-import { useMemberships } from "@/hooks/siarnaq/useMemberships";
-import { useUserMemberships } from "@/hooks/siarnaq/useUserMemberships";
 import { useUserPayments } from "@/hooks/siarnaq/useUserPayments";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
-import { useCoreVariables } from "@/hooks/useCoreVariables";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormatter, useTranslations } from "next-intl";
@@ -51,16 +48,13 @@ interface RecapPanelProps {
 
 export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
   const tZod = useTranslations("siarnaq.migrateUserFormSchema");
-  const { variables } = useCoreVariables();
-  const migrateUserFormSchema = _migrateUserFormSchema(tZod, variables);
+  const migrateUserFormSchema = _migrateUserFormSchema(tZod);
   const t = useTranslations("siarnaq");
   const format = useFormatter();
   const { toast } = useToast();
   const { total: totalPaid } = useUserPayments(user.id);
   const { total: totalToPay } = useUserPurchases(user.id);
   const { curriculums } = useCurriculums();
-  const { userMemberships } = useUserMemberships(user.id);
-  const { memberships } = useMemberships();
   const remainingToPay = (totalToPay ?? 0) - (totalPaid ?? 0);
   const [isOpened, setIsOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -124,7 +118,7 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
       floor: user.floor ?? undefined,
       birthday: undefined,
       phone: undefined,
-      promo: undefined,
+      promo: user.promo?.toString() ?? "null",
     },
   });
 
@@ -135,7 +129,7 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
       floor: user.floor ?? undefined,
       birthday: undefined,
       phone: undefined,
-      promo: undefined,
+      promo: user.promo?.toString() ?? "null",
     });
   }, [user, form]);
 
@@ -148,7 +142,10 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
         (values.email ?? validEmailRegex.test(values.email!))
           ? values.email
           : null,
-      // promo: values.promo ? parseInt(values.promo) : undefined,
+      promo:
+        values.promo === "null" || !values.promo
+          ? undefined
+          : parseInt(values.promo),
       // birthday: values.birthday?.toISOString(),
       // phone: values.phone ? "+" + values.phone : null,
     };
@@ -254,38 +251,7 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
             </CustomDialog>
           </div>
         </CardTitle>
-        <span className="font-semibold text-muted-foreground">
-          {t("recapPanel.memberships")} :
-        </span>
-
-        <div className="flew flew-col gap-2">
-          {userMemberships?.map((membership: UserMembershipComplete) => {
-            const membershipName = memberships.find(
-              (association_membership) =>
-                association_membership.id ===
-                membership.association_membership_id,
-            )?.name;
-            const membershipStartDate = new Date(membership.start_date);
-            const membershipEndDate = new Date(membership.end_date);
-            const isMembershipActive =
-              new Date().getTime() < membershipEndDate.getTime();
-            return (
-              <div
-                key={membership.id}
-                className={
-                  isMembershipActive ? "text-green-400" : "text-red-400"
-                }
-              >
-                <span>{membershipName} : </span>
-                <span className="font-light">
-                  {membershipStartDate.toLocaleDateString()}
-                  {" - "}
-                  {membershipEndDate.toLocaleDateString()}
-                </span>
-              </div>
-            );
-          })}
-        </div>
+        <MembershipRecap user={user} />
         <Separator />
       </div>
       <ProductPart user={user} isAdmin />

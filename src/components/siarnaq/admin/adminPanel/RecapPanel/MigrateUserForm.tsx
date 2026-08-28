@@ -1,6 +1,7 @@
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/siarnaq/custom/StyledFormField";
 import _migrateUserFormSchema from "@/forms/siarnaq/migrateUserFormSchema";
+import { useYear } from "@/hooks/siarnaq/useYear";
 import { useCoreVariables } from "@/hooks/useCoreVariables";
 
 import { useTranslations } from "next-intl";
@@ -29,12 +30,11 @@ export const MigrateUserForm = ({
   isLoading,
   closeDialog,
 }: MigrateUserFormProps) => {
-  /*
   const { year } = useYear();
   const possiblePromos = Array.from({ length: 5 }).map((_, index) => {
     return (year - index).toString();
   });
-  */
+
   const t = useTranslations("siarnaq");
 
   const { variables } = useCoreVariables();
@@ -81,27 +81,29 @@ export const MigrateUserForm = ({
             )
           }
         />
-        {/* <StyledFormField
-          form={form}
-          label="Promo"
-          id="promo"
-          input={(field) => (
-            <Select onValueChange={field.onChange} defaultValue={field.value}>
-              <SelectTrigger>
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent side="top">
-                {possiblePromos.map((promo) => (
-                  <SelectItem key={promo} value={promo}>
-                    <div className="flex items-center flex-row gap-2">
-                      Promotion {promo}
-                    </div>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
-        /> */}
+        {
+          <StyledFormField
+            form={form}
+            label="Promo"
+            id="promo"
+            input={(field) => (
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent side="top">
+                  {["null", ...possiblePromos].map((promo) => (
+                    <SelectItem key={promo} value={promo}>
+                      <div className="flex items-center flex-row gap-2">
+                        {promo === "null" ? "Aucune" : `Promotion ${promo}`}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+        }
       </div>
       {/* <div className="flex flex-row gap-2 w-full">
         <StyledFormField
