@@ -20,22 +20,22 @@ import {
 
 const AdminPage = () => {
   const { setSize, size } = useSizeStore();
-  const { user } = useMeUser();
-  const { sellers } = useSellers();
+  const { user, isLoading: isUserLoading } = useMeUser();
+  const { sellers, isLoading: isSellerLoading } = useSellers();
   const router = useRouter();
   const { status } = useStatus();
   const { isCdrAdmin } = useHasCdrPermission();
 
   useEffect(() => {
-    if (!user) return;
-    const userGroups = user.groups?.map((group) => group.id);
+    if (!isUserLoading || !isSellerLoading) return;
+    const userGroups = user?.groups?.map((group) => group.id);
     const isUserInASellerGroup = userGroups?.some((group) =>
       sellers.some((seller) => seller.group_id === group),
     );
     if (!isCdrAdmin && !isUserInASellerGroup) {
       router.push("/");
     }
-  }, [isCdrAdmin, router, sellers, user]);
+  }, [isCdrAdmin, router, sellers, user, isUserLoading, isSellerLoading]);
 
   useEffect(() => {
     if (status?.status) {
