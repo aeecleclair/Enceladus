@@ -12,6 +12,10 @@
     "i18n": "i18n-check --source fr --locales src/translations src -f next-intl"
   },
   "dependencies": {
+    "@base-ui/react": "^1.7.0",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
     "@documenso/embed-react": "^0.6.1",
     "@heroicons/react": "^2.1.3",
     "@hookform/resolvers": "^5.2.2",
