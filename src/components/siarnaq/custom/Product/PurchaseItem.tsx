@@ -22,7 +22,6 @@ import { useToast } from "@/components/ui/use-toast";
 interface PurchaseItemProps {
   purchase: PurchaseReturn;
   allProducts: AppModulesCdrSchemasCdrProductComplete[];
-  allConstraintIds?: (string | undefined)[];
   allPurchasesIds?: string[];
   userAssociationsMembershipsIds?: string[];
   user: CdrUser;
@@ -33,7 +32,6 @@ interface PurchaseItemProps {
 export const PurchaseItem = ({
   purchase,
   allProducts,
-  allConstraintIds,
   allPurchasesIds,
   userAssociationsMembershipsIds,
   user,
@@ -46,33 +44,30 @@ export const PurchaseItem = ({
   const { refetch } = useUserPurchases(user.id);
   const { selectTranslation } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
-  const purchaseCompleteProduct = allProducts.find(
-    (product) => product.id === purchase.product.id,
+
+  const blockingConstraints = purchase.product.product_constraints?.filter(
+    (constraint) => {
+      if (allPurchasesIds?.includes(constraint.id)) return false;
+      if (!constraint.related_membership) return true;
+      const relatedMembershipId = constraint.related_membership.id;
+      const hasMembership =
+        userAssociationsMembershipsIds?.includes(relatedMembershipId) ||
+        allProducts
+          .filter((product) => allPurchasesIds?.includes(product.id))
+          .some((product) => {
+            return (
+              product.related_membership &&
+              product.related_membership.id == relatedMembershipId
+            );
+          });
+
+      return !hasMembership;
+    },
   );
-  const missingConstraintProduct =
-    purchaseCompleteProduct?.product_constraints?.filter((constraint) =>
-      allConstraintIds?.includes(constraint.id),
-    );
-
-  const blockingConstraints = missingConstraintProduct?.filter((constraint) => {
-    const isPurchased = allPurchasesIds?.includes(constraint.id);
-
-    const constraintCompleteProduct = allProducts.find(
-      (product) => product.id === constraint.id,
-    );
-
-    const hasMembership =
-      constraintCompleteProduct?.related_membership &&
-      userAssociationsMembershipsIds?.includes(
-        constraintCompleteProduct.related_membership.id,
-      );
-
-    return !isPurchased && !hasMembership;
-  });
 
   const displayWarning = blockingConstraints && blockingConstraints.length > 0;
 
-  const variant = purchaseCompleteProduct?.variants?.find(
+  const variant = purchase.product.variants?.find(
     (variant: AppModulesCdrSchemasCdrProductVariantComplete) =>
       variant.id === purchase.product_variant_id,
   );

@@ -1,10 +1,6 @@
 import { PurchaseItem, onValidate } from "./PurchaseItem";
 
-import {
-  AppModulesCdrSchemasCdrProductComplete,
-  CdrUser,
-  ProductCompleteNoConstraint,
-} from "@/api";
+import { CdrUser } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { useProducts } from "@/hooks/siarnaq/useProducts";
 import { useUserMemberships } from "@/hooks/siarnaq/useUserMemberships";
@@ -24,7 +20,6 @@ interface ProductPartProps {
 }
 
 export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
-  const tOnValidate = useTranslations("siarnaq.onValidate");
   const t = useTranslations("siarnaq");
   const format = useFormatter();
   const pathname = usePathname();
@@ -34,15 +29,6 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
   const { purchases, total: totalToPay, refetch } = useUserPurchases(user.id);
   const { products: allProducts } = useProducts();
 
-  const allConstraint = allProducts
-    .map(
-      (product: AppModulesCdrSchemasCdrProductComplete) =>
-        product.product_constraints || [],
-    )
-    .flat();
-  const allConstraintIds = allConstraint.map(
-    (constraint: ProductCompleteNoConstraint) => constraint.id,
-  );
   const userAssociationsMembershipsIds = memberships
     .filter(
       (membership) =>
@@ -68,7 +54,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
               setIsLoading,
               refetch,
               toast,
-              tOnValidate,
+              t,
             ),
           ),
       );
@@ -118,7 +104,6 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
                   <PurchaseItem
                     key={purchase.product_variant_id}
                     allProducts={allProducts}
-                    allConstraintIds={allConstraintIds}
                     allPurchasesIds={purchases.map(
                       (purchase) => purchase.product.id,
                     )}
@@ -162,7 +147,6 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
                   <PurchaseItem
                     key={purchase.product_variant_id}
                     allProducts={allProducts}
-                    allConstraintIds={allConstraintIds}
                     allPurchasesIds={purchases.map(
                       (purchase) => purchase.product.id,
                     )}
