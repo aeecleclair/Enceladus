@@ -45,25 +45,27 @@ export const PurchaseItem = ({
   const { selectTranslation } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
 
-  const blockingConstraints = purchase.product.product_constraints?.filter(
-    (constraint) => {
-      if (allPurchasesIds?.includes(constraint.id)) return false;
-      if (!constraint.related_membership) return true;
-      const relatedMembershipId = constraint.related_membership.id;
-      const hasMembership =
-        userAssociationsMembershipsIds?.includes(relatedMembershipId) ||
-        allProducts
-          .filter((product) => allPurchasesIds?.includes(product.id))
-          .some((product) => {
-            return (
-              product.related_membership &&
-              product.related_membership.id == relatedMembershipId
-            );
-          });
+  const constraints = allProducts.find(
+    (product) => product.id === purchase.product.id,
+  )?.product_constraints;
 
-      return !hasMembership;
-    },
-  );
+  const blockingConstraints = constraints?.filter((constraint) => {
+    if (allPurchasesIds?.includes(constraint.id)) return false;
+    if (!constraint.related_membership) return true;
+    const relatedMembershipId = constraint.related_membership.id;
+    const hasMembership =
+      userAssociationsMembershipsIds?.includes(relatedMembershipId) ||
+      allProducts
+        .filter((product) => allPurchasesIds?.includes(product.id))
+        .some((product) => {
+          return (
+            product.related_membership &&
+            product.related_membership.id == relatedMembershipId
+          );
+        });
+
+    return !hasMembership;
+  });
 
   const displayWarning = blockingConstraints && blockingConstraints.length > 0;
 
