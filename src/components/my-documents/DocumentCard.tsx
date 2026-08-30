@@ -20,7 +20,6 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
     refetchData,
     refetchDocumentWithToken,
     isDocumentWithTokenLoading,
-    documentWithToken,
   } = useDocument();
   const [isFileLoading, setIsFileLoading] = useState(false);
 
@@ -52,8 +51,9 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
 
   function signDocument(documentId: string) {
     setDocumentId(documentId);
-    refetchDocumentWithToken().then(() => {
-      if (!documentWithToken) {
+    refetchDocumentWithToken().then((result) => {
+      const token = result.data?.signing_token;
+      if (!token) {
         toast({
           title: "Erreur",
           description: "Impossible de récupérer le token de signature",
@@ -61,7 +61,6 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
         });
         return;
       }
-      const signingToken = documentWithToken.signing_token;
       const fullName = encodeURIComponent(
         user ? `${user?.firstname} ${user?.name}` : "",
       );
@@ -69,7 +68,7 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
       router.push({
         pathname: `/sign`,
         query: {
-          signingToken: signingToken,
+          signingToken: token,
           fullName: fullName,
           email: email,
         },
