@@ -16,12 +16,14 @@ interface DataTableToolbarProps<TData> {
   table: Table<TData>;
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
+  accountTypes: AccountType[];
 }
 
 export function DataTableToolbar<TData>({
   table,
   globalFilter,
   setGlobalFilter,
+  accountTypes,
 }: DataTableToolbarProps<TData>) {
   const t = useTranslations("siarnaq");
   const { curriculums } = useCurriculums();
@@ -55,12 +57,7 @@ export function DataTableToolbar<TData>({
           <DataTableFacetedFilter
             column={table.getColumn("account_type")}
             title={t("dataTableToolbar.accountType")}
-            options={Array.from(
-              table
-                .getColumn("account_type")
-                ?.getFacetedUniqueValues()
-                .keys() ?? [],
-            ).map((accountType: AccountType) => ({
+            options={accountTypes.map((accountType) => ({
               value: accountType,
               label: t(`accountType.${accountType}`),
             }))}

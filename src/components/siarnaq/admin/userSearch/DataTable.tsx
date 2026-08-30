@@ -71,6 +71,17 @@ export function DataTable<TData, TValue>({
 
   const userId = searchParams.get("userId");
 
+  // Derived from the raw, unfiltered data so the list of choosable account
+  // types stays constant while the user searches — it must not shrink as the
+  // global name search narrows down the visible rows.
+  const accountTypes = React.useMemo(
+    () =>
+      Array.from(
+        new Set((data as CdrUserPreview[]).map((user) => user.account_type)),
+      ),
+    [data],
+  );
+
   const table = useReactTable({
     data,
     columns,
@@ -100,20 +111,24 @@ export function DataTable<TData, TValue>({
   });
   const hasAppliedDefaultAccountTypeFilter = React.useRef(false);
   React.useEffect(() => {
-    if (hasAppliedDefaultAccountTypeFilter.current || data.length === 0) {
+    if (
+      hasAppliedDefaultAccountTypeFilter.current ||
+      accountTypes.length === 0
+    ) {
       return;
     }
     hasAppliedDefaultAccountTypeFilter.current = true;
-    const accountTypes = Array.from(
-      new Set((data as CdrUserPreview[]).map((user) => user.account_type)),
-    ).filter(
-      (accountType) => !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
-    );
     setColumnFilters((prev) => [
       ...prev,
-      { id: "account_type", value: accountTypes },
+      {
+        id: "account_type",
+        value: accountTypes.filter(
+          (accountType) =>
+            !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
+        ),
+      },
     ]);
-  }, [data]);
+  }, [accountTypes]);
 
   React.useEffect(() => {
     if (userId && !table.getIsSomeRowsSelected()) {
@@ -155,6 +170,7 @@ export function DataTable<TData, TValue>({
         table={table}
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
+        accountTypes={accountTypes}
       />
       <div className="rounded-md border">
         <Table>
