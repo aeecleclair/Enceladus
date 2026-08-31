@@ -1,5 +1,6 @@
 "use client";
 
+import { MembershipRecap } from "../../custom/MembershipRecap";
 import { AddProductAccordionItem } from "./AddProductAccordionItem";
 
 import {
@@ -9,6 +10,7 @@ import {
 } from "@/api";
 import { CustomDialog } from "@/components/common/CustomDialog";
 import { ProductAccordion } from "@/components/siarnaq/custom/productAccordion/ProductAccordion";
+import { useCdrUser } from "@/hooks/siarnaq/useCdrUser";
 import { useYear } from "@/hooks/siarnaq/useYear";
 import { useProductExpansionStore } from "@/stores/siarnaq/productExpansionStore";
 import { useTokenStore } from "@/stores/token";
@@ -42,6 +44,7 @@ export const SellerTabContent = ({
   const searchParams = useSearchParams();
   const activeSellerId = searchParams.get("sellerId");
   const userId = searchParams.get("userId");
+  const { user } = useCdrUser(userId);
   const { productExpansion, setExpandedProducts } = useProductExpansionStore();
   const { token } = useTokenStore();
   const { year } = useYear();
@@ -138,6 +141,10 @@ export const SellerTabContent = ({
           </div>
         }
       />
+      {seller.name === "Adhésion" && user !== undefined && (
+        <MembershipRecap user={user} />
+      )}
+
       <div className="flex border-b">
         <AddProductAccordionItem
           seller={seller}
