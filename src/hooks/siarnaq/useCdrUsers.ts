@@ -110,5 +110,6 @@ export const useUsers = () => {
     isLoading,
     refetch,
     newPaymentNotification,
+    setNewPaymentNotification,
   };
 };

@@ -302,7 +302,8 @@
     "noCurriculum": "Pas de cursus",
     "paymentQr": "QR de paiement",
     "paymentQrError": "Impossible de générer le lien de paiement.",
-    "paymentQrTitle": "Paiement HelloAsso"
+    "paymentQrTitle": "Paiement HelloAsso",
+    "paymentReceived": "Payment received"
   },
   "sellerAccordionItem": {
     "association": "Association",

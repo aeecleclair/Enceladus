@@ -18,6 +18,7 @@ import { ProductPart } from "@/components/siarnaq/custom/Product/ProductPart";
 import { TextSeparator } from "@/components/siarnaq/custom/TextSeparator";
 import UserDisplayName from "@/components/siarnaq/custom/displayName";
 import _migrateUserFormSchema from "@/forms/siarnaq/migrateUserFormSchema";
+import { useUsers } from "@/hooks/siarnaq/useCdrUsers";
 import { useCurriculums } from "@/hooks/siarnaq/useCurriculums";
 import { useUserPayments } from "@/hooks/siarnaq/useUserPayments";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
@@ -67,8 +68,7 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
     user.curriculum?.id,
   );
 
-  const [newPaymentNotification, setNewPaymentNotification] =
-    useState<MyPaymentPaymentMessage | null>(null);
+  const { newPaymentNotification, setNewPaymentNotification } = useUsers();
 
   const validEmailRegex = /^[\w\-.]*@etu(-enise)?\.ec-lyon\.fr$/;
   function closeDialog(event: React.MouseEvent<HTMLButtonElement>) {
@@ -142,11 +142,24 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
 
   useEffect(() => {
     if (newPaymentNotification?.user_id === user.id) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+      console.log("Payment received for user:", user.id);
+
       setNewPaymentNotification(null);
-      refetchPayments();
+      refetchPayments().then(({}) => {
+        toast({
+          title: t("recapPanel.paymentReceived"),
+          variant: "default",
+        });
+      });
     }
-  }, [newPaymentNotification, user.id, refetchPayments]);
+  }, [
+    newPaymentNotification,
+    setNewPaymentNotification,
+    user.id,
+    refetchPayments,
+    t,
+    toast,
+  ]);
 
   async function onSubmit(values: z.infer<typeof migrateUserFormSchema>) {
     setIsLoading(true);
