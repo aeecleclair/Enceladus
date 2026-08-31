@@ -293,7 +293,8 @@
     "paymentQrTitle": "Paiement HelloAsso"
   },
   "sellerAccordionItem": {
-    "association": "Association"
+    "association": "Association",
+    "sellerName": "Nom du vendeur"
   },
   "sellerTabContent": {
     "cancel": "Annuler",

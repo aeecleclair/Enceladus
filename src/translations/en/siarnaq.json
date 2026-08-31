@@ -294,7 +294,8 @@
     "paymentQrTitle": "HelloAsso payment"
   },
   "sellerAccordionItem": {
-    "association": "Association"
+    "association": "Association",
+    "sellerName": "Seller name"
   },
   "sellerTabContent": {
     "cancel": "Cancel",

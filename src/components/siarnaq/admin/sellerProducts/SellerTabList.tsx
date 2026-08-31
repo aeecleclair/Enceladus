@@ -30,16 +30,18 @@ export const SellerTabList = ({
 
   return (
     <TabsList className={`grid w-full grid-flow-row grid-cols-7 h-fit`}>
-      {sellers.map((seller) => (
-        <TabsTrigger
-          key={seller.id}
-          value={seller.id}
-          className="min-w-0 w-full"
-          onClick={() => handleClick(seller.id)}
-        >
-          <span className="block w-full truncate">{seller.name}</span>
-        </TabsTrigger>
-      ))}
+      {sellers
+        .sort((a, b) => a.order - b.order)
+        .map((seller) => (
+          <TabsTrigger
+            key={seller.id}
+            value={seller.id}
+            className="min-w-0 w-full"
+            onClick={() => handleClick(seller.id)}
+          >
+            <span className="block w-full truncate">{seller.name}</span>
+          </TabsTrigger>
+        ))}
       {isAdmin && (
         <>
           <TabsTrigger
