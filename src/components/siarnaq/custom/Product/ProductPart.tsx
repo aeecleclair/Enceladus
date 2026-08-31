@@ -65,14 +65,15 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
       });
     } finally {
       refetch().then(({ data }) => {
+        const notValidated = data?.some(
+          (purchase) =>
+            purchase.product.needs_validation && !purchase.validated,
+        );
         toast({
-          title: data?.some(
-            (purchase) =>
-              purchase.product.needs_validation && !purchase.validated,
-          )
+          title: notValidated
             ? t("productPart.unvalidated")
             : t("productPart.validated"),
-          variant: "default",
+          variant: notValidated ? "destructive" : "default",
         });
       });
 
