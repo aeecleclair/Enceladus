@@ -4,6 +4,8 @@ import { PaymentQrButton } from "./PaymentQrButton";
 import {
   CdrUser,
   CdrUserUpdate,
+  MyPaymentPaymentMessage,
+  UserMembershipComplete,
   patchCdrUsersUserId,
   patchCdrUsersUserIdCurriculumsCurriculumId,
   postCdrUsersUserIdCurriculumsCurriculumId,
@@ -52,7 +54,9 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
   const t = useTranslations("siarnaq");
   const format = useFormatter();
   const { toast } = useToast();
-  const { total: totalPaid } = useUserPayments(user.id);
+  const { total: totalPaid, refetch: refetchPayments } = useUserPayments(
+    user.id,
+  );
   const { total: totalToPay } = useUserPurchases(user.id);
   const { curriculums } = useCurriculums();
   const remainingToPay = (totalToPay ?? 0) - (totalPaid ?? 0);
@@ -62,6 +66,9 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
   const [selectedCurriculum, setSelectedCurriculum] = useState(
     user.curriculum?.id,
   );
+
+  const [newPaymentNotification, setNewPaymentNotification] =
+    useState<MyPaymentPaymentMessage | null>(null);
 
   const validEmailRegex = /^[\w\-.]*@etu(-enise)?\.ec-lyon\.fr$/;
   function closeDialog(event: React.MouseEvent<HTMLButtonElement>) {
@@ -132,6 +139,14 @@ export const RecapPanel = ({ user, refetch }: RecapPanelProps) => {
       promo: user.promo?.toString() ?? "null",
     });
   }, [user, form]);
+
+  useEffect(() => {
+    if (newPaymentNotification?.user_id === user.id) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setNewPaymentNotification(null);
+      refetchPayments();
+    }
+  }, [newPaymentNotification, user.id, refetchPayments]);
 
   async function onSubmit(values: z.infer<typeof migrateUserFormSchema>) {
     setIsLoading(true);

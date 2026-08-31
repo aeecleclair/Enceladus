@@ -1,4 +1,9 @@
-import { CdrUser, CdrUserPreview, getCdrUsers } from "@/api";
+import {
+  CdrUser,
+  CdrUserPreview,
+  MyPaymentPaymentMessage,
+  getCdrUsers,
+} from "@/api";
 import { useAuth } from "@/app/authContext";
 import { useTokenStore } from "@/stores/token";
 
@@ -10,12 +15,14 @@ export interface WSStatus {
 }
 interface UserStreamMessage {
   command: string;
-  data: CdrUser | WSStatus;
+  data: CdrUser | WSStatus | MyPaymentPaymentMessage;
 }
 
 export const useUsers = () => {
   const { isTokenExpired } = useAuth();
   const [returnedUsers, setReturnedUsers] = useState<CdrUserPreview[]>([]);
+  const [newPaymentNotification, setNewPaymentNotification] =
+    useState<MyPaymentPaymentMessage | null>(null);
   const { isLoading, refetch } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
@@ -78,6 +85,10 @@ export const useUsers = () => {
               ),
             );
             break;
+          case "MYPAYMENT_PAYMENT":
+            const paymentMessage = message.data as MyPaymentPaymentMessage;
+            setNewPaymentNotification(paymentMessage);
+            break;
           case "WSStatus":
             if ((message.data as WSStatus).status === "invalid_token") {
               console.log("Invalid token");
@@ -98,5 +109,6 @@ export const useUsers = () => {
     users: returnedUsers,
     isLoading,
     refetch,
+    newPaymentNotification,
   };
 };
