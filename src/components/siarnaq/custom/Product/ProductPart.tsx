@@ -33,7 +33,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
     .filter(
       (membership) =>
         new Date(membership.end_date).getTime() >
-        new Date(new Date().getFullYear(), 9, 30).getTime(),
+        new Date(new Date().getFullYear(), 9, 15).getTime(),
     )
     .map((membership) => membership.association_membership_id);
 

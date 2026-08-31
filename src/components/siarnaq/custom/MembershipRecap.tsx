@@ -29,7 +29,8 @@ export const MembershipRecap = ({ user }: MembershipRecapProps) => {
           const membershipStartDate = new Date(membership.start_date);
           const membershipEndDate = new Date(membership.end_date);
           const isMembershipActive =
-            new Date().getTime() < membershipEndDate.getTime();
+            new Date(new Date().getFullYear(), 9, 15).getTime() <
+            membershipEndDate.getTime();
           return (
             <div
               key={membership.id}
