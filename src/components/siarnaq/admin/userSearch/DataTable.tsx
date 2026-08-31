@@ -1,9 +1,10 @@
 "use client";
 
+import { DEFAULT_EXCLUDED_ACCOUNT_TYPES } from "./Columns";
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 
-import { CoreUserSimple } from "@/api";
+import { CdrUserPreview, CoreUserSimple } from "@/api";
 import { useRouter } from "@/i18n/navigation";
 import { fuzzyFilter } from "@/lib/utils";
 
@@ -70,6 +71,17 @@ export function DataTable<TData, TValue>({
 
   const userId = searchParams.get("userId");
 
+  // Derived from the raw, unfiltered data so the list of choosable account
+  // types stays constant while the user searches — it must not shrink as the
+  // global name search narrows down the visible rows.
+  const accountTypes = React.useMemo(
+    () =>
+      Array.from(
+        new Set((data as CdrUserPreview[]).map((user) => user.account_type)),
+      ),
+    [data],
+  );
+
   const table = useReactTable({
     data,
     columns,
@@ -97,6 +109,27 @@ export function DataTable<TData, TValue>({
     globalFilterFn: "fuzzy",
     onGlobalFilterChange: setGlobalFilter,
   });
+  const hasAppliedDefaultAccountTypeFilter = React.useRef(false);
+  React.useEffect(() => {
+    if (
+      hasAppliedDefaultAccountTypeFilter.current ||
+      accountTypes.length === 0
+    ) {
+      return;
+    }
+    hasAppliedDefaultAccountTypeFilter.current = true;
+    setColumnFilters((prev) => [
+      ...prev,
+      {
+        id: "account_type",
+        value: accountTypes.filter(
+          (accountType) =>
+            !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
+        ),
+      },
+    ]);
+  }, [accountTypes]);
+
   React.useEffect(() => {
     if (userId && !table.getIsSomeRowsSelected()) {
       const userIndex = data.findIndex(
@@ -137,6 +170,7 @@ export function DataTable<TData, TValue>({
         table={table}
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
+        accountTypes={accountTypes}
       />
       <div className="rounded-md border">
         <Table>

@@ -1,4 +1,13 @@
 {
+  "accountType": {
+    "association": "Association",
+    "demo": "Demo",
+    "external": "External",
+    "former_student": "Former student",
+    "other_school_student": "Student from another school",
+    "staff": "Staff",
+    "student": "Student"
+  },
   "addCurriculumButton": {
     "add": "Add",
     "curriculumName": "Curriculum name",
@@ -84,6 +93,7 @@
     "noResult": "No result"
   },
   "dataTableColumnHeader": {
+    "accountType": "Account type",
     "asc": "Ascending",
     "curriculum": "Curriculum",
     "desc": "Descending",
@@ -116,11 +126,13 @@
     "removeMember": "Remove member"
   },
   "dataTableToolbar": {
+    "accountType": "Account type",
     "curriculum": "Curriculum",
     "filter": "Filter",
     "noCurriculum": "No curriculum"
   },
   "dataTableViewOptions": {
+    "account_type": "Account type",
     "activateColumns": "Activate columns",
     "columns": "Columns",
     "curriculum": "Curriculum",
