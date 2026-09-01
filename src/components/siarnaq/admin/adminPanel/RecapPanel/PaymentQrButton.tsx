@@ -31,7 +31,7 @@ export const PaymentQrButton = ({
 
   return (
     <CustomDialog
-      isOpened={isOpened}
+      isOpened={isOpened && !disabled}
       setIsOpened={disabled ? () => {} : setIsOpened}
       title={t("recapPanel.paymentQrTitle")}
       description={

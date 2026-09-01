@@ -303,7 +303,8 @@
     "noCurriculum": "No curriculum",
     "paymentQr": "Payment QR code",
     "paymentQrError": "Unable to generate the payment link.",
-    "paymentQrTitle": "HelloAsso payment"
+    "paymentQrTitle": "HelloAsso payment",
+    "paymentReceived": "Payment received"
   },
   "sellerAccordionItem": {
     "association": "Association",
