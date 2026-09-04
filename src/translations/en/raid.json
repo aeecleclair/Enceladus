@@ -245,7 +245,26 @@
       "paid": "Paid"
     },
     "securityFile": {
-      "title": "Health file"
+      "title": "Security file",
+      "consentLabel": "Consent for medical information",
+      "consentDescription": "By checking this box, you authorize the collection and processing of your medical information (allergies, medical history, ongoing treatments, etc.) as part of your participation in the Raid. This information will only be accessible to authorized personnel (medical team, organizers) in case of emergency.",
+      "noConsentMessage": "Consent for medical information has not been given.",
+      "medicalInfo": "Medical Information",
+      "allergy": "Allergies",
+      "asthma": "Asthma",
+      "intensiveCare": "Intensive Care Unit Stay",
+      "intensiveCareDate": "Date of Intensive Care Unit Stay",
+      "ongoingTreatment": "Ongoing Treatment",
+      "sicknesses": "Sicknesses",
+      "hospitalization": "Hospitalization",
+      "surgicalOperation": "Surgical Operation",
+      "trauma": "Trauma",
+      "family": "Family History",
+      "emergencyPerson": "Emergency Contact Person",
+      "emergencyFirstname": "First Name",
+      "emergencyName": "Last Name",
+      "emergencyPhone": "Phone",
+      "validate": "Validate"
     }
   },
   "volunteer": {

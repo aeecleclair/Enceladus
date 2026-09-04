@@ -245,7 +245,26 @@
       "paid": "Payé"
     },
     "securityFile": {
-      "title": "Fiche sanitaire"
+      "title": "Fiche de sécurité",
+      "consentLabel": "Consentement pour les informations médicales",
+      "consentDescription": "En cochant cette case, vous autorisez la collecte et le traitement de vos informations médicales (allergies, antécédents, traitements en cours, etc.) dans le cadre de votre participation au raid. Ces informations seront accessibles uniquement aux personnes habilitées (équipe médicale, organisateurs) en cas d'urgence.",
+      "noConsentMessage": "Le consentement pour les informations médicales n'a pas été donné.",
+      "medicalInfo": "Informations médicales",
+      "allergy": "Allergies",
+      "asthma": "Asthme",
+      "intensiveCare": "Passage en soins intensifs",
+      "intensiveCareDate": "Date de passage en soins intensifs",
+      "ongoingTreatment": "Traitement en cours",
+      "sicknesses": "Maladies",
+      "hospitalization": "Hospitalisation",
+      "surgicalOperation": "Opération chirurgicale",
+      "trauma": "Traumatisme",
+      "family": "Antécédents familiaux",
+      "emergencyPerson": "Personne à prévenir en cas d'urgence",
+      "emergencyFirstname": "Prénom",
+      "emergencyName": "Nom",
+      "emergencyPhone": "Téléphone",
+      "validate": "Valider"
     }
   },
   "volunteer": {
