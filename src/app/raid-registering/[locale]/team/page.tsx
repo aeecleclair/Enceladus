@@ -40,6 +40,12 @@ const TeamPage = () => {
     }
   }, [isFetched, me, router]);
 
+  useEffect(() => {
+    if (isFetched && me !== undefined && team === null) {
+      router.replace("/");
+    }
+  }, [isFetched, me, team, router]);
+
   const isLoading = !isFetched || isTeamLoading;
 
   return (

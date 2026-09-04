@@ -36,10 +36,13 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { HeartHandshake } from "lucide-react";
+import PhoneInput from "react-phone-input-2";
 
 const DEFAULT_VALUES: VolunteerFormSchema = {
   diet: "",
   allergy: "",
+  emergency_person_name: "",
+  emergency_person_phone: "",
   has_car: false,
   car_seats: undefined,
   is_special_driver: false,
@@ -80,7 +83,7 @@ const VolunteerPage = () => {
 
   useEffect(() => {
     if (!isLoading && !meVolunteer) {
-      router.replace("/register?role=volunteer");
+      router.replace("/volunteer-register");
     }
   }, [isLoading, meVolunteer, router]);
 
@@ -89,6 +92,8 @@ const VolunteerPage = () => {
       form.reset({
         diet: meVolunteer.diet ?? "",
         allergy: meVolunteer.allergy ?? "",
+        emergency_person_name: meVolunteer.emergency_person_name ?? "",
+        emergency_person_phone: meVolunteer.emergency_person_phone ?? "",
         has_car: meVolunteer.has_car ?? false,
         car_seats: meVolunteer.car_seats ?? undefined,
         is_special_driver: meVolunteer.is_special_driver ?? false,
@@ -109,6 +114,8 @@ const VolunteerPage = () => {
     updateMeVolunteer({
       diet: values.diet || null,
       allergy: values.allergy || null,
+      emergency_person_name: values.emergency_person_name || null,
+      emergency_person_phone: values.emergency_person_phone || null,
       has_car: values.has_car,
       car_seats: values.has_car ? (values.car_seats ?? null) : null,
       is_special_driver: values.is_special_driver,
@@ -189,6 +196,50 @@ const VolunteerPage = () => {
                     </FormItem>
                   )}
                 />
+                {(!form.watch("emergency_person_name") ||
+                  !form.watch("emergency_person_phone")) && (
+                  <div className="rounded-md border border-amber-200 bg-amber-50 p-3 text-sm text-amber-800 dark:border-amber-900/40 dark:bg-amber-950/40 dark:text-amber-300">
+                    {t("emergencyContactRequired")}
+                  </div>
+                )}
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <FormField
+                    control={form.control}
+                    name="emergency_person_name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tr("emergencyPersonName")}</FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            placeholder={t("emergencyPersonNamePlaceholder")}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="emergency_person_phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{tr("emergencyPersonPhone")}</FormLabel>
+                        <FormControl>
+                          <PhoneInput
+                            country={"fr"}
+                            specialLabel=""
+                            placeholder={t("emergencyPersonPhonePlaceholder")}
+                            inputClass="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            dropdownClass="z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <FormField
                   control={form.control}
                   name="has_car"
