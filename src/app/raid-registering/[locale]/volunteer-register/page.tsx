@@ -86,6 +86,8 @@ const VolunteerRegisterPage = () => {
         is_special_driver: false,
         is_utility_vehicle_driver: false,
         is_parcours_helper: false,
+        emergency_person_name: "",
+        emergency_person_phone: "",
       },
       () => router.push("/volunteer"),
     );
