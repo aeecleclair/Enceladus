@@ -1,44 +1,45 @@
+import { useAuth } from "../useAuth";
 import { useReportError } from "./useReportError";
 
-import { RaidParticipant, RaidParticipantUpdate } from "@/api";
+import { RaidParticipantUpdate } from "@/api";
+import type { RaidParticipantRestrictedComplete } from "@/api";
 import {
-  getRaidParticipantsMeQueryKey,
+  getRaidParticipantsUserIdQueryKey,
   patchRaidParticipantsUserIdMutation,
-  postRaidParticipantsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { getRaidParticipantsMe } from "@/api/sdk.gen";
-import { useAuth } from "@/app/authContext";
+import { getRaidParticipantsUserId } from "@/api/sdk.gen";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { useToast } from "@/components/ui/use-toast";
 
-export const useMeParticipant = () => {
+export const useParticipant = (userId: string) => {
   const { isTokenExpired } = useAuth();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const reportError = useReportError();
 
-  const participantsQueryKey = getRaidParticipantsMeQueryKey({});
+  const participantQueryKey = getRaidParticipantsUserIdQueryKey({
+    path: { user_id: userId },
+  });
 
   const invalidate = () => {
-    if (participantsQueryKey) {
-      queryClient.invalidateQueries({ queryKey: participantsQueryKey });
-    }
+    queryClient.invalidateQueries({ queryKey: participantQueryKey });
   };
 
   const {
-    data: me,
+    data: participant,
     isLoading,
     isFetched,
     refetch,
-  } = useQuery<RaidParticipant | null>({
-    queryKey: getRaidParticipantsMeQueryKey({}),
+  } = useQuery<RaidParticipantRestrictedComplete | null>({
+    queryKey: participantQueryKey,
     // Treat 404 as "no participant yet" (null) instead of an error. Errored
     // queries bypass staleTime and refetch on every remount, which floods the
     // backend when many components observe this hook on first paint.
     queryFn: async ({ signal }) => {
-      const { data, error, response } = await getRaidParticipantsMe({
+      const { data, error, response } = await getRaidParticipantsUserId({
+        path: { user_id: userId },
         signal,
       });
       if (response?.status === 404) return null;
@@ -48,25 +49,6 @@ export const useMeParticipant = () => {
     enabled: !isTokenExpired(),
     retry: 0,
   });
-
-  const {
-    mutate: mutateCreateParticipant,
-    isPending: isCreationLoading,
-    isSuccess: isCreationSuccess,
-  } = useMutation({
-    ...postRaidParticipantsMutation(),
-    onSuccess: () => {
-      toast({ title: "Inscription créée" });
-      invalidate();
-    },
-    onError: reportError("Erreur lors de la création du participant"),
-  });
-
-  const createParticipant = (callback: () => void) => {
-    mutateCreateParticipant(undefined as never, {
-      onSuccess: () => callback(),
-    });
-  };
 
   const {
     mutate: mutateUpdateParticipant,
@@ -83,11 +65,10 @@ export const useMeParticipant = () => {
 
   const updateParticipant = (
     participant: RaidParticipantUpdate,
-    participantUserId: string,
     callback: () => void,
   ) => {
     mutateUpdateParticipant(
-      { body: participant, path: { user_id: participantUserId } },
+      { body: participant, path: { user_id: userId } },
       {
         onSuccess: () => {
           refetch();
@@ -98,13 +79,10 @@ export const useMeParticipant = () => {
   };
 
   return {
-    me,
+    participant,
     isLoading,
     isFetched,
     refetch,
-    createParticipant,
-    isCreationSuccess,
-    isCreationLoading,
     updateParticipant,
     isUpdateSuccess,
     isUpdateLoading,
