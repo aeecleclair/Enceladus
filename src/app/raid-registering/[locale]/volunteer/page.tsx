@@ -80,7 +80,7 @@ const VolunteerPage = () => {
 
   useEffect(() => {
     if (!isLoading && !meVolunteer) {
-      router.replace("/register?role=volunteer");
+      router.replace("/volunteer-register");
     }
   }, [isLoading, meVolunteer, router]);
 
