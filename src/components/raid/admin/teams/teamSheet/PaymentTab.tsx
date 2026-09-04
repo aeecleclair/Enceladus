@@ -1,6 +1,6 @@
 import { PaymentCardItem } from "./PaymentCardItem";
 
-import { RaidTeam } from "@/api";
+import { RaidTeamComplete } from "@/api";
 import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
 import { usePayment } from "@/hooks/raid/usePayment";
 import { useTeams } from "@/hooks/raid/useTeams";
@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
 interface PaymentTabProps {
-  team: RaidTeam;
+  team: RaidTeamComplete;
 }
 
 export const PaymentTab = ({ team }: PaymentTabProps) => {
