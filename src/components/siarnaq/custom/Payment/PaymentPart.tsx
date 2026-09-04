@@ -134,7 +134,11 @@ export const PaymentPart = ({ user, isAdmin }: PaymentPartProps) => {
                           label={t("paymentPart.amount")}
                           id="total"
                           input={(field) => (
-                            <PriceInput id="price" {...field} />
+                            <PriceInput
+                              id="price"
+                              {...field}
+                              allowNegativeValue
+                            />
                           )}
                         />
                         <StyledFormField
