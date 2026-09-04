@@ -106,8 +106,9 @@ export const ViewEditParticipant = ({
         .partial(),
       securityFile: z
         .object({
+          consent_given: z.boolean().optional(),
           allergy: z.string().optional(),
-          asthma: z.boolean(),
+          asthma: z.boolean().optional(),
           intensive_care_unit: z.boolean().optional(),
           intensive_care_unit_when: z.string().optional(),
           ongoing_treatment: z.string().optional(),
@@ -195,10 +196,11 @@ export const ViewEditParticipant = ({
         type: "parentAuthorization",
       },
       securityFile: {
+        consent_given: participant?.security_file?.consent_given ?? undefined,
         allergy: participant?.security_file?.allergy ?? undefined,
-        asthma: participant?.security_file?.asthma ?? false,
+        asthma: participant?.security_file?.asthma ?? undefined,
         intensive_care_unit:
-          participant?.security_file?.intensive_care_unit ?? false,
+          participant?.security_file?.intensive_care_unit ?? undefined,
         intensive_care_unit_when:
           participant?.security_file?.intensive_care_unit_when ?? undefined,
         ongoing_treatment:
@@ -322,10 +324,11 @@ export const ViewEditParticipant = ({
           type: "parentAuthorization",
         },
         securityFile: {
+          consent_given: values?.securityFile?.consent_given ?? undefined,
           allergy: values?.securityFile?.allergy ?? undefined,
-          asthma: values?.securityFile?.asthma ?? false,
+          asthma: values?.securityFile?.asthma ?? undefined,
           intensive_care_unit:
-            values?.securityFile?.intensive_care_unit ?? false,
+            values?.securityFile?.intensive_care_unit ?? undefined,
           intensive_care_unit_when:
             values?.securityFile?.intensive_care_unit_when ?? undefined,
           ongoing_treatment:
