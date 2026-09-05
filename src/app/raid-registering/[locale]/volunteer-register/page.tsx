@@ -63,10 +63,6 @@ const VolunteerRegisterPage = () => {
   }, [isTokenQueried, token, router]);
 
   useEffect(() => {
-    if (me) router.replace("/team");
-  }, [me, router]);
-
-  useEffect(() => {
     if (meVolunteer) router.replace("/volunteer");
   }, [meVolunteer, router]);
 
@@ -93,7 +89,7 @@ const VolunteerRegisterPage = () => {
     );
   };
 
-  const hasExistingRole = !!me || !!meVolunteer;
+  const hasExistingRole = !!meVolunteer;
   const currentStep: RegisterStepId = identityConfirmed
     ? "confirm"
     : "identity";
