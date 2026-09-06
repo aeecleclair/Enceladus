@@ -1,6 +1,6 @@
 "use client";
 
-import { columns } from "./Columns";
+import { DEFAULT_EXCLUDED_ACCOUNT_TYPES, columns } from "./Columns";
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 
@@ -68,6 +68,34 @@ export function UserSearch() {
   const userId = searchParams.get("userId");
 
   const data = showPendingUsers ? pendingUsers : users;
+
+  const accountTypes = React.useMemo(
+    () =>
+      Array.from(
+        new Set((data as CdrUserPreview[]).map((user) => user.account_type)),
+      ),
+    [data],
+  );
+  const hasAppliedDefaultAccountTypeFilter = React.useRef(false);
+  React.useEffect(() => {
+    if (
+      hasAppliedDefaultAccountTypeFilter.current ||
+      accountTypes.length === 0
+    ) {
+      return;
+    }
+    hasAppliedDefaultAccountTypeFilter.current = true;
+    setColumnFilters((prev) => [
+      ...prev,
+      {
+        id: "account_type",
+        value: accountTypes.filter(
+          (accountType) =>
+            !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
+        ),
+      },
+    ]);
+  }, [accountTypes]);
 
   const table = useReactTable({
     data,
@@ -137,12 +165,7 @@ export function UserSearch() {
           table={table}
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
-          accountTypes={[
-            "student",
-            "staff",
-            "other_school_student",
-            "external",
-          ]}
+          accountTypes={accountTypes}
           showPendingUsers={showPendingUsers}
           setShowPendingUsers={setShowPendingUsers}
         />
