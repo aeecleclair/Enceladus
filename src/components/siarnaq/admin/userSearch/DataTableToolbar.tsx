@@ -16,28 +16,52 @@ interface DataTableToolbarProps<TData> {
   table: Table<TData>;
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
+<<<<<<< Updated upstream
   accountTypes: AccountType[];
+=======
+  showPendingUsers: boolean;
+  setShowPendingUsers: (value: boolean) => void;
+>>>>>>> Stashed changes
 }
 
 export function DataTableToolbar<TData>({
   table,
   globalFilter,
   setGlobalFilter,
+<<<<<<< Updated upstream
   accountTypes,
+=======
+  showPendingUsers,
+  setShowPendingUsers,
+>>>>>>> Stashed changes
 }: DataTableToolbarProps<TData>) {
   const t = useTranslations("siarnaq");
   const { curriculums } = useCurriculums();
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
-        <Input
-          placeholder={t("dataTableToolbar.filter")}
-          value={globalFilter}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setGlobalFilter(event.target.value)
-          }
-          className="h-8 w-37.5 lg:w-62.5"
+    <div className="flex flex-1 items-center space-x-2">
+      <Input
+        placeholder={t("dataTableToolbar.filter")}
+        value={globalFilter}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+          setGlobalFilter(event.target.value)
+        }
+        className="h-8 w-37.5 lg:w-62.5"
+      />
+      {table.getColumn("curriculum") && (
+        <DataTableFacetedFilter
+          column={table.getColumn("curriculum")}
+          title={t("dataTableToolbar.curriculum")}
+          options={(
+            curriculums.map((curriculum) => ({
+              value: curriculum.id,
+              label: curriculum.name,
+            })) as { value: string; label: string }[]
+          ).concat({
+            value: "",
+            label: t("dataTableToolbar.noCurriculum"),
+          })}
         />
+<<<<<<< Updated upstream
         {table.getColumn("curriculum") && (
           <DataTableFacetedFilter
             column={table.getColumn("curriculum")}
@@ -66,6 +90,15 @@ export function DataTableToolbar<TData>({
         <AddUserWithCurriculum />
       </div>
       <DataTableViewOptions table={table} />
+=======
+      )}
+      <AddUserWithCurriculum />
+      <DataTableViewOptions
+        table={table}
+        showPendingUsers={showPendingUsers}
+        setShowPendingUsers={setShowPendingUsers}
+      />
+>>>>>>> Stashed changes
     </div>
   );
 }

@@ -138,7 +138,9 @@
     "firstname": "Prénom",
     "name": "Nom",
     "nickname": "Surnom",
-    "promo": "Promotion"
+    "pendingUsers": "Utilisateurs en attente",
+    "promo": "Promotion",
+    "showPendingUsers": "Filtrer les utilisateurs"
   },
   "info": {
     "cautionDescription": "Si vous prenez une place pour le Week-End d'Intégration (WEI), vous devez fournir une caution de 200 € par empreinte bancaire. Vous pouvez compléter la procédure à l'adresse suivante :",

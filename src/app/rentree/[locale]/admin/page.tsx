@@ -1,7 +1,7 @@
 "use client";
 
 import { SellerTab } from "@/components/siarnaq/admin/sellerProducts/SellerTab";
-import { UserSearch } from "@/components/siarnaq/admin/userSearch/UserSearch";
+import { UserSearch } from "@/components/siarnaq/admin/userSearch/UserSearchDataTable";
 import { useHasCdrPermission } from "@/hooks/siarnaq/useHasCdrPermission";
 import { useSellers } from "@/hooks/siarnaq/useSellers";
 import { useStatus } from "@/hooks/siarnaq/useStatus";

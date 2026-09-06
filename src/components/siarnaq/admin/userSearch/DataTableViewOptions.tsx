@@ -16,10 +16,14 @@ import {
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
+  showPendingUsers: boolean;
+  setShowPendingUsers: (value: boolean) => void;
 }
 
 export function DataTableViewOptions<TData>({
   table,
+  showPendingUsers,
+  setShowPendingUsers,
 }: DataTableViewOptionsProps<TData>) {
   const t = useTranslations("siarnaq");
   return (
@@ -31,6 +35,17 @@ export function DataTableViewOptions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-45">
+        <DropdownMenuLabel>
+          {t("dataTableViewOptions.pendingUsers")}
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuCheckboxItem
+          checked={showPendingUsers}
+          onCheckedChange={(value) => setShowPendingUsers(!!value)}
+        >
+          {t("dataTableViewOptions.showPendingUsers")}
+        </DropdownMenuCheckboxItem>
+        <DropdownMenuSeparator />
         <DropdownMenuLabel>
           {t("dataTableViewOptions.activateColumns")}
         </DropdownMenuLabel>
