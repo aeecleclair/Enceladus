@@ -4,8 +4,6 @@ import { PaymentQrButton } from "./PaymentQrButton";
 import {
   CdrUser,
   CdrUserUpdate,
-  MyPaymentPaymentMessage,
-  UserMembershipComplete,
   patchCdrUsersUserId,
   patchCdrUsersUserIdCurriculumsCurriculumId,
   postCdrUsersUserIdCurriculumsCurriculumId,
