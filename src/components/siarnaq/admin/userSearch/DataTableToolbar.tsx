@@ -16,24 +16,18 @@ interface DataTableToolbarProps<TData> {
   table: Table<TData>;
   globalFilter: string;
   setGlobalFilter: (value: string) => void;
-<<<<<<< Updated upstream
   accountTypes: AccountType[];
-=======
   showPendingUsers: boolean;
   setShowPendingUsers: (value: boolean) => void;
->>>>>>> Stashed changes
 }
 
 export function DataTableToolbar<TData>({
   table,
   globalFilter,
   setGlobalFilter,
-<<<<<<< Updated upstream
   accountTypes,
-=======
   showPendingUsers,
   setShowPendingUsers,
->>>>>>> Stashed changes
 }: DataTableToolbarProps<TData>) {
   const t = useTranslations("siarnaq");
   const { curriculums } = useCurriculums();
@@ -61,36 +55,16 @@ export function DataTableToolbar<TData>({
             label: t("dataTableToolbar.noCurriculum"),
           })}
         />
-<<<<<<< Updated upstream
-        {table.getColumn("curriculum") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("curriculum")}
-            title={t("dataTableToolbar.curriculum")}
-            options={(
-              curriculums.map((curriculum) => ({
-                value: curriculum.id,
-                label: curriculum.name,
-              })) as { value: string; label: string }[]
-            ).concat({
-              value: "",
-              label: t("dataTableToolbar.noCurriculum"),
-            })}
-          />
-        )}
-        {table.getColumn("account_type") && (
-          <DataTableFacetedFilter
-            column={table.getColumn("account_type")}
-            title={t("dataTableToolbar.accountType")}
-            options={accountTypes.map((accountType) => ({
-              value: accountType,
-              label: t(`accountType.${accountType}`),
-            }))}
-          />
-        )}
-        <AddUserWithCurriculum />
-      </div>
-      <DataTableViewOptions table={table} />
-=======
+      )}
+      {table.getColumn("account_type") && (
+        <DataTableFacetedFilter
+          column={table.getColumn("account_type")}
+          title={t("dataTableToolbar.accountType")}
+          options={accountTypes.map((accountType) => ({
+            value: accountType,
+            label: t(`accountType.${accountType}`),
+          }))}
+        />
       )}
       <AddUserWithCurriculum />
       <DataTableViewOptions
@@ -98,7 +72,6 @@ export function DataTableToolbar<TData>({
         showPendingUsers={showPendingUsers}
         setShowPendingUsers={setShowPendingUsers}
       />
->>>>>>> Stashed changes
     </div>
   );
 }

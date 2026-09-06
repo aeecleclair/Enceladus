@@ -137,6 +137,12 @@ export function UserSearch() {
           table={table}
           globalFilter={globalFilter}
           setGlobalFilter={setGlobalFilter}
+          accountTypes={[
+            "student",
+            "staff",
+            "other_school_student",
+            "external",
+          ]}
           showPendingUsers={showPendingUsers}
           setShowPendingUsers={setShowPendingUsers}
         />
