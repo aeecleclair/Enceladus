@@ -127,6 +127,7 @@ const VolunteersAdminPage = () => {
                     <TableHead>{t("columns.volunteer")}</TableHead>
                     <TableHead>{t("columns.registeredAt")}</TableHead>
                     <TableHead>{t("columns.status")}</TableHead>
+                    <TableHead>{t("columns.payment")}</TableHead>
                     <TableHead>{t("columns.car")}</TableHead>
                     <TableHead>{t("columns.roles")}</TableHead>
                     <TableHead className="w-12" />
@@ -172,6 +173,23 @@ const VolunteersAdminPage = () => {
                             {v.has_car
                               ? t("carYes", { seats: v.car_seats ?? 0 })
                               : t("carNo")}
+                          </TableCell>
+                          <TableCell>
+                            {v.payment ? (
+                              <Badge
+                                variant="outline"
+                                className="text-emerald-700 dark:text-emerald-400"
+                              >
+                                {t("paid")}
+                              </Badge>
+                            ) : (
+                              <Badge
+                                variant="outline"
+                                className="text-amber-700 dark:text-amber-400"
+                              >
+                                {t("unpaid")}
+                              </Badge>
+                            )}
                           </TableCell>
                           <TableCell>
                             <div className="flex flex-wrap gap-1">
