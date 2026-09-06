@@ -133,11 +133,11 @@
   "dataTableViewOptions": {
     "account_type": "Type de compte",
     "activateColumns": "Activer les colonnes",
-    "columns": "Colonnes",
     "curriculum": "Cursus",
     "firstname": "Prénom",
     "name": "Nom",
     "nickname": "Surnom",
+    "parameters": "Paramètres",
     "pendingUsers": "Utilisateurs en attente",
     "promo": "Promotion",
     "showPendingUsers": "Filtrer les utilisateurs"

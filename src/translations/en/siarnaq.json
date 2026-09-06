@@ -134,11 +134,11 @@
   "dataTableViewOptions": {
     "account_type": "Account type",
     "activateColumns": "Activate columns",
-    "columns": "Columns",
     "curriculum": "Curriculum",
     "firstname": "Firstname",
     "name": "Name",
     "nickname": "Nickname",
+    "parameters": "Parameters",
     "pendingUsers": "Pending users",
     "promo": "Promotion",
     "showPendingUsers": "Show pending users"
