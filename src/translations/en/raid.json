@@ -327,6 +327,16 @@
       "action": "Unregister",
       "confirmTitle": "Confirm unregistration",
       "confirmDescription": "Are you sure you want to unregister as a volunteer?"
+    },
+    "payment": {
+      "pay": "Pay",
+      "paid": "Paid",
+      "title": "Payment",
+      "summary": "Summary",
+      "participation": "Participation",
+      "paymentProviderInfo": "Payment provider information",
+      "helloAssoDescription": "You will be redirected to HelloAsso to proceed with the payment of your registration. This service takes no fees on payments, it relies solely on donations. By default, HelloAsso offers you to make a donation. If you choose to do so, only HelloAsso will benefit from it.",
+      "fullyValidated": "Your file is fully validated!"
     }
   },
   "profile": {
@@ -429,6 +439,7 @@
         "volunteer": "Volunteer",
         "registeredAt": "Registered on",
         "status": "Status",
+        "payment": "Payment",
         "car": "Car",
         "roles": "Roles"
       },
@@ -442,6 +453,8 @@
         "cancel": "Cancel",
         "delete": "Delete"
       },
+      "paid": "Paid",
+      "unpaid": "Unpaid",
       "deleteConfirmTitle": "Delete this volunteer?",
       "deleteConfirmDescription": "This action is irreversible.",
       "sheet": {
@@ -456,7 +469,9 @@
         "allergy": "Allergies",
         "noDiet": "No specific diet",
         "noAllergy": "No allergy",
-        "car": "Car"
+        "car": "Car",
+        "paymentOk": "Payment OK",
+        "paymentPending": "Payment pending"
       }
     },
     "information": {
@@ -485,6 +500,7 @@
         "student": "Student price",
         "external": "External price",
         "partner": "Partner price",
+        "volunteer": "Volunteer price",
         "tShirt": "T-shirt price"
       }
     },

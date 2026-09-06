@@ -4,6 +4,7 @@ import { useAuth } from "@/app/authContext";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { WarningDialog } from "@/components/common/WarningDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
+import { VolunteerPaymentButton } from "@/components/raid/home/volunteerView/VolunteerPaymentButton";
 import {
   VolunteerFormSchema,
   volunteerFormSchema,
@@ -162,6 +163,9 @@ const VolunteerPage = () => {
             <CardDescription>{t("informationSubtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
+            <div className="flex justify-end mb-4">
+              <VolunteerPaymentButton />
+            </div>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
