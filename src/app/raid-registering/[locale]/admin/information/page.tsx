@@ -12,6 +12,7 @@ import { RaidInformationDocument } from "@/components/raid/admin/information/Rai
 import { RaidPartnerPrice } from "@/components/raid/admin/information/RaidPartnerPrice";
 import { RaidRules } from "@/components/raid/admin/information/RaidRules";
 import { RaidStudentPrice } from "@/components/raid/admin/information/RaidStudentPrice";
+import { RaidVolunteerPrice } from "@/components/raid/admin/information/RaidVolunteerPrice";
 import { TShirtPrice } from "@/components/raid/admin/information/TShirtPrice";
 import { useInformation } from "@/hooks/raid/useInformation";
 
@@ -103,6 +104,7 @@ const InformationPage = () => {
           <RaidStudentPrice />
           <RaidExternalPrice />
           <RaidPartnerPrice />
+          <RaidVolunteerPrice />
           <TShirtPrice />
         </div>
       </SectionCard>

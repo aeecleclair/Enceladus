@@ -245,7 +245,26 @@
       "paid": "Payé"
     },
     "securityFile": {
-      "title": "Fiche sanitaire"
+      "title": "Fiche de sécurité",
+      "consentLabel": "Consentement pour les informations médicales",
+      "consentDescription": "En cochant cette case, vous autorisez la collecte et le traitement de vos informations médicales (allergies, antécédents, traitements en cours, etc.) dans le cadre de votre participation au raid. Ces informations seront accessibles uniquement aux personnes habilitées (équipe médicale, organisateurs) en cas d'urgence.",
+      "noConsentMessage": "Le consentement pour les informations médicales n'a pas été donné.",
+      "medicalInfo": "Informations médicales",
+      "allergy": "Allergies",
+      "asthma": "Asthme",
+      "intensiveCare": "Passage en soins intensifs",
+      "intensiveCareDate": "Date de passage en soins intensifs",
+      "ongoingTreatment": "Traitement en cours",
+      "sicknesses": "Maladies",
+      "hospitalization": "Hospitalisation",
+      "surgicalOperation": "Opération chirurgicale",
+      "trauma": "Traumatisme",
+      "family": "Antécédents familiaux",
+      "emergencyPerson": "Personne à prévenir en cas d'urgence",
+      "emergencyFirstname": "Prénom",
+      "emergencyName": "Nom",
+      "emergencyPhone": "Téléphone",
+      "validate": "Valider"
     }
   },
   "volunteer": {
@@ -308,6 +327,16 @@
       "action": "Se désinscrire",
       "confirmTitle": "Confirmer la désinscription",
       "confirmDescription": "Êtes-vous sûr de vouloir vous désinscrire en tant que bénévole ?"
+    },
+    "payment": {
+      "pay": "Payer",
+      "paid": "Payé",
+      "title": "Paiement",
+      "summary": "Récapitulatif",
+      "participation": "Participation",
+      "paymentProviderInfo": "Information sur le prestataire de paiement",
+      "helloAssoDescription": "Vous allez être redirigé vers HelloAsso pour procéder au paiement de votre inscription. Ce service ne prend aucun frais sur les paiements, il se repose uniquement sur les dons. Par défaut, HelloAsso vous propose de faire un don. Si vous choisissez de le faire, seul HelloAsso en bénéficiera.",
+      "fullyValidated": "Votre dossier est totalement validé !"
     }
   },
   "profile": {
@@ -410,6 +439,7 @@
         "volunteer": "Bénévole",
         "registeredAt": "Inscrit le",
         "status": "Statut",
+        "payment": "Paiement",
         "car": "Voiture",
         "roles": "Rôles"
       },
@@ -423,6 +453,8 @@
         "cancel": "Annuler",
         "delete": "Supprimer"
       },
+      "paid": "Payé",
+      "unpaid": "Non payé",
       "deleteConfirmTitle": "Supprimer ce bénévole ?",
       "deleteConfirmDescription": "Cette action est irréversible.",
       "sheet": {
@@ -437,7 +469,9 @@
         "allergy": "Allergies",
         "noDiet": "Aucun régime spécifique",
         "noAllergy": "Aucune allergie",
-        "car": "Voiture"
+        "car": "Voiture",
+        "paymentOk": "Paiement OK",
+        "paymentPending": "Paiement en attente"
       }
     },
     "information": {
@@ -466,6 +500,7 @@
         "student": "Tarif étudiant",
         "external": "Tarif externe",
         "partner": "Tarif partenaire",
+        "volunteer": "Tarif bénévole",
         "tShirt": "Tarif t-shirt"
       }
     },

@@ -1,5 +1,5 @@
 "use client";
-import { RaidTeam } from "@/api";
+import { RaidTeamComplete } from "@/api";
 import { useRouter } from "@/i18n/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -15,7 +15,7 @@ import { Progress } from "@/components/ui/progress";
 import { ArrowRight, ClipboardList } from "lucide-react";
 
 interface IncompleteTeamCardProps {
-  team?: RaidTeam;
+  team?: RaidTeamComplete;
 }
 
 export const IncompleteTeamCard = ({ team }: IncompleteTeamCardProps) => {
