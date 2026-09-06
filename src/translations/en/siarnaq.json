@@ -134,12 +134,14 @@
   "dataTableViewOptions": {
     "account_type": "Account type",
     "activateColumns": "Activate columns",
-    "columns": "Columns",
     "curriculum": "Curriculum",
     "firstname": "Firstname",
     "name": "Name",
     "nickname": "Nickname",
-    "promo": "Promotion"
+    "parameters": "Parameters",
+    "pendingUsers": "Pending users",
+    "promo": "Promotion",
+    "showPendingUsers": "Show pending users"
   },
   "info": {
     "cautionDescription": "If you are taking a place at the Integration Weekend (WEI), you have to do a deposit of 200€ by bank imprint. You can complete the procedure at the following link:",

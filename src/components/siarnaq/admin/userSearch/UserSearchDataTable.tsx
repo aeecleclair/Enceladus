@@ -1,16 +1,17 @@
 "use client";
 
-import { DEFAULT_EXCLUDED_ACCOUNT_TYPES } from "./Columns";
+import { DEFAULT_EXCLUDED_ACCOUNT_TYPES, columns } from "./Columns";
 import { DataTablePagination } from "./DataTablePagination";
 import { DataTableToolbar } from "./DataTableToolbar";
 
 import { CdrUserPreview, CoreUserSimple } from "@/api";
+import { useUsers } from "@/hooks/siarnaq/useCdrUsers";
+import { usePendingUsers } from "@/hooks/siarnaq/usePendingUsers";
 import { useRouter } from "@/i18n/navigation";
 import { fuzzyFilter } from "@/lib/utils";
 
 import { RankingInfo } from "@tanstack/match-sorter-utils";
 import {
-  ColumnDef,
   ColumnFiltersState,
   FilterFn,
   Row,
@@ -48,15 +49,9 @@ declare module "@tanstack/react-table" {
   }
 }
 
-interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-}
-
-export function DataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function UserSearch() {
+  const { users } = useUsers();
+  const { pendingUsers } = usePendingUsers();
   const t = useTranslations("siarnaq");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -68,12 +63,12 @@ export function DataTable<TData, TValue>({
   );
   const [globalFilter, setGlobalFilter] = React.useState("");
   const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [showPendingUsers, setShowPendingUsers] = React.useState(false);
 
   const userId = searchParams.get("userId");
 
-  // Derived from the raw, unfiltered data so the list of choosable account
-  // types stays constant while the user searches — it must not shrink as the
-  // global name search narrows down the visible rows.
+  const data = showPendingUsers ? pendingUsers : users;
+
   const accountTypes = React.useMemo(
     () =>
       Array.from(
@@ -81,6 +76,26 @@ export function DataTable<TData, TValue>({
       ),
     [data],
   );
+  const hasAppliedDefaultAccountTypeFilter = React.useRef(false);
+  React.useEffect(() => {
+    if (
+      hasAppliedDefaultAccountTypeFilter.current ||
+      accountTypes.length === 0
+    ) {
+      return;
+    }
+    hasAppliedDefaultAccountTypeFilter.current = true;
+    setColumnFilters((prev) => [
+      ...prev,
+      {
+        id: "account_type",
+        value: accountTypes.filter(
+          (accountType) =>
+            !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
+        ),
+      },
+    ]);
+  }, [accountTypes]);
 
   const table = useReactTable({
     data,
@@ -109,30 +124,9 @@ export function DataTable<TData, TValue>({
     globalFilterFn: "fuzzy",
     onGlobalFilterChange: setGlobalFilter,
   });
-  const hasAppliedDefaultAccountTypeFilter = React.useRef(false);
-  React.useEffect(() => {
-    if (
-      hasAppliedDefaultAccountTypeFilter.current ||
-      accountTypes.length === 0
-    ) {
-      return;
-    }
-    hasAppliedDefaultAccountTypeFilter.current = true;
-    setColumnFilters((prev) => [
-      ...prev,
-      {
-        id: "account_type",
-        value: accountTypes.filter(
-          (accountType) =>
-            !DEFAULT_EXCLUDED_ACCOUNT_TYPES.includes(accountType),
-        ),
-      },
-    ]);
-  }, [accountTypes]);
-
   React.useEffect(() => {
     if (userId && !table.getIsSomeRowsSelected()) {
-      const userIndex = data.findIndex(
+      const userIndex = users.findIndex(
         (user) => (user as CoreUserSimple).id === userId,
       );
       if (userIndex !== -1) {
@@ -145,7 +139,7 @@ export function DataTable<TData, TValue>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [table.getRowModel().rows, userId]);
 
-  function onUserSelect(row: Row<TData>) {
+  function onUserSelect(row: Row<CdrUserPreview>) {
     if (table.getSelectedRowModel().rows.length) {
       setRowSelection({});
     }
@@ -165,43 +159,64 @@ export function DataTable<TData, TValue>({
   }
 
   return (
-    <div className="space-y-4 w-full">
-      <DataTableToolbar
-        table={table}
-        globalFilter={globalFilter}
-        setGlobalFilter={setGlobalFilter}
-        accountTypes={accountTypes}
-      />
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                    </TableHead>
-                  );
-                })}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows?.length ? (
-              <>
-                {table
-                  .getSelectedRowModel()
-                  .rows.filter((row) => !table.getRowModel().rows.includes(row))
-                  .map((row) => (
+    <div className="flex flex-col items-center m-2">
+      <div className="space-y-4 w-full">
+        <DataTableToolbar
+          table={table}
+          globalFilter={globalFilter}
+          setGlobalFilter={setGlobalFilter}
+          accountTypes={accountTypes}
+          showPendingUsers={showPendingUsers}
+          setShowPendingUsers={setShowPendingUsers}
+        />
+        <div className="rounded-md border">
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => {
+                    return (
+                      <TableHead key={header.id} colSpan={header.colSpan}>
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </TableHead>
+                    );
+                  })}
+                </TableRow>
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                <>
+                  {table
+                    .getSelectedRowModel()
+                    .rows.filter(
+                      (row) => !table.getRowModel().rows.includes(row),
+                    )
+                    .map((row) => (
+                      <TableRow
+                        key={row.id}
+                        data-state={"selected"}
+                        onClick={() => onUserSelect(row)}
+                      >
+                        {row.getVisibleCells().map((cell) => (
+                          <TableCell key={cell.id}>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </TableCell>
+                        ))}
+                      </TableRow>
+                    ))}
+                  {table.getRowModel().rows.map((row) => (
                     <TableRow
                       key={row.id}
-                      data-state={"selected"}
+                      data-state={row.getIsSelected() && "selected"}
                       onClick={() => onUserSelect(row)}
                     >
                       {row.getVisibleCells().map((cell) => (
@@ -214,37 +229,22 @@ export function DataTable<TData, TValue>({
                       ))}
                     </TableRow>
                   ))}
-                {table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                    onClick={() => onUserSelect(row)}
+                </>
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-24 text-center"
                   >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))}
-              </>
-            ) : (
-              <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
-                  {t("dataTable.noResult")}
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+                    {t("dataTable.noResult")}
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </div>
+        <DataTablePagination table={table} />
       </div>
-      <DataTablePagination table={table} />
     </div>
   );
 }
