@@ -4,7 +4,6 @@ import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
 
 import { useToast } from "../ui/use-toast";
 import { Button } from "@/components/ui/button";
@@ -16,17 +15,14 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
   const router = useRouter();
   const { toast } = useToast();
   const {
-    setDocumentId,
     refetchData,
     refetchDocumentWithToken,
     isDocumentWithTokenLoading,
+    isDataLoading,
   } = useDocument();
-  const [isFileLoading, setIsFileLoading] = useState(false);
 
   function downloadDocument(documentId: string) {
-    setIsFileLoading(true);
-    setDocumentId(documentId);
-    refetchData().then((response) => {
+    refetchData(documentId).then((response) => {
       const data = response.data as File | null;
       if (!data) {
         toast({
@@ -34,7 +30,6 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
           description: "Impossible de télécharger le fichier",
           variant: "destructive",
         });
-        setIsFileLoading(false);
         return;
       }
       const extension = data.type.split("/")[1];
@@ -44,14 +39,12 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
       link.href = url;
       link.setAttribute("download", name);
       document.body.appendChild(link);
-      setIsFileLoading(false);
       link.click();
     });
   }
 
   function signDocument(documentId: string) {
-    setDocumentId(documentId);
-    refetchDocumentWithToken().then((result) => {
+    refetchDocumentWithToken(documentId).then((result) => {
       const token = result.data?.signing_token;
       if (!token) {
         toast({
@@ -111,7 +104,7 @@ export const DocumentCard = ({ doc }: { doc: DocumentWithTeamInfo }) => {
             <Button
               variant="outline"
               size="sm"
-              disabled={isFileLoading}
+              disabled={isDataLoading}
               onClick={() => {
                 downloadDocument(doc.id);
               }}
