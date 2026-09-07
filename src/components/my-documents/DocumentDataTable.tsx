@@ -21,7 +21,6 @@ import {
 } from "@tanstack/react-table";
 import { useTranslations } from "next-intl";
 import * as React from "react";
-import { useState } from "react";
 
 import { Checkbox } from "../ui/checkbox";
 import { useToast } from "../ui/use-toast";
@@ -58,8 +57,7 @@ export function DocumentDataTable({
 }: ParticipantDataTableProps) {
   const t = useTranslations("myDocuments");
   const { toast } = useToast();
-  const { setDocumentId, refetchData: refetch } = useDocument();
-  const [isFileLoading, setIsFileLoading] = useState(false);
+  const { refetchData: refetch, isDataLoading } = useDocument();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 10,
@@ -80,9 +78,7 @@ export function DocumentDataTable({
   };
 
   function downloadDocument(targetDocument: TemplateDocuments) {
-    setIsFileLoading(true);
-    setDocumentId(targetDocument.id);
-    refetch().then((response) => {
+    refetch(targetDocument.id).then((response) => {
       const data = response.data as File | null;
       if (!data) {
         toast({
@@ -90,7 +86,6 @@ export function DocumentDataTable({
           description: "Impossible de télécharger le fichier",
           variant: "destructive",
         });
-        setIsFileLoading(false);
         return;
       }
       const extension = data.type.split("/")[1];
@@ -100,7 +95,6 @@ export function DocumentDataTable({
       link.href = url;
       link.setAttribute("download", name);
       document.body.appendChild(link);
-      setIsFileLoading(false);
       link.click();
     });
   }
@@ -234,7 +228,7 @@ export function DocumentDataTable({
               <Button
                 variant="outline"
                 size="sm"
-                disabled={document.status !== "COMPLETED" || isFileLoading}
+                disabled={document.status !== "COMPLETED" || isDataLoading}
                 onClick={() => {
                   downloadDocument(document);
                 }}

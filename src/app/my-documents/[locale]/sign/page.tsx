@@ -122,6 +122,7 @@ const SignDocumentPage = () => {
         }}
         onDocumentCompleted={() => setStatus("completed")}
         onDocumentError={() => setStatus("error")}
+        allowDocumentRejection={true}
       />
 
       {status === "loading" && (

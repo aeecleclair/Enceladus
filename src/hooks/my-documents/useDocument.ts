@@ -11,7 +11,11 @@ export const useDocument = () => {
   const { isTokenExpired } = useAuth();
   const [documentId, setDocumentId] = useState<string>("");
 
-  const { data, refetch: refetchData } = useQuery({
+  const {
+    data,
+    refetch: refetchDataQuery,
+    isLoading: isDataLoading,
+  } = useQuery({
     ...getDocumentsDocumentIdDownloadOptions({
       path: {
         document_id: documentId!,
@@ -21,9 +25,14 @@ export const useDocument = () => {
     enabled: documentId !== "" && documentId !== undefined && !isTokenExpired(),
   });
 
+  const refetchData = async (documentId: string) => {
+    setDocumentId(documentId);
+    return await refetchDataQuery();
+  };
+
   const {
     data: documentWithToken,
-    refetch: refetchDocumentWithToken,
+    refetch: refetchDocumentWithTokenQuery,
     isLoading: isDocumentWithTokenLoading,
   } = useQuery({
     ...getDocumentsDocumentIdTokenOptions({
@@ -35,13 +44,17 @@ export const useDocument = () => {
     enabled: documentId !== "" && documentId !== undefined && !isTokenExpired(),
   });
 
+  const refetchDocumentWithToken = async (documentId: string) => {
+    setDocumentId(documentId);
+    return await refetchDocumentWithTokenQuery();
+  };
+
   return {
     data: data as File,
     documentWithToken,
     refetchData,
     refetchDocumentWithToken,
     isDocumentWithTokenLoading,
-    setDocumentId,
-    documentId,
+    isDataLoading,
   };
 };
