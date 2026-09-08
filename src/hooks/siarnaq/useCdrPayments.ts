@@ -3,9 +3,9 @@
 import { useAuth } from "../useAuth";
 
 import {
-  getCdrUsersTotalPayments,
-  getCdrUsersTotalPaymentsBySeller,
-  getCdrUsersTotalPaymentsPerType,
+  getCdrStatsPaymentTotal,
+  getCdrStatsPaymentTotalBySeller,
+  getCdrStatsPaymentTotalPerType,
 } from "@/api";
 
 import { useQuery } from "@tanstack/react-query";
@@ -16,7 +16,7 @@ export const useTotalPaymentsPerType = () => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["paymentsperType"],
     queryFn: async () => {
-      const { data, error } = await getCdrUsersTotalPaymentsPerType();
+      const { data, error } = await getCdrStatsPaymentTotalPerType();
       if (error) {
         throw error;
       }
@@ -35,9 +35,12 @@ export const useTotalPaymentsPerSeller = () => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["paymentsperSeller"],
     queryFn: async () => {
-      const { data, error } = await getCdrUsersTotalPaymentsBySeller();
+      const { data, error } = await getCdrStatsPaymentTotalBySeller();
       if (error) {
         throw error;
+      }
+      if (!data) {
+        throw new Error("No data returned");
       }
       return data;
     },
@@ -54,12 +57,14 @@ export const useSumPayments = () => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ["payments-sum"],
     queryFn: async () => {
-      await getCdrUsersTotalPayments();
-      const { data, error } = await getCdrUsersTotalPayments();
+      const { data, error } = await getCdrStatsPaymentTotal();
       if (error) {
         throw error;
       }
-      return data;
+      if (!data) {
+        throw new Error("No data returned");
+      }
+      return data / 100;
     },
     retry: 3,
     enabled: !isTokenExpired(),

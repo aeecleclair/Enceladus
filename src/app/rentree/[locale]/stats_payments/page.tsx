@@ -66,7 +66,7 @@ const PaymentsPage = () => {
           </Card>
 
           <Card className="p-6 md:flex-1">
-            <h2 className="text-lg font-semibold p-2">Paiements par vendeur</h2>
+            <h2 className="text-lg font-semibold p-2">Paiements validés par vendeur</h2>
             {isLoading2 && (
               <p className="text-muted-foreground">Chargement...</p>
             )}
@@ -76,7 +76,7 @@ const PaymentsPage = () => {
               </p>
             )}
             {!isLoading2 && !error2 && (
-              <PaymentsTableSeller data={data2 ?? []} />
+              <PaymentsTableSeller total_amounts={data2?.total_amounts ?? []} />
             )}
           </Card>
         </div>

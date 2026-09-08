@@ -9,21 +9,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-export interface PaymentBySeller {
+export interface TotalPaymentOfSeller {
   name: string;
-  total_validated: number;
+  total_amount: number;
 }
 
-interface PaymentsTableSellerProps {
-  data: PaymentBySeller[];
+export interface TotalPaymentBySeller {
+  total_amounts: TotalPaymentOfSeller[];
 }
 
-export function PaymentsTableSeller({ data }: PaymentsTableSellerProps) {
-  const sortedData = [...data].sort(
-    (a, b) => b.total_validated - a.total_validated,
+export function PaymentsTableSeller({ total_amounts }: TotalPaymentBySeller) {
+  const sortedData = [...total_amounts].sort(
+    (a, b) => b.total_amount - a.total_amount,
   );
   const totalSum = sortedData.reduce(
-    (sum, item) => sum + item.total_validated,
+    (sum, item) => sum + item.total_amount,
     0,
   );
 
@@ -47,7 +47,7 @@ export function PaymentsTableSeller({ data }: PaymentsTableSellerProps) {
               <TableRow key={item.name}>
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell className="text-right">
-                  {formatValue(item.total_validated)} €
+                  {formatValue(item.total_amount)} €
                 </TableCell>
               </TableRow>
             ))
