@@ -32,13 +32,13 @@ export const EventCard = ({form}: EventCardProps) => {
                     form={form}
                     label={t("quota") + " " +  t("optional")}
                     id="quota"
-                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
+                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.value === "" ? null : e.target.valueAsNumber)}/>}
                     />
                     <StyledFormField
                     form={form}
                     label={t("user_quota") + " " +  t("optional")}
                     id="user_quota"
-                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.valueAsNumber)} />}
+                    input={(field) => <Input {...field} type="number" placeholder={t("unlimited")} onChange={(e) => field.onChange(e.target.value === "" ? null : e.target.valueAsNumber)}/>}
                     />
                 </div>
                 <div className="flex flex-row gap-2">
@@ -73,19 +73,6 @@ export const EventCard = ({form}: EventCardProps) => {
                         )}
                     />
                 </div>
-                {/* <div className="flex justify-end mt-2 space-x-4 pb-4">
-                    <Button
-                        variant="outline"
-                        onClick={closeDialog}
-                        disabled={isLoading}
-                        className="w-25"
-                    >
-                    {t("cancel")}
-                    </Button>
-                        <LoadingButton isLoading={isLoading} className="w-25" type="submit">
-                        {isEdit ? t("edit") : t("add")}
-                    </LoadingButton>
-                </div> */}
             </div>
         </CardTemplate>
     );

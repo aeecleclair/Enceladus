@@ -1,6 +1,7 @@
 "use client"
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 import { ManageEventSidebar } from "@/components/sg/admin/Sidebars/ManageSidebar/ManageEventSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -54,14 +55,14 @@ const ManagePage = () => {
                         <p className="text-sm text-destructive">Événement introuvable.</p>
                     ) : (
                         <div className="grid gap-6">
-                            <EventSummaryCard event={event} onEdit={() => router.push(`manage/edit?eventId=${eventId}&editMode=true&step=0`)} />
+                            <EventSummaryCard event={event} onEdit={() => router.push(`/admin/manage/edit?eventId=${eventId}&editMode=true&step=0`)} />
                             <SessionsSection
                                 sessions={event.sessions}
-                                onEdit={() => router.push(`manage/edit?eventId=${eventId}&editMode=true&step=1`)}
+                                onEdit={() => router.push(`/admin/manage/edit?eventId=${eventId}&editMode=true&step=1`)}
                             />
                             <CategoriesSection
                                 categories={event.categories}
-                                onEdit={() => router.push(`manage/edit?eventId=${eventId}&editMode=true&step=2`)}
+                                onEdit={() => router.push(`/admin/manage/edit?eventId=${eventId}&editMode=true&step=2`)}
                             />
                         </div>
                     )}

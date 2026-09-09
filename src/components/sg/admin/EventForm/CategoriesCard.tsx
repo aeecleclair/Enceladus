@@ -130,7 +130,7 @@ export const CategoriesCard = ({
                             {...field}
                             type="number"
                             placeholder={t("unlimited")}
-                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                            onChange={(e) => field.onChange(e.target.value === "" ? null : e.target.valueAsNumber)}
                         />
                     )}
                 />
@@ -143,7 +143,7 @@ export const CategoriesCard = ({
                             {...field}
                             type="number"
                             placeholder={t("unlimited")}
-                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                            onChange={(e) => field.onChange(e.target.value === "" ? null : e.target.valueAsNumber)}
                         />
                     )}
                 />

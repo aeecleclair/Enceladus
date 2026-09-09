@@ -23,7 +23,7 @@ export const OrganiserTabList = ({
     const current = new URLSearchParams(Array.from(searchParams.entries()));
     current.set("organiserId", organiserId);
     const query = current.toString();
-    router.push(`admin?${query}`);
+    router.push(`/admin?${query}`);
   };
 
   return (

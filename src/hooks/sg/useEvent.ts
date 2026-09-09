@@ -1,7 +1,7 @@
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from "../useAuth";
 import { useTranslations } from "next-intl";
-import { getTicketingEventsEventIdOptions, patchTicketingEventsEventIdMutation, postTicketingEventsMutation } from "@/api/@tanstack/react-query.gen";
+import { getTicketingEventsEventIdOptions, patchTicketingEventsEventIdMutation } from "@/api/@tanstack/react-query.gen";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { EventUpdate } from "@/api/types.gen";
 

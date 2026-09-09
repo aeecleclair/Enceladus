@@ -1,49 +1,53 @@
+"use client";
 
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import { ChevronRight } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { NavEdit } from "./NavEdit";
-import { NavInscriptions } from "./NavInscriptions";
-import { NavOverview } from "./NavOverview";
+import { useSearchParams } from "next/navigation";
+import { Chevron } from "react-day-picker";
 
+const items = [
+    { href: "/admin/manage", label: "Overview" },
+    { href: "/admin/manage/inscriptions", label: "Liste des Inscriptions" },
+    { href: "/admin/manage/edit", label: "Modifier le SG", params: "&editMode=true" },
+];
 
 export function ManageEventSidebar({
     ...props
-    }: React.ComponentProps<typeof Sidebar> & {
-    }) {
-    
-    const t = useTranslations("sg.admin.sidebar");
+    }: React.ComponentProps<typeof Sidebar>) {
+
+    const pathname = usePathname();
+    const eventId = useSearchParams().get("eventId");
 
     return (
-        <Sidebar className="pl-4" variant="inset">
-            <SidebarHeader >
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <a href="#">
-                            <div className="grid flex-1 text-left text-sm leading-tight">
-                            </div>
-                        </a>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </ SidebarHeader >
+        <Sidebar className="pl-4" variant="inset" {...props}>
+            <SidebarHeader />
             <SidebarContent>
-                <NavOverview />
-                <NavInscriptions />
-                <NavEdit />
+                <SidebarGroup>
+                    <SidebarMenu>
+                        {items.map(({ href, label, params }) => (
+                            <SidebarMenuItem key={href}>
+                                <SidebarMenuButton asChild isActive={pathname.endsWith(href)}>
+                                    <Link href={`${href}?eventId=${eventId ?? ""}${params ?? ""}`} className="w-full justify-between">
+                                        {label}
+                                        <ChevronRight />
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        ))}
+                    </SidebarMenu>
+                </SidebarGroup>
             </SidebarContent>
-        <SidebarFooter />
+            <SidebarFooter />
         </Sidebar>
     )
 }

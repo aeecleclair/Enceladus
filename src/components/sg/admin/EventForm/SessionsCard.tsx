@@ -64,7 +64,7 @@ export const SessionsCard = ({
                             {...field}
                             type="number"
                             placeholder={t("unlimited")}
-                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                            onChange={(e) => field.onChange(e.target.value === "" ? null : e.target.valueAsNumber)}
                         />
                     )}
                 />
@@ -77,7 +77,7 @@ export const SessionsCard = ({
                             {...field}
                             type="number"
                             placeholder={t("unlimited")}
-                            onChange={(e) => field.onChange(e.target.valueAsNumber)}
+                            onChange={(e) => field.onChange(e.target.value === "" ? null : e.target.valueAsNumber)}
                         />
                     )}
                 />
@@ -92,9 +92,9 @@ export const SessionsCard = ({
                             date={field.value}
                             setDate={field.onChange}
                             fromMonth={minDate ?? new Date(new Date().getFullYear(), 0)}
-                            toMonth={maxDate}
+                            toMonth={maxDate ?? undefined} // Find fix later 
                             minDate={minDate}
-                            maxDate={maxDate}
+                            maxDate={maxDate ?? undefined} // Find fix later 
                             defaultDate={field.value || minDate || new Date()}
                             withTime
                         />

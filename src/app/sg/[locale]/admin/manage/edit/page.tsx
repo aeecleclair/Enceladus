@@ -9,6 +9,8 @@ import { Separator } from "@/components/ui/separator";
 import { EditEventSidebar } from "@/components/sg/admin/Sidebars/EditEventSidebar";
 import { AddEditEventForm } from "@/components/sg/admin/EventForm/AddEditEventForm";
 import AddEventState from "@/infra/AddEventState";
+import { Link } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
 
 const EditPage = () => {
     const searchParams = useSearchParams();
@@ -48,7 +50,7 @@ const EditPage = () => {
                     <div className="flex flex-1 items-center gap-2 px-3">
                         <SidebarTrigger />
                         <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-                        <Breadcrumb>
+                        <Breadcrumb className=" flex justify-between w-full">
                             <BreadcrumbList>
                                 <BreadcrumbItem>
                                     <BreadcrumbPage className="line-clamp-1">
@@ -56,6 +58,7 @@ const EditPage = () => {
                                     </BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
+                            <Button onClick={() => {}} className="mr-4 border">Retour</Button>
                         </Breadcrumb>
                     </div>
                 </header>
