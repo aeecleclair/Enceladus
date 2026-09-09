@@ -279,6 +279,8 @@
   "productPart": {
     "admin": "Admin",
     "interestSummary": "Récapitulatif des intérêts",
+    "insufficientPayment": "L'utilisateur a payé {totalPaid} dont {totalPriceOfValidatedPurchases} ont été validés. Il manque {remaining} pour couvrir le coût des produits restants. Voulez-vous tout de même valider tous les achats ?",
+    "insufficientPaymentTitle": "Paiement insuffisant",
     "noProduct": "Aucun produit",
     "summary": "Récapitulatif",
     "toastErrorDescription": "Une erreur est survenue pendant la validation de l'achat.",
@@ -288,6 +290,9 @@
     "validated": "Tous les achats sont validés"
   },
   "purchaseItem": {
+    "confirm": "Valider",
+    "insufficientPayment": "L'utilisateur a payé {totalPaid} dont {totalPriceOfValidatedPurchases} ont été validés. Il manque {remaining} pour couvrir le coût de ce produit. Voulez-vous tout de même le valider ?",
+    "insufficientPaymentTitle": "Paiement insuffisant",
     "missing": "Il manque {products}"
   },
   "recap": {

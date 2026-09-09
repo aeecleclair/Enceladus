@@ -2,13 +2,15 @@ import { PurchaseItem, onValidate } from "./PurchaseItem";
 
 import { CdrUser } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
 import { useProducts } from "@/hooks/siarnaq/useProducts";
 import { useUserMemberships } from "@/hooks/siarnaq/useUserMemberships";
+import { useUserPayments } from "@/hooks/siarnaq/useUserPayments";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
 import { usePathname } from "@/i18n/navigation";
 
 import { useFormatter, useTranslations } from "next-intl";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -25,9 +27,27 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
   const pathname = usePathname();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
   const { userMemberships: memberships } = useUserMemberships(user.id);
-  const { purchases, total: totalToPay, refetch } = useUserPurchases(user.id);
+  const {
+    purchases,
+    total: totalToPay,
+    refetch: refetchPurchases,
+  } = useUserPurchases(user.id);
   const { products: allProducts } = useProducts();
+
+  const { total: totalPaid } = useUserPayments(user.id);
+  const normalizedTotalToPay = totalToPay ?? 0;
+  const normalizedTotalPaid = totalPaid ?? 0;
+
+  const totalPriceOfValidatedPurchases = useMemo(() => {
+    return purchases
+      .filter((purchase) => purchase.validated)
+      .reduce(
+        (acc, purchase) => acc + (purchase.quantity * purchase.price) / 100,
+        0,
+      );
+  }, [purchases]);
 
   const userAssociationsMembershipsIds = memberships
     .filter(
@@ -52,7 +72,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
               purchase.validated,
               user.id,
               setIsLoading,
-              refetch,
+              refetchPurchases,
               toast,
               t,
             ),
@@ -64,7 +84,7 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
         variant: "destructive",
       });
     } finally {
-      refetch().then(({ data }) => {
+      refetchPurchases().then(({ data }) => {
         const notValidated = data?.some(
           (purchase) =>
             purchase.product.needs_validation && !purchase.validated,
@@ -81,18 +101,41 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
     }
   };
 
+  const remainingFunds = () => {
+    return normalizedTotalPaid - totalPriceOfValidatedPurchases;
+  };
+
+  const priceOfPurchasesToValidate = () => {
+    return purchases
+      .filter((purchase) => !purchase.validated)
+      .reduce(
+        (acc, purchase) => acc + (purchase.quantity * purchase.price) / 100,
+        0,
+      );
+  };
+
+  const requestValidateAll = () => {
+    if (priceOfPurchasesToValidate() > remainingFunds()) {
+      setIsConfirmationOpen(true);
+      return;
+    }
+
+    handleValidateAll();
+  };
+
   return (
     <div className="grid gap-10 -mt-4">
       <div className="grid gap-6 -mt-4">
         <div className="justify-between flex flex-row">
           <CardTitle>{t("productPart.summary")}</CardTitle>
           {isAdmin && pathname.startsWith(`/admin`) ? (
-            <LoadingButton onClick={handleValidateAll} isLoading={isLoading}>
+            <LoadingButton onClick={requestValidateAll} isLoading={isLoading}>
               {t("productPart.validateAll")}
             </LoadingButton>
           ) : null}
         </div>
         <div className="space-y-2">
+          {totalPriceOfValidatedPurchases}
           {purchases?.filter(
             (purchase) => purchase.product.needs_validation === true,
           )?.length > 0 ? (
@@ -114,6 +157,11 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
                     }
                     user={user}
                     isAdmin={isAdmin}
+                    totalToPay={normalizedTotalToPay}
+                    totalPaid={normalizedTotalPaid}
+                    totalPriceOfValidatedPurchases={
+                      totalPriceOfValidatedPurchases
+                    }
                   />
                 ))}
               <Separator className="my-2" />
@@ -158,6 +206,11 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
                     user={user}
                     isAdmin={isAdmin}
                     isInterest={true}
+                    totalToPay={normalizedTotalToPay}
+                    totalPaid={normalizedTotalPaid}
+                    totalPriceOfValidatedPurchases={
+                      totalPriceOfValidatedPurchases
+                    }
                   />
                 ))}
             </>
@@ -166,6 +219,28 @@ export const ProductPart = ({ user, isAdmin }: ProductPartProps) => {
           )}
         </div>
       </div>
+      <WarningDialog
+        isOpened={isConfirmationOpen}
+        setIsOpened={setIsConfirmationOpen}
+        isLoading={isLoading}
+        title={t("productPart.insufficientPaymentTitle")}
+        description={t("productPart.insufficientPayment", {
+          totalPaid: format.number(normalizedTotalPaid, "euro"),
+          totalPriceOfValidatedPurchases: format.number(
+            totalPriceOfValidatedPurchases,
+            "euro",
+          ),
+          remaining: format.number(
+            priceOfPurchasesToValidate() - remainingFunds(),
+            "euro",
+          ),
+        })}
+        validateLabel={t("purchaseItem.confirm")}
+        callback={() => {
+          setIsConfirmationOpen(false);
+          handleValidateAll();
+        }}
+      />
     </div>
   );
 };
