@@ -280,6 +280,8 @@
   "productPart": {
     "admin": "Admin",
     "interestSummary": "Summary of interests",
+    "insufficientPayment": "The user has paid {totalPaid}, while {totalPriceOfValidatedPurchases} have been validated. There is a remaining amount of {remaining} to cover the cost of the remaining products. Do you want to validate all purchases anyway?",
+    "insufficientPaymentTitle": "Insufficient payment",
     "noProduct": "No product",
     "summary": "Summary",
     "toastErrorDescription": "An error occurred while validating the purchase.",
@@ -289,6 +291,9 @@
     "validated": "All the purchases are validated"
   },
   "purchaseItem": {
+    "confirm": "Validate anyway",
+    "insufficientPayment": "The user has paid {totalPaid}, while {totalPriceOfValidatedPurchases} have been validated. There is a remaining amount of {remaining} to cover the cost of this product. Do you want to validate it anyway?",
+    "insufficientPaymentTitle": "Insufficient payment",
     "missing": "Missing {products}"
   },
   "recap": {
