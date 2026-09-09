@@ -17,11 +17,11 @@ export const useCategory = ({ eventId }: UseCategoryProps) => {
     const { data, isLoading, refetch } = useQuery({
         ...getTicketingEventsEventIdOptions({
             path: {
-                event_id: eventId!,
+                event_id: eventId ?? "",
             },
         }),
         retry: 3,
-        enabled: !isTokenExpired(),
+        enabled: Boolean(eventId) && !isTokenExpired(),
     });
 
 

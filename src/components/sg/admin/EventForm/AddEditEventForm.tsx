@@ -20,7 +20,7 @@ import { Carousel, CarouselApi, CarouselContent, CarouselItem } from "@/componen
 import { EventCard } from "./EventCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import AddEventState from "@/infra/AddEventState";
-import { SessionCard } from "./SessionsCard";
+import { NEW_SESSION_ID, SessionsCard } from "./SessionsCard";
 import { useSessions } from "@/hooks/sg/useSessions";
 import { useCategories } from "@/hooks/sg/useCategories";
 import { useSession } from "@/hooks/sg/useSession";
@@ -37,7 +37,7 @@ import {
 import { useEvent } from "@/hooks/sg/useEvent";
 import { patchTicketingSessionsSessionIdMutation, patchTicketingCategoriesCategoryIdMutation } from "@/api/@tanstack/react-query.gen";
 import { useMutation } from "@tanstack/react-query";
-import { CategoryCard } from "./CategoriesCard";
+import { CategoriesCard, NEW_CATEGORY_ID } from "./CategoriesCard";
 
 
 interface AddEditEventFormProps {
@@ -54,7 +54,7 @@ export type StagedSession = z.infer<ReturnType<typeof _sessionFormSchema>> & {
   isExisting?: boolean;
 };
 
-type StagedCategory = z.infer<ReturnType<typeof _categoryFormSchema>> & {
+export type StagedCategory = z.infer<ReturnType<typeof _categoryFormSchema>> & {
   id: string;
   isExisting?: boolean;
 };
@@ -92,11 +92,13 @@ export const AddEditEventForm = ({
   const [isSubmittingSessions, setIsSubmittingSessions] = useState(false);
   const [stagedSessions, setStagedSessions] = useState<StagedSession[]>([]);
   const [editingSessionId, setEditingSessionId] = useState<string | null>(null);
+  const [isSessionPanelOpen, setIsSessionPanelOpen] = useState(false);
   const [sessionsListError, setSessionsListError] = useState<string | null>(null);
 
   const [isSubmittingCategories, setIsSubmittingCategories] = useState(false);
   const [stagedCategories, setStagedCategories] = useState<StagedCategory[]>([]);
   const [editingCategoryId, setEditingCategoryId] = useState<string | null>(null);
+  const [isCategoryPanelOpen, setIsCategoryPanelOpen] = useState(false);
   const [categoriesListError, setCategoriesListError] = useState<string | null>(null);
 
   const eventFormSchema = _eventFormSchema();
@@ -181,8 +183,8 @@ export const AddEditEventForm = ({
       name: event.name,
       open_date: new Date(event.open_date),
       close_date: event.close_date ? new Date(event.close_date) : new Date(),
-      quota: event.quota ?? 0,
-      user_quota: event.user_quota ?? 0,
+      quota: event.quota ?? null,
+      user_quota: event.user_quota ?? null,
       organiser_id: event.organiser_id,
     });
 
@@ -191,8 +193,8 @@ export const AddEditEventForm = ({
         event_id: s.event_id,
         name: s.name,
         date: new Date(s.date),
-        quota: s.quota ?? 0,
-        user_quota: s.user_quota ?? 0,
+        quota: s.quota ?? null,
+        user_quota: s.user_quota ?? null,
         id: s.id,
         isExisting: true,
       }))
@@ -202,8 +204,8 @@ export const AddEditEventForm = ({
       (event.categories ?? []).map((c) => ({
         event_id: c.event_id,
         name: c.name,
-        quota: c.quota ?? 0,
-        user_quota: c.user_quota ?? 0,
+        quota: c.quota ?? null,
+        user_quota: c.user_quota ?? null,
         price: c.price,
         disabled: c.disabled,
         linked_sessions: [],
@@ -222,7 +224,7 @@ export const AddEditEventForm = ({
     async function onEventSubmit(values: z.infer<typeof eventFormSchema>, onSuccess?: () => void) {
         setIsLoading(true);
 
-        if ((isEdit || isEditModeFromQuery) && createdEventId) {
+        if (createdEventId) {
             const body = {
                 name: values.name,
                 open_date: toIso(values.open_date),
@@ -268,8 +270,8 @@ export const AddEditEventForm = ({
           event_id: createdEventId || "",
           name: "",
           date: new Date(),
-          quota: 0,
-          user_quota: 0,
+          quota: null,
+          user_quota: null,
         });
         return;
       }
@@ -277,8 +279,8 @@ export const AddEditEventForm = ({
       categoryForm.reset({
         event_id: createdEventId || "",
         name: "",
-        quota: 0,
-        user_quota: 0,
+        quota: null,
+        user_quota: null,
         price: 0,
         disabled: false,
         linked_sessions: [],
@@ -324,6 +326,7 @@ export const AddEditEventForm = ({
       });
 
       setEditingSessionId(null);
+      setIsSessionPanelOpen(false);
       setSessionsListError(null);
       resetForm(true);
     };
@@ -339,11 +342,34 @@ export const AddEditEventForm = ({
       });
     };
 
+    // `id` vaut NEW_SESSION_ID pour une création, l'id d'une session pour l'édition, null pour tout replier.
+    const openSessionPanel = (id: string | null) => {
+      if (id === null) {
+        setEditingSessionId(null);
+        setIsSessionPanelOpen(false);
+        resetForm(true);
+        return;
+      }
+
+      setSessionsListError(null);
+      setIsSessionPanelOpen(true);
+
+      if (id === NEW_SESSION_ID) {
+        setEditingSessionId(null);
+        resetForm(true);
+        return;
+      }
+
+      const session = stagedSessions.find((s) => s.id === id);
+      if (session) editSession(session);
+    };
+
     const removeSession = (sessionId: string) => {
       const doRemove = () => {
         setStagedSessions((current) => current.filter((s) => s.id !== sessionId));
         if (editingSessionId === sessionId) {
           setEditingSessionId(null);
+          setIsSessionPanelOpen(false);
           resetForm(true);
         }
       };
@@ -386,6 +412,7 @@ export const AddEditEventForm = ({
       });
 
       setEditingCategoryId(null);
+      setIsCategoryPanelOpen(false);
       setCategoriesListError(null);
       resetForm(false);
     };
@@ -404,11 +431,34 @@ export const AddEditEventForm = ({
       });
     };
 
+    // `id` vaut NEW_CATEGORY_ID pour une création, l'id d'une catégorie pour l'édition, null pour tout replier.
+    const openCategoryPanel = (id: string | null) => {
+      if (id === null) {
+        setEditingCategoryId(null);
+        setIsCategoryPanelOpen(false);
+        resetForm(false);
+        return;
+      }
+
+      setCategoriesListError(null);
+      setIsCategoryPanelOpen(true);
+
+      if (id === NEW_CATEGORY_ID) {
+        setEditingCategoryId(null);
+        resetForm(false);
+        return;
+      }
+
+      const category = stagedCategories.find((c) => c.id === id);
+      if (category) editCategory(category);
+    };
+
     const removeCategory = (categoryId: string) => {
       const doRemove = () => {
         setStagedCategories((current) => current.filter((c) => c.id !== categoryId));
         if (editingCategoryId === categoryId) {
           setEditingCategoryId(null);
+          setIsCategoryPanelOpen(false);
           resetForm(false);
         }
       };
@@ -520,8 +570,8 @@ export const AddEditEventForm = ({
   const eventEndDate = eventForm.watch("close_date");
 
   return (
-    <div>
-      <Carousel className="w-full" setApi={setApi} opts={{ watchDrag: false }} onKeyDownCapture={(e) => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") e.stopPropagation() }}>
+    <div className="flex flex-1 flex-col">
+      <Carousel className="w-full flex-1" setApi={setApi} opts={{ watchDrag: false }} onKeyDownCapture={(e) => { if (e.key === "ArrowLeft" || e.key === "ArrowRight") e.stopPropagation() }}>
         <CarouselContent>
           <CarouselItem>
             <Form {...eventForm}>
@@ -558,62 +608,21 @@ export const AddEditEventForm = ({
                   addOrUpdateSession();
                 }}
               >
-                <SessionCard
+                <SessionsCard
                   form={sessionForm}
+                  sessions={stagedSessions}
+                  openId={
+                    isSessionPanelOpen
+                      ? editingSessionId ?? NEW_SESSION_ID
+                      : null
+                  }
+                  onOpenChange={openSessionPanel}
+                  onRemove={removeSession}
                   minDate={eventStartDate}
                   maxDate={eventEndDate}
-                >
-                  <div className="flex justify-end gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => {
-                        setEditingSessionId(null);
-                        resetForm(true);
-                      }}
-                    >
-                      Clear
-                    </Button>
-                    <Button type="submit" disabled={!createdEventId}>
-                      {editingSessionId ? "Update session" : "Add session to list"}
-                    </Button>
-                  </div>
-                  <div className="grid gap-2">
-                    <div className="text-sm font-medium">Staged sessions</div>
-                    {sessionsListError ? (
-                      <div className="text-sm text-destructive">{sessionsListError}</div>
-                    ) : null}
-                    {stagedSessions.length === 0 ? (
-                      <div className="text-sm text-muted-foreground">
-                        No sessions added yet.
-                      </div>
-                    ) : (
-                      <div className="grid gap-2">
-                        {stagedSessions.map((session) => (
-                          <div
-                            key={session.id}
-                            className="flex flex-wrap items-center justify-between gap-2 rounded-md border bg-background p-3"
-                          >
-                            <div>
-                              <div className="font-medium">{session.name}</div>
-                              <div className="text-sm text-muted-foreground">
-                                {formatDate(session.date)} · quota {session.quota || 0} · user quota {session.user_quota || 0}
-                              </div>
-                            </div>
-                            <div className="flex gap-2">
-                              <Button type="button" variant="outline" onClick={() => editSession(session)}>
-                                Edit
-                              </Button>
-                              <Button type="button" variant="destructive" onClick={() => removeSession(session.id)}>
-                                Remove
-                              </Button>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </SessionCard>
+                  error={sessionsListError}
+                  disabled={!createdEventId}
+                />
               </form>
             </Form>
           </CarouselItem>
@@ -625,61 +634,20 @@ export const AddEditEventForm = ({
                   addOrUpdateCategory();
                 }}
               >
-                <CategoryCard
+                <CategoriesCard
                   form={categoryForm}
+                  categories={stagedCategories}
                   sessions={stagedSessions}
-                  >
-                <div className="flex justify-end gap-2">
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => {
-                        setEditingCategoryId(null);
-                        resetForm(false);
-                      }}
-                    >
-                      Clear
-                    </Button>
-                    <Button type="submit" disabled={!createdEventId}>
-                      {editingCategoryId ? "Update category" : "Add category to list"}
-                    </Button>
-                  </div>
-                  <div className="grid gap-2">
-                    <div className="text-sm font-medium">Staged categories</div>
-                    {categoriesListError ? (
-                      <div className="text-sm text-destructive">{categoriesListError}</div>
-                    ) : null}
-                    {stagedCategories.length === 0 ? (
-                      <div className="text-sm text-muted-foreground">
-                        No categories added yet.
-                      </div>
-                    ) : (
-                      <div className="grid gap-2">
-                        {stagedCategories.map((category) => (
-                          <div
-                            key={category.id}
-                            className="flex flex-wrap items-center justify-between gap-2 rounded-md border bg-background p-3"
-                          >
-                            <div>
-                              <div className="font-medium">{category.name}</div>
-                              <div className="text-sm text-muted-foreground">
-                                price {category.price/100} · quota {category.quota || 0} · user quota {category.user_quota || 0}
-                              </div>
-                            </div>
-                            <div className="flex gap-2">
-                              <Button type="button" variant="outline" onClick={() => editCategory(category)}>
-                                Edit
-                              </Button>
-                              <Button type="button" variant="destructive" onClick={() => removeCategory(category.id)}>
-                                Remove
-                              </Button>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </CategoryCard>
+                  openId={
+                    isCategoryPanelOpen
+                      ? editingCategoryId ?? NEW_CATEGORY_ID
+                      : null
+                  }
+                  onOpenChange={openCategoryPanel}
+                  onRemove={removeCategory}
+                  error={categoriesListError}
+                  disabled={!createdEventId}
+                />
               </form>
             </Form>
           </CarouselItem>
@@ -737,7 +705,7 @@ export const AddEditEventForm = ({
           </CarouselItem>
         </CarouselContent>
       </Carousel>
-      <div className="flex items-center justify-between mt-6 pt-4 border-t">
+      <div className="sticky bottom-0 z-10 -mx-4 -mb-4 mt-6 flex items-center justify-between shadow-md bg-background/95 px-4 py-4 backdrop-blur supports-backdrop-filter:bg-background/80 md:-mx-10 md:-mb-10 md:px-10">
         <Button
           variant="ghost"
           className="gap-1.5 rounded-full px-5"
@@ -770,13 +738,7 @@ export const AddEditEventForm = ({
                 const isValid = await eventForm.trigger();
                 if (!isValid) return;
 
-                if ((isEdit || isEditModeFromQuery) || !createdEventId) {
-                  const values = eventForm.getValues();
-                  onEventSubmit(values, moveToNextStep);
-                  return;
-                }
-
-                moveToNextStep();
+                onEventSubmit(eventForm.getValues(), moveToNextStep);
                 return;
               }
 

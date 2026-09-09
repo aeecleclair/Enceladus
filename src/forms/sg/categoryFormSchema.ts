@@ -6,11 +6,11 @@ export default function categoryFormSchema() {
         name: z.string().min(1, {
             message: "Le nom de la catégorie en français est requis",
         }),
-        quota: z.number().int().nonnegative().optional(),
-        user_quota: z.number().int().nonnegative().optional(),
+        quota: z.number().int().nonnegative().min(1).nullable(),
+        user_quota: z.number().int().nonnegative().min(1).nullable(),
         price: z.number().positive(),
         disabled: z.boolean(),
-        linked_sessions: z.array(z.string()).optional(),
-        required_membership: z.string().optional(),
+        linked_sessions: z.array(z.string()),
+        required_membership: z.string().nullable(),
     });
 }

@@ -12,11 +12,11 @@ export const useEventQuota = ({ eventId }: UseEventProps) => {
     const { data, isLoading, refetch } = useQuery({
         ...getTicketingEventsEventIdQuotaOptions({
             path: {
-                event_id: eventId!,
+                event_id: eventId ?? "",
             },
         }),
         retry: 3,
-        enabled: !isTokenExpired(),
+        enabled: Boolean(eventId) && !isTokenExpired(),
     });
 
 

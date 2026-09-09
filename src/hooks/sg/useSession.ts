@@ -17,11 +17,11 @@ export const useSession = ({ sessionId }: UseSessionProps) => {
     const { data, isLoading, refetch } = useQuery({
         ...getTicketingSessionsSessionIdOptions({
             path: {
-                session_id: sessionId!,
+                session_id: sessionId ?? "",
             },
         }),
         retry: 3,
-        enabled: !isTokenExpired(),
+        enabled: Boolean(sessionId) && !isTokenExpired(),
     });
 
 

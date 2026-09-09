@@ -8,9 +8,9 @@ export default function eventFormSchema() {
       message: "Le nom de l'évènement en français est requis",
     }),
     open_date: z.date(),
-    close_date: z.date().optional(),
-    quota: z.number().int().nonnegative().optional(),
-    user_quota: z.number().int().nonnegative().optional(),
+    close_date: z.date().nullable(),
+    quota: z.number().int().nonnegative().min(1).nullable(),
+    user_quota: z.number().int().nonnegative().min(1).nullable(),
   });
 };
 

@@ -6,8 +6,8 @@ export default function sessionFormSchema() {
     name: z.string().min(1, {
       message: "Le nom de la session en français est requis",
     }),
-    quota: z.number().int().nonnegative().optional(),
-    user_quota: z.number().int().nonnegative().optional(),
+    quota: z.number().int().nonnegative().min(1).nullable(),
+    user_quota: z.number().int().nonnegative().min(1).nullable(),
     date: z.date(),
   });
 }
