@@ -104,6 +104,15 @@ export const ViewEditParticipant = ({
           type: z.literal("parentAuthorization"),
         })
         .partial(),
+      schoolAuthorization: z
+        .object({
+          name: z.string(),
+          id: z.uuid(),
+          updated: z.boolean(),
+          type: z.literal("schoolAuthorization"),
+        })
+        .partial(),
+      hasScholarship: z.boolean().optional(),
       securityFile: z
         .object({
           consent_given: z.boolean().optional(),
@@ -162,7 +171,8 @@ export const ViewEditParticipant = ({
           : undefined,
       otherSchool:
         getSituationLabel(participant.situation ?? undefined) === "otherschool"
-          ? getSituationTitle(participant.situation ?? undefined)
+          ? (participant.other_school ??
+            getSituationTitle(participant.situation ?? undefined))
           : undefined,
       company:
         getSituationLabel(participant.situation ?? undefined) ===
@@ -195,6 +205,12 @@ export const ViewEditParticipant = ({
         id: participant.parent_authorization?.id ?? undefined,
         type: "parentAuthorization",
       },
+      schoolAuthorization: {
+        name: participant.school_authorization?.name ?? undefined,
+        id: participant.school_authorization?.id ?? undefined,
+        type: "schoolAuthorization",
+      },
+      hasScholarship: participant.has_scholarship,
       securityFile: {
         consent_given: participant?.security_file?.consent_given ?? undefined,
         allergy: participant?.security_file?.allergy ?? undefined,
@@ -236,6 +252,7 @@ export const ViewEditParticipant = ({
       values.studentCard,
       values.raidRules,
       values.parentAuthorization,
+      values.schoolAuthorization,
     ].filter((doc) => doc.updated);
 
     const { situation, other_school, company } = switchSituation(values);
@@ -269,6 +286,9 @@ export const ViewEditParticipant = ({
         case "parentAuthorization":
           updatedParticipant.parent_authorization_id = doc.id;
           break;
+        case "schoolAuthorization":
+          updatedParticipant.school_authorization_id = doc.id;
+          break;
       }
     }
 
@@ -290,7 +310,7 @@ export const ViewEditParticipant = ({
             : undefined,
         otherSchool:
           getSituationLabel(values.situation ?? undefined) === "otherschool"
-            ? getSituationTitle(values.situation ?? undefined)
+            ? values.otherSchool
             : undefined,
         company:
           getSituationLabel(values.situation ?? undefined) ===
@@ -323,6 +343,12 @@ export const ViewEditParticipant = ({
           id: values.parentAuthorization?.id ?? undefined,
           type: "parentAuthorization",
         },
+        schoolAuthorization: {
+          name: values.schoolAuthorization?.name ?? undefined,
+          id: values.schoolAuthorization?.id ?? undefined,
+          type: "schoolAuthorization",
+        },
+        hasScholarship: values.hasScholarship,
         securityFile: {
           consent_given: values?.securityFile?.consent_given ?? undefined,
           allergy: values?.securityFile?.allergy ?? undefined,
@@ -362,7 +388,7 @@ export const ViewEditParticipant = ({
       case "otherschool":
         return {
           situation: "otherSchool",
-          other_school: values.otherSchool ?? null,
+          other_school: values.otherSchool?.trim() || null,
           company: null,
         };
       case "corporatepartner":
@@ -380,9 +406,14 @@ export const ViewEditParticipant = ({
 
   function getSituation() {
     const situation = getSituationLabel(participant.situation ?? undefined);
-    let title: string | null = getSituationTitle(
-      participant.situation ?? undefined,
-    );
+    let title: string | null =
+      situation === "otherschool"
+        ? (participant.other_school ??
+          getSituationTitle(participant.situation ?? undefined))
+        : situation === "corporatepartner"
+          ? (participant.company ??
+            getSituationTitle(participant.situation ?? undefined))
+          : getSituationTitle(participant.situation ?? undefined);
     if (title === "undefined") {
       title = null;
     }
@@ -530,6 +561,22 @@ export const ViewEditParticipant = ({
                 />
               )}
               <ParticipantField
+                label="Je suis boursier"
+                id="hasScholarship"
+                form={form}
+                type={ValueTypes.BOOLEAN}
+              />
+              {form.watch("hasScholarship") && (
+                <ParticipantField
+                  label="Attestation de bourse"
+                  id="schoolAuthorization"
+                  form={form}
+                  type={ValueTypes.DOCUMENT}
+                  layer={1}
+                  participantId={participant.user_id}
+                />
+              )}
+              <ParticipantField
                 label="Règlement du raid"
                 id="raidRules"
                 form={form}
@@ -588,6 +635,17 @@ export const ViewEditParticipant = ({
                 <ParticipantInfo
                   label="Autorisation parentale"
                   value={participant.parent_authorization}
+                  participantId={participant.user_id}
+                />
+              )}
+              <ParticipantInfo
+                label="Je suis boursier"
+                value={participant.has_scholarship}
+              />
+              {participant.has_scholarship && (
+                <ParticipantInfo
+                  label="Attestation de bourse"
+                  value={participant.school_authorization}
                   participantId={participant.user_id}
                 />
               )}
