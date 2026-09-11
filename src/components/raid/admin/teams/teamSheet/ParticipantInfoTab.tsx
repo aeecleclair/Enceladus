@@ -74,6 +74,14 @@ export const ParticipantInfoTab = ({
         />
         <ParticipantInfo label="Régime alimentaire" value={participant.diet} />
         {getSituation(participant)}
+        <ParticipantInfo label="Boursier" value={participant.has_scholarship} />
+        {participant.has_scholarship && (
+          <ParticipantInfo
+            label="Attestation de bourse"
+            value={participant.school_authorization}
+            participantId={participant.user_id}
+          />
+        )}
         <ParticipantInfo
           label="Attestation sur l'honneur"
           value={participant.attestation_on_honour}
