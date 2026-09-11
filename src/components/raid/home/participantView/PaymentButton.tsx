@@ -38,6 +38,7 @@ export const PaymentButton = () => {
     ) &&
     me?.student_card?.id !== undefined &&
     me?.student_card?.validation !== "accepted";
+  const hasScholarship = me?.has_scholarship;
   const mustPayTShirt =
     me?.t_shirt_size && !me?.t_shirt_payment && me?.t_shirt_size !== "None";
 
@@ -85,9 +86,11 @@ export const PaymentButton = () => {
                 <div className="flex justify-between">
                   <span>Participation</span>
                   <span>
-                    {((isStudent || isNotValidatedStudent
-                      ? price?.student_price
-                      : price?.external_price) ?? 0) / 100}{" "}
+                    {((hasScholarship
+                      ? price?.scholarship_price
+                      : isStudent || isNotValidatedStudent
+                        ? price?.student_price
+                        : price?.external_price) ?? 0) / 100}{" "}
                     €
                   </span>
                 </div>
@@ -104,9 +107,11 @@ export const PaymentButton = () => {
                   <div className="flex justify-between">
                     <span>Total</span>
                     <span>
-                      {(((isStudent || isNotValidatedStudent
-                        ? price?.student_price
-                        : price?.external_price) ?? 0) +
+                      {(((hasScholarship
+                        ? price?.scholarship_price
+                        : isStudent || isNotValidatedStudent
+                          ? price?.student_price
+                          : price?.external_price) ?? 0) +
                         (price?.t_shirt_price ?? 0)) /
                         100}{" "}
                       €
