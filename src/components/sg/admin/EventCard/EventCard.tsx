@@ -6,10 +6,11 @@ import { useEventQuota } from "@/hooks/sg/useEventQuota";
 
 interface EventCardProps {
   event: EventSimple;
+  categoryCount: number;
   canEdit?: boolean;
 }
 
-export function EventCard({ event }: EventCardProps) {
+export function EventCard({ event, categoryCount }: EventCardProps) {
   const { events: quota } = useEventQuota({ eventId: event.id });
 
   const relativeDate = formatDistanceToNow(new Date(event.open_date), {
@@ -67,14 +68,14 @@ export function EventCard({ event }: EventCardProps) {
               <span className="cursor-pointer text-[12px] text-muted-foreground hover:text-primary hover:underline">
                 {event.organiser_id}
               </span>
-              <span className="rounded-full bg-green-50 px-2 py-0.75 text-[11px] font-medium text-green-800">
-                3 ticket types
+              <span className="rounded-full bg-green-50 px-2 py-0.75 text-[11px] font-medium text-green-800 dark:bg-green-950 dark:text-green-300">
+                {categoryCount} ticket types
               </span>
             </div>
           </div>
 
           {/* Stats panel */}
-          <div className="flex shrink-0 items-center gap-6 rounded-md bg-gray-50 px-[18px] py-3 [@container(max-width:1024px)]:gap-[18px] [@container(max-width:1024px)]:px-[14px] [@container(max-width:1024px)]:py-[10px] [@container(max-width:768px)]:justify-around [@container(max-width:768px)]:p-3">
+          <div className="flex shrink-0 items-center gap-6 rounded-md bg-muted px-[18px] py-3 [@container(max-width:1024px)]:gap-[18px] [@container(max-width:1024px)]:px-[14px] [@container(max-width:1024px)]:py-[10px] [@container(max-width:768px)]:justify-around [@container(max-width:768px)]:p-3">
             <div className="flex min-w-[75px] cursor-default flex-col items-center gap-[3px] [@container(max-width:1024px)]:min-w-[65px]">
               <span className="text-[18px] font-bold leading-none text-foreground [@container(max-width:1024px)]:text-[16px]">
                 {quota} / {event.quota}
@@ -84,7 +85,7 @@ export function EventCard({ event }: EventCardProps) {
               </span>
             </div>
             <div className="flex min-w-18.75 cursor-default flex-col items-center gap-[3px] [@container(max-width:1024px)]:min-w-[65px]">
-              <span className="text-[18px] font-bold leading-none text-green-700 [@container(max-width:1024px)]:text-[16px]">
+              <span className="text-[18px] font-bold leading-none text-green-700 dark:text-green-400 [@container(max-width:1024px)]:text-[16px]">
                 0 €
               </span>
               <span className="text-[10px] font-medium uppercase tracking-[0.3px] text-muted-foreground">

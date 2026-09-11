@@ -1,7 +1,7 @@
 "use client"
 
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
 import { ManageEventSidebar } from "@/components/sg/admin/Sidebars/ManageSidebar/ManageEventSidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
@@ -13,6 +13,7 @@ import { AppModulesTicketingSchemasTicketingEventComplete } from "@/api";
 import { EventSummaryCard } from "@/components/sg/admin/ManagePage/EventSummaryCard";
 import { SessionsSection } from "@/components/sg/admin/ManagePage/SessionsSection";
 import { CategoriesSection } from "@/components/sg/admin/ManagePage/CategoriesSection";
+import { Button } from "@/components/ui/button";
 
 const ManagePage = () => {
     const router = useRouter();
@@ -31,7 +32,7 @@ const ManagePage = () => {
                     <div className="flex flex-1 items-center gap-2 px-3">
                         <SidebarTrigger />
                         <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
-                        <Breadcrumb>
+                        <Breadcrumb className=" flex justify-between w-full">
                             <BreadcrumbList>
                                 <BreadcrumbItem>
                                     <BreadcrumbPage className="line-clamp-1">
@@ -39,6 +40,9 @@ const ManagePage = () => {
                                     </BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
+                            <Button asChild variant="outline" className="mr-4">
+                                <Link href={{ pathname: "/admin", query: eventId ? { eventId } : {} }}>Retour</Link>
+                            </Button>
                         </Breadcrumb>
                     </div>
                 </header>

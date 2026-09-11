@@ -1,58 +1,49 @@
+"use client";
 
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuAction,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { useTranslations } from "next-intl";
+import { Link, usePathname } from "@/i18n/navigation";
 import { ChevronRight } from "lucide-react";
+import { AdminSidebarFooter } from "./AdminSidebarFooter";
+
+const items = [
+    { href: "/admin", label: "Gérer mes SG" },
+    { href: "/admin/faq", label: "FAQ" },
+];
 
 export function AdminSidebar({
     ...props
-    }: React.ComponentProps<typeof Sidebar> & {
-    }) {
-    
-    const t = useTranslations("sg.admin.sidebar");
+    }: React.ComponentProps<typeof Sidebar>) {
 
-    function handleManageSGClick() {
-    }
+    const pathname = usePathname();
 
     return (
-        <Sidebar className="pl-4" variant="inset">
-            <SidebarHeader >
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <a href="#">
-                            <div className="grid flex-1 text-left text-sm leading-tight">
-                            </div>
-                        </a>
-                    </SidebarMenuItem>
-                </SidebarMenu>
-            </ SidebarHeader >
+        <Sidebar className="pl-4" variant="inset" {...props}>
+            <SidebarHeader />
             <SidebarContent>
-                <SidebarGroup />
-            <SidebarGroupLabel className="flex items-center justify-between">
-                        <div
-                            onClick={handleManageSGClick}
-                            className="cursor-pointer hover:underline"
-                        >
-                            Gérer mes SG
-                        </div>
-                        <SidebarMenuAction className="static data-[state=open]:rotate-90">
-                            <ChevronRight />
-                            <span className="sr-only">Toggle</span>
-                        </SidebarMenuAction>
-                    </SidebarGroupLabel>
-                <SidebarGroup />
+                <SidebarGroup>
+                    <SidebarMenu>
+                        {items.map(({ href, label }) => (
+                            <SidebarMenuItem key={href}>
+                                <SidebarMenuButton asChild isActive={pathname.endsWith(href)}>
+                                    <Link href={href} className="w-full justify-between">
+                                        {label}
+                                        <ChevronRight />
+                                    </Link>
+                                </SidebarMenuButton>
+                            </SidebarMenuItem>
+                        ))}
+                    </SidebarMenu>
+                </SidebarGroup>
             </SidebarContent>
-        <SidebarFooter />
+            <AdminSidebarFooter />
         </Sidebar>
     )
 }

@@ -57,7 +57,7 @@ export default async function RootLayout({
         src="https://plausible.eclair.ec-lyon.fr/js/script.js"
         strategy="lazyOnload"
       />
-      <body className={inter.className}>
+      <body className={`${inter.className} has-data-[slot=sidebar-wrapper]:bg-sidebar`}>
         <AuthInterceptor>
           <ThemeProvider
             attribute="class"

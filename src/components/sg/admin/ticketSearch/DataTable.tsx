@@ -97,7 +97,7 @@ export function DataTable<TData, TValue>({
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
       />
-      <div className="rounded-md border">
+      <div className="rounded-md shadow-md bg-card">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

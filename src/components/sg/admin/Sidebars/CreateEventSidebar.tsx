@@ -1,7 +1,6 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarHeader,
   SidebarMenu,
@@ -11,6 +10,7 @@ import {
 import { useTranslations } from "next-intl";
 import { Timeline, TimelineItemLabel,  } from "./Timeline";
 import { TimelineStep } from "./TimelineStep";
+import { AdminSidebarFooter } from "./AdminSidebarFooter";
 import  AddEventState  from "@/infra/AddEventState";
 
 export function CreateEventSidebar({
@@ -53,7 +53,7 @@ export function CreateEventSidebar({
                     </Timeline>
                 <SidebarGroup />
             </SidebarContent>
-        <SidebarFooter />
+        <AdminSidebarFooter />
         </Sidebar>
     )
 }

@@ -14,10 +14,9 @@ export const AddEventAccordionItem = ({
     const router = useRouter();
 
     return (
-        <div className="border-sidebar-accent-foreground rounded-lg mx-20 p-4 shadow-sm justify-around flex flex-row w-full" onClick={() => router.push(`/admin/create?organiserId=${organiserId}`)}>
-            <HiPlus className="w-4 h-10 mr-6" />
+        <div className="bg-card hover:bg-muted/50 rounded-lg p-4 shadow-sm justify-center items-center gap-2 flex flex-row w-full" onClick={() => router.push(`/admin/create?organiserId=${organiserId}`)}>
+            <HiPlus className="size-4" />
             <h3 className="text-lg font-semibold">Ajouter un événement</h3>
-            <div className="flex"></div>
         </div>
     );
 }

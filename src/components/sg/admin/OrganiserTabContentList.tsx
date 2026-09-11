@@ -8,6 +8,7 @@ import { useSellerProducts } from "@/hooks/siarnaq/useSellerProducts";
 import { useEvents } from "@/hooks/sg/useEvents";
 
 import { useSearchParams } from "next/navigation";
+import { useCategoriesCount } from "@/hooks/sg/useCategoriesCount";
 
 interface OrganiserTabContentListProps {
   organisers: OrganiserComplete[];
@@ -21,6 +22,8 @@ export const OrganiserTabContentList = ({
   const searchParams = useSearchParams();
   const activeOrganiserId = searchParams.get("organiserId");
   const { events, refetch: refetchEvents } = useEvents();
+  const { categoriesCount } = useCategoriesCount();
+  
   const userId = searchParams.get("userId");
   const { user, refetch } = useCdrUser(userId);
 
@@ -36,6 +39,7 @@ export const OrganiserTabContentList = ({
       organiser={organiser}
       events={events}
       refetchEvents={refetchEvents}
+      categoriesCount={categoriesCount}
     />
   ));
 };

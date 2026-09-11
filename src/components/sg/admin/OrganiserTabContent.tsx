@@ -4,33 +4,32 @@ import { AddEventAccordionItem } from "./AddEventAccordionItem";
 
 import {
   OrganiserComplete,
-  EventSimple
+  EventSimple,
+  EventCategoriesCount,
 } from "@/api";
-import { CustomDialog } from "@/components/common/CustomDialog";
-import { ProductAccordion } from "@/components/siarnaq/custom/productAccordion/ProductAccordion";
-import { useYear } from "@/hooks/siarnaq/useYear";
-import { useProductExpansionStore } from "@/stores/siarnaq/productExpansionStore";
 import { useTokenStore } from "@/stores/token";
 
 import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 
-import { Accordion } from "@/components/ui/accordion";
 import { TabsContent } from "@/components/ui/tabs";
 import { useToast } from "@/components/ui/use-toast";
 import { EventCard } from "./EventCard/EventCard";
 import { useRouter } from "@/i18n/navigation";
 
+
 interface OrganiserTabContentProps {
   organiser: OrganiserComplete;
   events: EventSimple[];
+  categoriesCount: EventCategoriesCount[];
   refetchEvents: () => void;
 }
 
 export const OrganiserTabContent = ({
   organiser,
   events,
+  categoriesCount,
   refetchEvents,
 }: OrganiserTabContentProps) => {
   const { toast } = useToast();
@@ -39,7 +38,6 @@ export const OrganiserTabContent = ({
   const activeSellerId = searchParams.get("organiserId");
   const userId = searchParams.get("userId");
   console.log("userId: ", userId);
-  const { productExpansion, setExpandedProducts } = useProductExpansionStore();
   const { token } = useTokenStore();
   const [isOpened, setIsOpened] = useState(false);
 
@@ -61,6 +59,7 @@ export const OrganiserTabContent = ({
               key={event.id}
               event={event}
               canEdit={true}
+              categoryCount={categoriesCount.find((c) => c.event_id === event.id)?.categories_count ?? 0}
             />
           </div>
           ))

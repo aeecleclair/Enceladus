@@ -1,9 +1,9 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
 } from "@/components/ui/sidebar"
+import { AdminSidebarFooter } from "./AdminSidebarFooter";
 import { Timeline, TimelineItemLabel } from "./Timeline";
 import { TimelineStep } from "./TimelineStep";
 import AddEventState from "@/infra/AddEventState";
@@ -32,7 +32,7 @@ export function EditEventSidebar({
                     </Timeline>
                 <SidebarGroup />
             </SidebarContent>
-            <SidebarFooter />
+            <AdminSidebarFooter />
         </Sidebar>
     )
 }

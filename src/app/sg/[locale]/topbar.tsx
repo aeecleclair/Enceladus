@@ -45,7 +45,7 @@ export default function TopBar() {
   );
 
   return (
-    <div className="sticky top-0 z-50 p-6 bg-muted/40 flex flex-row flex-nowrap gap-x-4 justify-between">
+    <div className="top-0 z-50 p-6 bg-muted/40 flex flex-row flex-nowrap gap-x-4 justify-between">
       <div className="flex flex-row gap-x-4 shrink-0">
         <LocaleDropdown />
         <ThemeToggle />
@@ -83,7 +83,7 @@ export default function TopBar() {
   );
 }
 
-function LocaleDropdown() {
+export function LocaleDropdown() {
   const locale = useLocale();
   const { localeStore, setLocaleStore } = useLocaleStore();
   const router = useRouter();
@@ -137,7 +137,7 @@ function LocaleDropdown() {
   );
 }
 
-function ThemeToggle() {
+export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
   return (
     <button

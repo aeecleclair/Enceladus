@@ -58,7 +58,9 @@ const EditPage = () => {
                                     </BreadcrumbPage>
                                 </BreadcrumbItem>
                             </BreadcrumbList>
-                            <Button onClick={() => {}} className="mr-4 border">Retour</Button>
+                            <Button asChild variant="outline" className="mr-4">
+                                <Link href={{ pathname: "/admin/manage", query: eventId ? { eventId } : {} }}>Retour</Link>
+                            </Button>
                         </Breadcrumb>
                     </div>
                 </header>

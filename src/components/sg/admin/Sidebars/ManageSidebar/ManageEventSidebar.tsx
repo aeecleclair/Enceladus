@@ -3,7 +3,6 @@
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarHeader,
   SidebarMenu,
@@ -13,7 +12,7 @@ import {
 import { Link, usePathname } from "@/i18n/navigation";
 import { ChevronRight } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { Chevron } from "react-day-picker";
+import { AdminSidebarFooter } from "../AdminSidebarFooter";
 
 const items = [
     { href: "/admin/manage", label: "Overview" },
@@ -47,7 +46,7 @@ export function ManageEventSidebar({
                     </SidebarMenu>
                 </SidebarGroup>
             </SidebarContent>
-            <SidebarFooter />
+            <AdminSidebarFooter />
         </Sidebar>
     )
 }
