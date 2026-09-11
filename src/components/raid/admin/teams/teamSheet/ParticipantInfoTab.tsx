@@ -21,7 +21,14 @@ export const ParticipantInfoTab = ({
 }: ParticipantInfoTabProps) => {
   function getSituation(participant: RaidParticipant) {
     const situation = getSituationLabel(participant.situation ?? undefined);
-    const title = getSituationTitle(participant.situation ?? undefined);
+    const title =
+      situation === "otherschool"
+        ? (participant.other_school ??
+          getSituationTitle(participant.situation ?? undefined))
+        : situation === "corporatepartner"
+          ? (participant.company ??
+            getSituationTitle(participant.situation ?? undefined))
+          : getSituationTitle(participant.situation ?? undefined);
     return (
       <>
         <ParticipantInfo
@@ -74,6 +81,14 @@ export const ParticipantInfoTab = ({
         />
         <ParticipantInfo label="Régime alimentaire" value={participant.diet} />
         {getSituation(participant)}
+        <ParticipantInfo label="Boursier" value={participant.has_scholarship} />
+        {participant.has_scholarship && (
+          <ParticipantInfo
+            label="Attestation de bourse"
+            value={participant.school_authorization}
+            participantId={participant.user_id}
+          />
+        )}
         <ParticipantInfo
           label="Attestation sur l'honneur"
           value={participant.attestation_on_honour}
