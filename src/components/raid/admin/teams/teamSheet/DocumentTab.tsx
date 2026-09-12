@@ -3,8 +3,8 @@ import { ParticipantDocumentCard } from "./ParticipantDocumentCard";
 import {
   AppModulesRaidSchemasRaidDocument,
   DocumentValidation,
-  RaidParticipant,
-  RaidTeam,
+  RaidParticipantRestricted,
+  RaidTeamComplete,
 } from "@/api";
 import { DocumentView } from "@/components/raid/custom/DocumentView";
 import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
@@ -17,7 +17,7 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
 interface DocumentTabProps {
-  team: RaidTeam;
+  team: RaidTeamComplete;
 }
 
 export const DocumentTab = ({ team }: DocumentTabProps) => {
@@ -42,7 +42,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
 
   function downloadDocument(
     doc: AppModulesRaidSchemasRaidDocument,
-    participant: RaidParticipant,
+    participant: RaidParticipantRestricted,
   ) {
     const key = doc.type;
     const file = getDocument(participant.user_id, key);

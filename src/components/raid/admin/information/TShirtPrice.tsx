@@ -5,6 +5,7 @@ import { LoadingButton } from "@/components/common/LoadingButton";
 import { usePrice } from "@/hooks/raid/usePrice";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +24,7 @@ export const TShirtPrice = () => {
   const { price, updatePrice } = usePrice();
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations("raid.admin.information");
 
   const formSchema = z.object({
     t_shirt_price: z.number().positive(),
@@ -59,7 +61,7 @@ export const TShirtPrice = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardLayout label="Prix du T-shirt">
+        <CardLayout label={t("prices.tShirt")}>
           {isEdit ? (
             <>
               <FormField
@@ -88,10 +90,10 @@ export const TShirtPrice = () => {
                   onClick={() => setIsEdit(false)}
                   type="button"
                 >
-                  Annuler
+                  {t("priceEditor.cancel")}
                 </Button>
                 <LoadingButton size="sm" type="submit" isLoading={isLoading}>
-                  Valider
+                  {t("priceEditor.validate")}
                 </LoadingButton>
               </div>
             </>
@@ -99,7 +101,7 @@ export const TShirtPrice = () => {
             <>
               <InfoValue
                 isEmpty={!price?.t_shirt_price}
-                placeholder="Prix non fixé"
+                placeholder={t("priceEditor.noPrice")}
                 value={
                   price?.t_shirt_price
                     ? `${(price.t_shirt_price / 100).toFixed(2)} €`
@@ -113,7 +115,7 @@ export const TShirtPrice = () => {
                 type="button"
                 onClick={toggleEdit}
               >
-                Modifier
+                {t("priceEditor.edit")}
               </Button>
             </>
           )}

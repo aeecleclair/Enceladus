@@ -5,6 +5,7 @@ import {
 } from "@/components/raid/custom/ParticipantField";
 import { useSecurityFile } from "@/hooks/raid/useSecurityFile";
 
+import { useTranslations } from "next-intl";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { HiCheck, HiX } from "react-icons/hi";
 
@@ -15,8 +16,16 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 
-import { BadgeAlertIcon, ClockIcon } from "lucide-react";
+import { BadgeAlertIcon, ClockIcon, ShieldCheckIcon } from "lucide-react";
 
 interface SecurityFileDialogProps {
   setIsOpen: (value: boolean) => void;
@@ -30,6 +39,7 @@ export const SecurityFileDialog = ({
   form,
 }: SecurityFileDialogProps) => {
   const { setSecurityFile } = useSecurityFile();
+  const t = useTranslations("raid.team.securityFile");
 
   const validation = form.watch("securityFile.validation");
   const isValidated = validation === "accepted";
@@ -38,6 +48,8 @@ export const SecurityFileDialog = ({
   const isPending = !isValidated && !isRefused && !isTemporary;
 
   const isFieldMissing = form.formState.errors["securityFile"] !== undefined;
+
+  const consentGiven = form.watch("securityFile.consent_given");
 
   function onValidate() {
     form.setValue("securityFile.updated", true);
@@ -54,7 +66,7 @@ export const SecurityFileDialog = ({
     return (
       <>
         <ParticipantField
-          label="Asthme"
+          label={t("asthma")}
           id="securityFile.asthma"
           form={form}
           type={ValueTypes.BOOLEAN}
@@ -62,7 +74,7 @@ export const SecurityFileDialog = ({
         {form.watch("securityFile.asthma") && (
           <>
             <ParticipantField
-              label="Passage en soins intensifs"
+              label={t("intensiveCare")}
               id="securityFile.intensive_care_unit"
               form={form}
               type={ValueTypes.BOOLEAN}
@@ -70,7 +82,7 @@ export const SecurityFileDialog = ({
             {form.watch("securityFile.intensive_care_unit") && (
               <>
                 <ParticipantField
-                  label="Date de passage en soins intensifs"
+                  label={t("intensiveCareDate")}
                   id="securityFile.intensive_care_unit_when"
                   form={form}
                   type={ValueTypes.STRING}
@@ -89,61 +101,95 @@ export const SecurityFileDialog = ({
         <AccordionItem value="medical">
           <AccordionTrigger>
             <div className="flex flex-row mr-auto items-center">
-              {"Informations médicales"}
+              {t("medicalInfo")}
             </div>
           </AccordionTrigger>
           <AccordionContent>
             <div>
-              <ParticipantField
-                label="Allergies"
-                id="securityFile.allergy"
-                form={form}
-                type={ValueTypes.STRING}
-                className="py-1.5"
+              <FormField
+                control={form.control}
+                name="securityFile.consent_given"
+                render={({ field }) => (
+                  <FormItem className="col-span-6">
+                    <div className="rounded-lg border bg-muted/30 p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="shrink-0">
+                          <ShieldCheckIcon className="h-5 w-5 text-primary" />
+                        </div>
+                        <div className="flex-1">
+                          <FormLabel className="font-semibold text-base">
+                            {t("consentLabel")}
+                          </FormLabel>
+                          <FormDescription className="mt-1 text-sm">
+                            {t("consentDescription")}
+                          </FormDescription>
+                        </div>
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={(value) => field.onChange(value)}
+                            className="h-5 w-5"
+                          />
+                        </FormControl>
+                      </div>
+                    </div>
+                  </FormItem>
+                )}
               />
-              {getAsthma()}
-              <ParticipantField
-                label="Traitement en cours"
-                id="securityFile.ongoing_treatment"
-                form={form}
-                type={ValueTypes.STRING}
-                className="py-1.5"
-              />
-              <ParticipantField
-                label="Maladies"
-                id="securityFile.sicknesses"
-                form={form}
-                type={ValueTypes.STRING}
-                className="py-1.5"
-              />
-              <ParticipantField
-                label="Hospitalisation"
-                id="securityFile.hospitalization"
-                form={form}
-                type={ValueTypes.STRING}
-                className="py-1.5"
-              />
-              <ParticipantField
-                label="Opération chirurgicale"
-                id="securityFile.surgical_operation"
-                form={form}
-                type={ValueTypes.STRING}
-                className="py-1.5"
-              />
-              <ParticipantField
-                label="Traumatisme"
-                id="securityFile.trauma"
-                form={form}
-                type={ValueTypes.STRING}
-                className="py-1.5"
-              />
-              <ParticipantField
-                label="Antécédents familiaux"
-                id="securityFile.family"
-                form={form}
-                type={ValueTypes.STRING}
-                className="py-1.5"
-              />
+              {consentGiven && (
+                <>
+                  <ParticipantField
+                    label={t("allergy")}
+                    id="securityFile.allergy"
+                    form={form}
+                    type={ValueTypes.STRING}
+                    className="py-1.5"
+                  />
+                  {getAsthma()}
+                  <ParticipantField
+                    label={t("ongoingTreatment")}
+                    id="securityFile.ongoing_treatment"
+                    form={form}
+                    type={ValueTypes.STRING}
+                    className="py-1.5"
+                  />
+                  <ParticipantField
+                    label={t("sicknesses")}
+                    id="securityFile.sicknesses"
+                    form={form}
+                    type={ValueTypes.STRING}
+                    className="py-1.5"
+                  />
+                  <ParticipantField
+                    label={t("hospitalization")}
+                    id="securityFile.hospitalization"
+                    form={form}
+                    type={ValueTypes.STRING}
+                    className="py-1.5"
+                  />
+                  <ParticipantField
+                    label={t("surgicalOperation")}
+                    id="securityFile.surgical_operation"
+                    form={form}
+                    type={ValueTypes.STRING}
+                    className="py-1.5"
+                  />
+                  <ParticipantField
+                    label={t("trauma")}
+                    id="securityFile.trauma"
+                    form={form}
+                    type={ValueTypes.STRING}
+                    className="py-1.5"
+                  />
+                  <ParticipantField
+                    label={t("family")}
+                    id="securityFile.family"
+                    form={form}
+                    type={ValueTypes.STRING}
+                    className="py-1.5"
+                  />
+                </>
+              )}
             </div>
           </AccordionContent>
         </AccordionItem>
@@ -158,24 +204,24 @@ export const SecurityFileDialog = ({
               {isRefused && <HiX className="mr-4" />}
               {isTemporary && <BadgeAlertIcon className="mr-4 h-4 w-4" />}
               {isPending && <ClockIcon className="mr-4 h-4 w-4" />}
-              {"Personne à prévenir en cas d'urgence"}
+              {t("emergencyPerson")}
             </div>
           </AccordionTrigger>
           <AccordionContent>
             <ParticipantField
-              label="Prénom"
+              label={t("emergencyFirstname")}
               id="securityFile.emergency_person_firstname"
               form={form}
               type={ValueTypes.STRING}
             />
             <ParticipantField
-              label="Nom"
+              label={t("emergencyName")}
               id="securityFile.emergency_person_name"
               form={form}
               type={ValueTypes.STRING}
             />
             <ParticipantField
-              label="Téléphone"
+              label={t("emergencyPhone")}
               id="securityFile.emergency_person_phone"
               form={form}
               type={ValueTypes.PHONE}
@@ -184,7 +230,7 @@ export const SecurityFileDialog = ({
         </AccordionItem>
       </Accordion>
       <Button className="mt-6" type="button" onClick={onValidate}>
-        Valider
+        {t("validate")}
       </Button>
     </div>
   );

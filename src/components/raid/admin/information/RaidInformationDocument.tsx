@@ -6,6 +6,7 @@ import { DocumentDialog } from "@/components/raid/custom/DocumentDialog";
 import { useInformation } from "@/hooks/raid/useInformation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ControllerRenderProps, FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -35,6 +36,7 @@ export const RaidInformationDocument = ({
 }: RaidInformationDocumentProps) => {
   const { updateInformation } = useInformation();
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations("raid.admin.information");
 
   const formSchema = z.object({
     raid_information: z
@@ -82,7 +84,7 @@ export const RaidInformationDocument = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardLayout label="Fiche d'information">
+        <CardLayout label={t("infoLabel")}>
           <FormField
             control={form.control}
             name="raid_information"
@@ -102,13 +104,11 @@ export const RaidInformationDocument = ({
                             <>
                               {field.value?.id ? (
                                 <span className="text-gray-500 overflow-hidden">
-                                  {field.value.id
-                                    ? "Fiche d'information"
-                                    : "Aucun fichier séléctionné"}
+                                  {t("infoSheetFile")}
                                 </span>
                               ) : (
                                 <span className="font-semibold  mr-6">
-                                  Choisir un fichier
+                                  {t("chooseFile")}
                                 </span>
                               )}
                             </>
@@ -118,7 +118,7 @@ export const RaidInformationDocument = ({
                       <DialogContent className="md:max-w-2xl top-1/2">
                         <DialogHeader>
                           <DialogTitle className="text-red sm:text-lg">
-                            {"Règlement du raid"}
+                            {t("infoSheetFile")}
                           </DialogTitle>
                         </DialogHeader>
                         <DocumentDialog
@@ -148,7 +148,7 @@ export const RaidInformationDocument = ({
               isLoading={isLoading}
               disabled={isUploading || !form.formState.isDirty}
             >
-              Modifier
+              {t("edit")}
             </LoadingButton>
           </div>
         </CardLayout>

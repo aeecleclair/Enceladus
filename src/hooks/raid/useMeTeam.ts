@@ -1,14 +1,13 @@
 import { useMeParticipant } from "./useMeParticipant";
 import { useReportError } from "./useReportError";
 
-import { RaidTeam, RaidTeamBase, RaidTeamUpdate } from "@/api";
+import { RaidTeamBase, RaidTeamUpdate } from "@/api";
 import {
-  getRaidParticipantsUserIdTeamOptions,
-  getRaidParticipantsUserIdTeamQueryKey,
+  getRaidParticipantsMeTeamQueryKey,
   patchRaidTeamsTeamIdMutation,
   postRaidTeamsMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { getRaidParticipantsUserIdTeam } from "@/api/sdk.gen";
+import { getRaidParticipantsMeTeam } from "@/api/sdk.gen";
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -16,17 +15,13 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/components/ui/use-toast";
 
 export const useMeTeam = () => {
-  const { userId, isTokenExpired } = useAuth();
+  const { isTokenExpired } = useAuth();
   const { toast } = useToast();
   const { me } = useMeParticipant();
   const queryClient = useQueryClient();
   const reportError = useReportError();
 
-  const queryKey = userId
-    ? getRaidParticipantsUserIdTeamQueryKey({
-        path: { user_id: userId },
-      })
-    : undefined;
+  const queryKey = getRaidParticipantsMeTeamQueryKey({});
 
   const invalidate = () => {
     if (queryKey) queryClient.invalidateQueries({ queryKey });
@@ -37,19 +32,16 @@ export const useMeTeam = () => {
     isLoading,
     refetch: refetchTeam,
   } = useQuery({
-    ...getRaidParticipantsUserIdTeamOptions({
-      path: { user_id: userId! },
-    }),
+    queryKey: getRaidParticipantsMeTeamQueryKey({}),
     queryFn: async ({ signal }) => {
-      const { data, error, response } = await getRaidParticipantsUserIdTeam({
-        path: { user_id: userId! },
+      const { data, error, response } = await getRaidParticipantsMeTeam({
         signal,
       });
-      if (response?.status === 404) return null as unknown as RaidTeam;
+      if (response?.status === 404) return null;
       if (error) throw error;
-      return (data ?? null) as unknown as RaidTeam;
+      return data ?? null;
     },
-    enabled: userId !== null && !isTokenExpired() && !!me,
+    enabled: !isTokenExpired() && !!me,
     retry: 0,
   });
 

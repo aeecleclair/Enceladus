@@ -83,6 +83,16 @@ export const ParticipantDocumentCard = ({
               validateDocument={validateDocument}
             />
           )}
+          {participant.has_scholarship && (
+            <DocumentItem
+              value="Attestation de bourse"
+              document={participant.school_authorization ?? null}
+              index={5}
+              setDocument={setDocument}
+              downloadDocument={downloadDocument}
+              validateDocument={validateDocument}
+            />
+          )}
         </Accordion>
       </CardContent>
     </>

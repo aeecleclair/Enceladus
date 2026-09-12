@@ -245,7 +245,55 @@
       "paid": "Paid"
     },
     "securityFile": {
-      "title": "Health file"
+      "title": "Security file",
+      "consentLabel": "Consent for medical information",
+      "consentDescription": "By checking this box, you authorize the collection and processing of your medical information (allergies, medical history, ongoing treatments, etc.) as part of your participation in the Raid. This information will only be accessible to authorized personnel (medical team, organizers) in case of emergency.",
+      "noConsentMessage": "Consent for medical information has not been given.",
+      "medicalInfo": "Medical Information",
+      "allergy": "Allergies",
+      "asthma": "Asthma",
+      "intensiveCare": "Intensive Care Unit Stay",
+      "intensiveCareDate": "Date of Intensive Care Unit Stay",
+      "ongoingTreatment": "Ongoing Treatment",
+      "sicknesses": "Sicknesses",
+      "hospitalization": "Hospitalization",
+      "surgicalOperation": "Surgical Operation",
+      "trauma": "Trauma",
+      "family": "Family History",
+      "emergencyPerson": "Emergency Contact Person",
+      "emergencyFirstname": "First Name",
+      "emergencyName": "Last Name",
+      "emergencyPhone": "Phone",
+      "validate": "Validate"
+    },
+    "participantView": {
+      "address": "Address",
+      "bikeSize": "Bike size",
+      "tShirtSize": "T-shirt size",
+      "diet": "Diet",
+      "situation": "Situation",
+      "schoolName": "School name",
+      "companyName": "Company name",
+      "otherSituation": "Other situation",
+      "studentCard": "Student card",
+      "idCard": "ID card",
+      "medicalCertificate": "Medical certificate",
+      "securityFile": "Security file",
+      "parentAuthorization": "Parental authorization",
+      "isScholarship": "I have a scholarship",
+      "scholarshipAttestation": "Scholarship certificate",
+      "raidRules": "Raid rules",
+      "honourAttestation": "Honour certificate",
+      "save": "Save",
+      "noTShirt": "No T-shirt"
+    },
+    "edit": {
+      "teamName": "Team name",
+      "meetingPlace": "Meeting place",
+      "route": "Route",
+      "save": "Save",
+      "selectMeetingPlace": "Select a meeting place",
+      "selectRoute": "Select a route"
     }
   },
   "volunteer": {
@@ -308,6 +356,16 @@
       "action": "Unregister",
       "confirmTitle": "Confirm unregistration",
       "confirmDescription": "Are you sure you want to unregister as a volunteer?"
+    },
+    "payment": {
+      "pay": "Pay",
+      "paid": "Paid",
+      "title": "Payment",
+      "summary": "Summary",
+      "participation": "Participation",
+      "paymentProviderInfo": "Payment provider information",
+      "helloAssoDescription": "You will be redirected to HelloAsso to proceed with the payment of your registration. This service takes no fees on payments, it relies solely on donations. By default, HelloAsso offers you to make a donation. If you choose to do so, only HelloAsso will benefit from it.",
+      "fullyValidated": "Your file is fully validated!"
     }
   },
   "profile": {
@@ -393,7 +451,30 @@
       }
     },
     "teams": {
-      "title": "Teams"
+      "title": "Teams",
+      "participantTab": {
+        "birthday": "Date of birth",
+        "email": "Email",
+        "address": "Address",
+        "bikeSize": "Bike size",
+        "tShirtSize": "T-shirt size",
+        "diet": "Diet",
+        "situation": "Situation",
+        "schoolName": "School name",
+        "companyName": "Company name",
+        "otherSituation": "Other situation",
+        "scholarship": "Scholarship",
+        "scholarshipAttestation": "Scholarship certificate",
+        "honourAttestation": "Honour certificate",
+        "progressLabel": "Participant file completed at"
+      },
+      "documentItem": {
+        "validate": "Validate",
+        "validateTemporary": "Validate temporarily",
+        "refuse": "Refuse",
+        "download": "Download",
+        "noDocument": "No document"
+      }
     },
     "volunteers": {
       "title": "Volunteers",
@@ -410,6 +491,7 @@
         "volunteer": "Volunteer",
         "registeredAt": "Registered on",
         "status": "Status",
+        "payment": "Payment",
         "car": "Car",
         "roles": "Roles"
       },
@@ -423,6 +505,8 @@
         "cancel": "Cancel",
         "delete": "Delete"
       },
+      "paid": "Paid",
+      "unpaid": "Unpaid",
       "deleteConfirmTitle": "Delete this volunteer?",
       "deleteConfirmDescription": "This action is irreversible.",
       "sheet": {
@@ -437,7 +521,9 @@
         "allergy": "Allergies",
         "noDiet": "No specific diet",
         "noAllergy": "No allergy",
-        "car": "Car"
+        "car": "Car",
+        "paymentOk": "Payment OK",
+        "paymentPending": "Payment pending"
       }
     },
     "information": {
@@ -466,8 +552,39 @@
         "student": "Student price",
         "external": "External price",
         "partner": "Partner price",
-        "tShirt": "T-shirt price"
-      }
+        "volunteer": "Volunteer price",
+        "tShirt": "T-shirt price",
+        "scholarship": "Scholarship price"
+      },
+      "priceEditor": {
+        "noPrice": "Price not set",
+        "cancel": "Cancel",
+        "validate": "Validate",
+        "edit": "Edit"
+      },
+      "noContact": "No contact",
+      "emergency": {
+        "label": "Emergency contacts",
+        "filled": "{count}/4 filled",
+        "noPersonSet": "No person set",
+        "edit": "Edit",
+        "dialogTitle": "Important contacts",
+        "dialogDescription": "The people participants should contact in case of emergency.",
+        "president": "President",
+        "volunteerResponsible": "Volunteer Manager",
+        "securityResponsible": "Security Manager",
+        "rescue": "First Responders",
+        "firstname": "First Name",
+        "lastname": "Last Name",
+        "phone": "Phone",
+        "validate": "Validate"
+      },
+      "dateNotSet": "Date not set",
+      "raidRulesFile": "Raid rules",
+      "chooseFile": "Choose a file",
+      "noFileSelected": "No file selected",
+      "infoSheetFile": "Information sheet",
+      "edit": "Edit"
     },
     "fallback": {
       "title": "No active edition",

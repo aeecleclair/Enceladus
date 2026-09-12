@@ -20,21 +20,21 @@ import {
 } from "@/components/ui/form";
 import { PriceInput } from "@/components/ui/priceInput";
 
-export const RaidStudentPrice = () => {
+export const RaidScholarshipPrice = () => {
   const { price, updatePrice } = usePrice();
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations("raid.admin.information");
 
   const formSchema = z.object({
-    student_price: z.number().positive(),
+    scholarship_price: z.number().positive(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      student_price: price?.student_price
-        ? price.student_price / 100
+      scholarship_price: price?.scholarship_price
+        ? price.scholarship_price / 100
         : undefined,
     },
   });
@@ -44,12 +44,12 @@ export const RaidStudentPrice = () => {
     updatePrice(
       {
         ...price,
-        student_price: values.student_price * 100,
+        scholarship_price: values.scholarship_price * 100,
       },
       () => {
         setIsLoading(false);
         setIsEdit(false);
-        form.reset({ student_price: values.student_price });
+        form.reset({ scholarship_price: values.scholarship_price });
       },
     );
   }
@@ -61,12 +61,12 @@ export const RaidStudentPrice = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardLayout label={t("prices.student")}>
+        <CardLayout label={t("prices.scholarship")}>
           {isEdit ? (
             <>
               <FormField
                 control={form.control}
-                name="student_price"
+                name="scholarship_price"
                 render={({ field }) => (
                   <FormItem>
                     <div className="items-center gap-4">
@@ -100,11 +100,11 @@ export const RaidStudentPrice = () => {
           ) : (
             <>
               <InfoValue
-                isEmpty={!price?.student_price}
+                isEmpty={!price?.scholarship_price}
                 placeholder={t("priceEditor.noPrice")}
                 value={
-                  price?.student_price
-                    ? `${(price.student_price / 100).toFixed(2)} €`
+                  price?.scholarship_price
+                    ? `${(price.scholarship_price / 100).toFixed(2)} €`
                     : ""
                 }
               />

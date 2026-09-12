@@ -22,6 +22,7 @@ import {
 
 import {
   Car,
+  CreditCard,
   HeartHandshake,
   Map as MapIcon,
   ShieldCheck,
@@ -80,6 +81,10 @@ export const VolunteerSheet = ({
           <div className="flex flex-wrap gap-2 pt-1">
             <Badge variant="outline" className={status.className}>
               {status.label}
+            </Badge>
+            <Badge variant="outline" className="gap-1">
+              <CreditCard className="h-3 w-3" />
+              {volunteer.payment ? ts("paymentOk") : ts("paymentPending")}
             </Badge>
             {volunteer.has_car && (
               <Badge variant="outline" className="gap-1">

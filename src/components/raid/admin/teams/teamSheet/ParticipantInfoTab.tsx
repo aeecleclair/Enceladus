@@ -4,6 +4,8 @@ import { formatDate } from "@/lib/dateFormat";
 import { getLabelFromValue, situations } from "@/lib/raid/comboboxValues";
 import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
 
+import { useTranslations } from "next-intl";
+
 import {
   Card,
   CardContent,
@@ -19,23 +21,25 @@ interface ParticipantInfoTabProps {
 export const ParticipantInfoTab = ({
   participant,
 }: ParticipantInfoTabProps) => {
+  const t = useTranslations("raid.admin.teams.participantTab");
+
   function getSituation(participant: RaidParticipant) {
     const situation = getSituationLabel(participant.situation ?? undefined);
     const title = getSituationTitle(participant.situation ?? undefined);
     return (
       <>
         <ParticipantInfo
-          label="Situation"
+          label={t("situation")}
           value={getLabelFromValue(situations, situation)}
         />
         {situation === "otherschool" && (
-          <ParticipantInfo label="Nom de l'école" value={title} />
+          <ParticipantInfo label={t("schoolName")} value={title} />
         )}
         {situation === "corporatepartner" && (
-          <ParticipantInfo label="Nom de l'entreprise" value={title} />
+          <ParticipantInfo label={t("companyName")} value={title} />
         )}
         {situation === "other" && (
-          <ParticipantInfo label="Autre situation" value={title} />
+          <ParticipantInfo label={t("otherSituation")} value={title} />
         )}
       </>
     );
@@ -54,7 +58,7 @@ export const ParticipantInfoTab = ({
           {participant.user.firstname + " " + participant.user.name}
         </CardTitle>
         <CardDescription>
-          Dossier participant complété à{" "}
+          {t("progressLabel")}{" "}
           <span className={`font-semibold ${participantProgressClass}`}>
             {participantProgress.toFixed(0)}%
           </span>
@@ -62,20 +66,31 @@ export const ParticipantInfoTab = ({
       </CardHeader>
       <CardContent>
         <ParticipantInfo
-          label="Date de naissance"
+          label={t("birthday")}
           value={formatDate(participant.user.birthday)}
         />
-        <ParticipantInfo label="Email" value={participant.user.email} />
-        <ParticipantInfo label="Adresse" value={participant.address} />
-        <ParticipantInfo label="Taille de vélo" value={participant.bike_size} />
+        <ParticipantInfo label={t("email")} value={participant.user.email} />
+        <ParticipantInfo label={t("address")} value={participant.address} />
+        <ParticipantInfo label={t("bikeSize")} value={participant.bike_size} />
         <ParticipantInfo
-          label="Taille de t-shirt"
+          label={t("tShirtSize")}
           value={participant.t_shirt_size}
         />
-        <ParticipantInfo label="Régime alimentaire" value={participant.diet} />
+        <ParticipantInfo label={t("diet")} value={participant.diet} />
         {getSituation(participant)}
         <ParticipantInfo
-          label="Attestation sur l'honneur"
+          label={t("scholarship")}
+          value={participant.has_scholarship}
+        />
+        {participant.has_scholarship && (
+          <ParticipantInfo
+            label={t("scholarshipAttestation")}
+            value={participant.school_authorization}
+            participantId={participant.user_id}
+          />
+        )}
+        <ParticipantInfo
+          label={t("honourAttestation")}
           value={participant.attestation_on_honour}
         />
       </CardContent>

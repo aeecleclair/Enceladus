@@ -5,6 +5,7 @@ import { LoadingButton } from "@/components/common/LoadingButton";
 import { useInformation } from "@/hooks/raid/useInformation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +24,7 @@ export const ContactMail = () => {
   const { information, updateInformation } = useInformation();
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations("raid.admin.information");
 
   const formSchema = z.object({
     email: z.string().email({
@@ -59,7 +61,7 @@ export const ContactMail = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardLayout label="Contact">
+        <CardLayout label={t("sections.contact")}>
           {isEdit ? (
             <>
               <FormField
@@ -83,10 +85,10 @@ export const ContactMail = () => {
                   onClick={() => setIsEdit(false)}
                   type="button"
                 >
-                  Annuler
+                  {t("priceEditor.cancel")}
                 </Button>
                 <LoadingButton size="sm" type="submit" isLoading={isLoading}>
-                  Valider
+                  {t("priceEditor.validate")}
                 </LoadingButton>
               </div>
             </>
@@ -94,7 +96,7 @@ export const ContactMail = () => {
             <>
               <InfoValue
                 isEmpty={!information?.contact}
-                placeholder="Aucun contact"
+                placeholder={t("noContact")}
                 value={information?.contact ?? ""}
                 className="break-all"
               />
@@ -105,7 +107,7 @@ export const ContactMail = () => {
                 type="button"
                 onClick={toggleEdit}
               >
-                Modifier
+                {t("priceEditor.edit")}
               </Button>
             </>
           )}

@@ -11,7 +11,9 @@ import { RaidExternalPrice } from "@/components/raid/admin/information/RaidExter
 import { RaidInformationDocument } from "@/components/raid/admin/information/RaidInformationDocument";
 import { RaidPartnerPrice } from "@/components/raid/admin/information/RaidPartnerPrice";
 import { RaidRules } from "@/components/raid/admin/information/RaidRules";
+import { RaidScholarshipPrice } from "@/components/raid/admin/information/RaidScholarshipPrice";
 import { RaidStudentPrice } from "@/components/raid/admin/information/RaidStudentPrice";
+import { RaidVolunteerPrice } from "@/components/raid/admin/information/RaidVolunteerPrice";
 import { TShirtPrice } from "@/components/raid/admin/information/TShirtPrice";
 import { useInformation } from "@/hooks/raid/useInformation";
 
@@ -101,8 +103,10 @@ const InformationPage = () => {
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <RaidStudentPrice />
+          <RaidScholarshipPrice />
           <RaidExternalPrice />
           <RaidPartnerPrice />
+          <RaidVolunteerPrice />
           <TShirtPrice />
         </div>
       </SectionCard>

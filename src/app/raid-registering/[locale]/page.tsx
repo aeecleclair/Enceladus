@@ -71,7 +71,7 @@ const Home = () => {
     if (me && team?.validation_progress === 100) {
       return <FullyRegisteredDashboard edition={edition} />;
     }
-    if (me) {
+    if (me && team) {
       return <IncompleteTeamCard team={team} />;
     }
     if (meVolunteer) {

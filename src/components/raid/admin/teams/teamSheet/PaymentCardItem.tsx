@@ -1,4 +1,4 @@
-import { RaidParticipant } from "@/api";
+import { RaidParticipantRestricted } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 
 import { useState } from "react";
@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, CreditCard, Shirt } from "lucide-react";
 
 interface PaymentCardItemProps {
-  participant: RaidParticipant;
+  participant: RaidParticipantRestricted;
   validateCallback: (participantId: string, callback: () => void) => void;
   validateTShirtCallback: (participantId: string, callback: () => void) => void;
 }
