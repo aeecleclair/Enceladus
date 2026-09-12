@@ -265,6 +265,35 @@
       "emergencyName": "Nom",
       "emergencyPhone": "Téléphone",
       "validate": "Valider"
+    },
+    "participantView": {
+      "address": "Adresse",
+      "bikeSize": "Taille de vélo",
+      "tShirtSize": "Taille de t-shirt",
+      "diet": "Régime alimentaire",
+      "situation": "Situation",
+      "schoolName": "Nom de l'école",
+      "companyName": "Nom de l'entreprise",
+      "otherSituation": "Autre situation",
+      "studentCard": "Carte étudiante",
+      "idCard": "Carte d'identité",
+      "medicalCertificate": "Certificat médical",
+      "securityFile": "Fiche de sécurité",
+      "parentAuthorization": "Autorisation parentale",
+      "isScholarship": "Je suis boursier",
+      "scholarshipAttestation": "Attestation de bourse",
+      "raidRules": "Règlement du raid",
+      "honourAttestation": "Attestation sur l'honneur",
+      "save": "Enregistrer",
+      "noTShirt": "Pas de Tshirt"
+    },
+    "edit": {
+      "teamName": "Nom d'équipe",
+      "meetingPlace": "Lieu de rendez-vous",
+      "route": "Parcours",
+      "save": "Enregistrer",
+      "selectMeetingPlace": "Selectionner un lieu de rendez-vous",
+      "selectRoute": "Selectionner un parcours"
     }
   },
   "volunteer": {
@@ -422,7 +451,30 @@
       }
     },
     "teams": {
-      "title": "Équipes"
+      "title": "Équipes",
+      "participantTab": {
+        "birthday": "Date de naissance",
+        "email": "Email",
+        "address": "Adresse",
+        "bikeSize": "Taille de vélo",
+        "tShirtSize": "Taille de t-shirt",
+        "diet": "Régime alimentaire",
+        "situation": "Situation",
+        "schoolName": "Nom de l'école",
+        "companyName": "Nom de l'entreprise",
+        "otherSituation": "Autre situation",
+        "scholarship": "Boursier",
+        "scholarshipAttestation": "Attestation de bourse",
+        "honourAttestation": "Attestation sur l'honneur",
+        "progressLabel": "Dossier participant complété à"
+      },
+      "documentItem": {
+        "validate": "Valider",
+        "validateTemporary": "Valider temporairement",
+        "refuse": "Refuser",
+        "download": "Télécharger",
+        "noDocument": "Aucun document"
+      }
     },
     "volunteers": {
       "title": "Bénévoles",
@@ -498,11 +550,41 @@
       "infoLabel": "Fiche d'information",
       "prices": {
         "student": "Tarif étudiant",
+        "scholarship": "Tarif boursier",
         "external": "Tarif externe",
         "partner": "Tarif partenaire",
         "volunteer": "Tarif bénévole",
         "tShirt": "Tarif t-shirt"
-      }
+      },
+      "priceEditor": {
+        "noPrice": "Prix non fixé",
+        "cancel": "Annuler",
+        "validate": "Valider",
+        "edit": "Modifier"
+      },
+      "noContact": "Aucun contact",
+      "emergency": {
+        "label": "Personnes à contacter en cas d'urgence",
+        "filled": "{count}/4 remplis",
+        "noPersonSet": "Aucune personne renseignée",
+        "edit": "Modifier",
+        "dialogTitle": "Contacts importants",
+        "dialogDescription": "Les personnes que les participants doivent contacter en cas d'urgence.",
+        "president": "Président·e",
+        "volunteerResponsible": "Responsable Bénévole",
+        "securityResponsible": "Responsable Sécurité",
+        "rescue": "Secouristes",
+        "firstname": "Prénom",
+        "lastname": "Nom",
+        "phone": "Téléphone",
+        "validate": "Valider"
+      },
+      "dateNotSet": "Date non définie",
+      "raidRulesFile": "Réglement du raid",
+      "chooseFile": "Choisir un fichier",
+      "noFileSelected": "Aucun fichier séléctionné",
+      "infoSheetFile": "Fiche d'information",
+      "edit": "Modifier"
     },
     "fallback": {
       "title": "Aucune édition active",

@@ -265,6 +265,35 @@
       "emergencyName": "Last Name",
       "emergencyPhone": "Phone",
       "validate": "Validate"
+    },
+    "participantView": {
+      "address": "Address",
+      "bikeSize": "Bike size",
+      "tShirtSize": "T-shirt size",
+      "diet": "Diet",
+      "situation": "Situation",
+      "schoolName": "School name",
+      "companyName": "Company name",
+      "otherSituation": "Other situation",
+      "studentCard": "Student card",
+      "idCard": "ID card",
+      "medicalCertificate": "Medical certificate",
+      "securityFile": "Security file",
+      "parentAuthorization": "Parental authorization",
+      "isScholarship": "I have a scholarship",
+      "scholarshipAttestation": "Scholarship certificate",
+      "raidRules": "Raid rules",
+      "honourAttestation": "Honour certificate",
+      "save": "Save",
+      "noTShirt": "No T-shirt"
+    },
+    "edit": {
+      "teamName": "Team name",
+      "meetingPlace": "Meeting place",
+      "route": "Route",
+      "save": "Save",
+      "selectMeetingPlace": "Select a meeting place",
+      "selectRoute": "Select a route"
     }
   },
   "volunteer": {
@@ -422,7 +451,30 @@
       }
     },
     "teams": {
-      "title": "Teams"
+      "title": "Teams",
+      "participantTab": {
+        "birthday": "Date of birth",
+        "email": "Email",
+        "address": "Address",
+        "bikeSize": "Bike size",
+        "tShirtSize": "T-shirt size",
+        "diet": "Diet",
+        "situation": "Situation",
+        "schoolName": "School name",
+        "companyName": "Company name",
+        "otherSituation": "Other situation",
+        "scholarship": "Scholarship",
+        "scholarshipAttestation": "Scholarship certificate",
+        "honourAttestation": "Honour certificate",
+        "progressLabel": "Participant file completed at"
+      },
+      "documentItem": {
+        "validate": "Validate",
+        "validateTemporary": "Validate temporarily",
+        "refuse": "Refuse",
+        "download": "Download",
+        "noDocument": "No document"
+      }
     },
     "volunteers": {
       "title": "Volunteers",
@@ -501,8 +553,38 @@
         "external": "External price",
         "partner": "Partner price",
         "volunteer": "Volunteer price",
-        "tShirt": "T-shirt price"
-      }
+        "tShirt": "T-shirt price",
+        "scholarship": "Scholarship price"
+      },
+      "priceEditor": {
+        "noPrice": "Price not set",
+        "cancel": "Cancel",
+        "validate": "Validate",
+        "edit": "Edit"
+      },
+      "noContact": "No contact",
+      "emergency": {
+        "label": "Emergency contacts",
+        "filled": "{count}/4 filled",
+        "noPersonSet": "No person set",
+        "edit": "Edit",
+        "dialogTitle": "Important contacts",
+        "dialogDescription": "The people participants should contact in case of emergency.",
+        "president": "President",
+        "volunteerResponsible": "Volunteer Manager",
+        "securityResponsible": "Security Manager",
+        "rescue": "First Responders",
+        "firstname": "First Name",
+        "lastname": "Last Name",
+        "phone": "Phone",
+        "validate": "Validate"
+      },
+      "dateNotSet": "Date not set",
+      "raidRulesFile": "Raid rules",
+      "chooseFile": "Choose a file",
+      "noFileSelected": "No file selected",
+      "infoSheetFile": "Information sheet",
+      "edit": "Edit"
     },
     "fallback": {
       "title": "No active edition",
