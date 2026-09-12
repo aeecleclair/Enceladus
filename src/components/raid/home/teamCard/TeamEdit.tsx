@@ -7,6 +7,7 @@ import { useMeTeam } from "@/hooks/raid/useMeTeam";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { useTranslations } from "next-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { HiCheck } from "react-icons/hi";
 import { z } from "zod";
@@ -23,6 +24,8 @@ interface TeamCardProps {
 export const TeamEdit = ({ team, setIsEdit }: TeamCardProps) => {
   const { toast } = useToast();
   const { isUpdateLoading, updateTeam } = useMeTeam();
+  const t = useTranslations("raid.team.edit");
+
   const formSchema = z.object({
     name: z.string().optional(),
     difficulty: z.enum(["discovery", "sports", "expert"]).optional(),
@@ -64,23 +67,23 @@ export const TeamEdit = ({ team, setIsEdit }: TeamCardProps) => {
       >
         <CardContent>
           <ParticipantField
-            label="Nom d'équipe"
+            label={t("teamName")}
             id="name"
             form={form}
             type={ValueTypes.STRING}
           />
           <ParticipantField
-            label="Lieu de rendez-vous"
+            label={t("meetingPlace")}
             id="meeting_place"
-            placeholder="Selectionner un lieu de rendez-vous"
+            placeholder={t("selectMeetingPlace")}
             form={form}
             type={ValueTypes.MEETINGPLACE}
           />
 
           <ParticipantField
-            label="Parcours"
+            label={t("route")}
             id="difficulty"
-            placeholder="Selectionner un parcours"
+            placeholder={t("selectRoute")}
             form={form}
             type={ValueTypes.DIFFICULTY}
           />
@@ -95,7 +98,7 @@ export const TeamEdit = ({ team, setIsEdit }: TeamCardProps) => {
               disabled={!form.formState.isDirty}
             >
               <HiCheck className="mr-2 h-4 w-4" />
-              Enregistrer
+              {t("save")}
             </Button>
           )}
         </CardContent>

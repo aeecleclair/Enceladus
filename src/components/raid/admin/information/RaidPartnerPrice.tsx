@@ -5,6 +5,7 @@ import { LoadingButton } from "@/components/common/LoadingButton";
 import { usePrice } from "@/hooks/raid/usePrice";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -23,6 +24,7 @@ export const RaidPartnerPrice = () => {
   const { price, updatePrice } = usePrice();
   const [isEdit, setIsEdit] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const t = useTranslations("raid.admin.information");
 
   const formSchema = z.object({
     partner_price: z.number().positive(),
@@ -55,7 +57,7 @@ export const RaidPartnerPrice = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <CardLayout label="Tarif partenaire">
+        <CardLayout label={t("prices.partner")}>
           {isEdit ? (
             <>
               <FormField
@@ -84,10 +86,10 @@ export const RaidPartnerPrice = () => {
                   onClick={() => setIsEdit(false)}
                   type="button"
                 >
-                  Annuler
+                  {t("priceEditor.cancel")}
                 </Button>
                 <LoadingButton size="sm" type="submit" isLoading={isLoading}>
-                  Valider
+                  {t("priceEditor.validate")}
                 </LoadingButton>
               </div>
             </>
@@ -95,7 +97,7 @@ export const RaidPartnerPrice = () => {
             <>
               <InfoValue
                 isEmpty={!price?.partner_price}
-                placeholder="Prix non fixé"
+                placeholder={t("priceEditor.noPrice")}
                 value={
                   price?.partner_price
                     ? `${(price.partner_price / 100).toFixed(2)} €`
@@ -109,7 +111,7 @@ export const RaidPartnerPrice = () => {
                 type="button"
                 onClick={() => setIsEdit(true)}
               >
-                Modifier
+                {t("priceEditor.edit")}
               </Button>
             </>
           )}

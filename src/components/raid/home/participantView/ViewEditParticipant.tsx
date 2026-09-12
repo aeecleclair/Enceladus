@@ -11,6 +11,7 @@ import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { useTranslations } from "next-intl";
 import { FormProvider, useForm } from "react-hook-form";
 import { HiCheck } from "react-icons/hi";
 import { z } from "zod";
@@ -33,6 +34,8 @@ export const ViewEditParticipant = ({
   const { toast } = useToast();
   const { updateParticipant, isUpdateLoading } = useMeParticipant();
   const { refetchTeam } = useMeTeam();
+  const t = useTranslations("raid.team.participantView");
+
   const formSchema = z
     .object({
       address: z
@@ -414,17 +417,17 @@ export const ViewEditParticipant = ({
     return (
       <>
         <ParticipantInfo
-          label="Situation"
+          label={t("situation")}
           value={getLabelFromValue(situations, situation)}
         />
         {situation === "otherschool" && (
-          <ParticipantInfo label="Nom de l'école" value={title} />
+          <ParticipantInfo label={t("schoolName")} value={title} />
         )}
         {situation === "corporatepartner" && (
-          <ParticipantInfo label="Nom de l'entreprise" value={title} />
+          <ParticipantInfo label={t("companyName")} value={title} />
         )}
         {situation === "other" && (
-          <ParticipantInfo label="Autre situation" value={title} />
+          <ParticipantInfo label={t("otherSituation")} value={title} />
         )}
       </>
     );
@@ -434,7 +437,7 @@ export const ViewEditParticipant = ({
     return (
       <>
         <ParticipantField
-          label="Situation"
+          label={t("situation")}
           id="situation"
           form={form}
           type={ValueTypes.SITUATION}
@@ -444,7 +447,7 @@ export const ViewEditParticipant = ({
           // eslint-disable-next-line react-hooks/incompatible-library
           form.watch("situation") === "otherschool" && (
             <ParticipantField
-              label="Nom de l'école"
+              label={t("schoolName")}
               id="otherSchool"
               form={form}
               type={ValueTypes.STRING}
@@ -454,7 +457,7 @@ export const ViewEditParticipant = ({
         }
         {form.watch("situation") === "corporatepartner" && (
           <ParticipantField
-            label="Nom de l'entreprise"
+            label={t("companyName")}
             id="company"
             form={form}
             type={ValueTypes.STRING}
@@ -463,7 +466,7 @@ export const ViewEditParticipant = ({
         )}
         {form.watch("situation") === "other" && (
           <ParticipantField
-            label="Autre situation"
+            label={t("otherSituation")}
             id="other"
             form={form}
             type={ValueTypes.STRING}
@@ -486,27 +489,27 @@ export const ViewEditParticipant = ({
           {isEdit ? (
             <>
               <ParticipantField
-                label="Adresse"
+                label={t("address")}
                 id="address"
                 form={form}
                 type={ValueTypes.STRING}
               />
               <ParticipantField
-                label="Taille de vélo"
+                label={t("bikeSize")}
                 placeholder="Taille"
                 id="bikeSize"
                 form={form}
                 type={ValueTypes.BIKESIZE}
               />
               <ParticipantField
-                label="Taille de t-shirt"
+                label={t("tShirtSize")}
                 id="tShirtSize"
                 placeholder="Taille"
                 form={form}
                 type={ValueTypes.TSHIRTSIZE}
               />
               <ParticipantField
-                label="Régime alimentaire"
+                label={t("diet")}
                 id="diet"
                 form={form}
                 type={ValueTypes.STRING}
@@ -516,7 +519,7 @@ export const ViewEditParticipant = ({
                 form.watch("situation") ?? "",
               ) && (
                 <ParticipantField
-                  label="Carte étudiante"
+                  label={t("studentCard")}
                   id="studentCard"
                   form={form}
                   type={ValueTypes.DOCUMENT}
@@ -525,21 +528,21 @@ export const ViewEditParticipant = ({
                 />
               )}
               <ParticipantField
-                label="Carte d'identité"
+                label={t("idCard")}
                 id="idCard"
                 form={form}
                 type={ValueTypes.DOCUMENT}
                 participantId={participant.user_id}
               />
               <ParticipantField
-                label="Certificat médical"
+                label={t("medicalCertificate")}
                 id="medicalCertificate"
                 form={form}
                 type={ValueTypes.DOCUMENT}
                 participantId={participant.user_id}
               />
               <ParticipantField
-                label="Fiche de sécurité"
+                label={t("securityFile")}
                 id="securityFile"
                 form={form}
                 type={ValueTypes.SECURITYFILE}
@@ -547,7 +550,7 @@ export const ViewEditParticipant = ({
               />
               {participant.is_minor && (
                 <ParticipantField
-                  label="Autorisation parentale"
+                  label={t("parentAuthorization")}
                   id="parentAuthorization"
                   form={form}
                   type={ValueTypes.DOCUMENT}
@@ -555,14 +558,14 @@ export const ViewEditParticipant = ({
                 />
               )}
               <ParticipantField
-                label="Je suis boursier"
+                label={t("isScholarship")}
                 id="hasScholarship"
                 form={form}
                 type={ValueTypes.BOOLEAN}
               />
               {form.watch("hasScholarship") && (
                 <ParticipantField
-                  label="Attestation de bourse"
+                  label={t("scholarshipAttestation")}
                   id="schoolAuthorization"
                   form={form}
                   type={ValueTypes.DOCUMENT}
@@ -571,14 +574,14 @@ export const ViewEditParticipant = ({
                 />
               )}
               <ParticipantField
-                label="Règlement du raid"
+                label={t("raidRules")}
                 id="raidRules"
                 form={form}
                 type={ValueTypes.DOCUMENT}
                 participantId={participant.user_id}
               />
               <ParticipantField
-                label="Attestation sur l'honneur"
+                label={t("honourAttestation")}
                 id="attestationHonour"
                 form={form}
                 type={ValueTypes.BOOLEAN}
@@ -587,69 +590,69 @@ export const ViewEditParticipant = ({
             </>
           ) : (
             <>
-              <ParticipantInfo label="Adresse" value={participant.address} />
               <ParticipantInfo
-                label="Taille de vélo"
+                label={t("address")}
+                value={participant.address}
+              />
+              <ParticipantInfo
+                label={t("bikeSize")}
                 value={participant.bike_size}
               />
               <ParticipantInfo
-                label="Taille de t-shirt"
+                label={t("tShirtSize")}
                 value={participant.t_shirt_size}
-                placeholder="Pas de Tshirt"
+                placeholder={t("noTShirt")}
               />
-              <ParticipantInfo
-                label="Régime alimentaire"
-                value={participant.diet}
-              />
+              <ParticipantInfo label={t("diet")} value={participant.diet} />
               {getSituation()}
               {["centrale", "otherschool"].includes(
                 getSituationLabel(participant.situation ?? undefined) ?? "",
               ) && (
                 <ParticipantInfo
-                  label="Carte étudiante"
+                  label={t("studentCard")}
                   value={participant.student_card}
                   participantId={participant.user_id}
                 />
               )}
               <ParticipantInfo
-                label="Carte d'identité"
+                label={t("idCard")}
                 value={participant.id_card}
                 participantId={participant.user_id}
               />
               <ParticipantInfo
-                label="Certificat médical"
+                label={t("medicalCertificate")}
                 value={participant.medical_certificate}
                 participantId={participant.user_id}
               />
               <ParticipantInfo
-                label="Fiche de sécurité"
+                label={t("securityFile")}
                 value={participant.security_file}
               />
               {participant.is_minor && (
                 <ParticipantInfo
-                  label="Autorisation parentale"
+                  label={t("parentAuthorization")}
                   value={participant.parent_authorization}
                   participantId={participant.user_id}
                 />
               )}
               <ParticipantInfo
-                label="Je suis boursier"
+                label={t("isScholarship")}
                 value={participant.has_scholarship}
               />
               {participant.has_scholarship && (
                 <ParticipantInfo
-                  label="Attestation de bourse"
+                  label={t("scholarshipAttestation")}
                   value={participant.school_authorization}
                   participantId={participant.user_id}
                 />
               )}
               <ParticipantInfo
-                label="Règlement du raid"
+                label={t("raidRules")}
                 value={participant.raid_rules}
                 participantId={participant.user_id}
               />
               <ParticipantInfo
-                label="Attestation sur l'honneur"
+                label={t("honourAttestation")}
                 value={participant.attestation_on_honour}
               />
             </>
@@ -667,7 +670,7 @@ export const ViewEditParticipant = ({
                   disabled={!form.formState.isDirty}
                 >
                   <HiCheck className="mr-2 h-4 w-4" />
-                  Enregistrer
+                  {t("save")}
                 </Button>
               )}
             </>

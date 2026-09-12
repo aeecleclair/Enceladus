@@ -2,6 +2,7 @@ import { DocumentValidationButton } from "./DocumentValidationButton";
 
 import { AppModulesRaidSchemasRaidDocument, DocumentValidation } from "@/api";
 
+import { useTranslations } from "next-intl";
 import { HiCheck, HiDownload, HiX } from "react-icons/hi";
 
 import {
@@ -34,6 +35,7 @@ export const DocumentItem = ({
   downloadDocument,
   validateDocument,
 }: DocumentItemProps) => {
+  const t = useTranslations("raid.admin.teams.documentItem");
   const isValidated = (document && document.validation === "accepted") || false;
   const isRefused = (document && document.validation === "refused") || false;
   const isTemporary =
@@ -64,7 +66,7 @@ export const DocumentItem = ({
             <div className="flex grid-cols-2 gap-4">
               {!isValidated && (
                 <DocumentValidationButton
-                  label="Valider"
+                  label={t("validate")}
                   validateDocument={(callback) => {
                     validateDocument(document.id, "accepted", callback);
                   }}
@@ -74,7 +76,7 @@ export const DocumentItem = ({
                 !isTemporary &&
                 document.type === "medicalCertificate" && (
                   <DocumentValidationButton
-                    label="Valider temporairement"
+                    label={t("validateTemporary")}
                     validateDocument={(callback) => {
                       validateDocument(document.id, "temporary", callback);
                     }}
@@ -82,7 +84,7 @@ export const DocumentItem = ({
                 )}
               {!isRefused && (
                 <DocumentValidationButton
-                  label="Refuser"
+                  label={t("refuse")}
                   validateDocument={(callback) => {
                     validateDocument(document.id, "refused", callback);
                   }}
@@ -95,11 +97,11 @@ export const DocumentItem = ({
               onClick={() => downloadDocument(document)}
             >
               <HiDownload className="mr-2" />
-              Télécharger
+              {t("download")}
             </Button>
           </div>
         ) : (
-          <span className="text-muted-foreground">Aucun document</span>
+          <span className="text-muted-foreground">{t("noDocument")}</span>
         )}
       </AccordionContent>
     </AccordionItem>
