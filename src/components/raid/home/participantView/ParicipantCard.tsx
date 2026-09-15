@@ -121,6 +121,7 @@ export const ParticipantCard = ({
                       "corporatepartner" &&
                     !!price?.student_price &&
                     !!price?.external_price &&
+                    !!price?.scholarship_price &&
                     !!price?.t_shirt_price ? (
                       <PaymentButton />
                     ) : (

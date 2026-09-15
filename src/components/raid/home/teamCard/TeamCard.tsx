@@ -2,7 +2,7 @@
 
 import { TeamEdit } from "./TeamEdit";
 
-import { RaidTeam } from "@/api";
+import { RaidTeamComplete } from "@/api";
 import { useEdition } from "@/hooks/raid/useEdition";
 import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
 import {
@@ -30,7 +30,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, MapPin, Pencil, X } from "lucide-react";
 
 interface TeamCardProps {
-  team?: RaidTeam;
+  team?: RaidTeamComplete;
 }
 
 export const TeamCard = ({ team }: TeamCardProps) => {
