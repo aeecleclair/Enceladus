@@ -22,10 +22,7 @@ export function PaymentsTableSeller({ total_amounts }: TotalPaymentBySeller) {
   const sortedData = [...total_amounts].sort(
     (a, b) => b.total_amount - a.total_amount,
   );
-  const totalSum = sortedData.reduce(
-    (sum, item) => sum + item.total_amount,
-    0,
-  );
+  const totalSum = sortedData.reduce((sum, item) => sum + item.total_amount, 0);
 
   const formatValue = (value: number) =>
     (value / 100).toLocaleString("fr-FR", {

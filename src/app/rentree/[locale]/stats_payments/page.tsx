@@ -66,7 +66,9 @@ const PaymentsPage = () => {
           </Card>
 
           <Card className="p-6 md:flex-1">
-            <h2 className="text-lg font-semibold p-2">Paiements validés par vendeur</h2>
+            <h2 className="text-lg font-semibold p-2">
+              Paiements validés par vendeur
+            </h2>
             {isLoading2 && (
               <p className="text-muted-foreground">Chargement...</p>
             )}
