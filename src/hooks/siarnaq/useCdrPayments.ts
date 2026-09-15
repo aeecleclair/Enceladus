@@ -1,12 +1,11 @@
 "use client";
 
-import { useAuth } from "@/app/authContext";
-
 import {
   getCdrStatsPaymentTotal,
   getCdrStatsPaymentTotalBySeller,
   getCdrStatsPaymentTotalPerType,
 } from "@/api";
+import { useAuth } from "@/app/authContext";
 
 import { useQuery } from "@tanstack/react-query";
 
