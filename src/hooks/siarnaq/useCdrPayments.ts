@@ -64,7 +64,7 @@ export const useSumPayments = () => {
       if (!data) {
         throw new Error("No data returned");
       }
-      return data / 100;
+      return data.total_amount / 100;
     },
     retry: 3,
     enabled: !isTokenExpired(),
