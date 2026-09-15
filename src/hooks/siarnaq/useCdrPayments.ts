@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "../useAuth";
+import { useAuth } from "@/app/authContext";
 
 import {
   getCdrStatsPaymentTotal,
