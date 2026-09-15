@@ -14,18 +14,18 @@ import { Card } from "@/components/ui/card";
 
 const PaymentsPage = () => {
   const {
-    data: data1,
+    data: paymenttype,
     isLoading: isLoading1,
     error: error1,
   } = useTotalPaymentsPerType();
 
   const {
-    data: data2,
+    data: paymentsellers,
     isLoading: isLoading2,
     error: error2,
   } = useTotalPaymentsPerSeller();
   const {
-    data: data3,
+    data: paymenttotal,
     isLoading: isLoading3,
     error: error3,
   } = useSumPayments();
@@ -46,7 +46,7 @@ const PaymentsPage = () => {
                 </p>
               )}
               {!isLoading3 && !error3 && (
-                <p className="text-lg font-semibold">{data3 ?? 0} €</p>
+                <p className="text-lg font-semibold">{paymenttotal ?? 0} €</p>
               )}
             </Card>
           </div>
@@ -62,7 +62,9 @@ const PaymentsPage = () => {
                 Erreur lors du chargement des paiements.
               </p>
             )}
-            {!isLoading1 && !error1 && <PaymentsTableType data={data1 ?? []} />}
+            {!isLoading1 && !error1 && (
+              <PaymentsTableType data={paymenttype ?? []} />
+            )}
           </Card>
 
           <Card className="p-6 md:flex-1">
@@ -78,7 +80,9 @@ const PaymentsPage = () => {
               </p>
             )}
             {!isLoading2 && !error2 && (
-              <PaymentsTableSeller total_amounts={data2?.total_amounts ?? []} />
+              <PaymentsTableSeller
+                total_amounts={paymentsellers?.total_amounts ?? []}
+              />
             )}
           </Card>
         </div>

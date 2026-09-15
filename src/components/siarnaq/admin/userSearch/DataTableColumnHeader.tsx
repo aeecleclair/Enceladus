@@ -24,12 +24,7 @@ interface DataTableColumnHeaderProps<
 > extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title:
-    | "name"
-    | "firstname"
-    | "nickname"
-    | "curriculum"
-    | "promo"
-    | "accountType";
+    "name" | "firstname" | "nickname" | "curriculum" | "promo" | "accountType";
 }
 
 export function DataTableColumnHeader<TData, TValue>({

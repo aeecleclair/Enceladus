@@ -20,8 +20,7 @@ export interface ValidationTabProps {
   school: SchoolExtension | undefined;
   schoolsGeneralQuota: SchoolGeneralQuota | undefined;
   schoolsProductQuota:
-    | GetCompetitionSchoolsSchoolIdProductQuotasResponse
-    | undefined;
+    GetCompetitionSchoolsSchoolIdProductQuotasResponse | undefined;
   schoolsProductQuotaUsed: Record<string, number>;
   sportsQuota: GetCompetitionSportsSportIdQuotasResponse;
   validatedCounts: Record<string, number>;

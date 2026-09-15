@@ -52,12 +52,9 @@ export default function TopBar() {
   const CustomClick = () => {
     if (!revealed) {
       setRevealed(true);
-      const timer = setTimeout(
-        () => {
-          setRevealed(false);
-        },
-        parseInt(t("topbar.blur_time")),
-      );
+      const timer = setTimeout(() => {
+        setRevealed(false);
+      }, 2000);
       return () => clearTimeout(timer);
     } else {
       router.push(`/stats_payments`);

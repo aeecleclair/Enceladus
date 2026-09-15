@@ -7,11 +7,7 @@ type FormFieldPath =
 
 // Define the header subtitle options based on the actual values used
 export type HeaderSubtitle =
-  | "Informations"
-  | "Participation"
-  | "Sport"
-  | "Panier"
-  | "Récapitulatif";
+  "Informations" | "Participation" | "Sport" | "Panier" | "Récapitulatif";
 
 export interface RegisterState {
   currentStep: number;

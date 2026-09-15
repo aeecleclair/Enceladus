@@ -336,8 +336,7 @@
     "status": "Status: {status, select, pending {pending} online {online} onsite {onsite} closed {closed} other {}}",
     "user": "Buyer view",
     "year": "Session: {year}",
-    "recette": "Recette : {amount, number, ::currency/EUR}",
-    "blur_time": "2000"
+    "recette": "Revenue : {amount, number, ::currency/EUR}"
   },
   "variantCardOptions": {
     "activate": "Enable",
