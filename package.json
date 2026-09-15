@@ -126,5 +126,11 @@
   "overrides": {
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.5.1": true,
+    "@swc/core@1.15.8": true,
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.11.1": true
   }
 }
