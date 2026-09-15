@@ -99,7 +99,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@hey-api/openapi-ts": "^0.98.0",
+    "@hey-api/openapi-ts": "^0.97.0",
     "@lingual/i18n-check": "^0.9.5",
     "@tailwindcss/postcss": "^4.1.17",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
