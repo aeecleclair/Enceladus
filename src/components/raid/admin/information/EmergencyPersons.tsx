@@ -6,6 +6,7 @@ import { LoadingButton } from "@/components/common/LoadingButton";
 import { useInformation } from "@/hooks/raid/useInformation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { HiCheck } from "react-icons/hi";
@@ -41,6 +42,7 @@ export const EmergencyPerson = () => {
   const { information, updateInformation } = useInformation();
   const [isLoading, setIsLoading] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
+  const t = useTranslations("raid.admin.information.emergency");
 
   function toggleEdit() {
     setIsOpened((prev) => !prev);
@@ -278,13 +280,18 @@ export const EmergencyPerson = () => {
     return count;
   };
 
+  const phoneInputClass =
+    "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50";
+  const phoneDropdownClass =
+    "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2";
+
   return (
     <Dialog open={isOpened} onOpenChange={setIsOpened}>
-      <CardLayout label="Personnes à contacter en cas d'urgence">
+      <CardLayout label={t("label")}>
         <InfoValue
           isEmpty={numberOfFilledPerson() === 0}
-          placeholder="Aucune personne renseignée"
-          value={`${numberOfFilledPerson()}/4 remplis`}
+          placeholder={t("noPersonSet")}
+          value={t("filled", { count: numberOfFilledPerson() })}
         />
         <DialogTrigger asChild>
           <Button
@@ -294,18 +301,14 @@ export const EmergencyPerson = () => {
             type="button"
             onClick={toggleEdit}
           >
-            Modifier
+            {t("edit")}
           </Button>
         </DialogTrigger>
       </CardLayout>
       <DialogContent className="sm:max-w-150">
         <DialogHeader>
-          <DialogTitle>Contacts importants</DialogTitle>
-          <DialogDescription>
-            {
-              "Les personnes que les participants doivent contacter en cas d'urgence."
-            }
-          </DialogDescription>
+          <DialogTitle>{t("dialogTitle")}</DialogTitle>
+          <DialogDescription>{t("dialogDescription")}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -314,22 +317,22 @@ export const EmergencyPerson = () => {
                 <AccordionTrigger>
                   <div className="flex flex-row mr-auto items-center">
                     {isPresidentFilled() && <HiCheck className="mr-4" />}
-                    {"Président·e"}
+                    {t("president")}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="grid gap-6 py-4 mr-2">
                     <PersonField
                       form={form}
-                      label="Prénom"
+                      label={t("firstname")}
                       id="president.firstname"
-                      placeholder="Prénom"
+                      placeholder={t("firstname")}
                     />
                     <PersonField
                       form={form}
-                      label="Nom"
+                      label={t("lastname")}
                       id="president.name"
-                      placeholder="Nom"
+                      placeholder={t("lastname")}
                     />
                     <FormField
                       control={form.control}
@@ -338,7 +341,7 @@ export const EmergencyPerson = () => {
                         <FormItem>
                           <div className="grid grid-cols-5 items-center gap-4">
                             <FormLabel className="text-right">
-                              Téléphone
+                              {t("phone")}
                             </FormLabel>
                             <div className="col-span-4">
                               <FormMessage />
@@ -352,8 +355,8 @@ export const EmergencyPerson = () => {
                                     country={"fr"}
                                     specialLabel=""
                                     placeholder="+33 6 06 06 06 06"
-                                    inputClass="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                    dropdownClass="z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+                                    inputClass={phoneInputClass}
+                                    dropdownClass={phoneDropdownClass}
                                   />
                                 )}
                               />
@@ -371,22 +374,22 @@ export const EmergencyPerson = () => {
                     {isVolunteerResponsibleFilled() && (
                       <HiCheck className="mr-4" />
                     )}
-                    {"Responsable Bénévole"}
+                    {t("volunteerResponsible")}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="grid gap-6 py-4 mr-2">
                     <PersonField
                       form={form}
-                      label="Prénom"
+                      label={t("firstname")}
                       id="volunteer_responsible.firstname"
-                      placeholder="Prénom"
+                      placeholder={t("firstname")}
                     />
                     <PersonField
                       form={form}
-                      label="Nom"
+                      label={t("lastname")}
                       id="volunteer_responsible.name"
-                      placeholder="Nom"
+                      placeholder={t("lastname")}
                     />
                     <FormField
                       control={form.control}
@@ -395,7 +398,7 @@ export const EmergencyPerson = () => {
                         <FormItem>
                           <div className="grid grid-cols-5 items-center gap-4">
                             <FormLabel className="text-right">
-                              Téléphone
+                              {t("phone")}
                             </FormLabel>
                             <div className="col-span-4">
                               <FormMessage />
@@ -409,8 +412,8 @@ export const EmergencyPerson = () => {
                                     country={"fr"}
                                     specialLabel=""
                                     placeholder="+33 6 06 06 06 06"
-                                    inputClass="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                    dropdownClass="z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+                                    inputClass={phoneInputClass}
+                                    dropdownClass={phoneDropdownClass}
                                   />
                                 )}
                               />
@@ -428,22 +431,22 @@ export const EmergencyPerson = () => {
                     {isSecurityResponsibleFilled() && (
                       <HiCheck className="mr-4" />
                     )}
-                    {"Responsable Sécurité"}
+                    {t("securityResponsible")}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
                   <div className="grid gap-6 py-4 mr-2">
                     <PersonField
                       form={form}
-                      label="Prénom"
+                      label={t("firstname")}
                       id="security_responsible.firstname"
-                      placeholder="Prénom"
+                      placeholder={t("firstname")}
                     />
                     <PersonField
                       form={form}
-                      label="Nom"
+                      label={t("lastname")}
                       id="security_responsible.name"
-                      placeholder="Nom"
+                      placeholder={t("lastname")}
                     />
                     <FormField
                       control={form.control}
@@ -452,7 +455,7 @@ export const EmergencyPerson = () => {
                         <FormItem>
                           <div className="grid grid-cols-5 items-center gap-4">
                             <FormLabel className="text-right">
-                              Téléphone
+                              {t("phone")}
                             </FormLabel>
                             <div className="col-span-4">
                               <FormMessage />
@@ -466,8 +469,8 @@ export const EmergencyPerson = () => {
                                     country={"fr"}
                                     specialLabel=""
                                     placeholder="+33 6 06 06 06 06"
-                                    inputClass="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                    dropdownClass="z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+                                    inputClass={phoneInputClass}
+                                    dropdownClass={phoneDropdownClass}
                                   />
                                 )}
                               />
@@ -483,7 +486,7 @@ export const EmergencyPerson = () => {
                 <AccordionTrigger>
                   <div className="flex flex-row mr-auto items-center">
                     {isRescueFilled() && <HiCheck className="mr-4" />}
-                    {"Secouristes"}
+                    {t("rescue")}
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -495,7 +498,7 @@ export const EmergencyPerson = () => {
                         <FormItem>
                           <div className="grid grid-cols-5 items-center gap-4">
                             <FormLabel className="text-right">
-                              Téléphone
+                              {t("phone")}
                             </FormLabel>
                             <div className="col-span-4">
                               <FormMessage />
@@ -509,8 +512,8 @@ export const EmergencyPerson = () => {
                                     country={"fr"}
                                     specialLabel=""
                                     placeholder="+33 6 06 06 06 06"
-                                    inputClass="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                                    dropdownClass="z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+                                    inputClass={phoneInputClass}
+                                    dropdownClass={phoneDropdownClass}
                                   />
                                 )}
                               />
@@ -529,7 +532,7 @@ export const EmergencyPerson = () => {
                 type="submit"
                 className="w-full mt-4"
               >
-                Valider
+                {t("validate")}
               </LoadingButton>
             </DialogFooter>
           </form>

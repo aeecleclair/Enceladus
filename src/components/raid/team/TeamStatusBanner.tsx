@@ -1,6 +1,10 @@
 "use client";
 
-import { RaidParticipant, RaidRegistrationStatus, RaidTeam } from "@/api";
+import {
+  RaidParticipantRestricted,
+  RaidRegistrationStatus,
+  RaidTeamComplete,
+} from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
@@ -19,7 +23,7 @@ import {
 import { CheckCircle2, Clock, FileEdit, XCircle } from "lucide-react";
 
 interface TeamStatusBannerProps {
-  team: RaidTeam;
+  team: RaidTeamComplete;
 }
 
 const statusConfig: Record<
@@ -57,7 +61,7 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
     isReopenLoading,
   } = useParticipantLifecycle();
 
-  const selfFromTeam: RaidParticipant | undefined =
+  const selfFromTeam: RaidParticipantRestricted | undefined =
     team.captain?.user_id === me?.user_id
       ? team.captain
       : team.second?.user_id === me?.user_id

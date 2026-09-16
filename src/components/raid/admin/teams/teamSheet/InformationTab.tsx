@@ -1,11 +1,11 @@
 import { ParticipantInfoTab } from "./ParticipantInfoTab";
 
-import { RaidTeam } from "@/api";
+import { RaidTeamComplete } from "@/api";
 
 import { Card, CardContent } from "@/components/ui/card";
 
 interface InformationTabProps {
-  team: RaidTeam;
+  team: RaidTeamComplete;
 }
 
 export const InformationTab = ({ team }: InformationTabProps) => {

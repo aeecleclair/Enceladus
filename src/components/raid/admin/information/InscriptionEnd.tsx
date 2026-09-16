@@ -5,6 +5,7 @@ import { LoadingButton } from "@/components/common/LoadingButton";
 import { useInformation } from "@/hooks/raid/useInformation";
 import { apiFormatDate, formatDate } from "@/lib/dateFormat";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,7 @@ export const InscriptionEnd = () => {
       ? toDate(information.raid_registering_end_date)
       : undefined,
   );
+  const t = useTranslations("raid.admin.information");
 
   function toggleEdit() {
     if (isEdit) {
@@ -41,7 +43,7 @@ export const InscriptionEnd = () => {
 
   const year = new Date().getFullYear();
   return (
-    <CardLayout label="Date de la clôture des inscriptions">
+    <CardLayout label={t("inscriptionEndLabel")}>
       {isEdit ? (
         <>
           <DatePicker
@@ -58,14 +60,14 @@ export const InscriptionEnd = () => {
                 setIsEdit(false);
               }}
             >
-              Annuler
+              {t("priceEditor.cancel")}
             </Button>
             <LoadingButton
               className="mt-2 w-30"
               isLoading={isLoading}
               onClick={toggleEdit}
             >
-              Valider
+              {t("priceEditor.validate")}
             </LoadingButton>
           </div>
         </>
@@ -75,7 +77,7 @@ export const InscriptionEnd = () => {
             {information?.raid_registering_end_date ? (
               formatDate(information.raid_registering_end_date)
             ) : (
-              <span>Date non définie</span>
+              <span>{t("dateNotSet")}</span>
             )}
           </div>
           <Button
@@ -84,7 +86,7 @@ export const InscriptionEnd = () => {
             onClick={toggleEdit}
             type="button"
           >
-            Modifier
+            {t("priceEditor.edit")}
           </Button>
         </>
       )}
