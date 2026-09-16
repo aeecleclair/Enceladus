@@ -99,7 +99,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@hey-api/openapi-ts": "^0.98.0",
+    "@hey-api/openapi-ts": "^0.97.0",
     "@lingual/i18n-check": "^0.9.5",
     "@tailwindcss/postcss": "^4.1.17",
     "@trivago/prettier-plugin-sort-imports": "^6.0.2",
@@ -126,5 +126,11 @@
   "overrides": {
     "@types/react": "19.2.7",
     "@types/react-dom": "19.2.3"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.5.1": true,
+    "@swc/core@1.15.8": true,
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.11.1": true
   }
 }
