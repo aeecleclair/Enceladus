@@ -1,6 +1,6 @@
-import { getRaidDocumentUrl } from "../src/lib/raid/document.ts";
-import { getDocumentValidationMessage } from "../src/lib/raid/documentValidation.ts";
-import { getSituationLabel } from "../src/lib/raid/teamUtils.ts";
+import { getRaidDocumentUrl } from "../src/lib/raid/document";
+import { getDocumentValidationMessage } from "../src/lib/raid/documentValidation";
+import { getSituationLabel } from "../src/lib/raid/teamUtils";
 
 import assert from "node:assert/strict";
 import test from "node:test";

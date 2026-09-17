@@ -1,5 +1,8 @@
 export type DocumentValidationValue =
-  "pending" | "accepted" | "refused" | "temporary";
+  | "pending"
+  | "accepted"
+  | "refused"
+  | "temporary";
 
 export function getDocumentValidationMessage(
   validation: DocumentValidationValue,
