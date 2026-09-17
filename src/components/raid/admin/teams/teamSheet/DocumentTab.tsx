@@ -10,6 +10,7 @@ import { DocumentView } from "@/components/raid/custom/DocumentView";
 import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
 import { useDocument } from "@/hooks/raid/useDocument";
 import { useTeams } from "@/hooks/raid/useTeams";
+import { triggerBrowserDownload } from "@/lib/raid/document";
 import { getDocumentValidationMessage } from "@/lib/raid/documentValidation";
 
 import { useState } from "react";
@@ -23,8 +24,12 @@ interface DocumentTabProps {
 
 export const DocumentTab = ({ team }: DocumentTabProps) => {
   const { toast } = useToast();
-  const { getDocument, setDocumentValidation, isValidationLoading } =
-    useDocument();
+  const {
+    getDocument,
+    fetchDocument,
+    setDocumentValidation,
+    isValidationLoading,
+  } = useDocument();
   const { refetchTeam } = useAdminTeam(team.id);
   const { refetchTeams } = useTeams();
   const [selectedDocument, setSelectedDocument] =
@@ -41,23 +46,39 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
     setSelectedDocumentUser(userId);
   }
 
-  function downloadDocument(
+  const downloadDocument = async (
     doc: AppModulesRaidSchemasRaidDocument,
     participant: RaidParticipantRestricted,
-  ) {
+  ) => {
     const key = doc.type;
-    const file = getDocument(participant.user_id, key);
-    if (file !== undefined) {
-      const extension = file.type.split("/")[1];
-      const name = `${participant.user.firstname}_${participant.user.name}_${key}.${extension}`;
-      const url = window.URL.createObjectURL(new Blob([file]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", name);
-      document.body.appendChild(link);
-      link.click();
+    const namePrefix = `${participant.user.firstname}_${participant.user.name}_${key}`;
+    const cached = getDocument(participant.user_id, key);
+    const cachedName = cached
+      ? `${namePrefix}.${cached.type.split("/")[1] ?? "pdf"}`
+      : null;
+    if (cached && cachedName) {
+      triggerBrowserDownload(cached, cachedName);
+      return;
     }
-  }
+    try {
+      // The document may never have been previewed in this session, so the
+      // client cache is empty: fetch it before downloading instead of
+      // silently doing nothing.
+      const file = await fetchDocument(doc.id);
+      triggerBrowserDownload(
+        file,
+        `${namePrefix}.${file.type.split("/")[1] ?? "pdf"}`,
+      );
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Erreur lors du téléchargement",
+        description:
+          "Le document n'a pas pu être téléchargé, veuillez réessayer.",
+        variant: "destructive",
+      });
+    }
+  };
 
   function validateCallback(
     documentId: string,
@@ -79,7 +100,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
         <ParticipantDocumentCard
           participant={team.captain}
           setDocument={(doc) => setDocument(doc, team.captain.user_id)}
-          downloadDocument={(doc) => downloadDocument(doc, team.captain)}
+          downloadDocument={(doc) => void downloadDocument(doc, team.captain)}
           validateDocument={validateCallback}
           isValidationLoading={isValidationLoading}
         />
@@ -87,7 +108,7 @@ export const DocumentTab = ({ team }: DocumentTabProps) => {
           <ParticipantDocumentCard
             participant={team.second}
             setDocument={(doc) => setDocument(doc, team.second!.user_id)}
-            downloadDocument={(doc) => downloadDocument(doc, team.second!)}
+            downloadDocument={(doc) => void downloadDocument(doc, team.second!)}
             validateDocument={validateCallback}
             isValidationLoading={isValidationLoading}
           />
