@@ -1,5 +1,5 @@
 export function getSituationLabel(situation?: string) {
-  return situation?.split(" : ")[0];
+  return situation?.split(" : ")[0].toLowerCase();
 }
 
 export function getSituationTitle(situation?: string) {
