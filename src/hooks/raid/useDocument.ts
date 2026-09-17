@@ -1,9 +1,12 @@
-import { DocumentValidation } from "@/api";
+import { DocumentType, DocumentValidation } from "@/api";
 import {
   getRaidDocumentDocumentIdOptions,
   postRaidDocumentDocumentIdValidateMutation,
 } from "@/api/@tanstack/react-query.gen";
-import { useAuth } from "@/app/authContext";
+import {
+  getRaidDocumentDocumentId,
+  postRaidDocumentDocumentType,
+} from "@/api/sdk.gen";
 import { useDocumentsStore } from "@/stores/raid/documents";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -11,13 +14,8 @@ import { useState } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
 
-import axios from "axios";
-
 export const useDocument = () => {
-  const backUrl: string =
-    process.env.NEXT_PUBLIC_BACKEND_URL || "https://hyperion.myecl.fr";
   const queryClient = useQueryClient();
-  const { token } = useAuth();
   const { toast } = useToast();
   const { documents } = useDocumentsStore();
   const [documentId, setDocumentId] = useState<string>("");
@@ -27,43 +25,53 @@ export const useDocument = () => {
     documentType: string,
     callback: (documentId: string) => void,
   ) => {
-    const formData = new FormData();
-    formData.append("file", file);
-    axios
-      .post(`${backUrl}/raid/document/${documentType}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        if (response.status > 300) {
-          console.error(response.data);
-          toast({
-            title: "Erreur lors de l'ajout du document",
-            description:
-              "Une erreur est survenue, veuillez réessayer plus tard",
-            variant: "destructive",
-          });
-          return;
-        }
+    postRaidDocumentDocumentType({
+      body: { file },
+      path: { document_type: documentType as DocumentType },
+      throwOnError: true,
+    })
+      .then(({ data }) => {
         queryClient.invalidateQueries({
-          predicate: (query) => {
-            return query.queryHash === "getDocument";
-          },
+          predicate: (query) =>
+            query.queryKey[0] === "getRaidDocumentDocumentId",
         });
-        const documentId = response.data.id as string;
-        callback(documentId);
+        callback(data.id);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast({
+          title: "Erreur lors de l'ajout du document",
+          description: "Une erreur est survenue, veuillez réessayer plus tard",
+          variant: "destructive",
+        });
       });
+  };
+
+  const normalizeDocument = (value: unknown, id: string): File => {
+    if (value instanceof Blob) {
+      return new File([value], id, {
+        type: value.type || "application/octet-stream",
+      });
+    }
+    return value as File;
+  };
+
+  const fetchDocument = async (id: string): Promise<File> => {
+    const { data } = await getRaidDocumentDocumentId({
+      path: { document_id: id },
+      throwOnError: true,
+    });
+    return normalizeDocument(data, id);
   };
 
   const { data, refetch, isPending } = useQuery({
     ...getRaidDocumentDocumentIdOptions({
       path: {
-        document_id: documentId!,
+        document_id: documentId,
       },
     }),
-    enabled: documentId !== "" && documentId !== undefined,
+    enabled: documentId !== "",
+    select: (value) => normalizeDocument(value, documentId),
   });
 
   const { mutate: mutateValidateDocument, isPending: isValidationLoading } =
@@ -115,6 +123,7 @@ export const useDocument = () => {
     getDocument,
     data: data as File,
     refetch,
+    fetchDocument,
     isLoading: isPending,
     setDocumentId,
     documentId,

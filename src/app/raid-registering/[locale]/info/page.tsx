@@ -31,7 +31,7 @@ import {
 const InfoPage = () => {
   const { edition } = useEdition();
   const { information } = useInformation();
-  const { refetch, setDocumentId } = useDocument();
+  const { fetchDocument } = useDocument();
   const { toast } = useToast();
   const [loadingDoc, setLoadingDoc] = useState<string | null>(null);
 
@@ -41,10 +41,8 @@ const InfoPage = () => {
     key: string,
   ) => {
     setLoadingDoc(key);
-    setDocumentId(documentId);
     try {
-      const response = await refetch();
-      const data = response.data as File | undefined;
+      const data = await fetchDocument(documentId);
       if (!data) {
         toast({
           title: "Erreur",
