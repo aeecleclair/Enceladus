@@ -51,7 +51,6 @@ const Dashboard = () => {
   useEffect(() => {
     if (schoolParticipants) {
       if (schoolParticipantsCounter.find((s) => s[0] === effectiveSchoolId)) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setSchoolParticipantsCounter((prev) => {
           const newCounter = prev.map((s) =>
             s[0] === effectiveSchoolId
