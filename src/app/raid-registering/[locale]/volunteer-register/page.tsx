@@ -67,7 +67,7 @@ const VolunteerRegisterPage = () => {
   }, [meVolunteer, router]);
 
   const handleCreateVolunteer = () => {
-    if (me) {
+    if (me && me.status !== "cancelled") {
       toast({
         title: t("alreadyParticipantTitle"),
         description: t("alreadyParticipantDescription"),
