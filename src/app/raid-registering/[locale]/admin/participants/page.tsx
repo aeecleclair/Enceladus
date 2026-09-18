@@ -4,6 +4,7 @@ import { RaidParticipantPreview, RaidRegistrationStatus } from "@/api";
 import { PageHeader } from "@/components/raid/admin/PageHeader";
 import { ParticipantRowActions } from "@/components/raid/admin/participants/ParticipantRowActions";
 import { ParticipantSheet } from "@/components/raid/admin/participants/ParticipantSheet";
+import { useAdminParticipants } from "@/hooks/raid/useAdminParticipants";
 import { useTeams } from "@/hooks/raid/useTeams";
 import { useRouter } from "@/i18n/navigation";
 import { participantStatusClass as statusClass } from "@/lib/raid/participantStatus";
@@ -43,18 +44,21 @@ type StatusFilter = RaidRegistrationStatus | "all";
 
 type ParticipantRow = {
   participant: RaidParticipantPreview;
-  teamId: string;
+  teamId?: string;
   teamName: string;
 };
 
 const ParticipantsAdminPage = () => {
-  const { teams, isLoading } = useTeams();
+  const { teams, isLoading: isTeamsLoading } = useTeams();
+  const { participants, isLoading: isParticipantsLoading } =
+    useAdminParticipants();
+  const isLoading = isTeamsLoading || isParticipantsLoading;
   const router = useRouter();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
   const [openParticipant, setOpenParticipant] = useState<{
     userId: string;
-    teamId: string;
+    teamId?: string;
   } | null>(null);
   const t = useTranslations("raid.admin.participants");
   const ts = useTranslations("raid.common.status");
@@ -67,26 +71,26 @@ const ParticipantsAdminPage = () => {
   };
 
   const rows = useMemo<ParticipantRow[]>(() => {
-    if (!teams) return [];
-    const out: ParticipantRow[] = [];
-    for (const team of teams) {
-      if (team.captain) {
-        out.push({
-          participant: team.captain,
-          teamId: team.id,
-          teamName: team.name,
-        });
-      }
-      if (team.second) {
-        out.push({
-          participant: team.second,
-          teamId: team.id,
-          teamName: team.name,
+    if (!participants) return [];
+    const teamByParticipant = new Map<string, { id: string; name: string }>();
+    for (const team of teams ?? []) {
+      teamByParticipant.set(team.captain_id, { id: team.id, name: team.name });
+      if (team.second_id) {
+        teamByParticipant.set(team.second_id, {
+          id: team.id,
+          name: team.name,
         });
       }
     }
-    return out;
-  }, [teams]);
+    return participants.map((participant) => {
+      const team = teamByParticipant.get(participant.user_id);
+      return {
+        participant,
+        teamId: team?.id,
+        teamName: team?.name ?? "—",
+      };
+    });
+  }, [participants, teams]);
 
   const filtered = useMemo(() => {
     return rows.filter(({ participant, teamName }) => {
@@ -194,12 +198,18 @@ const ParticipantsAdminPage = () => {
                           </div>
                         </TableCell>
                         <TableCell onClick={(e) => e.stopPropagation()}>
-                          <button
-                            onClick={() => openTeam(teamId)}
-                            className="text-primary underline-offset-4 hover:underline"
-                          >
-                            {teamName}
-                          </button>
+                          {teamId ? (
+                            <button
+                              onClick={() => openTeam(teamId)}
+                              className="text-primary underline-offset-4 hover:underline"
+                            >
+                              {teamName}
+                            </button>
+                          ) : (
+                            <span className="text-muted-foreground">
+                              {teamName}
+                            </span>
+                          )}
                         </TableCell>
                         <TableCell>
                           <Badge

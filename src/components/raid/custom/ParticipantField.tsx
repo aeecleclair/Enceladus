@@ -118,13 +118,11 @@ export function ParticipantField<
   const [isFileLoading, setIsFileLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const { information } = useInformation();
-  const { refetch, setDocumentId } = useDocument();
+  const { fetchDocument } = useDocument();
 
   function downloadRaidRules(documentId: string) {
     setIsFileLoading(true);
-    setDocumentId(documentId);
-    refetch().then((response) => {
-      const data = response.data as File | null;
+    fetchDocument(documentId).then((data) => {
       if (!data) {
         toast({
           title: "Erreur",
@@ -134,7 +132,7 @@ export function ParticipantField<
         setIsFileLoading(false);
         return;
       }
-      const extension = data.type.split("/")[1];
+      const extension = data.type.split("/")[1] ?? "pdf";
       const name = `Réglement_du_raid.${extension}`;
       const url = window.URL.createObjectURL(new Blob([data]));
       const link = document.createElement("a");

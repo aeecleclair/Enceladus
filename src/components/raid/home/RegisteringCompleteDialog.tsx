@@ -22,14 +22,12 @@ export const RegisteringCompleteDialog = ({
   const { toast } = useToast();
   const [isFileLoading, setIsFileLoading] = useState(false);
   const { information } = useInformation();
-  const { refetch, setDocumentId } = useDocument();
+  const { fetchDocument } = useDocument();
   const router = useRouter();
 
   function downloadRaidInformation(documentId: string) {
     setIsFileLoading(true);
-    setDocumentId(documentId);
-    refetch().then((response) => {
-      const data = response.data as File | undefined;
+    fetchDocument(documentId).then((data) => {
       if (!data) {
         toast({
           title: t("downloadErrorTitle"),

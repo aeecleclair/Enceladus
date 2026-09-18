@@ -37,7 +37,7 @@ export const ParticipantRegisterCard = () => {
     { id: "confirm", label: t("stepTeam") },
   ];
   const { user } = useMeUser();
-  const { createParticipant, isCreationLoading } = useMeParticipant();
+  const { me, createParticipant, isCreationLoading } = useMeParticipant();
   const { createTeam, isCreationLoading: isTeamCreationLoading } = useMeTeam();
   const { meVolunteer } = useMeVolunteer();
   const { joinTeam, isJoinLoading } = useInviteToken();
@@ -54,6 +54,29 @@ export const ParticipantRegisterCard = () => {
     setIdentityConfirmed(true);
   }
 
+  const continueWithTeam = () => {
+    if (inviteToken) {
+      joinTeam(inviteToken, () => {
+        resetInviteToken();
+        toast({ title: t("teamJoined") });
+        router.push("/team");
+      });
+    } else if (user) {
+      createTeam(
+        {
+          name: t("teamNameDefault", {
+            firstname: user.firstname,
+            name: user.name,
+          }),
+        },
+        () => {
+          toast({ title: t("teamCreated") });
+          router.push("/team");
+        },
+      );
+    }
+  };
+
   const handleCreateParticipant = () => {
     if (meVolunteer) {
       toast({
@@ -64,28 +87,13 @@ export const ParticipantRegisterCard = () => {
       router.replace("/volunteer");
       return;
     }
-    createParticipant(() => {
-      if (inviteToken) {
-        joinTeam(inviteToken, () => {
-          resetInviteToken();
-          toast({ title: t("teamJoined") });
-          router.push("/team");
-        });
-      } else if (user) {
-        createTeam(
-          {
-            name: t("teamNameDefault", {
-              firstname: user.firstname,
-              name: user.name,
-            }),
-          },
-          () => {
-            toast({ title: t("teamCreated") });
-            router.push("/team");
-          },
-        );
-      }
-    });
+
+    if (me) {
+      continueWithTeam();
+      return;
+    }
+
+    createParticipant(continueWithTeam);
   };
 
   const currentStep: RegisterStepId = identityConfirmed
