@@ -271,6 +271,7 @@ export const ViewEditParticipant = ({
       address: values.address ?? null,
       diet: values.diet ?? null,
       attestation_on_honour: values.attestationHonour,
+      has_scholarship: values.hasScholarship ?? false,
     };
     for (const doc of documentToUpdate) {
       switch (doc.type) {
