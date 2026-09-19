@@ -279,6 +279,8 @@
       "idCard": "ID card",
       "medicalCertificate": "Medical certificate",
       "securityFile": "Security file",
+      "teammateSecurityFileNote": "For privacy reasons, your teammate's security file cannot be viewed or edited here. Each participant must fill in their own security file from their participant card.",
+      "teammateSecurityFileUnavailable": "Visible to its owner only",
       "parentAuthorization": "Parental authorization",
       "isScholarship": "I have a scholarship",
       "scholarshipAttestation": "Scholarship certificate",

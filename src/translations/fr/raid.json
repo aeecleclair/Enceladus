@@ -279,6 +279,8 @@
       "idCard": "Carte d'identité",
       "medicalCertificate": "Certificat médical",
       "securityFile": "Fiche de sécurité",
+      "teammateSecurityFileNote": "Pour des raisons de confidentialité, la fiche de sécurité de votre coéquipier n'est ni visible ni modifiable ici. Chaque participant doit remplir sa propre fiche depuis sa fiche participant.",
+      "teammateSecurityFileUnavailable": "Visible uniquement par son propriétaire",
       "parentAuthorization": "Autorisation parentale",
       "isScholarship": "Je suis boursier",
       "scholarshipAttestation": "Attestation de bourse",

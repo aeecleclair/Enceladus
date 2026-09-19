@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
+import { LockKeyhole } from "lucide-react";
+
 interface ViewEditParticipantProps {
   participant: RaidParticipant;
   isEdit: boolean;
@@ -32,9 +34,10 @@ export const ViewEditParticipant = ({
   setIsEdit,
 }: ViewEditParticipantProps) => {
   const { toast } = useToast();
-  const { updateParticipant, isUpdateLoading } = useMeParticipant();
+  const { me, updateParticipant, isUpdateLoading } = useMeParticipant();
   const { refetchTeam } = useMeTeam();
   const t = useTranslations("raid.team.participantView");
+  const isOwnFile = participant.user_id === me?.user_id;
 
   const formSchema = z
     .object({
@@ -493,6 +496,12 @@ export const ViewEditParticipant = ({
             isEdit ? "" : "space-y-4"
           }`}
         >
+          {!isOwnFile && (
+            <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/30 p-3 text-sm text-muted-foreground">
+              <LockKeyhole className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{t("teammateSecurityFileNote")}</span>
+            </div>
+          )}
           {isEdit ? (
             <>
               <ParticipantField
@@ -548,13 +557,15 @@ export const ViewEditParticipant = ({
                 type={ValueTypes.DOCUMENT}
                 participantId={participant.user_id}
               />
-              <ParticipantField
-                label={t("securityFile")}
-                id="securityFile"
-                form={form}
-                type={ValueTypes.SECURITYFILE}
-                participantId={participant.user_id}
-              />
+              {isOwnFile && (
+                <ParticipantField
+                  label={t("securityFile")}
+                  id="securityFile"
+                  form={form}
+                  type={ValueTypes.SECURITYFILE}
+                  participantId={participant.user_id}
+                />
+              )}
               {participant.is_minor && (
                 <ParticipantField
                   label={t("parentAuthorization")}
@@ -631,10 +642,24 @@ export const ViewEditParticipant = ({
                 value={participant.medical_certificate}
                 participantId={participant.user_id}
               />
-              <ParticipantInfo
-                label={t("securityFile")}
-                value={participant.security_file}
-              />
+              {isOwnFile ? (
+                <ParticipantInfo
+                  label={t("securityFile")}
+                  value={participant.security_file}
+                />
+              ) : (
+                <div className="grid p-2 grid-cols-6 items-center w-full">
+                  <span className="font-semibold text-left my-auto col-span-2">
+                    {t("securityFile")}
+                  </span>
+                  <div className="col-span-4 flex items-center justify-end gap-2 text-right">
+                    <LockKeyhole className="h-4 w-4 shrink-0 text-muted-foreground" />
+                    <span className="text-muted-foreground">
+                      {t("teammateSecurityFileUnavailable")}
+                    </span>
+                  </div>
+                </div>
+              )}
               {participant.is_minor && (
                 <ParticipantInfo
                   label={t("parentAuthorization")}
