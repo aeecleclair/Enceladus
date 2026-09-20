@@ -5,8 +5,8 @@ import { usePaymentUrl } from "@/hooks/raid/usePaymentUrl";
 import { usePrice } from "@/hooks/raid/usePrice";
 import { getSituationLabel } from "@/lib/raid/teamUtils";
 
-import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -122,9 +122,9 @@ export const PaymentButton = () => {
               )}
             </div>
             {mustPayRegistering && hasReducedPrice && (
-              <p className="mt-4 text-sm text-muted-foreground">
+              <div className="mt-4 text-sm text-muted-foreground">
                 {t("priceReductionNotice")}
-              </p>
+              </div>
             )}
             <div className="mt-6 mb-2 font-semibold">
               {t("paymentProviderInfo")}

@@ -582,14 +582,19 @@ export const ViewEditParticipant = ({
                 type={ValueTypes.BOOLEAN}
               />
               {form.watch("hasScholarship") && (
-                <ParticipantField
-                  label={t("scholarshipAttestation")}
-                  id="schoolAuthorization"
-                  form={form}
-                  type={ValueTypes.DOCUMENT}
-                  layer={1}
-                  participantId={participant.user_id}
-                />
+                <>
+                  <ParticipantField
+                    label={t("scholarshipAttestation")}
+                    id="schoolAuthorization"
+                    form={form}
+                    type={ValueTypes.DOCUMENT}
+                    layer={1}
+                    participantId={participant.user_id}
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    {t("scholarshipReductionNotice")}
+                  </p>
+                </>
               )}
               <ParticipantField
                 label={t("raidRules")}
