@@ -6,6 +6,7 @@ import { usePrice } from "@/hooks/raid/usePrice";
 import { getSituationLabel } from "@/lib/raid/teamUtils";
 
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/tooltip";
 
 export const PaymentButton = () => {
+  const t = useTranslations("raid.participant.payment");
   const { me } = useMeParticipant();
   const { price } = usePrice();
   const { paymentUrl, isLoading, refetchUrl } = usePaymentUrl();
@@ -39,6 +41,8 @@ export const PaymentButton = () => {
     me?.student_card?.id !== undefined &&
     me?.student_card?.validation !== "accepted";
   const hasScholarship = me?.has_scholarship;
+  const hasReducedPrice =
+    !!hasScholarship || isStudent || isNotValidatedStudent;
   const mustPayTShirt =
     me?.t_shirt_size && !me?.t_shirt_payment && me?.t_shirt_size !== "None";
 
@@ -48,18 +52,13 @@ export const PaymentButton = () => {
         isOpened={isStudentWarningOpened}
         setIsOpened={setIsStudentWarningOpened}
         isLoading={isLoading}
-        title="Payer l'inscription"
+        title={t("studentWarningTitle")}
         description={
           <>
             <div className="mt-6 mb-2 font-semibold">
-              Votre carte étudiante n&apos;est pas encore validée !
+              {t("studentWarningTitle")}
             </div>
-            <p>
-              Votre carte étudiante n&apos;est pas encore validée, si vous
-              procédez au paiement maintenant, vous payerez le tarif étudiant.
-              Cependant, si votre carte est finalement refusée, il vous faudra
-              repayer la différence entre le tarif étudiant et le tarif externe.
-            </p>
+            <p>{t("studentWarningDescription")}</p>
           </>
         }
         customButton={
@@ -70,21 +69,23 @@ export const PaymentButton = () => {
               setIsOpened(true);
               setIsStudentWarningOpened(false);
             }}
-          />
+          >
+            {t("pay")}
+          </Button>
         }
       />
       <WarningDialog
         isOpened={isOpened}
         setIsOpened={setIsOpened}
         isLoading={isLoading}
-        title="Payer l'inscription"
+        title={t("title")}
         description={
           <div>
-            <div className="my-2 font-semibold">Récapitulatif</div>
+            <div className="my-2 font-semibold">{t("summary")}</div>
             <div className="space-y-2">
               {mustPayRegistering && (
                 <div className="flex justify-between">
-                  <span>Participation</span>
+                  <span>{t("participation")}</span>
                   <span>
                     {((hasScholarship
                       ? price?.scholarship_price
@@ -97,7 +98,7 @@ export const PaymentButton = () => {
               )}
               {mustPayTShirt && (
                 <div className="flex justify-between">
-                  <span>T-Shirt taille {me.t_shirt_size}</span>
+                  <span>{t("tshirt", { size: me.t_shirt_size ?? "" })}</span>
                   <span>{(price?.t_shirt_price ?? 0) / 100} €</span>
                 </div>
               )}
@@ -105,7 +106,7 @@ export const PaymentButton = () => {
                 <>
                   <Separator />
                   <div className="flex justify-between">
-                    <span>Total</span>
+                    <span>{t("total")}</span>
                     <span>
                       {(((hasScholarship
                         ? price?.scholarship_price
@@ -120,16 +121,15 @@ export const PaymentButton = () => {
                 </>
               )}
             </div>
+            {mustPayRegistering && hasReducedPrice && (
+              <p className="mt-4 text-sm text-muted-foreground">
+                {t("priceReductionNotice")}
+              </p>
+            )}
             <div className="mt-6 mb-2 font-semibold">
-              Information sur le prestataire de paiement
+              {t("paymentProviderInfo")}
             </div>
-            <p>
-              Vous allez être redirigé vers HelloAsso pour procéder au paiement
-              de votre inscription. Ce service ne prend aucun frais sur les
-              paiements, il se repose uniquement sur les dons. Par défaut,
-              HelloAsso vous propose de faire un don. Si vous choississez de le
-              faire, seul HelloAsso en bénéficiera.
-            </p>
+            <p>{t("helloAssoDescription")}</p>
           </div>
         }
         customButton={
@@ -151,12 +151,12 @@ export const PaymentButton = () => {
                 }
               }}
             >
-              Payer
+              {t("pay")}
             </Button>
           </TooltipTrigger>
           {!mustPayRegistering && (
             <TooltipContent>
-              <p>Votre dossier est totalement validé !</p>
+              <p>{t("fullyValidated")}</p>
             </TooltipContent>
           )}
         </Tooltip>

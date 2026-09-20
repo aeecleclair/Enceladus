@@ -284,6 +284,7 @@
       "parentAuthorization": "Autorisation parentale",
       "isScholarship": "Je suis boursier",
       "scholarshipAttestation": "Attestation de bourse",
+      "scholarshipReductionNotice": "À noter : le tarif boursier ne s'appliquera qu'après la validation de votre attestation de bourse (et de votre carte étudiante le cas échéant) par l'organisation.",
       "raidRules": "Règlement du raid",
       "honourAttestation": "Attestation sur l'honneur",
       "save": "Enregistrer",
@@ -368,6 +369,22 @@
       "paymentProviderInfo": "Information sur le prestataire de paiement",
       "helloAssoDescription": "Vous allez être redirigé vers HelloAsso pour procéder au paiement de votre inscription. Ce service ne prend aucun frais sur les paiements, il se repose uniquement sur les dons. Par défaut, HelloAsso vous propose de faire un don. Si vous choisissez de le faire, seul HelloAsso en bénéficiera.",
       "fullyValidated": "Votre dossier est totalement validé !"
+    }
+  },
+  "participant": {
+    "payment": {
+      "pay": "Payer",
+      "title": "Payer l'inscription",
+      "summary": "Récapitulatif",
+      "participation": "Participation",
+      "tshirt": "T-Shirt taille {size}",
+      "total": "Total",
+      "paymentProviderInfo": "Information sur le prestataire de paiement",
+      "helloAssoDescription": "Vous allez être redirigé vers HelloAsso pour procéder au paiement de votre inscription. Ce service ne prend aucun frais sur les paiements, il se repose uniquement sur les dons. Par défaut, HelloAsso vous propose de faire un don. Si vous choisissez de le faire, seul HelloAsso en bénéficiera.",
+      "fullyValidated": "Votre dossier est totalement validé !",
+      "studentWarningTitle": "Carte étudiante non validée",
+      "studentWarningDescription": "Votre carte étudiante n'est pas encore validée. Si vous procédez au paiement maintenant, vous payez le tarif étudiant. Cependant, si votre carte est finalement refusée, il vous faudra repayer la différence entre le tarif étudiant et le tarif externe.",
+      "priceReductionNotice": "Important : le tarif réduit (étudiant ou boursier) ne s'applique qu'une fois votre carte étudiante et/ou votre attestation de bourse validées par l'organisation. Tant que ces justificatifs ne sont pas validés, le tarif plein reste dû."
     }
   },
   "profile": {

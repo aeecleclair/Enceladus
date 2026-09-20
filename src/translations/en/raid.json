@@ -284,6 +284,7 @@
       "parentAuthorization": "Parental authorization",
       "isScholarship": "I have a scholarship",
       "scholarshipAttestation": "Scholarship certificate",
+      "scholarshipReductionNotice": "Please note: the scholarship rate will only apply once your scholarship attestation (and your student card, if applicable) has been validated by the organizers.",
       "raidRules": "Raid rules",
       "honourAttestation": "Honour certificate",
       "save": "Save",
@@ -368,6 +369,22 @@
       "paymentProviderInfo": "Payment provider information",
       "helloAssoDescription": "You will be redirected to HelloAsso to proceed with the payment of your registration. This service takes no fees on payments, it relies solely on donations. By default, HelloAsso offers you to make a donation. If you choose to do so, only HelloAsso will benefit from it.",
       "fullyValidated": "Your file is fully validated!"
+    }
+  },
+  "participant": {
+    "payment": {
+      "pay": "Pay",
+      "title": "Pay the registration",
+      "summary": "Summary",
+      "participation": "Participation",
+      "tshirt": "T-Shirt size {size}",
+      "total": "Total",
+      "paymentProviderInfo": "Payment provider information",
+      "helloAssoDescription": "You will be redirected to HelloAsso to proceed with the payment of your registration. This service takes no fees on payments, it relies solely on donations. By default, HelloAsso offers you to make a donation. If you choose to do so, only HelloAsso will benefit from it.",
+      "fullyValidated": "Your file is fully validated!",
+      "studentWarningTitle": "Student card not validated",
+      "studentWarningDescription": "Your student card has not been validated yet. If you proceed with the payment now, you will pay the student rate. However, if your card is ultimately refused, you will have to pay the difference between the student rate and the external rate.",
+      "priceReductionNotice": "Important: the reduced rate (student or scholarship) only applies once your student card and/or your scholarship attestation have been validated by the organizers. Until these documents are validated, the full rate remains due."
     }
   },
   "profile": {
