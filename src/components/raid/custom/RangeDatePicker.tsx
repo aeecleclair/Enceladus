@@ -15,6 +15,7 @@ import {
 
 import { fr } from "date-fns/locale";
 import { Calendar as CalendarIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { DateRange } from "react-day-picker";
 
 interface RangeDatePickerProps {
@@ -28,6 +29,7 @@ export function RangeDatePicker({
   setDateRange,
   defaultDate,
 }: RangeDatePickerProps) {
+  const t = useTranslations("raid.common");
   const year = new Date().getFullYear();
   return (
     <Popover>
@@ -44,7 +46,7 @@ export function RangeDatePicker({
           {dateRange && dateRange.from && dateRange.to ? (
             formatDateRange(dateRange.from.toString(), dateRange.to.toString())
           ) : (
-            <span>Sélectionner une période</span>
+            <span>{t("selectPeriod")}</span>
           )}
         </Button>
       </PopoverTrigger>

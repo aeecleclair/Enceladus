@@ -28,7 +28,61 @@
       "participant": "Participant",
       "volunteer": "Volunteer",
       "admin": "Administrator"
-    }
+    },
+    "doubleRegistrationTitle": "Double registration detected",
+    "doubleRegistrationDescription": "You are registered both as a participant and as a volunteer. This case is not supported — contact the organizers or cancel one of the two registrations.",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "selectPeriod": "Select a period",
+    "noResults": "No results",
+    "noFileSelected": "No file selected",
+    "downloadError": "Could not download the file",
+    "notProvided": "Not provided",
+    "seeAll": "See all",
+    "docStatus": {
+      "docAccepted": "The document has been accepted",
+      "docRefused": "The document has been refused, please edit it and send it again",
+      "docPending": "Awaiting validation from the organizer",
+      "docTemporary": "You commit to providing the document as soon as possible",
+      "securityFilled": "You have provided an emergency contact",
+      "securityRefused": "Please provide an emergency contact",
+      "securityTemporary": "Please complete the emergency contact",
+      "securityFileButton": "Security file",
+      "chooseFile": "Choose a file",
+      "fillSecurityFile": "Fill in the security file"
+    },
+    "userView": "User view",
+    "user": "User",
+    "adminMode": "Admin mode — Go to administration"
+  },
+  "apiErrors": {
+    "generic": "An error occurred, please try again.",
+    "joinTeamFull": "This team is already full (2 members).",
+    "joinConflict": "This team was just joined by another participant.",
+    "joinAlreadyCaptain": "You are already the captain of this team.",
+    "joinAlreadyInTeam": "You are already in a complete team.",
+    "joinTokenNotFound": "This invitation code is invalid or has expired.",
+    "joinWrongEdition": "This invitation is for a different edition of the raid.",
+    "submitNotDraft": "Your registration has already been submitted.",
+    "submitAttestation": "You must first sign the attestation on honour.",
+    "submitSecurityFile": "You must first fill in your security file.",
+    "submitDocs": "Missing required documents: ID card, medical certificate and raid rules.",
+    "validatePayment": "The registration payment has not been made yet.",
+    "validateTshirtPayment": "The t-shirt payment has not been made yet.",
+    "validateSecurityFile": "The security file is incomplete (emergency contact required).",
+    "validateDocNotAccepted": "A required document has not been validated by the organisers yet.",
+    "validateMissingDoc": "A required document is missing.",
+    "validateTeamSecond": "The team must be complete (2 members).",
+    "validateTeamDifficulty": "The team has not chosen a difficulty.",
+    "validateTeamMeeting": "The team has not chosen a meeting place.",
+    "validateNotSubmitted": "The participant must be submitted before being validated.",
+    "recreateParticipant": "You already have a registration for this edition.",
+    "recreateVolunteer": "You are already a volunteer for this edition.",
+    "profileMissingBirthdayPhone": "Complete your profile (date of birth and phone) before registering.",
+    "editNotDraft": "Your registration can no longer be edited: reopen it first.",
+    "alreadyValidated": "This registration is already validated."
   },
   "home": {
     "sidebar": {
@@ -55,12 +109,15 @@
       "registrationSubmitted": "Registration submitted",
       "volunteer": "Volunteer",
       "volunteerCancelled": "Volunteering cancelled",
-      "admin": "Administrator"
+      "admin": "Administrator",
+      "validatedDocuments": "validated"
     },
     "dashboard": {
       "editionWaiting": {
         "title": "Waiting for edition",
-        "description": "The next Raid edition will be announced soon."
+        "description": "The next Raid edition will be announced soon.",
+        "cardTitle": "Waiting for the next edition",
+        "cardDescription": "The next edition of the Raid will be announced soon. Come back later to register."
       },
       "chooseRole": {
         "title": "How would you like to participate?",
@@ -69,25 +126,41 @@
       },
       "incompleteTeam": {
         "title": "Registration in progress",
-        "cta": "Go to my team"
+        "cta": "Go to my team",
+        "cardTitle": "Your registration is progressing",
+        "descriptionWithTeammate": "Finalize the documents and payment to validate your file.",
+        "descriptionWithoutTeammate": "Invite a teammate and complete the team information.",
+        "progress": "Progress"
       },
       "fullyRegistered": {
         "title": "Registration validated",
-        "countdownLabel": "Raid starts in"
+        "countdownLabel": "Raid starts in",
+        "cardDescription": "Your file is complete. See you at the Raid start!",
+        "daysLeft": "{count, plural, =0 {the start is today!} =1 {1 day before the start} other {# days before the start}}",
+        "cta": "See my team"
       },
       "volunteerPending": {
         "title": "Volunteer registration pending",
-        "description": "Your registration is being reviewed by the organizers."
+        "description": "Your registration is being reviewed by the organizers.",
+        "cta": "Manage my registration",
+        "fullDescription": "Your registration is being reviewed by the organizers. You will be notified once validated."
       },
       "volunteerDashboard": {
-        "title": "You are a volunteer"
+        "title": "You are a volunteer",
+        "description": "Your volunteer registration is validated. Thank you for your commitment!",
+        "cta": "See my registration"
       },
       "volunteerCancelled": {
-        "title": "Volunteer registration cancelled"
+        "title": "Registration cancelled",
+        "description": "Your registration for this edition has been cancelled. You can register again (new team, your documents are kept) or contact the organisers if in doubt.",
+        "cta": "Register again",
+        "ctaSecondary": "View details"
       },
       "registrationClosed": {
         "title": "Registrations closed",
-        "description": "The registration period is over."
+        "description": "The registration period is over.",
+        "cardTitle": "Registration closed",
+        "cardDescription": "The registration period is over. For any question, feel free to contact the organizers."
       }
     }
   },
@@ -129,7 +202,9 @@
       "alreadyVolunteerDescription": "You are already registered as a volunteer. Cancel that registration to become a participant.",
       "teamJoined": "Team joined successfully",
       "teamCreated": "Team created successfully",
-      "teamNameDefault": "{firstname} {name}'s team"
+      "teamNameDefault": "{firstname} {name}'s team",
+      "alreadyRegisteredTitle": "Existing registration",
+      "alreadyRegisteredDescription": "You already have a registration for this edition."
     },
     "identity": {
       "firstname": "First name",
@@ -174,7 +249,8 @@
       "cancelledDescription": "Your registration has been cancelled.",
       "submit": "Submit my registration",
       "reopen": "Reopen",
-      "progressHint": "Progress {progress}% — complete to submit"
+      "progressHint": "Progress {progress}% — complete to submit",
+      "cannotReopenValidated": "Only the organisers can reopen a validated registration."
     },
     "documentsCard": {
       "title": "Documents",
@@ -191,7 +267,8 @@
       "closed": "Registrations closed",
       "progress": "Registration progress",
       "cancel": "Cancel",
-      "edit": "Edit"
+      "edit": "Edit",
+      "honourStatement": "By checking this box, you certify on your honour that the information you provided is accurate, that you have read and understood the competition rules, and that you commit to complying with them."
     },
     "participantCard": {
       "captain": "Captain",
@@ -233,7 +310,10 @@
     "join": {
       "dialogTitle": "Join a team",
       "description": "You have been invited to join a team.",
-      "confirm": "Join"
+      "confirm": "Join",
+      "changeTitle": "Join a team",
+      "changeDescription": "You are about to join a team and leave your current team. All your information will be transferred to your new team.",
+      "confirmChange": "Join the team"
     },
     "documents": {
       "title": "Documents",
@@ -288,7 +368,15 @@
       "raidRules": "Raid rules",
       "honourAttestation": "Honour certificate",
       "save": "Save",
-      "noTShirt": "No T-shirt"
+      "noTShirt": "No T-shirt",
+      "profileUpdated": "Profile updated",
+      "profileUpdatedDescription": "Your information has been successfully updated",
+      "bikeSizeError": "Please provide a valid bike size",
+      "emergencyLastNameError": "Please provide the emergency contact's last name",
+      "emergencyFirstNameError": "Please provide the emergency contact's first name",
+      "phoneError": "Please provide a phone number",
+      "phoneInvalidError": "Please provide a valid phone number",
+      "tshirtAlreadyPaidError": "You have already paid for a t-shirt, please choose one"
     },
     "edit": {
       "teamName": "Team name",
@@ -296,7 +384,14 @@
       "route": "Route",
       "save": "Save",
       "selectMeetingPlace": "Select a meeting place",
-      "selectRoute": "Select a route"
+      "selectRoute": "Select a route",
+      "bikeSizeError": "Please provide a valid bike size",
+      "emergencyLastNameError": "Please provide the emergency contact's last name",
+      "emergencyFirstNameError": "Please provide the emergency contact's first name",
+      "phoneError": "Please provide a phone number",
+      "phoneInvalidError": "Please provide a valid phone number",
+      "tshirtAlreadyPaidError": "You have already paid for a t-shirt, please choose one",
+      "teamUpdated": "Team updated"
     }
   },
   "volunteer": {
@@ -493,7 +588,47 @@
         "refuse": "Refuse",
         "download": "Download",
         "noDocument": "No document"
-      }
+      },
+      "securityFiles": "Security files",
+      "securityFilesFile": "Security_Files",
+      "pairUp": "Pair up",
+      "teammate": "Teammate",
+      "teams": "Teams",
+      "name": "Name",
+      "captain": "Captain",
+      "documents": "Documents",
+      "registration": "Registration",
+      "teamsPerPage": "Teams per page",
+      "enableColumns": "Toggle columns",
+      "filterTeams": "Filter teams...",
+      "teamWithoutTeammate": "Team without a teammate",
+      "deleteAllTitle": "Delete all teams",
+      "deleteAllDescription": "Are you sure you want to delete ALL teams? This action is irreversible and will permanently delete all existing teams.",
+      "deleteTeamConfirm": "Are you sure you want to delete this team?",
+      "mergeTeam": "Merge with another team",
+      "deleteTeam": "Delete team",
+      "selectionImpossible": "Selection not possible",
+      "mergeFullTeamError": "Cannot merge a complete team",
+      "allTeams": "All teams",
+      "validatedTeams": "Validated teams",
+      "teamUpdated": "Team updated",
+      "documentTab": {
+        "downloadError": "Download error",
+        "downloadErrorDescription": "The document could not be downloaded, please try again.",
+        "validatedSuccess": "Document successfully validated",
+        "paymentValidatedSuccess": "Payment successfully validated",
+        "tshirtPaymentValidatedSuccess": "T-Shirt payment successfully validated",
+        "idCard": "ID card",
+        "medicalCertificate": "Medical certificate",
+        "raidRules": "Rules",
+        "studentCard": "Student card"
+      },
+      "team": "Team",
+      "course": "Course",
+      "meetingPlace": "Meeting place",
+      "cancelMerge": "Cancel merge",
+      "removeMember": "Remove a member",
+      "teamFiles": "Team_Files"
     },
     "volunteers": {
       "title": "Volunteers",
@@ -596,7 +731,11 @@
         "firstname": "First Name",
         "lastname": "Last Name",
         "phone": "Phone",
-        "validate": "Validate"
+        "validate": "Validate",
+        "firstnameError": "Please provide your first name",
+        "nameError": "Please provide your last name",
+        "phoneError": "Please provide a phone number",
+        "phoneInvalidError": "Please provide a valid phone number"
       },
       "dateNotSet": "Date not set",
       "raidRulesFile": "Raid rules",
@@ -608,7 +747,19 @@
     "fallback": {
       "title": "No active edition",
       "description": "Create a new edition to get started.",
-      "createEdition": "Manage editions"
+      "createEdition": "Create the edition",
+      "createFirstTitle": "Create the first edition",
+      "createFirstDescription": "No active edition yet. Create one to open participant and volunteer registrations."
+    },
+    "stats": {
+      "title": "Statistics",
+      "course": "Course",
+      "start": "Start",
+      "situation": "Situation",
+      "bikeSize": "MTB",
+      "tShirtSize": "T-Shirt",
+      "allTeams": "All teams",
+      "validatedTeams": "Validated teams"
     }
   },
   "errors": {

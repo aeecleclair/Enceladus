@@ -13,13 +13,17 @@ import {
 
 import { ColumnDef } from "@tanstack/react-table";
 
+import { getTranslations } from "next-intl/server";
+
 import { Badge } from "@/components/ui/badge";
 
-export const columns: ColumnDef<RaidTeamPreview>[] = [
+export const getColumns = async (): Promise<ColumnDef<RaidTeamPreview>[]> => {
+  const t = await getTranslations("raid.admin.teams");
+  return [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Equipe" />
+      <DataTableColumnHeader column={column} title={t("team")} />
     ),
     cell: ({ row }) => <div>{row.getValue("name")}</div>,
     enableSorting: false,
@@ -28,7 +32,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
   {
     accessorKey: "captain",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Capitaine" />
+      <DataTableColumnHeader column={column} title={t("captain")} />
     ),
     cell: ({ row }) => {
       const captain = row.getValue("captain") as RaidParticipantPreview;
@@ -43,7 +47,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
   {
     accessorKey: "second",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Coéquiper" />
+      <DataTableColumnHeader column={column} title={t("pairUp")} />
     ),
     cell: ({ row }) => {
       const second = row.getValue("second") as
@@ -53,7 +57,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
         <div className={`flex space-x-2 ${second ?? "text-muted-foreground"}`}>
           {second
             ? `${second.user.firstname} ${second.user.name}`
-            : "Non renseigné"}
+            : ""}
         </div>
       );
     },
@@ -67,7 +71,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Parcours"
+        title={t("course")}
         className="max-lg:hidden"
       />
     ),
@@ -87,7 +91,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="Lieu de rendez-vous"
+        title={t("meetingPlace")}
         className="max-lg:hidden"
       />
     ),
@@ -107,7 +111,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
   {
     accessorKey: "validation_progress",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Inscription" className="" />
+      <DataTableColumnHeader column={column} title={t("registration")} className="" />
     ),
     cell: ({ row }) => {
       return (
@@ -125,7 +129,7 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
   {
     accessorKey: "document_progress",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Documents" />
+      <DataTableColumnHeader column={column} title={t("documents")} />
     ),
     cell: ({ row }) => {
       const captain = row.getValue("captain") as
@@ -164,4 +168,5 @@ export const columns: ColumnDef<RaidTeamPreview>[] = [
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
-];
+  ];
+};

@@ -5,6 +5,7 @@ import { useRouter } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 
 import { UserRound } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 /**
  * Compact pill in the admin header that takes the admin back to the
@@ -12,6 +13,7 @@ import { UserRound } from "lucide-react";
  * that lives in the user shell.
  */
 export const AdminUserToggle = () => {
+  const t = useTranslations("raid.common");
   const router = useRouter();
   return (
     <Button
@@ -21,8 +23,8 @@ export const AdminUserToggle = () => {
       className="gap-2"
     >
       <UserRound className="h-3.5 w-3.5" />
-      <span className="hidden sm:inline">Vue utilisateur</span>
-      <span className="sm:hidden">Utilisateur</span>
+      <span className="hidden sm:inline">{t("userView")}</span>
+      <span className="sm:hidden">{t("user")}</span>
     </Button>
   );
 };

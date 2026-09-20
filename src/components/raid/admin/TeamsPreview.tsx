@@ -33,6 +33,7 @@ import {
 
 import { ArrowUpRight, DownloadIcon, LifeBuoyIcon } from "lucide-react";
 import { UsersIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface TeamsPreviewProps {
   teams?: RaidTeamPreview[];
@@ -40,6 +41,8 @@ interface TeamsPreviewProps {
 }
 
 export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
+  const t = useTranslations("raid.admin.teams");
+  const tCommon = useTranslations("raid.common");
   function downloadBlob(blob: Blob, prefix: string) {
     const now = new Date();
     const pad = (n: number) => n.toString().padStart(2, "0");
@@ -74,7 +77,7 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
     <Card className="xl:col-span-2 border-border/70 bg-card/95 shadow-sm">
       <CardHeader className="flex flex-row items-center">
         <div className="grid gap-2">
-          <CardTitle>Equipes</CardTitle>
+          <CardTitle>{t("teams")}</CardTitle>
           <CardDescription>
             Aperçu des {teams?.slice(0, 5).length ?? 0} équipes les plus proches
             de la validation de leur dossier
@@ -85,7 +88,7 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
             <DropdownMenuTrigger asChild>
               <Button size="sm" variant="outline" className="gap-1">
                 <DownloadIcon className="h-4 w-4 mr-1" />
-                Documents
+                {t("documents")}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
@@ -95,7 +98,7 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                   refetchTeamFiles().then((response) => {
                     const teamFiles = response.data;
                     if (teamFiles instanceof Blob) {
-                      downloadBlob(teamFiles, "Dossiers_Equipes");
+                      downloadBlob(teamFiles, t("teamFiles"));
                     }
                   });
                 }}
@@ -109,19 +112,19 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                   refetchSecurityFiles().then((response) => {
                     const securityFiles = response.data;
                     if (securityFiles instanceof Blob) {
-                      downloadBlob(securityFiles, "Fiches_Sécurités");
+                      downloadBlob(securityFiles, t("securityFilesFile"));
                     }
                   });
                 }}
               >
                 <LifeBuoyIcon className="mr-2 h-4 w-4 " />
-                Fiches sécurité
+                {t("securityFiles")}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <Button asChild size="sm" className="gap-1">
             <Link href="/admin/teams">
-              Voir tout
+              {tCommon("seeAll")}
               <ArrowUpRight className="h-4 w-4" />
             </Link>
           </Button>
@@ -132,11 +135,11 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Nom</TableHead>
-                <TableHead className="max-md:hidden">Capitaine</TableHead>
-                <TableHead className="max-md:hidden">Coéquipier</TableHead>
-                <TableHead className="max-md:hidden">Documents</TableHead>
-                <TableHead className="text-right">Inscription</TableHead>
+                <TableHead>{t("name")}</TableHead>
+                <TableHead className="max-md:hidden">{t("captain")}</TableHead>
+                <TableHead className="max-md:hidden">{t("teammate")}</TableHead>
+                <TableHead className="max-md:hidden">{t("documents")}</TableHead>
+                <TableHead className="text-right">{t("registration")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

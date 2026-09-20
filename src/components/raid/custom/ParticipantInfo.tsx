@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/tooltip";
 
 import { BadgeAlertIcon, CheckIcon, ClockIcon, XIcon } from "lucide-react";
+import { useTranslations } from "next-intl";
 import PhoneInput from "react-phone-input-2";
 
 type ValueType =
@@ -54,6 +55,8 @@ export const ParticipantInfo = ({
   placeholder,
   isPhone = false,
 }: ParticipantInfoProps) => {
+  const t = useTranslations("raid.common.docStatus");
+  const tCommon = useTranslations("raid.common");
   const { getDocument } = useDocument();
   const isSize = (value: ValueType): value is Size => {
     return (
@@ -106,26 +109,26 @@ export const ParticipantInfo = ({
   const validationLabel = (validation: DocumentValidation) => {
     switch (validation) {
       case "accepted":
-        return "Le document a été accepté";
+        return t("docAccepted");
       case "refused":
-        return "Le document a été refusé, veuillez le modifier et le renvoyer";
+        return t("docRefused");
       case "pending":
-        return "En attente de validation de la part de l'organisateur";
+        return t("docPending");
       case "temporary":
-        return "Vous vous engagez à fournir le document dans les plus brefs délais";
+        return t("docTemporary");
     }
   };
 
   const securityValidationLabel = (validation: DocumentValidation) => {
     switch (validation) {
       case "accepted":
-        return "Vous avez renseigné la personne à contacter en cas d'urgence";
+        return t("securityFilled");
       case "refused":
-        return "Veuillez renseigner la personne à contact en cas d'urgence";
+        return t("securityRefused");
       case "pending":
-        return "En attente de validation de la part de l'organisateur";
+        return t("docPending");
       case "temporary":
-        return "Veuillez compléter la personne à contacter en cas d'urgence";
+        return t("securityTemporary");
     }
   };
 
@@ -176,7 +179,7 @@ export const ParticipantInfo = ({
                 >
                   <div className="flex flex-row items-start max-w-full">
                     <span className="text-gray-500 overflow-hidden">
-                      {value.name ?? "Aucun fichier séléctionné"}
+                      {value.name ?? tCommon("noFileSelected")}
                     </span>
                   </div>
                 </Button>
@@ -221,7 +224,7 @@ export const ParticipantInfo = ({
                 <Button variant={null} className="col-span-4 px-4 bg-zinc-200 ">
                   <div className="flex flex-row items-start w-full">
                     <span className="text-gray-500 overflow-hidden">
-                      {"Fiche sécurité"}
+                      {t("securityFileButton")}
                     </span>
                   </div>
                 </Button>
@@ -260,7 +263,7 @@ export const ParticipantInfo = ({
               placeholder ?? "text-zinc-400"
             } col-span-4 text-right`}
           >
-            {placeholder ?? "Non renseigné"}
+            {placeholder ?? tCommon("notProvided")}
           </span>
         );
       default:

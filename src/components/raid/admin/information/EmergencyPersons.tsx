@@ -52,14 +52,14 @@ export const EmergencyPerson = () => {
     president: z
       .object({
         firstname: z.string().min(1, {
-          message: "Veuillez renseigner votre prénom",
+          message: t("firstnameError"),
         }),
         name: z.string().min(1, {
-          message: "Veuillez renseigner votre nom",
+          message: t("nameError"),
         }),
         phone: z
           .string({
-            error: "Veuillez renseigner un numéro de téléphone",
+            error: t("phoneError"),
           })
           .refine(
             (value) => {
@@ -71,21 +71,21 @@ export const EmergencyPerson = () => {
               }
               return true;
             },
-            { message: "Veuillez renseigner un numéro de téléphone valide" },
+            { message: t("phoneInvalidError") },
           ),
       })
       .partial(),
     volunteer_responsible: z
       .object({
         firstname: z.string().min(1, {
-          message: "Veuillez renseigner votre prénom",
+          message: t("firstnameError"),
         }),
         name: z.string().min(1, {
-          message: "Veuillez renseigner votre nom",
+          message: t("nameError"),
         }),
         phone: z
           .string({
-            error: "Veuillez renseigner un numéro de téléphone",
+            error: t("phoneError"),
           })
           .refine(
             (value) => {
@@ -97,21 +97,21 @@ export const EmergencyPerson = () => {
               }
               return true;
             },
-            { message: "Veuillez renseigner un numéro de téléphone valide" },
+            { message: t("phoneInvalidError") },
           ),
       })
       .partial(),
     security_responsible: z
       .object({
         firstname: z.string().min(1, {
-          message: "Veuillez renseigner votre prénom",
+          message: t("firstnameError"),
         }),
         name: z.string().min(1, {
-          message: "Veuillez renseigner votre nom",
+          message: t("nameError"),
         }),
         phone: z
           .string({
-            error: "Veuillez renseigner un numéro de téléphone",
+            error: t("phoneError"),
           })
           .refine(
             (value) => {
@@ -123,7 +123,7 @@ export const EmergencyPerson = () => {
               }
               return true;
             },
-            { message: "Veuillez renseigner un numéro de téléphone valide" },
+            { message: t("phoneInvalidError") },
           ),
       })
       .partial(),
@@ -131,7 +131,7 @@ export const EmergencyPerson = () => {
       .object({
         phone: z
           .string({
-            error: "Veuillez renseigner un numéro de téléphone",
+            error: t("phoneError"),
           })
           .refine(
             (value) => {
@@ -143,7 +143,7 @@ export const EmergencyPerson = () => {
               }
               return true;
             },
-            { message: "Veuillez renseigner un numéro de téléphone valide" },
+            { message: t("phoneInvalidError") },
           ),
       })
       .partial(),

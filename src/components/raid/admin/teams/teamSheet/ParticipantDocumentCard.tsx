@@ -10,6 +10,8 @@ import { getSituationLabel } from "@/lib/raid/teamUtils";
 import { Accordion } from "@/components/ui/accordion";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import { useTranslations } from "next-intl";
+
 interface ParticipantDocumentCardProps {
   participant: RaidParticipant;
   setDocument: (document: AppModulesRaidSchemasRaidDocument) => void;
@@ -28,6 +30,7 @@ export const ParticipantDocumentCard = ({
   downloadDocument,
   validateDocument,
 }: ParticipantDocumentCardProps) => {
+  const t = useTranslations("raid.admin.teams.documentTab");
   return (
     <>
       <CardHeader>
@@ -38,7 +41,7 @@ export const ParticipantDocumentCard = ({
       <CardContent>
         <Accordion type="single" collapsible className="w-full">
           <DocumentItem
-            value="Carte d'identité"
+            value={t("idCard")}
             document={participant.id_card ?? null}
             index={0}
             setDocument={setDocument}
@@ -46,7 +49,7 @@ export const ParticipantDocumentCard = ({
             validateDocument={validateDocument}
           />
           <DocumentItem
-            value="Certificat médical"
+            value={t("medicalCertificate")}
             document={participant.medical_certificate ?? null}
             index={1}
             setDocument={setDocument}
@@ -54,7 +57,7 @@ export const ParticipantDocumentCard = ({
             validateDocument={validateDocument}
           />
           <DocumentItem
-            value="Réglement"
+            value={t("raidRules")}
             document={participant.raid_rules ?? null}
             index={2}
             setDocument={setDocument}
@@ -65,7 +68,7 @@ export const ParticipantDocumentCard = ({
             getSituationLabel(participant.situation ?? undefined) ?? "",
           ) && (
             <DocumentItem
-              value="Carte étudiante"
+              value={t("studentCard")}
               document={participant.student_card ?? null}
               index={3}
               setDocument={setDocument}

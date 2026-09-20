@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { MergeIcon, Trash2Icon } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
@@ -26,6 +27,7 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
+  const t = useTranslations("raid.admin.teams");
   const {
     refetchTeams,
     mergeTeams,
@@ -43,8 +45,8 @@ export function DataTableToolbar<TData>({
           isOpened={isDeleteAllDialogOpen}
           setIsOpened={setIsDeleteAllDialogOpen}
           isLoading={isDeletionLoading}
-          title="Suppression de toutes les équipes"
-          description="Êtes-vous sûr de vouloir supprimer TOUTES les équipes ? Cette action est irréversible et supprimera définitivement toutes les équipes existantes."
+          title={t("deleteAllTitle")}
+          description={t("deleteAllDescription")}
           validateLabel="Supprimer tout"
           callback={() =>
             deleteAllTeams(() => {
@@ -58,7 +60,7 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border/60 bg-muted/20 p-2">
         <div className="flex flex-1 flex-wrap items-center gap-2">
           <Input
-            placeholder="Filtrer les équipes..."
+            placeholder={t("filterTeams")}
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
@@ -68,21 +70,21 @@ export function DataTableToolbar<TData>({
           {table.getColumn("difficulty") && (
             <DataTableFacetedFilter
               column={table.getColumn("difficulty")}
-              title="Parcours"
+              title={t("course")}
               options={difficulties}
             />
           )}
           {table.getColumn("meeting_place") && (
             <DataTableFacetedFilter
               column={table.getColumn("meeting_place")}
-              title="Lieu de rendez-vous"
+              title={t("meetingPlace")}
               options={meetingPlaces}
             />
           )}
           {table.getColumn("second") && (
             <DataTableFilterCheckBox
               column={table.getColumn("second")}
-              title="Equipe sans coéquipier"
+              title={t("teamWithoutTeammate")}
             />
           )}
           {isFiltered && (

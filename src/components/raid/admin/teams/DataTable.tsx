@@ -22,6 +22,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import {
@@ -43,6 +44,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const t = useTranslations("raid.admin.teams");
   const { toast } = useToast();
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -86,8 +88,8 @@ export function DataTable<TData, TValue>({
     if (table.getIsSomeRowsSelected() || table.getIsAllRowsSelected()) {
       if ((row.original as RaidTeamPreview).second) {
         toast({
-          title: "Sélection impossible",
-          description: "Impossible de fusionner une équipe complète",
+          title: t("selectionImpossible"),
+          description: t("mergeFullTeamError"),
         });
         return;
       }

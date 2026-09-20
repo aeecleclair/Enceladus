@@ -53,7 +53,7 @@ export const ViewEditParticipant = ({
           (value) => {
             return ["xs", "s", "m", "l", "xl"].includes(value);
           },
-          { message: "Veuillez renseigner une taille de vélo valide" },
+          { message: t("bikeSizeError") },
         )
         .optional(),
       tShirtSize: z
@@ -135,20 +135,20 @@ export const ViewEditParticipant = ({
           id: z.uuid(),
           updated: z.boolean(),
           emergency_person_name: z.string().min(1, {
-            message: "Veuillez renseigner le nom de la personne à contacter",
+            message: t("emergencyLastNameError"),
           }),
           emergency_person_firstname: z.string().min(1, {
-            message: "Veuillez renseigner le prénom de la personne à contacter",
+            message: t("emergencyFirstNameError"),
           }),
           emergency_person_phone: z
             .string({
-              error: "Veuillez renseigner un numéro de téléphone",
+              error: t("phoneError"),
             })
             .min(10, {
-              message: "Veuillez renseigner un numéro de téléphone valide",
+              message: t("phoneInvalidError"),
             })
             .max(14, {
-              message: "Veuillez renseigner un numéro de téléphone valide",
+              message: t("phoneInvalidError"),
             }),
           validation: z.enum(["pending", "accepted", "refused", "temporary"]),
         })
@@ -158,7 +158,7 @@ export const ViewEditParticipant = ({
     .refine(
       (data) => !(data.tShirtSize === "no" && participant.t_shirt_payment),
       {
-        message: "Vous avez déjà payer pour un t-shirt, veuillez choisir un",
+        message: t("tshirtAlreadyPaidError"),
         path: ["tShirtSize"],
       },
     );
@@ -301,8 +301,8 @@ export const ViewEditParticipant = ({
 
     updateParticipant(updatedParticipant, participant.user_id, () => {
       toast({
-        title: "Profil mis à jour",
-        description: "Vos informations ont été mises à jour avec succès",
+        title: t("profileUpdated"),
+        description: t("profileUpdatedDescription"),
       });
       refetchTeam();
       setIsEdit(!isEdit);

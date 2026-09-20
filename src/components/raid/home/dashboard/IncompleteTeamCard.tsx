@@ -13,12 +13,14 @@ import {
 import { Progress } from "@/components/ui/progress";
 
 import { ArrowRight, ClipboardList } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface IncompleteTeamCardProps {
   team?: RaidTeamComplete;
 }
 
 export const IncompleteTeamCard = ({ team }: IncompleteTeamCardProps) => {
+  const t = useTranslations("raid.home.dashboard.incompleteTeam");
   const router = useRouter();
   const progress = team?.validation_progress ?? 0;
   const hasTeammate = !!team?.second;
@@ -31,11 +33,11 @@ export const IncompleteTeamCard = ({ team }: IncompleteTeamCardProps) => {
             <ClipboardList className="h-5 w-5" />
           </div>
           <div className="space-y-1">
-            <CardTitle>Votre inscription avance</CardTitle>
+            <CardTitle>{t("cardTitle")}</CardTitle>
             <CardDescription>
               {hasTeammate
-                ? "Finalisez les documents et le paiement pour valider votre dossier."
-                : "Invitez un coéquipier et complétez les informations de l'équipe."}
+                ? t("descriptionWithTeammate")
+                : t("descriptionWithoutTeammate")}
             </CardDescription>
           </div>
         </div>
@@ -43,7 +45,7 @@ export const IncompleteTeamCard = ({ team }: IncompleteTeamCardProps) => {
       <CardContent className="space-y-4 pt-0">
         <div className="space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Progression</span>
+            <span className="text-muted-foreground">{t("progress")}</span>
             <span className="font-medium text-emerald-700 dark:text-emerald-400">
               {progress.toFixed(0)}%
             </span>
@@ -54,7 +56,7 @@ export const IncompleteTeamCard = ({ team }: IncompleteTeamCardProps) => {
           />
         </div>
         <Button className="w-full" onClick={() => router.push("/team")}>
-          Aller à mon équipe
+          {t("cta")}
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </CardContent>

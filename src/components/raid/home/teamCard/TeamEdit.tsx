@@ -52,7 +52,7 @@ export const TeamEdit = ({ team, setIsEdit }: TeamCardProps) => {
       () => {
         setIsEdit(false);
         toast({
-          title: "Équipe mise à jour",
+          title: t("teamUpdated"),
         });
       },
       values,

@@ -17,12 +17,15 @@ import {
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
+import { useTranslations } from "next-intl";
+
 interface StatsViewProps {
   teams?: RaidTeamPreview[];
   isLoading: boolean;
 }
 
 export const StatsView = ({ teams }: StatsViewProps) => {
+  const t = useTranslations("raid.admin.stats");
   const [seeAll, setSeeAll] = useState(false);
   const {
     difficultyData,
@@ -35,23 +38,23 @@ export const StatsView = ({ teams }: StatsViewProps) => {
     <Card className="border-border/70 bg-card/95 shadow-sm">
       <CardHeader className="flex flex-col items-center justify-between">
         <div className="flex flex-row justify-between w-full">
-          <CardTitle>Statistiques</CardTitle>
+          <CardTitle>{t("title")}</CardTitle>
           <Switch checked={seeAll} onCheckedChange={setSeeAll} />
         </div>
         <div className="ml-auto">
           <CardDescription>
-            {seeAll ? "Toutes les équipes" : "Equipes validées"}
+            {seeAll ? t("allTeams") : t("validatedTeams")}
           </CardDescription>
         </div>
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="difficulty">
           <TabsList className="mb-6 grid w-full grid-cols-5 bg-muted/40">
-            <TabsTrigger value="difficulty">Parcours</TabsTrigger>
-            <TabsTrigger value="meetingPlace">Départ</TabsTrigger>
-            <TabsTrigger value="bikeSize">VTT</TabsTrigger>
-            <TabsTrigger value="tShirtSize">T-Shirt</TabsTrigger>
-            <TabsTrigger value="situation">Situation</TabsTrigger>
+            <TabsTrigger value="difficulty">{t("course")}</TabsTrigger>
+            <TabsTrigger value="meetingPlace">{t("start")}</TabsTrigger>
+            <TabsTrigger value="bikeSize">{t("bikeSize")}</TabsTrigger>
+            <TabsTrigger value="tShirtSize">{t("tShirtSize")}</TabsTrigger>
+            <TabsTrigger value="situation">{t("situation")}</TabsTrigger>
           </TabsList>
           <TabsContent value="difficulty">
             <ChartView data={difficultyData} />

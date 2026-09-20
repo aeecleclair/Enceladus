@@ -21,6 +21,7 @@ import {
 } from "@/lib/raid/comboboxValues";
 
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   ControllerRenderProps,
@@ -114,6 +115,8 @@ export function ParticipantField<
   // once — react-hook-form's UseFormReturn generic is invariant, so a specific
   // form is not assignable to UseFormReturn<FieldValues> without this.
   const form = typedForm as unknown as UseFormReturn<FieldValues>;
+  const t = useTranslations("raid.common.docStatus");
+  const tCommon = useTranslations("raid.common");
   const { toast } = useToast();
   const [isFileLoading, setIsFileLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -125,8 +128,7 @@ export function ParticipantField<
     fetchDocument(documentId).then((data) => {
       if (!data) {
         toast({
-          title: "Erreur",
-          description: "Impossible de télécharger le fichier",
+          title: tCommon("downloadError"),
           variant: "destructive",
         });
         setIsFileLoading(false);
@@ -210,11 +212,11 @@ export function ParticipantField<
                     <>
                       {field.value?.name ? (
                         <span className="text-gray-500 overflow-hidden">
-                          {field.value.name ?? "Aucun fichier séléctionné"}
+                          {field.value.name ?? tCommon("noFileSelected")}
                         </span>
                       ) : (
                         <span className="font-semibold  mr-6">
-                          Choisir un fichier
+                          {t("chooseFile")}
                         </span>
                       )}
                     </>
@@ -269,11 +271,11 @@ export function ParticipantField<
                     <>
                       {field.value?.updated || field.value?.id ? (
                         <span className="text-gray-500 overflow-hidden">
-                          {"Fiche de sécurité"}
+                          {t("securityFileButton")}
                         </span>
                       ) : (
                         <span className="font-semibold mr-6">
-                          {"Remplir la fiche de sécurité"}
+                          {t("fillSecurityFile")}
                         </span>
                       )}
                     </>

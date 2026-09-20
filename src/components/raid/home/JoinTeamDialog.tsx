@@ -13,6 +13,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+import { useTranslations } from "next-intl";
+
 interface JoinTeamDialogProps {
   isOpened: boolean;
   setIsOpened: (value: boolean) => void;
@@ -22,6 +24,8 @@ export const JoinTeamDialog = ({
   isOpened,
   setIsOpened,
 }: JoinTeamDialogProps) => {
+  const t = useTranslations("raid.team.join");
+  const tCommon = useTranslations("raid.common");
   const { inviteToken, resetInviteToken } = useInviteTokenStore();
   const { joinTeam, isJoinLoading } = useInviteToken();
   const { refetchTeam } = useMeTeam();
@@ -43,27 +47,23 @@ export const JoinTeamDialog = ({
     <Dialog open={isOpened} onOpenChange={setIsOpened}>
       <DialogContent className="sm:max-w-150">
         <DialogHeader>
-          <DialogTitle>Rejoindre une équipe</DialogTitle>
+          <DialogTitle>{t("changeTitle")}</DialogTitle>
         </DialogHeader>
-        <DialogDescription>
-          Vous vous apprêtez à rejoindre une équipe et quitter votre équipe
-          actuelle. Toutes vos informations seront transférées à votre nouvelle
-          équipe.
-        </DialogDescription>
+        <DialogDescription>{t("changeDescription")}</DialogDescription>
         <div className="flex justify-end mt-2 space-x-4">
           <Button
             variant="outline"
             onClick={closeDialog}
             disabled={isJoinLoading}
           >
-            Annuler
+            {tCommon("cancel")}
           </Button>
           <LoadingButton
             isLoading={isJoinLoading}
             onClick={onJoinTeam}
             className="w-35"
           >
-            Rejoindre l&apos;équipe
+            {t("confirmChange")}
           </LoadingButton>
         </div>
       </DialogContent>

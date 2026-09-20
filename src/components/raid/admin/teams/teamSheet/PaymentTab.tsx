@@ -8,11 +8,14 @@ import { useTeams } from "@/hooks/raid/useTeams";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
+import { useTranslations } from "next-intl";
+
 interface PaymentTabProps {
   team: RaidTeamComplete;
 }
 
 export const PaymentTab = ({ team }: PaymentTabProps) => {
+  const t = useTranslations("raid.admin.teams.documentTab");
   const { toast } = useToast();
   const { validatePayment, validateTShirtPayment } = usePayment();
   const { refetchTeam } = useAdminTeam(team.id);
@@ -24,7 +27,7 @@ export const PaymentTab = ({ team }: PaymentTabProps) => {
       refetchTeam();
       refetchTeams();
       toast({
-        title: "Paiement validé avec succès",
+        title: t("paymentValidatedSuccess"),
       });
     });
   }
@@ -35,7 +38,7 @@ export const PaymentTab = ({ team }: PaymentTabProps) => {
       refetchTeam();
       refetchTeams();
       toast({
-        title: "Paiement du T-Shirt validé avec succès",
+        title: t("tshirtPaymentValidatedSuccess"),
       });
     });
   }

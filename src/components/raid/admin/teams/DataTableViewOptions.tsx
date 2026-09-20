@@ -13,6 +13,8 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
+import { useTranslations } from "next-intl";
+
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
 }
@@ -20,20 +22,21 @@ interface DataTableViewOptionsProps<TData> {
 export function DataTableViewOptions<TData>({
   table,
 }: DataTableViewOptionsProps<TData>) {
+  const t = useTranslations("raid.admin.teams");
   function getColumnName(key: string) {
     switch (key) {
       case "second":
-        return "Coéquipier";
+        return t("teammate");
       case "captain":
-        return "Capitaine";
+        return t("captain");
       case "difficulty":
-        return "Parcours";
+        return t("course");
       case "meeting_place":
-        return "Lieu de rendez-vous";
+        return t("meetingPlace");
       case "validation_progress":
-        return "Inscription";
+        return t("registration");
       case "document_progress":
-        return "Documents";
+        return t("documents");
       default:
         return key;
     }
@@ -52,7 +55,7 @@ export function DataTableViewOptions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-45">
-        <DropdownMenuLabel>Activer les colonnes</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("enableColumns")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()
