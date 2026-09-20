@@ -55,7 +55,7 @@ export const RaidInformationDocument = ({
       raid_information: {
         name: information.raid_information_id ?? undefined,
         id: information.raid_information_id ?? undefined,
-        type: "raid_information",
+        type: "raidInformation",
       },
     },
   });
@@ -130,7 +130,7 @@ export const RaidInformationDocument = ({
                               string
                             >
                           }
-                          fileType="raid_information"
+                          fileType="raidInformation"
                           participantId="admin"
                           documentId={field.value?.id}
                         />
