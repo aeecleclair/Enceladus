@@ -84,6 +84,17 @@
     "editNotDraft": "Votre inscription n'est plus modifiable : rouvrez-la d'abord.",
     "alreadyValidated": "Cette inscription est déjà validée."
   },
+  "paymentReturn": {
+    "successTitle": "Paiement confirmé",
+    "pendingTitle": "Paiement en cours de vérification",
+    "successDescription": "Nous avons bien reçu votre paiement ({role}). Votre inscription sera validée par l'organisation après vérification de votre dossier.",
+    "pendingDescription": "Votre paiement est en cours de traitement par notre prestataire. Il peut s'écouler quelques minutes avant que le statut ne soit mis à jour ici ; vous recevrez un e-mail de confirmation. Vous pouvez revenir sur cette page ou sur votre espace pour vérifier l'état de votre dossier.",
+    "checking": "Vérification de votre dossier…",
+    "notFound": "Nous n'avons trouvé aucune inscription associée à votre compte.",
+    "participant": "d'inscription participant",
+    "volunteer": "de bénévole",
+    "backHome": "Retour à mon espace"
+  },
   "home": {
     "sidebar": {
       "mySpace": "Mon espace",

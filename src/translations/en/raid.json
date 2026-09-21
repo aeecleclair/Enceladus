@@ -84,6 +84,17 @@
     "editNotDraft": "Your registration can no longer be edited: reopen it first.",
     "alreadyValidated": "This registration is already validated."
   },
+  "paymentReturn": {
+    "successTitle": "Payment confirmed",
+    "pendingTitle": "Payment being verified",
+    "successDescription": "We have received your {role} payment. Your registration will be validated by the organizers after your file is reviewed.",
+    "pendingDescription": "Your payment is being processed by our provider. It may take a few minutes before the status updates here; you will receive a confirmation email. You can come back to this page or to your dashboard to check your file status.",
+    "checking": "Checking your file…",
+    "notFound": "We could not find any registration linked to your account.",
+    "participant": "participant registration",
+    "volunteer": "volunteer registration",
+    "backHome": "Back to my dashboard"
+  },
   "home": {
     "sidebar": {
       "mySpace": "My space",
