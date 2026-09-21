@@ -140,7 +140,7 @@ export const PaymentButton = () => {
       />
       <TooltipProvider>
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <Button
               className="col-span-4 ml-auto w-25"
               disabled={!mustPayRegistering}
