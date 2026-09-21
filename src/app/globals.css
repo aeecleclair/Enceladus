@@ -125,7 +125,6 @@
   @layer base {
     * {
       border-color: hsl(var(--border));
-      border: 0px solid;
     }
   }
   /* Couleurs de fond et de texte par défaut */
