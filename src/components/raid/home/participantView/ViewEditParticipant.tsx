@@ -38,6 +38,9 @@ export const ViewEditParticipant = ({
   const { refetchTeam } = useMeTeam();
   const t = useTranslations("raid.team.participantView");
   const isOwnFile = participant.user_id === me?.user_id;
+  const isStudentSituation =
+    !participant.situation ||
+    ["centrale", "otherSchool"].includes(participant.situation);
 
   const formSchema = z
     .object({
@@ -274,7 +277,11 @@ export const ViewEditParticipant = ({
       address: values.address ?? null,
       diet: values.diet ?? null,
       attestation_on_honour: values.attestationHonour,
-      has_scholarship: values.hasScholarship ?? false,
+      // Scholarship is restricted to students: never send the flag for a
+      // non-student situation (backend enforces the same rule).
+      has_scholarship:
+        (values.hasScholarship ?? false) &&
+        (situation === "centrale" || situation === "otherSchool"),
     };
     for (const doc of documentToUpdate) {
       switch (doc.type) {
@@ -575,13 +582,17 @@ export const ViewEditParticipant = ({
                   participantId={participant.user_id}
                 />
               )}
-              <ParticipantField
-                label={t("isScholarship")}
-                id="hasScholarship"
-                form={form}
-                type={ValueTypes.BOOLEAN}
-              />
-              {form.watch("hasScholarship") && (
+              {/* Scholarship is restricted to students: hidden for any other
+                  situation (the backend enforces the same rule). */}
+              {isStudentSituation && (
+                <ParticipantField
+                  label={t("isScholarship")}
+                  id="hasScholarship"
+                  form={form}
+                  type={ValueTypes.BOOLEAN}
+                />
+              )}
+              {isStudentSituation && form.watch("hasScholarship") && (
                 <>
                   <ParticipantField
                     label={t("scholarshipAttestation")}
@@ -672,10 +683,12 @@ export const ViewEditParticipant = ({
                   participantId={participant.user_id}
                 />
               )}
-              <ParticipantInfo
-                label={t("isScholarship")}
-                value={participant.has_scholarship}
-              />
+              {isStudentSituation && (
+                <ParticipantInfo
+                  label={t("isScholarship")}
+                  value={participant.has_scholarship}
+                />
+              )}
               {participant.has_scholarship && (
                 <ParticipantInfo
                   label={t("scholarshipAttestation")}
