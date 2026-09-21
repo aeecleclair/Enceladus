@@ -246,7 +246,7 @@
       "validated": "Validé",
       "validatedDescription": "Félicitations, votre inscription est validée.",
       "cancelled": "Annulé",
-      "cancelledDescription": "Votre inscription a été annulée.",
+      "cancelledDescription": "Votre inscription a été annulée. Vous pouvez la rouvrir pour la reprendre, ou vous réinscrire depuis l'accueil.",
       "submit": "Soumettre mon inscription",
       "reopen": "Rouvrir",
       "progressHint": "Progression {progress}% — complétez pour soumettre",
@@ -365,6 +365,7 @@
       "isScholarship": "Je suis boursier",
       "scholarshipAttestation": "Attestation de bourse",
       "scholarshipReductionNotice": "À noter : le tarif boursier ne s'appliquera qu'après la validation de votre attestation de bourse (et de votre carte étudiante le cas échéant) par l'organisation.",
+      "scholarshipStudentOnly": "La bourse est réservée aux étudiants (Centrale Lyon ou autre école). Décochez « Je suis boursier » ou modifiez votre situation.",
       "raidRules": "Règlement du raid",
       "honourAttestation": "Attestation sur l'honneur",
       "save": "Enregistrer",
@@ -628,7 +629,11 @@
       "meetingPlace": "Lieu de rendez-vous",
       "cancelMerge": "Annuler la fusion",
       "removeMember": "Retirer un membre",
-      "teamFiles": "Dossiers_Equipes"
+      "teamFiles": "Dossiers_Equipes",
+      "sheet": {
+        "dossierComplete": "Dossier complété à {progress}%",
+        "noTeammate": "Sans coéquipier"
+      }
     },
     "volunteers": {
       "title": "Bénévoles",

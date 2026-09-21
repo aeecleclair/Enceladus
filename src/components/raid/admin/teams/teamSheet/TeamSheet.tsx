@@ -11,6 +11,8 @@ import {
   meetingPlaces,
 } from "@/lib/raid/comboboxValues";
 
+import { useTranslations } from "next-intl";
+
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -32,6 +34,7 @@ interface TeamSheetProps {
 }
 
 export const TeamSheet = ({ isOpened, onClose, teamId }: TeamSheetProps) => {
+  const t = useTranslations("raid.admin.teams");
   const { team } = useAdminTeam(teamId);
   const isLoading = team?.id !== teamId;
   const progress = team?.validation_progress ?? 0;
@@ -65,7 +68,7 @@ export const TeamSheet = ({ isOpened, onClose, teamId }: TeamSheetProps) => {
                 {team?.name}
               </SheetTitle>
               <SheetDescription>
-                Dossier équipe complété à{" "}
+                {t("sheet.dossierComplete", { progress: progress.toFixed(0) })}{" "}
                 <span className={`font-semibold ${progressClass}`}>
                   {progress.toFixed(0)}%
                 </span>
@@ -91,7 +94,7 @@ export const TeamSheet = ({ isOpened, onClose, teamId }: TeamSheetProps) => {
                     variant="outline"
                     className="bg-amber-50 text-amber-900 border-amber-200 dark:bg-amber-950/40 dark:text-amber-300"
                   >
-                    Sans coéquipier
+                    {t("sheet.noTeammate")}
                   </Badge>
                 )}
               </div>

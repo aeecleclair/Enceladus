@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 
 import { CheckCircle2, Clock, XCircle } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const ShellCard = ({
   icon,
@@ -52,46 +53,65 @@ const ShellCard = ({
 );
 
 export const VolunteerPendingCard = () => {
+  const t = useTranslations("raid.home.dashboard.volunteerPending");
   const router = useRouter();
   return (
     <ShellCard
       icon={<Clock className="h-5 w-5" />}
       iconBg="bg-yellow-100 dark:bg-yellow-950/40"
       iconColor="text-yellow-700 dark:text-yellow-400"
-      title="Inscription bénévole en attente"
-      description="Votre inscription est en cours d'examen par les organisateurs. Vous serez notifié une fois validée."
-      cta="Gérer mon inscription"
+      title={t("title")}
+      description={t("fullDescription")}
+      cta={t("cta")}
       onCta={() => router.push("/volunteer")}
     />
   );
 };
 
 export const VolunteerDashboardCard = () => {
+  const t = useTranslations("raid.home.dashboard.volunteerDashboard");
   const router = useRouter();
   return (
     <ShellCard
       icon={<CheckCircle2 className="h-5 w-5" />}
       iconBg="bg-green-100 dark:bg-green-950/40"
       iconColor="text-green-700 dark:text-green-400"
-      title="Vous êtes bénévole"
-      description="Votre inscription bénévole est validée. Merci de votre engagement !"
-      cta="Voir mon inscription"
+      title={t("title")}
+      description={t("description")}
+      cta={t("cta")}
       onCta={() => router.push("/volunteer")}
     />
   );
 };
 
-export const VolunteerCancelledCard = () => {
+export const CancelledRegistrationCard = () => {
+  const t = useTranslations("raid.home.dashboard.volunteerCancelled");
   const router = useRouter();
   return (
-    <ShellCard
-      icon={<XCircle className="h-5 w-5" />}
-      iconBg="bg-destructive/10"
-      iconColor="text-destructive"
-      title="Inscription bénévole annulée"
-      description="Votre inscription bénévole a été annulée."
-      cta="Voir les détails"
-      onCta={() => router.push("/volunteer")}
-    />
+    <Card className="mx-auto w-full max-w-3xl border-border/70 bg-card/90 shadow-sm">
+      <CardHeader>
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-destructive/10 text-destructive">
+            <XCircle className="h-5 w-5" />
+          </div>
+          <div className="space-y-1">
+            <CardTitle>{t("title")}</CardTitle>
+            <CardDescription>{t("description")}</CardDescription>
+          </div>
+        </div>
+      </CardHeader>
+      <CardContent className="flex flex-col gap-2 sm:flex-row">
+        <Button className="w-full sm:flex-1" onClick={() => router.push("/register")}>
+          {t("cta")}
+        </Button>
+        <Button
+          variant="outline"
+          className="w-full sm:w-auto"
+          onClick={() => router.push("/volunteer")}
+        >
+          {t("ctaSecondary")}
+        </Button>
+      </CardContent>
+    </Card>
   );
 };

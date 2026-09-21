@@ -246,7 +246,7 @@
       "validated": "Validated",
       "validatedDescription": "Congratulations, your registration is validated.",
       "cancelled": "Cancelled",
-      "cancelledDescription": "Your registration has been cancelled.",
+      "cancelledDescription": "Your registration has been cancelled. You can reopen it to resume, or register again from the home page.",
       "submit": "Submit my registration",
       "reopen": "Reopen",
       "progressHint": "Progress {progress}% — complete to submit",
@@ -365,6 +365,7 @@
       "isScholarship": "I have a scholarship",
       "scholarshipAttestation": "Scholarship certificate",
       "scholarshipReductionNotice": "Please note: the scholarship rate will only apply once your scholarship attestation (and your student card, if applicable) has been validated by the organizers.",
+      "scholarshipStudentOnly": "The scholarship is reserved for students (Centrale Lyon or another school). Uncheck \"I am a scholarship recipient\" or update your situation.",
       "raidRules": "Raid rules",
       "honourAttestation": "Honour certificate",
       "save": "Save",
@@ -628,7 +629,11 @@
       "meetingPlace": "Meeting place",
       "cancelMerge": "Cancel merge",
       "removeMember": "Remove a member",
-      "teamFiles": "Team_Files"
+      "teamFiles": "Team_Files",
+      "sheet": {
+        "dossierComplete": "File completed at {progress}%",
+        "noTeammate": "No teammate yet"
+      }
     },
     "volunteers": {
       "title": "Volunteers",
