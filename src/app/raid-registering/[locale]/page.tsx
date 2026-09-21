@@ -8,7 +8,7 @@ import { FullyRegisteredDashboard } from "@/components/raid/home/dashboard/Fully
 import { IncompleteTeamCard } from "@/components/raid/home/dashboard/IncompleteTeamCard";
 import { RegistrationClosedCard } from "@/components/raid/home/dashboard/RegistrationClosedCard";
 import {
-  VolunteerCancelledCard,
+  CancelledRegistrationCard,
   VolunteerDashboardCard,
   VolunteerPendingCard,
 } from "@/components/raid/home/dashboard/VolunteerStateCards";
@@ -68,16 +68,18 @@ const Home = () => {
     if (!edition) {
       return <EditionWaitingCard />;
     }
-    if (me && team?.validation_progress === 100) {
+    if (me && me.status !== "cancelled" && team?.validation_progress === 100) {
       return <FullyRegisteredDashboard edition={edition} />;
     }
-    if (me && team) {
+    if (me && me.status !== "cancelled" && team) {
       return <IncompleteTeamCard team={team} />;
     }
-    if (meVolunteer) {
-      if (meVolunteer.cancelled) return <VolunteerCancelledCard />;
+    if (meVolunteer && !meVolunteer.cancelled) {
       if (meVolunteer.validated) return <VolunteerDashboardCard />;
       return <VolunteerPendingCard />;
+    }
+    if (me?.status === "cancelled") {
+      return <CancelledRegistrationCard />;
     }
     if (hasRegistrationClosed) {
       return <RegistrationClosedCard />;
