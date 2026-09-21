@@ -6,6 +6,7 @@ import {
   RaidTeamComplete,
 } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
 
@@ -54,6 +55,7 @@ const statusConfig: Record<
 export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
   const t = useTranslations("raid.team.status");
   const { me, refetch: refetchMe } = useMeParticipant();
+  const { isRaidAdmin } = useHasRaidPermission();
   const {
     submitParticipant,
     reopenParticipant,
@@ -76,7 +78,8 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
 
   const canSubmit =
     status === "draft" && (team.validation_progress ?? 0) >= 100;
-  const canReopen = status === "submitted" || status === "validated";
+  const canReopen = status === "submitted" || status === "cancelled";
+  const canSelfReopenValidated = status === "validated" && !isRaidAdmin;
 
   return (
     <Card>
@@ -109,6 +112,11 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
                   {t("progressHint", {
                     progress: (team.validation_progress ?? 0).toFixed(0),
                   })}
+                </span>
+              )}
+              {canSelfReopenValidated && (
+                <span className="max-w-56 text-right text-xs text-muted-foreground sm:max-w-64">
+                  {t("cannotReopenValidated")}
                 </span>
               )}
               {canReopen && (
