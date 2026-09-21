@@ -1,7 +1,6 @@
 import { useReportError } from "./useReportError";
 
 import {
-  getRaidTeamsQueryKey,
   patchRaidParticipantsUserIdCancelMutation,
   patchRaidParticipantsUserIdValidateMutation,
   postRaidParticipantsUserIdReopenMutation,
@@ -11,6 +10,21 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useToast } from "@/components/ui/use-toast";
+
+const isRaidLifecycleQuery = (query: {
+  queryKey: readonly unknown[];
+}) => {
+  const id = (query.queryKey[0] as { _id?: string } | undefined)?._id;
+  return (
+    id === "getRaidTeams" ||
+    id === "getRaidTeamsTeamId" ||
+    id === "getRaidParticipants" ||
+    id === "getRaidParticipantsMe" ||
+    id === "getRaidParticipantsMeTeam" ||
+    id === "getRaidParticipantsUserId" ||
+    id === "getRaidParticipantsUserIdTeam"
+  );
+};
 
 /**
  * Shared participant lifecycle mutations.
@@ -22,10 +36,8 @@ export const useParticipantLifecycle = () => {
   const reportError = useReportError();
 
   const invalidateAll = () => {
-    queryClient.invalidateQueries({ queryKey: getRaidTeamsQueryKey() });
-    queryClient.invalidateQueries({ queryKey: ["getRaidParticipantsUserId"] });
     queryClient.invalidateQueries({
-      queryKey: ["getRaidParticipantsUserIdTeam"],
+      predicate: isRaidLifecycleQuery,
     });
   };
 
