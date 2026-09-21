@@ -29,6 +29,7 @@ export const PaymentButton = () => {
   if (!isLoading && !!paymentUrl) {
     router.push(paymentUrl.url);
   }
+  if (me?.status === "cancelled") return null;
   const mustPayRegistering = !me?.payment;
   const isStudent =
     ["centrale", "otherschool"].includes(
@@ -40,7 +41,8 @@ export const PaymentButton = () => {
     ) &&
     me?.student_card?.id !== undefined &&
     me?.student_card?.validation !== "accepted";
-  const hasScholarship = me?.has_scholarship;
+  const hasScholarship =
+    !!me?.has_scholarship && me?.school_authorization?.validation === "accepted";
   const hasReducedPrice =
     !!hasScholarship || isStudent || isNotValidatedStudent;
   const mustPayTShirt =
