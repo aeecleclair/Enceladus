@@ -82,7 +82,11 @@ export const useDocument = () => {
           title: "Succès",
           description: "Le document a été validé avec succès",
         });
-        queryClient.invalidateQueries({ queryKey: ["document"] });
+        queryClient.invalidateQueries({
+          predicate: (query) =>
+            (query.queryKey[0] as { _id?: string } | undefined)?._id ===
+            "getRaidDocumentDocumentId",
+        });
       },
       onError: (error) => {
         console.error(error);
