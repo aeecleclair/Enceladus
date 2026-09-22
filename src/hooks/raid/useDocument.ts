@@ -33,7 +33,8 @@ export const useDocument = () => {
       .then(({ data }) => {
         queryClient.invalidateQueries({
           predicate: (query) =>
-            query.queryKey[0] === "getRaidDocumentDocumentId",
+            (query.queryKey[0] as { _id?: string } | undefined)?._id ===
+            "getRaidDocumentDocumentId",
         });
         callback(data.id);
       })
