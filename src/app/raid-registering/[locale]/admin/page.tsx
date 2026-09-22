@@ -1,6 +1,6 @@
 "use client";
 
-import { RaidParticipantPreview } from "@/api";
+import { RaidParticipantRestricted } from "@/api";
 import { PageHeader } from "@/components/raid/admin/PageHeader";
 import { StatsView } from "@/components/raid/admin/StatsView";
 import { TeamsPreview } from "@/components/raid/admin/TeamsPreview";
@@ -25,7 +25,7 @@ const Dashboard = () => {
       .flat(1)
       .filter(
         (participant) => participant !== null,
-      ) as RaidParticipantPreview[]) ?? [];
+      ) as RaidParticipantRestricted[]) ?? [];
 
   const allPayments = allParticipants
     ?.map((participant) => (participant.payment ? 1 : 0))

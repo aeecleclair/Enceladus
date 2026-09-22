@@ -1,5 +1,5 @@
 "use client";
-import { RaidParticipantPreview } from "@/api";
+import { RaidParticipantRestricted } from "@/api";
 import { useParticipantLifecycle } from "@/hooks/raid/useParticipantLifecycle";
 
 import { useTranslations } from "next-intl";
@@ -15,7 +15,7 @@ import {
 import { MoreHorizontal } from "lucide-react";
 
 interface ParticipantRowActionsProps {
-  participant: RaidParticipantPreview;
+  participant: RaidParticipantRestricted;
   teamId?: string;
   onOpenTeam?: (teamId: string) => void;
 }

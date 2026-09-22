@@ -1,6 +1,6 @@
 "use client";
 
-import { RaidParticipantPreview, RaidRegistrationStatus } from "@/api";
+import { RaidParticipantRestricted, RaidRegistrationStatus } from "@/api";
 import { PageHeader } from "@/components/raid/admin/PageHeader";
 import { ParticipantRowActions } from "@/components/raid/admin/participants/ParticipantRowActions";
 import { ParticipantSheet } from "@/components/raid/admin/participants/ParticipantSheet";
@@ -43,7 +43,7 @@ import { Users } from "lucide-react";
 type StatusFilter = RaidRegistrationStatus | "all";
 
 type ParticipantRow = {
-  participant: RaidParticipantPreview;
+  participant: RaidParticipantRestricted;
   teamId?: string;
   teamName: string;
 };

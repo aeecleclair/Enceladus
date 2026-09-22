@@ -3,7 +3,7 @@
 import { DataTableColumnHeader } from "./DataTableColumnHeader";
 import { DataTableRowActions } from "./DataTableRowActions";
 
-import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
+import { RaidParticipantRestricted, RaidTeamPreview } from "@/api";
 import { ProgressBadge } from "@/components/raid/custom/ProgressBadge";
 import {
   difficulties,
@@ -35,7 +35,7 @@ export const useTeamColumns = (): ColumnDef<RaidTeamPreview>[] => {
       <DataTableColumnHeader column={column} title={t("captain")} />
     ),
     cell: ({ row }) => {
-      const captain = row.getValue("captain") as RaidParticipantPreview;
+      const captain = row.getValue("captain") as RaidParticipantRestricted;
       return (
         <div className="flex space-x-2">
           {captain.user.firstname} {captain.user.name}
@@ -51,7 +51,7 @@ export const useTeamColumns = (): ColumnDef<RaidTeamPreview>[] => {
     ),
     cell: ({ row }) => {
       const second = row.getValue("second") as
-        | RaidParticipantPreview
+        | RaidParticipantRestricted
         | undefined;
       return (
         <div className={`flex space-x-2 ${second ?? "text-muted-foreground"}`}>
@@ -133,7 +133,7 @@ export const useTeamColumns = (): ColumnDef<RaidTeamPreview>[] => {
     ),
     cell: ({ row }) => {
       const captain = row.getValue("captain") as
-        | (RaidParticipantPreview &
+        | (RaidParticipantRestricted &
             Partial<
               Pick<
                 import("@/api").RaidParticipant,
@@ -142,7 +142,7 @@ export const useTeamColumns = (): ColumnDef<RaidTeamPreview>[] => {
             >)
         | null;
       const second = row.getValue("second") as
-        | (RaidParticipantPreview &
+        | (RaidParticipantRestricted &
             Partial<
               Pick<
                 import("@/api").RaidParticipant,
