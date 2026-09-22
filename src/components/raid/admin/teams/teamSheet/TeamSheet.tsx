@@ -68,7 +68,7 @@ export const TeamSheet = ({ isOpened, onClose, teamId }: TeamSheetProps) => {
                 {team?.name}
               </SheetTitle>
               <SheetDescription>
-                {t("sheet.dossierComplete", { progress: progress.toFixed(0) })}{" "}
+                {t("sheet.dossierComplete")}
                 <span className={`font-semibold ${progressClass}`}>
                   {progress.toFixed(0)}%
                 </span>

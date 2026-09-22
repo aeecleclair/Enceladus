@@ -649,7 +649,7 @@
       "removeMember": "Remove a member",
       "teamFiles": "Team_Files",
       "sheet": {
-        "dossierComplete": "File completed at {progress}%",
+        "dossierComplete": "File completed at ",
         "noTeammate": "No teammate yet"
       },
       "noTeammateAdded": "No teammate has been added to this team."

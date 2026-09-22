@@ -649,7 +649,7 @@
       "removeMember": "Retirer un membre",
       "teamFiles": "Dossiers_Equipes",
       "sheet": {
-        "dossierComplete": "Dossier complété à {progress}%",
+        "dossierComplete": "Dossier complété à ",
         "noTeammate": "Sans coéquipier / coéquipière"
       },
       "noTeammateAdded": "Aucun coéquipier / coéquipière n'a été ajouté à cette équipe."
