@@ -47,3 +47,6 @@ next-env.d.ts
 
 # API codegen
 /src/api
+
+# pdf.js worker: copied from react-pdf's pinned pdfjs-dist by postinstall
+/public/pdf.worker.min.mjs
