@@ -6,6 +6,7 @@ import { RaidTeamPreview } from "@/api";
 import { Switch } from "@/components//ui/switch";
 import { getStats } from "@/lib/raid/statsUtils";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import {
@@ -16,8 +17,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
-import { useTranslations } from "next-intl";
 
 interface StatsViewProps {
   teams?: RaidTeamPreview[];

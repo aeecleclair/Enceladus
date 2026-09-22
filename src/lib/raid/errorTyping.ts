@@ -40,7 +40,10 @@ const DETAIL_TO_KEY: [prefix: string, key: string][] = [
   ["Participant payment is not done", "validatePayment"],
   ["Participant t-shirt payment is not done", "validateTshirtPayment"],
   ["Participant has no security file", "validateSecurityFile"],
-  ["Participant security file is missing emergency contact", "validateSecurityFile"],
+  [
+    "Participant security file is missing emergency contact",
+    "validateSecurityFile",
+  ],
   ["is not accepted", "validateDocNotAccepted"],
   ["Missing id card", "validateMissingDoc"],
   ["Missing medical certificate", "validateMissingDoc"],
@@ -61,7 +64,10 @@ const DETAIL_TO_KEY: [prefix: string, key: string][] = [
   ["You already have a team", "recreateParticipant"],
   ["You are already a volunteer", "recreateVolunteer"],
   ["User is already a volunteer in this edition", "recreateVolunteer"],
-  ["Your user profile is missing birthday or phone", "profileMissingBirthdayPhone"],
+  [
+    "Your user profile is missing birthday or phone",
+    "profileMissingBirthdayPhone",
+  ],
 ];
 
 /** Map of translation key → original detail, for error-key lookup helpers. */

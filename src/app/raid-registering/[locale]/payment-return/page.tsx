@@ -1,7 +1,7 @@
 "use client";
 
-import { UserShell } from "@/components/raid/home/UserShell";
 import { useAuth } from "@/app/authContext";
+import { UserShell } from "@/components/raid/home/UserShell";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
 import { useRouter } from "@/i18n/navigation";
@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 import { CircleCheck, Clock3 } from "lucide-react";
 
 /**
@@ -28,8 +29,11 @@ import { CircleCheck, Clock3 } from "lucide-react";
 const PaymentReturnPage = () => {
   const t = useTranslations("raid.paymentReturn");
   const { isTokenQueried, token } = useAuth();
-  const { me, isLoading: participantLoading, refetch: refetchMe } =
-    useMeParticipant();
+  const {
+    me,
+    isLoading: participantLoading,
+    refetch: refetchMe,
+  } = useMeParticipant();
   const {
     meVolunteer,
     isLoading: volunteerLoading,
@@ -89,7 +93,9 @@ const PaymentReturnPage = () => {
             {settled && isPaid && (
               <>
                 <p>{t("successDescription", { role: t(role) })}</p>
-                <Button onClick={() => router.push("/")}>{t("backHome")}</Button>
+                <Button onClick={() => router.push("/")}>
+                  {t("backHome")}
+                </Button>
               </>
             )}
             {settled && !isPaid && (!!me || !!meVolunteer) && (

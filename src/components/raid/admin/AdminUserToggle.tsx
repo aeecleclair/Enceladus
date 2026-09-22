@@ -2,10 +2,11 @@
 
 import { useRouter } from "@/i18n/navigation";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 
 import { UserRound } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 /**
  * Compact pill in the admin header that takes the admin back to the

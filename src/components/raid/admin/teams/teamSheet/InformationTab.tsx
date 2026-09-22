@@ -1,8 +1,8 @@
-import { useTranslations } from "next-intl";
-
 import { ParticipantInfoTab } from "./ParticipantInfoTab";
 
 import { RaidTeamComplete } from "@/api";
+
+import { useTranslations } from "next-intl";
 
 import { Card, CardContent } from "@/components/ui/card";
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import {
@@ -12,7 +13,6 @@ import {
 
 import { Moon, Sun, SunMoon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useTranslations } from "next-intl";
 
 export function ThemeButton() {
   const t = useTranslations("raid.common");

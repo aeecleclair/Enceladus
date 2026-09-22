@@ -21,8 +21,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import * as React from "react";
 
 import {

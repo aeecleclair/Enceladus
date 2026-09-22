@@ -3,6 +3,7 @@
 import { formatDateRange } from "@/lib/dateFormat";
 import { cn } from "@/lib/utils";
 
+import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,6 @@ import {
 
 import { fr } from "date-fns/locale";
 import { Calendar as CalendarIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { DateRange } from "react-day-picker";
 
 interface RangeDatePickerProps {

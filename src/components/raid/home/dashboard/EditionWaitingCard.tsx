@@ -1,7 +1,8 @@
+import { useTranslations } from "next-intl";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { CalendarDays } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 export const EditionWaitingCard = () => {
   const t = useTranslations("raid.home.dashboard.editionWaiting");

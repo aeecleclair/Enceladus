@@ -7,8 +7,8 @@ import {
   DoubleArrowRightIcon,
 } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
-import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {

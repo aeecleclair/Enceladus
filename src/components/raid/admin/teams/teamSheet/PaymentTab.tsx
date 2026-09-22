@@ -5,10 +5,10 @@ import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
 import { usePayment } from "@/hooks/raid/usePayment";
 import { useTeams } from "@/hooks/raid/useTeams";
 
+import { useTranslations } from "next-intl";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
-
-import { useTranslations } from "next-intl";
 
 interface PaymentTabProps {
   team: RaidTeamComplete;

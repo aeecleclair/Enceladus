@@ -1,12 +1,11 @@
 import { InviteToken } from "@/api";
-import { getErrorKey } from "@/lib/raid/errorTyping";
 import {
   postRaidTeamsJoinTokenMutation,
   postRaidTeamsTeamIdInviteMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { getErrorKey } from "@/lib/raid/errorTyping";
 
 import { useMutation } from "@tanstack/react-query";
-
 import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";

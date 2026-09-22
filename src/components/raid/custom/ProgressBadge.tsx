@@ -1,8 +1,8 @@
 import { CircularProgressBar } from "./CircularProgressBar";
 
-import { Badge } from "@/components/ui/badge";
-
 import { useTranslations } from "next-intl";
+
+import { Badge } from "@/components/ui/badge";
 
 interface ProgressBadgeProps {
   progress: number;

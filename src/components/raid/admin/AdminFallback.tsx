@@ -9,10 +9,10 @@ import { useEditions } from "@/hooks/raid/useEditions";
 import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 
 import { CalendarPlus } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 const AdminFallback = () => {
   const t = useTranslations("raid.admin.fallback");

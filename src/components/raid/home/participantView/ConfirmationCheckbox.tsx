@@ -1,7 +1,6 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
-
-import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -67,7 +66,9 @@ export const ConfirmationCheckbox = ({
           <Button variant="outline" onClick={() => setIsOpen(false)}>
             {tCommon("cancel")}
           </Button>
-          <Button onClick={handleCheckboxButtonClick}>{tCommon("validate")}</Button>
+          <Button onClick={handleCheckboxButtonClick}>
+            {tCommon("validate")}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

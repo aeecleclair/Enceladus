@@ -1,6 +1,8 @@
 "use client";
 import { useRouter } from "@/i18n/navigation";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,7 +13,6 @@ import {
 } from "@/components/ui/card";
 
 import { CheckCircle2, Clock, XCircle } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 const ShellCard = ({
   icon,
@@ -101,7 +102,10 @@ export const CancelledRegistrationCard = () => {
         </div>
       </CardHeader>
       <CardContent className="flex flex-col gap-2 sm:flex-row">
-        <Button className="w-full sm:flex-1" onClick={() => router.push("/register")}>
+        <Button
+          className="w-full sm:flex-1"
+          onClick={() => router.push("/register")}
+        >
           {t("cta")}
         </Button>
         <Button

@@ -2,6 +2,8 @@
 import { RaidTeamComplete } from "@/api";
 import { useRouter } from "@/i18n/navigation";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +15,6 @@ import {
 import { Progress } from "@/components/ui/progress";
 
 import { ArrowRight, ClipboardList } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface IncompleteTeamCardProps {
   team?: RaidTeamComplete;

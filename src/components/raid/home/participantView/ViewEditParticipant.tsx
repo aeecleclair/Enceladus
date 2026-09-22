@@ -6,9 +6,9 @@ import {
 import { ParticipantInfo } from "@/components/raid/custom/ParticipantInfo";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { isValidPhone } from "@/lib/phone";
 import { getLabelFromValue, situations } from "@/lib/raid/comboboxValues";
 import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
-import { isValidPhone } from "@/lib/phone";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";

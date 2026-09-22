@@ -11,9 +11,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { useToast } from "@/components/ui/use-toast";
 
-const isRaidLifecycleQuery = (query: {
-  queryKey: readonly unknown[];
-}) => {
+const isRaidLifecycleQuery = (query: { queryKey: readonly unknown[] }) => {
   const id = (query.queryKey[0] as { _id?: string } | undefined)?._id;
   return (
     id === "getRaidTeams" ||

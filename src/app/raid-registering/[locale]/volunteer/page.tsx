@@ -2,6 +2,7 @@
 
 import { useAuth } from "@/app/authContext";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
 import { WarningDialog } from "@/components/common/WarningDialog";
 import { UserShell } from "@/components/raid/home/UserShell";
 import { VolunteerPaymentButton } from "@/components/raid/home/volunteerView/VolunteerPaymentButton";
@@ -36,8 +37,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
 
 import { HeartHandshake } from "lucide-react";
 

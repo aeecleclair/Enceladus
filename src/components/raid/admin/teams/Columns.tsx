@@ -12,7 +12,6 @@ import {
 } from "@/lib/raid/comboboxValues";
 
 import { ColumnDef } from "@tanstack/react-table";
-
 import { useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
@@ -20,153 +19,158 @@ import { Badge } from "@/components/ui/badge";
 export const useTeamColumns = (): ColumnDef<RaidTeamPreview>[] => {
   const t = useTranslations("raid.admin.teams");
   return [
-  {
-    accessorKey: "name",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title={t("team")} />
-    ),
-    cell: ({ row }) => <div>{row.getValue("name")}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "captain",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title={t("captain")} />
-    ),
-    cell: ({ row }) => {
-      const captain = row.getValue("captain") as RaidParticipantRestricted;
-      return (
-        <div className="flex space-x-2">
-          {captain.user.firstname} {captain.user.name}
-        </div>
-      );
+    {
+      accessorKey: "name",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title={t("team")} />
+      ),
+      cell: ({ row }) => <div>{row.getValue("name")}</div>,
+      enableSorting: false,
+      enableHiding: false,
     },
-    enableSorting: false,
-  },
-  {
-    accessorKey: "second",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title={t("pairUp")} />
-    ),
-    cell: ({ row }) => {
-      const second = row.getValue("second") as
-        | RaidParticipantRestricted
-        | undefined;
-      return (
-        <div className={`flex space-x-2 ${second ?? "text-muted-foreground"}`}>
-          {second
-            ? `${second.user.firstname} ${second.user.name}`
-            : ""}
-        </div>
-      );
+    {
+      accessorKey: "captain",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title={t("captain")} />
+      ),
+      cell: ({ row }) => {
+        const captain = row.getValue("captain") as RaidParticipantRestricted;
+        return (
+          <div className="flex space-x-2">
+            {captain.user.firstname} {captain.user.name}
+          </div>
+        );
+      },
+      enableSorting: false,
     },
-    enableSorting: false,
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
+    {
+      accessorKey: "second",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title={t("pairUp")} />
+      ),
+      cell: ({ row }) => {
+        const second = row.getValue("second") as
+          | RaidParticipantRestricted
+          | undefined;
+        return (
+          <div
+            className={`flex space-x-2 ${second ?? "text-muted-foreground"}`}
+          >
+            {second ? `${second.user.firstname} ${second.user.name}` : ""}
+          </div>
+        );
+      },
+      enableSorting: false,
+      filterFn: (row, id, value) => {
+        return value.includes(row.getValue(id));
+      },
     },
-  },
-  {
-    accessorKey: "difficulty",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={t("course")}
-        className="max-lg:hidden"
-      />
-    ),
-    cell: ({ row }) => (
-      <div className="flex space-x-2 max-lg:hidden">
-        <Badge variant="outline">
-          {getLabelFromValue(difficulties, row.getValue("difficulty"))}
-        </Badge>
-      </div>
-    ),
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "meeting_place",
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title={t("meetingPlace")}
-        className="max-lg:hidden"
-      />
-    ),
-    cell: ({ row }) => {
-      return (
+    {
+      accessorKey: "difficulty",
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={t("course")}
+          className="max-lg:hidden"
+        />
+      ),
+      cell: ({ row }) => (
         <div className="flex space-x-2 max-lg:hidden">
           <Badge variant="outline">
-            {getLabelFromValue(meetingPlaces, row.getValue("meeting_place"))}
+            {getLabelFromValue(difficulties, row.getValue("difficulty"))}
           </Badge>
         </div>
-      );
+      ),
+      filterFn: (row, id, value) => {
+        return value.includes(row.getValue(id));
+      },
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
-    accessorKey: "validation_progress",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title={t("registration")} className="" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2 items-center">
-          <span>
-            {(row.getValue("validation_progress") as number).toFixed(0)}%
-          </span>
-        </div>
-      );
-    },
-    sortingFn: (rowA, rowB, id) => {
-      return (rowA.getValue(id) as number) - (rowB.getValue(id) as number);
-    },
-  },
-  {
-    accessorKey: "document_progress",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title={t("documents")} />
-    ),
-    cell: ({ row }) => {
-      const captain = row.getValue("captain") as
-        | (RaidParticipantRestricted &
-            Partial<
-              Pick<
-                import("@/api").RaidParticipant,
-                "number_of_document" | "number_of_validated_document"
-              >
-            >)
-        | null;
-      const second = row.getValue("second") as
-        | (RaidParticipantRestricted &
-            Partial<
-              Pick<
-                import("@/api").RaidParticipant,
-                "number_of_document" | "number_of_validated_document"
-              >
-            >)
-        | null;
-      const number_of_validated_document =
-        (captain?.number_of_validated_document ?? 0) +
-        (second?.number_of_validated_document ?? 0);
-      const number_of_document =
-        (captain?.number_of_document ?? 0) + (second?.number_of_document ?? 0);
-      return (
-        <ProgressBadge
-          progress={number_of_validated_document}
-          total={number_of_document}
+    {
+      accessorKey: "meeting_place",
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={t("meetingPlace")}
+          className="max-lg:hidden"
         />
-      );
+      ),
+      cell: ({ row }) => {
+        return (
+          <div className="flex space-x-2 max-lg:hidden">
+            <Badge variant="outline">
+              {getLabelFromValue(meetingPlaces, row.getValue("meeting_place"))}
+            </Badge>
+          </div>
+        );
+      },
+      filterFn: (row, id, value) => {
+        return value.includes(row.getValue(id));
+      },
     },
-    enableSorting: false,
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
-  },
+    {
+      accessorKey: "validation_progress",
+      header: ({ column }) => (
+        <DataTableColumnHeader
+          column={column}
+          title={t("registration")}
+          className=""
+        />
+      ),
+      cell: ({ row }) => {
+        return (
+          <div className="flex space-x-2 items-center">
+            <span>
+              {(row.getValue("validation_progress") as number).toFixed(0)}%
+            </span>
+          </div>
+        );
+      },
+      sortingFn: (rowA, rowB, id) => {
+        return (rowA.getValue(id) as number) - (rowB.getValue(id) as number);
+      },
+    },
+    {
+      accessorKey: "document_progress",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title={t("documents")} />
+      ),
+      cell: ({ row }) => {
+        const captain = row.getValue("captain") as
+          | (RaidParticipantRestricted &
+              Partial<
+                Pick<
+                  import("@/api").RaidParticipant,
+                  "number_of_document" | "number_of_validated_document"
+                >
+              >)
+          | null;
+        const second = row.getValue("second") as
+          | (RaidParticipantRestricted &
+              Partial<
+                Pick<
+                  import("@/api").RaidParticipant,
+                  "number_of_document" | "number_of_validated_document"
+                >
+              >)
+          | null;
+        const number_of_validated_document =
+          (captain?.number_of_validated_document ?? 0) +
+          (second?.number_of_validated_document ?? 0);
+        const number_of_document =
+          (captain?.number_of_document ?? 0) +
+          (second?.number_of_document ?? 0);
+        return (
+          <ProgressBadge
+            progress={number_of_validated_document}
+            total={number_of_document}
+          />
+        );
+      },
+      enableSorting: false,
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => <DataTableRowActions row={row} />,
+    },
   ];
 };

@@ -5,6 +5,7 @@ import { useTeamFiles } from "@/hooks/raid/useTeamFiles";
 import { Link } from "@/i18n/navigation";
 import { useRouter } from "@/i18n/navigation";
 
+import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
@@ -33,7 +34,6 @@ import {
 
 import { ArrowUpRight, DownloadIcon, LifeBuoyIcon } from "lucide-react";
 import { UsersIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface TeamsPreviewProps {
   teams?: RaidTeamPreview[];
@@ -138,8 +138,12 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                 <TableHead>{t("name")}</TableHead>
                 <TableHead className="max-md:hidden">{t("captain")}</TableHead>
                 <TableHead className="max-md:hidden">{t("teammate")}</TableHead>
-                <TableHead className="max-md:hidden">{t("documents")}</TableHead>
-                <TableHead className="text-right">{t("registration")}</TableHead>
+                <TableHead className="max-md:hidden">
+                  {t("documents")}
+                </TableHead>
+                <TableHead className="text-right">
+                  {t("registration")}
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

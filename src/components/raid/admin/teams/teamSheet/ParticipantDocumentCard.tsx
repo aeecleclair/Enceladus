@@ -7,10 +7,10 @@ import {
 } from "@/api";
 import { getSituationLabel } from "@/lib/raid/teamUtils";
 
+import { useTranslations } from "next-intl";
+
 import { Accordion } from "@/components/ui/accordion";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
-import { useTranslations } from "next-intl";
 
 interface ParticipantDocumentCardProps {
   participant: RaidParticipant;

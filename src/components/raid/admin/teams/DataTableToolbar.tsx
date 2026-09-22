@@ -12,13 +12,13 @@ import { difficulties, meetingPlaces } from "@/lib/raid/comboboxValues";
 
 import { Cross2Icon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { MergeIcon, Trash2Icon } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

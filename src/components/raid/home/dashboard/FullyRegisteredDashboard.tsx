@@ -3,6 +3,8 @@ import { RaidEdition } from "@/api";
 import { useRouter } from "@/i18n/navigation";
 import { getDaysLeft } from "@/lib/dateFormat";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,7 +15,6 @@ import {
 } from "@/components/ui/card";
 
 import { CheckCircle2, Users } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface FullyRegisteredDashboardProps {
   edition?: RaidEdition;

@@ -9,6 +9,8 @@ import {
 import { SecurityFileDialogView } from "@/components/raid/home/participantView/SecurityFileDialogView";
 import { useDocument } from "@/hooks/raid/useDocument";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -27,7 +29,6 @@ import {
 } from "@/components/ui/tooltip";
 
 import { BadgeAlertIcon, CheckIcon, ClockIcon, XIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
 import PhoneInput from "react-phone-input-2";
 
 type ValueType =

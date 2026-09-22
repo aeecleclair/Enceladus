@@ -1,7 +1,8 @@
+import { useTranslations } from "next-intl";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Lock } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 export const RegistrationClosedCard = () => {
   const t = useTranslations("raid.home.dashboard.registrationClosed");

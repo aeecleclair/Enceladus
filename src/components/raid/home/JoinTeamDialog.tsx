@@ -4,6 +4,7 @@ import { useMeTeam } from "@/hooks/raid/useMeTeam";
 import { useInviteTokenStore } from "@/stores/raid/inviteTokenStore";
 
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,8 +13,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-
-import { useTranslations } from "next-intl";
 
 interface JoinTeamDialogProps {
   isOpened: boolean;

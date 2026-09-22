@@ -9,6 +9,7 @@ import { useTeams } from "@/hooks/raid/useTeams";
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
 
@@ -23,7 +24,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { MergeIcon, UserRoundMinusIcon } from "lucide-react";
-import { useTranslations } from "next-intl";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -102,9 +102,7 @@ export function DataTableRowActions<TData>({
                 row.toggleSelected(!row.getIsSelected());
               }}
             >
-              {row.getIsSelected()
-                ? t("cancelMerge")
-                : t("mergeTeam")}
+              {row.getIsSelected() ? t("cancelMerge") : t("mergeTeam")}
               <DropdownMenuShortcut>
                 <MergeIcon className="h-4 w-4" />
               </DropdownMenuShortcut>

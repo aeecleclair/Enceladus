@@ -1,10 +1,10 @@
 import { SecurityFileBase } from "@/api";
-import { isValidPhone, normalizePhone } from "@/lib/phone";
 import {
   ParticipantField,
   ValueTypes,
 } from "@/components/raid/custom/ParticipantField";
 import { useSecurityFile } from "@/hooks/raid/useSecurityFile";
+import { isValidPhone, normalizePhone } from "@/lib/phone";
 
 import { useTranslations } from "next-intl";
 import { FieldValues, UseFormReturn } from "react-hook-form";
