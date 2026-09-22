@@ -6,10 +6,8 @@ import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import { DocumentCallback } from "react-pdf/dist/shared/types.js";
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url,
-).toString();
+// Serve the worker from public/ (copied there from react-pdf's own pdfjs-dist)
+pdfjs.GlobalWorkerOptions.workerSrc = "/pdf.worker.min.mjs";
 
 const options = {
   cMapUrl: "/cmaps/",

@@ -28,7 +28,9 @@ ENV NEXT_PUBLIC_FRONTEND_URL=$NEXT_PUBLIC_FRONTEND_URL
 COPY . .
 
 # Install full dependencies (dev + prod) required for building
-RUN npm install
+# && copy the pdf.js worker into public/ (same script as the postinstall hook;
+# run explicitly so --ignore-scripts builds still get it)
+RUN npm install && sh scripts/copy-pdf-worker.sh
 
 # Build the Next.js app
 RUN npm run build
