@@ -55,7 +55,8 @@
     },
     "userView": "User view",
     "user": "User",
-    "adminMode": "Admin mode — Go to administration"
+    "adminMode": "Admin mode — Go to administration",
+    "errorTitle": "Error"
   },
   "apiErrors": {
     "generic": "An error occurred, please try again.",
@@ -519,7 +520,23 @@
       "configuration": "Configuration"
     },
     "dashboard": {
-      "title": "Dashboard"
+      "title": "Dashboard",
+      "registeredParticipants": "Registered participants",
+      "registeredParticipantsDesc": "registrations started",
+      "formedTeams": "Formed teams",
+      "formedTeamsDesc": "{count} participants without a teammate",
+      "paymentsDone": "Payments completed",
+      "paymentsDoneDesc": "{count} payments missing",
+      "validatedTeams": "Validated teams",
+      "validatedTeamsDesc": "complete files validated and paid",
+      "volunteers": "Volunteers",
+      "volunteersDesc": "{count} awaiting validation",
+      "registeringDeadline": "Registration deadline",
+      "noDeadline": "Date not set",
+      "daysLeft": "{count} days left",
+      "registrationsClosed": "Registrations closed",
+      "noEndDate": "No end date set",
+      "description": "Global overview of participant and volunteer registrations."
     },
     "editions": {
       "title": "Editions",

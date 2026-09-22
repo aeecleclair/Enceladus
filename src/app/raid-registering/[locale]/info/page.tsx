@@ -7,6 +7,7 @@ import { useEdition } from "@/hooks/raid/useEdition";
 import { useInformation } from "@/hooks/raid/useInformation";
 import { formatDateRange, getDaysLeft } from "@/lib/dateFormat";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,7 @@ const InfoPage = () => {
   const { information } = useInformation();
   const { fetchDocument } = useDocument();
   const { toast } = useToast();
+  const tCommon = useTranslations("raid.common");
   const [loadingDoc, setLoadingDoc] = useState<string | null>(null);
 
   const downloadDocument = async (
@@ -45,8 +47,8 @@ const InfoPage = () => {
       const data = await fetchDocument(documentId);
       if (!data) {
         toast({
-          title: "Erreur",
-          description: "Impossible de télécharger le fichier",
+          title: tCommon("errorTitle"),
+          description: tCommon("downloadError"),
           variant: "destructive",
         });
         return;

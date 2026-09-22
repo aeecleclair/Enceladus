@@ -10,9 +10,11 @@ import { useEdition } from "@/hooks/raid/useEdition";
 import { useTeams } from "@/hooks/raid/useTeams";
 import { formatDate, getDaysLeft } from "@/lib/dateFormat";
 
+import { useTranslations } from "next-intl";
 import { LayoutDashboard } from "lucide-react";
 
 const Dashboard = () => {
+  const t = useTranslations("raid.admin.dashboard");
   const { teams, isLoading } = useTeams();
   const { volunteers, isLoading: isVolunteersLoading } = useAdminVolunteers();
   const { edition } = useEdition();
@@ -43,50 +45,54 @@ const Dashboard = () => {
   const informationCard: import("@/components/raid/home/teamCard/TeamInfoCard").TeamInfo[] =
     [
       {
-        title: "Participants inscrits",
+        title: t("registeredParticipants"),
         value: allParticipants?.length.toString() || "0",
-        description: "inscriptions débutées",
+        description: t("registeredParticipantsDesc"),
         accent: "emerald",
       },
       {
-        title: "Binômes constitués",
+        title: t("formedTeams"),
         value: twoMembersTeam.length.toString() || "0",
-        description: `${
-          allParticipants.length - 2 * twoMembersTeam.length
-        } participants sans binôme`,
+        description: t("formedTeamsDesc", {
+          count: allParticipants.length - 2 * twoMembersTeam.length,
+        }),
         accent: "emerald",
       },
       {
-        title: "Paiements effectués",
+        title: t("paymentsDone"),
         value: allPayments?.toString() || "0",
-        description: `${allParticipants.length - allPayments} paiements manquants`,
+        description: t("paymentsDoneDesc", {
+          count: allParticipants.length - allPayments,
+        }),
         accent: "violet",
       },
       {
-        title: "Équipes validées",
+        title: t("validatedTeams"),
         value:
           teams
             ?.filter((team) => team.validation_progress === 100)
             .length.toString() || "0",
-        description: "dossiers complets validés et payés",
+        description: t("validatedTeamsDesc"),
         accent: "emerald",
       },
       {
-        title: "Bénévoles",
+        title: t("volunteers"),
         value: validatedVolunteers.toString(),
-        description: `${pendingVolunteers} en attente de validation`,
+        description: t("volunteersDesc", { count: pendingVolunteers }),
         accent: "orange",
       },
       {
-        title: "Clôture des inscriptions",
+        title: t("registeringDeadline"),
         value: edition?.registering_end_date
           ? formatDate(edition.registering_end_date)
-          : "Date non renseignée",
+          : t("noDeadline"),
         description: edition?.registering_end_date
           ? isRegisteringOpen
-            ? `${getDaysLeft(edition.registering_end_date)} jours restants`
-            : "Inscriptions fermées"
-          : "Date de fin non renseignée",
+            ? t("daysLeft", {
+                count: getDaysLeft(edition.registering_end_date),
+              })
+            : t("registrationsClosed")
+          : t("noEndDate"),
         accent: isRegisteringOpen ? "amber" : "rose",
       },
     ];
@@ -95,8 +101,8 @@ const Dashboard = () => {
     <div className="flex flex-1 flex-col gap-5 md:gap-6">
       <PageHeader
         icon={LayoutDashboard}
-        title="Tableau de bord admin"
-        description="Vision globale des inscriptions participants et bénévoles."
+        title={t("title")}
+        description={t("description")}
         accent="violet"
       />
       <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6">

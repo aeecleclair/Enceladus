@@ -55,7 +55,8 @@
     },
     "userView": "Vue utilisateur",
     "user": "Utilisateur",
-    "adminMode": "Mode admin — Aller à l'administration"
+    "adminMode": "Mode admin — Aller à l'administration",
+    "errorTitle": "Erreur"
   },
   "apiErrors": {
     "generic": "Une erreur est survenue, veuillez réessayer.",
@@ -519,7 +520,23 @@
       "configuration": "Configuration"
     },
     "dashboard": {
-      "title": "Tableau de bord"
+      "title": "Tableau de bord",
+      "registeredParticipants": "Participants inscrits",
+      "registeredParticipantsDesc": "inscriptions débutées",
+      "formedTeams": "Binômes constitués",
+      "formedTeamsDesc": "{count} participants sans binôme",
+      "paymentsDone": "Paiements effectués",
+      "paymentsDoneDesc": "{count} paiements manquants",
+      "validatedTeams": "Équipes validées",
+      "validatedTeamsDesc": "dossiers complets validés et payés",
+      "volunteers": "Bénévoles",
+      "volunteersDesc": "{count} en attente de validation",
+      "registeringDeadline": "Clôture des inscriptions",
+      "noDeadline": "Date non renseignée",
+      "daysLeft": "{count} jours restants",
+      "registrationsClosed": "Inscriptions fermées",
+      "noEndDate": "Date de fin non renseignée",
+      "description": "Vision globale des inscriptions participants et bénévoles."
     },
     "editions": {
       "title": "Éditions",
