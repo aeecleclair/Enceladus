@@ -13,12 +13,12 @@ import {
 
 import { ColumnDef } from "@tanstack/react-table";
 
-import { getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 import { Badge } from "@/components/ui/badge";
 
-export const getColumns = async (): Promise<ColumnDef<RaidTeamPreview>[]> => {
-  const t = await getTranslations("raid.admin.teams");
+export const useTeamColumns = (): ColumnDef<RaidTeamPreview>[] => {
+  const t = useTranslations("raid.admin.teams");
   return [
   {
     accessorKey: "name",
