@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import z from "zod";
 
 import { isValidPhoneNumber } from "libphonenumber-js";
+import { withCountryCode } from "@/lib/phone";
 
 export default function migrateUserFormSchema(
   t: ReturnType<typeof useTranslations<"siarnaq.migrateUserFormSchema">>,
@@ -18,7 +19,7 @@ export default function migrateUserFormSchema(
     birthday: z.date().optional(),
     phone: z
       .string()
-      .refine((value) => isValidPhoneNumber("+" + value), {
+      .refine((value) => isValidPhoneNumber(withCountryCode(value)), {
         message: t("phone"),
       })
       .optional(),

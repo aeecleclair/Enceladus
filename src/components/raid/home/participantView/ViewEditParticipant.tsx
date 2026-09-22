@@ -8,6 +8,7 @@ import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
 import { getLabelFromValue, situations } from "@/lib/raid/comboboxValues";
 import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
+import { isValidPhone } from "@/lib/phone";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
@@ -147,10 +148,9 @@ export const ViewEditParticipant = ({
             .string({
               error: t("phoneError"),
             })
-            .min(10, {
-              message: t("phoneInvalidError"),
-            })
-            .max(14, {
+            // PhoneCustomInput stores E.164; isValidPhone accepts E.164 and
+            // legacy digits-only values alike.
+            .refine(isValidPhone, {
               message: t("phoneInvalidError"),
             }),
           validation: z.enum(["pending", "accepted", "refused", "temporary"]),

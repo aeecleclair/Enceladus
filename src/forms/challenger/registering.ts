@@ -1,8 +1,7 @@
 import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
+import { isValidPhone } from "@/lib/phone";
 
 import { z } from "zod";
-
-import { isValidPhoneNumber } from "libphonenumber-js";
 
 const sexEnum = ["masculine", "feminine"] as const;
 
@@ -13,7 +12,7 @@ export const registeringFormSchema = z
         error: "Veuillez renseigner le numéro de téléphone",
       })
       .refine(
-        (value) => isValidPhoneNumber(value, "FR"),
+        isValidPhone,
         "Veuillez renseigner un numéro de téléphone valide",
       ),
     is_athlete: z.boolean(),

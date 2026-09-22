@@ -11,6 +11,7 @@ import {
 } from "@/forms/raid/volunteer";
 import { useMeVolunteer } from "@/hooks/raid/useMeVolunteer";
 import { useRouter } from "@/i18n/navigation";
+import { normalizePhone } from "@/lib/phone";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -36,8 +37,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
+import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
+
 import { HeartHandshake } from "lucide-react";
-import PhoneInput from "react-phone-input-2";
 
 const DEFAULT_VALUES: VolunteerFormSchema = {
   diet: "",
@@ -116,7 +118,9 @@ const VolunteerPage = () => {
       diet: values.diet || null,
       allergy: values.allergy || null,
       emergency_person_name: values.emergency_person_name || null,
-      emergency_person_phone: values.emergency_person_phone || null,
+      emergency_person_phone: values.emergency_person_phone
+        ? normalizePhone(values.emergency_person_phone)
+        : null,
       has_car: values.has_car,
       car_seats: values.has_car ? (values.car_seats ?? null) : null,
       is_special_driver: values.is_special_driver,
@@ -230,12 +234,8 @@ const VolunteerPage = () => {
                       <FormItem>
                         <FormLabel>{tr("emergencyPersonPhone")}</FormLabel>
                         <FormControl>
-                          <PhoneInput
-                            country={"fr"}
-                            specialLabel=""
+                          <PhoneCustomInput
                             placeholder={t("emergencyPersonPhonePlaceholder")}
-                            inputClass="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                            dropdownClass="z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
                             {...field}
                           />
                         </FormControl>
