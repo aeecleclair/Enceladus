@@ -107,7 +107,7 @@
       "information": "Informations",
       "team": "Mon équipe",
       "profile": "Profil",
-      "invite": "Inviter un coéquipier",
+      "invite": "Inviter un coéquipier / une coéquipière",
       "volunteerStatus": "Mon bénévolat",
       "register": "S'inscrire",
       "registerVolunteer": "Inscription bénévole",
@@ -140,7 +140,7 @@
         "cta": "Aller à mon équipe",
         "cardTitle": "Votre inscription avance",
         "descriptionWithTeammate": "Finalisez les documents et le paiement pour valider votre dossier.",
-        "descriptionWithoutTeammate": "Invitez un coéquipier et complétez les informations de l'équipe.",
+        "descriptionWithoutTeammate": "Invitez un coéquipier / une coéquipière et complétez les informations de l'équipe.",
         "progress": "Progression"
       },
       "fullyRegistered": {
@@ -194,18 +194,18 @@
     },
     "participantCard": {
       "cardTitle": "Inscription au Raid",
-      "cardDescription": "Inscrivez-vous pour participer au Raid avec un coéquipier.",
+      "cardDescription": "Inscrivez-vous pour participer au Raid avec un coéquipier / une coéquipière.",
       "stepIdentity": "Informations",
       "stepTeam": "Équipe",
       "identityTitle": "Complétez vos informations",
       "identitySubtitle": "Téléphone et date de naissance — nécessaires pour participer.",
       "createTitle": "Créer votre équipe",
       "joinTitle": "Rejoindre votre équipe",
-      "createSubtitle": "Une équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier.",
+      "createSubtitle": "Une équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier / une coéquipière.",
       "joinSubtitle": "Vous allez rejoindre une équipe existante.",
       "createButton": "Créer mon équipe",
       "joinButton": "Rejoindre l'équipe",
-      "confirmCreateDescription": "Une nouvelle équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier.",
+      "confirmCreateDescription": "Une nouvelle équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier / une coéquipière.",
       "confirmJoinDescription": "Vous allez rejoindre une équipe existante.",
       "confirmCreate": "Créer",
       "confirmJoin": "Rejoindre",
@@ -244,9 +244,9 @@
       "subtitle": "Gérez votre binôme et finalisez les informations de chaque participant."
     },
     "empty": {
-      "title": "Aucun coéquipier pour l'instant",
-      "description": "Invitez un coéquipier pour compléter votre équipe.",
-      "invite": "Inviter un coéquipier"
+      "title": "Aucun coéquipier / aucune coéquipière pour l'instant",
+      "description": "Invitez un coéquipier / une coéquipière pour compléter votre équipe.",
+      "invite": "Inviter un coéquipier / une coéquipière"
     },
     "status": {
       "title": "Statut de mon inscription",
@@ -290,14 +290,14 @@
       "progress": "Progression du dossier"
     },
     "inviteDialog": {
-      "title": "Inviter un coéquipier",
-      "description": "Générez un lien d'invitation personnel et partagez-le avec votre coéquipier. Il pourra rejoindre votre équipe en un clic.",
+      "title": "Inviter un coéquipier / une coéquipière",
+      "description": "Générez un lien d'invitation personnel et partagez-le avec votre coéquipier / votre coéquipière. Il / elle pourra rejoindre votre équipe en un clic.",
       "linkOnce": "Ce lien est unique et ne peut être utilisé qu'une seule fois.",
       "generate": "Générer un lien d'invitation",
       "close": "Fermer",
       "copy": "Copier",
       "linkCopiedTitle": "Lien d'invitation copié",
-      "linkCopiedDescription": "Partagez-le avec votre coéquipier.",
+      "linkCopiedDescription": "Partagez-le avec votre coéquipier / votre coéquipière.",
       "linkGeneratedTitle": "Lien généré",
       "linkGeneratedDescription": "Copiez le lien manuellement.",
       "copiedTitle": "Lien copié",
@@ -314,8 +314,8 @@
       "downloadErrorDescription": "Impossible de télécharger le fichier"
     },
     "invite": {
-      "dialogTitle": "Inviter un coéquipier",
-      "description": "Partagez ce lien avec votre coéquipier pour qu'il rejoigne votre équipe.",
+      "dialogTitle": "Inviter un coéquipier / une coéquipière",
+      "description": "Partagez ce lien avec votre coéquipier / votre coéquipière pour qu'il / qu'elle rejoigne votre équipe.",
       "copyLink": "Copier le lien"
     },
     "join": {
@@ -355,7 +355,14 @@
       "emergencyFirstname": "Prénom",
       "emergencyName": "Nom",
       "emergencyPhone": "Téléphone",
-      "validate": "Valider"
+      "validate": "Valider",
+      "consentRequired": "Veuillez cocher la case de consentement pour enregistrer la fiche de sécurité.",
+      "emergencyRequired": "Nom, prénom et téléphone de la personne à prévenir sont requis.",
+      "phoneInvalid": "Numéro de téléphone invalide.",
+      "savedTitle": "Fiche de sécurité enregistrée",
+      "savedDescription": "Vos informations médicales ont bien été enregistrées.",
+      "saveErrorTitle": "Erreur lors de l'enregistrement",
+      "saveErrorDescription": "Vérifiez le consentement et les champs obligatoires, puis réessayez."
     },
     "participantView": {
       "address": "Adresse",
@@ -370,13 +377,13 @@
       "idCard": "Carte d'identité",
       "medicalCertificate": "Certificat médical",
       "securityFile": "Fiche de sécurité",
-      "teammateSecurityFileNote": "Pour des raisons de confidentialité, la fiche de sécurité de votre coéquipier n'est ni visible ni modifiable ici. Chaque participant doit remplir sa propre fiche depuis sa fiche participant.",
+      "teammateSecurityFileNote": "Pour des raisons de confidentialité, la fiche de sécurité de votre coéquipier / coéquipière n'est ni visible ni modifiable ici. Chaque participant / participante doit remplir sa propre fiche depuis sa fiche participant.",
       "teammateSecurityFileUnavailable": "Visible uniquement par son propriétaire",
       "parentAuthorization": "Autorisation parentale",
-      "isScholarship": "Je suis boursier",
+      "isScholarship": "Je suis boursier / boursière",
       "scholarshipAttestation": "Attestation de bourse",
-      "scholarshipReductionNotice": "À noter : le tarif boursier ne s'appliquera qu'après la validation de votre attestation de bourse (et de votre carte étudiante le cas échéant) par l'organisation.",
-      "scholarshipStudentOnly": "La bourse est réservée aux étudiants (Centrale Lyon ou autre école). Décochez « Je suis boursier » ou modifiez votre situation.",
+      "scholarshipReductionNotice": "À noter : le tarif boursier ne s'appliquera qu'après la validation de votre attestation de bourse et de votre carte étudiante par l'organisation.",
+      "scholarshipStudentOnly": "La bourse est réservée aux étudiants et étudiantes (Centrale Lyon ou autre école). Décochez « Je suis boursier / boursière » ou modifiez votre situation.",
       "raidRules": "Règlement du raid",
       "honourAttestation": "Attestation sur l'honneur",
       "save": "Enregistrer",
@@ -613,7 +620,7 @@
       "teamsPerPage": "Equipes par page",
       "enableColumns": "Activer les colonnes",
       "filterTeams": "Filtrer les équipes...",
-      "teamWithoutTeammate": "Equipe sans coéquipier",
+      "teamWithoutTeammate": "Equipe sans coéquipier / coéquipière",
       "deleteAllTitle": "Suppression de toutes les équipes",
       "deleteAllDescription": "Êtes-vous sûr de vouloir supprimer TOUTES les équipes ? Cette action est irréversible et supprimera définitivement toutes les équipes existantes.",
       "deleteTeamConfirm": "Etes-vous sûr de vouloir supprimer cette équipe ?",
@@ -643,8 +650,9 @@
       "teamFiles": "Dossiers_Equipes",
       "sheet": {
         "dossierComplete": "Dossier complété à {progress}%",
-        "noTeammate": "Sans coéquipier"
-      }
+        "noTeammate": "Sans coéquipier / coéquipière"
+      },
+      "noTeammateAdded": "Aucun coéquipier / coéquipière n'a été ajouté à cette équipe."
     },
     "volunteers": {
       "title": "Bénévoles",

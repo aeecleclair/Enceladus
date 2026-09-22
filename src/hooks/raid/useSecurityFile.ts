@@ -1,30 +1,43 @@
 import { SecurityFileBase } from "@/api";
-import { postRaidSecurityFileMutation } from "@/api/@tanstack/react-query.gen";
+import {
+  getRaidParticipantsMeQueryKey,
+  postRaidSecurityFileMutation,
+} from "@/api/@tanstack/react-query.gen";
+import { useAuth } from "@/app/authContext";
 
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
 export const useSecurityFile = () => {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+  const { isTokenExpired } = useAuth();
+  const t = useTranslations("raid.team.securityFile");
+
+  const invalidate = () => {
+    const participantsQueryKey = getRaidParticipantsMeQueryKey({});
+    if (participantsQueryKey) {
+      queryClient.invalidateQueries({ queryKey: participantsQueryKey });
+    }
+    queryClient.invalidateQueries({ queryKey: ["raid"] });
+  };
 
   const {
     mutate: mutateAssignSecurityFile,
     isPending: isCreationLoading,
     isSuccess: isCreationSuccess,
   } = useMutation({
-    ...postRaidSecurityFileMutation(), // Replace with the actual mutation function
+    ...postRaidSecurityFileMutation(),
     onSuccess: () => {
-      toast({
-        title: "Succès",
-        description: "La fiche de sécurité a été créée avec succès",
-      });
+      invalidate();
     },
     onError: (error) => {
       console.error(error);
       toast({
-        title: "Erreur lors de la création de la fiche de sécurité",
-        description: "Une erreur est survenue, veuillez réessayer.",
+        title: t("saveErrorTitle"),
+        description: t("saveErrorDescription"),
         variant: "destructive",
       });
     },
@@ -34,7 +47,12 @@ export const useSecurityFile = () => {
     securityFile: SecurityFileBase,
     participantId: string,
     callback: (securityFileId: string) => void,
+    errorCallback?: () => void,
   ) => {
+    if (isTokenExpired()) {
+      errorCallback?.();
+      return;
+    }
     mutateAssignSecurityFile(
       {
         body: securityFile,
@@ -45,6 +63,9 @@ export const useSecurityFile = () => {
       {
         onSuccess: (data) => {
           callback(data.id);
+        },
+        onError: () => {
+          errorCallback?.();
         },
       },
     );

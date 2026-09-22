@@ -16,6 +16,7 @@ interface PaymentTabProps {
 
 export const PaymentTab = ({ team }: PaymentTabProps) => {
   const t = useTranslations("raid.admin.teams.documentTab");
+  const tTeams = useTranslations("raid.admin.teams");
   const { toast } = useToast();
   const { validatePayment, validateTShirtPayment } = usePayment();
   const { refetchTeam } = useAdminTeam(team.id);
@@ -59,7 +60,7 @@ export const PaymentTab = ({ team }: PaymentTabProps) => {
       ) : (
         <Card className="flex min-h-50 items-center justify-center border-dashed border-border/60 bg-muted/10">
           <CardContent className="p-6 text-center text-sm text-muted-foreground">
-            Aucun coéquipier n&apos;a été ajouté à cette équipe.
+            {tTeams("noTeammateAdded")}
           </CardContent>
         </Card>
       )}

@@ -355,7 +355,14 @@
       "emergencyFirstname": "First Name",
       "emergencyName": "Last Name",
       "emergencyPhone": "Phone",
-      "validate": "Validate"
+      "validate": "Validate",
+      "consentRequired": "Please tick the consent checkbox to save the security file.",
+      "emergencyRequired": "Emergency contact last name, first name and phone are required.",
+      "phoneInvalid": "Invalid phone number.",
+      "savedTitle": "Security file saved",
+      "savedDescription": "Your medical information has been saved.",
+      "saveErrorTitle": "Error while saving",
+      "saveErrorDescription": "Check the consent box and required fields, then try again."
     },
     "participantView": {
       "address": "Address",
@@ -375,7 +382,7 @@
       "parentAuthorization": "Parental authorization",
       "isScholarship": "I have a scholarship",
       "scholarshipAttestation": "Scholarship certificate",
-      "scholarshipReductionNotice": "Please note: the scholarship rate will only apply once your scholarship attestation (and your student card, if applicable) has been validated by the organizers.",
+      "scholarshipReductionNotice": "Please note: the scholarship rate will only apply once both your scholarship attestation and your student card have been validated by the organizers.",
       "scholarshipStudentOnly": "The scholarship is reserved for students (Centrale Lyon or another school). Uncheck \"I am a scholarship recipient\" or update your situation.",
       "raidRules": "Raid rules",
       "honourAttestation": "Honour certificate",
@@ -644,7 +651,8 @@
       "sheet": {
         "dossierComplete": "File completed at {progress}%",
         "noTeammate": "No teammate yet"
-      }
+      },
+      "noTeammateAdded": "No teammate has been added to this team."
     },
     "volunteers": {
       "title": "Volunteers",
