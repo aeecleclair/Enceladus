@@ -15,6 +15,7 @@ import { getRaidVolunteersMe } from "@/api/sdk.gen";
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -28,6 +29,7 @@ export const useMeVolunteer = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const reportError = useReportError();
+  const t = useTranslations("raid.toast");
 
   const invalidate = () =>
     queryClient.invalidateQueries({ queryKey: getRaidVolunteersMeQueryKey() });
@@ -54,36 +56,36 @@ export const useMeVolunteer = () => {
 
   const { mutate: mutateCreate, isPending: isCreateLoading } = useMutation({
     ...postRaidVolunteersMutation(),
-    onError: reportError("Erreur lors de la création du bénévole"),
+    onError: reportError(t("updateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Inscription bénévole enregistrée" });
+      toast({ title: t("volunteerRegistered") });
       invalidate();
     },
   });
 
   const { mutate: mutateUpdate, isPending: isUpdateLoading } = useMutation({
     ...patchRaidVolunteersUserIdMutation(),
-    onError: reportError("Erreur lors de la mise à jour"),
+    onError: reportError(t("updateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Profil bénévole mis à jour" });
+      toast({ title: t("volunteerProfileUpdated") });
       invalidate();
     },
   });
 
   const { mutate: mutateCancel, isPending: isCancelLoading } = useMutation({
     ...patchRaidVolunteersUserIdCancelMutation(),
-    onError: reportError("Erreur lors de la désinscription"),
+    onError: reportError(t("volunteerCancelErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Désinscription enregistrée" });
+      toast({ title: t("volunteerUnregistered") });
       invalidate();
     },
   });
 
   const { mutate: mutateDelete, isPending: isDeleteLoading } = useMutation({
     ...deleteRaidVolunteersUserIdMutation(),
-    onError: reportError("Erreur lors de la suppression"),
+    onError: reportError(t("volunteerDeleteErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Inscription bénévole supprimée" });
+      toast({ title: t("volunteerRegistrationDeleted") });
       invalidate();
     },
   });

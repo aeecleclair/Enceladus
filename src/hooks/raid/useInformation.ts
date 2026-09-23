@@ -6,12 +6,13 @@ import {
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-
 import { useToast } from "@/components/ui/use-toast";
+import { useTranslations } from "next-intl";
 
 export const useInformation = () => {
   const { isTokenExpired } = useAuth();
   const { toast } = useToast();
+  const t = useTranslations("raid.toast");
 
   const {
     data: information,
@@ -28,16 +29,16 @@ export const useInformation = () => {
       ...patchRaidInformationMutation({}),
       onSuccess: () => {
         toast({
-          title: "Succès",
-          description: "Les informations ont été mises à jour avec succès",
+          title: t("success"),
+          description: t("informationUpdated"),
         });
         refetchInformation();
       },
       onError: (error) => {
         console.error(error);
         toast({
-          title: "Erreur lors de la mise à jour",
-          description: "Une erreur est survenue, veuillez réessayer.",
+          title: t("updateErrorTitle"),
+          description: t("updateErrorDescription"),
           variant: "destructive",
         });
       },

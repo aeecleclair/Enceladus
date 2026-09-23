@@ -11,6 +11,7 @@ import {
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -23,6 +24,7 @@ export const useAdminVolunteers = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const reportError = useReportError();
+  const t = useTranslations("raid.toast");
 
   const invalidate = () =>
     queryClient.invalidateQueries({ queryKey: getRaidVolunteersQueryKey() });
@@ -39,27 +41,27 @@ export const useAdminVolunteers = () => {
 
   const { mutate: mutateValidate, isPending: isValidateLoading } = useMutation({
     ...patchRaidVolunteersUserIdValidateMutation(),
-    onError: reportError("Erreur lors de la validation"),
+    onError: reportError(t("validationErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Bénévole validé" });
+      toast({ title: t("volunteerValidated") });
       invalidate();
     },
   });
 
   const { mutate: mutateCancel, isPending: isCancelLoading } = useMutation({
     ...patchRaidVolunteersUserIdCancelMutation(),
-    onError: reportError("Erreur lors de l'annulation"),
+    onError: reportError(t("updateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Bénévole annulé" });
+      toast({ title: t("volunteerCancelled") });
       invalidate();
     },
   });
 
   const { mutate: mutateDelete, isPending: isDeleteLoading } = useMutation({
     ...deleteRaidVolunteersUserIdMutation(),
-    onError: reportError("Erreur lors de la suppression"),
+    onError: reportError(t("updateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Bénévole supprimé" });
+      toast({ title: t("volunteerDeleted") });
       invalidate();
     },
   });

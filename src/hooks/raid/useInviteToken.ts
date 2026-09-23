@@ -13,6 +13,7 @@ import { useToast } from "@/components/ui/use-toast";
 export const useInviteToken = () => {
   const { toast } = useToast();
   const tApi = useTranslations("raid.apiErrors");
+  const t = useTranslations("raid.toast");
 
   const {
     mutate: mutateCreateInviteToken,
@@ -22,8 +23,8 @@ export const useInviteToken = () => {
     ...postRaidTeamsTeamIdInviteMutation(),
     onSuccess: (data) => {
       toast({
-        title: "Invitation créée",
-        description: "Le lien d'invitation a été créé avec succès",
+        title: t("inviteCreated"),
+        description: t("inviteCreatedDescription"),
       });
       return data;
     },
@@ -60,8 +61,8 @@ export const useInviteToken = () => {
     ...postRaidTeamsJoinTokenMutation(),
     onSuccess: () => {
       toast({
-        title: "Succès",
-        description: "Vous avez rejoint l'équipe avec succès",
+        title: t("success"),
+        description: t("joinedTeam"),
       });
     },
     onError: (error) => {

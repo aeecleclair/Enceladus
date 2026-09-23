@@ -10,6 +10,7 @@ import { getRaidParticipantsUserId } from "@/api/sdk.gen";
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -18,6 +19,7 @@ export const useParticipant = (userId: string) => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const reportError = useReportError();
+  const t = useTranslations("raid.toast");
 
   const participantQueryKey = getRaidParticipantsUserIdQueryKey({
     path: { user_id: userId },
@@ -57,10 +59,10 @@ export const useParticipant = (userId: string) => {
   } = useMutation({
     ...patchRaidParticipantsUserIdMutation(),
     onSuccess: () => {
-      toast({ title: "Participant mis à jour" });
+      toast({ title: t("participantUpdated") });
       invalidate();
     },
-    onError: reportError("Erreur lors de la mise à jour du participant"),
+    onError: reportError(t("participantUpdateErrorTitle")),
   });
 
   const updateParticipant = (

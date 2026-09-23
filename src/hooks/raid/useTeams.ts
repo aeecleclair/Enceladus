@@ -9,6 +9,7 @@ import {
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -16,6 +17,7 @@ export const useTeams = () => {
   const { isTokenExpired } = useAuth();
   const { toast } = useToast();
   const { isRaidAdmin } = useHasRaidPermission();
+  const t = useTranslations("raid.toast");
 
   const queryClient = useQueryClient();
   const teamsQueryKey = getRaidTeamsQueryKey({});
@@ -35,16 +37,16 @@ export const useTeams = () => {
       ...deleteRaidTeamsMutation(),
       onSuccess: () => {
         toast({
-          title: "Succès",
-          description: "Toutes les équipes ont été supprimées avec succès",
+          title: t("success"),
+          description: t("teamsDeleted"),
         });
         queryClient.invalidateQueries({ queryKey: teamsQueryKey });
       },
       onError: (error) => {
         console.error(error);
         toast({
-          title: "Erreur lors de l'exclusion",
-          description: "Une erreur est survenue, veuillez réessayer.",
+          title: t("kickErrorTitle"),
+          description: t("updateErrorDescription"),
           variant: "destructive",
         });
       },
@@ -58,16 +60,16 @@ export const useTeams = () => {
     ...postRaidTeamsMergeMutation(),
     onSuccess: () => {
       toast({
-        title: "Succès",
-        description: "Les équipes ont été fusionnées avec succès",
+        title: t("success"),
+        description: t("teamsMerged"),
       });
       queryClient.invalidateQueries({ queryKey: teamsQueryKey });
     },
     onError: (error) => {
       console.error(error);
       toast({
-        title: "Erreur lors de la fusion des équipes",
-        description: "Une erreur est survenue, veuillez réessayer plus tard",
+        title: t("mergeErrorTitle"),
+        description: t("updateErrorLaterDescription"),
         variant: "destructive",
       });
     },

@@ -8,6 +8,7 @@ import {
 } from "@/api/@tanstack/react-query.gen";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -32,6 +33,7 @@ export const useParticipantLifecycle = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const reportError = useReportError();
+  const t = useTranslations("raid.toast");
 
   const invalidateAll = () => {
     queryClient.invalidateQueries({
@@ -41,36 +43,36 @@ export const useParticipantLifecycle = () => {
 
   const { mutate: mutateSubmit, isPending: isSubmitLoading } = useMutation({
     ...postRaidParticipantsUserIdSubmitMutation(),
-    onError: reportError("Erreur lors de la soumission"),
+    onError: reportError(t("updateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Inscription soumise" });
+      toast({ title: t("registrationSubmitted") });
       invalidateAll();
     },
   });
 
   const { mutate: mutateReopen, isPending: isReopenLoading } = useMutation({
     ...postRaidParticipantsUserIdReopenMutation(),
-    onError: reportError("Erreur lors de la réouverture"),
+    onError: reportError(t("updateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Inscription rouverte" });
+      toast({ title: t("registrationReopened") });
       invalidateAll();
     },
   });
 
   const { mutate: mutateValidate, isPending: isValidateLoading } = useMutation({
     ...patchRaidParticipantsUserIdValidateMutation(),
-    onError: reportError("Erreur lors de la validation"),
+    onError: reportError(t("validationErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Participant validé" });
+      toast({ title: t("participantValidated") });
       invalidateAll();
     },
   });
 
   const { mutate: mutateCancel, isPending: isCancelLoading } = useMutation({
     ...patchRaidParticipantsUserIdCancelMutation(),
-    onError: reportError("Erreur lors de l'annulation"),
+    onError: reportError(t("volunteerCancelErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Participant annulé" });
+      toast({ title: t("participantCancelled") });
       invalidateAll();
     },
   });

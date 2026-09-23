@@ -13,6 +13,7 @@ import {
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -25,6 +26,7 @@ export const useEditions = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const reportError = useReportError();
+  const t = useTranslations("raid.toast");
 
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: getRaidEditionsQueryKey() });
@@ -45,18 +47,18 @@ export const useEditions = () => {
 
   const { mutate: mutateCreate, isPending: isCreateLoading } = useMutation({
     ...postRaidEditionsMutation(),
-    onError: reportError("Erreur lors de la création de l'édition"),
+    onError: reportError(t("editionCreateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Édition créée" });
+      toast({ title: t("editionCreated") });
       invalidate();
     },
   });
 
   const { mutate: mutateUpdate, isPending: isUpdateLoading } = useMutation({
     ...patchRaidEditionsEditionIdMutation(),
-    onError: reportError("Erreur lors de la mise à jour de l'édition"),
+    onError: reportError(t("editionUpdateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Édition mise à jour" });
+      toast({ title: t("editionUpdated") });
       invalidate();
     },
   });
@@ -64,14 +66,14 @@ export const useEditions = () => {
   const { mutate: mutateToggleInscription, isPending: isToggleLoading } =
     useMutation({
       ...patchRaidEditionsEditionIdMutation(),
-      onError: reportError("Erreur lors de la mise à jour de l'inscription"),
+      onError: reportError(t("editionToggleErrorTitle")),
       onSuccess: (_data, variables) => {
         const enabled = variables.body.inscription_enabled === true;
         toast({
-          title: enabled ? "Inscriptions ouvertes" : "Inscriptions fermées",
+          title: enabled ? t("inscriptionsOpened") : t("inscriptionsClosed"),
           description: enabled
-            ? "Les inscriptions à l'édition sont maintenant ouvertes."
-            : "Les inscriptions à l'édition sont maintenant fermées.",
+            ? t("inscriptionsOpenedDescription")
+            : t("inscriptionsClosedDescription"),
         });
         invalidate();
       },
@@ -79,9 +81,9 @@ export const useEditions = () => {
 
   const { mutate: mutateDelete, isPending: isDeleteLoading } = useMutation({
     ...deleteRaidEditionsEditionIdMutation(),
-    onError: reportError("Erreur lors de la suppression de l'édition"),
+    onError: reportError(t("editionDeleteErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Édition supprimée" });
+      toast({ title: t("editionDeleted") });
       invalidate();
     },
   });

@@ -10,6 +10,7 @@ import {
 import { useDocumentsStore } from "@/stores/raid/documents";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { useToast } from "@/components/ui/use-toast";
@@ -19,6 +20,7 @@ export const useDocument = () => {
   const { toast } = useToast();
   const { documents } = useDocumentsStore();
   const [documentId, setDocumentId] = useState<string>("");
+  const t = useTranslations("raid.toast");
 
   const uploadDocument = (
     file: File,
@@ -41,8 +43,8 @@ export const useDocument = () => {
       .catch((error) => {
         console.error(error);
         toast({
-          title: "Erreur lors de l'ajout du document",
-          description: "Une erreur est survenue, veuillez réessayer plus tard",
+          title: t("documentUploadErrorTitle"),
+          description: t("updateErrorLaterDescription"),
           variant: "destructive",
         });
       });
@@ -80,8 +82,8 @@ export const useDocument = () => {
       ...postRaidDocumentDocumentIdValidateMutation(),
       onSuccess: () => {
         toast({
-          title: "Succès",
-          description: "Le document a été validé avec succès",
+          title: t("success"),
+          description: t("documentValidated"),
         });
         queryClient.invalidateQueries({
           predicate: (query) =>
@@ -92,8 +94,8 @@ export const useDocument = () => {
       onError: (error) => {
         console.error(error);
         toast({
-          title: "Erreur lors de la validation",
-          description: "Une erreur est survenue, veuillez réessayer.",
+          title: t("validationErrorTitle"),
+          description: t("updateErrorDescription"),
           variant: "destructive",
         });
       },
