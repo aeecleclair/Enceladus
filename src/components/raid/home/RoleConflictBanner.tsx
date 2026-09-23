@@ -17,8 +17,8 @@ export const RoleConflictBanner = () => {
   const { meVolunteer } = useMeVolunteer();
   const router = useRouter();
 
-  if (!me || !meVolunteer || meVolunteer.cancelled) return null;
-  if (me.status === "cancelled") return null;
+  if (!me || !meVolunteer || meVolunteer.cancelled || me.status === "cancelled")
+    return null;
 
   return (
     <Alert variant="destructive">
