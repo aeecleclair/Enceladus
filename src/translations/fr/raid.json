@@ -56,7 +56,9 @@
     "userView": "Vue utilisateur",
     "user": "Utilisateur",
     "adminMode": "Mode admin — Aller à l'administration",
-    "errorTitle": "Erreur"
+    "errorTitle": "Erreur",
+    "viewMyTeam": "Voir mon équipe",
+    "viewMyVolunteering": "Voir mon bénévolat"
   },
   "apiErrors": {
     "generic": "Une erreur est survenue, veuillez réessayer.",

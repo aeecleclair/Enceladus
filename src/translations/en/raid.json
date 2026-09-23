@@ -56,7 +56,9 @@
     "userView": "User view",
     "user": "User",
     "adminMode": "Admin mode — Go to administration",
-    "errorTitle": "Error"
+    "errorTitle": "Error",
+    "viewMyTeam": "View my team",
+    "viewMyVolunteering": "View my volunteering"
   },
   "apiErrors": {
     "generic": "An error occurred, please try again.",

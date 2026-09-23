@@ -18,6 +18,7 @@ export const RoleConflictBanner = () => {
   const router = useRouter();
 
   if (!me || !meVolunteer || meVolunteer.cancelled) return null;
+  if (me.status === "cancelled") return null;
 
   return (
     <Alert variant="destructive">
@@ -31,14 +32,14 @@ export const RoleConflictBanner = () => {
             variant="outline"
             onClick={() => router.push("/team")}
           >
-            Voir l&apos;équipe
+            {t("viewMyTeam")}
           </Button>
           <Button
             size="sm"
             variant="outline"
             onClick={() => router.push("/volunteer")}
           >
-            Voir le bénévolat
+            {t("viewMyVolunteering")}
           </Button>
         </div>
       </AlertDescription>
