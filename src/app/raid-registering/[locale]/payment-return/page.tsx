@@ -14,18 +14,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { CircleCheck, Clock3 } from "lucide-react";
 
-/**
- * Landing page HelloAsso redirects the payer to after a checkout
- * (`redirection_uri` configured in HELLOASSO_CONFIGURATIONS). HelloAsso can
- * only use one static URL, so this page is locale-less upstream and the UI
- * language is resolved by next-intl (default fr).
- *
- * The payment is NOT confirmed here: confirmation happens server-side in the
- * HelloAsso webhook. This page polls `me` once after a short settle delay so
- * the status card reflects the freshly confirmed payment, and it always tells
- * the truth: if the webhook has not landed yet, we say so instead of
- * claiming success.
- */
 const PaymentReturnPage = () => {
   const t = useTranslations("raid.paymentReturn");
   const { isTokenQueried, token } = useAuth();
@@ -47,8 +35,6 @@ const PaymentReturnPage = () => {
   const isPaid = isParticipantPaid || isVolunteerPaid;
   const settled = !participantLoading && !volunteerLoading;
 
-  // Give the webhook a short window, then refetch once: if it landed in the
-  // meantime the success card replaces the pending one.
   const verifyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     if (!settled || isPaid) return;
@@ -67,7 +53,6 @@ const PaymentReturnPage = () => {
       return;
     }
     if (settled && !me && !meVolunteer) {
-      // Neither a participant nor a volunteer.
       router.replace("/");
     }
   }, [isTokenQueried, token, settled, me, meVolunteer, router]);
