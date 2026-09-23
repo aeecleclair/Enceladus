@@ -432,7 +432,9 @@
       "save": "Enregistrer",
       "unregister": "Se désinscrire",
       "unregisterTitle": "Se désinscrire du bénévolat",
-      "unregisterDescription": "Vous êtes sur le point d'annuler votre inscription bénévole. Cette action peut être réversible seulement par l'organisation."
+      "unregisterDescription": "Vous êtes sur le point d'annuler votre inscription bénévole. Cette action peut être réversible seulement par l'organisation.",
+      "reopen": "Réactiver mon inscription",
+      "reopenDescription": "Votre inscription a été annulée. Réactivez-la pour modifier vos informations et la soumettre à nouveau à l'organisation."
     },
     "register": {
       "title": "Inscription bénévole",
@@ -718,7 +720,10 @@
         "noAllergy": "Aucune allergie",
         "car": "Voiture",
         "paymentOk": "Paiement OK",
-        "paymentPending": "Paiement en attente"
+        "paymentPending": "Paiement en attente",
+        "emergency": "Contact d'urgence",
+        "emergencyContact": "Personne à contacter",
+        "emergencyMissing": "Contact d'urgence incomplet : la validation est bloquée tant que le bénévole n'a pas renseigné un nom et un téléphone à contacter."
       }
     },
     "information": {
@@ -855,6 +860,7 @@
     "inscriptionsClosedDescription": "Les inscriptions à l'édition sont maintenant fermées.",
     "volunteerCancelErrorTitle": "Erreur lors de l'annulation",
     "volunteerDeleteErrorTitle": "Erreur lors de la suppression",
-    "participantUpdateErrorTitle": "Erreur lors de la mise à jour"
+    "participantUpdateErrorTitle": "Erreur lors de la mise à jour",
+    "volunteerReopened": "Inscription bénévole réactivée"
   }
 }

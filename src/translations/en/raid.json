@@ -432,7 +432,9 @@
       "save": "Save",
       "unregister": "Unregister",
       "unregisterTitle": "Unregister from volunteering",
-      "unregisterDescription": "You are about to cancel your volunteer registration. Only the organization can reverse this action."
+      "unregisterDescription": "You are about to cancel your volunteer registration. Only the organization can reverse this action.",
+      "reopen": "Re-open my registration",
+      "reopenDescription": "Your registration has been cancelled. Re-open it to edit your details and submit it to the organisers again."
     },
     "register": {
       "title": "Volunteer registration",
@@ -718,7 +720,10 @@
         "noAllergy": "No allergy",
         "car": "Car",
         "paymentOk": "Payment OK",
-        "paymentPending": "Payment pending"
+        "paymentPending": "Payment pending",
+        "emergency": "Emergency contact",
+        "emergencyContact": "Person to contact",
+        "emergencyMissing": "Incomplete emergency contact: validation is blocked until the volunteer fills in a contact name and phone number."
       }
     },
     "information": {
@@ -855,6 +860,7 @@
     "inscriptionsClosedDescription": "Registrations for the edition are now closed.",
     "volunteerCancelErrorTitle": "Cancellation failed",
     "volunteerDeleteErrorTitle": "Deletion failed",
-    "participantUpdateErrorTitle": "Update failed"
+    "participantUpdateErrorTitle": "Update failed",
+    "volunteerReopened": "Volunteer registration re-opened"
   }
 }

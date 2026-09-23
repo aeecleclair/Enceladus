@@ -20,6 +20,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -61,6 +62,8 @@ const VolunteerPage = () => {
     isUpdateLoading,
     cancelMeVolunteer,
     isCancelLoading,
+    reopenMeVolunteer,
+    isReopenLoading,
   } = useMeVolunteer();
   const router = useRouter();
   const [isCancelAlertOpen, setIsCancelAlertOpen] = useState(false);
@@ -158,6 +161,20 @@ const VolunteerPage = () => {
                   : t("cardPending")}
             </CardDescription>
           </CardHeader>
+          {meVolunteer?.cancelled && (
+            <CardContent className="space-y-3">
+              <p className="text-sm text-muted-foreground">
+                {t("reopenDescription")}
+              </p>
+              <Button
+                className="w-full"
+                onClick={() => reopenMeVolunteer()}
+                disabled={isReopenLoading}
+              >
+                {t("reopen")}
+              </Button>
+            </CardContent>
+          )}
         </Card>
 
         <Card className="mx-auto w-full max-w-3xl border-border/70 bg-card/95 shadow-sm">

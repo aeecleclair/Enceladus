@@ -9,6 +9,7 @@ import {
   getRaidVolunteersMeQueryKey,
   patchRaidVolunteersUserIdCancelMutation,
   patchRaidVolunteersUserIdMutation,
+  patchRaidVolunteersUserIdReopenMutation,
   postRaidVolunteersMutation,
 } from "@/api/@tanstack/react-query.gen";
 import { getRaidVolunteersMe } from "@/api/sdk.gen";
@@ -81,6 +82,15 @@ export const useMeVolunteer = () => {
     },
   });
 
+  const { mutate: mutateReopen, isPending: isReopenLoading } = useMutation({
+    ...patchRaidVolunteersUserIdReopenMutation(),
+    onError: reportError(t("updateErrorTitle")),
+    onSuccess: () => {
+      toast({ title: t("volunteerReopened") });
+      invalidate();
+    },
+  });
+
   const { mutate: mutateDelete, isPending: isDeleteLoading } = useMutation({
     ...deleteRaidVolunteersUserIdMutation(),
     onError: reportError(t("volunteerDeleteErrorTitle")),
@@ -112,6 +122,14 @@ export const useMeVolunteer = () => {
     );
   };
 
+  const reopenMeVolunteer = (callback?: () => void) => {
+    if (!user?.id) return;
+    mutateReopen(
+      { path: { user_id: user.id } },
+      { onSuccess: () => callback?.() },
+    );
+  };
+
   const deleteMeVolunteer = (callback?: () => void) => {
     if (!user?.id) return;
     mutateDelete(
@@ -131,6 +149,8 @@ export const useMeVolunteer = () => {
     isUpdateLoading,
     cancelMeVolunteer,
     isCancelLoading,
+    reopenMeVolunteer,
+    isReopenLoading,
     deleteMeVolunteer,
     isDeleteLoading,
   };
