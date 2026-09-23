@@ -6,8 +6,9 @@ import {
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useToast } from "@/components/ui/use-toast";
 import { useTranslations } from "next-intl";
+
+import { useToast } from "@/components/ui/use-toast";
 
 export const useInformation = () => {
   const { isTokenExpired } = useAuth();
