@@ -223,7 +223,7 @@ export const TeamsPreview = ({ teams, isLoading }: TeamsPreviewProps) => {
                               </>
                             ) : (
                               <div className="font-medium text-muted-foreground">
-                                Non renseigné
+                                {t("noTeammateAdded")}
                               </div>
                             )}
                           </TableCell>
