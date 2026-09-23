@@ -6,7 +6,7 @@ import { usePrice } from "@/hooks/raid/usePrice";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,9 +21,8 @@ import {
 import { PriceInput } from "@/components/ui/priceInput";
 
 export const RaidPartnerPrice = () => {
-  const { price, updatePrice } = usePrice();
+  const { price, updatePrice, isUpdateLoading: isLoading } = usePrice();
   const [isEdit, setIsEdit] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations("raid.admin.information");
 
   const formSchema = z.object({
@@ -40,19 +39,24 @@ export const RaidPartnerPrice = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
     updatePrice(
       {
         ...price,
         partner_price: values.partner_price * 100,
       },
       () => {
-        setIsLoading(false);
         setIsEdit(false);
         form.reset({ partner_price: values.partner_price });
       },
     );
   }
+
+  useEffect(() => {
+    if (price?.partner_price) {
+      form.reset({ partner_price: price.partner_price / 100 });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [price?.partner_price]);
 
   return (
     <Form {...form}>

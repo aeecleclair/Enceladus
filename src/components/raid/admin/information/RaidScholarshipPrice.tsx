@@ -6,7 +6,7 @@ import { usePrice } from "@/hooks/raid/usePrice";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -21,9 +21,8 @@ import {
 import { PriceInput } from "@/components/ui/priceInput";
 
 export const RaidScholarshipPrice = () => {
-  const { price, updatePrice } = usePrice();
+  const { price, updatePrice, isUpdateLoading: isLoading } = usePrice();
   const [isEdit, setIsEdit] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const t = useTranslations("raid.admin.information");
 
   const formSchema = z.object({
@@ -40,19 +39,24 @@ export const RaidScholarshipPrice = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
     updatePrice(
       {
         ...price,
         scholarship_price: values.scholarship_price * 100,
       },
       () => {
-        setIsLoading(false);
         setIsEdit(false);
         form.reset({ scholarship_price: values.scholarship_price });
       },
     );
   }
+
+  useEffect(() => {
+    if (price?.scholarship_price) {
+      form.reset({ scholarship_price: price.scholarship_price / 100 });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [price?.scholarship_price]);
 
   function toggleEdit() {
     setIsEdit(!isEdit);
