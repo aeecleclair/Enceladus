@@ -170,11 +170,6 @@ const VolunteersAdminPage = () => {
                             </Badge>
                           </TableCell>
                           <TableCell>
-                            {v.has_car
-                              ? t("carYes", { seats: v.car_seats ?? 0 })
-                              : t("carNo")}
-                          </TableCell>
-                          <TableCell>
                             {v.payment ? (
                               <Badge
                                 variant="outline"
@@ -190,6 +185,11 @@ const VolunteersAdminPage = () => {
                                 {t("unpaid")}
                               </Badge>
                             )}
+                          </TableCell>
+                          <TableCell>
+                            {v.has_car
+                              ? t("carYes", { seats: v.car_seats ?? 0 })
+                              : t("carNo")}
                           </TableCell>
                           <TableCell>
                             <div className="flex flex-wrap gap-1">
