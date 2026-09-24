@@ -24,14 +24,14 @@ const ParticipantRegisterPage = () => {
   }, [isTokenQueried, token, router]);
 
   useEffect(() => {
-    if (me) router.replace("/team");
+    if (me && me.status !== "cancelled") router.replace("/team");
   }, [me, router]);
 
   useEffect(() => {
     if (meVolunteer) router.replace("/volunteer");
   }, [meVolunteer, router]);
 
-  const hasExistingRole = !!me || !!meVolunteer;
+  const hasExistingRole = !!(me && me.status !== "cancelled") || !!meVolunteer;
 
   return (
     <UserShell>
