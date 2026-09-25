@@ -170,11 +170,17 @@ export const VolunteerSheet = ({
                     {ts("emergencyMissing")}
                   </p>
                 ) : (
-                  <ParticipantInfo
-                    label={ts("emergencyContact")}
-                    value={`${volunteer.emergency_person_name} — ${volunteer.emergency_person_phone}`}
-                    isPhone
-                  />
+                  <>
+                    <ParticipantInfo
+                      label={ts("emergencyContact")}
+                      value={volunteer.emergency_person_name}
+                    />
+                    <ParticipantInfo
+                      label={ts("emergencyPhone")}
+                      value={volunteer.emergency_person_phone}
+                      isPhone
+                    />
+                  </>
                 )}
               </CardContent>
             </Card>

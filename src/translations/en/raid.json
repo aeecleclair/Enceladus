@@ -725,6 +725,7 @@
         "paymentPending": "Payment pending",
         "emergency": "Emergency contact",
         "emergencyContact": "Person to contact",
+        "emergencyPhone": "Emergency contact phone",
         "emergencyMissing": "Incomplete emergency contact: validation is blocked until the volunteer fills in a contact name and phone number."
       }
     },

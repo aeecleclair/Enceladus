@@ -725,6 +725,7 @@
         "paymentPending": "Paiement en attente",
         "emergency": "Contact d'urgence",
         "emergencyContact": "Personne à contacter",
+        "emergencyPhone": "Téléphone de la personne à contacter",
         "emergencyMissing": "Contact d'urgence incomplet : la validation est bloquée tant que le bénévole n'a pas renseigné un nom et un téléphone à contacter."
       }
     },
