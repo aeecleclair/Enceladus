@@ -11,6 +11,7 @@ import { getRaidParticipantsMeTeam } from "@/api/sdk.gen";
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -20,6 +21,7 @@ export const useMeTeam = () => {
   const { me } = useMeParticipant();
   const queryClient = useQueryClient();
   const reportError = useReportError();
+  const t = useTranslations("raid.toast");
 
   const queryKey = getRaidParticipantsMeTeamQueryKey({});
 
@@ -52,10 +54,10 @@ export const useMeTeam = () => {
   } = useMutation({
     ...postRaidTeamsMutation(),
     onSuccess: () => {
-      toast({ title: "L'équipe a été créée avec succès" });
+      toast({ title: t("teamCreated") });
       invalidate();
     },
-    onError: reportError("Erreur lors de la création de l'équipe"),
+    onError: reportError(t("updateErrorTitle")),
   });
 
   const createTeam = (team: RaidTeamBase, callback: () => void) => {
@@ -69,7 +71,7 @@ export const useMeTeam = () => {
   } = useMutation({
     ...patchRaidTeamsTeamIdMutation(),
     onSettled: () => refetchTeam(),
-    onError: reportError("Erreur lors de la mise à jour de l'équipe"),
+    onError: reportError(t("updateErrorTitle")),
   });
 
   const updateTeam = (

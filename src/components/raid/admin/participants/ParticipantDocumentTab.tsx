@@ -11,6 +11,7 @@ import { useAdminParticipant } from "@/hooks/raid/useAdminParticipant";
 import { useDocument } from "@/hooks/raid/useDocument";
 import { triggerBrowserDownload } from "@/lib/raid/document";
 
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Card } from "@/components/ui/card";
@@ -23,6 +24,7 @@ interface ParticipantDocumentTabProps {
 export const ParticipantDocumentTab = ({
   participant,
 }: ParticipantDocumentTabProps) => {
+  const t = useTranslations("raid.admin.teams.documentTab");
   const { toast } = useToast();
   const {
     getDocument,
@@ -56,9 +58,8 @@ export const ParticipantDocumentTab = ({
     } catch (error) {
       console.error(error);
       toast({
-        title: "Erreur lors du téléchargement",
-        description:
-          "Le document n'a pas pu être téléchargé, veuillez réessayer.",
+        title: t("downloadError"),
+        description: t("downloadErrorDescription"),
         variant: "destructive",
       });
     }
@@ -72,7 +73,7 @@ export const ParticipantDocumentTab = ({
     setDocumentValidation(documentId, validation, () => {
       refetchParticipant();
       callback();
-      toast({ title: "Document validé avec succès" });
+      toast({ title: t("validatedSuccess") });
     });
   };
 

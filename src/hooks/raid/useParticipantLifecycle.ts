@@ -1,7 +1,6 @@
 import { useReportError } from "./useReportError";
 
 import {
-  getRaidTeamsQueryKey,
   patchRaidParticipantsUserIdCancelMutation,
   patchRaidParticipantsUserIdValidateMutation,
   postRaidParticipantsUserIdReopenMutation,
@@ -9,8 +8,22 @@ import {
 } from "@/api/@tanstack/react-query.gen";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
+
+const isRaidLifecycleQuery = (query: { queryKey: readonly unknown[] }) => {
+  const id = (query.queryKey[0] as { _id?: string } | undefined)?._id;
+  return (
+    id === "getRaidTeams" ||
+    id === "getRaidTeamsTeamId" ||
+    id === "getRaidParticipants" ||
+    id === "getRaidParticipantsMe" ||
+    id === "getRaidParticipantsMeTeam" ||
+    id === "getRaidParticipantsUserId" ||
+    id === "getRaidParticipantsUserIdTeam"
+  );
+};
 
 /**
  * Shared participant lifecycle mutations.
@@ -20,47 +33,46 @@ export const useParticipantLifecycle = () => {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const reportError = useReportError();
+  const t = useTranslations("raid.toast");
 
   const invalidateAll = () => {
-    queryClient.invalidateQueries({ queryKey: getRaidTeamsQueryKey() });
-    queryClient.invalidateQueries({ queryKey: ["getRaidParticipantsUserId"] });
     queryClient.invalidateQueries({
-      queryKey: ["getRaidParticipantsUserIdTeam"],
+      predicate: isRaidLifecycleQuery,
     });
   };
 
   const { mutate: mutateSubmit, isPending: isSubmitLoading } = useMutation({
     ...postRaidParticipantsUserIdSubmitMutation(),
-    onError: reportError("Erreur lors de la soumission"),
+    onError: reportError(t("updateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Inscription soumise" });
+      toast({ title: t("registrationSubmitted") });
       invalidateAll();
     },
   });
 
   const { mutate: mutateReopen, isPending: isReopenLoading } = useMutation({
     ...postRaidParticipantsUserIdReopenMutation(),
-    onError: reportError("Erreur lors de la réouverture"),
+    onError: reportError(t("updateErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Inscription rouverte" });
+      toast({ title: t("registrationReopened") });
       invalidateAll();
     },
   });
 
   const { mutate: mutateValidate, isPending: isValidateLoading } = useMutation({
     ...patchRaidParticipantsUserIdValidateMutation(),
-    onError: reportError("Erreur lors de la validation"),
+    onError: reportError(t("validationErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Participant validé" });
+      toast({ title: t("participantValidated") });
       invalidateAll();
     },
   });
 
   const { mutate: mutateCancel, isPending: isCancelLoading } = useMutation({
     ...patchRaidParticipantsUserIdCancelMutation(),
-    onError: reportError("Erreur lors de l'annulation"),
+    onError: reportError(t("volunteerCancelErrorTitle")),
     onSuccess: () => {
-      toast({ title: "Participant annulé" });
+      toast({ title: t("participantCancelled") });
       invalidateAll();
     },
   });

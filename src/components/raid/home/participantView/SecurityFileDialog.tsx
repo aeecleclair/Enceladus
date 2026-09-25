@@ -1,9 +1,10 @@
-import { SecurityFile } from "@/api";
+import { SecurityFileBase } from "@/api";
 import {
   ParticipantField,
   ValueTypes,
 } from "@/components/raid/custom/ParticipantField";
 import { useSecurityFile } from "@/hooks/raid/useSecurityFile";
+import { isValidPhone, normalizePhone } from "@/lib/phone";
 
 import { useTranslations } from "next-intl";
 import { FieldValues, UseFormReturn } from "react-hook-form";
@@ -24,6 +25,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { useToast } from "@/components/ui/use-toast";
 
 import { BadgeAlertIcon, ClockIcon, ShieldCheckIcon } from "lucide-react";
 
@@ -33,12 +35,63 @@ interface SecurityFileDialogProps {
   form: UseFormReturn<FieldValues>;
 }
 
+type SecurityFileValues = Record<string, unknown>;
+
+function getEmergencyContact(values: SecurityFileValues) {
+  return {
+    firstname: String(values.emergency_person_firstname ?? "").trim(),
+    name: String(values.emergency_person_name ?? "").trim(),
+    phone: String(values.emergency_person_phone ?? "").trim(),
+  };
+}
+
+function getEmergencyErrors(
+  { firstname, name, phone }: ReturnType<typeof getEmergencyContact>,
+  t: ReturnType<typeof useTranslations>,
+): string[] {
+  const errors: string[] = [];
+  if (!name || !firstname || !phone) {
+    errors.push(t("emergencyRequired"));
+  } else if (!isValidPhone(phone)) {
+    errors.push(t("phoneInvalid"));
+  }
+  return errors;
+}
+
+// Without consent, only the emergency contact is sent
+function buildSecurityFilePayload(
+  formValues: SecurityFileValues,
+  emergency: ReturnType<typeof getEmergencyContact>,
+): SecurityFileBase {
+  const phone = normalizePhone(emergency.phone);
+  if (!formValues.consent_given) {
+    return {
+      asthma: false,
+      consent_given: false,
+      emergency_person_firstname: emergency.firstname,
+      emergency_person_name: emergency.name,
+      emergency_person_phone: phone,
+    };
+  }
+  // Strip server-only fields; the rest is the payload.
+  const fields: Record<string, unknown> = { ...formValues };
+  delete fields.id;
+  delete fields.validation;
+  delete fields.updated;
+  return {
+    ...(fields as unknown as SecurityFileBase),
+    asthma: Boolean(fields.asthma),
+    emergency_person_phone: phone,
+  };
+}
+
 export const SecurityFileDialog = ({
   setIsOpen,
   participantId,
   form,
 }: SecurityFileDialogProps) => {
   const { setSecurityFile } = useSecurityFile();
+  const { toast } = useToast();
   const t = useTranslations("raid.team.securityFile");
 
   const validation = form.watch("securityFile.validation");
@@ -52,14 +105,39 @@ export const SecurityFileDialog = ({
   const consentGiven = form.watch("securityFile.consent_given");
 
   function onValidate() {
+    // Emergency contact is ALWAYS required
+    const values = form.getValues("securityFile") as SecurityFileValues;
+    const emergency = getEmergencyContact(values);
+    const errors = getEmergencyErrors(emergency, t);
+    if (errors.length > 0) {
+      toast({
+        title: t("saveErrorTitle"),
+        description: errors.join(" "),
+        variant: "destructive",
+      });
+      return;
+    }
+
     form.setValue("securityFile.updated", true);
-    const securityFile: SecurityFile = {
-      ...form.getValues("securityFile"),
-    };
-    setSecurityFile(securityFile, participantId, () => {
-      // Not working, to investigate
-    });
-    setIsOpen(false);
+    const formValues = form.getValues("securityFile") as SecurityFileValues;
+    setSecurityFile(
+      buildSecurityFilePayload(formValues, emergency),
+      participantId,
+      () => {
+        toast({
+          title: t("savedTitle"),
+          description: t("savedDescription"),
+        });
+        setIsOpen(false);
+      },
+      () => {
+        toast({
+          title: t("saveErrorTitle"),
+          description: t("saveErrorDescription"),
+          variant: "destructive",
+        });
+      },
+    );
   }
 
   function getAsthma() {

@@ -78,7 +78,7 @@ export const ParticipantRegisterCard = () => {
   };
 
   const handleCreateParticipant = () => {
-    if (meVolunteer) {
+    if (meVolunteer && !meVolunteer.cancelled) {
       toast({
         title: t("alreadyVolunteerTitle"),
         description: t("alreadyVolunteerDescription"),
@@ -88,8 +88,13 @@ export const ParticipantRegisterCard = () => {
       return;
     }
 
-    if (me) {
+    if (me && me.status !== "cancelled") {
       continueWithTeam();
+      return;
+    }
+
+    if (me && me.status === "cancelled") {
+      createParticipant(continueWithTeam);
       return;
     }
 

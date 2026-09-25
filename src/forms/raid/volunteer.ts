@@ -1,3 +1,5 @@
+import { isValidPhone } from "@/lib/phone";
+
 import { z } from "zod";
 
 export const volunteerFormSchema = z
@@ -15,8 +17,9 @@ export const volunteerFormSchema = z
       .string({
         error: "Veuillez renseigner un numéro de téléphone",
       })
-      .min(10, { message: "Veuillez renseigner un numéro de téléphone valide" })
-      .max(14, { message: "Veuillez renseigner un numéro de téléphone valide" })
+      .refine(isValidPhone, {
+        message: "Veuillez renseigner un numéro de téléphone valide",
+      })
       .optional()
       .or(z.literal("")),
     has_car: z.boolean(),

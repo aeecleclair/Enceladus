@@ -9,6 +9,7 @@ import { useTeams } from "@/hooks/raid/useTeams";
 
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Row } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { HiTrash } from "react-icons/hi";
 
@@ -31,6 +32,7 @@ interface DataTableRowActionsProps<TData> {
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
+  const t = useTranslations("raid.admin.teams");
   const {
     deleteTeam,
     isDeleteLoading,
@@ -52,7 +54,7 @@ export function DataTableRowActions<TData>({
           title={`Suppression de l'équipe ${
             (row.original as RaidTeamPreview).name
           }`}
-          description="Etes-vous sûr de vouloir supprimer cette équipe ?"
+          description={t("deleteTeamConfirm")}
           validateLabel="Supprimer"
           callback={() => {
             deleteTeam(() => {
@@ -100,9 +102,7 @@ export function DataTableRowActions<TData>({
                 row.toggleSelected(!row.getIsSelected());
               }}
             >
-              {row.getIsSelected()
-                ? "Annuler la fusion"
-                : "Fusionner avec une autre équipe"}
+              {row.getIsSelected() ? t("cancelMerge") : t("mergeTeam")}
               <DropdownMenuShortcut>
                 <MergeIcon className="h-4 w-4" />
               </DropdownMenuShortcut>
@@ -114,7 +114,7 @@ export function DataTableRowActions<TData>({
                 setIsRemoveMemberDialogOpen(true);
               }}
             >
-              Retirer un member
+              {t("removeMember")}
               <DropdownMenuShortcut>
                 <UserRoundMinusIcon className="h-4 w-4" />
               </DropdownMenuShortcut>
@@ -128,7 +128,7 @@ export function DataTableRowActions<TData>({
               setIsDeleteDialogOpen(true);
             }}
           >
-            {"Supprimer l'équipe"}
+            {t("deleteTeam")}
             <DropdownMenuShortcut>
               <HiTrash className="h-4 w-4" />
             </DropdownMenuShortcut>

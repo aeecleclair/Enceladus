@@ -1,7 +1,7 @@
 "use client";
 
 import { PageHeader } from "@/components/raid/admin/PageHeader";
-import { columns } from "@/components/raid/admin/teams/Columns";
+import { useTeamColumns } from "@/components/raid/admin/teams/Columns";
 import { DataTable } from "@/components/raid/admin/teams/DataTable";
 import { TeamSheet } from "@/components/raid/admin/teams/teamSheet/TeamSheet";
 import { useTeams } from "@/hooks/raid/useTeams";
@@ -21,6 +21,7 @@ import {
 import { UsersRound } from "lucide-react";
 
 const TeamsAdminPage = () => {
+  const columns = useTeamColumns();
   const { teams } = useTeams();
   const router = useRouter();
   const searchParams = useSearchParams();

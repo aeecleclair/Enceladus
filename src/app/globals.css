@@ -122,11 +122,10 @@
     --ring: 212.7 26.8% 83.9%;
   }
 
-  @layer base {
-    * {
-      border-color: hsl(var(--border));
-      border: 0px solid;
-    }
+  *,
+  ::before,
+  ::after {
+    border-color: hsl(var(--border));
   }
   /* Couleurs de fond et de texte par défaut */
   body {

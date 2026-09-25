@@ -28,7 +28,75 @@
       "participant": "Participant",
       "volunteer": "Bénévole",
       "admin": "Administrateur"
-    }
+    },
+    "doubleRegistrationTitle": "Double inscription détectée",
+    "doubleRegistrationDescription": "Vous êtes inscrit à la fois comme participant et comme bénévole. Ce cas n'est pas supporté — contactez les organisateurs ou annulez l'une des deux inscriptions.",
+    "theme": "Thème",
+    "themeLight": "Clair",
+    "themeDark": "Sombre",
+    "themeSystem": "Système",
+    "selectPeriod": "Sélectionner une période",
+    "noResults": "Aucun résultat",
+    "noFileSelected": "Aucun fichier séléctionné",
+    "downloadError": "Impossible de télécharger le fichier",
+    "notProvided": "Non renseigné",
+    "seeAll": "Voir tout",
+    "docStatus": {
+      "docAccepted": "Le document a été accepté",
+      "docRefused": "Le document a été refusé, veuillez le modifier et le renvoyer",
+      "docPending": "En attente de validation de la part de l'organisateur",
+      "docTemporary": "Vous vous engagez à fournir le document dans les plus brefs délais",
+      "securityFilled": "Vous avez renseigné la personne à contacter en cas d'urgence",
+      "securityRefused": "Veuillez renseigner la personne à contact en cas d'urgence",
+      "securityTemporary": "Veuillez compléter la personne à contacter en cas d'urgence",
+      "securityFileButton": "Fiche sécurité",
+      "chooseFile": "Choisir un fichier",
+      "fillSecurityFile": "Remplir la fiche de sécurité"
+    },
+    "userView": "Vue utilisateur",
+    "user": "Utilisateur",
+    "adminMode": "Mode admin — Aller à l'administration",
+    "errorTitle": "Erreur",
+    "viewMyTeam": "Voir mon équipe",
+    "viewMyVolunteering": "Voir mon bénévolat"
+  },
+  "apiErrors": {
+    "generic": "Une erreur est survenue, veuillez réessayer.",
+    "joinTeamFull": "Cette équipe est déjà complète (2 membres).",
+    "joinConflict": "Cette équipe vient d'être rejointe par un autre participant.",
+    "joinAlreadyCaptain": "Vous êtes déjà le capitaine de cette équipe.",
+    "joinAlreadyInTeam": "Vous êtes déjà dans une équipe complète.",
+    "joinTokenNotFound": "Ce code d'invitation est invalide ou a expiré.",
+    "joinWrongEdition": "Cette invitation concerne une autre édition du raid.",
+    "submitNotDraft": "Votre inscription est déjà soumise.",
+    "submitAttestation": "Vous devez d'abord signer l'attestation sur l'honneur.",
+    "submitSecurityFile": "Vous devez d'abord remplir votre fiche de sécurité.",
+    "submitDocs": "Documents requis manquants : carte d'identité, certificat médical et règlement du raid.",
+    "validatePayment": "Le paiement de l'inscription n'a pas encore été effectué.",
+    "validateTshirtPayment": "Le paiement du t-shirt n'a pas encore été effectué.",
+    "validateSecurityFile": "La fiche de sécurité est incomplète (contact d'urgence requis).",
+    "validateDocNotAccepted": "Un document requis n'est pas encore validé par l'organisation.",
+    "validateMissingDoc": "Un document requis est manquant.",
+    "validateTeamSecond": "L'équipe doit être complète (2 membres).",
+    "validateTeamDifficulty": "L'équipe n'a pas choisi de parcours.",
+    "validateTeamMeeting": "L'équipe n'a pas choisi de lieu de rendez-vous.",
+    "validateNotSubmitted": "Le participant doit d'abord être soumis avant d'être validé.",
+    "recreateParticipant": "Vous avez déjà une inscription pour cette édition.",
+    "recreateVolunteer": "Vous êtes déjà bénévole pour cette édition.",
+    "profileMissingBirthdayPhone": "Complétez votre profil (date de naissance et téléphone) avant de vous inscrire.",
+    "editNotDraft": "Votre inscription n'est plus modifiable : rouvrez-la d'abord.",
+    "alreadyValidated": "Cette inscription est déjà validée."
+  },
+  "paymentReturn": {
+    "successTitle": "Paiement confirmé",
+    "pendingTitle": "Paiement en cours de vérification",
+    "successDescription": "Nous avons bien reçu votre paiement ({role}). Votre inscription sera validée par l'organisation après vérification de votre dossier.",
+    "pendingDescription": "Votre paiement est en cours de traitement par notre prestataire. Il peut s'écouler quelques minutes avant que le statut ne soit mis à jour ici ; vous recevrez un e-mail de confirmation. Vous pouvez revenir sur cette page ou sur votre espace pour vérifier l'état de votre dossier.",
+    "checking": "Vérification de votre dossier…",
+    "notFound": "Nous n'avons trouvé aucune inscription associée à votre compte.",
+    "participant": "d'inscription participant",
+    "volunteer": "de bénévole",
+    "backHome": "Retour à mon espace"
   },
   "home": {
     "sidebar": {
@@ -42,7 +110,7 @@
       "information": "Informations",
       "team": "Mon équipe",
       "profile": "Profil",
-      "invite": "Inviter un coéquipier",
+      "invite": "Inviter un coéquipier / une coéquipière",
       "volunteerStatus": "Mon bénévolat",
       "register": "S'inscrire",
       "registerVolunteer": "Inscription bénévole",
@@ -55,12 +123,15 @@
       "registrationSubmitted": "Inscription soumise",
       "volunteer": "Bénévole",
       "volunteerCancelled": "Bénévolat annulé",
-      "admin": "Administrateur"
+      "admin": "Administrateur",
+      "validatedDocuments": "validés"
     },
     "dashboard": {
       "editionWaiting": {
         "title": "En attente de l'édition",
-        "description": "La prochaine édition du Raid sera bientôt annoncée."
+        "description": "La prochaine édition du Raid sera bientôt annoncée.",
+        "cardTitle": "En attente de la prochaine édition",
+        "cardDescription": "La prochaine édition du Raid sera bientôt annoncée. Revenez plus tard pour vous inscrire."
       },
       "chooseRole": {
         "title": "Comment souhaitez-vous participer ?",
@@ -69,25 +140,41 @@
       },
       "incompleteTeam": {
         "title": "Inscription en cours",
-        "cta": "Aller à mon équipe"
+        "cta": "Aller à mon équipe",
+        "cardTitle": "Votre inscription avance",
+        "descriptionWithTeammate": "Finalisez les documents et le paiement pour valider votre dossier.",
+        "descriptionWithoutTeammate": "Invitez un coéquipier / une coéquipière et complétez les informations de l'équipe.",
+        "progress": "Progression"
       },
       "fullyRegistered": {
         "title": "Inscription validée",
-        "countdownLabel": "Début du Raid dans"
+        "countdownLabel": "Début du Raid dans",
+        "cardDescription": "Votre dossier est complet. Rendez-vous au départ du Raid !",
+        "daysLeft": "{count, plural, =0 {départ aujourd'hui !} =1 {1 jour avant le départ} other {# jours avant le départ}}",
+        "cta": "Voir mon équipe"
       },
       "volunteerPending": {
         "title": "Inscription bénévole en attente",
-        "description": "Votre inscription est en cours d'examen par les organisateurs."
+        "description": "Votre inscription est en cours d'examen par les organisateurs.",
+        "cta": "Gérer mon inscription",
+        "fullDescription": "Votre inscription est en cours d'examen par les organisateurs. Vous serez notifié une fois validée."
       },
       "volunteerDashboard": {
-        "title": "Vous êtes bénévole"
+        "title": "Vous êtes bénévole",
+        "description": "Votre inscription bénévole est validée. Merci de votre engagement !",
+        "cta": "Voir mon inscription"
       },
       "volunteerCancelled": {
-        "title": "Inscription bénévole annulée"
+        "title": "Inscription annulée",
+        "description": "Votre inscription a été annulée pour cette édition. Vous pouvez vous réinscrire (nouvelle équipe, documents conservés) ou contacter l'organisation en cas de doute.",
+        "cta": "Se réinscrire",
+        "ctaSecondary": "Voir les détails"
       },
       "registrationClosed": {
         "title": "Inscriptions fermées",
-        "description": "La période d'inscription est terminée."
+        "description": "La période d'inscription est terminée.",
+        "cardTitle": "Inscriptions fermées",
+        "cardDescription": "La période d'inscription est terminée. Pour toute question, n'hésitez pas à contacter l'organisation."
       }
     }
   },
@@ -110,18 +197,18 @@
     },
     "participantCard": {
       "cardTitle": "Inscription au Raid",
-      "cardDescription": "Inscrivez-vous pour participer au Raid avec un coéquipier.",
+      "cardDescription": "Inscrivez-vous pour participer au Raid avec un coéquipier / une coéquipière.",
       "stepIdentity": "Informations",
       "stepTeam": "Équipe",
       "identityTitle": "Complétez vos informations",
       "identitySubtitle": "Téléphone et date de naissance — nécessaires pour participer.",
       "createTitle": "Créer votre équipe",
       "joinTitle": "Rejoindre votre équipe",
-      "createSubtitle": "Une équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier.",
+      "createSubtitle": "Une équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier / une coéquipière.",
       "joinSubtitle": "Vous allez rejoindre une équipe existante.",
       "createButton": "Créer mon équipe",
       "joinButton": "Rejoindre l'équipe",
-      "confirmCreateDescription": "Une nouvelle équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier.",
+      "confirmCreateDescription": "Une nouvelle équipe sera créée à votre nom. Vous pourrez ensuite inviter un coéquipier / une coéquipière.",
       "confirmJoinDescription": "Vous allez rejoindre une équipe existante.",
       "confirmCreate": "Créer",
       "confirmJoin": "Rejoindre",
@@ -129,7 +216,9 @@
       "alreadyVolunteerDescription": "Vous êtes déjà inscrit comme bénévole. Annulez cette inscription pour devenir participant.",
       "teamJoined": "Équipe rejointe avec succès",
       "teamCreated": "Équipe créée avec succès",
-      "teamNameDefault": "Équipe de {firstname} {name}"
+      "teamNameDefault": "Équipe de {firstname} {name}",
+      "alreadyRegisteredTitle": "Inscription existante",
+      "alreadyRegisteredDescription": "Vous avez déjà une inscription pour cette édition."
     },
     "identity": {
       "firstname": "Prénom",
@@ -158,9 +247,9 @@
       "subtitle": "Gérez votre binôme et finalisez les informations de chaque participant."
     },
     "empty": {
-      "title": "Aucun coéquipier pour l'instant",
-      "description": "Invitez un coéquipier pour compléter votre équipe.",
-      "invite": "Inviter un coéquipier"
+      "title": "Aucun coéquipier / aucune coéquipière pour l'instant",
+      "description": "Invitez un coéquipier / une coéquipière pour compléter votre équipe.",
+      "invite": "Inviter un coéquipier / une coéquipière"
     },
     "status": {
       "title": "Statut de mon inscription",
@@ -171,10 +260,11 @@
       "validated": "Validé",
       "validatedDescription": "Félicitations, votre inscription est validée.",
       "cancelled": "Annulé",
-      "cancelledDescription": "Votre inscription a été annulée.",
+      "cancelledDescription": "Votre inscription a été annulée. Vous pouvez la rouvrir pour la reprendre, ou vous réinscrire depuis l'accueil.",
       "submit": "Soumettre mon inscription",
       "reopen": "Rouvrir",
-      "progressHint": "Progression {progress}% — complétez pour soumettre"
+      "progressHint": "Progression {progress}% — complétez pour soumettre",
+      "cannotReopenValidated": "Seule l'organisation peut rouvrir une inscription validée."
     },
     "documentsCard": {
       "title": "Documents",
@@ -191,7 +281,8 @@
       "closed": "Inscriptions fermées",
       "progress": "Progression de l'inscription",
       "cancel": "Annuler",
-      "edit": "Éditer"
+      "edit": "Éditer",
+      "honourStatement": "En cochant cette case, vous certifiez sur l'honneur que les informations que vous avez renseignées sont exactes, que vous avez bien lu et compris le règlement de la compétition, et que vous vous engagez à le respecter."
     },
     "participantCard": {
       "captain": "Capitaine",
@@ -202,14 +293,14 @@
       "progress": "Progression du dossier"
     },
     "inviteDialog": {
-      "title": "Inviter un coéquipier",
-      "description": "Générez un lien d'invitation personnel et partagez-le avec votre coéquipier. Il pourra rejoindre votre équipe en un clic.",
+      "title": "Inviter un coéquipier / une coéquipière",
+      "description": "Générez un lien d'invitation personnel et partagez-le avec votre coéquipier / votre coéquipière. Il / elle pourra rejoindre votre équipe en un clic.",
       "linkOnce": "Ce lien est unique et ne peut être utilisé qu'une seule fois.",
       "generate": "Générer un lien d'invitation",
       "close": "Fermer",
       "copy": "Copier",
       "linkCopiedTitle": "Lien d'invitation copié",
-      "linkCopiedDescription": "Partagez-le avec votre coéquipier.",
+      "linkCopiedDescription": "Partagez-le avec votre coéquipier / votre coéquipière.",
       "linkGeneratedTitle": "Lien généré",
       "linkGeneratedDescription": "Copiez le lien manuellement.",
       "copiedTitle": "Lien copié",
@@ -226,14 +317,17 @@
       "downloadErrorDescription": "Impossible de télécharger le fichier"
     },
     "invite": {
-      "dialogTitle": "Inviter un coéquipier",
-      "description": "Partagez ce lien avec votre coéquipier pour qu'il rejoigne votre équipe.",
+      "dialogTitle": "Inviter un coéquipier / une coéquipière",
+      "description": "Partagez ce lien avec votre coéquipier / votre coéquipière pour qu'il / qu'elle rejoigne votre équipe.",
       "copyLink": "Copier le lien"
     },
     "join": {
       "dialogTitle": "Rejoindre une équipe",
       "description": "Vous avez été invité à rejoindre une équipe.",
-      "confirm": "Rejoindre"
+      "confirm": "Rejoindre",
+      "changeTitle": "Rejoindre une équipe",
+      "changeDescription": "Vous vous apprêtez à rejoindre une équipe et quitter votre équipe actuelle. Toutes vos informations seront transférées à votre nouvelle équipe.",
+      "confirmChange": "Rejoindre l'équipe"
     },
     "documents": {
       "title": "Documents",
@@ -264,7 +358,14 @@
       "emergencyFirstname": "Prénom",
       "emergencyName": "Nom",
       "emergencyPhone": "Téléphone",
-      "validate": "Valider"
+      "validate": "Valider",
+      "consentRequired": "Veuillez cocher la case de consentement pour enregistrer la fiche de sécurité.",
+      "emergencyRequired": "Nom, prénom et téléphone de la personne à prévenir sont requis.",
+      "phoneInvalid": "Numéro de téléphone invalide.",
+      "savedTitle": "Fiche de sécurité enregistrée",
+      "savedDescription": "Vos informations médicales ont bien été enregistrées.",
+      "saveErrorTitle": "Erreur lors de l'enregistrement",
+      "saveErrorDescription": "Vérifiez le consentement et les champs obligatoires, puis réessayez."
     },
     "participantView": {
       "address": "Adresse",
@@ -279,13 +380,25 @@
       "idCard": "Carte d'identité",
       "medicalCertificate": "Certificat médical",
       "securityFile": "Fiche de sécurité",
+      "teammateSecurityFileNote": "Pour des raisons de confidentialité, la fiche de sécurité de votre coéquipier / coéquipière n'est ni visible ni modifiable ici. Chaque participant / participante doit remplir sa propre fiche depuis sa fiche participant.",
+      "teammateSecurityFileUnavailable": "Visible uniquement par son propriétaire",
       "parentAuthorization": "Autorisation parentale",
-      "isScholarship": "Je suis boursier",
+      "isScholarship": "Je suis boursier / boursière",
       "scholarshipAttestation": "Attestation de bourse",
+      "scholarshipReductionNotice": "À noter : le tarif boursier ne s'appliquera qu'après la validation de votre attestation de bourse et de votre carte étudiante par l'organisation.",
+      "scholarshipStudentOnly": "La bourse est réservée aux étudiants et étudiantes (Centrale Lyon ou autre école). Décochez « Je suis boursier / boursière » ou modifiez votre situation.",
       "raidRules": "Règlement du raid",
       "honourAttestation": "Attestation sur l'honneur",
       "save": "Enregistrer",
-      "noTShirt": "Pas de Tshirt"
+      "noTShirt": "Pas de Tshirt",
+      "profileUpdated": "Profil mis à jour",
+      "profileUpdatedDescription": "Vos informations ont été mises à jour avec succès",
+      "bikeSizeError": "Veuillez renseigner une taille de vélo valide",
+      "emergencyLastNameError": "Veuillez renseigner le nom de la personne à contacter",
+      "emergencyFirstNameError": "Veuillez renseigner le prénom de la personne à contacter",
+      "phoneError": "Veuillez renseigner un numéro de téléphone",
+      "phoneInvalidError": "Veuillez renseigner un numéro de téléphone valide",
+      "tshirtAlreadyPaidError": "Vous avez déjà payer pour un t-shirt, veuillez choisir un"
     },
     "edit": {
       "teamName": "Nom d'équipe",
@@ -293,7 +406,14 @@
       "route": "Parcours",
       "save": "Enregistrer",
       "selectMeetingPlace": "Selectionner un lieu de rendez-vous",
-      "selectRoute": "Selectionner un parcours"
+      "selectRoute": "Selectionner un parcours",
+      "bikeSizeError": "Veuillez renseigner une taille de vélo valide",
+      "emergencyLastNameError": "Veuillez renseigner le nom de la personne à contacter",
+      "emergencyFirstNameError": "Veuillez renseigner le prénom de la personne à contacter",
+      "phoneError": "Veuillez renseigner un numéro de téléphone",
+      "phoneInvalidError": "Veuillez renseigner un numéro de téléphone valide",
+      "tshirtAlreadyPaidError": "Vous avez déjà payer pour un t-shirt, veuillez choisir un",
+      "teamUpdated": "Équipe mise à jour"
     }
   },
   "volunteer": {
@@ -314,7 +434,9 @@
       "save": "Enregistrer",
       "unregister": "Se désinscrire",
       "unregisterTitle": "Se désinscrire du bénévolat",
-      "unregisterDescription": "Vous êtes sur le point d'annuler votre inscription bénévole. Cette action peut être réversible seulement par l'organisation."
+      "unregisterDescription": "Vous êtes sur le point d'annuler votre inscription bénévole. Cette action peut être réversible seulement par l'organisation.",
+      "reopen": "Réactiver mon inscription",
+      "reopenDescription": "Votre inscription a été annulée. Réactivez-la pour modifier vos informations et la soumettre à nouveau à l'organisation."
     },
     "register": {
       "title": "Inscription bénévole",
@@ -368,6 +490,22 @@
       "fullyValidated": "Votre dossier est totalement validé !"
     }
   },
+  "participant": {
+    "payment": {
+      "pay": "Payer",
+      "title": "Payer l'inscription",
+      "summary": "Récapitulatif",
+      "participation": "Participation",
+      "tshirt": "T-Shirt taille {size}",
+      "total": "Total",
+      "paymentProviderInfo": "Information sur le prestataire de paiement",
+      "helloAssoDescription": "Vous allez être redirigé vers HelloAsso pour procéder au paiement de votre inscription. Ce service ne prend aucun frais sur les paiements, il se repose uniquement sur les dons. Par défaut, HelloAsso vous propose de faire un don. Si vous choisissez de le faire, seul HelloAsso en bénéficiera.",
+      "fullyValidated": "Votre dossier est totalement validé !",
+      "studentWarningTitle": "Carte étudiante non validée",
+      "studentWarningDescription": "Votre carte étudiante n'est pas encore validée. Si vous procédez au paiement maintenant, vous payez le tarif étudiant. Cependant, si votre carte est finalement refusée, il vous faudra repayer la différence entre le tarif étudiant et le tarif externe.",
+      "priceReductionNotice": "Important : le tarif réduit (étudiant ou boursier) ne s'applique qu'une fois votre carte étudiante et/ou votre attestation de bourse validées par l'organisation. Tant que ces justificatifs ne sont pas validés, le tarif plein reste dû."
+    }
+  },
   "profile": {
     "title": "Mon profil",
     "identity": "Identité",
@@ -386,7 +524,23 @@
       "configuration": "Configuration"
     },
     "dashboard": {
-      "title": "Tableau de bord"
+      "title": "Tableau de bord",
+      "registeredParticipants": "Participants inscrits",
+      "registeredParticipantsDesc": "inscriptions débutées",
+      "formedTeams": "Binômes constitués",
+      "formedTeamsDesc": "{count} participants sans binôme",
+      "paymentsDone": "Paiements effectués",
+      "paymentsDoneDesc": "{count} paiements manquants",
+      "validatedTeams": "Équipes validées",
+      "validatedTeamsDesc": "dossiers complets validés et payés",
+      "volunteers": "Bénévoles",
+      "volunteersDesc": "{count} en attente de validation",
+      "registeringDeadline": "Clôture des inscriptions",
+      "noDeadline": "Date non renseignée",
+      "daysLeft": "{count} jours restants",
+      "registrationsClosed": "Inscriptions fermées",
+      "noEndDate": "Date de fin non renseignée",
+      "description": "Vision globale des inscriptions participants et bénévoles."
     },
     "editions": {
       "title": "Éditions",
@@ -474,7 +628,52 @@
         "refuse": "Refuser",
         "download": "Télécharger",
         "noDocument": "Aucun document"
-      }
+      },
+      "securityFiles": "Fiches sécurité",
+      "securityFilesFile": "Fiches_Sécurités",
+      "pairUp": "Coéquiper",
+      "teammate": "Coéquipier",
+      "teams": "Equipes",
+      "name": "Nom",
+      "captain": "Capitaine",
+      "documents": "Documents",
+      "registration": "Inscription",
+      "teamsPerPage": "Equipes par page",
+      "enableColumns": "Activer les colonnes",
+      "filterTeams": "Filtrer les équipes...",
+      "teamWithoutTeammate": "Equipe sans coéquipier / coéquipière",
+      "deleteAllTitle": "Suppression de toutes les équipes",
+      "deleteAllDescription": "Êtes-vous sûr de vouloir supprimer TOUTES les équipes ? Cette action est irréversible et supprimera définitivement toutes les équipes existantes.",
+      "deleteTeamConfirm": "Etes-vous sûr de vouloir supprimer cette équipe ?",
+      "mergeTeam": "Fusionner avec une autre équipe",
+      "deleteTeam": "Supprimer l'équipe",
+      "selectionImpossible": "Sélection impossible",
+      "mergeFullTeamError": "Impossible de fusionner une équipe complète",
+      "allTeams": "Toutes les équipes",
+      "validatedTeams": "Equipes validées",
+      "teamUpdated": "Équipe mise à jour",
+      "documentTab": {
+        "downloadError": "Erreur lors du téléchargement",
+        "downloadErrorDescription": "Le document n'a pas pu être téléchargé, veuillez réessayer.",
+        "validatedSuccess": "Document validé avec succès",
+        "paymentValidatedSuccess": "Paiement validé avec succès",
+        "tshirtPaymentValidatedSuccess": "Paiement du T-Shirt validé avec succès",
+        "idCard": "Carte d'identité",
+        "medicalCertificate": "Certificat médical",
+        "raidRules": "Réglement",
+        "studentCard": "Carte étudiante"
+      },
+      "team": "Equipe",
+      "course": "Parcours",
+      "meetingPlace": "Lieu de rendez-vous",
+      "cancelMerge": "Annuler la fusion",
+      "removeMember": "Retirer un membre",
+      "teamFiles": "Dossiers_Equipes",
+      "sheet": {
+        "dossierComplete": "Dossier complété à ",
+        "noTeammate": "Sans coéquipier / coéquipière"
+      },
+      "noTeammateAdded": "Aucun coéquipier / coéquipière n'a été ajouté à cette équipe."
     },
     "volunteers": {
       "title": "Bénévoles",
@@ -523,7 +722,11 @@
         "noAllergy": "Aucune allergie",
         "car": "Voiture",
         "paymentOk": "Paiement OK",
-        "paymentPending": "Paiement en attente"
+        "paymentPending": "Paiement en attente",
+        "emergency": "Contact d'urgence",
+        "emergencyContact": "Personne à contacter",
+        "emergencyPhone": "Téléphone de la personne à contacter",
+        "emergencyMissing": "Contact d'urgence incomplet : la validation est bloquée tant que le bénévole n'a pas renseigné un nom et un téléphone à contacter."
       }
     },
     "information": {
@@ -577,7 +780,11 @@
         "firstname": "Prénom",
         "lastname": "Nom",
         "phone": "Téléphone",
-        "validate": "Valider"
+        "validate": "Valider",
+        "firstnameError": "Veuillez renseigner votre prénom",
+        "nameError": "Veuillez renseigner votre nom",
+        "phoneError": "Veuillez renseigner un numéro de téléphone",
+        "phoneInvalidError": "Veuillez renseigner un numéro de téléphone valide"
       },
       "dateNotSet": "Date non définie",
       "raidRulesFile": "Réglement du raid",
@@ -589,7 +796,19 @@
     "fallback": {
       "title": "Aucune édition active",
       "description": "Créez une nouvelle édition pour commencer.",
-      "createEdition": "Gérer les éditions"
+      "createEdition": "Créer l'édition",
+      "createFirstTitle": "Créer la première édition",
+      "createFirstDescription": "Aucune édition active pour le moment. Créez-en une pour ouvrir les inscriptions participants et bénévoles."
+    },
+    "stats": {
+      "title": "Statistiques",
+      "course": "Parcours",
+      "start": "Départ",
+      "situation": "Situation",
+      "bikeSize": "VTT",
+      "tShirtSize": "T-Shirt",
+      "allTeams": "Toutes les équipes",
+      "validatedTeams": "Equipes validées"
     }
   },
   "errors": {
@@ -597,5 +816,54 @@
     "network": "Problème de connexion au serveur.",
     "permission": "Vous n'avez pas les droits pour effectuer cette action.",
     "registerClosed": "Les inscriptions sont fermées."
+  },
+  "toast": {
+    "success": "Succès",
+    "updateErrorTitle": "Erreur lors de la mise à jour",
+    "updateErrorDescription": "Une erreur est survenue, veuillez réessayer.",
+    "updateErrorLaterDescription": "Une erreur est survenue, veuillez réessayer plus tard",
+    "priceUpdated": "Le prix a été mis à jour avec succès",
+    "informationUpdated": "Les informations ont été mises à jour avec succès",
+    "documentUploadErrorTitle": "Erreur lors de l'ajout du document",
+    "documentValidated": "Le document a été validé avec succès",
+    "validationErrorTitle": "Erreur lors de la validation",
+    "memberKicked": "Le membre a été exclu avec succès",
+    "teamDeleted": "L'équipe a été supprimée avec succès",
+    "kickErrorTitle": "Erreur lors de l'exclusion",
+    "teamsDeleted": "Toutes les équipes ont été supprimées avec succès",
+    "teamsMerged": "Les équipes ont été fusionnées avec succès",
+    "mergeErrorTitle": "Erreur lors de la fusion des équipes",
+    "volunteerValidated": "Bénévole validé",
+    "volunteerCancelled": "Bénévole annulé",
+    "volunteerDeleted": "Bénévole supprimé",
+    "editionCreated": "Édition créée",
+    "editionUpdated": "Édition mise à jour",
+    "editionDeleted": "Édition supprimée",
+    "inviteCreated": "Invitation créée",
+    "inviteCreatedDescription": "Le lien d'invitation a été créé avec succès",
+    "joinedTeam": "Vous avez rejoint l'équipe avec succès",
+    "registrationCreated": "Inscription créée",
+    "participantUpdated": "Participant mis à jour",
+    "teamCreated": "L'équipe a été créée avec succès",
+    "volunteerRegistered": "Inscription bénévole enregistrée",
+    "volunteerProfileUpdated": "Profil bénévole mis à jour",
+    "volunteerUnregistered": "Désinscription enregistrée",
+    "volunteerRegistrationDeleted": "Inscription bénévole supprimée",
+    "registrationSubmitted": "Inscription soumise",
+    "registrationReopened": "Inscription rouverte",
+    "participantValidated": "Participant validé",
+    "participantCancelled": "Participant annulé",
+    "editionCreateErrorTitle": "Erreur lors de la création de l'édition",
+    "editionUpdateErrorTitle": "Erreur lors de la mise à jour de l'édition",
+    "editionToggleErrorTitle": "Erreur lors de la mise à jour de l'inscription",
+    "editionDeleteErrorTitle": "Erreur lors de la suppression de l'édition",
+    "inscriptionsOpened": "Inscriptions ouvertes",
+    "inscriptionsClosed": "Inscriptions fermées",
+    "inscriptionsOpenedDescription": "Les inscriptions à l'édition sont maintenant ouvertes.",
+    "inscriptionsClosedDescription": "Les inscriptions à l'édition sont maintenant fermées.",
+    "volunteerCancelErrorTitle": "Erreur lors de l'annulation",
+    "volunteerDeleteErrorTitle": "Erreur lors de la suppression",
+    "participantUpdateErrorTitle": "Erreur lors de la mise à jour",
+    "volunteerReopened": "Inscription bénévole réactivée"
   }
 }

@@ -121,11 +121,13 @@ function SheetDescription({
   ...props
 }: React.ComponentProps<typeof SheetPrimitive.Description>) {
   return (
-    <SheetPrimitive.Description
-      data-slot="sheet-description"
-      className={cn("text-muted-foreground text-sm", className)}
-      {...props}
-    />
+    <SheetPrimitive.Description asChild>
+      <div
+        data-slot="sheet-description"
+        className={cn("text-muted-foreground text-sm", className)}
+        {...props}
+      />
+    </SheetPrimitive.Description>
   );
 }
 

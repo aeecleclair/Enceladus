@@ -9,11 +9,13 @@ import { useEditions } from "@/hooks/raid/useEditions";
 import { useHasRaidPermission } from "@/hooks/raid/useHasRaidPermission";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
 
 import { CalendarPlus } from "lucide-react";
 
 const AdminFallback = () => {
+  const t = useTranslations("raid.admin.fallback");
   const { createEdition, isCreateLoading } = useEditions();
   const { isRaidAdmin } = useHasRaidPermission();
 
@@ -50,11 +52,10 @@ const AdminFallback = () => {
           </div>
           <div className="space-y-1">
             <h2 className="text-2xl font-bold tracking-tight">
-              Créer la première édition
+              {t("createFirstTitle")}
             </h2>
             <p className="text-sm text-muted-foreground">
-              Aucune édition active pour le moment. Créez-en une pour ouvrir les
-              inscriptions participants et bénévoles.
+              {t("createFirstDescription")}
             </p>
           </div>
         </div>
@@ -62,7 +63,7 @@ const AdminFallback = () => {
           form={form}
           isLoading={isCreateLoading}
           onSubmit={onSubmit}
-          submitLabel="Créer l'édition"
+          submitLabel={t("createEdition")}
         />
       </div>
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import {
@@ -14,26 +15,27 @@ import { Moon, Sun, SunMoon } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export function ThemeButton() {
+  const t = useTranslations("raid.common");
   const { setTheme } = useTheme();
 
   return (
     <MenubarSub>
-      <MenubarSubTrigger>Thème</MenubarSubTrigger>
+      <MenubarSubTrigger>{t("theme")}</MenubarSubTrigger>
       <MenubarSubContent>
         <MenubarItem onClick={() => setTheme("light")}>
-          Clair
+          {t("themeLight")}
           <MenubarShortcut>
             <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           </MenubarShortcut>
         </MenubarItem>
         <MenubarItem onClick={() => setTheme("dark")}>
-          Sombre
+          {t("themeDark")}
           <MenubarShortcut>
             <Moon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           </MenubarShortcut>
         </MenubarItem>
         <MenubarItem onClick={() => setTheme("system")}>
-          Système
+          {t("themeSystem")}
           <MenubarShortcut>
             <SunMoon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           </MenubarShortcut>

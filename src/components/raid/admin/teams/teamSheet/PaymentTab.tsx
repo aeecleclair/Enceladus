@@ -5,6 +5,8 @@ import { useAdminTeam } from "@/hooks/raid/useAdminTeam";
 import { usePayment } from "@/hooks/raid/usePayment";
 import { useTeams } from "@/hooks/raid/useTeams";
 
+import { useTranslations } from "next-intl";
+
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -13,6 +15,8 @@ interface PaymentTabProps {
 }
 
 export const PaymentTab = ({ team }: PaymentTabProps) => {
+  const t = useTranslations("raid.admin.teams.documentTab");
+  const tTeams = useTranslations("raid.admin.teams");
   const { toast } = useToast();
   const { validatePayment, validateTShirtPayment } = usePayment();
   const { refetchTeam } = useAdminTeam(team.id);
@@ -24,7 +28,7 @@ export const PaymentTab = ({ team }: PaymentTabProps) => {
       refetchTeam();
       refetchTeams();
       toast({
-        title: "Paiement validé avec succès",
+        title: t("paymentValidatedSuccess"),
       });
     });
   }
@@ -35,7 +39,7 @@ export const PaymentTab = ({ team }: PaymentTabProps) => {
       refetchTeam();
       refetchTeams();
       toast({
-        title: "Paiement du T-Shirt validé avec succès",
+        title: t("tshirtPaymentValidatedSuccess"),
       });
     });
   }
@@ -56,7 +60,7 @@ export const PaymentTab = ({ team }: PaymentTabProps) => {
       ) : (
         <Card className="flex min-h-50 items-center justify-center border-dashed border-border/60 bg-muted/10">
           <CardContent className="p-6 text-center text-sm text-muted-foreground">
-            Aucun coéquipier n&apos;a été ajouté à cette équipe.
+            {tTeams("noTeammateAdded")}
           </CardContent>
         </Card>
       )}

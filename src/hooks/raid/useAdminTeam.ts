@@ -10,6 +10,7 @@ import {
 import { useAuth } from "@/app/authContext";
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
@@ -17,6 +18,7 @@ export const useAdminTeam = (teamId: string) => {
   const { isTokenExpired } = useAuth();
   const { isRaidAdmin } = useHasRaidPermission();
   const { toast } = useToast();
+  const t = useTranslations("raid.toast");
   const queryClient = useQueryClient();
   const reportError = useReportError();
 
@@ -35,19 +37,19 @@ export const useAdminTeam = (teamId: string) => {
   const { mutate: mutateKickMember, isPending: isKickLoading } = useMutation({
     ...postRaidTeamsTeamIdKickUserIdMutation(),
     onSuccess: () => {
-      toast({ title: "Le membre a été exclu avec succès" });
+      toast({ title: t("memberKicked") });
       queryClient.invalidateQueries({ queryKey: teamQueryKey });
     },
-    onError: reportError("Erreur lors de l'exclusion"),
+    onError: reportError(t("kickErrorTitle")),
   });
 
   const { mutate: mutateDeleteTeam, isPending: isDeleteLoading } = useMutation({
     ...deleteRaidTeamsTeamIdMutation(),
     onSuccess: () => {
-      toast({ title: "L'équipe a été supprimée avec succès" });
+      toast({ title: t("teamDeleted") });
       queryClient.removeQueries({ queryKey: teamQueryKey });
     },
-    onError: reportError("Erreur lors de la suppression"),
+    onError: reportError(t("updateErrorTitle")),
   });
 
   const kickMember = (memberUserId: string, callback: () => void) => {

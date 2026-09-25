@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
 
@@ -23,6 +24,8 @@ export const ConfirmationCheckbox = ({
   field,
   needDialog,
 }: ConfirmationCheckboxProps) => {
+  const tCommon = useTranslations("raid.common");
+  const t = useTranslations("raid.team.card");
   const [open, setIsOpen] = useState(false);
 
   function handleCheckboxChange() {
@@ -58,16 +61,14 @@ export const ConfirmationCheckbox = ({
         <DialogHeader>
           <DialogTitle>{label}</DialogTitle>
         </DialogHeader>
-        <DialogDescription>
-          {
-            "En cochant cette case, vous certifiez sur l'honneur que les informations que vous avez renseignées sont exactes, que vous avez bien lu et compris le règlement de la compétition, et que vous vous engagez à le respecter."
-          }
-        </DialogDescription>
+        <DialogDescription>{t("honourStatement")}</DialogDescription>
         <div className="flex justify-end mt-2 space-x-4">
           <Button variant="outline" onClick={() => setIsOpen(false)}>
-            Annuler
+            {tCommon("cancel")}
           </Button>
-          <Button onClick={handleCheckboxButtonClick}>Valider</Button>
+          <Button onClick={handleCheckboxButtonClick}>
+            {tCommon("validate")}
+          </Button>
         </div>
       </DialogContent>
     </Dialog>

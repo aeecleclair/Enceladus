@@ -8,7 +8,7 @@ import { useVolunteerPaymentUrl } from "@/hooks/raid/useVolunteerPaymentUrl";
 import { useRouter } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,15 +25,19 @@ export const VolunteerPaymentButton = () => {
   const { paymentUrl, isLoading, refetchUrl } = useVolunteerPaymentUrl();
   const [isOpened, setIsOpened] = useState(false);
   const router = useRouter();
-  if (!isLoading && !!paymentUrl) {
-    router.push(paymentUrl.url);
-  }
+  useEffect(() => {
+    if (!isLoading && !!paymentUrl) {
+      router.push(paymentUrl.url);
+    }
+  }, [isLoading, paymentUrl, router]);
   const registeredPrice = !!price?.volunteer_price;
+  const isCancelled = !!meVolunteer?.cancelled;
 
   const mustPay = !meVolunteer?.payment;
 
   return (
-    registeredPrice && (
+    registeredPrice &&
+    !isCancelled && (
       <>
         <WarningDialog
           isOpened={isOpened}
@@ -66,7 +70,7 @@ export const VolunteerPaymentButton = () => {
         />
         <TooltipProvider>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <Button
                 className="col-span-4 ml-auto w-25"
                 disabled={!mustPay}

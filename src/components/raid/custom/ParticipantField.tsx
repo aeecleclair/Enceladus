@@ -8,6 +8,7 @@ import {
   Size,
 } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
 import { ConfirmationCheckbox } from "@/components/raid/home/participantView/ConfirmationCheckbox";
 import { SecurityFileDialog } from "@/components/raid/home/participantView/SecurityFileDialog";
 import { useDocument } from "@/hooks/raid/useDocument";
@@ -21,6 +22,7 @@ import {
 } from "@/lib/raid/comboboxValues";
 
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { useTranslations } from "next-intl";
 import { useState } from "react";
 import {
   ControllerRenderProps,
@@ -48,8 +50,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/components/ui/use-toast";
-
-import PhoneInput from "react-phone-input-2";
 
 type ValueType =
   | string
@@ -114,6 +114,8 @@ export function ParticipantField<
   // once — react-hook-form's UseFormReturn generic is invariant, so a specific
   // form is not assignable to UseFormReturn<FieldValues> without this.
   const form = typedForm as unknown as UseFormReturn<FieldValues>;
+  const t = useTranslations("raid.common.docStatus");
+  const tCommon = useTranslations("raid.common");
   const { toast } = useToast();
   const [isFileLoading, setIsFileLoading] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -125,8 +127,7 @@ export function ParticipantField<
     fetchDocument(documentId).then((data) => {
       if (!data) {
         toast({
-          title: "Erreur",
-          description: "Impossible de télécharger le fichier",
+          title: tCommon("downloadError"),
           variant: "destructive",
         });
         setIsFileLoading(false);
@@ -210,11 +211,11 @@ export function ParticipantField<
                     <>
                       {field.value?.name ? (
                         <span className="text-gray-500 overflow-hidden">
-                          {field.value.name ?? "Aucun fichier séléctionné"}
+                          {field.value.name ?? tCommon("noFileSelected")}
                         </span>
                       ) : (
                         <span className="font-semibold  mr-6">
-                          Choisir un fichier
+                          {t("chooseFile")}
                         </span>
                       )}
                     </>
@@ -269,11 +270,11 @@ export function ParticipantField<
                     <>
                       {field.value?.updated || field.value?.id ? (
                         <span className="text-gray-500 overflow-hidden">
-                          {"Fiche de sécurité"}
+                          {t("securityFileButton")}
                         </span>
                       ) : (
                         <span className="font-semibold mr-6">
-                          {"Remplir la fiche de sécurité"}
+                          {t("fillSecurityFile")}
                         </span>
                       )}
                     </>
@@ -349,14 +350,7 @@ export function ParticipantField<
           <div className="col-span-4">
             <FormMessage />
             <FormControl>
-              <PhoneInput
-                country={"fr"}
-                specialLabel=""
-                placeholder="+33 6 06 06 06 06"
-                inputClass="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                dropdownClass="z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
-                {...field}
-              />
+              <PhoneCustomInput placeholder={placeholder} {...field} />
             </FormControl>
           </div>
         );

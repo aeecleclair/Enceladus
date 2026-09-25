@@ -3,6 +3,7 @@
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
 import { Table } from "@tanstack/react-table";
+import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -20,20 +21,21 @@ interface DataTableViewOptionsProps<TData> {
 export function DataTableViewOptions<TData>({
   table,
 }: DataTableViewOptionsProps<TData>) {
+  const t = useTranslations("raid.admin.teams");
   function getColumnName(key: string) {
     switch (key) {
       case "second":
-        return "Coéquipier";
+        return t("teammate");
       case "captain":
-        return "Capitaine";
+        return t("captain");
       case "difficulty":
-        return "Parcours";
+        return t("course");
       case "meeting_place":
-        return "Lieu de rendez-vous";
+        return t("meetingPlace");
       case "validation_progress":
-        return "Inscription";
+        return t("registration");
       case "document_progress":
-        return "Documents";
+        return t("documents");
       default:
         return key;
     }
@@ -52,7 +54,7 @@ export function DataTableViewOptions<TData>({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-45">
-        <DropdownMenuLabel>Activer les colonnes</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("enableColumns")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {table
           .getAllColumns()

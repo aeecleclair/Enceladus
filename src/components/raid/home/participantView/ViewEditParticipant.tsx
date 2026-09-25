@@ -6,6 +6,7 @@ import {
 import { ParticipantInfo } from "@/components/raid/custom/ParticipantInfo";
 import { useMeParticipant } from "@/hooks/raid/useMeParticipant";
 import { useMeTeam } from "@/hooks/raid/useMeTeam";
+import { isValidPhone } from "@/lib/phone";
 import { getLabelFromValue, situations } from "@/lib/raid/comboboxValues";
 import { getSituationLabel, getSituationTitle } from "@/lib/raid/teamUtils";
 
@@ -20,6 +21,8 @@ import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 
+import { LockKeyhole } from "lucide-react";
+
 interface ViewEditParticipantProps {
   participant: RaidParticipant;
   isEdit: boolean;
@@ -32,9 +35,13 @@ export const ViewEditParticipant = ({
   setIsEdit,
 }: ViewEditParticipantProps) => {
   const { toast } = useToast();
-  const { updateParticipant, isUpdateLoading } = useMeParticipant();
+  const { me, updateParticipant, isUpdateLoading } = useMeParticipant();
   const { refetchTeam } = useMeTeam();
   const t = useTranslations("raid.team.participantView");
+  const isOwnFile = participant.user_id === me?.user_id;
+  const isStudentSituation =
+    !participant.situation ||
+    ["centrale", "otherSchool"].includes(participant.situation);
 
   const formSchema = z
     .object({
@@ -50,7 +57,7 @@ export const ViewEditParticipant = ({
           (value) => {
             return ["xs", "s", "m", "l", "xl"].includes(value);
           },
-          { message: "Veuillez renseigner une taille de vélo valide" },
+          { message: t("bikeSizeError") },
         )
         .optional(),
       tShirtSize: z
@@ -132,20 +139,19 @@ export const ViewEditParticipant = ({
           id: z.uuid(),
           updated: z.boolean(),
           emergency_person_name: z.string().min(1, {
-            message: "Veuillez renseigner le nom de la personne à contacter",
+            message: t("emergencyLastNameError"),
           }),
           emergency_person_firstname: z.string().min(1, {
-            message: "Veuillez renseigner le prénom de la personne à contacter",
+            message: t("emergencyFirstNameError"),
           }),
           emergency_person_phone: z
             .string({
-              error: "Veuillez renseigner un numéro de téléphone",
+              error: t("phoneError"),
             })
-            .min(10, {
-              message: "Veuillez renseigner un numéro de téléphone valide",
-            })
-            .max(14, {
-              message: "Veuillez renseigner un numéro de téléphone valide",
+            // PhoneCustomInput stores E.164; isValidPhone accepts E.164 and
+            // legacy digits-only values alike.
+            .refine(isValidPhone, {
+              message: t("phoneInvalidError"),
             }),
           validation: z.enum(["pending", "accepted", "refused", "temporary"]),
         })
@@ -155,7 +161,7 @@ export const ViewEditParticipant = ({
     .refine(
       (data) => !(data.tShirtSize === "no" && participant.t_shirt_payment),
       {
-        message: "Vous avez déjà payer pour un t-shirt, veuillez choisir un",
+        message: t("tshirtAlreadyPaidError"),
         path: ["tShirtSize"],
       },
     );
@@ -271,6 +277,11 @@ export const ViewEditParticipant = ({
       address: values.address ?? null,
       diet: values.diet ?? null,
       attestation_on_honour: values.attestationHonour,
+      // Scholarship is restricted to students: never send the flag for a
+      // non-student situation (backend enforces the same rule).
+      has_scholarship:
+        (values.hasScholarship ?? false) &&
+        (situation === "centrale" || situation === "otherSchool"),
     };
     for (const doc of documentToUpdate) {
       switch (doc.type) {
@@ -297,8 +308,8 @@ export const ViewEditParticipant = ({
 
     updateParticipant(updatedParticipant, participant.user_id, () => {
       toast({
-        title: "Profil mis à jour",
-        description: "Vos informations ont été mises à jour avec succès",
+        title: t("profileUpdated"),
+        description: t("profileUpdatedDescription"),
       });
       refetchTeam();
       setIsEdit(!isEdit);
@@ -492,6 +503,12 @@ export const ViewEditParticipant = ({
             isEdit ? "" : "space-y-4"
           }`}
         >
+          {!isOwnFile && (
+            <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/30 p-3 text-sm text-muted-foreground">
+              <LockKeyhole className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{t("teammateSecurityFileNote")}</span>
+            </div>
+          )}
           {isEdit ? (
             <>
               <ParticipantField
@@ -547,13 +564,15 @@ export const ViewEditParticipant = ({
                 type={ValueTypes.DOCUMENT}
                 participantId={participant.user_id}
               />
-              <ParticipantField
-                label={t("securityFile")}
-                id="securityFile"
-                form={form}
-                type={ValueTypes.SECURITYFILE}
-                participantId={participant.user_id}
-              />
+              {isOwnFile && (
+                <ParticipantField
+                  label={t("securityFile")}
+                  id="securityFile"
+                  form={form}
+                  type={ValueTypes.SECURITYFILE}
+                  participantId={participant.user_id}
+                />
+              )}
               {participant.is_minor && (
                 <ParticipantField
                   label={t("parentAuthorization")}
@@ -563,21 +582,30 @@ export const ViewEditParticipant = ({
                   participantId={participant.user_id}
                 />
               )}
-              <ParticipantField
-                label={t("isScholarship")}
-                id="hasScholarship"
-                form={form}
-                type={ValueTypes.BOOLEAN}
-              />
-              {form.watch("hasScholarship") && (
+              {/* Scholarship is restricted to students: hidden for any other
+                  situation (the backend enforces the same rule). */}
+              {isStudentSituation && (
                 <ParticipantField
-                  label={t("scholarshipAttestation")}
-                  id="schoolAuthorization"
+                  label={t("isScholarship")}
+                  id="hasScholarship"
                   form={form}
-                  type={ValueTypes.DOCUMENT}
-                  layer={1}
-                  participantId={participant.user_id}
+                  type={ValueTypes.BOOLEAN}
                 />
+              )}
+              {isStudentSituation && form.watch("hasScholarship") && (
+                <>
+                  <ParticipantField
+                    label={t("scholarshipAttestation")}
+                    id="schoolAuthorization"
+                    form={form}
+                    type={ValueTypes.DOCUMENT}
+                    layer={1}
+                    participantId={participant.user_id}
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    {t("scholarshipReductionNotice")}
+                  </p>
+                </>
               )}
               <ParticipantField
                 label={t("raidRules")}
@@ -630,10 +658,24 @@ export const ViewEditParticipant = ({
                 value={participant.medical_certificate}
                 participantId={participant.user_id}
               />
-              <ParticipantInfo
-                label={t("securityFile")}
-                value={participant.security_file}
-              />
+              {isOwnFile ? (
+                <ParticipantInfo
+                  label={t("securityFile")}
+                  value={participant.security_file}
+                />
+              ) : (
+                <div className="grid p-2 grid-cols-6 items-center w-full">
+                  <span className="font-semibold text-left my-auto col-span-2">
+                    {t("securityFile")}
+                  </span>
+                  <div className="col-span-4 flex items-center justify-end gap-2 text-right">
+                    <LockKeyhole className="h-4 w-4 shrink-0 text-muted-foreground" />
+                    <span className="text-muted-foreground">
+                      {t("teammateSecurityFileUnavailable")}
+                    </span>
+                  </div>
+                </div>
+              )}
               {participant.is_minor && (
                 <ParticipantInfo
                   label={t("parentAuthorization")}
@@ -641,10 +683,12 @@ export const ViewEditParticipant = ({
                   participantId={participant.user_id}
                 />
               )}
-              <ParticipantInfo
-                label={t("isScholarship")}
-                value={participant.has_scholarship}
-              />
+              {isStudentSituation && (
+                <ParticipantInfo
+                  label={t("isScholarship")}
+                  value={participant.has_scholarship}
+                />
+              )}
               {participant.has_scholarship && (
                 <ParticipantInfo
                   label={t("scholarshipAttestation")}

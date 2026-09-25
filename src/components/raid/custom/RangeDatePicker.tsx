@@ -3,6 +3,7 @@
 import { formatDateRange } from "@/lib/dateFormat";
 import { cn } from "@/lib/utils";
 
+import { useTranslations } from "next-intl";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,7 @@ export function RangeDatePicker({
   setDateRange,
   defaultDate,
 }: RangeDatePickerProps) {
+  const t = useTranslations("raid.common");
   const year = new Date().getFullYear();
   return (
     <Popover>
@@ -44,7 +46,7 @@ export function RangeDatePicker({
           {dateRange && dateRange.from && dateRange.to ? (
             formatDateRange(dateRange.from.toString(), dateRange.to.toString())
           ) : (
-            <span>Sélectionner une période</span>
+            <span>{t("selectPeriod")}</span>
           )}
         </Button>
       </PopoverTrigger>

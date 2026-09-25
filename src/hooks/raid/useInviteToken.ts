@@ -3,13 +3,17 @@ import {
   postRaidTeamsJoinTokenMutation,
   postRaidTeamsTeamIdInviteMutation,
 } from "@/api/@tanstack/react-query.gen";
+import { getErrorKey } from "@/lib/raid/errorTyping";
 
 import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 import { useToast } from "@/components/ui/use-toast";
 
 export const useInviteToken = () => {
   const { toast } = useToast();
+  const tApi = useTranslations("raid.apiErrors");
+  const t = useTranslations("raid.toast");
 
   const {
     mutate: mutateCreateInviteToken,
@@ -19,16 +23,17 @@ export const useInviteToken = () => {
     ...postRaidTeamsTeamIdInviteMutation(),
     onSuccess: (data) => {
       toast({
-        title: "Invitation créée",
-        description: "Le lien d'invitation a été créé avec succès",
+        title: t("inviteCreated"),
+        description: t("inviteCreatedDescription"),
       });
       return data;
     },
     onError: (error) => {
       console.error(error);
+      const key = getErrorKey(error);
       toast({
-        title: "Erreur lors de la création de l'invitation",
-        description: "Une erreur est survenue, veuillez réessayer.",
+        title: tApi((key ?? "generic") as never),
+        description: undefined,
         variant: "destructive",
       });
     },
@@ -56,15 +61,16 @@ export const useInviteToken = () => {
     ...postRaidTeamsJoinTokenMutation(),
     onSuccess: () => {
       toast({
-        title: "Succès",
-        description: "Vous avez rejoint l'équipe avec succès",
+        title: t("success"),
+        description: t("joinedTeam"),
       });
     },
     onError: (error) => {
       console.error(error);
+      const key = getErrorKey(error);
       toast({
-        title: "Erreur lors de la jonction",
-        description: "Une erreur est survenue, veuillez réessayer.",
+        title: tApi((key ?? "generic") as never),
+        description: undefined,
         variant: "destructive",
       });
     },

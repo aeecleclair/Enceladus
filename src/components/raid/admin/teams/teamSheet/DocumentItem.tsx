@@ -63,7 +63,7 @@ export const DocumentItem = ({
       <AccordionContent>
         {document ? (
           <div className="flex flex-col gap-4">
-            <div className="flex grid-cols-2 gap-4">
+            <div className="flex w-full gap-2">
               {!isValidated && (
                 <DocumentValidationButton
                   label={t("validate")}

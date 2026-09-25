@@ -3,6 +3,8 @@ import { RaidEdition } from "@/api";
 import { useRouter } from "@/i18n/navigation";
 import { getDaysLeft } from "@/lib/dateFormat";
 
+import { useTranslations } from "next-intl";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -21,6 +23,7 @@ interface FullyRegisteredDashboardProps {
 export const FullyRegisteredDashboard = ({
   edition,
 }: FullyRegisteredDashboardProps) => {
+  const t = useTranslations("raid.home.dashboard.fullyRegistered");
   const router = useRouter();
   const daysLeft = edition?.start_date ? getDaysLeft(edition.start_date) : null;
 
@@ -33,10 +36,8 @@ export const FullyRegisteredDashboard = ({
               <CheckCircle2 className="h-5 w-5" />
             </div>
             <div>
-              <CardTitle>Inscription validée</CardTitle>
-              <CardDescription>
-                Votre dossier est complet. Rendez-vous au départ du Raid !
-              </CardDescription>
+              <CardTitle>{t("title")}</CardTitle>
+              <CardDescription>{t("cardDescription")}</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -47,7 +48,7 @@ export const FullyRegisteredDashboard = ({
           <CardContent className="pt-6 text-center">
             <div className="text-6xl font-bold tracking-tight">{daysLeft}</div>
             <div className="text-sm text-muted-foreground mt-2">
-              jour{daysLeft > 1 ? "s" : ""} avant le départ
+              {t("daysLeft", { count: daysLeft })}
             </div>
           </CardContent>
         </Card>
@@ -59,7 +60,7 @@ export const FullyRegisteredDashboard = ({
         onClick={() => router.push("/team")}
       >
         <Users className="mr-2 h-4 w-4" />
-        Voir mon équipe
+        {t("cta")}
       </Button>
     </div>
   );

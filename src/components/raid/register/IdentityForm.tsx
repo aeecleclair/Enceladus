@@ -4,6 +4,7 @@ import { DatePicker } from "@/components/common/DatePicker";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { PhoneCustomInput } from "@/components/common/PhoneCustomInput";
 import { useMeUser } from "@/hooks/useMeUser";
+import { isValidPhone, normalizePhone } from "@/lib/phone";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -46,7 +47,8 @@ export const IdentityForm = ({
       z.object({
         phone: z
           .string({ error: t("phoneRequired") })
-          .min(8, t("phoneInvalid")),
+          .min(1, t("phoneRequired"))
+          .refine(isValidPhone, t("phoneInvalid")),
         birthday: z.date({ error: t("birthdayRequired") }),
       }),
     [t],
@@ -61,12 +63,9 @@ export const IdentityForm = ({
   });
 
   const onSubmit = (values: IdentityValues) => {
-    const phone = values.phone.startsWith("+")
-      ? values.phone
-      : `+${values.phone}`;
     updateUser(
       {
-        phone,
+        phone: normalizePhone(values.phone),
         birthday: values.birthday.toISOString().slice(0, 10),
       },
       () => onComplete(),

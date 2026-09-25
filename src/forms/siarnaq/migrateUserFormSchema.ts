@@ -1,3 +1,5 @@
+import { withCountryCode } from "@/lib/phone";
+
 import { useTranslations } from "next-intl";
 import z from "zod";
 
@@ -18,7 +20,7 @@ export default function migrateUserFormSchema(
     birthday: z.date().optional(),
     phone: z
       .string()
-      .refine((value) => isValidPhoneNumber("+" + value), {
+      .refine((value) => isValidPhoneNumber(withCountryCode(value)), {
         message: t("phone"),
       })
       .optional(),

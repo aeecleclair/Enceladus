@@ -1,4 +1,4 @@
-import { RaidParticipantPreview, RaidTeamPreview } from "@/api";
+import { RaidParticipantRestricted, RaidTeamPreview } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 
 import { DialogDescription } from "@radix-ui/react-dialog";
@@ -24,9 +24,9 @@ interface RemoveMemberDialogProps {
 }
 
 const RemoveParticipantCard = (
-  participant: RaidParticipantPreview,
-  selectedMember: RaidParticipantPreview | null,
-  setSelectedMember: (value: RaidParticipantPreview | null) => void,
+  participant: RaidParticipantRestricted,
+  selectedMember: RaidParticipantRestricted | null,
+  setSelectedMember: (value: RaidParticipantRestricted | null) => void,
 ) => {
   return (
     <Card
@@ -58,7 +58,7 @@ export const RemoveMemberDialog = ({
   callback,
 }: RemoveMemberDialogProps) => {
   const [selectedMember, setSelectedMember] =
-    useState<RaidParticipantPreview | null>(null);
+    useState<RaidParticipantRestricted | null>(null);
 
   function closeDialog(event: React.MouseEvent<HTMLButtonElement>) {
     event.stopPropagation();

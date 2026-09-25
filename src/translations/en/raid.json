@@ -28,7 +28,75 @@
       "participant": "Participant",
       "volunteer": "Volunteer",
       "admin": "Administrator"
-    }
+    },
+    "doubleRegistrationTitle": "Double registration detected",
+    "doubleRegistrationDescription": "You are registered both as a participant and as a volunteer. This case is not supported — contact the organizers or cancel one of the two registrations.",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "selectPeriod": "Select a period",
+    "noResults": "No results",
+    "noFileSelected": "No file selected",
+    "downloadError": "Could not download the file",
+    "notProvided": "Not provided",
+    "seeAll": "See all",
+    "docStatus": {
+      "docAccepted": "The document has been accepted",
+      "docRefused": "The document has been refused, please edit it and send it again",
+      "docPending": "Awaiting validation from the organizer",
+      "docTemporary": "You commit to providing the document as soon as possible",
+      "securityFilled": "You have provided an emergency contact",
+      "securityRefused": "Please provide an emergency contact",
+      "securityTemporary": "Please complete the emergency contact",
+      "securityFileButton": "Security file",
+      "chooseFile": "Choose a file",
+      "fillSecurityFile": "Fill in the security file"
+    },
+    "userView": "User view",
+    "user": "User",
+    "adminMode": "Admin mode — Go to administration",
+    "errorTitle": "Error",
+    "viewMyTeam": "View my team",
+    "viewMyVolunteering": "View my volunteering"
+  },
+  "apiErrors": {
+    "generic": "An error occurred, please try again.",
+    "joinTeamFull": "This team is already full (2 members).",
+    "joinConflict": "This team was just joined by another participant.",
+    "joinAlreadyCaptain": "You are already the captain of this team.",
+    "joinAlreadyInTeam": "You are already in a complete team.",
+    "joinTokenNotFound": "This invitation code is invalid or has expired.",
+    "joinWrongEdition": "This invitation is for a different edition of the raid.",
+    "submitNotDraft": "Your registration has already been submitted.",
+    "submitAttestation": "You must first sign the attestation on honour.",
+    "submitSecurityFile": "You must first fill in your security file.",
+    "submitDocs": "Missing required documents: ID card, medical certificate and raid rules.",
+    "validatePayment": "The registration payment has not been made yet.",
+    "validateTshirtPayment": "The t-shirt payment has not been made yet.",
+    "validateSecurityFile": "The security file is incomplete (emergency contact required).",
+    "validateDocNotAccepted": "A required document has not been validated by the organisers yet.",
+    "validateMissingDoc": "A required document is missing.",
+    "validateTeamSecond": "The team must be complete (2 members).",
+    "validateTeamDifficulty": "The team has not chosen a difficulty.",
+    "validateTeamMeeting": "The team has not chosen a meeting place.",
+    "validateNotSubmitted": "The participant must be submitted before being validated.",
+    "recreateParticipant": "You already have a registration for this edition.",
+    "recreateVolunteer": "You are already a volunteer for this edition.",
+    "profileMissingBirthdayPhone": "Complete your profile (date of birth and phone) before registering.",
+    "editNotDraft": "Your registration can no longer be edited: reopen it first.",
+    "alreadyValidated": "This registration is already validated."
+  },
+  "paymentReturn": {
+    "successTitle": "Payment confirmed",
+    "pendingTitle": "Payment being verified",
+    "successDescription": "We have received your {role} payment. Your registration will be validated by the organizers after your file is reviewed.",
+    "pendingDescription": "Your payment is being processed by our provider. It may take a few minutes before the status updates here; you will receive a confirmation email. You can come back to this page or to your dashboard to check your file status.",
+    "checking": "Checking your file…",
+    "notFound": "We could not find any registration linked to your account.",
+    "participant": "participant registration",
+    "volunteer": "volunteer registration",
+    "backHome": "Back to my dashboard"
   },
   "home": {
     "sidebar": {
@@ -55,12 +123,15 @@
       "registrationSubmitted": "Registration submitted",
       "volunteer": "Volunteer",
       "volunteerCancelled": "Volunteering cancelled",
-      "admin": "Administrator"
+      "admin": "Administrator",
+      "validatedDocuments": "validated"
     },
     "dashboard": {
       "editionWaiting": {
         "title": "Waiting for edition",
-        "description": "The next Raid edition will be announced soon."
+        "description": "The next Raid edition will be announced soon.",
+        "cardTitle": "Waiting for the next edition",
+        "cardDescription": "The next edition of the Raid will be announced soon. Come back later to register."
       },
       "chooseRole": {
         "title": "How would you like to participate?",
@@ -69,25 +140,41 @@
       },
       "incompleteTeam": {
         "title": "Registration in progress",
-        "cta": "Go to my team"
+        "cta": "Go to my team",
+        "cardTitle": "Your registration is progressing",
+        "descriptionWithTeammate": "Finalize the documents and payment to validate your file.",
+        "descriptionWithoutTeammate": "Invite a teammate and complete the team information.",
+        "progress": "Progress"
       },
       "fullyRegistered": {
         "title": "Registration validated",
-        "countdownLabel": "Raid starts in"
+        "countdownLabel": "Raid starts in",
+        "cardDescription": "Your file is complete. See you at the Raid start!",
+        "daysLeft": "{count, plural, =0 {the start is today!} =1 {1 day before the start} other {# days before the start}}",
+        "cta": "See my team"
       },
       "volunteerPending": {
         "title": "Volunteer registration pending",
-        "description": "Your registration is being reviewed by the organizers."
+        "description": "Your registration is being reviewed by the organizers.",
+        "cta": "Manage my registration",
+        "fullDescription": "Your registration is being reviewed by the organizers. You will be notified once validated."
       },
       "volunteerDashboard": {
-        "title": "You are a volunteer"
+        "title": "You are a volunteer",
+        "description": "Your volunteer registration is validated. Thank you for your commitment!",
+        "cta": "See my registration"
       },
       "volunteerCancelled": {
-        "title": "Volunteer registration cancelled"
+        "title": "Registration cancelled",
+        "description": "Your registration for this edition has been cancelled. You can register again (new team, your documents are kept) or contact the organisers if in doubt.",
+        "cta": "Register again",
+        "ctaSecondary": "View details"
       },
       "registrationClosed": {
         "title": "Registrations closed",
-        "description": "The registration period is over."
+        "description": "The registration period is over.",
+        "cardTitle": "Registration closed",
+        "cardDescription": "The registration period is over. For any question, feel free to contact the organizers."
       }
     }
   },
@@ -129,7 +216,9 @@
       "alreadyVolunteerDescription": "You are already registered as a volunteer. Cancel that registration to become a participant.",
       "teamJoined": "Team joined successfully",
       "teamCreated": "Team created successfully",
-      "teamNameDefault": "{firstname} {name}'s team"
+      "teamNameDefault": "{firstname} {name}'s team",
+      "alreadyRegisteredTitle": "Existing registration",
+      "alreadyRegisteredDescription": "You already have a registration for this edition."
     },
     "identity": {
       "firstname": "First name",
@@ -171,10 +260,11 @@
       "validated": "Validated",
       "validatedDescription": "Congratulations, your registration is validated.",
       "cancelled": "Cancelled",
-      "cancelledDescription": "Your registration has been cancelled.",
+      "cancelledDescription": "Your registration has been cancelled. You can reopen it to resume, or register again from the home page.",
       "submit": "Submit my registration",
       "reopen": "Reopen",
-      "progressHint": "Progress {progress}% — complete to submit"
+      "progressHint": "Progress {progress}% — complete to submit",
+      "cannotReopenValidated": "Only the organisers can reopen a validated registration."
     },
     "documentsCard": {
       "title": "Documents",
@@ -191,7 +281,8 @@
       "closed": "Registrations closed",
       "progress": "Registration progress",
       "cancel": "Cancel",
-      "edit": "Edit"
+      "edit": "Edit",
+      "honourStatement": "By checking this box, you certify on your honour that the information you provided is accurate, that you have read and understood the competition rules, and that you commit to complying with them."
     },
     "participantCard": {
       "captain": "Captain",
@@ -233,7 +324,10 @@
     "join": {
       "dialogTitle": "Join a team",
       "description": "You have been invited to join a team.",
-      "confirm": "Join"
+      "confirm": "Join",
+      "changeTitle": "Join a team",
+      "changeDescription": "You are about to join a team and leave your current team. All your information will be transferred to your new team.",
+      "confirmChange": "Join the team"
     },
     "documents": {
       "title": "Documents",
@@ -264,7 +358,14 @@
       "emergencyFirstname": "First Name",
       "emergencyName": "Last Name",
       "emergencyPhone": "Phone",
-      "validate": "Validate"
+      "validate": "Validate",
+      "consentRequired": "Please tick the consent checkbox to save the security file.",
+      "emergencyRequired": "Emergency contact last name, first name and phone are required.",
+      "phoneInvalid": "Invalid phone number.",
+      "savedTitle": "Security file saved",
+      "savedDescription": "Your medical information has been saved.",
+      "saveErrorTitle": "Error while saving",
+      "saveErrorDescription": "Check the consent box and required fields, then try again."
     },
     "participantView": {
       "address": "Address",
@@ -279,13 +380,25 @@
       "idCard": "ID card",
       "medicalCertificate": "Medical certificate",
       "securityFile": "Security file",
+      "teammateSecurityFileNote": "For privacy reasons, your teammate's security file cannot be viewed or edited here. Each participant must fill in their own security file from their participant card.",
+      "teammateSecurityFileUnavailable": "Visible to its owner only",
       "parentAuthorization": "Parental authorization",
       "isScholarship": "I have a scholarship",
       "scholarshipAttestation": "Scholarship certificate",
+      "scholarshipReductionNotice": "Please note: the scholarship rate will only apply once both your scholarship attestation and your student card have been validated by the organizers.",
+      "scholarshipStudentOnly": "The scholarship is reserved for students (Centrale Lyon or another school). Uncheck \"I am a scholarship recipient\" or update your situation.",
       "raidRules": "Raid rules",
       "honourAttestation": "Honour certificate",
       "save": "Save",
-      "noTShirt": "No T-shirt"
+      "noTShirt": "No T-shirt",
+      "profileUpdated": "Profile updated",
+      "profileUpdatedDescription": "Your information has been successfully updated",
+      "bikeSizeError": "Please provide a valid bike size",
+      "emergencyLastNameError": "Please provide the emergency contact's last name",
+      "emergencyFirstNameError": "Please provide the emergency contact's first name",
+      "phoneError": "Please provide a phone number",
+      "phoneInvalidError": "Please provide a valid phone number",
+      "tshirtAlreadyPaidError": "You have already paid for a t-shirt, please choose one"
     },
     "edit": {
       "teamName": "Team name",
@@ -293,7 +406,14 @@
       "route": "Route",
       "save": "Save",
       "selectMeetingPlace": "Select a meeting place",
-      "selectRoute": "Select a route"
+      "selectRoute": "Select a route",
+      "bikeSizeError": "Please provide a valid bike size",
+      "emergencyLastNameError": "Please provide the emergency contact's last name",
+      "emergencyFirstNameError": "Please provide the emergency contact's first name",
+      "phoneError": "Please provide a phone number",
+      "phoneInvalidError": "Please provide a valid phone number",
+      "tshirtAlreadyPaidError": "You have already paid for a t-shirt, please choose one",
+      "teamUpdated": "Team updated"
     }
   },
   "volunteer": {
@@ -314,7 +434,9 @@
       "save": "Save",
       "unregister": "Unregister",
       "unregisterTitle": "Unregister from volunteering",
-      "unregisterDescription": "You are about to cancel your volunteer registration. Only the organization can reverse this action."
+      "unregisterDescription": "You are about to cancel your volunteer registration. Only the organization can reverse this action.",
+      "reopen": "Re-open my registration",
+      "reopenDescription": "Your registration has been cancelled. Re-open it to edit your details and submit it to the organisers again."
     },
     "register": {
       "title": "Volunteer registration",
@@ -368,6 +490,22 @@
       "fullyValidated": "Your file is fully validated!"
     }
   },
+  "participant": {
+    "payment": {
+      "pay": "Pay",
+      "title": "Pay the registration",
+      "summary": "Summary",
+      "participation": "Participation",
+      "tshirt": "T-Shirt size {size}",
+      "total": "Total",
+      "paymentProviderInfo": "Payment provider information",
+      "helloAssoDescription": "You will be redirected to HelloAsso to proceed with the payment of your registration. This service takes no fees on payments, it relies solely on donations. By default, HelloAsso offers you to make a donation. If you choose to do so, only HelloAsso will benefit from it.",
+      "fullyValidated": "Your file is fully validated!",
+      "studentWarningTitle": "Student card not validated",
+      "studentWarningDescription": "Your student card has not been validated yet. If you proceed with the payment now, you will pay the student rate. However, if your card is ultimately refused, you will have to pay the difference between the student rate and the external rate.",
+      "priceReductionNotice": "Important: the reduced rate (student or scholarship) only applies once your student card and/or your scholarship attestation have been validated by the organizers. Until these documents are validated, the full rate remains due."
+    }
+  },
   "profile": {
     "title": "My profile",
     "identity": "Identity",
@@ -386,7 +524,23 @@
       "configuration": "Configuration"
     },
     "dashboard": {
-      "title": "Dashboard"
+      "title": "Dashboard",
+      "registeredParticipants": "Registered participants",
+      "registeredParticipantsDesc": "registrations started",
+      "formedTeams": "Formed teams",
+      "formedTeamsDesc": "{count} participants without a teammate",
+      "paymentsDone": "Payments completed",
+      "paymentsDoneDesc": "{count} payments missing",
+      "validatedTeams": "Validated teams",
+      "validatedTeamsDesc": "complete files validated and paid",
+      "volunteers": "Volunteers",
+      "volunteersDesc": "{count} awaiting validation",
+      "registeringDeadline": "Registration deadline",
+      "noDeadline": "Date not set",
+      "daysLeft": "{count} days left",
+      "registrationsClosed": "Registrations closed",
+      "noEndDate": "No end date set",
+      "description": "Global overview of participant and volunteer registrations."
     },
     "editions": {
       "title": "Editions",
@@ -474,7 +628,52 @@
         "refuse": "Refuse",
         "download": "Download",
         "noDocument": "No document"
-      }
+      },
+      "securityFiles": "Security files",
+      "securityFilesFile": "Security_Files",
+      "pairUp": "Pair up",
+      "teammate": "Teammate",
+      "teams": "Teams",
+      "name": "Name",
+      "captain": "Captain",
+      "documents": "Documents",
+      "registration": "Registration",
+      "teamsPerPage": "Teams per page",
+      "enableColumns": "Toggle columns",
+      "filterTeams": "Filter teams...",
+      "teamWithoutTeammate": "Team without a teammate",
+      "deleteAllTitle": "Delete all teams",
+      "deleteAllDescription": "Are you sure you want to delete ALL teams? This action is irreversible and will permanently delete all existing teams.",
+      "deleteTeamConfirm": "Are you sure you want to delete this team?",
+      "mergeTeam": "Merge with another team",
+      "deleteTeam": "Delete team",
+      "selectionImpossible": "Selection not possible",
+      "mergeFullTeamError": "Cannot merge a complete team",
+      "allTeams": "All teams",
+      "validatedTeams": "Validated teams",
+      "teamUpdated": "Team updated",
+      "documentTab": {
+        "downloadError": "Download error",
+        "downloadErrorDescription": "The document could not be downloaded, please try again.",
+        "validatedSuccess": "Document successfully validated",
+        "paymentValidatedSuccess": "Payment successfully validated",
+        "tshirtPaymentValidatedSuccess": "T-Shirt payment successfully validated",
+        "idCard": "ID card",
+        "medicalCertificate": "Medical certificate",
+        "raidRules": "Rules",
+        "studentCard": "Student card"
+      },
+      "team": "Team",
+      "course": "Course",
+      "meetingPlace": "Meeting place",
+      "cancelMerge": "Cancel merge",
+      "removeMember": "Remove a member",
+      "teamFiles": "Team_Files",
+      "sheet": {
+        "dossierComplete": "File completed at ",
+        "noTeammate": "No teammate yet"
+      },
+      "noTeammateAdded": "No teammate has been added to this team."
     },
     "volunteers": {
       "title": "Volunteers",
@@ -523,7 +722,11 @@
         "noAllergy": "No allergy",
         "car": "Car",
         "paymentOk": "Payment OK",
-        "paymentPending": "Payment pending"
+        "paymentPending": "Payment pending",
+        "emergency": "Emergency contact",
+        "emergencyContact": "Person to contact",
+        "emergencyPhone": "Emergency contact phone",
+        "emergencyMissing": "Incomplete emergency contact: validation is blocked until the volunteer fills in a contact name and phone number."
       }
     },
     "information": {
@@ -577,7 +780,11 @@
         "firstname": "First Name",
         "lastname": "Last Name",
         "phone": "Phone",
-        "validate": "Validate"
+        "validate": "Validate",
+        "firstnameError": "Please provide your first name",
+        "nameError": "Please provide your last name",
+        "phoneError": "Please provide a phone number",
+        "phoneInvalidError": "Please provide a valid phone number"
       },
       "dateNotSet": "Date not set",
       "raidRulesFile": "Raid rules",
@@ -589,7 +796,19 @@
     "fallback": {
       "title": "No active edition",
       "description": "Create a new edition to get started.",
-      "createEdition": "Manage editions"
+      "createEdition": "Create the edition",
+      "createFirstTitle": "Create the first edition",
+      "createFirstDescription": "No active edition yet. Create one to open participant and volunteer registrations."
+    },
+    "stats": {
+      "title": "Statistics",
+      "course": "Course",
+      "start": "Start",
+      "situation": "Situation",
+      "bikeSize": "MTB",
+      "tShirtSize": "T-Shirt",
+      "allTeams": "All teams",
+      "validatedTeams": "Validated teams"
     }
   },
   "errors": {
@@ -597,5 +816,54 @@
     "network": "Server connection problem.",
     "permission": "You don't have permission to perform this action.",
     "registerClosed": "Registrations are closed."
+  },
+  "toast": {
+    "success": "Success",
+    "updateErrorTitle": "Update failed",
+    "updateErrorDescription": "Something went wrong, please try again.",
+    "updateErrorLaterDescription": "Something went wrong, please try again later",
+    "priceUpdated": "The price has been updated successfully",
+    "informationUpdated": "The information has been updated successfully",
+    "documentUploadErrorTitle": "Document upload failed",
+    "documentValidated": "The document has been successfully validated",
+    "validationErrorTitle": "Validation failed",
+    "memberKicked": "The member has been removed successfully",
+    "teamDeleted": "The team has been deleted successfully",
+    "kickErrorTitle": "Removal failed",
+    "teamsDeleted": "All teams have been deleted successfully",
+    "teamsMerged": "The teams have been merged successfully",
+    "mergeErrorTitle": "Team merge failed",
+    "volunteerValidated": "Volunteer validated",
+    "volunteerCancelled": "Volunteer cancelled",
+    "volunteerDeleted": "Volunteer deleted",
+    "editionCreated": "Edition created",
+    "editionUpdated": "Edition updated",
+    "editionDeleted": "Edition deleted",
+    "inviteCreated": "Invitation created",
+    "inviteCreatedDescription": "The invitation link has been created successfully",
+    "joinedTeam": "You have successfully joined the team",
+    "registrationCreated": "Registration created",
+    "participantUpdated": "Participant updated",
+    "teamCreated": "The team has been created successfully",
+    "volunteerRegistered": "Volunteer registration saved",
+    "volunteerProfileUpdated": "Volunteer profile updated",
+    "volunteerUnregistered": "Unregistration saved",
+    "volunteerRegistrationDeleted": "Volunteer registration deleted",
+    "registrationSubmitted": "Registration submitted",
+    "registrationReopened": "Registration reopened",
+    "participantValidated": "Participant validated",
+    "participantCancelled": "Participant cancelled",
+    "editionCreateErrorTitle": "Edition creation failed",
+    "editionUpdateErrorTitle": "Edition update failed",
+    "editionToggleErrorTitle": "Registration toggle failed",
+    "editionDeleteErrorTitle": "Edition deletion failed",
+    "inscriptionsOpened": "Registrations opened",
+    "inscriptionsClosed": "Registrations closed",
+    "inscriptionsOpenedDescription": "Registrations for the edition are now open.",
+    "inscriptionsClosedDescription": "Registrations for the edition are now closed.",
+    "volunteerCancelErrorTitle": "Cancellation failed",
+    "volunteerDeleteErrorTitle": "Deletion failed",
+    "participantUpdateErrorTitle": "Update failed",
+    "volunteerReopened": "Volunteer registration re-opened"
   }
 }
