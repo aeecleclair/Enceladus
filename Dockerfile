@@ -6,8 +6,10 @@ FROM node:24-trixie-slim AS deps
 WORKDIR /app
 
 # Copy package metadata and install only production dependencies (for final image)
-COPY package.json ./
-RUN npm install --production
+# --ignore-scripts: the postinstall hook (scripts/copy-pdf-worker.sh) isn't copied
+# here and isn't needed — public/ (with the pdf worker) comes from the builder stage
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --ignore-scripts
 
 
 ########## Builder stage (install dev deps & build) ##########
