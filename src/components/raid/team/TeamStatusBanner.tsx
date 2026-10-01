@@ -76,8 +76,7 @@ export const TeamStatusBanner = ({ team }: TeamStatusBannerProps) => {
   const label = t(status);
   const description = t(`${status}Description`);
 
-  const canSubmit =
-    status === "draft" && (team.validation_progress ?? 0) >= 100;
+  const canSubmit = status === "draft";
   const canReopen = status === "submitted" || status === "cancelled";
   const canSelfReopenValidated = status === "validated" && !isRaidAdmin;
 

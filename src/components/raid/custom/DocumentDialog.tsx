@@ -48,6 +48,7 @@ export const DocumentDialog = ({
   const [image, setImage] = useState<File | undefined>(file);
   const [isLoading, setIsLoading] = useState(data?.size === undefined);
   if (
+    field.value?.id &&
     file?.size === undefined &&
     docId !== documentId &&
     data?.size === undefined
@@ -56,7 +57,7 @@ export const DocumentDialog = ({
     setIsLoading(true);
   }
 
-  if (data?.size !== undefined && isLoading) {
+  if (data?.size !== undefined && isLoading && field.value?.id) {
     setDocument(participantId, fileType, field.value.id, data);
     setImage(data);
     setIsLoading(false);

@@ -686,6 +686,7 @@
       "filterPending": "En attente",
       "filterValidated": "Validés",
       "filterCancelled": "Annulés",
+      "exportCsv": "Exporter CSV",
       "columns": {
         "volunteer": "Bénévole",
         "registeredAt": "Inscrit le",

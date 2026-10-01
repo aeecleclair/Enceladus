@@ -7,11 +7,13 @@ import { VolunteerSheet } from "@/components/raid/admin/volunteers/VolunteerShee
 import { useAdminVolunteers } from "@/hooks/raid/useAdminVolunteers";
 import { formatDate } from "@/lib/dateFormat";
 import { getVolunteerStatus } from "@/lib/raid/volunteerStatus";
+import { downloadVolunteersCsv } from "@/lib/raid/volunteersCsv";
 
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -37,7 +39,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { HeartHandshake } from "lucide-react";
+import { DownloadIcon, HeartHandshake } from "lucide-react";
 
 type StatusFilter = "all" | "pending" | "validated" | "cancelled";
 
@@ -112,6 +114,15 @@ const VolunteersAdminPage = () => {
                 </SelectItem>
               </SelectContent>
             </Select>
+            <Button
+              variant="outline"
+              className="ml-auto gap-2 bg-background"
+              disabled={isLoading || filtered.length === 0}
+              onClick={() => downloadVolunteersCsv(filtered)}
+            >
+              <DownloadIcon className="h-4 w-4" />
+              {t("exportCsv")}
+            </Button>
           </div>
           {isLoading ? (
             <div className="space-y-2">
