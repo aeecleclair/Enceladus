@@ -686,6 +686,7 @@
       "filterPending": "Pending",
       "filterValidated": "Validated",
       "filterCancelled": "Cancelled",
+      "exportCsv": "Export CSV",
       "columns": {
         "volunteer": "Volunteer",
         "registeredAt": "Registered on",
