@@ -40,7 +40,7 @@ export default async function RootLayout({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
@@ -53,7 +53,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <head>
         <meta charSet="utf-8" />
-        <title>{t('metadata.title')}</title>
+        <title>{t("metadata.title")}</title>
         <link rel="shortcut icon" href="/raid.ico" />
       </head>
 
