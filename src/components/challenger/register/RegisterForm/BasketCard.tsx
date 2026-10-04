@@ -3,7 +3,7 @@ import { StyledFormField } from "../../../common/StyledFormField";
 import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
 import { EditProductValues } from "@/forms/challenger/editProducts";
 import { RegisteringFormValues } from "@/forms/challenger/registering";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useAvailableProductsVariants } from "@/hooks/challenger/useAvailableProducts";
 
 import { useEffect } from "react";
 import { UseFormReturn } from "react-hook-form";
@@ -17,7 +17,7 @@ interface PackageCardProps {
 }
 
 export const BasketCard = ({ form }: PackageCardProps) => {
-  const { availableProducts } = useAvailableProducts();
+  const { availableProductsVariants } = useAvailableProductsVariants();
   const purchases = form.watch("products");
   const ids = purchases.map((purchase) => purchase.product_variant.id);
 
@@ -25,7 +25,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
     string,
     AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete[]
   > = {};
-  availableProducts?.forEach((product) => {
+  availableProductsVariants?.forEach((product) => {
     if (product.enabled !== true) return;
     // Exclude volunteer-only products from the registration basket
     if (product.public_type === "volunteer") return;
@@ -67,7 +67,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
     }
   }, [hasRequiredProductSelected, requiredProducts.length, form]);
 
-  return (availableProducts?.length || 0) === 0 ? (
+  return (availableProductsVariants?.length || 0) === 0 ? (
     <div className="text-xl font-semibold align-center justify-center">
       Chargement...
     </div>
@@ -145,7 +145,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
                               defaultChecked={ids.includes(variant.id)}
                               value={variant.id}
                               id={`variant-${variant.id}`}
-                              onClick={(e) => {
+                              onClick={() => {
                                 // Allow unselecting for non-required products
                                 if (ids.includes(variant.id)) {
                                   form.setValue(

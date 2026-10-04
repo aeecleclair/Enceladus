@@ -12,7 +12,7 @@ import {
   EditProductValues,
   editProductSchema,
 } from "@/forms/challenger/editProducts";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useAvailableProductsVariants } from "@/hooks/challenger/useAvailableProducts";
 import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 import { usePayment } from "@/hooks/challenger/usePayment";
 import { useUserPayments } from "@/hooks/challenger/useUserPayments";
@@ -37,7 +37,7 @@ interface ValidatedPageProps {
 
 export const ValidatedPage = ({ userMePurchases }: ValidatedPageProps) => {
   const router = useRouter();
-  const { availableProducts } = useAvailableProducts();
+  const { availableProductsVariants } = useAvailableProductsVariants();
   const [purchaseDialogOpen, setPurchaseDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { user: me } = useMeUser();
@@ -64,7 +64,7 @@ export const ValidatedPage = ({ userMePurchases }: ValidatedPageProps) => {
       products:
         userMePurchases
           ?.map((purchase) => {
-            const productItem = availableProducts?.find(
+            const productItem = availableProductsVariants?.find(
               (product) => product.id === purchase.product_variant_id,
             );
             if (!productItem) return undefined;
@@ -81,8 +81,8 @@ export const ValidatedPage = ({ userMePurchases }: ValidatedPageProps) => {
     setIsLoading(true);
     const newPurchases = values.products;
 
-    const requiredProductIds = availableProducts
-      ? availableProducts
+    const requiredProductIds = availableProductsVariants
+      ? availableProductsVariants
           .filter((product) => product.product.required === true)
           .map((product) => product.id)
       : [];
@@ -98,7 +98,7 @@ export const ValidatedPage = ({ userMePurchases }: ValidatedPageProps) => {
     if (!hasAllRequired) {
       for (const id of requiredProductIds) {
         if (!allPurchasesProductIds.includes(id)) {
-          const productName = availableProducts?.find(
+          const productName = availableProductsVariants?.find(
             (product) => product.product_id === id,
           )?.product.name;
           const index = newPurchases.findIndex(

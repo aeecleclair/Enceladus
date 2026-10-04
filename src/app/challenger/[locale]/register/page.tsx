@@ -12,7 +12,7 @@ import {
   RegisteringFormValues,
   registeringFormSchema,
 } from "@/forms/challenger/registering";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useAvailableProductsVariants } from "@/hooks/challenger/useAvailableProducts";
 import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 import { useDocument } from "@/hooks/challenger/useDocument";
 import { useEdition } from "@/hooks/challenger/useEdition";
@@ -47,8 +47,8 @@ const Register = () => {
   const { edition } = useEdition();
   const { sports } = useSports();
   const { sportSchools } = useSportSchools();
-  const { availableProducts, refetchAvailableProducts } =
-    useAvailableProducts();
+  const { availableProductsVariants, refetchAvailableProductsVariants } =
+    useAvailableProductsVariants();
   const { isTokenQueried, token } = useAuth();
   const { user: me, updateUser } = useMeUser();
   const {
@@ -102,12 +102,11 @@ const Register = () => {
       products:
         userMePurchases
           ?.map((purchase) => {
-            const productVariant = availableProducts?.find(
+            const productVariant = availableProductsVariants?.find(
               (productVariant) =>
                 productVariant.id === purchase.product_variant_id,
             );
             if (!productVariant) return undefined;
-            console.log("productVariant", productVariant);
             return {
               product_variant: productVariant,
               quantity: purchase.quantity,
@@ -168,7 +167,7 @@ const Register = () => {
         },
         Participation: async (values, callback) => {
           const extendedCallback = () => {
-            refetchAvailableProducts();
+            refetchAvailableProductsVariants();
             callback();
           };
           if (meCompetition !== undefined) {
@@ -225,8 +224,8 @@ const Register = () => {
         Panier: (values, callback) => {
           const newPurchases = values.products;
 
-          const requiredProductIds = availableProducts
-            ? availableProducts
+          const requiredProductIds = availableProductsVariants
+            ? availableProductsVariants
                 .filter((product) => product.product.required === true)
                 .map((product) => product.id)
             : [];
@@ -242,7 +241,7 @@ const Register = () => {
           if (!hasAllRequired) {
             for (const id of requiredProductIds) {
               if (!allPurchasesProductIds.includes(id)) {
-                const productName = availableProducts?.find(
+                const productName = availableProductsVariants?.find(
                   (product) => product.product_id === id,
                 )?.product.name;
                 const index = newPurchases.findIndex(
@@ -298,7 +297,13 @@ const Register = () => {
       } as const,
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [me, meCompetition, meParticipant, userMePurchases, availableProducts]);
+  }, [
+    me,
+    meCompetition,
+    meParticipant,
+    userMePurchases,
+    availableProductsVariants,
+  ]);
 
   return (
     <SidebarProvider>

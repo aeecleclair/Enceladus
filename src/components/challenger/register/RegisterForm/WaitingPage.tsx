@@ -17,7 +17,7 @@ import {
   SubstituteFormValues,
   substituteFormSchema,
 } from "@/forms/challenger/substitute";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useAvailableProductsVariants } from "@/hooks/challenger/useAvailableProducts";
 import { useDocument } from "@/hooks/challenger/useDocument";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
@@ -42,7 +42,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 
 export const WaitingPage = () => {
-  const { availableProducts } = useAvailableProducts();
+  const { availableProductsVariants } = useAvailableProductsVariants();
   const { meParticipant, createParticipant, withdrawParticipant } =
     useParticipant();
   const [purchaseDialogOpen, setPurchaseDialogOpen] = useState(false);
@@ -159,7 +159,7 @@ export const WaitingPage = () => {
       products:
         userMePurchases
           ?.map((purchase) => {
-            const productVariant = availableProducts?.find(
+            const productVariant = availableProductsVariants?.find(
               (productVariant) =>
                 productVariant.id === purchase.product_variant_id,
             );
@@ -177,8 +177,8 @@ export const WaitingPage = () => {
     setIsLoading(true);
     const newPurchases = values.products;
 
-    const requiredProductIds = availableProducts
-      ? availableProducts
+    const requiredProductIds = availableProductsVariants
+      ? availableProductsVariants
           .filter((product) => product.product.required === true)
           .map((product) => product.id)
       : [];
@@ -194,7 +194,7 @@ export const WaitingPage = () => {
     if (!hasAllRequired) {
       for (const id of requiredProductIds) {
         if (!allPurchasesProductIds.includes(id)) {
-          const productName = availableProducts?.find(
+          const productName = availableProductsVariants?.find(
             (product) => product.product_id === id,
           )?.product.name;
           const index = newPurchases.findIndex(

@@ -1,5 +1,5 @@
 import { Purchase } from "@/api";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useAvailableProductsVariants } from "@/hooks/challenger/useAvailableProducts";
 import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useSchoolSportTeams } from "@/hooks/challenger/useSchoolSportTeams";
@@ -27,7 +27,7 @@ export const RegistrationSummary = ({
   userMePurchases,
 }: RegistrationSummaryProps) => {
   const { user: me } = useMeUser();
-  const { availableProducts } = useAvailableProducts();
+  const { availableProductsVariants } = useAvailableProductsVariants();
   const { meCompetition } = useCompetitionUser();
   const { meParticipant } = useParticipant();
   const { sports } = useSports();
@@ -37,7 +37,7 @@ export const RegistrationSummary = ({
   });
 
   const purchasedItems = userMePurchases?.map((purchase) => {
-    return availableProducts?.find(
+    return availableProductsVariants?.find(
       (product) => product.id === purchase.product_variant_id,
     );
   });
@@ -242,11 +242,11 @@ export const RegistrationSummary = ({
             {userMePurchases && userMePurchases.length > 0 ? (
               <div className="grid grid-cols-1 gap-2 mt-2">
                 {userMePurchases.map((productItem, index) => {
-                  const productVariant = availableProducts?.find(
+                  const productVariant = availableProductsVariants?.find(
                     (p) => p.id === productItem.product_variant_id,
                   );
                   if (!productVariant) return null;
-                  const productVariants = availableProducts?.filter(
+                  const productVariants = availableProductsVariants?.filter(
                     (p) => p.product_id === productVariant.product_id,
                   );
                   const multipleProductPurchases =

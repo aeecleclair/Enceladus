@@ -2,7 +2,7 @@
 
 import { AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useAvailableProductsVariants } from "@/hooks/challenger/useAvailableProducts";
 import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 import { usePayment } from "@/hooks/challenger/usePayment";
 import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 
 export const VolunteerShopTab = () => {
-  const { availableProducts } = useAvailableProducts();
+  const { availableProductsVariants } = useAvailableProductsVariants();
   const {
     userMePurchases,
     createPurchase,
@@ -37,10 +37,10 @@ export const VolunteerShopTab = () => {
   // Filter only volunteer products
   const volunteerProducts = useMemo(
     () =>
-      availableProducts?.filter(
+      availableProductsVariants?.filter(
         (v) => v.public_type === "volunteer" && v.enabled !== false,
       ) ?? [],
-    [availableProducts],
+    [availableProductsVariants],
   );
 
   // Group by product_id
