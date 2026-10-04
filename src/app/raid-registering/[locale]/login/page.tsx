@@ -5,7 +5,6 @@ import MyECLButton from "@/components/common/MyEclButton";
 import { useRouter } from "@/i18n/navigation";
 
 import { useSearchParams } from "next/navigation";
-import * as React from "react";
 import { useEffect } from "react";
 
 import { Button } from "@/components/ui/button";

@@ -7,7 +7,7 @@ import { useSchools } from "@/hooks/useSchools";
 import { useUserSearch } from "@/hooks/useUsersSearch";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
