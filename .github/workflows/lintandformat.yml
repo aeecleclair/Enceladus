@@ -12,7 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v6
+      - name: Check out the code
+        uses: actions/checkout@v7.0.1
 
       - name: Setup Nodejs
         uses: actions/setup-node@v6
@@ -24,7 +25,12 @@ jobs:
         run: npm i
 
       - name: Check Typescript compilation
-        run: npx tsc
+        run: |
+          sed -i 's|http://127.0.0.1:8000|'"$NEXT_PUBLIC_BACKEND_URL"'|g' openapi-ts.config.ts
+          npm run generate
+          npx tsc
+        env:
+          NEXT_PUBLIC_BACKEND_URL: ${{ vars.NEXT_PUBLIC_BACKEND_URL }}
 
       - name: Lint
         run: npm run lint
