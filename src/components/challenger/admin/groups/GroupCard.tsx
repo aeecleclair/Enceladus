@@ -1,9 +1,8 @@
 "use client";
 
 import { UserGroupMembershipComplete } from "@/api";
+import { Link } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
-
-import Link from "next/link";
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";

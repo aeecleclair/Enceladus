@@ -21,6 +21,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
 
   const {
     data: productsQuota,
+    refetch: refetchProductsQuota,
     isLoading,
     error,
   } = useQuery({
@@ -203,6 +204,7 @@ export const useProductsQuota = ({ productId }: UseProductsQuotaProps) => {
 
   return {
     productsQuota,
+    refetchProductsQuota,
     isLoading,
     error,
     isCreateLoading,

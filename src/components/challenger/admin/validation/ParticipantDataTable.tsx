@@ -17,6 +17,7 @@ import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { useProducts } from "@/hooks/challenger/useProducts";
 import { useUserPayments } from "@/hooks/challenger/useUserPayments";
+import { Link } from "@/i18n/navigation";
 import { fuzzyFilter } from "@/lib/utils";
 
 import {
@@ -31,7 +32,6 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import Link from "next/link";
 import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -389,7 +389,7 @@ export function ParticipantDataTable({
             {types.map((type, index) => {
               let badgeClass = "";
               switch (type) {
-                case "Athlète":
+                case "Artiste":
                   badgeClass = "bg-blue-100 text-blue-800 hover:bg-blue-200";
                   break;
                 case "Pompom":
@@ -440,7 +440,7 @@ export function ParticipantDataTable({
       cell: ({ row }) => {
         const participantType = row.getValue("participantType") as string;
         const types = participantType.split(", ");
-        if (!types.includes("Athlète")) {
+        if (!types.includes("Artiste")) {
           return <div className="text-center text-muted-foreground">-</div>;
         }
         return (

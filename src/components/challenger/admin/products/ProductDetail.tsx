@@ -1,13 +1,14 @@
 "use client";
 
 import { DeleteConfirmationDialog } from "../sports/DeleteConfirmationDialog";
+import { DeleteProductDialog } from "./DeleteProductDialog";
 import { ProductQuotaDataTable } from "./ProductQuotaDataTable";
 import { ProductsQuotaDialog } from "./ProductsQuotaDialog";
 
 import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
 import { ProductQuotaFormValues } from "@/forms/challenger/productQuota";
 import { useProductsQuota } from "@/hooks/challenger/useProductsQuota";
-import { useSchools } from "@/hooks/useSchools";
+import { useSportSchools } from "@/hooks/challenger/useSportSchools";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 
 import { useState } from "react";
@@ -17,7 +18,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import {
-  ArrowLeft,
   CheckCircle,
   Edit,
   Info,
@@ -32,7 +32,6 @@ import {
 interface ProductDetailProps {
   product: AppModulesSportCompetitionSchemasSportCompetitionProductComplete;
   onEdit?: () => void;
-  onDelete?: () => void;
   onAddVariant?: () => void;
   onEditVariant?: (variantId: string) => void;
   onDeleteVariant?: (variantId: string) => void;
@@ -41,13 +40,13 @@ interface ProductDetailProps {
 const ProductDetail = ({
   product,
   onEdit,
-  onDelete,
   onAddVariant,
   onEditVariant,
   onDeleteVariant,
 }: ProductDetailProps) => {
   const {
     productsQuota,
+    refetchProductsQuota,
     isCreateLoading,
     createQuota,
     createQuotaForAllSchools,
@@ -59,10 +58,12 @@ const ProductDetail = ({
     productId: product.id,
   });
 
-  const { schools } = useSchools();
+  const { activeSportSchools: schools } = useSportSchools();
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isDeleteQuotaDialogOpen, setIsDeleteQuotaDialogOpen] = useState(false);
+  const [isDeleteProductDialogOpen, setIsDeleteProductDialogOpen] =
+    useState(false);
   const [selectedSchool, setSelectedSchool] = useState<string | null>(null);
   const [selectedSchoolForDelete, setSelectedSchoolForDelete] = useState<
     string | null
@@ -100,7 +101,7 @@ const ProductDetail = ({
       case "cameraman":
         return "Cameraman";
       case "athlete":
-        return "Athlète";
+        return "Artiste";
       default:
         return publicType;
     }
@@ -155,9 +156,9 @@ const ProductDetail = ({
     const schoolIdsWithoutQuotas = schools
       .filter(
         (school) =>
-          !productsQuota?.some((quota) => quota.school_id === school.id),
+          !productsQuota?.some((quota) => quota.school_id === school.school_id),
       )
-      .map((school) => school.id);
+      .map((school) => school.school_id);
 
     if (schoolIdsWithoutQuotas.length === 0) {
       // All schools already have quotas
@@ -173,16 +174,18 @@ const ProductDetail = ({
   const handleDeleteQuota = () => {
     if (selectedSchoolForDelete) {
       deleteQuota(selectedSchoolForDelete, () => {
+        refetchProductsQuota();
         setSelectedSchoolForDelete(null);
-        setIsDeleteDialogOpen(false);
+        setIsDeleteQuotaDialogOpen(false);
       });
     }
   };
 
   const getSchoolName = (schoolId: string) => {
     return (
-      formatSchoolName(schools?.find((s) => s.id === schoolId)?.name) ||
-      schoolId
+      formatSchoolName(
+        schools?.find((s) => s.school_id === schoolId)?.school.name,
+      ) || schoolId
     );
   };
 
@@ -219,21 +222,17 @@ const ProductDetail = ({
           </div>
         </div>
         <div className="flex gap-2">
-          <Button
-            variant="outline"
-            onClick={() => window.history.back()}
-            className="gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Retour
-          </Button>
           {onEdit && (
             <Button variant="outline" onClick={onEdit} className="gap-2">
               <Edit className="h-4 w-4" />
               Modifier
             </Button>
           )}
-          <Button variant="destructive" onClick={onDelete} className="gap-2">
+          <Button
+            variant="destructive"
+            onClick={() => setIsDeleteProductDialogOpen(true)}
+            className="gap-2"
+          >
             <Trash2 className="h-4 w-4" />
             Supprimer
           </Button>
@@ -398,7 +397,7 @@ const ProductDetail = ({
               onEditQuota={handleEditQuota}
               onDeleteQuota={(schoolId) => {
                 setSelectedSchoolForDelete(schoolId);
-                setIsDeleteDialogOpen(true);
+                setIsDeleteQuotaDialogOpen(true);
               }}
             />
           ) : (
@@ -493,17 +492,13 @@ const ProductDetail = ({
                             </p>
                           </div>
                           <div>
-                            <p className="text-muted-foreground text-blue-600">
-                              Réservés
-                            </p>
+                            <p className="text-muted-foreground">Réservés</p>
                             <p className="font-medium text-blue-600">
                               {variant.booked || 0}
                             </p>
                           </div>
                           <div>
-                            <p className="text-muted-foreground text-green-600">
-                              Payés
-                            </p>
+                            <p className="text-muted-foreground">Payés</p>
                             <p className="font-medium text-green-600">
                               {variant.paid || 0}
                             </p>
@@ -567,8 +562,8 @@ const ProductDetail = ({
 
       {/* Delete Confirmation Dialog */}
       <DeleteConfirmationDialog
-        isOpen={isDeleteDialogOpen}
-        onOpenChange={setIsDeleteDialogOpen}
+        isOpen={isDeleteQuotaDialogOpen}
+        onOpenChange={setIsDeleteQuotaDialogOpen}
         title="Supprimer le quota de l'école"
         description={`Êtes-vous sûr de vouloir supprimer le quota pour ${
           selectedSchoolForDelete ? getSchoolName(selectedSchoolForDelete) : ""
@@ -576,6 +571,12 @@ const ProductDetail = ({
         onConfirm={handleDeleteQuota}
         onCancel={() => setSelectedSchoolForDelete(null)}
         isLoading={isDeleteLoading}
+      />
+
+      <DeleteProductDialog
+        product={product}
+        isOpen={isDeleteProductDialogOpen}
+        onClose={() => setIsDeleteProductDialogOpen(false)}
       />
     </div>
   );

@@ -48,8 +48,8 @@ import { AlertTriangle } from "lucide-react";
 const TeamsDashboard = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { sports } = useSports();
-  const { sportSchools, NoSchoolId } = useSportSchools();
+  const { activeSports: sports } = useSports();
+  const { activeSportSchools: sportSchools, NoSchoolId } = useSportSchools();
 
   const [deleteTeamId, setDeleteTeamId] = useState<string | null>(null);
   const [editTeamId, setEditTeamId] = useState<string | null>(null);

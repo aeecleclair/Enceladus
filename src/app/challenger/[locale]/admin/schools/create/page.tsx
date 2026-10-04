@@ -18,8 +18,8 @@ import { ArrowLeft, Plus, School } from "lucide-react";
 const Dashboard = () => {
   const router = useRouter();
   const { filteredSchools } = useSchools();
-  const { sportSchools } = useSportSchools();
-  const { createCompetitionSchool, isLoading } = useSportSchools();
+  const { createCompetitionSchool, isLoading, sportSchools } =
+    useSportSchools();
   const form = useForm<SchoolFormValues>({
     resolver: zodResolver(schoolFormSchema),
     defaultValues: {

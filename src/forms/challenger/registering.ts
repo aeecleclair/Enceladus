@@ -48,7 +48,7 @@ export const registeringFormSchema = z
       .optional(),
     products: z.array(
       z.object({
-        product:
+        product_variant:
           z.custom<AppModulesSportCompetitionSchemasSportCompetitionProductVariantComplete>(),
         quantity: z.number().min(1),
       }),

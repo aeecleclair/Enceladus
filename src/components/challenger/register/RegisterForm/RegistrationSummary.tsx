@@ -94,7 +94,7 @@ export const RegistrationSummary = ({
                 <div className="space-y-2">
                   <div className="flex items-center gap-1">
                     <CheckCircle2 className="h-4 w-4 text-green-500" />
-                    <p className="text-sm font-medium">Sportif</p>
+                    <p className="text-sm font-medium">Artiste</p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 mt-2">
@@ -201,7 +201,7 @@ export const RegistrationSummary = ({
               {meCompetition?.is_cameraman && (
                 <div className="flex items-center gap-1">
                   <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  <p className="text-sm">Caméraman</p>
+                  <p className="text-sm">Jury</p>
                 </div>
               )}
 
@@ -242,21 +242,31 @@ export const RegistrationSummary = ({
             {userMePurchases && userMePurchases.length > 0 ? (
               <div className="grid grid-cols-1 gap-2 mt-2">
                 {userMePurchases.map((productItem, index) => {
-                  const product = availableProducts?.find(
+                  const productVariant = availableProducts?.find(
                     (p) => p.id === productItem.product_variant_id,
                   );
-                  if (!product) return null;
-
+                  if (!productVariant) return null;
+                  const productVariants = availableProducts?.filter(
+                    (p) => p.product_id === productVariant.product_id,
+                  );
+                  const multipleProductPurchases =
+                    userMePurchases.filter((p) =>
+                      productVariants?.some(
+                        (pv) => pv.id === p.product_variant_id,
+                      ),
+                    ).length > 1;
                   return (
                     <div key={index} className="flex items-center gap-1">
                       <CheckCircle2 className="h-4 w-4 text-green-500" />
                       <p className="text-sm">
-                        {product.product.name}
+                        {productVariant.product.name}
                         {productItem.quantity > 1 &&
                           ` (x${productItem.quantity})`}{" "}
+                        {multipleProductPurchases &&
+                          `: ${productVariant.name} `}
                         -{" "}
                         <span className="font-semibold">
-                          {(product.price * productItem.quantity) / 100}€
+                          {(productVariant.price * productItem.quantity) / 100}€
                         </span>
                       </p>
                     </div>

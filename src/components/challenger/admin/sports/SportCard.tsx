@@ -2,8 +2,7 @@
 
 import { Sport } from "@/api";
 import { sportCategories } from "@/forms/challenger/sport";
-
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -47,7 +46,7 @@ export const SportCard = ({
 }: SportCardProps) => {
   const hasNoMatches = matchCount !== undefined && matchCount === 0;
   const hasNoTeams = teamCount !== undefined && teamCount === 0;
-  const hasWarning = hasNoMatches || hasNoTeams;
+  const hasWarning = (hasNoMatches || hasNoTeams) && sport.active;
   const categoryLabel =
     sportCategories.find((cat) => cat.value === sport.sport_category)?.label ||
     sport.sport_category;
@@ -65,7 +64,7 @@ export const SportCard = ({
 
   return (
     <Card
-      className={`cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-1 group ${hasWarning ? "border-amber-300 bg-amber-50/50" : ""}`}
+      className={`cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-1 group ${hasWarning ? "border-amber-300 bg-amber-50/50" : !sport.active ? "border-red-300 bg-red-50/50" : ""}`}
       onClick={onClick}
     >
       <CardHeader className="pb-3">
@@ -92,7 +91,7 @@ export const SportCard = ({
             )}
             {sport.active ? "Actif" : "Inactif"}
           </Badge>
-          {hasNoTeams && (
+          {sport.active && hasNoTeams && (
             <Badge
               variant="outline"
               className="gap-1 bg-amber-100 text-amber-800 border-amber-300"
@@ -101,7 +100,7 @@ export const SportCard = ({
               Aucune équipe
             </Badge>
           )}
-          {hasNoMatches && (
+          {sport.active && hasNoMatches && (
             <Badge
               variant="outline"
               className="gap-1 bg-amber-100 text-amber-800 border-amber-300"

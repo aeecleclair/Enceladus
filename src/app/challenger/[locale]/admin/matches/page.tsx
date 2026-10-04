@@ -5,9 +5,8 @@ import { WarningDialog } from "@/components/common/WarningDialog";
 import { useCompetitionUsers } from "@/hooks/challenger/useCompetitionUsers";
 import { useSportMatches } from "@/hooks/challenger/useSportMatches";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 

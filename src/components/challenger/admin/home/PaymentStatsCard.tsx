@@ -40,7 +40,7 @@ export const PaymentStatsCard = ({ stats }: PaymentStatsCardProps) => {
           </div>
           <div className="rounded-lg border p-3 text-center">
             <p className="text-2xl font-bold">{users_stats.total_athletes}</p>
-            <p className="text-xs text-muted-foreground mt-1">Athlètes</p>
+            <p className="text-xs text-muted-foreground mt-1">Artistes</p>
           </div>
           <div className="rounded-lg border p-3 text-center">
             <p className="text-2xl font-bold">{users_stats.total_pompoms}</p>

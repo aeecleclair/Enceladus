@@ -6,6 +6,7 @@ import { useEdition } from "@/hooks/challenger/useEdition";
 import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
+import { locales } from "@/i18n/routing";
 
 import { usePathname } from "next/navigation";
 import { ReactNode } from "react";
@@ -43,6 +44,9 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   const getBreadcrumbSegments = () => {
     const segments = pathname.split("/").filter(Boolean);
+    if ((locales as unknown as string[]).includes(segments[0])) {
+      segments.shift(); // Remove the locale segment if present
+    }
     const breadcrumbs = [];
 
     breadcrumbs.push({

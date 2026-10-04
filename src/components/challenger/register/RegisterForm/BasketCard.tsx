@@ -11,7 +11,6 @@ import { UseFormReturn } from "react-hook-form";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 interface PackageCardProps {
   form: UseFormReturn<EditProductValues | RegisteringFormValues>;
@@ -20,7 +19,7 @@ interface PackageCardProps {
 export const BasketCard = ({ form }: PackageCardProps) => {
   const { availableProducts } = useAvailableProducts();
   const purchases = form.watch("products");
-  const ids = purchases.map((purchase) => purchase.product.id);
+  const ids = purchases.map((purchase) => purchase.product_variant.id);
 
   const groupedByProductId: Record<
     string,
@@ -36,12 +35,14 @@ export const BasketCard = ({ form }: PackageCardProps) => {
     groupedByProductId[product.product_id].push(product);
   });
 
-  const selectedPerProduct: Record<string, string[]> = {};
-  Object.entries(groupedByProductId).forEach(([productId, products]) => {
-    selectedPerProduct[productId] = products
-      .filter((product) => ids.includes(product.id))
-      .map((product) => product.id);
-  });
+  const selectedVariantsPerProduct: Record<string, string[]> = {};
+  Object.entries(groupedByProductId).forEach(
+    ([productId, product_variants]) => {
+      selectedVariantsPerProduct[productId] = product_variants
+        .filter((product) => ids.includes(product.id))
+        .map((product) => product.id);
+    },
+  );
 
   // Check if at least one required product is selected
   const requiredProducts = Object.entries(groupedByProductId).filter(
@@ -50,7 +51,8 @@ export const BasketCard = ({ form }: PackageCardProps) => {
   );
   const hasRequiredProductSelected = requiredProducts.some(
     ([productId]) =>
-      selectedPerProduct[productId] && selectedPerProduct[productId].length > 0,
+      selectedVariantsPerProduct[productId] &&
+      selectedVariantsPerProduct[productId].length > 0,
   );
 
   // Set form error if no required products are selected
@@ -70,7 +72,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
       Chargement...
     </div>
   ) : (
-    <div className="space-y-4 overflow-y-auto pr-2">
+    <div className="space-y-4 overflow-y-auto pr-8 ">
       <div className="flex items-center gap-2">
         <h2 className="text-xl font-semibold">Ta formule :</h2>
       </div>
@@ -80,32 +82,34 @@ export const BasketCard = ({ form }: PackageCardProps) => {
         </div>
       )}
       {Object.entries(groupedByProductId).map(([productId, products]) => {
-        const product = products[0];
-        const purchase = purchases.find((p) => p.product.id === product.id);
+        const productVariant = products[0];
+        const purchase = purchases.find(
+          (p) => p.product_variant.id === productVariant.id,
+        );
         return (
           <div
             key={productId}
             className={`${
-              product.product.required
+              productVariant.product.required
                 ? "border-2 border-red-200 bg-red-50 rounded-lg p-4"
                 : ""
             }`}
           >
-            {product.product.required && (
+            {productVariant.product.required && (
               <div className="mb-2 text-red-600 text-sm font-semibold flex items-center gap-1">
                 <span className="text-red-500">⚠️</span> Produit obligatoire
               </div>
             )}
             <StyledFormField
-              className={product.product.required ? "text-black" : ""}
+              className={productVariant.product.required ? "text-black" : ""}
               form={form}
-              label={`${product.product.name}${product.product.required ? " *" : ""}`}
+              label={`${productVariant.product.name}${productVariant.product.required ? " *" : ""}`}
               id={`products[${productId}]`}
               input={() => (
                 <>
                   {products.length > 1 ? (
                     <div className="flex items-center space-x-2 pt-2">
-                      <RadioGroup
+                      {/* <RadioGroup
                         onValueChange={(value) => {
                           const selectedProduct = availableProducts?.find(
                             (product) => product.id === value,
@@ -125,45 +129,119 @@ export const BasketCard = ({ form }: PackageCardProps) => {
                         }}
                         defaultValue={selectedPerProduct[productId][0] || ""}
                         value={selectedPerProduct[productId][0] || ""}
-                      >
+                      > */}
+                      <div className="flex flex-col gap-2">
                         {products.map((variant) => (
                           <div
                             className="flex items-center space-x-2"
                             key={variant.id}
                           >
-                            <RadioGroupItem
+                            <Checkbox
                               className={
-                                product.product.required ? "border-black" : ""
+                                productVariant.product.required
+                                  ? "border-black"
+                                  : ""
                               }
+                              defaultChecked={ids.includes(variant.id)}
                               value={variant.id}
-                              id={`product-${variant.id}`}
+                              id={`variant-${variant.id}`}
                               onClick={(e) => {
                                 // Allow unselecting for non-required products
-                                if (
-                                  !variant.product.required &&
-                                  selectedPerProduct[productId][0] ===
-                                    variant.id
-                                ) {
-                                  e.preventDefault();
-                                  e.stopPropagation();
+                                if (ids.includes(variant.id)) {
                                   form.setValue(
                                     "products",
                                     purchases.filter(
                                       (purchase) =>
-                                        purchase.product.id !== variant.id,
+                                        purchase.product_variant.id !==
+                                        variant.id,
                                     ),
                                   );
+                                  return;
                                 }
+                                form.setValue("products", [
+                                  ...purchases.filter(
+                                    (purchase) =>
+                                      purchase.product_variant.id !==
+                                      variant.id,
+                                  ),
+                                  {
+                                    product_variant: variant,
+                                    quantity: 1,
+                                  },
+                                ]);
                               }}
                             />
-                            <Label htmlFor={`product-${variant.id}`}>
+                            <Label htmlFor={`variant-${variant.id}`}>
                               {variant.name} - {variant.price / 100}€
                             </Label>
                           </div>
                         ))}
-                      </RadioGroup>
+                      </div>
+                      {/* </RadioGroup> */}
                       <>
-                        {!product.unique && ids.includes(product.id) && (
+                        {!productVariant.unique &&
+                          ids.includes(productVariant.id) && (
+                            <Input
+                              type="number"
+                              min={1}
+                              value={purchase?.quantity || 1}
+                              onChange={(e) => {
+                                const value = Math.max(
+                                  1,
+                                  Math.min(99, Number(e.target.value)),
+                                );
+                                form.setValue(
+                                  "products",
+                                  purchases.map((p) =>
+                                    p.product_variant.id === productVariant.id
+                                      ? { ...p, quantity: value }
+                                      : p,
+                                  ),
+                                );
+                              }}
+                              className="ml-2 w-16"
+                            />
+                          )}
+                      </>
+                    </div>
+                  ) : (
+                    <div className="flex items-center space-x-2 pt-2">
+                      <Checkbox
+                        className={
+                          productVariant.product.required ? "border-black" : ""
+                        }
+                        id={`products[${productId}]`}
+                        value={productVariant.id}
+                        checked={ids.includes(productVariant.id)}
+                        onCheckedChange={() => {
+                          if (ids.includes(productVariant.id)) {
+                            form.setValue(
+                              "products",
+                              purchases.filter(
+                                (purchase) =>
+                                  purchase.product_variant.id !==
+                                  productVariant.id,
+                              ),
+                            );
+                            return;
+                          }
+                          form.setValue("products", [
+                            ...purchases.filter(
+                              (purchase) =>
+                                purchase.product_variant.id !== productId,
+                            ),
+                            {
+                              product_variant: productVariant,
+                              quantity: 1,
+                            },
+                          ]);
+                        }}
+                      />
+                      <Label htmlFor={`products[${productId}]`}>
+                        {productVariant.name} - {productVariant.price / 100}€
+                      </Label>
+                      {!productVariant.unique &&
+                        ids.includes(productVariant.id) && (
                           <Input
                             type="number"
                             min={1}
@@ -176,7 +254,7 @@ export const BasketCard = ({ form }: PackageCardProps) => {
                               form.setValue(
                                 "products",
                                 purchases.map((p) =>
-                                  p.product.id === product.id
+                                  p.product_variant.id === productVariant.id
                                     ? { ...p, quantity: value }
                                     : p,
                                 ),
@@ -185,64 +263,6 @@ export const BasketCard = ({ form }: PackageCardProps) => {
                             className="ml-2 w-16"
                           />
                         )}
-                      </>
-                    </div>
-                  ) : (
-                    <div className="flex items-center space-x-2 pt-2">
-                      <Checkbox
-                        className={
-                          product.product.required ? "border-black" : ""
-                        }
-                        id={`products[${productId}]`}
-                        value={product.id}
-                        checked={ids.includes(product.id)}
-                        onCheckedChange={() => {
-                          if (ids.includes(product.id)) {
-                            form.setValue(
-                              "products",
-                              purchases.filter(
-                                (purchase) =>
-                                  purchase.product.id !== product.id,
-                              ),
-                            );
-                            return;
-                          }
-                          form.setValue("products", [
-                            ...purchases.filter(
-                              (purchase) => purchase.product.id !== productId,
-                            ),
-                            {
-                              product: product,
-                              quantity: 1,
-                            },
-                          ]);
-                        }}
-                      />
-                      <Label htmlFor={`products[${productId}]`}>
-                        {product.name} - {product.price / 100}€
-                      </Label>
-                      {!product.unique && ids.includes(product.id) && (
-                        <Input
-                          type="number"
-                          min={1}
-                          value={purchase?.quantity || 1}
-                          onChange={(e) => {
-                            const value = Math.max(
-                              1,
-                              Math.min(99, Number(e.target.value)),
-                            );
-                            form.setValue(
-                              "products",
-                              purchases.map((p) =>
-                                p.product.id === product.id
-                                  ? { ...p, quantity: value }
-                                  : p,
-                              ),
-                            );
-                          }}
-                          className="ml-2 w-16"
-                        />
-                      )}
                     </div>
                   )}
                 </>

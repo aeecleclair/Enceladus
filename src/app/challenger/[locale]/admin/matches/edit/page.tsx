@@ -4,10 +4,9 @@ import { MatchEdit } from "@/api";
 import { MatchesForm } from "@/components/challenger/admin/matches/MatchesForm";
 import { MatchFormValues, matchFormSchema } from "@/forms/challenger/match";
 import { useSportMatches } from "@/hooks/challenger/useSportMatches";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";

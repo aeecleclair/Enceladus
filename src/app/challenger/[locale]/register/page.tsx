@@ -51,11 +51,24 @@ const Register = () => {
     useAvailableProducts();
   const { isTokenQueried, token } = useAuth();
   const { user: me, updateUser } = useMeUser();
-  const { meCompetition, createCompetitionUser, updateCompetitionUser } =
-    useCompetitionUser();
-  const { meParticipant, createParticipant, withdrawParticipant } =
-    useParticipant();
-  const { userMePurchases, createPurchase, deletePurchase } = useUserPurchases({
+  const {
+    meCompetition,
+    createCompetitionUser,
+    updateCompetitionUser,
+    refetchMeCompetition,
+  } = useCompetitionUser();
+  const {
+    meParticipant,
+    createParticipant,
+    withdrawParticipant,
+    refetchMeParticipant,
+  } = useParticipant();
+  const {
+    userMePurchases,
+    createPurchase,
+    deletePurchase,
+    refetchUserMePurchases,
+  } = useUserPurchases({
     userId: me?.id,
   });
   const { uploadDocument } = useDocument(me?.id ?? null);
@@ -69,7 +82,8 @@ const Register = () => {
   );
   if (
     edition?.inscription_enabled === false ||
-    userSportSchool?.inscription_enabled === false
+    userSportSchool?.inscription_enabled === false ||
+    userSportSchool?.active === false
   ) {
     router.replace("/");
   }
@@ -88,12 +102,14 @@ const Register = () => {
       products:
         userMePurchases
           ?.map((purchase) => {
-            const productItem = availableProducts?.find(
-              (product) => product.id === purchase.product_variant_id,
+            const productVariant = availableProducts?.find(
+              (productVariant) =>
+                productVariant.id === purchase.product_variant_id,
             );
-            if (!productItem) return undefined;
+            if (!productVariant) return undefined;
+            console.log("productVariant", productVariant);
             return {
-              product: productItem,
+              product_variant: productVariant,
               quantity: purchase.quantity,
             };
           })
@@ -216,7 +232,7 @@ const Register = () => {
             : [];
 
           const allPurchasesProductIds = newPurchases.map(
-            (purchase) => purchase.product.id,
+            (purchase) => purchase.product_variant.id,
           );
 
           const hasAllRequired = requiredProductIds.some((id) =>
@@ -230,7 +246,7 @@ const Register = () => {
                   (product) => product.product_id === id,
                 )?.product.name;
                 const index = newPurchases.findIndex(
-                  (purchase) => purchase.product.id === id,
+                  (purchase) => purchase.product_variant.id === id,
                 );
                 form.setError(index !== -1 ? `products.${index}` : "products", {
                   type: "manual",
@@ -245,7 +261,8 @@ const Register = () => {
             (newPurchase) =>
               !userMePurchases?.some(
                 (purchase) =>
-                  purchase.product_variant_id === newPurchase.product.id &&
+                  purchase.product_variant_id ===
+                    newPurchase.product_variant.id &&
                   purchase.quantity === newPurchase.quantity,
               ),
           );
@@ -253,7 +270,8 @@ const Register = () => {
             (purchase) =>
               !newPurchases.some(
                 (newPurchase) =>
-                  newPurchase.product.id === purchase.product_variant_id,
+                  newPurchase.product_variant.id ===
+                  purchase.product_variant_id,
               ),
           );
 
@@ -264,7 +282,7 @@ const Register = () => {
           toCreate.map((purchase) => {
             const body: AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase =
               {
-                product_variant_id: purchase.product.id,
+                product_variant_id: purchase.product_variant.id,
                 quantity: purchase.quantity,
               };
             createPurchase(body, () => {});
@@ -272,6 +290,9 @@ const Register = () => {
           callback();
         },
         Récapitulatif: () => {
+          refetchMeCompetition();
+          refetchMeParticipant();
+          refetchUserMePurchases();
           router.push("/");
         },
       } as const,

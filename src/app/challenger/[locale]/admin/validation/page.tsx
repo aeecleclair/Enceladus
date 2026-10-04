@@ -27,7 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Dashboard = () => {
   const router = useRouter();
-  const { sportSchools } = useSportSchools();
+  const { activeSportSchools: sportSchools } = useSportSchools();
   const { sports } = useSports();
   const { user: currentUser } = useMeUser();
   const { isChallengerAdmin } = useHasChallengerPermission();
@@ -107,7 +107,7 @@ const Dashboard = () => {
 
           const getParticipantType = (user: CompetitionUser) => {
             const types = [];
-            if (user.is_athlete) types.push("Athlète");
+            if (user.is_athlete) types.push("Artiste");
             if (user.is_pompom) types.push("Pompom");
             if (user.is_fanfare) types.push("Fanfare");
             if (user.is_cameraman) types.push("Cameraman");
@@ -241,38 +241,38 @@ const Dashboard = () => {
     };
     participantTableData.forEach((p) => {
       if (p.isValidated) {
-        if (p.participantType.includes("Athlète")) counts.athlete_quota++;
+        if (p.participantType.includes("Artiste")) counts.athlete_quota++;
         if (p.participantType.includes("Cameraman")) counts.cameraman_quota++;
         if (p.participantType.includes("Pompom")) counts.pompom_quota++;
         if (p.participantType.includes("Fanfare")) counts.fanfare_quota++;
 
         if (
-          p.participantType.includes("Athlète") &&
+          p.participantType.includes("Artiste") &&
           p.participantType.includes("Cameraman")
         )
           counts.athlete_cameraman_quota++;
         if (
-          p.participantType.includes("Athlète") &&
+          p.participantType.includes("Artiste") &&
           p.participantType.includes("Pompom")
         )
           counts.athlete_pompom_quota++;
         if (
-          p.participantType.includes("Athlète") &&
+          p.participantType.includes("Artiste") &&
           p.participantType.includes("Fanfare")
         )
           counts.athlete_fanfare_quota++;
         if (
-          !p.participantType.includes("Athlète") &&
+          !p.participantType.includes("Artiste") &&
           p.participantType.includes("Cameraman")
         )
           counts.non_athlete_cameraman_quota++;
         if (
-          !p.participantType.includes("Athlète") &&
+          !p.participantType.includes("Artiste") &&
           p.participantType.includes("Pompom")
         )
           counts.non_athlete_pompom_quota++;
         if (
-          !p.participantType.includes("Athlète") &&
+          !p.participantType.includes("Artiste") &&
           p.participantType.includes("Fanfare")
         )
           counts.non_athlete_fanfare_quota++;

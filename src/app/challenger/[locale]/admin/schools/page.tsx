@@ -4,9 +4,8 @@ import { DeleteConfirmationDialog } from "@/components/challenger/admin/schools/
 import SchoolCard from "@/components/challenger/admin/schools/SchoolCard";
 import SchoolDetail from "@/components/challenger/admin/schools/SchoolDetail";
 import { useSportSchools } from "@/hooks/challenger/useSportSchools";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 

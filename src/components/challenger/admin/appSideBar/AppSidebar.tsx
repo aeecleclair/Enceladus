@@ -100,7 +100,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                         variant="secondary"
                         className="text-[10px] px-1.5 py-0.5 font-medium normal-case tracking-normal bg-foreground text-background border-transparent"
                       >
-                        BDS
+                        BDA
                       </Badge>
                     )}
                   </SidebarGroupLabel>

@@ -6,11 +6,13 @@ interface EditionWaitingCardProps {
     inscription_enabled: boolean;
   };
   isSchoolInscriptionEnabled: boolean;
+  isSchoolActive: boolean;
 }
 
 export const EditionWaitingCard = ({
   edition,
   isSchoolInscriptionEnabled,
+  isSchoolActive,
 }: EditionWaitingCardProps) => {
   return (
     <div className="px-4 justify-center items-center flex h-full flex-col space-y-4">
@@ -20,6 +22,10 @@ export const EditionWaitingCard = ({
       {!edition.inscription_enabled ? (
         <h3 className="text-lg font-medium text-orange-600">
           Les inscriptions ne sont pas encore ouvertes pour cette édition.
+        </h3>
+      ) : !isSchoolActive ? (
+        <h3 className="text-lg font-medium text-orange-600">
+          Votre école n&apos;est pas autorisée à participer à cette édition.
         </h3>
       ) : !isSchoolInscriptionEnabled ? (
         <h3 className="text-lg font-medium text-orange-600">

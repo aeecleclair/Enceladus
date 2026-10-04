@@ -1,4 +1,4 @@
-import { CoreSchool, SchoolProductQuota } from "@/api";
+import { SchoolExtension, SchoolProductQuota } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
 import {
@@ -40,7 +40,7 @@ interface ProductsQuotaDialogProps {
   onOpenChange: (open: boolean) => void;
   onSubmit: (values: ProductQuotaFormValues) => void;
   onSubmitAll?: (values: ProductQuotaFormValues) => void;
-  schools?: CoreSchool[];
+  schools?: SchoolExtension[];
   selectedSchool: string | null;
   setSelectedSchool: (schoolId: string | null) => void;
   existingQuota?: SchoolProductQuota;
@@ -95,12 +95,12 @@ export function ProductsQuotaDialog({
   const schoolsWithoutQuotas =
     schools?.filter(
       (school) =>
-        !existingQuotas.some((quota) => quota.school_id === school.id),
+        !existingQuotas.some((quota) => quota.school_id === school.school_id),
     ) || [];
 
   const schoolsWithQuotas =
     schools?.filter((school) =>
-      existingQuotas.some((quota) => quota.school_id === school.id),
+      existingQuotas.some((quota) => quota.school_id === school.school_id),
     ) || [];
 
   return (
@@ -140,12 +140,15 @@ export function ProductsQuotaDialog({
                   <SelectItem value="all_schools">Toutes les écoles</SelectItem>
                   {schools?.map((school) => {
                     const hasQuota = existingQuotas.some(
-                      (quota) => quota.school_id === school.id,
+                      (quota) => quota.school_id === school.school_id,
                     );
                     if (!hasQuota) {
                       return (
-                        <SelectItem key={school.id} value={school.id}>
-                          {formatSchoolName(school.name)}
+                        <SelectItem
+                          key={school.school_id}
+                          value={school.school_id}
+                        >
+                          {formatSchoolName(school.school.name)}
                         </SelectItem>
                       );
                     }
@@ -175,8 +178,8 @@ export function ProductsQuotaDialog({
                           </summary>
                           <ul className="mt-1 ml-4 list-disc">
                             {schoolsWithQuotas.map((school) => (
-                              <li key={school.id}>
-                                {formatSchoolName(school.name)}
+                              <li key={school.school_id}>
+                                {formatSchoolName(school.school.name)}
                               </li>
                             ))}
                           </ul>

@@ -5,7 +5,7 @@ import { useRouter } from "@/i18n/navigation";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 
 export function NavPodiums() {
-  const { sports } = useSports();
+  const { activeSports } = useSports();
   const router = useRouter();
 
   return (
@@ -15,7 +15,9 @@ export function NavPodiums() {
           onClick={() => router.push("/admin/podiums")}
           className="cursor-pointer hover:underline"
         >
-          Podiums {(sports?.length ?? 0) > 0 && `(${sports!.length} sports)`}
+          Podiums{" "}
+          {(activeSports?.length ?? 0) > 0 &&
+            `(${activeSports!.length} sports)`}
         </div>
       </SidebarGroupLabel>
     </SidebarGroup>

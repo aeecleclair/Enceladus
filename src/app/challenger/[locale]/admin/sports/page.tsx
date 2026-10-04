@@ -6,9 +6,8 @@ import SportDetail from "@/components/challenger/admin/sports/SportDetail";
 import { useAllMatches } from "@/hooks/challenger/useAllMatches";
 import { useAllTeams } from "@/hooks/challenger/useAllTeams";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
@@ -140,8 +139,12 @@ const Dashboard = () => {
       active: sports.filter((s) => s.active).length,
       masculine: sports.filter((s) => s.sport_category === "masculine").length,
       feminine: sports.filter((s) => s.sport_category === "feminine").length,
-      withoutMatches: sports.filter((s) => !matchCountBySport.get(s.id)).length,
-      withoutTeams: sports.filter((s) => !teamCountBySport.get(s.id)).length,
+      withoutMatches: sports
+        .filter((s) => s.active)
+        .filter((s) => !matchCountBySport.get(s.id)).length,
+      withoutTeams: sports
+        .filter((s) => s.active)
+        .filter((s) => !teamCountBySport.get(s.id)).length,
     };
   }, [sports, matchCountBySport, teamCountBySport]);
 

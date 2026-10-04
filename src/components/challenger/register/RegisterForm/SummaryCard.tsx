@@ -86,7 +86,7 @@ export const SummaryCard = ({ form }: SummaryCardProps) => {
                   <div className="space-y-2">
                     <div className="flex items-center gap-1">
                       <CheckCircle2 className="h-4 w-4 text-green-500" />
-                      <p className="text-sm font-medium">Sportif</p>
+                      <p className="text-sm font-medium">Artiste</p>
                     </div>
 
                     {/* Athlete-specific details */}
@@ -117,7 +117,7 @@ export const SummaryCard = ({ form }: SummaryCardProps) => {
                 {formValues.is_cameraman && (
                   <div className="flex items-center gap-1">
                     <CheckCircle2 className="h-4 w-4 text-green-500" />
-                    <p className="text-sm">Caméraman</p>
+                    <p className="text-sm">Jury</p>
                   </div>
                 )}
 
@@ -147,12 +147,12 @@ export const SummaryCard = ({ form }: SummaryCardProps) => {
                     <div key={index} className="flex items-center gap-1">
                       <CheckCircle2 className="h-4 w-4 text-green-500" />
                       <p className="text-sm">
-                        {productItem.product.name}
+                        {productItem.product_variant.name}
                         {productItem.quantity > 1 &&
                           ` (x${productItem.quantity})`}{" "}
                         -{" "}
                         <span className="font-semibold">
-                          {productItem.product.price / 100}€
+                          {productItem.product_variant.price / 100}€
                         </span>
                       </p>
                     </div>
@@ -164,7 +164,8 @@ export const SummaryCard = ({ form }: SummaryCardProps) => {
                       {formValues.products
                         .reduce(
                           (total, item) =>
-                            total + (item.product.price / 100) * item.quantity,
+                            total +
+                            (item.product_variant.price / 100) * item.quantity,
                           0,
                         )
                         .toFixed(2)}

@@ -27,11 +27,11 @@ export const ParticipationCard = ({ form }: ParticipationCardProps) => {
                 checked={field.value}
                 onCheckedChange={field.onChange}
               />
-              <Label htmlFor="is_athlete">Sportif</Label>
+              <Label htmlFor="is_athlete">Artiste</Label>
             </div>
           )}
         />
-
+        {/* TODO: Uncomment after Icares
         <StyledFormField
           form={form}
           id="is_pompom"
@@ -60,7 +60,7 @@ export const ParticipationCard = ({ form }: ParticipationCardProps) => {
               <Label htmlFor="is_fanfare">Fanfaron</Label>
             </div>
           )}
-        />
+        /> */}
 
         <StyledFormField
           form={form}
@@ -72,7 +72,7 @@ export const ParticipationCard = ({ form }: ParticipationCardProps) => {
                 checked={field.value}
                 onCheckedChange={field.onChange}
               />
-              <Label htmlFor="is_cameraman">Caméraman</Label>
+              <Label htmlFor="is_cameraman">Jury</Label>
             </div>
           )}
         />

@@ -35,6 +35,7 @@ export const InformationCard = ({ form }: InformationCardProps) => {
           input={(field) => <PhoneCustomInput {...field} />}
         />
 
+        {/* TODO: Uncomment after Icares 
         <StyledFormField
           form={form}
           label="Catégorie sportive"
@@ -55,7 +56,7 @@ export const InformationCard = ({ form }: InformationCardProps) => {
               </div>
             </RadioGroup>
           )}
-        />
+        /> */}
 
         <div>
           <StyledFormField
@@ -90,7 +91,7 @@ export const InformationCard = ({ form }: InformationCardProps) => {
             {formatSchoolName(me?.school?.name)}
           </span>
         </p>
-        <p>Si ce n&apos;est pas le cas, contactes ton BDS.</p>
+        <p>Si ce n&apos;est pas le cas, contactes ton BDA.</p>
       </div>
     </CardTemplate>
   );
