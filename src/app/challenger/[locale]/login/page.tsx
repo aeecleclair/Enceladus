@@ -12,7 +12,7 @@ const Login = () => {
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="#" className="flex items-center gap-2 font-medium">
             <Logo />
-            Challenger
+            ICares
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center py-12">

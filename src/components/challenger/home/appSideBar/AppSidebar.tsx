@@ -59,7 +59,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <button onClick={handleLogoClick} className="w-full">
                 <Logo />
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Challenger</span>
+                  <span className="truncate font-medium">ICares</span>
                   {edition ? (
                     <span className="truncate text-xs">
                       Edition {edition.year}
@@ -75,10 +75,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent className="[&_[data-sidebar=group]]:!py-0.5">
+      <SidebarContent className="**:data-[sidebar=group]:py-0.5!">
         {edition && (meParticipant || isVolunteer) && (
           <>
-            <SidebarGroup className="!py-0">
+            <SidebarGroup className="py-0!">
               <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
                 Mon espace
               </SidebarGroupLabel>
@@ -90,7 +90,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {edition && (
           <>
             <SidebarSeparator />
-            <SidebarGroup className="!py-0">
+            <SidebarGroup className="py-0!">
               <SidebarGroupLabel className="text-[11px] font-semibold text-muted-foreground uppercase tracking-widest flex items-center gap-2 px-3 pt-2 pb-1">
                 Compétition
               </SidebarGroupLabel>
@@ -107,7 +107,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             onClick={exitDevMode}
             className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-xs font-medium text-amber-700 bg-amber-50 hover:bg-amber-100 transition-colors border border-amber-200"
           >
-            <FlaskConical className="h-3.5 w-3.5 flex-shrink-0" />
+            <FlaskConical className="h-3.5 w-3.5 shrink-0" />
             Quitter le mode prévisualisation
           </button>
         )}
