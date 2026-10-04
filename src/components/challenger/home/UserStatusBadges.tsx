@@ -19,7 +19,7 @@ export const UserStatusBadges = ({ meCompetition }: UserStatusBadgesProps) => {
       <div className="flex flex-wrap gap-2">
         {meCompetition.is_athlete && (
           <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">
-            Athlète
+            Artiste
           </span>
         )}
         {isVolunteer && (
@@ -39,7 +39,7 @@ export const UserStatusBadges = ({ meCompetition }: UserStatusBadgesProps) => {
         )}
         {meCompetition.is_cameraman && (
           <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-800 rounded-full">
-            Caméraman
+            Jury
           </span>
         )}
         {!meCompetition.is_athlete &&

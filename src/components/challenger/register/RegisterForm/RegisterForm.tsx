@@ -156,9 +156,7 @@ export const RegisterForm = ({
     </Form>
   ) : (
     <>
-      {meCompetition && !meCompetition.validated && (
-        <WaitingPage userMePurchases={userMePurchases} />
-      )}
+      {meCompetition && !meCompetition.validated && <WaitingPage />}
       {meCompetition && meCompetition.validated && (
         <ValidatedPage userMePurchases={userMePurchases} />
       )}

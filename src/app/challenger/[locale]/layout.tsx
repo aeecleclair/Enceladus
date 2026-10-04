@@ -47,8 +47,8 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <title>Challenger</title>
-        <link rel="shortcut icon" href="/challenger.ico" />
+        <title>ICares</title>
+        <link rel="shortcut icon" href="/icares.ico" />
       </head>
 
       <Script

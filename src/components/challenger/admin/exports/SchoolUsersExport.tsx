@@ -31,7 +31,7 @@ export const SchoolUsersExport = () => {
   const { edition } = useEdition();
   const { token } = useAuth();
   const { toast } = useToast();
-  const { sportSchools } = useSportSchools();
+  const { activeSportSchools: sportSchools } = useSportSchools();
   const [isExporting, setIsExporting] = useState(false);
   const [exportParams, setExportParams] = useState<{
     schoolId: string;

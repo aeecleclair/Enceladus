@@ -3,12 +3,12 @@ import { useAuth } from "@/app/authContext";
 
 import { useQuery } from "@tanstack/react-query";
 
-export const useAvailableProducts = () => {
+export const useAvailableProductsVariants = () => {
   const { isTokenExpired } = useAuth();
 
   const {
-    data: availableProducts,
-    refetch: refetchAvailableProducts,
+    data: availableProductsVariants,
+    refetch: refetchAvailableProductsVariants,
     isLoading,
     error,
   } = useQuery({
@@ -18,8 +18,8 @@ export const useAvailableProducts = () => {
   });
 
   return {
-    availableProducts,
-    refetchAvailableProducts,
+    availableProductsVariants,
+    refetchAvailableProductsVariants,
     isLoading,
     error,
   };

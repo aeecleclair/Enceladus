@@ -23,6 +23,7 @@ import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants"
 import { useSchoolsPayments } from "@/hooks/challenger/useSchoolsPayments";
 import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
 import { useUserPayments } from "@/hooks/challenger/useUserPayments";
+import { useRouter } from "@/i18n/navigation";
 
 import { useSearchParams } from "next/navigation";
 import React from "react";
@@ -52,6 +53,7 @@ import {
 
 const UserDetailsPage = () => {
   const searchParam = useSearchParams();
+  const router = useRouter();
   const userId = searchParam.get("user_id");
   const { isChallengerAdmin } = useHasChallengerPermission();
 
@@ -170,9 +172,9 @@ const UserDetailsPage = () => {
             onClick={() => {
               const schoolIdParam = searchParam.get("school_id");
               if (schoolIdParam) {
-                window.location.href = `/admin/validation?school_id=${schoolIdParam}`;
+                router.push(`/admin/validation?school_id=${schoolIdParam}`);
               } else {
-                window.history.back();
+                router.push("/admin/validation");
               }
             }}
             className="gap-2"

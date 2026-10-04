@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { SidebarGroup, SidebarGroupLabel } from "@/components/ui/sidebar";
 
 export function NavSports() {
-  const { sports } = useSports();
+  const { sports, activeSports } = useSports();
   const { allMatches } = useAllMatches();
   const { allTeams } = useAllTeams();
   const router = useRouter();
@@ -20,8 +20,9 @@ export function NavSports() {
     const withMatches = new Set((allMatches ?? []).map((m) => m.sport_id));
     const withTeams = new Set((allTeams ?? []).map((t) => t.sport_id));
     return {
-      noTeams: sports.filter((s) => !withTeams.has(s.id)).length,
-      noMatches: sports.filter((s) => !withMatches.has(s.id)).length,
+      noTeams: sports.filter((s) => !withTeams.has(s.id) && s.active).length,
+      noMatches: sports.filter((s) => !withMatches.has(s.id) && s.active)
+        .length,
     };
   }, [sports, allMatches, allTeams]);
 
@@ -32,7 +33,10 @@ export function NavSports() {
           onClick={() => router.push("/admin/sports")}
           className="cursor-pointer hover:underline flex items-center gap-1 flex-wrap"
         >
-          Sports {(sports?.length ?? 0) > 0 && `(${sports!.length})`}
+          Sports{" "}
+          {(sports?.length ?? 0) > 0 &&
+            (activeSports?.length ?? 0) > 0 &&
+            `(${activeSports!.length}/${sports!.length})`}
           {noTeams > 0 && (
             <Badge
               variant="outline"

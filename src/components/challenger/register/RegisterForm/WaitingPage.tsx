@@ -1,10 +1,7 @@
 import { BasketCard } from "./BasketCard";
 import { RegistrationSummary } from "./RegistrationSummary";
 
-import {
-  AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase,
-  Purchase,
-} from "@/api";
+import { AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase } from "@/api";
 import { DocumentDialog } from "@/components/challenger/custom/DocumentDialog";
 import { LoadingButton } from "@/components/common/LoadingButton";
 import { StyledFormField } from "@/components/common/StyledFormField";
@@ -20,7 +17,7 @@ import {
   SubstituteFormValues,
   substituteFormSchema,
 } from "@/forms/challenger/substitute";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useAvailableProductsVariants } from "@/hooks/challenger/useAvailableProducts";
 import { useDocument } from "@/hooks/challenger/useDocument";
 import { useParticipant } from "@/hooks/challenger/useParticipant";
 import { useUserPurchases } from "@/hooks/challenger/useUserPurchases";
@@ -44,12 +41,8 @@ import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 
-interface WaitingPageProps {
-  userMePurchases?: Purchase[];
-}
-
-export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
-  const { availableProducts } = useAvailableProducts();
+export const WaitingPage = () => {
+  const { availableProductsVariants } = useAvailableProductsVariants();
   const { meParticipant, createParticipant, withdrawParticipant } =
     useParticipant();
   const [purchaseDialogOpen, setPurchaseDialogOpen] = useState(false);
@@ -58,7 +51,7 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
   const [certificateDialogOpen, setCertificateDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const { user: me } = useMeUser();
-  const { createPurchase, deletePurchase } = useUserPurchases({
+  const { createPurchase, deletePurchase, userMePurchases } = useUserPurchases({
     userId: me?.id,
   });
   const { data: certificateData, uploadDocument } = useDocument(me?.id ?? null);
@@ -166,12 +159,13 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
       products:
         userMePurchases
           ?.map((purchase) => {
-            const productItem = availableProducts?.find(
-              (product) => product.id === purchase.product_variant_id,
+            const productVariant = availableProductsVariants?.find(
+              (productVariant) =>
+                productVariant.id === purchase.product_variant_id,
             );
-            if (!productItem) return undefined;
+            if (!productVariant) return undefined;
             return {
-              product: productItem,
+              product_variant: productVariant,
               quantity: purchase.quantity,
             };
           })
@@ -183,14 +177,14 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
     setIsLoading(true);
     const newPurchases = values.products;
 
-    const requiredProductIds = availableProducts
-      ? availableProducts
+    const requiredProductIds = availableProductsVariants
+      ? availableProductsVariants
           .filter((product) => product.product.required === true)
           .map((product) => product.id)
       : [];
 
     const allPurchasesProductIds = newPurchases.map(
-      (purchase) => purchase.product.id,
+      (purchase) => purchase.product_variant.id,
     );
 
     const hasAllRequired = requiredProductIds.some((id) =>
@@ -200,11 +194,11 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
     if (!hasAllRequired) {
       for (const id of requiredProductIds) {
         if (!allPurchasesProductIds.includes(id)) {
-          const productName = availableProducts?.find(
+          const productName = availableProductsVariants?.find(
             (product) => product.product_id === id,
           )?.product.name;
           const index = newPurchases.findIndex(
-            (purchase) => purchase.product.id === id,
+            (purchase) => purchase.product_variant.id === id,
           );
           productForm.setError(
             index !== -1 ? `products.${index}` : "products",
@@ -222,33 +216,34 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
       (newPurchase) =>
         !userMePurchases?.some(
           (purchase) =>
-            purchase.product_variant_id === newPurchase.product.id &&
+            purchase.product_variant_id === newPurchase.product_variant.id &&
             purchase.quantity === newPurchase.quantity,
         ),
     );
-    const toDelete = userMePurchases?.filter(
-      (purchase) =>
-        !newPurchases.some(
-          (newPurchase) =>
-            newPurchase.product.id === purchase.product_variant_id,
-        ),
-    );
-
-    toDelete?.map((purchase) => {
-      deletePurchase(purchase.product_variant_id, () => {});
+    const toDelete =
+      userMePurchases?.filter(
+        (purchase) =>
+          !newPurchases.some(
+            (newPurchase) =>
+              newPurchase.product_variant.id === purchase.product_variant_id,
+          ),
+      ) ?? [];
+    await Promise.all([
+      ...toDelete?.map((purchase) =>
+        deletePurchase(purchase.product_variant_id, () => {}),
+      ),
+      ...toCreate.map((purchase) => {
+        const body: AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase =
+          {
+            product_variant_id: purchase.product_variant.id,
+            quantity: purchase.quantity,
+          };
+        return createPurchase(body, () => {});
+      }),
+    ]).then(() => {
+      setIsLoading(false);
+      setPurchaseDialogOpen(false);
     });
-
-    toCreate.map((purchase) => {
-      const body: AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase =
-        {
-          product_variant_id: purchase.product.id,
-          quantity: purchase.quantity,
-        };
-      createPurchase(body, () => {});
-    });
-
-    setIsLoading(false);
-    setPurchaseDialogOpen(false);
   }
 
   return (
@@ -257,7 +252,7 @@ export const WaitingPage = ({ userMePurchases }: WaitingPageProps) => {
         <Card className="p-6 bg-red-700 text-white border-red-800 shadow-md shadow-red-500/50">
           <CardTitle>En attente de validation</CardTitle>
           <CardDescription className="text-white">
-            Ton inscription est en cours de validation par ton BDS.
+            Ton inscription est en cours de validation par ton BDA.
           </CardDescription>
         </Card>
 

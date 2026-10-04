@@ -39,8 +39,6 @@ export const EditionForm = ({
 
         <div className="space-y-2">
           <DateRangePicker
-            startDate={form.getValues("startDate")}
-            endDate={form.getValues("endDate")}
             onDateRangeChange={(startDate, endDate) => {
               if (startDate) {
                 form.setValue("startDate", startDate, { shouldValidate: true });

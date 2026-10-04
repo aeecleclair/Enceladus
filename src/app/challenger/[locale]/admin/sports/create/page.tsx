@@ -4,10 +4,9 @@ import { SportBase } from "@/api";
 import { SportsForm } from "@/components/challenger/admin/sports/SportsForm";
 import { SportFormValues, sportFormSchema } from "@/forms/challenger/sport";
 import { useSports } from "@/hooks/challenger/useSports";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";

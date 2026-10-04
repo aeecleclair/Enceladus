@@ -59,7 +59,7 @@ export function AppSidebar({
             ))}
             <TimelineItemLabel>Confirmation</TimelineItemLabel>
             <TimelineStep
-              label="Validation du BDS"
+              label="Validation du BDA"
               description={
                 state.stepDone > numberOfItem ? "Terminé" : "En cours"
               }

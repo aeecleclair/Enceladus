@@ -7,7 +7,7 @@ export const situations = [
 
 export const difficulties = [
   { value: "discovery", label: "Découverte" },
-  { value: "sports", label: "Sportif" },
+  { value: "sports", label: "Artiste" },
   { value: "expert", label: "Expert" },
 ];
 

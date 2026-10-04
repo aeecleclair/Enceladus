@@ -84,7 +84,7 @@ export const SportCard = ({ form, sports }: SportCardProps) => {
   return (
     <CardTemplate>
       <h2 className="text-xl font-semibold">
-        Ta participation aux Challenge :
+        Ta participation aux ICares 2026 :
       </h2>
       <StyledFormField
         form={form}
@@ -173,6 +173,7 @@ export const SportCard = ({ form, sports }: SportCardProps) => {
               </DialogContent>
             </Dialog>
           </div>
+          {/* TODO: Uncomment after Icares 
           {form.watch("sport.team_id") && (
             <StyledFormField
               form={form}
@@ -189,10 +190,11 @@ export const SportCard = ({ form, sports }: SportCardProps) => {
                 </div>
               )}
             />
-          )}
+          )} */}
         </div>
       )}
 
+      {/* TODO: Uncomment after Icares
       <div className="flex flex-col gap-4 lg:flex-row w-2/3">
         <StyledFormField
           form={form}
@@ -244,7 +246,7 @@ export const SportCard = ({ form, sports }: SportCardProps) => {
             </div>
           )}
         />
-      </div>
+      </div> */}
     </CardTemplate>
   );
 };

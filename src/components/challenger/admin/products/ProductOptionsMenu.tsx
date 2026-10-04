@@ -1,20 +1,11 @@
+import { DeleteProductDialog } from "./DeleteProductDialog";
 import { EditProductDialog } from "./EditProductDialog";
 
 import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
-import { LoadingButton } from "@/components/common/LoadingButton";
-import { useProducts } from "@/hooks/challenger/useProducts";
 
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,15 +25,8 @@ export const ProductOptionsMenu = ({
   product,
   onViewDetails,
 }: ProductOptionsMenuProps) => {
-  const { deleteProduct, isDeleteLoading } = useProducts();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-
-  const handleDelete = () => {
-    deleteProduct(product.id, () => {
-      setIsDeleteDialogOpen(false);
-    });
-  };
 
   return (
     <>
@@ -81,34 +65,11 @@ export const ProductOptionsMenu = ({
       />
 
       {/* Delete Confirmation Dialog */}
-      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Supprimer le produit</DialogTitle>
-            <DialogDescription>
-              Êtes-vous sûr de vouloir supprimer le produit &quot;{product.name}
-              &quot; ? Cette action supprimera également toutes les variantes
-              associées et ne peut pas être annulée.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="outline"
-              onClick={() => setIsDeleteDialogOpen(false)}
-              disabled={isDeleteLoading}
-            >
-              Annuler
-            </Button>
-            <LoadingButton
-              variant="destructive"
-              onClick={handleDelete}
-              isLoading={isDeleteLoading}
-            >
-              Supprimer
-            </LoadingButton>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <DeleteProductDialog
+        isOpen={isDeleteDialogOpen}
+        onClose={() => setIsDeleteDialogOpen(false)}
+        product={product}
+      />
     </>
   );
 };

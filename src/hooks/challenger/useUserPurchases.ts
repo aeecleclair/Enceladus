@@ -50,6 +50,7 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
       ...postCompetitionPurchasesMeMutation(),
       onSuccess: () => {
         refetchUserPurchases();
+        refetchUserMePurchases();
         refetchMeCompetition();
         toast({
           title: "Variante ajoutée",
@@ -85,6 +86,7 @@ export const useUserPurchases = ({ userId }: UseUserPurchasesProps) => {
       ...deleteCompetitionPurchasesProductVariantIdMutation(),
       onSuccess: () => {
         refetchUserPurchases();
+        refetchUserMePurchases();
         refetchMeCompetition();
         toast({
           title: "Variante supprimée",

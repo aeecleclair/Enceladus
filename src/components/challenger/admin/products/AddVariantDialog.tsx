@@ -68,7 +68,7 @@ export const AddVariantDialog = ({
     { value: "pompom", label: "Pompom" },
     { value: "fanfare", label: "Fanfare" },
     { value: "cameraman", label: "Cameraman" },
-    { value: "athlete", label: "Athlète" },
+    { value: "athlete", label: "Artiste" },
     { value: "volunteer", label: "Bénévole" },
   ];
 

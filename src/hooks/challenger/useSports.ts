@@ -134,6 +134,9 @@ export const useSports = () => {
 
   return {
     sports,
+    activeSports: sports
+      ?.filter((sport) => sport.active)
+      .sort((a, b) => a.name.localeCompare(b.name)),
     createSport,
     error,
     isCreateLoading,

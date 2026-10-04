@@ -18,7 +18,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const Dashboard = () => {
   const router = useRouter();
   const { sports } = useSports();
-  const { sportSchools } = useSportSchools();
+  const { activeSportSchools: sportSchools } = useSportSchools();
   const { user: currentUser } = useMeUser();
   const { updateLicense, isUpdateLoading } = useLicense();
 

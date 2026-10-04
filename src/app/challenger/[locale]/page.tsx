@@ -68,7 +68,9 @@ const Home = () => {
   const userSportSchool = sportSchools?.find(
     (school) => school.school_id === user?.school_id,
   );
-  const isSchoolInscriptionEnabled = userSportSchool?.inscription_enabled;
+  const isSchoolActive = userSportSchool?.active;
+  const isSchoolInscriptionEnabled =
+    userSportSchool?.active && userSportSchool?.inscription_enabled;
 
   if (isTokenQueried && token === null) {
     router.replace("/login");
@@ -123,6 +125,7 @@ const Home = () => {
                           edition.inscription_enabled || false,
                       }}
                       isSchoolInscriptionEnabled={!!isSchoolInscriptionEnabled}
+                      isSchoolActive={!!isSchoolActive}
                     />
                   )}
                 {edition && isEditionStarted && !isEditionEnded && (

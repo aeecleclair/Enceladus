@@ -119,6 +119,7 @@ const SportDetail = ({ sport, onEdit, onDelete }: SportDetailProps) => {
     const schoolIdsWithoutQuotas = sportSchools
       .filter(
         (school) =>
+          school.active &&
           !sportsQuota?.some((quota) => quota.school_id === school.school_id),
       )
       .map((school) => school.school_id);

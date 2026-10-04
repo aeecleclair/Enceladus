@@ -123,7 +123,7 @@ export function GeneralQuotaDialog({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <StyledFormField
                 form={quotaForm}
-                label="Quota d'athlètes"
+                label="Quota d'artistes"
                 id="athlete_quota"
                 input={(field) => (
                   <Input
@@ -175,7 +175,7 @@ export function GeneralQuotaDialog({
               />
               <StyledFormField
                 form={quotaForm}
-                label="Quota athlète + cameraman"
+                label="Quota artiste + cameraman"
                 id="athlete_cameraman_quota"
                 input={(field) => (
                   <Input
@@ -188,7 +188,7 @@ export function GeneralQuotaDialog({
               />
               <StyledFormField
                 form={quotaForm}
-                label="Quota athlète + pompom"
+                label="Quota artiste + pompom"
                 id="athlete_pompom_quota"
                 input={(field) => (
                   <Input
@@ -201,7 +201,7 @@ export function GeneralQuotaDialog({
               />
               <StyledFormField
                 form={quotaForm}
-                label="Quota athlète + fanfare"
+                label="Quota artiste + fanfare"
                 id="athlete_fanfare_quota"
                 input={(field) => (
                   <Input
@@ -214,7 +214,7 @@ export function GeneralQuotaDialog({
               />
               <StyledFormField
                 form={quotaForm}
-                label="Quota non-athlète + cameraman"
+                label="Quota non-artiste + cameraman"
                 id="non_athlete_cameraman_quota"
                 input={(field) => (
                   <Input
@@ -227,7 +227,7 @@ export function GeneralQuotaDialog({
               />
               <StyledFormField
                 form={quotaForm}
-                label="Quota non-athlète + pompom"
+                label="Quota non-artiste + pompom"
                 id="non_athlete_pompom_quota"
                 input={(field) => (
                   <Input
@@ -240,7 +240,7 @@ export function GeneralQuotaDialog({
               />
               <StyledFormField
                 form={quotaForm}
-                label="Quota non-athlète + fanfare"
+                label="Quota non-artiste + fanfare"
                 id="non_athlete_fanfare_quota"
                 input={(field) => (
                   <Input

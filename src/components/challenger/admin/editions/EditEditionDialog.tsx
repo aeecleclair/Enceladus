@@ -69,7 +69,7 @@ export const EditEditionDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle>Modifier l&apos;édition</DialogTitle>
           <DialogDescription>

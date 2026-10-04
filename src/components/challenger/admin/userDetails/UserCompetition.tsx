@@ -63,7 +63,7 @@ export const UserCompetition = ({
 
   const getParticipantType = (user: CompetitionUser) => {
     const types = [];
-    if (user.is_athlete) types.push("Athlète");
+    if (user.is_athlete) types.push("Artiste");
     if (user.is_pompom) types.push("Pompom");
     if (user.is_fanfare) types.push("Fanfare");
     if (user.is_cameraman) types.push("Cameraman");
@@ -80,7 +80,7 @@ export const UserCompetition = ({
 
   const getParticipantTypeIcon = (type: string) => {
     switch (type) {
-      case "Athlète":
+      case "Artiste":
         return Trophy;
       case "Pompom":
         return Users2;
@@ -97,7 +97,7 @@ export const UserCompetition = ({
 
   const getParticipantTypeColor = (type: string) => {
     switch (type) {
-      case "Athlète":
+      case "Artiste":
         return "bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-300";
       case "Pompom":
         return "bg-pink-100 text-pink-800 hover:bg-pink-200 border-pink-300";

@@ -28,7 +28,7 @@ export const SchoolQuotasExport = () => {
   const { edition } = useEdition();
   const { token } = useAuth();
   const { toast } = useToast();
-  const { sportSchools } = useSportSchools();
+  const { activeSportSchools: sportSchools } = useSportSchools();
   const [schoolId, setSchoolId] = useState("");
   const [isExporting, setIsExporting] = useState(false);
 

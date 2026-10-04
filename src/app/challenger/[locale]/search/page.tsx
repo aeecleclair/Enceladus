@@ -82,7 +82,7 @@ const SPORT_CATEGORY_LABELS = {
 
 export default function SearchPage() {
   const { sports } = useSports();
-  const { sportSchools: schools } = useSportSchools();
+  const { activeSportSchools: schools } = useSportSchools();
   const { locations } = useLocations();
   const searchParams = useSearchParams();
   const router = useRouter();

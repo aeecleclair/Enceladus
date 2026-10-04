@@ -146,6 +146,9 @@ export const useSportSchools = () => {
   return {
     NoSchoolId,
     sportSchools,
+    activeSportSchools: sportSchools
+      ?.filter((s) => s.active)
+      .sort((a, b) => a.school.name.localeCompare(b.school.name)),
     createCompetitionSchool,
     updateCompetitionSchool,
     deleteCompetitionSchool,

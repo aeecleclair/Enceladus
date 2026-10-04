@@ -41,7 +41,7 @@ export const ProductVariantGrid = ({
       pompom: "Pompom",
       fanfare: "Fanfare",
       cameraman: "Cameraman",
-      athlete: "Athlète",
+      athlete: "Artiste",
     };
     return types[publicType] || publicType;
   };

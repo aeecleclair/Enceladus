@@ -1,10 +1,9 @@
 "use client";
 
 import { SchoolExtension } from "@/api";
+import { Link } from "@/i18n/navigation";
 import { formatSchoolName } from "@/lib/challenger/schoolFormatting";
 import { getSchoolType } from "@/lib/challenger/schools";
-
-import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -36,7 +35,7 @@ export const SchoolCard = ({
 
   return (
     <Card
-      className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-1 group"
+      className={`cursor-pointer hover:shadow-lg transition-all duration-200 hover:-translate-y-1 group ${!school.active ? "border-red-300 bg-red-50/50" : !school.inscription_enabled ? "border-amber-300 bg-amber-50/50" : ""}`}
       onClick={onClick}
     >
       <CardHeader className="pb-3">

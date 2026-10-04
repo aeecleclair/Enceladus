@@ -131,7 +131,7 @@ export const RegisterFormField = ({
         ) : (
           <LoadingButton
             isLoading={isLoading}
-            className="w-[200px]"
+            className="w-50"
             type="submit"
             onClick={() => onSubmit(form.getValues())}
           >

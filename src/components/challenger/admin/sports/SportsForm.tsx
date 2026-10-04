@@ -8,6 +8,7 @@ import { z } from "zod";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -108,12 +109,16 @@ export const SportsForm = ({
             input={(field) => (
               <div className="flex items-center space-x-2 pt-2">
                 <Checkbox
+                  id="active_checkbox"
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
-                <span className="text-sm text-muted-foreground">
+                <Label
+                  className="text-sm text-muted-foreground"
+                  htmlFor="active_checkbox"
+                >
                   Ce sport peut être utilisé dans la compétition
-                </span>
+                </Label>
               </div>
             )}
           />

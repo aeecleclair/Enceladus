@@ -49,7 +49,7 @@ export const ProductVariantStatsGrid = ({
       pompom: "Pompom",
       fanfare: "Fanfare",
       cameraman: "Cameraman",
-      athlete: "Athlète",
+      athlete: "Artiste",
     };
     return types[publicType] || publicType;
   };

@@ -8,6 +8,7 @@ import { UseFormReturn } from "react-hook-form";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form } from "@/components/ui/form";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -70,12 +71,16 @@ export const SchoolsForm = ({
               input={(field) => (
                 <div className="flex items-center space-x-2 pt-2">
                   <Checkbox
+                    id="fromLyon_checkbox"
                     checked={field.value}
                     onCheckedChange={field.onChange}
                   />
-                  <span className="text-sm text-muted-foreground">
+                  <Label
+                    className="text-sm text-muted-foreground"
+                    htmlFor="fromLyon_checkbox"
+                  >
                     Cette école fait partie du campus lyonnais
-                  </span>
+                  </Label>
                 </div>
               )}
             />
@@ -87,12 +92,16 @@ export const SchoolsForm = ({
               input={(field) => (
                 <div className="flex items-center space-x-2 pt-2">
                   <Checkbox
+                    id="active_checkbox"
                     checked={field.value}
                     onCheckedChange={field.onChange}
                   />
-                  <span className="text-sm text-muted-foreground">
+                  <Label
+                    className="text-sm text-muted-foreground"
+                    htmlFor="active_checkbox"
+                  >
                     L&apos;école peut participer à la compétition
-                  </span>
+                  </Label>
                 </div>
               )}
             />
@@ -105,12 +114,16 @@ export const SchoolsForm = ({
             input={(field) => (
               <div className="flex items-center space-x-2 pt-2">
                 <Checkbox
+                  id="inscription_enabled_checkbox"
                   checked={field.value}
                   onCheckedChange={field.onChange}
                 />
-                <span className="text-sm text-muted-foreground">
+                <Label
+                  className="text-sm text-muted-foreground"
+                  htmlFor="inscription_enabled_checkbox"
+                >
                   Les étudiants de cette école peuvent s&apos;inscrire
-                </span>
+                </Label>
               </div>
             )}
           />

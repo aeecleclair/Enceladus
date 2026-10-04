@@ -12,7 +12,7 @@ import {
   RegisteringFormValues,
   registeringFormSchema,
 } from "@/forms/challenger/registering";
-import { useAvailableProducts } from "@/hooks/challenger/useAvailableProducts";
+import { useAvailableProductsVariants } from "@/hooks/challenger/useAvailableProducts";
 import { useCompetitionUser } from "@/hooks/challenger/useCompetitionUser";
 import { useDocument } from "@/hooks/challenger/useDocument";
 import { useEdition } from "@/hooks/challenger/useEdition";
@@ -47,15 +47,28 @@ const Register = () => {
   const { edition } = useEdition();
   const { sports } = useSports();
   const { sportSchools } = useSportSchools();
-  const { availableProducts, refetchAvailableProducts } =
-    useAvailableProducts();
+  const { availableProductsVariants, refetchAvailableProductsVariants } =
+    useAvailableProductsVariants();
   const { isTokenQueried, token } = useAuth();
   const { user: me, updateUser } = useMeUser();
-  const { meCompetition, createCompetitionUser, updateCompetitionUser } =
-    useCompetitionUser();
-  const { meParticipant, createParticipant, withdrawParticipant } =
-    useParticipant();
-  const { userMePurchases, createPurchase, deletePurchase } = useUserPurchases({
+  const {
+    meCompetition,
+    createCompetitionUser,
+    updateCompetitionUser,
+    refetchMeCompetition,
+  } = useCompetitionUser();
+  const {
+    meParticipant,
+    createParticipant,
+    withdrawParticipant,
+    refetchMeParticipant,
+  } = useParticipant();
+  const {
+    userMePurchases,
+    createPurchase,
+    deletePurchase,
+    refetchUserMePurchases,
+  } = useUserPurchases({
     userId: me?.id,
   });
   const { uploadDocument } = useDocument(me?.id ?? null);
@@ -69,7 +82,8 @@ const Register = () => {
   );
   if (
     edition?.inscription_enabled === false ||
-    userSportSchool?.inscription_enabled === false
+    userSportSchool?.inscription_enabled === false ||
+    userSportSchool?.active === false
   ) {
     router.replace("/");
   }
@@ -88,12 +102,13 @@ const Register = () => {
       products:
         userMePurchases
           ?.map((purchase) => {
-            const productItem = availableProducts?.find(
-              (product) => product.id === purchase.product_variant_id,
+            const productVariant = availableProductsVariants?.find(
+              (productVariant) =>
+                productVariant.id === purchase.product_variant_id,
             );
-            if (!productItem) return undefined;
+            if (!productVariant) return undefined;
             return {
-              product: productItem,
+              product_variant: productVariant,
               quantity: purchase.quantity,
             };
           })
@@ -152,7 +167,7 @@ const Register = () => {
         },
         Participation: async (values, callback) => {
           const extendedCallback = () => {
-            refetchAvailableProducts();
+            refetchAvailableProductsVariants();
             callback();
           };
           if (meCompetition !== undefined) {
@@ -209,14 +224,14 @@ const Register = () => {
         Panier: (values, callback) => {
           const newPurchases = values.products;
 
-          const requiredProductIds = availableProducts
-            ? availableProducts
+          const requiredProductIds = availableProductsVariants
+            ? availableProductsVariants
                 .filter((product) => product.product.required === true)
                 .map((product) => product.id)
             : [];
 
           const allPurchasesProductIds = newPurchases.map(
-            (purchase) => purchase.product.id,
+            (purchase) => purchase.product_variant.id,
           );
 
           const hasAllRequired = requiredProductIds.some((id) =>
@@ -226,11 +241,11 @@ const Register = () => {
           if (!hasAllRequired) {
             for (const id of requiredProductIds) {
               if (!allPurchasesProductIds.includes(id)) {
-                const productName = availableProducts?.find(
+                const productName = availableProductsVariants?.find(
                   (product) => product.product_id === id,
                 )?.product.name;
                 const index = newPurchases.findIndex(
-                  (purchase) => purchase.product.id === id,
+                  (purchase) => purchase.product_variant.id === id,
                 );
                 form.setError(index !== -1 ? `products.${index}` : "products", {
                   type: "manual",
@@ -245,7 +260,8 @@ const Register = () => {
             (newPurchase) =>
               !userMePurchases?.some(
                 (purchase) =>
-                  purchase.product_variant_id === newPurchase.product.id &&
+                  purchase.product_variant_id ===
+                    newPurchase.product_variant.id &&
                   purchase.quantity === newPurchase.quantity,
               ),
           );
@@ -253,7 +269,8 @@ const Register = () => {
             (purchase) =>
               !newPurchases.some(
                 (newPurchase) =>
-                  newPurchase.product.id === purchase.product_variant_id,
+                  newPurchase.product_variant.id ===
+                  purchase.product_variant_id,
               ),
           );
 
@@ -264,7 +281,7 @@ const Register = () => {
           toCreate.map((purchase) => {
             const body: AppModulesSportCompetitionSchemasSportCompetitionPurchaseBase =
               {
-                product_variant_id: purchase.product.id,
+                product_variant_id: purchase.product_variant.id,
                 quantity: purchase.quantity,
               };
             createPurchase(body, () => {});
@@ -272,12 +289,21 @@ const Register = () => {
           callback();
         },
         Récapitulatif: () => {
+          refetchMeCompetition();
+          refetchMeParticipant();
+          refetchUserMePurchases();
           router.push("/");
         },
       } as const,
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [me, meCompetition, meParticipant, userMePurchases, availableProducts]);
+  }, [
+    me,
+    meCompetition,
+    meParticipant,
+    userMePurchases,
+    availableProductsVariants,
+  ]);
 
   return (
     <SidebarProvider>
