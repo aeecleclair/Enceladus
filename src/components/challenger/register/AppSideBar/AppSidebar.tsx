@@ -37,7 +37,7 @@ export function AppSidebar({
               <a href="#">
                 <Logo />
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Challenger</span>
+                  <span className="truncate font-medium">ICares</span>
                   <span className="truncate text-xs">Inscription</span>
                 </div>
               </a>
