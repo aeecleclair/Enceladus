@@ -34,7 +34,7 @@ function getDifficultyData(
 ): { value: number; label: string }[] {
   const response = [
     { value: 0, label: "Découverte" },
-    { value: 0, label: "Artiste" },
+    { value: 0, label: "Sportif" },
     { value: 0, label: "Expert" },
   ];
   if (seeAll) {
