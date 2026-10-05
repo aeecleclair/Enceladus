@@ -120,7 +120,7 @@ export function ParticipantDataTable({
   isLoading,
 }: ParticipantDataTableProps) {
   const { toast } = useToast();
-  const { isChallengerAdmin } = useHasChallengerPermission();
+  const { isChallengerAdmin, isBDS } = useHasChallengerPermission();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -281,7 +281,7 @@ export function ParticipantDataTable({
           </div>
         );
 
-        return isChallengerAdmin ? (
+        return isChallengerAdmin || isBDS ? (
           <Link
             href={`/admin/validation/detail?user_id=${row.original.userId}&school_id=${schoolId}`}
             className="font-medium text-center flex items-center justify-center gap-2 underline hover:no-underline"

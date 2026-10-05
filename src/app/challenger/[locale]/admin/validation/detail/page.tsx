@@ -23,6 +23,7 @@ import { useSchoolParticipants } from "@/hooks/challenger/useSchoolParticipants"
 import { useSchoolsPayments } from "@/hooks/challenger/useSchoolsPayments";
 import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
 import { useUserPayments } from "@/hooks/challenger/useUserPayments";
+import { useMeUser } from "@/hooks/useMeUser";
 import { useRouter } from "@/i18n/navigation";
 
 import { useSearchParams } from "next/navigation";
@@ -55,7 +56,8 @@ const UserDetailsPage = () => {
   const searchParam = useSearchParams();
   const router = useRouter();
   const userId = searchParam.get("user_id");
-  const { isChallengerAdmin } = useHasChallengerPermission();
+  const { isChallengerAdmin, isBDS } = useHasChallengerPermission();
+  const { user: userMe } = useMeUser();
 
   const {
     competitionUsers,
@@ -149,7 +151,10 @@ const UserDetailsPage = () => {
     };
     await makePayment(userId!, body);
   };
-  if (!isChallengerAdmin) {
+  if (
+    !isChallengerAdmin &&
+    (!isBDS || userMe?.school_id !== userCompetition?.user.school_id)
+  ) {
     return <div className="p-6">Vous n&apos;avez pas accès à cette page</div>;
   }
   const userName =
@@ -207,43 +212,52 @@ const UserDetailsPage = () => {
                     </>
                   )}
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setPaymentDialogOpen(true)}>
-                  <CreditCard className="mr-2 h-4 w-4" />
-                  Enregistrer un paiement
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setEditUserOpen(true)}>
-                  <Pencil className="mr-2 h-4 w-4" />
-                  Modifier
-                </DropdownMenuItem>
-                {userParticipant && (
+
+                {isChallengerAdmin && (
+                  <DropdownMenuItem onClick={() => setPaymentDialogOpen(true)}>
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Enregistrer un paiement
+                  </DropdownMenuItem>
+                )}
+                {isChallengerAdmin && (
+                  <DropdownMenuItem onClick={() => setEditUserOpen(true)}>
+                    <Pencil className="mr-2 h-4 w-4" />
+                    Modifier
+                  </DropdownMenuItem>
+                )}
+                {isChallengerAdmin && userParticipant && (
                   <DropdownMenuItem onClick={() => setChangeSportOpen(true)}>
                     <Shuffle className="mr-2 h-4 w-4" />
                     Changer de sport
                   </DropdownMenuItem>
                 )}
-                {userParticipant?.team && (
+                {isChallengerAdmin && userParticipant?.team && (
                   <DropdownMenuItem onClick={() => setChangeTeamOpen(true)}>
                     <Users2 className="mr-2 h-4 w-4" />
                     Changer d&apos;équipe
                   </DropdownMenuItem>
                 )}
                 <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="text-orange-600 focus:text-orange-600 focus:bg-orange-50"
-                  onClick={() => setCancelDialogOpen(true)}
-                  disabled={isCancelLoading}
-                >
-                  <Ban className="mr-2 h-4 w-4" />
-                  Désinscrire
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="text-red-600 focus:text-red-600 focus:bg-red-50"
-                  onClick={() => setDeleteDialogOpen(true)}
-                  disabled={isDeleteLoading}
-                >
-                  <Trash2 className="mr-2 h-4 w-4" />
-                  Supprimer
-                </DropdownMenuItem>
+                {isChallengerAdmin && (
+                  <DropdownMenuItem
+                    className="text-orange-600 focus:text-orange-600 focus:bg-orange-50"
+                    onClick={() => setCancelDialogOpen(true)}
+                    disabled={isCancelLoading}
+                  >
+                    <Ban className="mr-2 h-4 w-4" />
+                    Désinscrire
+                  </DropdownMenuItem>
+                )}
+                {isChallengerAdmin && (
+                  <DropdownMenuItem
+                    className="text-red-600 focus:text-red-600 focus:bg-red-50"
+                    onClick={() => setDeleteDialogOpen(true)}
+                    disabled={isDeleteLoading}
+                  >
+                    <Trash2 className="mr-2 h-4 w-4" />
+                    Supprimer
+                  </DropdownMenuItem>
+                )}
               </DropdownMenuContent>
             </DropdownMenu>
           )}
@@ -268,27 +282,44 @@ const UserDetailsPage = () => {
           isAdmin={isChallengerAdmin}
           isUserValidated={userCompetition?.validated ?? false}
           userId={userId as string}
-          onCreatePurchase={(productVariantId, quantity) => {
-            createPurchase(
-              userId as string,
-              { product_variant_id: productVariantId, quantity },
-              () => {
-                refetchSchoolsPurchases();
-              },
-            );
-          }}
+          onCreatePurchase={
+            isChallengerAdmin
+              ? (productVariantId, quantity) => {
+                  createPurchase(
+                    userId as string,
+                    { product_variant_id: productVariantId, quantity },
+                    () => {
+                      refetchSchoolsPurchases();
+                    },
+                  );
+                }
+              : undefined
+          }
           isCreateLoading={isCreatePurchaseLoading}
-          onEditPurchase={(variantId, quantity) => {
-            editPurchase(userId as string, variantId, { quantity }, () => {
-              refetchSchoolsPurchases();
-            });
-          }}
+          onEditPurchase={
+            isChallengerAdmin
+              ? (variantId, quantity) => {
+                  editPurchase(
+                    userId as string,
+                    variantId,
+                    { quantity },
+                    () => {
+                      refetchSchoolsPurchases();
+                    },
+                  );
+                }
+              : undefined
+          }
           isEditLoading={isEditPurchaseLoading}
-          onDeletePurchase={(productVariantId) => {
-            deletePurchase(userId as string, productVariantId, () => {
-              refetchSchoolsPurchases();
-            });
-          }}
+          onDeletePurchase={
+            isChallengerAdmin
+              ? (productVariantId) => {
+                  deletePurchase(userId as string, productVariantId, () => {
+                    refetchSchoolsPurchases();
+                  });
+                }
+              : undefined
+          }
           isDeleteLoading={isDeletePurchaseLoading}
         />
       )}
