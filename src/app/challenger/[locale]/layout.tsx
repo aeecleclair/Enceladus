@@ -8,9 +8,10 @@ import { PermissionGuard } from "@/app/permissionGuard";
 import { routing } from "@/i18n/routing";
 
 import type { Metadata } from "next";
-import { Locale, NextIntlClientProvider } from "next-intl";
+import { Locale, NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Outfit } from "next/font/google";
+import { notFound } from "next/navigation";
 import Script from "next/script";
 import { Suspense } from "react";
 
@@ -23,9 +24,9 @@ export function generateStaticParams() {
 const inter = Outfit({ subsets: ["latin-ext"] });
 
 export async function generateMetadata(props: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
-  const { locale } = (await props.params) as { locale: Locale };
+  const { locale } = await props.params;
   const t = await getTranslations({ locale, namespace: "challenger" });
 
   return {
@@ -41,14 +42,19 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
-  const { locale } = (await params) as { locale: Locale };
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "challenger" });
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
         <meta charSet="utf-8" />
-        <title>ICares</title>
-        <link rel="shortcut icon" href="/icares.ico" />
+        <title>{t("metadata.title")}</title>
+        <link rel="shortcut icon" href="/challenger.ico" />
       </head>
 
       <Script
