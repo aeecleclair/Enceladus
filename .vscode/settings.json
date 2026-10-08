@@ -10,5 +10,12 @@
   "i18n-ally.sourceLanguage": "fr",
   "i18n-ally.displayLanguage": "fr",
   "i18n-ally.translate.deepl.useFreeApiEntry": true,
-  "i18n-ally.sortKeys": true
+  "i18n-ally.sortKeys": true,
+  "tailwind-fold.unfoldedTextOpacity": 0.75,
+  "tailwind-fold.autoFold": false,
+  "js/ts.referencesCodeLens.enabled": true,
+  "js/ts.referencesCodeLens.showOnAllFunctions": true,
+  "js/ts.implementationsCodeLens.enabled": true,
+  "js/ts.implementationsCodeLens.showOnAllClassMethods": true,
+  "js/ts.implementationsCodeLens.showOnInterfaceMethods": true
 }

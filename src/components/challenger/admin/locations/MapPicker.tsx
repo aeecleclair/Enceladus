@@ -4,7 +4,6 @@
 import { Location } from "@/api";
 
 import dynamic from "next/dynamic";
-import React from "react";
 
 interface MapPickerProps {
   onCoordinatesChange: (lat: number, lng: number, address: string) => void;

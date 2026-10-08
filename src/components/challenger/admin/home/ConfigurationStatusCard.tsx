@@ -8,8 +8,6 @@ import {
 } from "@/api";
 import { AppModulesSportCompetitionSchemasSportCompetitionProductComplete } from "@/api";
 
-import React from "react";
-
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
