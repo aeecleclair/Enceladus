@@ -8,6 +8,7 @@ import {
   patchCdrUsersUserIdPurchasesProductVariantIdValidated,
 } from "@/api";
 import { LoadingButton } from "@/components/common/LoadingButton";
+import { WarningDialog } from "@/components/common/WarningDialog";
 import { useUserPurchases } from "@/hooks/siarnaq/useUserPurchases";
 import { useTranslation } from "@/translations/utils";
 
@@ -27,6 +28,8 @@ interface PurchaseItemProps {
   user: CdrUser;
   isAdmin?: boolean;
   isInterest?: boolean;
+  totalPriceOfValidatedPurchases: number;
+  totalPaid: number;
 }
 
 export const PurchaseItem = ({
@@ -37,6 +40,8 @@ export const PurchaseItem = ({
   user,
   isAdmin,
   isInterest = false,
+  totalPriceOfValidatedPurchases,
+  totalPaid,
 }: PurchaseItemProps) => {
   const t = useTranslations("siarnaq");
   const format = useFormatter();
@@ -44,6 +49,7 @@ export const PurchaseItem = ({
   const { refetch } = useUserPurchases(user.id);
   const { selectTranslation } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
+  const [isConfirmationOpen, setIsConfirmationOpen] = useState(false);
 
   const constraints = allProducts.find(
     (product) => product.id === purchase.product.id,
@@ -67,7 +73,37 @@ export const PurchaseItem = ({
     return !hasMembership;
   });
 
+  const remainingFunds = () => {
+    return totalPaid - totalPriceOfValidatedPurchases;
+  };
+
+  const purchasePrice = () => {
+    return (purchase.quantity * purchase.price) / 100;
+  };
+
   const displayWarning = blockingConstraints && blockingConstraints.length > 0;
+
+  const askForPurchaseValidation = () => {
+    console.log("purchasePrice", purchasePrice());
+
+    if (!purchase.validated && purchasePrice() > remainingFunds()) {
+      setIsConfirmationOpen(true);
+      return;
+    }
+
+    confirmPurchaseValidation();
+  };
+
+  const confirmPurchaseValidation = () =>
+    onValidate(
+      purchase.product_variant_id,
+      purchase.validated,
+      user.id,
+      setIsLoading,
+      refetch,
+      toast,
+      t,
+    );
 
   const variant = purchase.product.variants?.find(
     (variant: AppModulesCdrSchemasCdrProductVariantComplete) =>
@@ -119,17 +155,7 @@ export const PurchaseItem = ({
             variant="outline"
             className="ml-4 h-8 w-8"
             isLoading={isLoading}
-            onClick={() =>
-              onValidate(
-                purchase.product_variant_id,
-                purchase.validated,
-                user.id,
-                setIsLoading,
-                refetch,
-                toast,
-                t,
-              )
-            }
+            onClick={askForPurchaseValidation}
           >
             {purchase.validated ? (
               <HiXMark className="w-5 h-5" />
@@ -139,6 +165,25 @@ export const PurchaseItem = ({
           </LoadingButton>
         )}
       </div>
+      <WarningDialog
+        isOpened={isConfirmationOpen}
+        setIsOpened={setIsConfirmationOpen}
+        isLoading={isLoading}
+        title={t("purchaseItem.insufficientPaymentTitle")}
+        description={t("purchaseItem.insufficientPayment", {
+          totalPaid: format.number(totalPaid, "euro"),
+          totalPriceOfValidatedPurchases: format.number(
+            totalPriceOfValidatedPurchases,
+            "euro",
+          ),
+          remaining: format.number(purchasePrice() - remainingFunds(), "euro"),
+        })}
+        validateLabel={t("purchaseItem.confirm")}
+        callback={() => {
+          setIsConfirmationOpen(false);
+          confirmPurchaseValidation();
+        }}
+      />
       {displayWarning && (
         <div className="mt-1">
           <span className="text-red-500 font-semibold">
@@ -170,6 +215,7 @@ export const onValidate = async (
   try {
     // useTranslations("onValidate") (don't remove!)
     setIsLoading(true);
+
     await patchCdrUsersUserIdPurchasesProductVariantIdValidated({
       path: {
         product_variant_id: purchaseid,
