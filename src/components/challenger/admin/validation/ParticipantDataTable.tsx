@@ -120,7 +120,7 @@ export function ParticipantDataTable({
   isLoading,
 }: ParticipantDataTableProps) {
   const { toast } = useToast();
-  const { isChallengerAdmin, isBDS } = useHasChallengerPermission();
+  const { isChallengerAdmin } = useHasChallengerPermission();
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     [],
@@ -281,15 +281,13 @@ export function ParticipantDataTable({
           </div>
         );
 
-        return isChallengerAdmin || isBDS ? (
+        return (
           <Link
             href={`/admin/validation/detail?user_id=${row.original.userId}&school_id=${schoolId}`}
             className="font-medium text-center flex items-center justify-center gap-2 underline hover:no-underline"
           >
             {userName}
           </Link>
-        ) : (
-          <div>{userName}</div>
         );
       },
     },
@@ -640,86 +638,84 @@ export function ParticipantDataTable({
                   )}
                 </DropdownMenuItem>
                 {isChallengerAdmin && (
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setSelectedParticipant(participant);
-                      setPaymentDialogOpen(true);
-                    }}
-                  >
-                    <CreditCard className="mr-2 h-4 w-4" />
-                    Enregistrer un paiement
-                  </DropdownMenuItem>
-                )}
-                {isChallengerAdmin && (
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setEditTarget(participant);
-                      setEditUserOpen(true);
-                    }}
-                  >
-                    <Pencil className="mr-2 h-4 w-4" />
-                    Modifier
-                  </DropdownMenuItem>
-                )}
-                {isChallengerAdmin && participant.sportId && (
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setChangeSportTarget(participant);
-                      setChangeSportOpen(true);
-                    }}
-                    disabled={isLoading}
-                  >
-                    <Shuffle className="mr-2 h-4 w-4" />
-                    Changer de sport
-                  </DropdownMenuItem>
-                )}
-                {isChallengerAdmin && participant.teamId && (
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setChangeTeamTarget(participant);
-                      setChangeTeamOpen(true);
-                    }}
-                    disabled={isLoading}
-                  >
-                    <Users2 className="mr-2 h-4 w-4" />
-                    Changer d&apos;équipe
-                  </DropdownMenuItem>
-                )}
-                <DropdownMenuSeparator />
-                {isChallengerAdmin && onCancelParticipant && (
-                  <DropdownMenuItem
-                    onClick={() => {
-                      setCancelTarget(participant);
-                      setCancelDialogOpen(true);
-                    }}
-                    disabled={isLoading}
-                    className="text-orange-600 focus:text-orange-600 focus:bg-orange-50"
-                  >
-                    <Ban className="mr-2 h-4 w-4" />
-                    Désinscrire
-                  </DropdownMenuItem>
-                )}
-                {isChallengerAdmin && (
-                  <DropdownMenuItem
-                    onClick={() => {
-                      if (participant?.hasPaid) {
-                        toast({
-                          title: "Erreur",
-                          description:
-                            "Vous ne pouvez pas supprimer un utilisateur ayant payé",
-                          variant: "destructive",
-                        });
-                      } else {
-                        setDeleteTarget(participant);
-                        setDeleteDialogOpen(true);
-                      }
-                    }}
-                    disabled={isLoading}
-                    className="text-red-600 focus:text-red-600 focus:bg-red-50"
-                  >
-                    <Trash2 className="mr-2 h-4 w-4" />
-                    Supprimer
-                  </DropdownMenuItem>
+                  <>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setSelectedParticipant(participant);
+                        setPaymentDialogOpen(true);
+                      }}
+                    >
+                      <CreditCard className="mr-2 h-4 w-4" />
+                      Enregistrer un paiement
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => {
+                        setEditTarget(participant);
+                        setEditUserOpen(true);
+                      }}
+                    >
+                      <Pencil className="mr-2 h-4 w-4" />
+                      Modifier
+                    </DropdownMenuItem>
+                    {participant.sportId && (
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setChangeSportTarget(participant);
+                          setChangeSportOpen(true);
+                        }}
+                        disabled={isLoading}
+                      >
+                        <Shuffle className="mr-2 h-4 w-4" />
+                        Changer de sport
+                      </DropdownMenuItem>
+                    )}
+                    {participant.teamId && (
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setChangeTeamTarget(participant);
+                          setChangeTeamOpen(true);
+                        }}
+                        disabled={isLoading}
+                      >
+                        <Users2 className="mr-2 h-4 w-4" />
+                        Changer d&apos;équipe
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuSeparator />
+                    {onCancelParticipant && (
+                      <DropdownMenuItem
+                        onClick={() => {
+                          setCancelTarget(participant);
+                          setCancelDialogOpen(true);
+                        }}
+                        disabled={isLoading}
+                        className="text-orange-600 focus:text-orange-600 focus:bg-orange-50"
+                      >
+                        <Ban className="mr-2 h-4 w-4" />
+                        Désinscrire
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuItem
+                      onClick={() => {
+                        if (participant?.hasPaid) {
+                          toast({
+                            title: "Erreur",
+                            description:
+                              "Vous ne pouvez pas supprimer un utilisateur ayant payé",
+                            variant: "destructive",
+                          });
+                        } else {
+                          setDeleteTarget(participant);
+                          setDeleteDialogOpen(true);
+                        }
+                      }}
+                      disabled={isLoading}
+                      className="text-red-600 focus:text-red-600 focus:bg-red-50"
+                    >
+                      <Trash2 className="mr-2 h-4 w-4" />
+                      Supprimer
+                    </DropdownMenuItem>
+                  </>
                 )}
               </DropdownMenuContent>
             </DropdownMenu>
