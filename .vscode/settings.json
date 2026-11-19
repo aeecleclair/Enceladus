@@ -10,5 +10,6 @@
   "i18n-ally.sourceLanguage": "fr",
   "i18n-ally.displayLanguage": "fr",
   "i18n-ally.translate.deepl.useFreeApiEntry": true,
-  "i18n-ally.sortKeys": true
+  "i18n-ally.sortKeys": true,
+  "i18n-ally.namespace": true
 }

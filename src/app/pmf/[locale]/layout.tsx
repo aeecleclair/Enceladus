@@ -7,9 +7,10 @@ import { AuthInterceptor } from "@/app/authInterceptor";
 import { routing } from "@/i18n/routing";
 
 import type { Metadata } from "next";
-import { Locale, NextIntlClientProvider } from "next-intl";
+import { Locale, NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Outfit } from "next/font/google";
+import { notFound } from "next/navigation";
 import Script from "next/script";
 import { Suspense } from "react";
 
@@ -25,7 +26,7 @@ export async function generateMetadata(props: {
   params: Promise<{ locale: Locale }>;
 }): Promise<Metadata> {
   const { locale } = await props.params;
-  const t = await getTranslations({ locale, namespace: "raid" });
+  const t = await getTranslations({ locale, namespace: "pmf" });
 
   return {
     title: t("metadata.title"),
@@ -40,9 +41,13 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }>) {
-  const { locale } = (await params) as { locale: Locale };
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "pmf" });
+
   return (
     <html lang={locale}>
       <head>
