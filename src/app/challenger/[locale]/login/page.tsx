@@ -3,8 +3,6 @@
 import { Logo } from "@/components/challenger/custom/Logo";
 import { LoginForm } from "@/components/challenger/login/LoginForm";
 
-import * as React from "react";
-
 const Login = () => {
   return (
     <div className="grid min-h-svh">

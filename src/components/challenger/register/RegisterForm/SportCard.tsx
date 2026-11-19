@@ -1,5 +1,4 @@
 import { StyledFormField } from "../../../common/StyledFormField";
-import { DocumentDialog } from "../../custom/DocumentDialog";
 import { CardTemplate } from "./CardTemplate";
 
 import {
@@ -16,7 +15,6 @@ import { useEffect, useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -24,7 +22,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -44,7 +41,6 @@ export const SportCard = ({ form, sports }: SportCardProps) => {
   const { user: me } = useMeUser();
 
   const [teamName, setTeamName] = useState("");
-  const [open, setIsOpen] = useState(false);
 
   const { data } = useDocument(me?.id ?? null);
 
