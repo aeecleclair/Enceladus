@@ -22,52 +22,39 @@ const Dashboard = () => {
   const { user: currentUser } = useMeUser();
   const { updateLicense, isUpdateLoading } = useLicense();
 
-  const [schoolParticipantsCounter, setSchoolParticipantsCounter] = useState<
-    string[][]
-  >([]);
-
   const searchParam = useSearchParams();
   const schoolId = searchParam.get("school_id");
-
-  if (!schoolId) {
-    router.push("/admin/license?school_id=" + currentUser?.school_id || "");
-  }
-
   const userSchoolId = currentUser?.school_id;
 
-  const effectiveSchoolId = schoolId || userSchoolId;
+  const effectiveSchoolId = schoolId || userSchoolId || null;
+
+  const [participantsCount, setParticipantsCount] = useState<
+    Record<string, number>
+  >({});
+
+  useEffect(() => {
+    if (!schoolId && userSchoolId) {
+      router.replace(`/admin/license?school_id=${userSchoolId}`);
+    }
+  }, [schoolId, userSchoolId, router]);
 
   const { schoolParticipants, refetchParticipantSchools } =
-    useSchoolParticipants({
-      schoolId: effectiveSchoolId || null,
-    });
+    useSchoolParticipants({ schoolId: effectiveSchoolId });
 
   useEffect(() => {
-    if (effectiveSchoolId) {
-      refetchParticipantSchools();
-    }
-  }, [effectiveSchoolId, refetchParticipantSchools]);
+    if (!effectiveSchoolId || !schoolParticipants) return;
 
-  useEffect(() => {
-    if (schoolParticipants) {
-      if (schoolParticipantsCounter.find((s) => s[0] === effectiveSchoolId)) {
-        setSchoolParticipantsCounter((prev) => {
-          const newCounter = prev.map((s) =>
-            s[0] === effectiveSchoolId
-              ? [s[0], schoolParticipants.length.toString()]
-              : s,
-          );
-          return newCounter;
-        });
-      } else {
-        setSchoolParticipantsCounter((prev) => [
-          ...prev,
-          [effectiveSchoolId!, schoolParticipants.length.toString()],
-        ]);
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schoolParticipants]);
+    const isDataForCurrentSchool = schoolParticipants.every(
+      (p) => p.school_id === effectiveSchoolId,
+    );
+    if (!isDataForCurrentSchool) return;
+
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setParticipantsCount((prev) => ({
+      ...prev,
+      [effectiveSchoolId]: schoolParticipants.length,
+    }));
+  }, [schoolParticipants, effectiveSchoolId]);
 
   const participants = useMemo(() => {
     return schoolParticipants?.map((participant) => ({
@@ -82,8 +69,7 @@ const Dashboard = () => {
       certificateFileId: participant.certificate_file_id || undefined,
       isValidated: participant.is_license_valid,
     }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [schoolParticipants]);
+  }, [schoolParticipants, sports]);
 
   const onValidate = (userId: string, sportId: string, isValid: boolean) => {
     updateLicense(sportId, userId, isValid, () => {
@@ -93,7 +79,6 @@ const Dashboard = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header with title and action */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">License</h1>
@@ -101,42 +86,32 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {sportSchools && sportSchools.length > 0 ? (
-        <Tabs defaultValue={sportSchools[0].school_id} className="w-full">
+      {sportSchools && sportSchools.length > 0 && effectiveSchoolId ? (
+        <Tabs
+          value={effectiveSchoolId}
+          className="w-full"
+          onValueChange={(value) =>
+            router.push(`/admin/license?school_id=${value}`)
+          }
+        >
           <TabsList className="flex w-full overflow-x-auto justify-start mb-6 h-auto gap-2">
-            {sportSchools.map((school) => {
-              const participants = schoolParticipants?.filter(
-                (p) => p.school_id === school.school_id,
-              );
-
-              return (
-                <TabsTrigger
-                  key={school.school_id}
-                  value={school.school_id}
-                  className="relative"
-                  onClick={() => {
-                    router.push(`/admin/license?school_id=${school.school_id}`);
-                  }}
-                >
-                  <div className="flex items-center gap-2">
-                    {formatSchoolName(school.school.name)}
-                    <Badge variant={"secondary"} className="text-xs">
-                      {schoolParticipantsCounter.find(
-                        (s) => s[0] === school.school_id,
-                      )
-                        ? schoolParticipantsCounter.find(
-                            (s) => s[0] === school.school_id,
-                          )![1]
-                        : participants
-                          ? participants.length
-                          : 0}
-                    </Badge>
-                  </div>
-                </TabsTrigger>
-              );
-            })}
+            {sportSchools.map((school) => (
+              <TabsTrigger
+                key={school.school_id}
+                value={school.school_id}
+                className="relative"
+              >
+                <div className="flex items-center gap-2">
+                  {formatSchoolName(school.school.name)}
+                  <Badge variant="secondary" className="text-xs">
+                    {participantsCount[school.school_id] ?? 0}
+                  </Badge>
+                </div>
+              </TabsTrigger>
+            ))}
           </TabsList>
-          <TabsContent key={effectiveSchoolId} value={effectiveSchoolId!}>
+
+          <TabsContent value={effectiveSchoolId}>
             {participants ? (
               <div className="overflow-y-auto">
                 <ParticipantDataTable

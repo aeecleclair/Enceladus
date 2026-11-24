@@ -95,7 +95,7 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <SidebarInset>
+      <SidebarInset className="min-w-0 overflow-hidden">
         <header className="flex h-16 shrink-0 items-center gap-2">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
@@ -126,7 +126,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-col relative overflow-auto h-full m-6">
+        <div className="flex flex-col relative flex-1 min-h-0 min-w-0 overflow-auto m-6">
           {pathname.startsWith("/admin/editions") ? (
             children
           ) : edition ? (

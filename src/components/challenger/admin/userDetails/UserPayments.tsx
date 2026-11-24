@@ -7,6 +7,7 @@ import {
   AppModulesSportCompetitionSchemasSportCompetitionPaymentComplete,
   CompetitionUser,
 } from "@/api";
+import { useHasChallengerPermission } from "@/hooks/challenger/useHasChallengerPermission";
 import { useSchoolsPayments } from "@/hooks/challenger/useSchoolsPayments";
 import { useSchoolsPurchases } from "@/hooks/challenger/useSchoolsPurchases";
 import { useUserPayments } from "@/hooks/challenger/useUserPayments";
@@ -41,6 +42,7 @@ export const UserPayments = ({
   user: CompetitionUser;
   userPayments: AppModulesSportCompetitionSchemasSportCompetitionPaymentComplete[];
 }) => {
+  const { isChallengerAdmin } = useHasChallengerPermission();
   const [paymentDialogOpen, setPaymentDialogOpen] = useState(false);
 
   const { refetchSchoolsPayments } = useSchoolsPayments({
@@ -86,15 +88,17 @@ export const UserPayments = ({
               </Badge>
             )}
           </CardTitle>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setPaymentDialogOpen(true)}
-            className="gap-2"
-          >
-            <Plus className="h-4 w-4" />
-            Ajouter
-          </Button>
+          {isChallengerAdmin && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setPaymentDialogOpen(true)}
+              className="gap-2"
+            >
+              <Plus className="h-4 w-4" />
+              Ajouter
+            </Button>
+          )}
         </div>
       </CardHeader>
       <CardContent>
@@ -106,7 +110,7 @@ export const UserPayments = ({
                   <TableRow>
                     <TableHead>Montant</TableHead>
                     <TableHead>Type</TableHead>
-                    <TableHead className="w-[50px]"></TableHead>
+                    <TableHead className="w-12.5"></TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -127,7 +131,7 @@ export const UserPayments = ({
                         </Badge>
                       </TableCell>
                       <TableCell>
-                        {payment.method === "manual" && (
+                        {payment.method === "manual" && isChallengerAdmin && (
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
                               <Button
